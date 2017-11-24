@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.PbUpdateinfoMapper" >
+  <resultMap id="PbUpdateinfo" type="com.icinfo.cs.yr.model.PbUpdateinfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="AltDate" property="altDate" jdbcType="DATE" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="AnCheID" property="anCheID" jdbcType="VARCHAR" />
+    <result column="AltTable" property="altTable" jdbcType="VARCHAR" />
+    <result column="AncheUID" property="ancheUID" jdbcType="VARCHAR" />
+    <result column="AltItem" property="altItem" jdbcType="VARCHAR" />
+    <result column="AltBe" property="altBe" jdbcType="LONGVARCHAR" />
+    <result column="AltAf" property="altAf" jdbcType="LONGVARCHAR" />
+    <result column="ReportNo" property="reportNo" jdbcType="VARCHAR" />
+    <result column="AltID" property="altID" jdbcType="VARCHAR" />  
+  </resultMap>
+  
+  <resultMap id="PbUpdateinfoDto" type="com.icinfo.cs.yr.dto.PbUpdateinfoDto" extends="PbUpdateinfo">
+    <result column="dicValue" property="dicValue" jdbcType="VARCHAR" />  
+    <result column="AltItemName" property="altItemName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="queryPageResult" resultMap="PbUpdateinfoDto" parameterType="Map">
+        select t.id,AltDate,t.CreateTime,AnCheID,AltTable,AncheUID,AltItem,
+		       s.DicExlain AltItemName
+		       ,ReportNo,AltBe,AltAf
+		from cs_pb_updateinfo t LEFT JOIN cs_common_dic s
+		on t.AltTable = s.DicColumn and t.AltItem = s.DicValue
+		where t.AnCheID = #{anCheID,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectInfoForbidWord" parameterType="Map" resultMap="PbUpdateinfoDto">
+	    SELECT
+		t.id,
+		t.AltBe,
+		t.CreateTime,
+		t.AltAf,
+		t.AltDate,
+		t.AltTable,
+		t.AncheUID,
+		t.AnCheID,
+		t.ReportNo,
+        a.DicExlain AltItem,
+        a.DicValue dicValue
+		FROM
+		cs_pb_updateinfo t
+		INNER JOIN cs_common_dic a on t.AltItem = a.DicValue and t.AltTable = a.DicColumn
+		where t.ReportNo IS NULL and t.AnCheID =#{anCheID}
+	</select>
+	
+</mapper>

@@ -1,0 +1,47 @@
+*{ margin:0; padding:0;}
+body{ margin:0 auto; font-size:14px;}
+ul,li{ padding:0; margin:0; list-style:none;}
+
+.button{ width:400px; margin:0 auto; text-align:center;margin-bottom:5px; padding-top:10px; padding-bottom:5px}
+.button a{ background-color:#E4E4E4; border:1px solid #666; padding:3px 10px; _padding:5px 10px; margin-left:10px; color:#666;}
+.button a:hover{ background-color:#CCCCCC; color:#000;}
+
+/* .print{ width:630px; margin:0 auto; line-height:28px;} */
+.print{ width:630px; margin:0 auto; line-height:28px;page-break-after:auto; height:1030px; *height:1047px; _height:1045px; position: relative }
+.print h1{ font-size:28px; text-align:center; margin:15px 0; font-weight:bold;}
+.print h2{ font-size:20px; text-align:center; margin:5px 0; font-weight:bold;}
+.print h3{ font-size:18px;margin:5px 0; font-weight:normal;}
+.print table{border-collapse:collapse; width:100%; line-height:22px; font-size:14px;}
+.print table td{ border:1px solid #000; padding:5px 1px; text-align:center;}
+.print table th{ border:1px solid #000; padding:5px; text-align:left; font-weight:normal;}
+
+.print2{ width:630px; margin:0 auto; line-height:28px;page-break-after:auto; height:1030px; *height:1047px; _height:1045px; position: relative }
+.print2 h1{ font-size:28px; text-align:center; margin:5px 0; font-weight:bold;}
+.print2 h2{ font-size:20px; text-align:center; margin:5px 0; font-weight:bold;}
+.print2 table{border-collapse:collapse; width:100%; line-height:22px; font-size:14px;}
+.print2 table td{ border:1px solid #000; padding:1px 5px; text-align:left;}
+.print2 table th{ border:1px solid #000; padding:1px; text-align:center; font-weight:normal;}
+
+.print3{ width:630px; margin:0 auto; line-height:28px;page-break-after:auto; height:1000px; *height:1007px; _height:1005px; position: relative }
+.print3 h1{ font-size:28px; text-align:center; margin:5px 0; font-weight:bold;}
+.print3 h2{ font-size:20px; text-align:center; margin:5px 0; font-weight:bold;}
+.print3 table{border-collapse:collapse; width:100%; line-height:22px; font-size:14px;}
+.print3 table td{ border:1px solid #000; padding:1px 5px; text-align:left;}
+.print3 table th{ border:1px solid #000; padding:1px; text-align:center; font-weight:normal;}
+
+.print4{ width:630px; margin:0 auto; line-height:28px;page-break-after:auto; height:1030px; *height:1047px; _height:1045px; position: relative }
+.print4 h1{ font-size:28px; text-align:center; margin:15px 0; font-weight:bold;}
+.print4 h2{ font-size:20px; text-align:center; margin:5px 0; font-weight:bold;}
+.print4 h3{ font-size:18px;margin:5px 0; font-weight:normal;}
+.print4 table{border-collapse:collapse; width:100%; line-height:22px; font-size:14px;}
+.print4 table td{ border:1px solid #000; padding:5px; text-align:left;}
+.print4 table th{ border:1px solid #000; padding:5px; text-align:center; font-weight:normal;}
+
+.ps{font-size:12px; line-height:20px;}
+.line{border-bottom:1px solid #000;}
+.texL{ text-align:left;}
+.texR{ text-align:right;}
+.texM{ text-align:center;}
+.pagination{text-align:center;margin:15px 0 0 0;}
+.bottom{ height:50px;}
+.bottom2{height:30px; text-align:center; width:100%; position: absolute; bottom:0px;}

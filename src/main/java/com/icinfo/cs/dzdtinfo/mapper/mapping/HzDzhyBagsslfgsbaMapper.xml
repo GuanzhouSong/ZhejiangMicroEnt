@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.dzdtinfo.mapper.HzDzhyBagsslfgsbaMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.dzdtinfo.model.HzDzhyBagsslfgsba" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PRIPID" property="priPid" jdbcType="VARCHAR" />
+    <result column="XKFZJG" property="xkfzjg" jdbcType="VARCHAR" />
+    <result column="XKFZJGNO" property="xkfzjgNo" jdbcType="VARCHAR" />
+    <result column="FZRNAME" property="fzrName" jdbcType="VARCHAR" />
+    <result column="FZREDU" property="fzredu" jdbcType="VARCHAR" />
+    <result column="FZRXL" property="fzrxl" jdbcType="VARCHAR" />
+    <result column="FZRJL" property="fzrjl" jdbcType="VARCHAR" />
+    <result column="FDDBRNAME" property="fddbrName" jdbcType="VARCHAR" />
+    <result column="BAFWXM" property="bafwxm" jdbcType="VARCHAR" />
+    <result column="BWNAME" property="bwName" jdbcType="VARCHAR" />
+    <result column="BAMOBTEL" property="baMobtel" jdbcType="VARCHAR" />
+    <result column="REGCAP" property="regcap" jdbcType="DECIMAL" />
+    <result column="ZZFZJG" property="zzfzjg" jdbcType="VARCHAR" />
+    <result column="DOM" property="dom" jdbcType="VARCHAR" />
+    <result column="JYMJ" property="jymj" jdbcType="DECIMAL" />
+    <result column="ZJLNAME" property="zjlName" jdbcType="VARCHAR" />
+    <result column="ZJLCERNO" property="zjlcerNo" jdbcType="VARCHAR" />
+    <result column="ZJLEDU" property="zjledu" jdbcType="VARCHAR" />
+    <result column="ZJLXL" property="zjlxl" jdbcType="VARCHAR" />
+    <result column="FZJLNAME" property="fzjlName" jdbcType="VARCHAR" />
+    <result column="FZJLCERNO" property="fzjlcerNo" jdbcType="VARCHAR" />
+    <result column="FZJLEDU" property="fzjledu" jdbcType="VARCHAR" />
+    <result column="FZJLXL" property="fzjlxl" jdbcType="VARCHAR" /> 
+    <result column="FDDBREDU" property="fddbrEdu" jdbcType="VARCHAR" />
+    <result column="FDDBRXL" property="fddbrXl" jdbcType="VARCHAR" />
+    <result column="FDDBRJL" property="fddbrJl" jdbcType="VARCHAR" />
+    <result column="FDDBRCERNO" property="fddbrCerno" jdbcType="VARCHAR" />
+    <result column="CURRENCY" property="currency" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <resultMap id="HzDzhyBagsslfgsbaResultMap" type="com.icinfo.cs.dzdtinfo.dto.HzDzhyBagsslfgsbaDto" extends="BaseResultMap">
+      <result column="currencyName" property="currencyName" jdbcType="VARCHAR" /> 
+   </resultMap>
+   
+    <select id="selectHzDzhyBagsslfgsbaDtoByPriPid" resultMap="HzDzhyBagsslfgsbaResultMap" parameterType="Map">
+	   SELECT
+		PRIPID,
+		XKFZJG,
+		XKFZJGNO,
+		FZRNAME,
+		FZREDU,
+		FZRXL,
+		FZRJL,
+		FDDBRNAME,
+		BAFWXM,
+		BWNAME,
+		BAMOBTEL,
+		REGCAP,
+		ZZFZJG,
+		DOM,
+		JYMJ,
+		ZJLNAME,
+		ZJLCERNO,
+		ZJLEDU,
+		ZJLXL,
+		FZJLNAME,
+		FZJLCERNO,
+		FZJLEDU,
+		FZJLXL,
+		FDDBREDU,
+		FDDBRXL,
+		FDDBRJL,
+		FDDBRCERNO,
+		CURRENCY,
+		B.Content currencyName
+	FROM
+		CS_HZ_DZHY_BAGSSLFGSBA A
+	LEFT JOIN cs_code_currency B ON A.CURRENCY = B.CODE
+	where PRIPID=#{priPid}
+</select>
+</mapper>

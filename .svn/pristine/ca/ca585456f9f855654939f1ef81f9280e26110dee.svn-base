@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icinfo.cs.yr.mapper.PbLicenceinfoMapper">
+  <resultMap id="PbLicenceinfo" type="com.icinfo.cs.yr.model.PbLicenceinfo">
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="LicName" jdbcType="CHAR" property="licName" />
+    <result column="ValTo" jdbcType="DATE" property="valTo" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="LicNameCN" jdbcType="VARCHAR" property="licNameCN" />
+    <result column="LicID" jdbcType="VARCHAR" property="licID" />
+    <result column="AnCheID" jdbcType="VARCHAR" property="anCheID" />
+  </resultMap>
+  
+  <resultMap id="PbLicenceinfoDto" type="com.icinfo.cs.yr.dto.PbLicenceinfoDto" extends="PbLicenceinfo">
+  	    <result column="AltItem" property="altItem" jdbcType="VARCHAR" />
+        <result column="AltTable" property="altTable" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="queryPageResult" resultMap="PbLicenceinfoDto" parameterType="Map">
+		SELECT
+		t.id,
+		t.LicName,
+		t.ValTo,
+		t.CreateTime,
+		t.LicNameCN,
+		t.LicID,
+		t.AnCheID,
+		(SELECT GROUP_CONCAT(s.AltItem separator ',') from cs_pb_updateinfo s where s.AnCheID  = t.AnCheID  
+	      and s.AltTable = 'PbLicenceinfo'
+	      and s.AltID = t.LicID) AltItem
+		FROM
+		cs_pb_licenceinfo t
+		  where 1=1
+		<if test="anCheID !='' and anCheID !=null">
+			and t.AnCheID =#{anCheID}
+		</if>
+	</select>
+	
+  <!-- 根据年报id保存公示信息 -->
+  <insert id="insertByAnCheID" parameterType="Map">
+  	INSERT INTO cs_pb_licenceinfo (
+  	LicName, ValTo, CreateTime, LicNameCN, LicID, AnCheID
+	) 
+	SELECT 
+	LicName, ValTo, CreateTime, LicNameCN, LicID, AnCheID
+    FROM
+    cs_yr_pb_licenceinfo
+    WHERE
+    AnCheID = #{anCheID,jdbcType=VARCHAR}
+  </insert>	
+</mapper>

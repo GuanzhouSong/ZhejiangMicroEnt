@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.registinfo.mapper.RegistMarkMapper">
+	<resultMap id="BaseResultMap" type="com.icinfo.cs.registinfo.model.RegistMark">
+		<!-- WARNING - @frameworkgenerated -->
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="PriPID" property="priPID" jdbcType="CHAR" />
+		<result column="SetDeptCode" property="setDeptCode" jdbcType="VARCHAR" />
+		<result column="IDName" property="IDName" jdbcType="VARCHAR" />
+		<result column="IDCode" property="IDCode" jdbcType="VARCHAR" />
+		<result column="IDType" property="IDType" jdbcType="VARCHAR" />
+		<result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+		<result column="SetName" property="setName" jdbcType="VARCHAR" />
+		<result column="SetId" property="setId" jdbcType="VARCHAR" />
+		<result column="SetDeptname" property="setDeptname" jdbcType="VARCHAR" />
+		<result column="IDDesc" property="IDDesc" jdbcType="VARCHAR" />
+		<result column="IDStateCode" property="IDStateCode" jdbcType="VARCHAR" />
+		<result column="AuditorId" property="auditorId" jdbcType="VARCHAR" />
+		<result column="AuditorName" property="auditorName" jdbcType="VARCHAR" />
+		<result column="AuditorDesc" property="auditorDesc" jdbcType="VARCHAR" />
+		<result column="AuditState" property="auditState" jdbcType="VARCHAR" />
+		<result column="MarkUuid" property="markUuid" jdbcType="VARCHAR" /> 
+		<result column="AuditTime" property="auditTime" jdbcType="TIMESTAMP" />
+		<result column="ApplicationScopeCode" property="applicationScopeCode"
+			jdbcType="VARCHAR" />
+		<result column="ApplicationScopeName" property="applicationScopeName"
+			jdbcType="VARCHAR" />
+		<result column="AuditDeptId" property="auditDeptId" jdbcType="VARCHAR" />
+		<result column="AuditDeptName" property="auditDeptName"
+			jdbcType="VARCHAR" />
+		<result column="UpdateTime" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="ValidDate" property="validDate" jdbcType="TIMESTAMP" />
+		<result column="DoublyStoState" property="doublyStoState" jdbcType="VARCHAR" />
+		<result column="DoublyStoFirCode" property="doublyStoFirCode" jdbcType="VARCHAR" />
+		<result column="DoublyStoFirName" property="doublyStoFirName" jdbcType="VARCHAR" />
+		<result column="DoublyStoSecCode" property="doublyStoSecCode" jdbcType="VARCHAR" />
+		<result column="DoublyStoSecName" property="doublyStoSecName" jdbcType="VARCHAR" />
+		<result column="DoublyStoThiCode" property="doublyStoThiCode" jdbcType="VARCHAR" />
+		<result column="DoublyStoThiName" property="doublyStoThiName" jdbcType="VARCHAR" />
+
+	</resultMap>
+    <resultMap id="BaseResultMapDto" type="com.icinfo.cs.registinfo.dto.RegistMarkDto" extends="BaseResultMap">
+        <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+        <result column="IDCode2" property="IDCode2" jdbcType="VARCHAR" />
+	    <result column="IDName2" property="IDName2" jdbcType="VARCHAR" />
+	    <result column="IDCode3" property="IDCode3" jdbcType="VARCHAR" />
+	    <result column="IDName3" property="IDName3" jdbcType="VARCHAR" />
+        <result column="Code" property="code" jdbcType="VARCHAR" />
+        <result column="CodeDesc" property="codeDesc" jdbcType="VARCHAR" />
+        <result column="PCode" property="pcode" jdbcType="VARCHAR" />
+        <result column="InspectCode" property="inspectCode" jdbcType="VARCHAR" />
+        <result column="Content" property="codeDesc" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="selectCsWarnMarkGroupByType" parameterType="com.icinfo.cs.registinfo.dto.RegistInfoDto"
+          resultMap="BaseResultMap">
+    SELECT
+    GROUP_CONCAT(IDName) IDName,
+    GROUP_CONCAT(IDCode) IDCode,
+    IDType
+    FROM
+    cs_regist_mark
+    WHERE PriPID = #{priPID}
+<!--     GROUP BY  -->
+  </select>
+  
+     <!-- 审核列表查询 -->
+     <select id="selectRegistMarkAuditList" parameterType="com.icinfo.cs.registinfo.dto.RegistInfoDto" resultMap="BaseResultMap">
+		SELECT 
+		 MarkUuid,
+		 SetDeptCode,
+		 IDName,
+		 IDCode,
+		 SetTime,
+		 SetName,
+		 SetId,
+		 SetDeptname,
+		 IDType,
+		 IDDesc,
+		 IDStateCode,
+		 AuditorId,
+		 AuditorName,
+		 AuditorDesc,
+		 AuditState,
+		 AuditTime,
+		 ApplicationScopeCode,
+		 ApplicationScopeName,
+		 AuditDeptId,
+		 AuditDeptName,
+		 DATE_FORMAT(UpdateTime,'%Y-%m-%d') UpdateTime,
+		 DATE_FORMAT(CreateTime,'%Y-%m-%d') createTime,
+		 ValidDate,
+		DoublyStoFirName,
+		DoublyStoSecName,
+		DoublyStoThiName
+		   FROM cs_regist_mark 
+		 WHERE 1=1  
+		<if test="IDName !=null and IDName != ''">
+			AND INSTR(IDName, #{IDName}) > 0
+		</if>
+		<if test="IDCode !=null and IDCode != ''">
+			AND INSTR(IDCode, #{IDCode}) > 0
+		</if>
+		<if test="setName !=null and setName != ''">
+			AND INSTR(SetName, #{setName}) > 0
+		</if>
+		<if test="IDType !=null and IDType != ''">
+			AND IDType in (${IDType})
+		</if>
+		<if test="auditorName !=null and auditorName != ''">
+			AND INSTR(AuditorName, #{auditorName}) > 0
+		</if>
+		<if test="IDStateCode !=null and IDStateCode != ''">
+			AND IDStateCode = #{IDStateCode}
+		</if>
+		<if test="applicationScopeCode !=null and applicationScopeCode != ''">
+			AND ApplicationScopeCode in  (${applicationScopeCode})
+		</if>
+		<if test="auditState !=null and auditState != ''">
+			AND AuditState = #{auditState}
+		</if>
+		<if test="setDeptCode !=null and setDeptCode != ''">
+			AND SetDeptCode in  (${setDeptCode}) 
+		</if>
+		<if test="sysSetDeptCode !=null and sysSetDeptCode != ''">
+			AND SetDeptCode like  ('${sysSetDeptCode}%') 
+		</if>
+		order by AuditState asc
+	</select>
+
+
+	<!-- 查询分页列表 -->
+	<select id="queryPageList" parameterType="Map" resultMap="BaseResultMap">
+		SELECT
+		 MarkUuid,
+		 SetDeptCode,
+		 IDName,
+		 IDCode,
+		 SetTime,
+		 SetName,
+		 SetId,
+		 SetDeptname,
+		 IDType,
+		 IDDesc,
+		 IDStateCode,
+		 AuditorId,
+		 AuditorName,
+		 AuditorDesc,
+		 AuditState,
+		 AuditTime,
+		 ApplicationScopeCode,
+		 ApplicationScopeName,
+		 AuditDeptId,
+		 AuditDeptName,
+		 CreateTime,
+		 DATE_FORMAT(UpdateTime,'%Y-%m-%d') UpdateTime,
+		 ValidDate,
+		DoublyStoFirName,
+		DoublyStoSecName,
+		DoublyStoThiName
+		FROM
+		cs_regist_mark crm
+		WHERE 1=1
+		<if test="IDName !=null and IDName != ''">
+			AND INSTR(IDName, #{IDName}) > 0
+		</if>
+		<if test="IDCode !=null and IDCode != ''">
+			AND INSTR(IDCode, #{IDCode}) > 0
+		</if>
+		<if test="setName !=null and setName != ''">
+			AND INSTR(SetName, #{setName}) > 0
+		</if>
+		<if test="IDType !=null and IDType != ''">
+			AND IDType in (${IDType})
+		</if>
+		<if test="auditorName !=null and auditorName != ''">
+			AND INSTR(AuditorName, #{auditorName}) > 0
+		</if>
+		<if test="IDStateCode !=null and IDStateCode != ''">
+			AND IDStateCode = #{IDStateCode}
+		</if>
+		<if test="applicationScopeCode !=null and applicationScopeCode != ''">
+			AND ApplicationScopeCode in (${applicationScopeCode})
+		</if>
+		<if test="auditState !=null and auditState != ''">
+			AND AuditState = #{auditState}
+		</if>
+		<if test="setDeptCode !=null and setDeptCode != ''">
+			AND SetDeptCode in  (${setDeptCode}) 
+		</if>
+		<if test="sysSetDeptCode !=null and sysSetDeptCode != ''">
+			AND SetDeptCode like  ('${sysSetDeptCode}%') 
+		</if>
+
+ 		ORDER BY crm.IDCode ASC
+	</select>
+	
+	<!-- 根据标签编号长度获取最大编号 -->
+	<select id="queryMaxIDCodeByLength" parameterType="Map" resultType="String">
+	    SELECT  MAX(IDCode) from cs_regist_mark where LENGTH(IDCode) = #{length} and IDCode like '${IDCode}'
+    </select>
+    
+	<!-- 根据idcode like查询获取列表 -->
+	<select id="queryListLikeIDCode" parameterType="Map" resultMap="BaseResultMap">
+	    select 
+	    MarkUuid,
+		 SetDeptCode,
+		 IDName,
+		 IDCode,
+		 SetTime,
+		 SetName,
+		 SetId,
+		 SetDeptname,
+		 IDType,
+		 IDDesc,
+		 IDStateCode,
+		 AuditorId,
+		 AuditorName,
+		 AuditorDesc,
+		 AuditState,
+		 AuditTime,
+		 ApplicationScopeCode,
+		 ApplicationScopeName,
+		 AuditDeptId,
+		 AuditDeptName,
+		 DATE_FORMAT(UpdateTime,'%Y-%m-%d') UpdateTime from cs_regist_mark where IDCode like '${IDCode}' and IDStateCode = '1' and AuditState = '2' ORDER BY IDCode
+    </select>
+    
+	<!-- 根据标签名称模糊查询列表 -->
+	<select id="queryTopListInstrIDName" parameterType="Map" resultMap="BaseResultMap">
+	    select MarkUuid,
+		 SetDeptCode,
+		 IDName,
+		 IDCode,
+		 SetTime,
+		 SetName,
+		 SetId,
+		 SetDeptname,
+		 IDType,
+		 IDDesc,
+		 IDStateCode,
+		 AuditorId,
+		 AuditorName,
+		 AuditorDesc,
+		 AuditState,
+		 AuditTime,
+		 ApplicationScopeCode,
+		 ApplicationScopeName,
+		 AuditDeptId,
+		 AuditDeptName,
+		 DATE_FORMAT(UpdateTime,'%Y-%m-%d') UpdateTime from cs_regist_mark 
+		 where INSTR(IDName,#{IDName}) >0 
+		 and  IDStateCode = '1' and AuditState = '2'
+		 <![CDATA[AND DATE_FORMAT(ValidDate,'%Y-%m-%d')  >= DATE_FORMAT(#{validDate},'%Y-%m-%d')]]>
+		<!-- 省局、市局-->
+		<if test="userType =='1'.toString() or userType =='2'.toString()">
+			AND (ApplicationScopeCode = '1' OR  SetDeptCode = #{setDeptCode})
+		</if>
+		<!-- 区县局 -->
+		<if test="userType =='3'.toString() ">
+			AND (ApplicationScopeCode = '1' OR SetDeptCode = #{setDeptCode} OR SetDeptCode = #{psetDeptCode} )
+		</if>
+		  ORDER BY IDCode LIMIT 0,10
+    </select>
+    
+	<!-- 根据uuid获取数据 -->
+	<select id="queryBeanByMarkUuid" parameterType="String" resultMap="BaseResultMapDto">
+	    select MarkUuid,
+		 SetDeptCode,
+		 IDName,
+		 IDCode,
+		 SetTime,
+		 SetName,
+		 SetId,
+		 SetDeptname,
+		 IDType,
+		 IDDesc,
+		 IDStateCode,
+		 AuditorId,
+		 AuditorName,
+		 AuditorDesc,
+		 AuditState,
+		 AuditTime,
+		 ApplicationScopeCode,
+		 ApplicationScopeName,
+		 AuditDeptId,
+		 AuditDeptName,
+		 ValidDate,
+		 DoublyStoState,
+		 DoublyStoFirCode,
+		 DoublyStoFirName,
+		 DoublyStoSecCode,
+		 DoublyStoSecName,
+		 DoublyStoThiCode,
+		 DoublyStoThiName,
+		 DATE_FORMAT(UpdateTime,'%Y-%m-%d') UpdateTime from cs_regist_mark where MarkUuid = #{markUuid}
+    </select>
+    
+	<!-- 根据uuid删除数据 -->
+    <delete id="deleteByMarkUuid" parameterType="String" >
+         delete from cs_regist_mark where MarkUuid = #{markUuid}
+    </delete>
+    
+    <!-- 更新 -->
+    <update id="updateByMarkUuid" parameterType="com.icinfo.cs.registinfo.model.RegistMark">
+        update cs_regist_mark set IDName = #{IDName},IDDesc = #{IDDesc},IDStateCode=#{IDStateCode},AuditState=#{auditState},AuditDeptName=#{auditDeptName},AuditorName=#{auditorName},
+        UpdateTime=#{updateTime},DoublyStoState=#{doublyStoState},ValidDate=#{validDate},DoublyStoFirCode=#{doublyStoFirCode},DoublyStoFirName=#{doublyStoFirName},
+        DoublyStoSecCode=#{doublyStoSecCode},DoublyStoSecName=#{doublyStoSecName},DoublyStoThiCode=#{doublyStoThiCode},DoublyStoThiName=#{doublyStoThiName}
+        where MarkUuid = #{markUuid}
+        
+    </update>
+    
+    <!-- 根据范围CODE获取有效的小类列表 -->
+    <select id="queryValidSubTypeListByApplicationScopeCode" parameterType="String" resultMap="BaseResultMapDto">
+	    SELECT
+			crm.IDCode,
+			crm.IDName
+		FROM
+			cs_regist_mark crm
+		WHERE
+			crm.AuditState = '2'
+		AND crm.IDStateCode = '1'
+		AND crm.IDType = '3'
+		AND crm.ApplicationScopeCode LIKE '${_parameter}%'
+    </select>
+
+	<!-- 根据用户信息获取有效小类标签 -->
+	<select id="queryValidSubTypeListByUserInfo" parameterType="Map" resultMap="BaseResultMapDto">
+		select t.IDCode,t.IDName,crm2.IDCode IDCode2,crm2.IDName IDName2,crm3.IDCode IDCode3,crm3.IDName IDName3 from
+		(SELECT
+			crm.IDCode,
+			crm.IDName,
+			left(crm.IDCode, 4) IDCode2,
+		  left(crm.IDCode, 1) IDCode3
+		FROM
+			cs_regist_mark crm
+		WHERE
+			crm.AuditState = '2'
+		AND crm.IDStateCode = '1'
+		AND crm.IDType = '3'
+		<if test="idname != null and idname != ''">
+			AND instr(crm.idname,#{idname}) >0
+		</if>
+		<if test="hasMarkCode != null and hasMarkCode != ''">
+			AND crm.idcode in (${hasMarkCode})
+		</if>
+		<![CDATA[AND DATE_FORMAT(crm.ValidDate,'%Y-%m-%d')  >= DATE_FORMAT(#{validDate},'%Y-%m-%d') ]]>
+		<!-- 省局、市局-->
+		<if test="userType =='1'.toString() or userType =='2'.toString()">
+			AND (ApplicationScopeCode = '1' OR  SetDeptCode = #{setDeptCode})
+		</if>
+		<!-- 区县局 -->
+		<if test="userType =='3'.toString() ">
+			AND (ApplicationScopeCode = '1' OR SetDeptCode = #{setDeptCode} OR SetDeptCode = #{psetDeptCode} )
+		</if>
+
+		) t
+		LEFT JOIN cs_regist_mark crm2 ON t.IDCode2 = crm2.IDCode
+		LEFT JOIN cs_regist_mark crm3 ON t.IDCode3 = crm3.IDCode
+		ORDER BY t.IDCode ASC
+
+	</select>
+	
+	<!-- 根据code获取标签信息 -->
+	<select id="queryByIDCode" parameterType="String" resultMap="BaseResultMapDto">
+         SELECT
+			IDCode,
+			IDName,
+			ValidDate,
+			ApplicationScopeName,
+			DoublyStoState,
+			DoublyStoFirName,
+			DoublyStoSecName,
+			DoublyStoThiName,
+			UpdateTime,
+			CreateTime,
+			IDDesc
+			from cs_regist_mark where IDCode = #{idcode}
+    </select>
+    
+    <!-- 统计子类标签数量 -->
+    <select  id="queryCountLikeIDCode"  parameterType="String" resultType="Long" >
+         SELECT count(1) from cs_regist_mark where IDCode != #{_parameter} and IDCode like '${_parameter}%'
+    </select>
+    
+    <!-- 根据父类code获取双随机子类列表 -->
+    <select  id="queryDoublyStoListByPcode"  parameterType="String" resultMap="BaseResultMapDto" >
+         SELECT 
+				Code,
+				CodeDesc,
+				PCode,
+				InspectCode
+ 		from cs_pub_code_scptype where PCode = #{_parameter} 
+    </select>
+    
+    <!-- 根据code获取双随机3级信息 -->
+    <select  id="queryDoublyStoThiInfoByCode"  parameterType="String" resultMap="BaseResultMapDto" >
+         select Code,Content from cs_code_scinspect where  instr(pCode,#{_parameter}) >0
+    </select>
+    
+    
+     <!-- 根据markuuid获取双随机第三级专项库code及标签基本信息 -->
+     <select id="queryListByMarkUuid"  parameterType="String" resultMap="BaseResultMap">
+      SELECT
+      		crm.IDCode,
+			crm.IDName,
+			crm.DoublyStoThiCode
+		FROM
+			cs_main_mark_rel cmmr
+		LEFT JOIN cs_regist_mark crm ON cmmr.MarkCode = crm.IDCode
+		WHERE
+			cmmr.MarkUuid = #{_parameter}
+		AND cmmr.Type = '1'
+		AND crm.DoublyStoState = '1'
+     </select>
+</mapper>

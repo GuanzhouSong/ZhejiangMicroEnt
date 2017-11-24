@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.webservice.mapper.WsPubOpanomalyMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.webservice.model.WsPubOpanomaly" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="UniSCID" property="uniSCID" jdbcType="CHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="CerType" property="cerType" jdbcType="CHAR" />
+    <result column="CerNO" property="cerNO" jdbcType="VARCHAR" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="CHAR" />
+    <result column="SpeCauseCN" property="speCauseCN" jdbcType="VARCHAR" />
+    <result column="SpeCause" property="speCause" jdbcType="VARCHAR" />
+    <result column="AbnTime" property="abnTime" jdbcType="TIMESTAMP" />
+    <result column="DecOrg" property="decOrg" jdbcType="VARCHAR" />
+    <result column="DecorgCN" property="decorgCN" jdbcType="VARCHAR" />
+    <result column="AnomalyRea" property="anomalyRea" jdbcType="VARCHAR" />
+    <result column="FirstDept" property="firstDept" jdbcType="VARCHAR" />
+    <result column="FirstName" property="firstName" jdbcType="VARCHAR" />
+    <result column="Firstdate" property="firstdate" jdbcType="TIMESTAMP" />
+    <result column="FirstOpin" property="firstOpin" jdbcType="VARCHAR" />
+    <result column="AuditDept" property="auditDept" jdbcType="VARCHAR" />
+    <result column="AuditName" property="auditName" jdbcType="VARCHAR" />
+    <result column="AuditDate" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="AuditOpin" property="auditOpin" jdbcType="VARCHAR" />
+    <result column="AuditState" property="auditState" jdbcType="CHAR" />
+    <result column="PenDecNo" property="penDecNo" jdbcType="VARCHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="SeqYear" property="seqYear" jdbcType="INTEGER" />
+    <result column="DeptName" property="deptName" jdbcType="VARCHAR" />
+    <result column="DeptUpName" property="deptUpName" jdbcType="VARCHAR" />
+    <result column="DeptSameCourt" property="deptSameCourt" jdbcType="VARCHAR" />
+    <result column="DeptSameGov" property="deptSameGov" jdbcType="VARCHAR" />
+    <result column="RevokeFlag" property="revokeFlag" jdbcType="CHAR" />
+    <result column="BatchEntType" property="batchEntType" jdbcType="CHAR" />
+    <result column="ImpFlag" property="impFlag" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="BusExcList" property="busExcList" jdbcType="VARCHAR" />
+    <result column="EstDate" property="estDate" jdbcType="DATE" />
+    <result column="RegState" property="regState" jdbcType="CHAR" />
+    <result column="Remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <select id="selectWsPubOpanomalyListByContion" parameterType="map" resultMap="BaseResultMap">
+  	SELECT 
+		id,PRIPID,EntName,RegNO,UniSCID,LeRep,CerType,CerNO,RegOrg,LocalAdm,SpeCauseCN,SpeCause,AbnTime,DecOrg,DecorgCN,AnomalyRea,FirstDept,
+		FirstName,Firstdate,FirstOpin,AuditDept,AuditName,AuditDate,AuditOpin,AuditState,PenDecNo,Year,SeqYear,DeptName,DeptUpName,DeptSameCourt,
+		DeptSameGov,RevokeFlag,BatchEntType,ImpFlag,CreateTime,BusExcList,EstDate,RegState,Remark,UPDATE_TIME
+	FROM 
+		cs_pub_opanomaly
+    WHERE 
+    	UPDATE_TIME BETWEEN STR_TO_DATE(#{startdate},'%Y%m%d%H%i%s') AND STR_TO_DATE(#{enddate},'%Y%m%d%H%i%s')
+    AND id BETWEEN #{startNum} AND #{endNum}
+  </select>
+  
+  
+  <select id="selectWsPubOpanomalyCountByContion" parameterType="map" resultType="Integer">
+  	SELECT
+      	count(*)
+    FROM
+    	cs_pub_opanomaly
+    WHERE 
+    	UPDATE_TIME BETWEEN STR_TO_DATE(#{startdate},'%Y%m%d%H%i%s') AND STR_TO_DATE(#{enddate},'%Y%m%d%H%i%s')
+  </select>
+  
+   <select id="selectWsPubOpanomalyMaxId" parameterType="map" resultType="Integer">
+  	SELECT
+      	MAX(id)
+    FROM
+    	cs_pub_opanomaly
+    WHERE 
+    	UPDATE_TIME BETWEEN STR_TO_DATE(#{startdate},'%Y%m%d%H%i%s') AND STR_TO_DATE(#{enddate},'%Y%m%d%H%i%s')
+  </select>
+  
+   <select id="selectWsPubOpanomalyMinId" parameterType="map" resultType="Integer">
+  	SELECT
+      	MIN(id)
+    FROM
+    	cs_pub_opanomaly
+    WHERE 
+    	UPDATE_TIME BETWEEN STR_TO_DATE(#{startdate},'%Y%m%d%H%i%s') AND STR_TO_DATE(#{enddate},'%Y%m%d%H%i%s')
+  </select>
+  
+  
+</mapper>

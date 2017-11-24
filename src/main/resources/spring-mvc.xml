@@ -1,0 +1,342 @@
+<!--
+   Copyright© 2003-2016 浙江汇信科技有限公司, All Rights Reserved.
+  -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!-- 加载属性文件 -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+               <value>classpath:entry/dev/spring.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 开启controller注解支持 -->
+    <context:component-scan base-package="com.icinfo.cs.**.controller" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
+
+    <!-- 当在web.xml 中 DispatcherServlet使用 <url-pattern>/</url-pattern> 映射时，能映射静态资源 -->
+ 
+   <mvc:default-servlet-handler />
+    <!-- 视图处理监管 -->
+    <mvc:view-controller path="/" view-name="login"/>
+    <!-- 小微监测 -->
+    <!-- <mvc:view-controller path="/" view-name="redirect:/sment"/> -->
+    <!-- <mvc:view-controller path="/" view-name="redirect:depsyn/main"/> -->
+    <!-- <mvc:view-controller path="/" view-name="redirect:client/entsearch/toEntSearch"/> -->
+    <!--全局错误页面-->
+    <mvc:view-controller path="/error" view-name="error"/>
+
+
+    <mvc:view-controller path="/ui/reg/server/index" view-name="/reg/server/index"/>
+    <mvc:view-controller path="/ui/login" view-name="reg/client/login/login-new"/>
+	<!-- 统一登录 -->
+    <mvc:view-controller path="/login" view-name="redirect:reg/client/login/all"/>
+    <!-- 企业登录 -->
+    <mvc:view-controller path="/entlogin" view-name="redirect:reg/client/login/ent"/>
+    <!-- 农专登录 -->
+    <mvc:view-controller path="/sfclogin" view-name="redirect:reg/client/login/sfc"/>
+    <!-- 个体户登录 -->
+    <mvc:view-controller path="/pblogin" view-name="redirect:reg/client/login/pb"/>
+    <!-- 移出原因 直接弹出窗页面展示（公用） -->
+    <mvc:view-controller path="/common/select/select-intercept" view-name="/common/select/select-intercept"/>
+
+	<!-- 前端切图使用 start -->
+    <mvc:view-controller path="/ui/temp/xszn" view-name="/temp/temp18/xszn"/>
+    <mvc:view-controller path="/ui/temp/xszn-tk" view-name="/temp/temp18/xszn-tk"/>
+    <mvc:view-controller path="/ui/temp/xszn2" view-name="/temp/temp18/xszn2"/>
+    <mvc:view-controller path="/ui/temp/account" view-name="/temp/temp18/account"/>
+    <mvc:view-controller path="/ui/temp/bbsc" view-name="/temp/temp18/bbsc"/>
+    <mvc:view-controller path="/ui/temp/regindex-v2" view-name="/temp/reg-index-v2"/>
+    
+    <mvc:view-controller path="/ui/20170504/1" view-name="/sment/ui/20170504/1"/>
+    <mvc:view-controller path="/ui/20170504/2" view-name="/sment/ui/20170504/2"/>
+    <mvc:view-controller path="/ui/20170504/3" view-name="/sment/ui/20170504/3"/>
+    <mvc:view-controller path="/ui/20170504/4" view-name="/sment/ui/20170504/4"/>
+    <mvc:view-controller path="/ui/20170504/5" view-name="/sment/ui/20170504/5"/>
+    <mvc:view-controller path="/ui/20170504/6" view-name="/sment/ui/20170504/6"/>
+    <mvc:view-controller path="/ui/20170504/7" view-name="/sment/ui/20170504/7"/>
+    <mvc:view-controller path="/ui/20170504/8" view-name="/sment/ui/20170504/8"/>
+    <mvc:view-controller path="/ui/20170504/9" view-name="/sment/ui/20170504/9"/>
+    <!--简易注销公告信息 -->
+    <mvc:view-controller path="/ui/temp/notice-info" view-name="/temp/temp18/notice-info"/>
+    <!-- 全体投资人承诺书 -->
+    <mvc:view-controller path="/ui/temp/undertaking" view-name="/temp/temp18/undertaking"/>
+    <!-- 分类标签 -->
+    <mvc:view-controller path="/ui/temp/biaoqian322" view-name="/temp/biaoqian322"/>
+
+    <mvc:view-controller path="/ui/pub/smallent/industry" view-name="/pub/smallent/industry"/>
+    <mvc:view-controller path="/ui/pub/smallent/industryDetail" view-name="/pub/smallent/industryDetail"/>
+    <mvc:view-controller path="/ui/pub/smallent/smallmicro" view-name="/pub/smallent/smallmicro"/>
+    <mvc:view-controller path="/ui/pub/smallent/smallmicroDetail" view-name="/pub/smallent/smallmicroDetail"/>
+    <mvc:view-controller path="/ui/temp/qyxq" view-name="/temp/qyxq"/>
+    <mvc:view-controller path="/ui/temp/qyxq01" view-name="/temp/qyxq01"/>
+    <mvc:view-controller path="/ui/temp/qyxq2" view-name="/temp/qyxq2"/>
+    <mvc:view-controller path="/ui/temp/tzs" view-name="/temp/tzs"/>
+
+    <mvc:view-controller path="/ui/temp20/1" view-name="/temp/temp20/1"/>
+    <mvc:view-controller path="/ui/temp20/2" view-name="/temp/temp20/2"/>
+    <mvc:view-controller path="/ui/temp20/3" view-name="/temp/temp20/3"/>
+    <mvc:view-controller path="/ui/temp20/4" view-name="/temp/temp20/4"/>
+    <mvc:view-controller path="/ui/temp20/5" view-name="/temp/temp20/5"/>
+    <mvc:view-controller path="/ui/temp20/6" view-name="/temp/temp20/6"/>
+    <mvc:view-controller path="/ui/temp20/7" view-name="/temp/temp20/7"/>
+
+    <mvc:view-controller path="/ui/temp2017/01" view-name="/temp/temp2017-07-17/01"/>
+    <mvc:view-controller path="/ui/temp20170719/01" view-name="/temp/temp2017-07-19/01"/>
+    <mvc:view-controller path="/ui/temp20170719/02" view-name="/temp/temp2017-07-19/02"/>
+    <mvc:view-controller path="/ui/temp20170719/03" view-name="/temp/temp2017-07-19/03"/>
+    <mvc:view-controller path="/ui/20170815/01" view-name="/sment/ui/20170815/01"/>
+
+    <mvc:view-controller path="/ui/temp20170823/1" view-name="/temp/temp2017-08-23/1"/>
+    <mvc:view-controller path="/ui/temp20170823/2" view-name="/temp/temp2017-08-23/2"/>
+    <mvc:view-controller path="/ui/temp20170823/3" view-name="/temp/temp2017-08-23/3"/>
+    <mvc:view-controller path="/ui/temp20170823/4" view-name="/temp/temp2017-08-23/4"/>
+    <mvc:view-controller path="/ui/temp20170823/5" view-name="/temp/temp2017-08-23/5"/>
+    <mvc:view-controller path="/ui/temp20170823/6" view-name="/temp/temp2017-08-23/6"/>
+    <mvc:view-controller path="/ui/temp20170823/7" view-name="/temp/temp2017-08-23/7"/>
+
+    <mvc:view-controller path="/ui/temp20170823/map/7" view-name="/temp/temp2017-08-23/map/7"/>
+    <mvc:view-controller path="/ui/temp20170823/map/8" view-name="/temp/temp2017-08-23/map/8"/>
+    <mvc:view-controller path="/ui/temp20170823/map/9" view-name="/temp/temp2017-08-23/map/9"/>
+    <mvc:view-controller path="/ui/temp20170823/map/10" view-name="/temp/temp2017-08-23/map/10"/>
+    <mvc:view-controller path="/ui/temp20170823/map/11" view-name="/temp/temp2017-08-23/map/11"/>
+    <mvc:view-controller path="/ui/temp20170823/map/12" view-name="/temp/temp2017-08-23/map/12"/>
+
+    <mvc:view-controller path="/ui/temp20170823/update/1" view-name="/temp/temp2017-08-23/update/1"/>
+    <mvc:view-controller path="/ui/temp20170823/update/2" view-name="/temp/temp2017-08-23/update/2"/>
+    <mvc:view-controller path="/ui/temp20170823/update/3" view-name="/temp/temp2017-08-23/update/3"/>
+
+    <mvc:view-controller path="/ui/temp20170823/map/1" view-name="/temp/temp2017-08-23/map/1"/>
+    <mvc:view-controller path="/ui/temp20170823/map/2" view-name="/temp/temp2017-08-23/map/2"/>
+    <mvc:view-controller path="/ui/temp20170823/map/3" view-name="/temp/temp2017-08-23/map/3"/>
+    <mvc:view-controller path="/ui/temp20170823/map/4" view-name="/temp/temp2017-08-23/map/4"/>
+    <mvc:view-controller path="/ui/temp20170823/map/5" view-name="/temp/temp2017-08-23/map/5"/>
+    <mvc:view-controller path="/ui/temp20170823/map/6" view-name="/temp/temp2017-08-23/map/6"/>
+
+    <mvc:view-controller path="/ui/temp20170907/01" view-name="/temp/temp2017-09-07/01"/>
+    <mvc:view-controller path="/ui/temp20170907/02" view-name="/temp/temp2017-09-07/02"/>
+
+    <mvc:view-controller path="/ui/temp20170919/01" view-name="/temp/temp2017-09-19/01"/>
+
+    <mvc:view-controller path="/ui/temp20171106/01" view-name="/temp/temp2017-11-06/01"/>
+    <mvc:view-controller path="/ui/temp20171109/01" view-name="/temp/temp2017-11-09/01"/>
+
+    <mvc:view-controller path="/ui/temp20171109/02" view-name="/temp/temp2017-11-09/02"/>
+    <mvc:view-controller path="/ui/temp20171113/01" view-name="/temp/temp2017-11-13/01"/>
+    <mvc:view-controller path="/ui/temp20171113/02" view-name="/temp/temp2017-11-13/02"/>
+    <mvc:view-controller path="/ui/temp20171113/03" view-name="/temp/temp2017-11-13/03"/>
+    <mvc:view-controller path="/ui/temp20171113/04" view-name="/temp/temp2017-11-13/04"/>
+    <mvc:view-controller path="/ui/temp20171113/05" view-name="/temp/temp2017-11-13/05"/>
+    <mvc:view-controller path="/ui/temp20171113/06" view-name="/temp/temp2017-11-13/06"/>
+    <mvc:view-controller path="/ui/temp20171113/07" view-name="/temp/temp2017-11-13/07"/>
+    <mvc:view-controller path="/ui/temp20171113/08" view-name="/temp/temp2017-11-13/08"/>
+    <mvc:view-controller path="/ui/temp20171113/09" view-name="/temp/temp2017-11-13/09"/>
+
+
+	<!-- 前端切图使用 end -->
+
+    <!-- 静态资源映射  字体，声音缓存1年，css、images、js缓存15天-->
+    <mvc:resources mapping="/css/**" location="/WEB-INF/${webDir}/css/" cache-period="0"/>
+    <mvc:resources mapping="/js/**" location="/WEB-INF/${webDir}/js/" cache-period="0"/>
+    <mvc:resources mapping="/img/**" location="/WEB-INF/${webDir}/img/" cache-period="-1"/>
+    <mvc:resources mapping="/font/**" location="/WEB-INF/${webDir}/font/" cache-period="0"/>
+
+    <!-- 通用拦截器配置 -->
+    <mvc:interceptors>
+    	<!--公示访问权限配置-->
+    	<mvc:interceptor>
+	        <mvc:mapping path="/client/entsearch/**"/>
+	        <mvc:mapping path="/entinfo/**"/>
+	        <bean class="com.icinfo.cs.es.interceptor.PubAccessInterceptor"/>
+        </mvc:interceptor>
+        
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.icinfo.framework.core.web.interceptor.GenericInterceptor"/>
+        </mvc:interceptor>
+        <!--防重复提交-->
+        <mvc:interceptor>
+            <mvc:mapping path="/reg/**"/>
+            <mvc:mapping path="/syn/**"/>
+            <mvc:mapping path="/depsyn/**"/>
+            <mvc:mapping path="/sment/**"/>
+            <bean class="com.icinfo.framework.core.web.interceptor.RepeatSubmitInterceptor"/>
+        </mvc:interceptor>
+        <!-- 企业端登录验证 -->
+         <mvc:interceptor>
+            <mvc:mapping path="/reg/client/**"/>
+            <bean class="com.icinfo.cs.login.intercetor.LoginInterceptor"/>
+        </mvc:interceptor>
+        <!-- 企业端登录验证 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/webservice/**"/>
+            <bean class="com.icinfo.cs.login.intercetor.WebServiceInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+	        <mvc:mapping path="/syn/**"/>
+	        <mvc:mapping path="/reg/**"/>
+	        <mvc:mapping path="/depsyn/**"/>
+	        <mvc:mapping path="/sment/**"/>
+
+	        <mvc:exclude-mapping path="/reg/server/login"/>
+	        <mvc:exclude-mapping path="/reg/server/loginreg"/>
+	        <mvc:exclude-mapping path="/reg/server/loginregOrg"/>
+	        <mvc:exclude-mapping path="/reg/client/**"/>
+	        <mvc:exclude-mapping path="/syn/login"/>
+            <mvc:exclude-mapping path="/syn/loginsyn"/>
+            <mvc:exclude-mapping path="/syn/governlogin"/>
+            <mvc:exclude-mapping path="/syn/server/sysuserck/**"/>
+            <mvc:exclude-mapping path="/syn/pubdtinfo/codeLicenseCheckboxTreePage"/>
+            <mvc:exclude-mapping path="/syn/pubdtinfo/codelicenseListTreeJSON"/>
+	        <mvc:exclude-mapping path="/depsyn/main"/>
+	        <mvc:exclude-mapping path="/depsyn/login"/>
+	        <mvc:exclude-mapping path="/sment/login/doEnlogin"/>
+	        <mvc:exclude-mapping path="/sment/login/doLogin"/>
+	        <mvc:exclude-mapping path="/sment/login/doLoginSmentOrg"/> 
+	        <mvc:exclude-mapping path="/reg/message/toMessageView"/>
+	        <mvc:exclude-mapping path="/reg/message/queryPubEppasswordIsExistByTel.json"/>
+	        <mvc:exclude-mapping path="/reg/message/queryEntNameFirst3ListByPubEppasswordTel.json"/>
+	        <mvc:exclude-mapping path="/reg/message/queryMessagePageListByLiaisonManTel.json"/>
+	        <mvc:exclude-mapping path="/reg/message/querycsMessageByMsgUid.json"/>
+	        <mvc:exclude-mapping path="/reg/message/queryMessagPageListByMsgUid.json"/>
+	        <mvc:exclude-mapping path="/reg/message/queryMessagListByMsgUid.json"/>
+	        <mvc:exclude-mapping path="/reg/message/excelExportByMsgUid"/>
+	        <mvc:exclude-mapping path="/reg/message/updateMessageByMsgUid.json"/>
+	        <mvc:exclude-mapping path="/reg/message/diliverinfo"/>
+	        <mvc:exclude-mapping path="/reg/message/toMessageReportView"/>
+	        <mvc:exclude-mapping path="/reg/message/toMessageUnreportView"/>
+	        <mvc:exclude-mapping path="/reg/message/queryEntNamePageList.json"/>
+	        <mvc:exclude-mapping path="/reg/message/queryEntNameList.json"/>
+
+	        <bean class="com.icinfo.cs.login.intercetor.ServerLoginInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+	        <mvc:mapping path="/app/**"/>
+	        <bean class="com.icinfo.cs.login.intercetor.AppTokenInterceptor"/>
+        </mvc:interceptor>
+        <!-- csrf防护   -->
+        <mvc:interceptor>
+            <mvc:mapping path="/syn/login"/>
+            <mvc:mapping path="/syn/loginsyn"/>
+            <bean class="com.icinfo.cs.login.intercetor.csrf.CSRFInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!-- jasckson2对象映射-->
+    <bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper">
+        <property name="serializationInclusion">
+            <value type="com.fasterxml.jackson.annotation.JsonInclude.Include">ALWAYS</value>
+        </property>
+    </bean>
+
+    <mvc:annotation-driven validator="validator">
+        <!-- 配置消息转换服务 -->
+        <mvc:message-converters>
+            <!-- Jackson消息格式器 -->
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+                <property name="objectMapper" ref="objectMapper"/>
+                <property name="prettyPrint" value="true"/>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!-- 根据路径后缀选择不同视图 -->
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="contentNegotiationManager">
+            <bean class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+                <property name="mediaTypes">
+                    <map>
+                        <entry key="json" value="application/json"/>
+                        <entry key="xml" value="application/xml"/>
+                        <entry key="html" value="text/html"/>
+                    </map>
+                </property>
+                <property name="defaultContentType" value="text/html"/>
+                <!-- 忽略Accept Header-->
+                <property name="ignoreAcceptHeader" value="true"/>
+                <!-- 关闭 ?format=json的支持 -->
+                <property name="favorParameter" value="false"/>
+                <!-- 开启扩展名支持 -->
+                <property name="favorPathExtension" value="true"/>
+            </bean>
+        </property>
+        <property name="viewResolvers">
+            <list>
+                <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+                    <property name="viewClass"
+                              value="org.springframework.web.servlet.view.JstlView"/>
+                    <property name="contentType" value="text/html"/>
+                    <property name="prefix" value="/WEB-INF/${webDir}/page/"/>
+                    <property name="suffix" value=".jsp"/>
+                </bean>
+            </list>
+        </property>
+        <property name="defaultViews">
+            <list>
+                <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+                    <property name="objectMapper" ref="objectMapper"/>
+                    <property name="prettyPrint" value="true"/>
+                </bean>
+                <bean class="org.springframework.web.servlet.view.xml.MappingJackson2XmlView"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 文件上传配置 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"/>
+        <property name="maxInMemorySize" value="10240"/>
+        <!-- 最大文件大小，单位字节，-1为不限制大小 限制20M-->
+        <property name="maxUploadSize" value="20971520"/>
+    </bean>
+
+    <!-- Hibernate Validator配置-->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+        <property name="validationMessageSource" ref="validationMessageSource"/>
+    </bean>
+
+    <bean id="validationMessageSource"
+          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>classpath:validator-messages</value>
+                <value>classpath:org/hibernate/validator/ValidationMessages</value>
+            </list>
+        </property>
+        <property name="useCodeAsDefaultMessage" value="false"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="cacheSeconds" value="60"/>
+    </bean>
+
+    <!-- 异常视图处理 -->
+    <bean id="exceptionResolver"
+          class="com.icinfo.framework.core.web.handler.GlobalHandlerExceptionResolver">
+        <!-- 设置日志输出级别，不定义则默认不输出警告等错误日志信息 -->
+        <property name="warnLogCategory" value="WARN"></property>
+    </bean>
+
+    <!-- 开启cglib代理切面 -->
+    <!-- 由于 controller 与 其他不在同一上下文，针对controller层上的自定义注解，必须在此配置，使得注解跟controller在同一上下文才能生效 -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+</beans>

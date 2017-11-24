@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.rpt.rptmapper.RptQcdzIndustryMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.rpt.rptmodel.RptQcdzIndustry" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="hydm" property="hydm" jdbcType="VARCHAR" />
+    <result column="hymc" property="hymc" jdbcType="VARCHAR" />
+    <result column="hyrate" property="hyrate" jdbcType="DECIMAL" />
+    <result column="invtype" property="invtype" jdbcType="VARCHAR" />
+    <result column="update_time" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.rpt.rptdto.RptQcdzIndustryDto" id="BaseResultDtoMap" extends="BaseResultMap">
+  </resultMap>
+  
+  <select id="selectRptQcdzIndustryList" parameterType="Map" resultMap="BaseResultDtoMap">
+  select t.id,t.hydm,t.hymc,t.hyrate,t.invtype,t.update_time from cs_rpt_qcdz_industry t 
+  where 1=1
+  <if test="invtype !=null and invtype !=''">
+  and t.invtype = #{invtype}
+  </if>
+  order by hydm
+  
+  </select>
+</mapper>

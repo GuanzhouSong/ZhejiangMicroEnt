@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.party.mapper.PartyMemberInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.party.model.PartyMemberInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="MemberType" property="memberType" jdbcType="CHAR" />
+    <result column="IsBuildPartyOrg" property="isBuildPartyOrg" jdbcType="CHAR" />
+    <result column="MemberName" property="memberName" jdbcType="VARCHAR" />
+    <result column="Sex" property="sex" jdbcType="CHAR" />
+    <result column="Nationality" property="nationality" jdbcType="VARCHAR" />
+    <result column="IdentityInfo" property="identityInfo" jdbcType="VARCHAR" />
+    <result column="TelNum" property="telNum" jdbcType="VARCHAR" />
+    <result column="IsSecretary" property="isSecretary" jdbcType="CHAR" />
+    <result column="Qualifications" property="qualifications" jdbcType="CHAR" />
+    <result column="OriginLoc" property="originLoc" jdbcType="VARCHAR" />
+    <result column="OrgRelationLoc" property="orgRelationLoc" jdbcType="VARCHAR" />
+    <result column="PartyOrgName" property="partyOrgName" jdbcType="VARCHAR" />
+    <result column="PartyOrgID" property="partyOrgID" jdbcType="VARCHAR" />
+    <result column="IsAssoVip" property="isAssoVip" jdbcType="CHAR" />
+    <result column="PmType" property="pmType" jdbcType="CHAR" />
+    <result column="PmDistributed" property="pmDistributed" jdbcType="CHAR" />
+    <result column="JoinPartyTime" property="joinPartyTime" jdbcType="DATE" />
+    <result column="PartyPosition" property="partyPosition" jdbcType="CHAR" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="AuditState" property="auditState" jdbcType="CHAR" />
+    <result column="AuditTime" property="auditTime" jdbcType="TIMESTAMP" />
+    <result column="AuditName" property="auditName" jdbcType="VARCHAR" />
+    <result column="AuditDept" property="auditDept" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="BelongMarket" property="belongMarket" jdbcType="VARCHAR" />
+    <result column="PhoneNum" property="phoneNum" jdbcType="VARCHAR" />
+    <result column="InputType" property="inputType" jdbcType="VARCHAR" />
+    <result column="OrgRegisterTime" property="orgRegisterTime" jdbcType="TIMESTAMP" />
+    <result column="ModifyTime" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="MemberAge" property="memberAge" jdbcType="INTEGER" />
+    <result column="EntType" property="entType" jdbcType="VARCHAR" />
+    <result column="PartyWorker" property="partyWorker" jdbcType="CHAR" />
+    
+    <result column="LocProvince" property="locProvince" jdbcType="VARCHAR" />
+    <result column="LocCity" property="locCity" jdbcType="VARCHAR" />
+    <result column="LocCounty" property="locCounty" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.party.dto.PartyMemberInfoDto" id="BaseResultDtoMap" extends="BaseResultMap">
+      <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+      <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+      <result column="RegState" property="regState" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.party.dto.PartyMemberInfoDto" id="threeYearPartyMap" extends="BaseResultMap">
+      <result column="Year" property="year" jdbcType="VARCHAR" />
+      <result column="EmpNum" property="empNum" jdbcType="VARCHAR" />
+      <result column="numParM" property="numParM" jdbcType="VARCHAR" />
+      <result column="ResParMSign" property="resParMSign" jdbcType="VARCHAR" />
+      <result column="ResParSecSign" property="resParSecSign" jdbcType="VARCHAR" />
+      <result column="ParIns" property="parIns" jdbcType="VARCHAR" />
+      <result column="ParOrgW" property="parOrgW" jdbcType="VARCHAR" />
+      <result column="FirstReportTime" property="firstReportTime" jdbcType="VARCHAR" />
+      <result column="LastReportTime" property="lastReportTime" jdbcType="VARCHAR" />
+      <result column="ParSetTime" property="parSetTime" jdbcType="VARCHAR" />
+      <result column="PartOrgIs" property="partOrgIs" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapDto" type="com.icinfo.cs.party.dto.PartyMemberInfoDto" extends="BaseResultMap">
+  	  <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+  	  <result column="dangzuzhi" property="dangzuzhi" jdbcType="INTEGER" />
+  	  <result column="partynum" property="partynum" jdbcType="INTEGER" />
+  	  <result column="yezhuparty" property="yezhuparty" jdbcType="INTEGER" />
+  	  <result column="memberparty" property="memberparty" jdbcType="INTEGER" />
+  	  <result column="manparty" property="manparty" jdbcType="INTEGER" />
+  	  <result column="womanparty" property="womanparty" jdbcType="INTEGER" />
+  	  <result column="hannation" property="hannation" jdbcType="INTEGER" />
+  	  <result column="othernation" property="othernation" jdbcType="INTEGER" />
+  	  <result column="zhengshiparty" property="zhengshiparty" jdbcType="INTEGER" />
+  	  <result column="yubeiparty" property="yubeiparty" jdbcType="INTEGER" />
+  	  <result column="ganbuparty" property="ganbuparty" jdbcType="INTEGER" />
+  	  <result column="shujiparty" property="shujiparty" jdbcType="INTEGER" />
+  	  <result column="putongparty" property="putongparty" jdbcType="INTEGER" />
+  	  <result column="geti" property="geti" jdbcType="INTEGER" />
+  	  <result column="shichang" property="shichang" jdbcType="INTEGER" />
+  	  <result column="age30" property="age30" jdbcType="INTEGER" />
+  	  <result column="age30_40" property="age30_40" jdbcType="INTEGER" />
+  	  <result column="age40_50" property="age40_50" jdbcType="INTEGER" />
+  	  <result column="age50_60" property="age50_60" jdbcType="INTEGER" />
+  	  <result column="age60" property="age60" jdbcType="INTEGER" />
+  	  <result column="xiaoxue" property="xiaoxue" jdbcType="INTEGER" />
+  	  <result column="chuzhong" property="chuzhong" jdbcType="INTEGER" />
+  	  <result column="gaozhong" property="gaozhong" jdbcType="INTEGER" />
+  	  <result column="dazhuan" property="dazhuan" jdbcType="INTEGER" />
+  	  <result column="benke" property="benke" jdbcType="INTEGER" />
+  	  <result column="xueliover" property="xueliover" jdbcType="INTEGER" />
+  	  <result column="ent" property="ent" jdbcType="INTEGER" />
+  	  <result column="pb" property="pb" jdbcType="INTEGER" />
+  	  <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+  	  <result column="Areacode" property="areacode" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.party.dto.PartyMemberInfoDto" id="searchTotalRtl">
+     <result column="yzcount" property="yzcount" jdbcType="VARCHAR" />
+     <result column="membercount" property="membercount" jdbcType="VARCHAR" />
+     <result column="cyrycount" property="cyrycount" jdbcType="VARCHAR" />
+     <result column="sjcount" property="sjcount" jdbcType="VARCHAR" />
+     <result column="zsdycount" property="zsdycount" jdbcType="VARCHAR" />
+     <result column="ybcount" property="ybcount" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectPartyMemberInfo" resultMap="BaseResultDtoMap" parameterType="Map">
+     SELECT
+       t.UID,
+       t.PriPID,
+       t.MemberType,
+       t.MemberName,
+       t.IdentityInfo,
+       t.PartyOrgName,
+       t.OrgRelationLoc,
+       t.BelongMarket,
+       t.ModifyTime,
+       t.AuditState,
+       t.AuditTime,
+       t.AuditName,
+       t.CreateTime,
+       a.EntName,
+       a.RegNO,
+       a.UniCode,
+       a.RegOrgName,
+       a.LocalAdmName,
+       a.RegState
+     FROM
+       cs_party_member_info t
+       LEFT JOIN cs_mid_baseinfo a ON t.PriPID = a.PriPID
+     <where>
+        t.InputType = '2' And t.AuditState != '3'
+        <include refid="partyMember_where"/>
+        <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+         ORDER BY IFNULL(t.AuditState,0) ASC
+     </where>
+  </select>
+  
+  <select id="selectPartyMemberInfoForMaintain" resultMap="BaseResultDtoMap" parameterType="Map">
+     SELECT
+       t.UID,
+       t.PriPID,
+       t.MemberType,
+       t.MemberName,
+       t.IdentityInfo,
+       t.PartyOrgName,
+       t.OrgRelationLoc,
+       t.BelongMarket,
+       t.ModifyTime,
+       t.AuditState,
+       t.AuditTime,
+       t.AuditName,
+       t.CreateTime,
+       t.Sex,
+       t.Nationality,
+       t.Qualifications,
+       t.TelNum,
+       t.IsSecretary,
+       t.OriginLoc,
+       t.PmType,
+       t.PmDistributed,
+       t.JoinPartyTime,
+       t.PartyPosition,
+       t.Remark,
+       t.OrgRegisterTime,
+       t.MemberAge,
+       t.EntType,
+       a.EntName,
+       a.RegNO,
+       a.UniCode,
+       a.RegOrgName,
+       a.LocalAdmName,
+       a.RegState
+     FROM
+       cs_party_member_info t
+       LEFT JOIN cs_mid_baseinfo a ON t.PriPID = a.PriPID
+     <where>
+        <if test="quryAll ==null or quryAll ==''">
+           t.AuditState = '1'
+        </if>
+        <if test="judgeIsExist !=null and judgeIsExist !=''">
+             (<if test="identityInfo !=null and IdentityInfo!=''">
+               t.IdentityInfo = #{identityInfo}
+             </if>
+             <if test="memberType == 1 and priPID !=null">
+               OR (t.MemberType = #{memberType} And t.PriPID = #{priPID})
+             </if>)
+        </if>
+        <if test="judgeIsExist ==null or judgeIsExist ==''">
+        	<include refid="partyMember_where"/>
+        	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+        </if>
+        ORDER BY t.ModifyTime DESC
+     </where>
+  </select>
+  
+  <select id="selectPartyMemberSearchTotal" resultMap="searchTotalRtl" parameterType="Map">
+    SELECT
+	  count(0) membercount,
+	  SUM(CASE WHEN t.MemberType = '1' THEN 1 ELSE 0 END) as yzcount,
+	  SUM(CASE WHEN t.MemberType = '2' THEN 1 ELSE 0 END) as cyrycount,
+	  SUM(CASE WHEN t.IsSecretary  = '1' THEN 1 ELSE 0 END) as sjcount,
+	  SUM(CASE WHEN t.pmType = '1' THEN 1 ELSE 0 END) as zsdycount,
+	  SUM(CASE WHEN t.pmType = '2' THEN 1 ELSE 0 END) as ybcount
+	FROM
+		cs_party_member_info t
+	LEFT JOIN cs_mid_baseinfo a ON t.PriPID = a.PriPID
+	WHERE
+	t.AuditState = '1' 
+    <include refid="partyMember_where"/>
+    <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+  </select>
+  
+  <select id="selectParty3YearInfo" resultMap="threeYearPartyMap" parameterType="Map">
+     <if test="entType !=null and entType !='' and entType ==9500">
+         SELECT
+			a.Year,
+			t.EmpNum,
+			LEFT(a.FirstReportTime,10) FirstReportTime,
+			LEFT(a.LastReportTime,10) LastReportTime,
+			t.NumParM,
+			t.ResParMSign,
+			t.ResParSecSign,
+			t.ParIns,
+			NULL parSetTime,
+			NULL parOrgW,
+			t.PartOrgIs
+		FROM
+			cs_yr_pb_baseinfo t
+		LEFT JOIN cs_yr_reg_check a ON t.PriPID = a.PriPID
+		AND t. YEAR = a. YEAR
+		WHERE
+			t.PriPID = #{priPID}
+     </if>
+     <if test="entType !=null and entType !='' and entType !=9500">
+        SELECT
+			a.Year,
+			b.EmpNum,
+			LEFT(a.FirstReportTime,10) FirstReportTime,
+			LEFT(a.LastReportTime,10) LastReportTime,
+			t.NumParM,
+			t.ResParMSign,
+			t.ResParSecSign,
+			t.ParIns,
+			LEFT(t.ParSetTime,10) ParSetTime,
+			t.ParOrgW,
+			CASE WHEN t.ParIns IN ('1','2','3') THEN '1' ELSE '0' END PartOrgIs
+		FROM
+			cs_yr_otherinfo t
+		LEFT JOIN cs_yr_reg_check a ON t.PriPID = a.PriPID AND t. YEAR = a. YEAR
+		LEFT JOIN cs_baseinfo b ON t.PriPID = b.PriPID AND t.Year = b.Year
+		WHERE
+			t.PriPID = #{priPID}
+     </if>
+     		ORDER BY
+			t.Year DESC
+		LIMIT ${numStart},${pageSize}
+  </select>
+  
+  <sql id="partyMember_where">
+      <if test="uid !=null and uid !=''">
+           And t.UID = #{uid}
+     </if>
+     <if test="priPID !=null and priPID !=''">
+           And t.PriPID = #{priPID}
+     </if>
+     <if test="uniCodeOrRegNO !=null and uniCodeOrRegNO !=''">
+           And (a.UniCode LIKE CONCAT('%',#{uniCodeOrRegNO},'%') or a.RegNO LIKE CONCAT('%',#{uniCodeOrRegNO},'%')) 
+     </if>
+     <if test="localAdm !=null and localAdm !=''">
+           And a.LocalAdm in (${localAdm})
+     </if>
+     <if test="regOrg !=null and regOrg !=''">
+           And a.RegOrg in (${regOrg})
+     </if>
+     <if test="memberName !=null and memberName !=''">
+           And t.MemberName LIKE CONCAT('%',#{memberName},'%')
+     </if>
+     <if test="identityInfo !=null and identityInfo !=''">
+           And t.IdentityInfo = #{identityInfo}
+     </if>
+     <if test="entName !=null and entName !=''">
+           And a.EntName LIKE CONCAT('%',#{entName},'%')
+     </if>
+     <if test="entCatg !=null and entCatg !=''">
+           And a.EntType IN (${entCatg})
+     </if>
+     <if test="memberType !=null and memberType !='' and memberType == 1">
+           And t.MemberType = #{memberType}
+     </if>
+     <if test="memberType !=null and memberType !='' and memberType == 2">
+           And  (t.MemberType = #{memberType} || t.MemberType IS NULL)
+     </if>
+     <if test="auditState !=null and auditState !='' and auditState == 0">
+           And (t.AuditState = #{auditState} || t.AuditState IS NULL)
+     </if>
+     <if test="auditState !=null and auditState !='' and auditState == 1">
+           And t.AuditState = #{auditState}
+     </if>
+     <if test="isSecretary !=null and isSecretary !='' and isSecretary == 1">
+           And t.IsSecretary = #{isSecretary}
+     </if>
+     <if test="isSecretary !=null and isSecretary !='' and isSecretary == 0">
+          <![CDATA[
+		  And  (t.IsSecretary <> '1' or  t.IsSecretary IS NULL)
+		  ]]>
+     </if>
+     <if test="sex !=null and sex !=''">
+           And t.Sex = #{sex}
+     </if>
+     <if test="nationality !=null and nationality !=''">
+           And t.Nationality = #{nationality}
+     </if>
+     <if test="qualifications !=null and qualifications !=''">
+           And t.Qualifications = #{qualifications}
+     </if>
+     <if test="pmType !=null and pmType !=''">
+           And t.PmType = #{pmType}
+     </if>
+     <if test="pmDistributed !=null and pmDistributed !=''">
+           And t.PmDistributed = #{pmDistributed}
+     </if>
+     <if test="partyPosition !=null and partyPosition !=''">
+           And t.PartyPosition = #{partyPosition}
+     </if>
+     <if test="belongMarket !=null and belongMarket !=''">
+           And t.BelongMarket LIKE CONCAT('%',#{belongMarket},'%')
+     </if>
+     <if test="originLoc !=null and originLoc !=''">
+           And t.OriginLoc LIKE CONCAT('%',#{originLoc},'%')
+     </if>
+     <if test="partyOrgID !=null and partyOrgID !=''">
+           And t.PartyOrgID = #{partyOrgID}
+     </if>
+     <if test="orgRelationLoc !=null and orgRelationLoc !=''">
+           And t.OrgRelationLoc = #{orgRelationLoc}
+     </if>
+     <if test="auditName !=null and auditName !=''">
+           And t.AuditName = #{auditName}
+     </if>
+     <if test="createTimeStart !='' and createTimeStart !=null">
+	      <![CDATA[
+		  and DATE_FORMAT(t.CreateTime,'%Y-%m-%d') >= #{createTimeStart}
+		  ]]>
+	     </if>
+	      <if test="createTimeEnd !='' and createTimeEnd !=null">
+	      <![CDATA[
+		  and DATE_FORMAT(t.CreateTime,'%Y-%m-%d') <= #{createTimeEnd}
+		  ]]>
+	 </if>
+     <if test="modifyTimeStart !='' and modifyTimeStart !=null">
+	      <![CDATA[
+		  and DATE_FORMAT(t.ModifyTime,'%Y-%m-%d') >= #{modifyTimeStart}
+		  ]]>
+	     </if>
+	      <if test="modifyTimeEnd !='' and modifyTimeEnd !=null">
+	      <![CDATA[
+		  and DATE_FORMAT(t.ModifyTime,'%Y-%m-%d') <= #{modifyTimeEnd}
+		  ]]>
+	 </if>
+	 <if test="joinPartyTimeStart !='' and joinPartyTimeStart !=null">
+	      <![CDATA[
+		  and DATE_FORMAT(t.JoinPartyTime,'%Y-%m-%d') >= #{joinPartyTimeStart}
+		  ]]>
+	     </if>
+	      <if test="joinPartyTimeEnd !='' and joinPartyTimeEnd !=null">
+	      <![CDATA[
+		  and DATE_FORMAT(t.JoinPartyTime,'%Y-%m-%d') <= #{joinPartyTimeEnd}
+		  ]]>
+	 </if>
+	 <if test="memberAgeStart !='' and memberAgeStart !=null">
+	      <![CDATA[
+		  and t.MemberAge >= #{memberAgeStart}
+		  ]]>
+	     </if>
+	      <if test="memberAgeEnd !='' and memberAgeEnd !=null">
+	      <![CDATA[
+		  and t.MemberAge <= #{memberAgeEnd}
+		  ]]>
+	 </if>
+     <if test="regStates!=null and regStates!=''">
+			and a.RegState IN
+			<foreach item="item" index="index" collection="regStates" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+	  </if>
+  </sql>
+  
+  <select id="selectMemberInfoCount" resultMap="BaseResultMapDto" parameterType="Map">
+  	SELECT G.LocalAdm,G.LocalAdmName,G.RegOrg,G.RegOrgName,G.Areacode,M.dangzuzhi,G.partynum,G.yezhuparty,G.memberparty,G.manparty,
+  	G.womanparty,G.hannation,G.othernation,G.zhengshiparty,G.ganbuparty,G.shujiparty,G.putongparty,G.geti,G.shichang,G.age30,
+  	G.age30_40,G.age40_50,G.age50_60,G.age60,G.xiaoxue,G.chuzhong,G.gaozhong,G.dazhuan,G.benke,G.xueliover,G.ent,G.pb
+	 FROM (SELECT
+		A.LocalAdm,A.LocalAdmName,A.RegOrg,A.RegOrgName,A.Areacode,
+		SUM(CASE WHEN (B.MemberType = '1' OR B.MemberType = '2') AND B.AuditState='1' THEN 1 ELSE 0 END) partynum,
+		SUM(CASE WHEN B.MemberType = '1' AND B.AuditState='1' THEN 1 ELSE 0 END) yezhuparty,
+	  	SUM(CASE WHEN B.MemberType = '2' AND B.AuditState='1' THEN 1 ELSE 0 END) memberparty,
+		SUM(CASE WHEN B.Sex = '1' AND B.AuditState='1' THEN 1 ELSE 0 END) manparty,
+	  	SUM(CASE WHEN B.Sex = '2' AND B.AuditState='1' THEN 1 ELSE 0 END) womanparty,
+		SUM(CASE WHEN B.Nationality = '1' AND B.AuditState='1' THEN 1 ELSE 0 END) hannation,
+		SUM(CASE WHEN B.Nationality = '2' AND B.AuditState='1' THEN 1 ELSE 0 END) othernation,
+		SUM(CASE WHEN B.PmType = '1' AND B.AuditState='1' THEN 1 ELSE 0 END) zhengshiparty,
+		SUM(CASE WHEN B.PmType = '2' AND B.AuditState='1' THEN 1 ELSE 0 END) yubeiparty,
+		SUM(CASE WHEN B.PartyPosition = '2' AND B.AuditState='1' THEN 1 ELSE 0 END) ganbuparty,
+		SUM(CASE WHEN B.IsSecretary = '1' AND B.AuditState='1' THEN 1 ELSE 0 END) shujiparty,	
+		SUM(CASE WHEN B.PartyPosition = '1' AND B.AuditState='1' THEN 1 ELSE 0 END) putongparty,
+		SUM(CASE WHEN B.PmDistributed = '1' AND B.AuditState='1' THEN 1 ELSE 0 END) geti,
+		SUM(CASE WHEN B.PmDistributed = '0' AND B.AuditState='1' THEN 1 ELSE 0 END) shichang,
+		<![CDATA[ 
+		SUM(CASE WHEN B.MemberAge < 30 AND B.AuditState='1' THEN 1 ELSE 0 END) age30,
+		SUM(CASE WHEN B.MemberAge >= 30 AND B.MemberAge < 40 AND B.AuditState='1' THEN 1 ELSE 0 END) age30_40,
+		SUM(CASE WHEN B.MemberAge >= 40 AND B.MemberAge < 50 AND B.AuditState='1' THEN 1 ELSE 0 END) age40_50,
+		SUM(CASE WHEN B.MemberAge >= 50 AND B.MemberAge < 60 AND B.AuditState='1' THEN 1 ELSE 0 END) age50_60,
+		SUM(CASE WHEN B.MemberAge >= 60 AND B.AuditState='1' THEN 1 ELSE 0 END) age60,
+		]]>
+		SUM(CASE WHEN B.Qualifications = '1' AND B.AuditState='1' THEN 1 ELSE 0 END) xiaoxue,
+		SUM(CASE WHEN B.Qualifications = '2' AND B.AuditState='1' THEN 1 ELSE 0 END) chuzhong,
+		SUM(CASE WHEN B.Qualifications = '3' AND B.AuditState='1' THEN 1 ELSE 0 END) gaozhong,
+		SUM(CASE WHEN B.Qualifications = '4' AND B.AuditState='1' THEN 1 ELSE 0 END) dazhuan,
+		SUM(CASE WHEN B.Qualifications = '5' AND B.AuditState='1' THEN 1 ELSE 0 END) benke,
+		SUM(CASE WHEN (B.Qualifications = '6' OR B.Qualifications = '7' OR B.Qualifications = '8' OR B.Qualifications = '9') AND B.AuditState='1' THEN 1 ELSE 0 END) xueliover,
+		SUM(CASE WHEN B.EntType = '1' AND B.AuditState='1' THEN 1 ELSE 0 END) ent,
+		SUM(CASE WHEN B.EntType = '2' AND B.AuditState='1' THEN 1 ELSE 0 END) pb	
+	FROM
+		cs_party_organize_info A
+	LEFT JOIN cs_party_member_info B ON B.PartyOrgID=A.UID
+	WHERE A.InputState='1'
+	<include refid="count_where"/>
+	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'area' ">
+		GROUP BY A.Areacode
+	</if>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'regorg' ">
+		GROUP BY A.RegOrg
+	</if>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'localadm' ">
+		GROUP BY A.LocalAdm
+	</if>) G
+	LEFT JOIN (
+		SELECT A.AreaCode, A.RegOrg, A.LocalAdm,
+	COUNT(A.PartyOrgType) dangzuzhi
+	FROM
+	cs_party_organize_info A
+	WHERE A.InputState='1'
+	<if test="statArea !='' and statArea !=null">
+   	    AND A.Areacode IN  (${statArea}) 
+     </if>
+	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'area' ">
+		GROUP BY A.Areacode
+	</if>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'regorg' ">
+		GROUP BY A.RegOrg
+	</if>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'localadm' ">
+		GROUP BY A.LocalAdm
+	</if>
+   ) M  ON 
+   
+   <if test="statLevel != null and statLevel != '' and  statLevel == 'area' ">
+		G.Areacode=M.Areacode
+	</if>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'regorg' ">
+		G.RegOrg=M.RegOrg
+	</if>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'localadm' ">
+		G.LocalAdm=M.LocalAdm
+	</if>
+   
+  </select>
+  
+  <sql id="count_where"> 
+ 	 <if test="statArea !='' and statArea !=null">
+   	    AND A.Areacode IN  (${statArea}) 
+     </if>
+	 <if test="createTime !='' and createTime !=null">
+		<![CDATA[
+			AND B.CreateTime <= CONCAT(#{createTime},'00:00:00' )
+		]]> 
+	 </if>  
+  </sql>
+  
+  <select id="selectMembersByPartyOrgID" resultMap="BaseResultMapDto" parameterType="Map">
+    SELECT id,UID,PriPID,EntName,RegNO,UNICODE,LeRep,MemberType,IsBuildPartyOrg,MemberName,Sex,IdentityInfo,TelNum,IsSecretary,
+    Qualifications,OriginLoc,OrgRelationLoc,PartyOrgName,PartyOrgID,IsAssoVip,PmType,EntType,MemberAge,
+    PmDistributed,JoinPartyTime,PartyPosition,Remark,AuditState,AuditTime,AuditName,AuditDept,CreateTime 
+    FROM cs_party_member_info 
+    WHERE 1=1
+    <if test="partyOrgID != null and partyOrgID != ''">
+      AND PartyOrgID = #{partyOrgID}
+    </if>
+    <if test="auditState != null and auditState != ''">
+      AND AuditState = #{auditState}
+     </if>
+  </select>
+  
+  
+   <resultMap id="selectToTreeMapResultMap" type="java.util.HashMap">
+  	<result property="id" column="id" javaType="java.lang.String" jdbcType="VARCHAR"/>
+  	<result property="name" column="name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+  	<result property="pId" column="pId" javaType="java.lang.String" jdbcType="VARCHAR"/>
+  	<result property="nocheck" column="nocheck" javaType="java.lang.String" jdbcType="VARCHAR"/>
+  </resultMap>
+
+  <select id="selectMemberTreeMap" resultMap="selectToTreeMapResultMap" parameterType="map">
+	SELECT UId id,memberName NAME,pId,nocheck FROM (
+	SELECT '1' UID,'党员列表' memberName,'0' pId,'true' nocheck FROM cs_party_member_info UNION
+	SELECT UID id,memberName,'1' pId,'false' nocheck FROM cs_party_member_info WHERE 1=1 AND 
+	AuditState = '1' 
+	<if test="content != null and content != ''">
+        and memberName LIKE CONCAT('%',#{content},'%')
+    </if>
+	) t ORDER BY pId  
+  </select>
+  
+</mapper>

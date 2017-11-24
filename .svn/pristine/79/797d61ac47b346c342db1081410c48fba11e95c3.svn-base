@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.ext.mapper.MidLiquidationMapper" >
+  <resultMap id="MidLiquidation" type="com.icinfo.cs.ext.model.MidLiquidation" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="LigPrincipal" property="ligPrincipal" jdbcType="VARCHAR" />
+    <result column="Addr" property="addr" jdbcType="VARCHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="LigSt" property="ligSt" jdbcType="CHAR" />
+    <result column="LigEndDate" property="ligEndDate" jdbcType="DATE" />
+    <result column="DebtTranee" property="debtTranee" jdbcType="VARCHAR" />
+    <result column="ClaimTranee" property="claimTranee" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="LiqMem" property="liqMem" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <resultMap id="MidLiquidationDto" type="com.icinfo.cs.ext.dto.MidLiquidationDto" extends="MidLiquidation" >
+  </resultMap>
+	
+	<select id="queryResultByPripid" resultMap="MidLiquidationDto" parameterType="Map">
+		SELECT 
+		  A.LigPrincipal,
+		  A.LiqMem
+		FROM
+		  cs_mid_liquidation A 
+		  where A.PriPID =#{priPID}
+	</select>
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.nocreditPunish.mapper.NoCreditPunishBackMapper">
+
+	<resultMap id="NoCreditPunishBackMap" type="com.icinfo.cs.nocreditPunish.model.NoCreditPunishBack">
+		<!-- WARNING - @frameworkgenerated -->
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="BatchNo" property="batchNo" jdbcType="VARCHAR" />
+		<result column="CreateTime" property="createTime" jdbcType="DATE" javaType="java.util.Date" />
+		<result column="BackDeptCode" property="backDeptCode" jdbcType="VARCHAR" />
+		<result column="BackDept" property="backDept" jdbcType="VARCHAR" />
+		<result column="OpName" property="opName" jdbcType="VARCHAR" />
+		<result column="BackContent" property="backContent" jdbcType="VARCHAR" />
+		<result column="State" property="state" jdbcType="INTEGER" />
+		<result column="FeedBack" property="feedBack" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="deptBackExist" parameterType="Map" resultMap="NoCreditPunishBackMap">
+	    SELECT t.BatchNo FROM cs_nocredit_punishback t 
+	    WHERE t.BatchNo=#{batchNo} AND t.BackDeptCode=#{deptCode} LIMIT 0,1
+	</select>
+	
+	<select id="updateBack" parameterType="com.icinfo.cs.nocreditPunish.dto.NoCreditPunishBackDto" >
+	    UPDATE cs_nocredit_punishback t
+	    <!-- 这里如果是警示，则要是工商部门的范围 -->
+	    <if test="userType != null and backDeptCode != null and backDeptCode != ''">
+	     LEFT JOIN  cs_dept_dutycode_ref t1 ON t.BackDeptCode=t1.AdCode 
+	    </if>
+		<trim prefix="set" suffixOverrides=",">
+			<if test="state != null and state !=''">
+				t.State=#{state},
+			</if>
+			<if test="backContent != null and backContent !=''">
+				t.BackContent=#{backContent},
+			</if>
+			<if test="opName != null and opName !=''">
+				t.OpName=#{opName},
+			</if>
+			<if test="createTime != null">
+				t.CreateTime=#{createTime},
+			</if>
+		</trim>
+		WHERE t.BatchNo=#{batchNo} AND 
+		<if test="userType != null and backDeptCode != null and backDeptCode != ''">
+			t.BackDeptCode like concat('', #{backDeptCode},'%') AND t1.DutyDeptCode = 'A058' 
+		</if>
+		<if test="userType == null and backDeptCode != null and backDeptCode != ''">
+			t.BackDeptCode=#{backDeptCode}
+		</if>
+	</select>
+	
+</mapper>

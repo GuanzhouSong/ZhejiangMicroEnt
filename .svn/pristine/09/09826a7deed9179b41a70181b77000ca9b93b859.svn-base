@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.sccheck.mapper.PubScentAgentBackMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sccheck.model.PubScentAgentBack" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Uid" property="uid" jdbcType="VARCHAR" />
+    <result column="DeptTaskUid" property="deptTaskUid" jdbcType="VARCHAR" />
+    <result column="AgentUid" property="agentUid" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  	<resultMap id="BaseResultMapDto"
+		type="com.icinfo.cs.sccheck.dto.PubScentAgentBackDto" extends="BaseResultMap">
+		<result column="EmployeeNO" property="employeeNO" jdbcType="VARCHAR" />
+		<result column="StudyLevel" property="studyLevel" jdbcType="VARCHAR" />
+		<result column="Professionals" property="professionals" jdbcType="VARCHAR" />
+		<result column="StationTerm" property="stationTerm" jdbcType="VARCHAR" />
+		<result column="WorkTime" property="workTime" jdbcType="TIMESTAMP" />
+		<result column="LawNO" property="lawNO" jdbcType="VARCHAR" />
+		<result column="UnitCode" property="unitCode" jdbcType="VARCHAR" />
+		<result column="UnitLevel" property="unitLevel" jdbcType="VARCHAR" />
+		<result column="DeptCode" property="deptCode" jdbcType="VARCHAR" />
+		<result column="DeptCatg" property="deptCatg" jdbcType="VARCHAR" />
+		<result column="AgentName" property="agentName" jdbcType="VARCHAR" />
+		<result column="AgentNO" property="agentNO" jdbcType="VARCHAR" />
+		<result column="AgentArea" property="agentArea" jdbcType="VARCHAR" />
+		<result column="SlicenNO" property="slicenNO" jdbcType="VARCHAR" />
+		<result column="AgentRange" property="agentRange" jdbcType="VARCHAR" />
+		<result column="AgentRangeName" property="agentRangeName" jdbcType="VARCHAR" />
+		<result column="SetUserId" property="setUserId" jdbcType="VARCHAR" />
+		<result column="SetUserName" property="setUserName" jdbcType="VARCHAR" />
+		<result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+		<result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="AgentInnerNO" property="agentInnerNO" jdbcType="VARCHAR" />
+		<result column="UnitType" property="unitType" jdbcType="VARCHAR" />
+		<result column="RelateUserUid" property="relateUserUid" jdbcType="VARCHAR" />
+		<result column="AgentDeptName" property="agentDeptName" jdbcType="VARCHAR" />
+		<result column="DeptName" property="deptName" jdbcType="VARCHAR" />
+		<result column="BirthDay" property="birthDay" jdbcType="VARCHAR" />
+		<result column="AgentPosition" property="agentPosition" jdbcType="VARCHAR" />
+		<result column="AgentAge" property="agentAge" jdbcType="INTEGER" />
+		<result column="Mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="LawEndDate" property="lawEndDate" jdbcType="TIMESTAMP" />
+		<result column="TechnicalTitle" property="technicalTitle" jdbcType="VARCHAR" />
+		<result column="GovLawNO" property="govLawNO" jdbcType="VARCHAR" />
+		<result column="GovLawEndDate" property="govLawEndDate" jdbcType="TIMESTAMP" />
+		<result column="ExpertFlag" property="expertFlag" jdbcType="VARCHAR" />
+		<result column="AgentState" property="agentState" jdbcType="CHAR" />
+		<result column="SetDeptcode" property="setDeptcode" jdbcType="VARCHAR" />
+		<result column="SetDeptName" property="setDeptName" jdbcType="VARCHAR" />
+		<result column="AgentSex" property="agentSex" jdbcType="CHAR" />
+		<result column="entCatgName" property="entCatgName" jdbcType="VARCHAR" />
+		<result column="sliceName" property="sliceName" jdbcType="VARCHAR" />
+		<result column="code" property="code" jdbcType="VARCHAR" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="slicenNOName" property="slicenNOName" jdbcType="VARCHAR" />
+		<result column="UnitName" property="unitName" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	   <!-- 查询当前任务下已抽取企业列表 -->
+	   <select id="selectPubScentAgentBackDtoList" resultMap="BaseResultMapDto" parameterType="Map"> 
+		select b.id,b.uid,b.AgentUId,b.DeptTaskUid,
+		a.EmployeeNO,a.AgentSex,a.StudyLevel,a.Professionals,a.StationTerm,a.WorkTime,a.LawNO,a.UnitCode,a.UnitName,a.UnitLevel,a.DeptCode,a.DeptCatg,a.AgentName,a.AgentNO,a.AgentArea,a.SlicenNO,AgentRange,a.SetUserId,a.SetUserName,a.SetTime,
+		a.AgentInnerNO,a.UnitType,a.RelateUserUid,a.AgentDeptName,a.DeptName,a.BirthDay,a.AgentPosition,a.AgentAge,a.Mobile,a.LawEndDate,a.TechnicalTitle,a.GovLawNO,a.GovLawEndDate,a.ExpertFlag,a.AgentState,a.SetDeptcode,a.SetDeptName,a.AgentRangeName,
+		a.slicenNOName
+		from cs_pub_scent_agent_back b 
+		LEFT JOIN cs_pub_scagent a ON b.AgentUId = a.UID 
+		LEFT JOIN cs_code_regunit c ON a.SlicenNO = c.Code
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="deptTaskUid != null and deptTaskUid != ''">
+				and b.DeptTaskUid = #{deptTaskUid}
+			</if>
+			<if test="agentName != null and agentName != ''">
+				and a.AgentName like CONCAT('%', #{agentName},'%') 
+			</if>
+		</trim>
+	  </select>
+	  
+	  <!-- 查询条数 -->
+	  <select id="selectPubScentAgentBackDtoCount" parameterType="Map" resultType="Integer">
+	    select count(0)
+		from cs_pub_scent_agent_back b 
+		LEFT JOIN cs_pub_scagent a ON b.AgentUId = a.UID 
+		LEFT JOIN cs_code_regunit c ON a.SlicenNO = c.Code
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="deptTaskUid != null and deptTaskUid != ''">
+				and b.DeptTaskUid = #{deptTaskUid}
+			</if>
+		</trim>
+	  </select>
+	  
+	<!-- 根据部门人员id和任务id批量删除 -->
+    <delete id="deleteInAgentUIdAndDeptTaskUid" parameterType="String">
+        delete from cs_pub_scent_agent_back where DeptTaskUid = #{deptTaskUid} and AgentUId in (${agentUIds})
+    </delete>  
+	  
+	 
+	
+  
+  
+</mapper>

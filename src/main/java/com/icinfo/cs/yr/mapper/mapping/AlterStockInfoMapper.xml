@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.AlterStockInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.AlterStockInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Inv" property="inv" jdbcType="VARCHAR" />
+    <result column="AltDate" property="altDate" jdbcType="DATE" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="InvAltID" property="invAltID" jdbcType="VARCHAR" />
+    <result column="AnCheID" property="anCheID" jdbcType="VARCHAR" />
+    <result column="BeTransAmPr" property="beTransAmPr" jdbcType="DECIMAL" />
+    <result column="AfTransAmPr" property="afTransAmPr" jdbcType="DECIMAL" />
+  </resultMap>
+  
+   <resultMap id="BaseResultMapDto" type="com.icinfo.cs.yr.dto.AlterStockInfoDto" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Inv" property="inv" jdbcType="VARCHAR" />
+    <result column="AltDate" property="altDate" jdbcType="DATE" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="InvAltID" property="invAltID" jdbcType="VARCHAR" />
+    <result column="AnCheID" property="anCheID" jdbcType="VARCHAR" />
+    <result column="BeTransAmPr" property="beTransAmPr" jdbcType="DECIMAL" />
+    <result column="AfTransAmPr" property="afTransAmPr" jdbcType="DECIMAL" />
+    <result column="AltItem" property="altItem" jdbcType="VARCHAR" />
+    <result column="AltTable" property="altTable" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 根据年报id保存公示信息 -->
+  <insert id="insertByAnCheID" parameterType="Map">
+  	INSERT INTO cs_alterstockinfo (
+  	Inv, AltDate, CreateTime, InvAltID, AnCheID, BeTransAmPr, AfTransAmPr
+	) 
+	SELECT 
+	Inv, AltDate, CreateTime, InvAltID, AnCheID, BeTransAmPr, AfTransAmPr
+    FROM
+    cs_yr_alterstockinfo
+    WHERE
+    AnCheID = #{anCheID,jdbcType=VARCHAR}
+  </insert>
+  
+    <select id="selectAlterStockInfoForPub" parameterType="Map" resultMap="BaseResultMapDto">
+	SELECT id,
+	Inv, AltDate, CreateTime, InvAltID, AnCheID, BeTransAmPr, AfTransAmPr,
+	(SELECT GROUP_CONCAT(s.AltItem separator ',') from cs_updateinfo s where s.AnCheID  = t.AnCheID  
+	 and s.AltTable = 'AlterStockInfo'
+	 and s.AltID = t.InvAltID) AltItem
+    FROM
+    cs_alterstockinfo t
+    WHERE
+    t.AnCheID = #{anCheID,jdbcType=VARCHAR}
+  </select>
+</mapper>

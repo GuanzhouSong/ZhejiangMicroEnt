@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.sment.mapper.SmentBulletinsMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sment.model.SmentBulletins" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="Title" property="title" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="Source" property="source" jdbcType="VARCHAR" />
+    <result column="BulScope" property="bulScope" jdbcType="CHAR" />
+    <result column="SetDeptname" property="setDeptname" jdbcType="VARCHAR" />
+    <result column="BulType" property="bulType" jdbcType="CHAR" />
+    <result column="Contents" property="contents" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+    <result column="SetId" property="setId" jdbcType="VARCHAR" />
+    <result column="IsValid" property="isValid" jdbcType="CHAR" />
+    <result column="SetDeptCode" property="setDeptCode" jdbcType="VARCHAR" />
+    <result column="ReadCount" property="readCount" jdbcType="INTEGER" />
+  </resultMap>
+	<select id="selectTest" resultType="int">
+		SELECT count(*)
+		FROM `sm_bulletins`
+	</select>
+	<select id="selectBulletinsList" resultMap="BaseResultMap" parameterType="Map" >
+      SELECT id,UID,Title,CreateTime,Source,BulScope,SetDeptname,BulType,Contents,SetTime,SetName,SetId,IsValid,contents,SetDeptCode,
+      ReadCount
+      FROM sm_bulletins where  1=1
+        <if test="title !=null and title != ''">
+			AND Title like CONCAT('%', #{title},'%')
+		</if>
+        <if test="setName !=null and setName != ''">
+			AND SetName like CONCAT('%', #{setName},'%')
+		</if>
+		<if test="bulType !=null and bulType != ''">
+			and bulType = #{bulType}
+		</if>
+        <if test="bulScope !=null and bulScope != ''">
+			and bulScope = #{bulScope}
+		</if>
+		<if test="setTimeStart !='' and setTimeStart !=null">
+	    <![CDATA[
+		and DATE_FORMAT(SetTime,'%Y-%m-%d') >= #{setTimeStart}
+		]]>
+	    </if>
+	     <if test="setTimeEnd !='' and setTimeEnd !=null">
+	    <![CDATA[
+		and DATE_FORMAT(SetTime,'%Y-%m-%d') <= #{setTimeEnd}
+		]]>
+		</if>
+		order by SetTime desc
+  </select>
+</mapper>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.sccheck.mapper.PubScGroupMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sccheck.model.PubScGroup" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Uid" property="uid" jdbcType="VARCHAR" />
+    <result column="AgentNames" property="agentNames" jdbcType="VARCHAR" />
+    <result column="ExpertNames" property="expertNames" jdbcType="VARCHAR" />
+    <result column="TeamLeader" property="teamLeader" jdbcType="VARCHAR" />
+    <result column="MemberNum" property="memberNum" jdbcType="INTEGER" />
+    <result column="GroupType" property="groupType" jdbcType="CHAR" />
+    <result column="SetUserUid" property="setUserUid" jdbcType="VARCHAR" />
+    <result column="SetUserName" property="setUserName" jdbcType="VARCHAR" />
+    <result column="SetDeptCode" property="setDeptCode" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="IsVlid" property="isVlid" jdbcType="CHAR" />
+  </resultMap>
+  
+   <resultMap id="PubScGroupDtoResultMap" type="com.icinfo.cs.sccheck.dto.PubScGroupDto" extends="BaseResultMap">
+       <result column="showFiled" property="showFiled" jdbcType="VARCHAR" />
+   </resultMap>
+  
+   <select id="selectGroupList" parameterType="Map" resultMap="PubScGroupDtoResultMap">
+		SELECT
+		a.Uid,
+		a.AgentNames,
+		a.ExpertNames,
+		a.TeamLeader,
+		a.MemberNum,
+		a.GroupType,
+		a.SetUserUid,
+		a.SetUserName,
+		a.SetDeptCode,
+		a.SetTime,
+		<![CDATA[
+			GROUP_CONCAT(
+				CASE
+				WHEN (b.AgentState = '1') THEN
+					CASE
+				WHEN (
+					(b.LawNO IS NULL OR b.LawNO = '')
+					AND (
+						b.GovLawNO IS NULL
+						OR b.GovLawNO = ''
+					)
+				) THEN
+					CONCAT(
+						'<span class=''light''>*</span>',
+						b.AgentName
+					)
+				ELSE
+					b.AgentName
+				END
+				ELSE
+					CONCAT(
+						'<span class=''yellow-bg''>',
+						b.AgentName,
+						'</span>'
+					)
+				END
+			)
+		]]>  showFiled
+		FROM
+			cs_pub_scgroup a
+		LEFT JOIN cs_pub_scgroup_member t ON a.Uid = t.GroupUid
+		LEFT JOIN cs_pub_scagent b ON t.AgentUid = b.UID
+		WHERE
+		    1 = 1
+	    <if test="setUserUid !=null and setUserUid != ''">
+	           AND a.SetUserUid = #{setUserUid}
+	    </if>
+	    <if test="groupType !=null and groupType != ''">
+	           AND a.GroupType = #{groupType}
+	    </if>
+	    <if test="isVlid !=null and isVlid != ''">
+	           AND a.IsVlid = #{isVlid}
+	    </if>
+	    <if test="agentNames !=null and agentNames != ''">
+	           AND a.AgentNames like CONCAT('%',#{agentNames},'%')
+	    </if>
+	    <if test="setUserName !=null and setUserName != ''">
+	           AND a.SetUserName like CONCAT('%',#{setUserName},'%')
+	    </if>
+	    <if test="setTimeStart !=null and setTimeStart != ''">
+	    <![CDATA[
+			AND DATE_FORMAT(a.SetTime,'%Y-%m-%d') >= #{setTimeStart}
+		]]>
+	    </if>
+	    <if test="setTimeEnd !=null and setTimeEnd != ''">
+	    <![CDATA[
+			AND DATE_FORMAT(a.SetTime,'%Y-%m-%d') >= #{setTimeEnd}
+		]]>
+	    </if>
+	    <if test="agentIsVlid !=null and agentIsVlid != '' and agentIsVlid ==1">
+	           AND b.AgentState = #{agentIsVlid}
+	    </if>
+	    <if test="agentIsVlid !=null and agentIsVlid != '' and agentIsVlid ==2">
+	    <![CDATA[
+	           AND (b.AgentState <> '1' or b.AgentState is null)
+	    ]]>
+	    </if>
+	    GROUP BY
+			t.GroupUid
+   </select>
+  
+   <select id="selectGroupCount" resultType="java.lang.Integer" parameterType="Map">
+	SELECT 
+		count(uid)
+	FROM cs_pub_scgroup
+	WHERE 1=1
+    <if test="setUserUid !=null and setUserUid != ''">
+           AND SetUserUid = #{setUserUid}
+    </if>
+    <if test="groupType !=null and groupType != ''">
+           AND GroupType = #{groupType}
+    </if>
+    <if test="isVlid !=null and isVlid != ''">
+           AND IsVlid = #{isVlid}
+    </if>
+    </select>
+  
+</mapper>

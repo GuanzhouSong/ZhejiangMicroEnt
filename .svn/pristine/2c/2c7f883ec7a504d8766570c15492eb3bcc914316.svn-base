@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.FoodstorageLicenseMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.FoodstorageLicense" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="LicNO" property="licNO" jdbcType="VARCHAR" />
+    <result column="LicNameCN" property="licNameCN" jdbcType="VARCHAR" />
+    <result column="LicAnth" property="licAnth" jdbcType="VARCHAR" />
+    <result column="LicValFrom" property="licValFrom" jdbcType="DATE" />
+    <result column="LicValTo" property="licValTo" jdbcType="DATE" />
+    <result column="LicType" property="licType" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="LicScope" property="licScope" jdbcType="LONGVARCHAR" />
+    <result column="Remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+</mapper>

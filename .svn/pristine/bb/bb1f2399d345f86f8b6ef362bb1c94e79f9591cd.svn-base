@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.base.mapper.CodeSlicenoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.base.model.CodeSliceno" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="SupCode" property="supCode" jdbcType="VARCHAR" />
+    <result column="Content" property="content" jdbcType="VARCHAR" />
+    <result column="Type" property="type" jdbcType="CHAR" />
+    <result column="Code" property="code" jdbcType="VARCHAR" />
+  </resultMap> 
+  <resultMap id="selectToTreeMapResultMap" type="java.util.HashMap">
+  	<result property="id" column="id" javaType="java.lang.String" jdbcType="VARCHAR"/>
+  	<result property="name" column="name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+  	<result property="pId" column="pId" javaType="java.lang.String" jdbcType="VARCHAR"/>
+  	<result property="nocheck" column="nocheck" javaType="java.lang.String" jdbcType="VARCHAR"/>
+  </resultMap>
+
+
+  <select id="selectToTreeMap" resultMap="selectToTreeMapResultMap" parameterType="map">
+    SELECT CODE id,content name,sup_code pId FROM( SELECT SUBSTR(CODE, 1, 2) CODE, SUBSTR(content, 1, 3) content, '0' SUP_CODE
+	FROM cs_code_regunit  WHERE CODE LIKE '%000000' AND CODE != '100000' 
+	<if test="content !=null and content != ''">
+	AND EXISTS (SELECT 1 FROM cs_code_regunit gxdw, cs_code_sliceno glph 
+    WHERE gxdw.code != '100000' AND gxdw.code != '999999' AND gxdw.code = glph.SupCode AND glph.content like CONCAT('%',#{content},'%'))
+	</if>
+	UNION 
+	SELECT SUBSTR(CODE,
+	1, 4) CODE, SUBSTR(content, 1, 3) content, '33' SUP_CODE FROM cs_code_regunit  WHERE CODE LIKE
+	'%0000' AND CODE != '100000'
+	<if test="content != null and content != ''">
+	AND SUBSTR(CODE, 1, 4) IN (SELECT SUBSTR(CODE, 1, 4) FROM cs_code_regunit WHERE CODE != '100000' AND CODE != '999999' AND CODE IN (SELECT gxdw.code SUP_CODE FROM cs_code_regunit gxdw, cs_code_sliceno glph 
+	WHERE gxdw.code != '100000' AND gxdw.code != '999999' AND gxdw.code = glph.SupCode AND glph.content LIKE CONCAT('%',#{content},'%')))	
+	</if>	 
+	UNION SELECT SUBSTR(CODE, 1, 6) CODE, content, SUBSTR(CODE, 1,
+	4) SUP_CODE FROM cs_code_regunit  WHERE CODE LIKE '%00' AND CODE != '100000' AND CODE != '999999'
+	<if test="content != null and content != ''">
+	AND SUBSTR(CODE, 1, 6) IN (SELECT SUBSTR(CODE, 1, 6) FROM cs_code_regunit WHERE CODE != '100000' AND CODE != '999999' AND CODE IN (SELECT gxdw.code SUP_CODE FROM cs_code_regunit gxdw, cs_code_sliceno glph 
+	WHERE gxdw.code != '100000' AND gxdw.code != '999999' AND gxdw.code = glph.SupCode AND glph.content LIKE CONCAT('%',#{content},'%')))	
+	</if>	
+	UNION SELECT CODE, content,  SUBSTR(CODE, 1, 6) SUP_CODE FROM
+	cs_code_regunit  WHERE CODE != '100000' AND CODE != '999999'
+	<if test="content != null and content != ''">
+	AND CODE IN (SELECT gxdw.code SUP_CODE FROM cs_code_regunit gxdw, cs_code_sliceno glph 
+	WHERE gxdw.code != '100000' AND gxdw.code != '999999' AND gxdw.code = glph.SupCode AND glph.content LIKE CONCAT('%',#{content},'%'))	
+	</if>		 
+	UNION SELECT glph.code, glph.content,
+	gxdw.code SUP_CODE FROM cs_code_regunit  gxdw, cs_code_sliceno glph WHERE gxdw.code != '100000'
+	AND gxdw.code != '999999' AND gxdw.code = glph.SupCode 
+	<if test="content != null and content != ''">
+        and glph.content LIKE CONCAT('%',#{content},'%')
+    </if>
+	) t 
+    <where>
+       <!--权限字段。add by lihq -->
+       <if test="regUnit_permission_limit!=null and regUnit_permission_limit !=''">
+           t.SUP_CODE LIKE CONCAT(#{regUnit_permission_limit},'%')
+       </if>
+   </where>
+	ORDER BY SUP_CODE, CODE
+  </select>
+
+
+  <select id="selectToTreeNoCheckMap"   resultMap="selectToTreeMapResultMap" parameterType="map">
+    SELECT CODE id,content name,sup_code pId,nocheck FROM( SELECT SUBSTR(CODE, 1, 2) CODE, SUBSTR(content, 1, 3) content, '0' SUP_CODE ,'true' AS nocheck
+	FROM cs_code_regunit  WHERE CODE LIKE '%000000' AND CODE != '100000'
+	<if test="content !=null and content != ''">
+	AND EXISTS (SELECT 1 FROM cs_code_regunit gxdw, cs_code_sliceno glph 
+    WHERE gxdw.code != '100000' AND gxdw.code != '999999' AND gxdw.code = glph.SupCode AND glph.content like CONCAT('%',#{content},'%'))
+	</if> 
+	UNION SELECT SUBSTR(CODE, 
+	1, 4) CODE, SUBSTR(content, 1, 3) content, '33' SUP_CODE, 'true' AS nocheck FROM cs_code_regunit  WHERE CODE LIKE 
+	'%0000' AND CODE != '100000' 
+	<if test="content != null and content != ''">
+	AND SUBSTR(CODE, 1, 4) IN (SELECT SUBSTR(CODE, 1, 4) FROM cs_code_regunit WHERE CODE != '100000' AND CODE != '999999' AND CODE IN (SELECT gxdw.code SUP_CODE FROM cs_code_regunit gxdw, cs_code_sliceno glph 
+	WHERE gxdw.code != '100000' AND gxdw.code != '999999' AND gxdw.code = glph.SupCode AND glph.content LIKE CONCAT('%',#{content},'%')))	
+	</if>
+	UNION SELECT SUBSTR(CODE, 1, 6) CODE, content, SUBSTR(CODE, 1, 
+	4) SUP_CODE ,'true' AS nocheck FROM cs_code_regunit  WHERE CODE LIKE '%00' AND CODE != '100000' AND CODE != '999999' 
+	<if test="content != null and content != ''">
+	AND SUBSTR(CODE, 1, 6) IN (SELECT SUBSTR(CODE, 1, 6) FROM cs_code_regunit WHERE CODE != '100000' AND CODE != '999999' AND CODE IN (SELECT gxdw.code SUP_CODE FROM cs_code_regunit gxdw, cs_code_sliceno glph 
+	WHERE gxdw.code != '100000' AND gxdw.code != '999999' AND gxdw.code = glph.SupCode AND glph.content LIKE CONCAT('%',#{content},'%')))	
+	</if>
+	UNION SELECT CODE, content,  SUBSTR(CODE, 1, 6) SUP_CODE,'true' AS nocheck FROM 
+	cs_code_regunit  WHERE CODE != '100000' AND CODE != '999999' 
+	<if test="content != null and content != ''">
+	AND CODE IN (SELECT gxdw.code SUP_CODE FROM cs_code_regunit gxdw, cs_code_sliceno glph 
+	WHERE gxdw.code != '100000' AND gxdw.code != '999999' AND gxdw.code = glph.SupCode AND glph.content LIKE CONCAT('%',#{content},'%'))	
+	</if>	
+	UNION SELECT glph.code, glph.content, 
+	gxdw.code SUP_CODE,'' AS nocheck FROM cs_code_regunit  gxdw, cs_code_sliceno glph WHERE gxdw.code != '100000' 
+	AND gxdw.code != '999999' AND gxdw.code = glph.SupCode 
+	<if test="content != null and content != ''">
+        and glph.content LIKE CONCAT('%',#{content},'%')
+    </if>
+	) t
+     <where>
+       <!--权限字段。add by lihq -->
+       <if test="regUnit_permission_limit!=null and regUnit_permission_limit !=''">
+		   t.SUP_CODE LIKE CONCAT(#{regUnit_permission_limit},'%') or t.Code = #{regUnit_permission_limit}
+       </if>
+   </where>
+	  ORDER BY SUP_CODE, CODE
+  </select>
+
+	<select id="selectProv"  resultMap="selectToTreeMapResultMap" parameterType="map">
+	SELECT
+	  CODE id,
+	  content NAME,
+	  sup_code pId
+	FROM
+	  (SELECT
+		SUBSTR(CODE, 1, 2) CODE,
+		SUBSTR(content, 1, 3) content,
+		'0' SUP_CODE
+	  FROM
+		cs_code_regunit
+	  WHERE CODE LIKE '3300%'
+		AND CODE != '100000'
+	  UNION
+	  SELECT
+		SUBSTR(CODE, 1, 4) CODE,
+		SUBSTR(content, 1, 3) content,
+		'33' SUP_CODE
+	  FROM
+		cs_code_regunit
+	  WHERE CODE LIKE '%0000'
+		AND CODE != '100000'
+		AND CODE LIKE '3300%'
+	  UNION
+	  SELECT
+		SUBSTR(CODE, 1, 6) CODE,
+		content,
+		SUBSTR(CODE, 1, 4) SUP_CODE
+	  FROM
+		cs_code_regunit
+	  WHERE CODE LIKE '%00'
+		AND CODE != '100000'
+		AND CODE != '999999'
+		AND CODE LIKE '3300%'
+	  UNION
+	  SELECT
+		CODE,
+		content,
+		SUBSTR(CODE, 1, 6) SUP_CODE
+	  FROM
+		cs_code_regunit
+	  WHERE CODE != '100000'
+		AND CODE != '999999'
+		AND CODE LIKE '3300%'
+	  UNION
+	  SELECT
+		glph.code,
+		glph.content,
+		gxdw.code SUP_CODE
+	  FROM
+		cs_code_regunit gxdw,
+		cs_code_sliceno glph
+	  WHERE gxdw.code != '100000'
+		AND gxdw.code != '999999'
+		AND gxdw.code LIKE '3300%'
+		AND gxdw.code = glph.SupCode) t
+	</select>
+
+
+
+
+
+  <!--片区商圈维护  add by yujingwei-->
+  <select id="selectListForTree" resultMap="BaseResultMap" parameterType="map">
+SELECT
+	CODE,
+	Content,
+	SupCode,
+    type
+FROM
+	(
+		SELECT SUBSTR(CODE, 1, 2) CODE,SUBSTR(content, 1, 3) Content,'0' SupCode,NULL Type FROM cs_code_regunit
+		WHERE
+			CODE LIKE '%000000'
+		AND CODE != '100000'
+		UNION
+		SELECT SUBSTR(CODE, 1, 4) CODE,SUBSTR(content, 1, 3) content,'33' SupCode,NULL Type FROM cs_code_regunit
+		WHERE
+			CODE LIKE '%0000'
+		AND CODE != '100000'
+		UNION
+		SELECT SUBSTR(CODE, 1, 6) CODE,content,SUBSTR(CODE, 1, 4) SupCode,NULL Type FROM cs_code_regunit
+        WHERE
+			CODE LIKE '%00'
+		AND CODE != '100000'
+		AND CODE != '999999'
+		UNION
+		SELECT CODE,content,SUBSTR(CODE, 1, 6) SupCode,NULL Type FROM cs_code_regunit
+		WHERE
+			CODE != '100000'
+		AND CODE != '999999'
+		UNION
+		SELECT
+		glph. CODE,
+		glph.content,
+		gxdw. CODE SupCode,
+        glph.Type
+	    FROM
+		cs_code_regunit gxdw,
+		cs_code_sliceno glph
+	    WHERE
+		gxdw. CODE != '100000'
+	    AND gxdw. CODE != '999999'
+	    AND gxdw. CODE = glph.SupCode
+	) t
+	<where>
+		<if test="supCode!='' and supCode!=null">
+			t.SupCode=#{supCode}
+		</if>
+       <if test="regUnit_permission_limit!=null and regUnit_permission_limit !=''">
+           t.SupCode LIKE CONCAT(#{regUnit_permission_limit},'%') or t.Code = #{regUnit_permission_limit}
+       </if>
+   </where>
+    ORDER BY
+	SupCode,
+	CODE
+  </select>
+
+</mapper>

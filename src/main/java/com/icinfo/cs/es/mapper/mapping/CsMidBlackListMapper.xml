@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.es.mapper.CsMidBlackListMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.es.model.CsMidBlackList" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="CerNO" property="cerNO" jdbcType="VARCHAR" />
+    <result column="SetDate" property="setDate" jdbcType="DATE" />
+    <result column="DeadlineTo" property="deadlineTo" jdbcType="DATE" />
+    <result column="RevReaType" property="revReaType" jdbcType="VARCHAR" />
+    <result column="LimitFlag" property="limitFlag" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+    <result column="PenDecNo" property="penDecNo" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="update_time" jdbcType="TIMESTAMP" />
+    <result column="delflag" property="delflag" jdbcType="BIT" />
+    <result column="PenForm" property="penForm" jdbcType="LONGVARCHAR" />
+    <result column="RevRea" property="revRea" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.es.dto.CsMidBlackListDto" id="BaseResultMapDto" extends="BaseResultMap">
+   <result column="PositionName" property="positionName" jdbcType="VARCHAR" />
+   <result column="UniCode" property="uniCode" jdbcType="VARCHAR" />
+   <result column="EntName" property="entName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectCsMidBlackListByCerNO" parameterType="map" resultMap="BaseResultMapDto">
+  	SELECT 
+  		b.EntName,b.UniCode,c.PositionName,a.PenDecNo,a.SetDate,a.DeadlineTo,a.PenForm,a.RevReaType,a.RevRea,
+  		a.LimitFlag,a.RegNO,a.PenDecNo  
+  	FROM
+  		cs_mid_blacklist a  
+  	LEFT JOIN cs_mid_baseinfo b ON a.PriPID = b.PriPID
+	LEFT JOIN (
+		SELECT 
+			PriPID ,p.content PositionName FROM cs_mid_member m 
+		LEFT JOIN cs_code_position p ON m.position = p.code
+		WHERE CerNO = #{cerNO}
+		UNION ALL
+		SELECT PriPID,'法定代表人' PositionName FROM cs_mid_lerep WHERE CerNO = #{cerNO}
+	) c ON a.PriPID = c.PriPID
+	WHERE a.CerNO = #{cerNO}
+  </select>
+</mapper>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.casesource.mapper.CaseSourceInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.casesource.model.CaseSourceInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Uid" property="uid" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="CaseName" property="caseName" jdbcType="VARCHAR" />
+    <result column="ReporterName" property="reporterName" jdbcType="VARCHAR" />
+    <result column="ReporterTel" property="reporterTel" jdbcType="VARCHAR" />
+    <result column="ReporterCard" property="reporterCard" jdbcType="VARCHAR" />
+    <result column="ReportTime" property="reportTime" jdbcType="TIMESTAMP" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="SetDeptCode" property="setDeptCode" jdbcType="VARCHAR" />
+    <result column="SetDeptName" property="setDeptName" jdbcType="VARCHAR" />
+    <result column="CaseState" property="caseState" jdbcType="VARCHAR" />
+    <result column="ReportContent" property="reportContent" jdbcType="LONGVARCHAR" />
+    <result column="SetOpinion" property="setOpinion" jdbcType="LONGVARCHAR" />
+    <result column="Remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.casesource.dto.CaseSourceInfoDto" id="BaseResultDtoMap" extends="BaseResultMap">
+  </resultMap>
+  
+  <select id="selectCaseSourceInfoList" resultMap="BaseResultDtoMap" parameterType="Map"> 
+     SELECT
+      	t.id,
+		t.Uid,
+		t.PriPID,
+		a.EntName,
+		a.RegNO,
+		a.UniCode,
+		t.CaseName,
+		t.ReporterName,
+		t.ReporterTel,
+		t.ReporterCard,
+		t.ReportTime,
+		t.ReportContent,
+		t.CaseState,
+		t.SetName,
+		t.SetOpinion,
+		t.SetTime,
+		t.SetDeptCode,
+		t.SetDeptName,
+		t.Remark
+     FROM
+        cs_case_source_info t 
+      LEFT JOIN cs_mid_baseinfo a ON t.PriPID = a.PriPID
+      WHERE 1=1
+     <include refid="casesource_where"/>	
+     <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+  </select>
+  
+  <sql id="casesource_where">
+     <if test="entName!=null and entName!=''">
+     and a.EntName like CONCAT('%',#{entName},'%')
+     </if>
+     <if test="regOrUnicode!=null and regOrUnicode!=''">
+     and (a.RegNO = #{regOrUnicode} or a.UniCode = #{regOrUnicode})
+     </if>
+     <if test="caseName!=null and caseName!=''">
+     and t.CaseName like CONCAT('%',#{caseName},'%')
+     </if>
+     <if test="reportContent!=null and reportContent!=''">
+     and t.ReportContent like CONCAT('%',#{reportContent},'%')
+     </if>
+     <if test="reporterName!=null and reporterName!=''">
+     and t.ReporterName = #{reporterName}
+     </if>
+     <if test="reporterTel!=null and reporterTel!=''">
+     and t.ReporterTel = #{reporterTel}
+     </if>
+     <if test="reporterCard!=null and reporterCard!=''">
+     and t.ReporterCard = #{reporterCard}
+     </if>
+     <if test="setName!=null and setName!=''">
+     and t.SetName = #{setName}
+     </if>
+     <if test="reportTimeStart !=null and reportTimeStart != ''">
+	    <![CDATA[
+			AND DATE_FORMAT(t.ReportTime,'%Y-%m-%d') >= #{reportTimeStart}
+		]]>
+	    </if>
+	    <if test="reportTimeEnd !=null and reportTimeEnd != ''">
+	    <![CDATA[
+			AND DATE_FORMAT(t.ReportTime,'%Y-%m-%d') <= #{reportTimeEnd}
+		]]>
+	 </if>
+     <if test="setTimeStart !=null and setTimeStart != ''">
+	    <![CDATA[
+			AND DATE_FORMAT(t.SetTime,'%Y-%m-%d') >= #{setTimeStart}
+		]]>
+	    </if>
+	    <if test="setTimeEnd !=null and setTimeEnd != ''">
+	    <![CDATA[
+			AND DATE_FORMAT(t.SetTime,'%Y-%m-%d') <= #{setTimeEnd}
+		]]>
+	 </if>
+  </sql>
+</mapper>

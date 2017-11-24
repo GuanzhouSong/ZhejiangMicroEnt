@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.rpt.rptmapper.RelationNetAllMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.rpt.rptmodel.RelationNetAll" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="from_id" property="from_id" jdbcType="CHAR" />
+    <result column="from_name" property="from_name" jdbcType="VARCHAR" />
+    <result column="to_id" property="to_id" jdbcType="VARCHAR" />
+    <result column="to_name" property="to_name" jdbcType="VARCHAR" />
+    <result column="relation_name" property="relation_name" jdbcType="VARCHAR" />
+    <result column="to_type" property="to_type" jdbcType="CHAR" />
+  </resultMap>
+
+    <select id="selectByCopid" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        id,
+        from_id,
+        from_name,
+        to_id,
+        to_name,
+        relation_name,
+        to_type
+        from cs_relation_net_all
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="corpid!='' and corpid !=null">
+                and  from_id = #{corpid}
+            </if>
+        </trim>
+        and to_id is not null
+    </select>
+
+  <select id="selectByToId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+        id,
+        from_id,
+        from_name,
+        to_id,
+        to_name,
+        relation_name,
+        to_type
+    from cs_relation_net_all
+    <trim prefix="WHERE" prefixOverrides="AND | OR">
+      <if test="corpid!='' and corpid !=null">
+        and  to_id = #{corpid}
+      </if>
+    </trim>
+  </select>
+
+
+
+
+</mapper>

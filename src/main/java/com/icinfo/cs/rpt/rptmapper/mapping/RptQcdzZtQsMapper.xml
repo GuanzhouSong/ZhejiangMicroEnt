@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icinfo.cs.rpt.rptmapper.RptQcdzZtQsMapper">
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.rpt.rptmodel.RptQcdzZtQs">
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="monthcode" jdbcType="VARCHAR" property="monthcode" />
+    <result column="newcount" jdbcType="INTEGER" property="newcount" />
+    <result column="cancount" jdbcType="INTEGER" property="cancount" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.rpt.rptdto.RptQcdzZtQsDto" id="BaseResultDtoMap" extends="BaseResultMap">
+  </resultMap>
+  
+  <select id="selectRptQcdzZtQsList" resultMap="BaseResultDtoMap" parameterType="Map">
+   select CONCAT(t.monthcode,'月') monthcode,t.newcount,t.cancount,t.update_time FROM cs_rpt_qcdz_ztqs t ORDER BY monthcode+0;
+  </select>
+  
+  
+</mapper>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.SysLicenseMapper" >
+    <resultMap id="SysLicense" type="com.icinfo.cs.yr.model.SysLicense" >
+        <!--
+          WARNING - @frameworkgenerated
+        -->
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="LicName" property="licName" jdbcType="CHAR" />
+        <result column="LicNO" property="licNO" jdbcType="VARCHAR" />
+        <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="LicType" property="licType" jdbcType="CHAR" />
+        <result column="LicZone" property="licZone" jdbcType="VARCHAR" />
+        <result column="LicDeptType" property="licDeptType" jdbcType="VARCHAR" />
+        <result column="LicDept" property="licDept" jdbcType="VARCHAR" />
+        <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+        <result column="SetName" property="setName" jdbcType="VARCHAR" />
+        <result column="SetId" property="setId" jdbcType="VARCHAR" />
+        <result column="IsValid" property="isValid" jdbcType="CHAR" />
+        <result column="OrderBy" property="orderBy" jdbcType="INTEGER" />
+        <result column="update_time" property="update_time" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <resultMap id="SysLicenseDto" type="com.icinfo.cs.yr.dto.SysLicenseDto" extends="SysLicense">
+        <result column="text" property="text" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="listSelect" resultMap="SysLicenseDto" parameterType="Map">
+        SELECT
+        t.id,
+        t.LicName text
+        FROM
+        cs_sys_license t
+        where IsValid='1'
+        <if test="licName !='' and licName !=null">
+            and t.LicName LIKE concat('%', #{licName},'%')
+        </if>
+        ORDER BY LicNO
+        LIMIT 0,30
+    </select>
+    <select id="queryPageResult" resultMap="SysLicenseDto" parameterType="Map">
+        SELECT
+        t.id,
+        t.LicName,
+        t.LicNO,
+        t.CreateTime,
+        t.LicType,
+        t.LicZone,
+        t.LicDeptType,
+        t.LicDept,
+        t.LicRea,
+        t.SetTime,
+        t.SetName,
+        t.SetId,
+        t.IsValid
+        FROM
+        cs_sys_license t
+        where 1=1
+        <if test="licName !='' and licName !=null">
+            and t.LicName LIKE concat('%', #{licName},'%')
+        </if>
+        <if test="licType !='' and licType !=null">
+            and t.LicType=#{licType}
+        </if>
+        <if test="isValid !='' and isValid !=null">
+            and t.IsValid=#{isValid}
+        </if>
+        <if test="setName !='' and setName !=null">
+            and t.SetName LIKE concat('%', #{setName},'%')
+        </if>
+        <if test="licDeptType !='' and licDeptType !=null">
+            and t.LicDeptType=#{licDeptType}
+        </if>
+        <if test="licDept !='' and licDept !=null">
+            and t.LicDept LIKE concat('%', #{licDept},'%')
+        </if>
+        <if test="setTimeStart !='' and setTimeStart !=null">
+            <![CDATA[
+		and t.SetTime >= #{setTimeStart}
+		]]>
+        </if>
+        <if test="setTimeEnd !='' and setTimeEnd !=null">
+            <![CDATA[
+		and t.SetTime <= #{setTimeEnd}
+		]]>
+        </if>
+        <if test="licNO !='' and licNO !=null">
+            and t.LicNO LIKE concat('%', #{licNO},'%')
+        </if>
+    </select>
+
+    <select id="selectSysLicenseList" parameterType="map" resultMap="SysLicense">
+        SELECT
+        id,LicName,LicNO,LicType,LicZone,LicDeptType,LicDept,LicRea,IsValid
+        FROM
+        cs_sys_license
+        where IsValid = '1'
+        <if test="licType !='' and licType !=null">
+             and LicType = #{licType}
+        </if>
+        and LicName LIKE concat('%', #{licName},'%')
+    </select>
+
+</mapper>

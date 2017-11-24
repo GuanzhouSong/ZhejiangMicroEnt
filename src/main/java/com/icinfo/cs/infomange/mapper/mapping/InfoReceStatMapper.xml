@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.infomange.mapper.InfoReceStatMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.infomange.model.InfoReceStat" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="Year" property="year" jdbcType="VARCHAR" />
+    <result column="Type" property="type" jdbcType="VARCHAR" />
+    <result column="Adcode" property="adcode" jdbcType="VARCHAR" />
+    <result column="RelateId" property="relateId" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapDto" type="com.icinfo.cs.infomange.dto.InfoReceStatDto" extends="BaseResultMap">
+    <id column="NumYear" property="numYear" jdbcType="INTEGER" />
+    <id column="Num" property="num" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <select id="selectDownDateCount" resultMap="BaseResultMapDto" parameterType="Map" >
+      SELECT A.Adcode,B.cc NumYear,C.cc Num
+      FROM (SELECT 0 Adcode FROM DUAL) A
+      LEFT JOIN 
+      (SELECT   COUNT(0) cc,0 adcode FROM  cs_info_rece_stat  WHERE 1=1 
+      <if test="year !=null and year != ''">
+         and Year = #{year}
+      </if>
+      <if test="type !=null and type != ''">
+         and Type = #{type}
+      </if>
+      ) B
+      ON A.Adcode = B.adcode 
+      LEFT JOIN 
+      (SELECT   COUNT(0) cc,0 adcode FROM  cs_info_rece_stat where 1=1
+      <if test="type !=null and type != ''">
+         and Type = #{type}
+      </if>
+       ) C
+      ON A.Adcode = C.adcode 
+      UNION ALL
+      SELECT A.Adcode,B.cc,C.cc
+      FROM cs_loc_adcode A
+      LEFT JOIN 
+      (SELECT   COUNT(0) cc,SUBSTR(Adcode,1,4) adcode FROM  cs_info_rece_stat WHERE 1=1
+      <if test="type !=null and type != ''">
+         and Type = #{type}
+      </if>
+      <if test="year !=null and year != ''">
+         and Year = #{year}
+      </if>
+       GROUP BY SUBSTR(Adcode,1,4)) B
+      ON A.Adcode = B.adcode 
+      LEFT JOIN 
+      (SELECT   COUNT(0) cc,SUBSTR(Adcode,1,4) adcode FROM  cs_info_rece_stat  WHERE 1=1 
+      <if test="type !=null and type != ''">
+         and Type = #{type}
+      </if>
+      GROUP BY SUBSTR(Adcode,1,4)) C
+      ON A.Adcode = C.adcode 
+  </select>
+  <select id="selectSendDateCount" resultMap="BaseResultMapDto" parameterType="Map" >
+	SELECT A.Adcode,g.cc NumYear,j.cc Num
+	FROM (SELECT 0 Adcode FROM DUAL) A
+	LEFT JOIN
+	(SELECT SUBSTR(p.Adcode,1,4) Adcode,COUNT(0) cc FROM 
+	(SELECT  0 Adcode,1 TYPE FROM  cs_depsyn_license WHERE 1=1
+	<if test="year !=null and year != ''">
+         and Year = #{year}
+    </if>
+    <if test="checkState !=null and checkState != ''">
+         and CheckState = #{checkState}
+    </if>
+	UNION ALL 
+	SELECT  0 Adcode,2 TYPE FROM  cs_depsyn_punish WHERE  1=1
+	<if test="year !=null and year != ''">
+         and Year = #{year}
+    </if>
+    <if test="checkState !=null and checkState != ''">
+         and CheckState = #{checkState}
+    </if>
+	UNION ALL 
+	SELECT  0 Adcode,3 TYPE FROM  cs_depsyn_spot WHERE  1=1
+	<if test="year !=null and year != ''">
+         and Year = #{year}
+    </if>
+    <if test="checkState !=null and checkState != ''">
+         and CheckState = #{checkState}
+    </if>
+	UNION ALL 
+	SELECT  0 Adcode,4 TYPE FROM  cs_depsyn_small WHERE  1=1
+	<if test="year !=null and year != ''">
+         and Year = #{year}
+    </if>
+    <if test="checkState !=null and checkState != ''">
+         and CheckState = #{checkState}
+    </if>
+	UNION ALL 
+	SELECT  0 Adcode,5 TYPE FROM  cs_depsyn_com_pun WHERE  1=1
+	<if test="year !=null and year != ''">
+         and Year = #{year}
+    </if>
+	UNION ALL 
+	SELECT  0 Adcode ,6 TYPE FROM  cs_depsyn_notice WHERE  1=1
+	<if test="year !=null and year != ''">
+         and Year = #{year}
+    </if>
+	) p
+	WHERE 1=1
+	<if test="type !=null and type != ''">
+         and p.Type = #{type}
+    </if>
+	GROUP BY SUBSTR(p.Adcode,1,4)) g
+	ON A.Adcode = g.Adcode
+	LEFT JOIN
+	(SELECT SUBSTR(p.Adcode,1,4) Adcode,COUNT(0) cc FROM 
+	(SELECT 0 Adcode,1 TYPE FROM  cs_depsyn_license where 1=1
+	<if test="checkState !=null and checkState != ''">
+         and CheckState = #{checkState}
+    </if>
+	UNION ALL 
+	SELECT  0 Adcode,2 TYPE FROM  cs_depsyn_punish where 1=1
+	<if test="checkState !=null and checkState != ''">
+         and CheckState = #{checkState}
+    </if>
+	UNION ALL 
+	SELECT  0 Adcode,3 TYPE FROM  cs_depsyn_spot where 1=1
+	<if test="checkState !=null and checkState != ''">
+         and CheckState = #{checkState}
+    </if>
+	UNION ALL 
+	SELECT  0 Adcode,4 TYPE FROM  cs_depsyn_small where 1=1
+	<if test="checkState !=null and checkState != ''">
+         and CheckState = #{checkState}
+    </if>
+	UNION ALL 
+	SELECT  0 Adcode,5 TYPE FROM  cs_depsyn_com_pun 
+	UNION ALL 
+	SELECT  0 Adcode ,6 TYPE FROM  cs_depsyn_notice ) p
+	WHERE 1=1
+	<if test="type !=null and type != ''">
+         and p.Type = #{type}
+    </if>
+	GROUP BY SUBSTR(p.Adcode,1,4)) j
+	ON A.Adcode = j.Adcode
+	UNION ALL 
+	SELECT A.Adcode,g.cc NumYear,j.cc Num
+	FROM cs_loc_adcode A
+	LEFT JOIN
+	(SELECT SUBSTR(p.Adcode,1,4) Adcode,COUNT(0) cc FROM 
+	(SELECT  Adcode,1 TYPE FROM  cs_depsyn_license WHERE  1=1
+	<if test="year !=null and year != ''">
+         and Year = #{year}
+      </if>
+      <if test="checkState !=null and checkState != ''">
+         and CheckState = #{checkState}
+    </if>
+	UNION ALL 
+	SELECT   Adcode,2 TYPE FROM  cs_depsyn_punish WHERE  1=1
+	<if test="year !=null and year != ''">
+         and Year = #{year}
+      </if>
+      <if test="checkState !=null and checkState != ''">
+         and CheckState = #{checkState}
+    </if>
+	UNION ALL 
+	SELECT   Adcode,3 TYPE FROM  cs_depsyn_spot WHERE  1=1
+	<if test="year !=null and year != ''">
+         and Year = #{year}
+      </if>
+	UNION ALL 
+	SELECT   Adcode,4 TYPE FROM  cs_depsyn_small WHERE  1=1
+	<if test="year !=null and year != ''">
+         and Year = #{year}
+      </if>
+      <if test="checkState !=null and checkState != ''">
+         and CheckState = #{checkState}
+    </if>
+	UNION ALL 
+	SELECT   Adcode,5 TYPE FROM  cs_depsyn_com_pun WHERE  1=1
+	<if test="year !=null and year != ''">
+         and Year = #{year}
+    </if>
+	UNION ALL 
+	SELECT   Adcode ,6 TYPE FROM  cs_depsyn_notice WHERE  1=1
+	<if test="year !=null and year != ''">
+         and Year = #{year}
+      </if>) p
+	WHERE 1=1
+	<if test="type !=null and type != ''">
+         and p.Type = #{type}
+    </if>
+	GROUP BY SUBSTR(p.Adcode,1,4)) g
+	ON A.Adcode = g.Adcode
+	LEFT JOIN
+	(SELECT SUBSTR(p.Adcode,1,4) Adcode,COUNT(0) cc FROM 
+	(SELECT  Adcode,1 TYPE FROM  cs_depsyn_license where 1=1
+	<if test="checkState !=null and checkState != ''">
+         and CheckState = #{checkState}
+    </if>
+	UNION ALL 
+	SELECT   Adcode,2 TYPE FROM  cs_depsyn_punish where 1=1
+	<if test="checkState !=null and checkState != ''">
+         and CheckState = #{checkState}
+    </if>
+	UNION ALL 
+	SELECT   Adcode,3 TYPE FROM  cs_depsyn_spot where 1=1
+	<if test="checkState !=null and checkState != ''">
+         and CheckState = #{checkState}
+    </if>
+	UNION ALL 
+	SELECT   Adcode,4 TYPE FROM  cs_depsyn_small where 1=1
+	<if test="checkState !=null and checkState != ''">
+         and CheckState = #{checkState}
+    </if>
+	UNION ALL 
+	SELECT   Adcode,5 TYPE FROM  cs_depsyn_com_pun 
+	UNION ALL 
+	SELECT   Adcode ,6 TYPE FROM  cs_depsyn_notice ) p
+	WHERE 1=1
+    <if test="type !=null and type != ''">
+         and p.Type = #{type}
+    </if>	
+    GROUP BY SUBSTR(p.Adcode,1,4)) j
+	ON A.Adcode = j.Adcode
+  </select>
+</mapper>

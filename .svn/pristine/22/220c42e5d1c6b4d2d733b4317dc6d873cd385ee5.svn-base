@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.sccheck.mapper.CodeSpecialTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sccheck.model.CodeSpecialType" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Uid" property="uid" jdbcType="VARCHAR" />
+    <result column="SpecialCode" property="specialCode" jdbcType="VARCHAR" />
+    <result column="SpecialName" property="specialName" jdbcType="VARCHAR" />
+    <result column="DutyDeptCode" property="dutyDeptCode" jdbcType="VARCHAR" />
+    <result column="DutyDeptName" property="dutyDeptName" jdbcType="VARCHAR" />
+    <result column="IsVlid" property="isVlid" jdbcType="CHAR" />
+    <result column="CreatTime" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="SetUserName" property="setUserName" jdbcType="VARCHAR" />
+    <result column="SetUserUid" property="setUserUid" jdbcType="VARCHAR" />
+    <result column="SetDeptCode" property="setDeptCode" jdbcType="VARCHAR" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="CheckCode" property="checkCode" jdbcType="VARCHAR" />
+    <result column="CheckName" property="checkName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <resultMap id="CodeSpecialTypeDto" type="com.icinfo.cs.sccheck.dto.CodeSpecialTypeDto" extends="BaseResultMap">
+  </resultMap>
+  
+   <select id="selectListByParams" resultMap="BaseResultMap" parameterType="map">
+	 SELECT
+	 	SpecialCode,
+		SpecialName,
+		DutyDeptCode,
+		DutyDeptName
+	from cs_code_special_type
+	where 1=1
+	<if test="dutyDeptCode !='' and dutyDeptCode !=null">
+		AND DutyDeptCode = #{dutyDeptCode}
+	</if>
+	<if test="isVlid !='' and isVlid !=null">
+		and IsVlid = #{isVlid}
+	</if>
+	<if test="specialName !='' and specialName !=null">
+		and SpecialName = #{specialName}
+	</if>
+	<if test="dutyDeptCodes !='' and dutyDeptCodes !=null">
+		AND DutyDeptCode in (#{dutyDeptCodes})
+	</if>
+	<if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+		<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+			separator="OR" close=")">
+			DutyDeptCode like concat('%',#{item},'%')
+		</foreach>
+	</if>
+	</select>
+	
+   <select id="selectByParams" resultMap="CodeSpecialTypeDto" parameterType="map">
+	 SELECT
+	 	Uid,
+	 	SpecialCode,
+		SpecialName,
+		DutyDeptCode,
+		DutyDeptName,
+		CreatTime,
+		SetUserName,
+		IsVlid,
+		Remark,
+		CheckCode,
+		CheckName
+	from cs_code_special_type
+	where 1=1
+	<if test="isVlid !='' and isVlid !=null">
+		and IsVlid = #{isVlid}
+	</if>
+	<if test="specialName !='' and specialName !=null">
+		and SpecialName like concat('%',#{specialName},'%')
+	</if>
+	<if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+		<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+			separator="OR" close=")">
+			DutyDeptCode like concat('%',#{item},'%')
+		</foreach>
+	</if>
+	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	</select>
+	
+   <select id="selectMaxSpecialCode" resultType="java.lang.String" parameterType="java.lang.String">
+	 SELECT
+	 	Max(SpecialCode)
+		from cs_code_special_type
+		where  DutyDeptCode = #{dutyDeptCode}
+	</select>
+</mapper>

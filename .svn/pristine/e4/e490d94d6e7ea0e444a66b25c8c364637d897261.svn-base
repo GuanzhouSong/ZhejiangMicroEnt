@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.govguide.mapper.GovguideMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.govguide.model.Govguide" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="RegNo" property="regno" jdbcType="CHAR" />
+    <result column="PriPID" property="pripid" jdbcType="CHAR" />
+    <result column="UniSCID" property="uniscid" jdbcType="CHAR" />
+    <result column="EntName" property="entname" jdbcType="VARCHAR" />
+    <result column="RegOrg" property="regorg" jdbcType="CHAR" />
+    <result column="RegOrgName" property="regorgname" jdbcType="VARCHAR" />
+    <result column="LocalAdm" property="localadm" jdbcType="CHAR" />
+    <result column="LocalAdmName" property="localadmname" jdbcType="VARCHAR" />
+    <result column="ApplyMan" property="applyman" jdbcType="VARCHAR" />
+    <result column="ApplyDate" property="applydate" jdbcType="DATE" />
+    <result column="EfftStatus" property="efftstatus" jdbcType="CHAR" />
+    <result column="AuditState" property="auditstate" jdbcType="CHAR" />
+    <result column="AdminGuideItem" property="adminguideitem" jdbcType="CHAR" />
+    <result column="AddRemark" property="addremark" jdbcType="VARCHAR" />
+    <result column="StaDate" property="stadate" jdbcType="DATE" />
+    <result column="EndDate" property="enddate" jdbcType="DATE" />
+    <result column="ProDate" property="prodate" jdbcType="DATE" />
+    <result column="LinkMan" property="linkman" jdbcType="VARCHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="AssignDate" property="assigndate" jdbcType="DATE" />
+    <result column="AuditName" property="auditname" jdbcType="VARCHAR" />
+    <result column="AuditRemark" property="auditremark" jdbcType="VARCHAR" />
+    <result column="AuditDate" property="auditdate" jdbcType="DATE" />
+    <result column="SusRemark" property="susremark" jdbcType="VARCHAR" />
+    <result column="SusDate" property="susdate" jdbcType="DATE" />
+    <result column="ApplySusMan" property="applysusman" jdbcType="VARCHAR" />
+    <result column="ApplySusDate" property="applysusdate" jdbcType="DATE" />
+    <result column="OtherNoticeType" property="othernoticetype" jdbcType="CHAR" />
+    <result column="AdminGuideCerContent" property="adminguidecercontent" jdbcType="LONGVARCHAR" />
+    <result column="PenDecNo" property="pendecno" jdbcType="VARCHAR" />
+    <result column="SeqYear" property="seqyear" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="govguide_querypage" parameterType="Map" resultMap="BaseResultMap">
+    SELECT
+    id,
+    UID,
+    PriPID,
+    RegNo,
+    UniSCID,
+    EntName,
+    RegOrg,
+    RegOrgName,
+    LocalAdm,
+    LocalAdmName,
+    ApplyMan,
+    ApplyDate,
+    EfftStatus,
+    AuditState,
+    AuditRemark,
+    AdminGuideItem,
+    AdminGuideCerContent,
+    AddRemark,
+    StaDate,
+    EndDate,
+    ProDate,
+    LinkMan,
+    Tel,
+    AssignDate,
+    AuditName,
+    AuditDate,
+    SusRemark,
+    SusDate,
+    ApplySusMan,
+    ApplySusDate,
+    OtherNoticeType
+    FROM
+    cs_govguide_set
+    <where>
+      <if test="entname !=null and entname != ''">
+        AND EntName like  CONCAT('%', #{entname},'%')
+      </if>
+      <if test="stadate !=null and stadate != ''">
+        AND StaDate &gt;= #{stadate}
+      </if>
+      <if test="enddate !=null and enddate != ''">
+        AND EndDate &lt;= #{enddate}
+      </if>
+      <if test="efftstatus !=null and efftstatus != ''">
+        AND EfftStatus = #{efftstatus}
+      </if>
+      <if test="adminguideitem !=null and adminguideitem != ''">
+        AND AdminGuideItem = #{adminguideitem}
+      </if>
+      <if test="unicode !=null and unicode != ''">
+        AND (UniSCID like  CONCAT('%', #{unicode},'%') or RegNo like  CONCAT('%', #{unicode},'%'))
+      </if>
+      <if test="auditstate !=null and auditstate != ''">
+        AND AuditState = #{auditstate}
+      </if>
+      <if test="applyman !=null and applyman != ''">
+        AND ApplyMan like  CONCAT('%', #{applyman},'%')
+      </if>
+      <if test="auditname !=null and auditname != ''">
+        AND AuditName like  CONCAT('%', #{auditname},'%')
+      </if>
+      <if test="localAdm !=null and localAdm != ''">
+        AND LocalAdm in (${localAdm})
+      </if>
+      <if test="regOrg !=null and regOrg != ''">
+        AND RegOrg in (${regOrg})
+      </if>
+      <!-- 数据权限 -->
+      <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+   </where>
+    order by ApplyDate desc, AuditDate desc
+  </select>
+
+  <select id="govguidecheck_querypage" parameterType="Map" resultMap="BaseResultMap">
+    SELECT
+    id,
+    UID,
+    PriPID,
+    RegNo,
+    UniSCID,
+    EntName,
+    RegOrg,
+    RegOrgName,
+    LocalAdm,
+    LocalAdmName,
+    ApplyMan,
+    ApplyDate,
+    EfftStatus,
+    AuditState,
+    AuditRemark,
+    AdminGuideItem,
+    AdminGuideCerContent,
+    AddRemark,
+    StaDate,
+    EndDate,
+    ProDate,
+    LinkMan,
+    Tel,
+    AssignDate,
+    AuditName,
+    AuditDate,
+    SusRemark,
+    SusDate,
+    ApplySusMan,
+    ApplySusDate,
+    OtherNoticeType
+    FROM
+    cs_govguide_set
+
+    <where>
+        AND AuditState in ('0','1','3')
+      <if test="entname !=null and entname != ''">
+        AND EntName like  CONCAT('%', #{entname},'%')
+      </if>
+      <if test="stadate !=null and stadate != ''">
+        AND StaDate &gt;= #{stadate}
+      </if>
+      <if test="enddate !=null and enddate != ''">
+        AND EndDate &lt;= #{enddate}
+      </if>
+      <if test="efftstatus !=null and efftstatus != ''">
+        AND EfftStatus = #{efftstatus}
+      </if>
+      <if test="adminguideitem !=null and adminguideitem != ''">
+        AND AdminGuideItem = #{adminguideitem}
+      </if>
+      <if test="unicode !=null and unicode != ''">
+        AND (UniSCID like  CONCAT('%', #{unicode},'%') or RegNo like  CONCAT('%', #{unicode},'%'))
+      </if>
+      <if test="auditstate !=null and auditstate != ''">
+        AND AuditState = #{auditstate}
+      </if>
+      <if test="applyman !=null and applyman != ''">
+        AND ApplyMan like  CONCAT('%', #{applyman},'%')
+      </if>
+      <if test="auditname !=null and auditname != ''">
+        AND AuditName like  CONCAT('%', #{auditname},'%')
+      </if>
+      <if test="localAdm !=null and localAdm != ''">
+        AND LocalAdm in (${localAdm})
+      </if>
+      <if test="regOrg !=null and regOrg != ''">
+        AND RegOrg in (${regOrg})
+      </if>
+      <!-- 数据权限 -->
+      <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </where>
+    order by ApplyDate desc, AuditDate desc
+  </select>
+  <select id="totalDocNum" parameterType="com.icinfo.cs.govguide.model.Govguide" resultMap="BaseResultMap">
+SELECT
+  CONCAT(
+    (SELECT
+      IFNULL(MAX(d.DocShortName),'##')
+    FROM
+      cs_department d
+    WHERE d.deptcode = #{regorg}),
+    '指字[',
+    EXTRACT(YEAR FROM SYSDATE()),
+    ']第',
+    xx.penDecNo,
+    '号'
+  ) pendecno
+FROM
+  (SELECT
+    IFNULL(
+      MAX(
+        IFNULL(
+          REPLACE (
+            SUBSTR(penDecNo, INSTR(penDecNo, '第') + 1),
+            '号',
+            ''
+          )+0,
+          0
+        )
+      ),
+      0
+    ) + 1 penDecNo
+  FROM
+    cs_govguide_set a
+  WHERE a.SeqYear= EXTRACT(YEAR FROM SYSDATE())
+    AND a.regorg=#{regorg}
+    AND LEFT(
+      a.penDecNo,
+      INSTR(a.penDecNo, '指') - 1
+    ) =
+    (SELECT
+      d.DocShortName
+    FROM
+      cs_department d
+    WHERE d.deptcode = #{regorg})) xx
+</select>
+
+    <!-- 行政指导待审核条数 -->
+    <select id="selectAduitGovCount" parameterType="Map" resultType="Integer">
+		SELECT
+			COUNT(0)
+		FROM
+			cs_govguide_set t
+		WHERE
+			t.AuditState = '0'
+		AND t.EfftStatus = '2'
+      <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </select>
+    <!-- 责令整改类待审核条数 -->
+    <select id="selectAduitOrdCount" parameterType="Map" resultType="Integer">
+		SELECT
+			COUNT(0)
+		FROM
+			cs_orderreform_set t
+		WHERE 1 = 1
+		AND AuditState = '0'
+		AND EfftStatus = '2'
+      <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </select>
+
+</mapper>

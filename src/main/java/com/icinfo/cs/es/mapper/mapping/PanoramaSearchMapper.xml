@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.es.mapper.PanoramaSearchMapper" >
+
+  <resultMap id="BaseResult" type="com.icinfo.cs.es.model.PanoramaSearchBase" >
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="EntNamePPL" property="entNamePPL" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="Uniscid" property="uniscid" jdbcType="CHAR" />
+    
+    <result column="CerNO" property="cerNO" jdbcType="VARCHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="IndustryCo" property="industryCo" jdbcType="CHAR" />
+    <result column="IndustryCoName" property="industryCoName" jdbcType="VARCHAR" />
+    
+    <result column="EntType" property="entType" jdbcType="CHAR" />
+    <result column="EntTypeName" property="entTypeName" jdbcType="VARCHAR" />
+    <result column="EntTypeCatg" property="entTypeCatg" jdbcType="VARCHAR" />
+    <result column="EntTypeCatgName" property="entTypeCatgName" jdbcType="VARCHAR" />
+    <result column="Dom" property="dom" jdbcType="VARCHAR" />
+    
+    <result column="LocalAdm" property="localAdm" jdbcType="CHAR" />
+    <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+    <result column="CheckDep" property="checkDep" jdbcType="VARCHAR" />
+    
+    <result column="CheckDepName" property="checkDepName" jdbcType="VARCHAR" />
+    <result column="DelegateOrg" property="delegateOrg" jdbcType="VARCHAR" />
+    <result column="DelegateOrgName" property="delegateOrgName" jdbcType="VARCHAR" />
+    <result column="SliceNO" property="sliceNO" jdbcType="VARCHAR" />
+    <result column="SliceNOName" property="sliceNOName" jdbcType="VARCHAR" />
+    
+    <result column="LocalRegOrgCode" property="localRegOrgCode" jdbcType="DATE" />
+    <result column="LocalRegOrgCodeName" property="localRegOrgCodeName" jdbcType="DATE" />
+    <result column="OpScope" property="opScope" jdbcType="LONGVARCHAR" />
+    <result column="ApprDate" property="apprDate" jdbcType="DATE" />
+    <result column="EstDate" property="estDate" jdbcType="DATE" />
+    
+    <result column="OpFrom" property="opFrom" jdbcType="DATE" />
+    <result column="OpTo" property="opTo" jdbcType="DATE" />
+    <result column="AltDate" property="altDate" jdbcType="DATE" />
+    <result column="RegCap" property="regCap" jdbcType="DECIMAL" />
+    <result column="RegState" property="regState" jdbcType="CHAR" />
+    
+    <result column="IsIndivid" property="isIndivid" jdbcType="CHAR" />
+    <result column="LiaIDNum" property="liaIDNum" jdbcType="VARCHAR" />
+    <result column="LiaIDType" property="liaIDType" jdbcType="VARCHAR" />
+    <result column="LiaName" property="liaName" jdbcType="VARCHAR" />
+    <result column="LiaTel" property="liaTel" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.es.model.PanoramaSearch" extends="BaseResult" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="IsNeedDelegate" property="isNeedDelegate" jdbcType="VARCHAR" />
+    <result column="LeRepIsLim" property="leRepIsLim" jdbcType="CHAR" />
+    <result column="CreLevel" property="creLevel" jdbcType="CHAR" />
+    <result column="IsCase" property="isCase" jdbcType="CHAR" />
+    <result column="IsOpan" property="isOpan" jdbcType="CHAR" />
+    <result column="IsIndRegObj" property="isIndRegObj" jdbcType="CHAR" />
+    <result column="IsFocusObj" property="isFocusObj" jdbcType="CHAR" />
+    <result column="IsRiskWarn" property="isRiskWarn" jdbcType="CHAR" />
+    <result column="LicNameBef" property="licNameBef" jdbcType="VARCHAR" />
+    <result column="LicNameAft" property="licNameAft" jdbcType="VARCHAR" />
+    <result column="IsSpot" property="isSpot" jdbcType="CHAR" />
+    <result column="PaidOrSub" property="paidOrSub" jdbcType="CHAR" />
+    <result column="SpotNO" property="spotNO" jdbcType="VARCHAR" />
+    <result column="SpotYear" property="spotYear" jdbcType="CHAR" />
+    <result column="SpotDate" property="spotDate" jdbcType="DATE" />
+    <result column="SpotResult" property="spotResult" jdbcType="VARCHAR" />
+    <result column="IsClaimRegist" property="isClaimRegist" jdbcType="VARCHAR" />
+    <result column="YrIsRep2013" property="yrIsRep2013" jdbcType="CHAR" />
+    <result column="YrRepState2013" property="yrRepState2013" jdbcType="CHAR" />
+    <result column="YrFirRepTime2013" property="yrFirRepTime2013" jdbcType="DATE" />
+    <result column="YrRecRepTime2013" property="yrRecRepTime2013" jdbcType="DATE" />
+    <result column="YrRepMode2013" property="yrRepMode2013" jdbcType="CHAR" />
+    <result column="YrLiaTel2013" property="yrLiaTel2013" jdbcType="VARCHAR" />
+    <result column="YrRepModify2013" property="yrRepModify2013" jdbcType="VARCHAR" />
+    <result column="YrSenCheck2013" property="yrSenCheck2013" jdbcType="VARCHAR" />
+    <result column="YrIsRep2014" property="yrIsRep2014" jdbcType="VARCHAR" />
+    <result column="YrRepState2014" property="yrRepState2014" jdbcType="VARCHAR" />
+    <result column="YrFirRepTime2014" property="yrFirRepTime2014" jdbcType="DATE" />
+    <result column="YrRecRepTime2014" property="yrRecRepTime2014" jdbcType="DATE" />
+    <result column="YrRepMode2014" property="yrRepMode2014" jdbcType="VARCHAR" />
+    <result column="YrLiaTel2014" property="yrLiaTel2014" jdbcType="VARCHAR" />
+    <result column="YrRepModify2014" property="yrRepModify2014" jdbcType="VARCHAR" />
+    <result column="YrSenCheck2014" property="yrSenCheck2014" jdbcType="VARCHAR" />
+    <result column="YrIsRep2015" property="yrIsRep2015" jdbcType="VARCHAR" />
+    <result column="YrRepState2015" property="yrRepState2015" jdbcType="VARCHAR" />
+    <result column="YrFirRepTime2015" property="yrFirRepTime2015" jdbcType="DATE" />
+    <result column="YrRecRepTime2015" property="yrRecRepTime2015" jdbcType="DATE" />
+    <result column="YrRepMode2015" property="yrRepMode2015" jdbcType="VARCHAR" />
+    <result column="YrLiaTel2015" property="yrLiaTel2015" jdbcType="VARCHAR" />
+    <result column="YrRepModify2015" property="yrRepModify2015" jdbcType="VARCHAR" />
+    <result column="YrSenCheck2015" property="yrSenCheck2015" jdbcType="VARCHAR" />
+    <result column="YrIsRep2016" property="yrIsRep2016" jdbcType="VARCHAR" />
+    <result column="YrRepState2016" property="yrRepState2016" jdbcType="VARCHAR" />
+    <result column="YrFirRepTime2016" property="yrFirRepTime2016" jdbcType="DATE" />
+    <result column="YrRecRepTime2016" property="yrRecRepTime2016" jdbcType="DATE" />
+    <result column="YrRepMode2016" property="yrRepMode2016" jdbcType="VARCHAR" />
+    <result column="YrLiaTel2016" property="yrLiaTel2016" jdbcType="VARCHAR" />
+    <result column="YrRepModify2016" property="yrRepModify2016" jdbcType="VARCHAR" />
+    <result column="YrSenCheck2016" property="yrSenCheck2016" jdbcType="VARCHAR" />
+    <result column="YrIsRep2017" property="yrIsRep2017" jdbcType="VARCHAR" />
+    <result column="YrRepState2017" property="yrRepState2017" jdbcType="VARCHAR" />
+    <result column="YrFirRepTime2017" property="yrFirRepTime2017" jdbcType="DATE" />
+    <result column="YrRecRepTime2017" property="yrRecRepTime2017" jdbcType="DATE" />
+    <result column="YrRepMode2017" property="yrRepMode2017" jdbcType="VARCHAR" />
+    <result column="YrLiaTel2017" property="yrLiaTel2017" jdbcType="VARCHAR" />
+    <result column="YrRepModify2017" property="yrRepModify2017" jdbcType="VARCHAR" />
+    <result column="YrSenCheck2017" property="yrSenCheck2017" jdbcType="VARCHAR" />
+    <result column="YrIsRep2018" property="yrIsRep2018" jdbcType="VARCHAR" />
+    <result column="YrRepState2018" property="yrRepState2018" jdbcType="VARCHAR" />
+    <result column="YrFirRepTime2018" property="yrFirRepTime2018" jdbcType="DATE" />
+    <result column="YrRecRepTime2018" property="yrRecRepTime2018" jdbcType="DATE" />
+    <result column="YrRepMode2018" property="yrRepMode2018" jdbcType="VARCHAR" />
+    <result column="YrLiaTel2018" property="yrLiaTel2018" jdbcType="VARCHAR" />
+    <result column="YrRepModify2018" property="yrRepModify2018" jdbcType="VARCHAR" />
+    <result column="YrSenCheck2018" property="yrSenCheck2018" jdbcType="VARCHAR" />
+    <result column="YrIsRep2019" property="yrIsRep2019" jdbcType="VARCHAR" />
+    <result column="YrRepState2019" property="yrRepState2019" jdbcType="VARCHAR" />
+    <result column="YrFirRepTime2019" property="yrFirRepTime2019" jdbcType="DATE" />
+    <result column="YrRecRepTime2019" property="yrRecRepTime2019" jdbcType="DATE" />
+    <result column="YrRepMode2019" property="yrRepMode2019" jdbcType="VARCHAR" />
+    <result column="YrLiaTel2019" property="yrLiaTel2019" jdbcType="VARCHAR" />
+    <result column="YrRepModify2019" property="yrRepModify2019" jdbcType="VARCHAR" />
+    <result column="YrSenCheck2019" property="yrSenCheck2019" jdbcType="VARCHAR" />
+    
+    <result column="YrIsRep2020" property="yrIsRep2020" jdbcType="VARCHAR" />
+    <result column="YrRepState2020" property="yrRepState2020" jdbcType="VARCHAR" />
+    <result column="YrFirRepTime2020" property="yrFirRepTime2020" jdbcType="DATE" />
+    <result column="YrRecRepTime2020" property="yrRecRepTime2020" jdbcType="DATE" />
+    <result column="YrRepMode2020" property="yrRepMode2020" jdbcType="VARCHAR" />
+    <result column="YrLiaTel2020" property="yrLiaTel2020" jdbcType="VARCHAR" />
+    <result column="YrRepModify2020" property="yrRepModify2020" jdbcType="VARCHAR" />
+    <result column="YrSenCheck2020" property="yrSenCheck2020" jdbcType="VARCHAR" />
+    
+    <result column="YrIsRep2021" property="yrIsRep2021" jdbcType="VARCHAR" />
+    <result column="YrRepState2021" property="yrRepState2021" jdbcType="VARCHAR" />
+    <result column="YrFirRepTime2021" property="yrFirRepTime2021" jdbcType="DATE" />
+    <result column="YrRecRepTime2021" property="yrRecRepTime2021" jdbcType="DATE" />
+    <result column="YrRepMode2021" property="yrRepMode2021" jdbcType="VARCHAR" />
+    <result column="YrLiaTel2021" property="yrLiaTel2021" jdbcType="VARCHAR" />
+    <result column="YrRepModify2021" property="yrRepModify2021" jdbcType="VARCHAR" />
+    <result column="YrSenCheck2021" property="yrSenCheck2021" jdbcType="VARCHAR" />
+    
+    <result column="YrIsRep2022" property="yrIsRep2022" jdbcType="VARCHAR" />
+    <result column="YrRepState2022" property="yrRepState2022" jdbcType="VARCHAR" />
+    <result column="YrFirRepTime2022" property="yrFirRepTime2022" jdbcType="DATE" />
+    <result column="YrRecRepTime2022" property="yrRecRepTime2022" jdbcType="DATE" />
+    <result column="YrRepMode2022" property="yrRepMode2022" jdbcType="VARCHAR" />
+    <result column="YrLiaTel2022" property="yrLiaTel2022" jdbcType="VARCHAR" />
+    <result column="YrRepModify2022" property="yrRepModify2022" jdbcType="VARCHAR" />
+    <result column="YrSenCheck2022" property="yrSenCheck2022" jdbcType="VARCHAR" />
+    
+    <result column="IsIndRegObjName" property="isIndRegObjName" jdbcType="LONGVARCHAR" />
+    <result column="IsFocusObjName" property="isFocusObjName" jdbcType="LONGVARCHAR" />
+    
+    <result column="ImCase" property="imCase" jdbcType="VARCHAR" />
+    <result column="ImInvest" property="imInvest" jdbcType="VARCHAR" />
+    <result column="ImPermit" property="imPermit" jdbcType="VARCHAR" />
+    <result column="ImIppldg" property="imIppldg" jdbcType="VARCHAR" />
+    <result column="ImInvsra" property="imInvsra" jdbcType="VARCHAR" />
+    <result column="IsSerVio" property="isSerVio" jdbcType="VARCHAR" />
+    
+    <result column="AcceptDept2013" property="acceptDept2013" jdbcType="VARCHAR" />
+    <result column="AcceptDept2014" property="acceptDept2014" jdbcType="VARCHAR" />
+    <result column="AcceptDept2015" property="acceptDept2015" jdbcType="VARCHAR" />
+    <result column="AcceptDept2016" property="acceptDept2016" jdbcType="VARCHAR" />
+    
+    <result column="AcceptDate2013" property="acceptDate2013" jdbcType="DATE" />
+    <result column="AcceptDate2014" property="acceptDate2014" jdbcType="DATE" />
+    <result column="AcceptDate2015" property="acceptDate2015" jdbcType="DATE" />
+    <result column="AcceptDate2016" property="acceptDate2016" jdbcType="DATE" />
+    
+    <result column="AcceptName2013" property="acceptName2013" jdbcType="VARCHAR" />
+    <result column="AcceptName2014" property="acceptName2014" jdbcType="VARCHAR" />
+    <result column="AcceptName2015" property="acceptName2015" jdbcType="VARCHAR" />
+    <result column="AcceptName2016" property="acceptName2016" jdbcType="VARCHAR" />
+    
+    <result column="ImPubDate" property="imPubDate" jdbcType="DATE" />
+	<result column="IsJudicial" property="isJudicial" jdbcType="VARCHAR" />
+	<result column="IsSim" property="isSim" jdbcType="VARCHAR" />    
+  </resultMap>
+  
+  <resultMap  id="BaseResultMapDto" type="com.icinfo.cs.es.dto.PanoramaSearchDto" extends="BaseResultMap">
+  </resultMap>
+  
+  
+  <select id="selectDataListByIdRange" resultMap="BaseResultMap" parameterType="Map">
+	select 
+			id,			PriPID,			EntName,			EntNamePPL,			RegNO,
+			Uniscid,			CerNO,			LeRep,			Tel,			IndustryCo,
+			IndustryCoName,			EntType,			EntTypeName,			EntTypeCatg,			EntTypeCatgName,
+			Dom,			LocalAdm,			LocalAdmName,			RegOrg,			RegOrgName,
+			CheckDep,			CheckDepName,			DelegateOrg,			DelegateOrgName,			SliceNO,
+			SliceNOName,			LocalRegOrgCode,			LocalRegOrgCodeName,			IsNeedDelegate,			OpScope,
+			ApprDate,			EstDate,			OpFrom,			OpTo,			AltDate,
+			RegCap,			RegState,			IsIndivid,			LeRepIsLim,			CreLevel,
+			LiaIDNum,			LiaIDType,			LiaName,			LiaTel,			IsCase,
+			IsOpan,			IsIndRegObj,			IsIndRegObjName,			IsFocusObj,			IsFocusObjName,
+			IsRiskWarn,			LicNameBef,			LicNameAft,			IsSpot,			PaidOrSub,
+			SpotNO,			SpotYear,			SpotDate,			SpotResult,			IsClaimRegist,
+			YrIsRep2013,		YrRepState2013,			YrFirRepTime2013,			YrRecRepTime2013,
+			YrRepMode2013,			YrLiaTel2013,			YrRepModify2013,		YrSenCheck2013,	
+			YrIsRep2014,		YrRepState2014,			YrFirRepTime2014,		YrRecRepTime2014,		
+			YrRepMode2014,		YrLiaTel2014,		YrRepModify2014,		YrSenCheck2014,
+			YrIsRep2015,			YrRepState2015,			YrFirRepTime2015,			YrRecRepTime2015,
+			YrRepMode2015,			YrLiaTel2015,			YrRepModify2015,			YrSenCheck2015,
+			YrIsRep2016,			YrRepState2016,			YrFirRepTime2016,			YrRecRepTime2016,
+			YrRepMode2016,			YrLiaTel2016,			YrRepModify2016,			YrSenCheck2016,
+			YrIsRep2017,			YrRepState2017,			YrFirRepTime2017,			YrRecRepTime2017,
+			YrRepMode2017,			YrLiaTel2017,			YrRepModify2017,			YrSenCheck2017,
+			YrIsRep2018,			YrRepState2018,			YrFirRepTime2018,			YrRecRepTime2018,
+			YrRepMode2018,			YrLiaTel2018,			YrRepModify2018,			YrSenCheck2018,
+			YrIsRep2019,			YrRepState2019,			YrFirRepTime2019,			YrRecRepTime2019,
+			YrRepMode2019,			YrLiaTel2019,			YrRepModify2019,			YrSenCheck2019,
+			
+			YrIsRep2020,YrRepState2020,YrFirRepTime2020,YrRecRepTime2020,
+			YrRepMode2020,YrLiaTel2020,YrRepModify2020,YrSenCheck2020,
+			
+			YrIsRep2021,YrRepState2021,YrFirRepTime2021,YrRecRepTime2021,
+			YrRepMode2021,YrLiaTel2021,YrRepModify2021,YrSenCheck2021,
+			
+			YrIsRep2022,YrRepState2022,YrFirRepTime2022,YrRecRepTime2022,
+			YrRepMode2022,YrLiaTel2022,YrRepModify2022,YrSenCheck2022,
+			
+			ImCase,ImInvest,ImPermit,ImIppldg,ImInvsra,
+			IsSerVio,
+			
+			AcceptDept2013,AcceptDept2014,AcceptDept2015,AcceptDept2016,
+			AcceptDate2013,AcceptDate2014,AcceptDate2015,AcceptDate2016,
+			AcceptName2013,AcceptName2014,AcceptName2015,AcceptName2016,
+			
+			ImPubDate,IsJudicial,IsSim
+			
+			from 
+			
+			cs_panorama_search p
+		where 
+		 <![CDATA[  p.id <= #{idEnd} and p.id > #{idStart} ]]>
+  	
+  </select>
+  
+  
+  <select id="selectMaxId" resultType="Integer">
+  	select max(id) from cs_panorama_search
+  </select>
+  
+
+
+ <select id="selectIncDataForIdx" resultMap="BaseResultMap" parameterType="Map">
+	
+	select b.PriPID from(select 
+	   m.PriPID PriPID
+	 from 
+		cs_mid_baseinfo m
+	 WHERE
+	 	UPDATE_TIME > #{updateTime}
+	 	
+	UNION ALL
+	SELECT DISTINCT(n.PriPID) PriPID FROM cs_im_permit n
+	WHERE n.UPDATE_TIME > #{updateTime}
+	AND n.pubflag = '1' 
+	
+	UNION ALL
+	SELECT DISTINCT(n.PriPID) PriPID FROM cs_im_case n
+	WHERE n.UPDATE_TIME > #{updateTime}
+	AND n.pubflag = '1' 
+	
+	UNION ALL
+	SELECT DISTINCT(n.PriPID) PriPID FROM cs_im_investment n
+	WHERE n.UPDATE_TIME > #{updateTime}
+	
+	UNION ALL
+	SELECT DISTINCT(n.PriPID) PriPID FROM cs_im_ippldg n
+	WHERE n.UPDATE_TIME > #{updateTime}
+	AND n.pubflag = '1'
+	
+	UNION ALL
+	SELECT DISTINCT(n.PriPID) PriPID FROM cs_im_invsralt n
+	WHERE n.UPDATE_TIME > #{updateTime}
+	AND n.pubflag = '1') b
+	 
+ 	LIMIT #{numStart},#{pageSize}
+  </select>
+  
+  
+  <select id="selectIncDataTotalForIdx" resultType="Integer" parameterType="Map">
+  SELECT SUM(c.a) FROM(
+  	
+	SELECT COUNT(id) a FROM cs_mid_baseinfo WHERE UPDATE_TIME > #{updateTime}
+	  UNION ALL
+	SELECT COUNT(DISTINCT(n.PriPID)) a FROM cs_im_permit n WHERE n.UPDATE_TIME > #{updateTime} AND n.pubflag = '1' 
+	  UNION ALL
+	SELECT COUNT(DISTINCT(n.PriPID)) a FROM cs_im_case n WHERE n.UPDATE_TIME > #{updateTime} AND n.pubflag = '1' 
+	  UNION ALL
+	SELECT COUNT(DISTINCT(n.PriPID)) a FROM cs_im_investment n WHERE n.UPDATE_TIME > #{updateTime}
+	  UNION ALL
+	SELECT COUNT(DISTINCT(n.PriPID)) a FROM cs_im_ippldg n WHERE n.UPDATE_TIME > #{updateTime} AND n.pubflag = '1'
+	  UNION ALL
+	SELECT COUNT(DISTINCT(n.PriPID)) a FROM cs_im_invsralt n WHERE n.UPDATE_TIME > #{updateTime} AND n.pubflag = '1'
+  ) c
+  </select>
+  
+  
+  
+  <select id="selectOnePanorama" resultMap="BaseResultMap" parameterType="String">
+  <![CDATA[
+  
+  	SELECT 
+			m.id,m.PriPID,	m.EntName,	m.EntName EntNamePPL,m.RegNO,
+			m.UniCode Uniscid,m.CerNO,	m.LeRep,m.Tel,	m.IndustryCo,
+			i.Content IndustryCoName,	m.EntType,	et.Content EntTypeName,	m.EntTypeCatg,	
+			ec.Content EntTypeCatgName,	m.Dom,m.LocalAdm,un.Content LocalAdmName,
+			m.RegOrg,org.Content RegOrgName,m.CheckDep,	rg.Content CheckDepName,
+			m.DelegateOrg,	m.DelegateOrgName,m.SliceNO,m.SliceNOName,
+			m.LocalRegOrgCode,m.LocalRegOrgCodeName,'' IsNeedDelegate,m.OpScope,
+			m.ApprDate,	m.EstDate,	m.OpFrom,m.OpTo,m.AltDate,m.RegCap,
+			m.RegState,	m.IsIndivid,'' LeRepIsLim, '' CreLevel,
+			Lia.LiaIDNum,Lia.LiaIDType,	Lia.LiaName,	Lia.LiaTel,
+			pun.IsCase,	opan.IsOpan,
+			sup.IsIndRegObj,sup.IsIndRegObjName,
+			foc.IsFocusObj,	foc.IsFocusObjName,
+			ris.IsRiskWarn,	
+			'' LicNameBef,	
+			lic.LicNameAft,	'' IsSpot,'' PaidOrSub,
+			'' SpotNO,NULL SpotYear,
+			spo.SpotDate, 
+			'' SpotResult,
+			re.isClaimRegist,
+					
+			yr13.YrIsRep2013,yr13.YrRepState2013,yr13.YrFirRepTime2013,yr13.YrRecRepTime2013,
+			yr13.YrRepMode2013,yr13.YrLiaTel2013,yr13.YrRepModify2013,yr13.YrSenCheck2013,
+			yr13.AcceptDept2013,yr13.AcceptDate2013,yr13.AcceptName2013,
+			
+			yr14.YrIsRep2014,yr14.YrRepState2014,yr14.YrFirRepTime2014,yr14.YrRecRepTime2014,
+			yr14.YrRepMode2014,yr14.YrLiaTel2014,yr14.YrRepModify2014,yr14.YrSenCheck2014,
+			yr14.AcceptDept2014,yr14.AcceptDate2014,yr14.AcceptName2014,
+			
+			yr15.YrIsRep2015,yr15.YrRepState2015,yr15.YrFirRepTime2015,yr15.YrRecRepTime2015,
+			yr15.YrRepMode2015,yr15.YrLiaTel2015,yr15.YrRepModify2015,yr15.YrSenCheck2015,
+			yr15.AcceptDept2015,yr15.AcceptDate2015,yr15.AcceptName2015, 
+			
+			yr16.YrIsRep2016,yr16.YrRepState2016,yr16.YrFirRepTime2016,yr16.YrRecRepTime2016,
+			yr16.YrRepMode2016,yr16.YrLiaTel2016,yr16.YrRepModify2016,yr16.YrSenCheck2016,
+			yr16.AcceptDept2016,yr16.AcceptDate2016,yr16.AcceptName2016, 
+			
+			yr17.YrIsRep2017,yr17.YrRepState2017,yr17.YrFirRepTime2017,yr17.YrRecRepTime2017,
+			yr17.YrRepMode2017,yr17.YrLiaTel2017,yr17.YrRepModify2017,yr17.YrSenCheck2017,
+			
+			NULL YrIsRep2018,NULL YrRepState2018,NULL YrFirRepTime2018,NULL YrRecRepTime2018,		
+			NULL YrRepMode2018,NULL YrLiaTel2018,NULL YrRepModify2018,NULL YrSenCheck2018,
+
+			NULL YrIsRep2019,NULL YrRepState2019,NULL YrFirRepTime2019,NULL YrRecRepTime2019,
+			NULL YrRepMode2019,NULL YrLiaTel2019,NULL YrRepModify2019,NULL YrSenCheck2019,
+			
+			NULL YrIsRep2020,NULL YrRepState2020,NULL YrFirRepTime2020,NULL YrRecRepTime2020,
+			NULL YrRepMode2020,NULL YrLiaTel2020,NULL YrRepModify2020,NULL YrSenCheck2020,
+			
+			NULL YrIsRep2021,NULL YrRepState2021,NULL YrFirRepTime2021,NULL YrRecRepTime2021,
+			NULL YrRepMode2021,NULL YrLiaTel2021,NULL YrRepModify2021,NULL YrSenCheck2021,
+			
+			NULL YrIsRep2022,NULL YrRepState2022,NULL YrFirRepTime2022,NULL YrRecRepTime2022,
+			NULL YrRepMode2022,NULL YrLiaTel2022,NULL YrRepModify2022,NULL YrSenCheck2022,
+			
+			im1.ImState ImCase,im2.ImState ImInvest,im3.ImState ImPermit,im4.ImState ImIppldg,im5.ImState ImInvsra,
+			'' IsSerVio,ipd.ImPubDate ,ju.IsJudicial ,sim.IsSim
+			
+			FROM 
+			
+			cs_mid_baseinfo m 
+			LEFT JOIN cs_code_industry i ON i.code = m.IndustryCo 
+			LEFT JOIN cs_code_enttype et ON et.code = m.EntType
+			LEFT JOIN cs_code_entcatg ec ON ec.code = m.EntTypeCatg 
+			LEFT JOIN cs_code_regunit un ON un.code = m.localAdm
+			LEFT JOIN cs_code_regorg org ON org.code = m.RegOrg  
+			LEFT JOIN cs_code_regorg rg ON rg.code = m.CheckDep 
+			LEFT JOIN 
+			(
+			   SELECT PriPID,LiaName,LiaIDNum,LiaIDType,Tel AS LiaTel,MAX(CreateTime) CreateTime FROM cs_pub_eppassword WHERE pripid=#{PriPID} GROUP BY pripid
+			)  Lia ON Lia.PriPid = m.PriPid
+			
+			LEFT JOIN 
+			(
+				SELECT priPID ,'Y' AS isCase FROM (
+					SELECT PriPID FROM  cs_mid_caseinfo WHERE PriPID = #{PriPID} 
+					UNION 
+					SELECT PriPID FROM cs_pub_otherpunish WHERE PriPID = #{PriPID} 
+				) punish LIMIT 0,1 
+ 			) pun ON pun.priPID = m.pripid
+			
+			LEFT JOIN (
+			
+				SELECT
+					d.PriPID,GROUP_CONCAT(d.AuditState) IsOpan
+				FROM
+				(	
+					SELECT DISTINCT a.PriPID,SpeCause AuditState
+					FROM cs_pub_opanomaly a, cs_mid_baseinfo d
+					WHERE
+					a.PriPID = d.PriPID
+					AND a.pripid = #{PriPID}
+					AND d.EntTypeCatg NOT IN('50','16','17')
+					AND d.RegState NOT IN (${regState})
+					AND a.AuditState = '1'
+					AND revokeFlag IS NULL
+					AND NOT EXISTS 
+					( SELECT 1 FROM cs_pub_opadetail b WHERE a.BusExcList = b.BusExcList AND IsMove IN ('1', '2') AND b.AuditState = '1')
+					
+					UNION 
+					
+					SELECT DISTINCT a.PriPID,SpeCause AuditState
+					FROM cs_pub_opanomaly a, cs_mid_baseinfo d
+					WHERE
+					a.PriPID = d.PriPID
+					AND a.pripid = #{PriPID}
+					AND d.EntTypeCatg IN('16','17')
+					AND d.RegState NOT IN (${regState})
+					AND a.AuditState = '1'
+					AND revokeFlag IS NULL
+					AND NOT EXISTS 
+					(SELECT 1 FROM cs_pub_opadetail b WHERE	a.BusExcList = b.BusExcList	AND IsMove IN ('1', '2') AND b.AuditState = '1'	)
+					
+					UNION
+					
+					SELECT A.PriPID,
+					(CASE ExcpStaRes WHEN '1' THEN '3' WHEN '2' THEN '4' WHEN '3' THEN '1' END)  AuditState
+					FROM cs_pub_pbopanomaly A
+					LEFT JOIN cs_pub_pbopadetail B ON A.BusExcList = B.BusExcList
+					LEFT JOIN cs_mid_baseinfo C ON A.PriPID = C.PriPID
+					WHERE
+					A.pripid = #{PriPID}
+					AND C.EntTypeCatg = '50'
+					AND C.RegState NOT IN (${regState})
+					AND A.AuditState = '1'
+					AND IFNULL(B.AuditState, 0) NOT IN ('1', '3')
+				) d 
+				GROUP BY d.PriPID	
+				LIMIT 0,1			
+			) opan  ON opan.priPID = m.PriPID
+			
+			LEFT JOIN (
+				SELECT 'Y' IsIndRegObj, GROUP_CONCAT(m.MarkName) IsIndRegObjName,s.PriPID 
+				FROM
+				cs_supervise_obj s
+				LEFT JOIN cs_mark m ON s.MarkCode = m.MarkNo
+				WHERE priPID = #{PriPID} 
+				AND supCheckState='1' 
+				AND supState='1' 
+				AND markState='1'
+				AND DATE_FORMAT(NOW(), '%Y-%m-%d') >= MarkStartDate 
+				AND DATE_FORMAT(NOW(), '%Y-%m-%d') <= MarkEndDate
+				GROUP BY  s.priPID
+			) sup ON sup.pripid=m.priPID
+
+			LEFT JOIN (
+				SELECT 'Y' IsFocusObj, GROUP_CONCAT(m.MarkName) IsFocusObjName,s.PriPID 
+				FROM
+				cs_concern_obj s
+				LEFT JOIN cs_mark m ON s.MarkNO = m.MarkNo
+				WHERE priPID = #{PriPID} 
+				AND CheckState='1' 
+				AND ConState='1' 
+				AND markState='1'
+				AND DATE_FORMAT(NOW(), '%Y-%m-%d') >= MarkStartDate 
+				AND DATE_FORMAT(NOW(), '%Y-%m-%d') <= MarkEndDate
+				GROUP BY  s.priPID
+			)foc ON foc.pripid=m.priPID
+
+			LEFT JOIN (
+				SELECT 'Y' IsRiskWarn ,s.PriPID 
+				FROM
+				cs_ent_warn s
+				LEFT JOIN cs_mark m ON s.MarkNO = m.MarkNo
+				WHERE priPID = #{PriPID} 
+				AND CheckState='1' 
+				AND EntWarnState='1' 
+				AND markState='1'
+				AND DATE_FORMAT(NOW(), '%Y-%m-%d') >= MarkStartDate 
+				AND DATE_FORMAT(NOW(), '%Y-%m-%d') <= MarkEndDate
+				GROUP BY  s.priPID
+				LIMIT 0,1
+			) ris ON ris.PriPID = m.PriPID
+
+			LEFT JOIN (
+				SELECT pripid,GROUP_CONCAT(licnameCN) LicNameAft FROM cs_pub_otherlicence
+				WHERE pripid = #{PriPID} 
+				GROUP BY PRIPID 
+			) lic ON lic.PriPID = m.PriPID
+
+			LEFT JOIN (
+				SELECT pripid , MAX(SetTime) SpotDate FROM cs_pub_scresult WHERE PriPid = #{PriPID} GROUP BY pripid
+			) spo ON spo.PriPID = m.PriPID
+
+			LEFT JOIN (
+				SELECT t.PriPID,  t.IsReported yrIsRep2013,t.ReportState yrRepState2013,t.FirstReportTime yrFirRepTime2013,
+				t.LastReportTime yrRecRepTime2013,t.ReportType yrRepMode2013, t.Tel yrLiaTel2013, 
+				(CASE (SELECT COUNT(1) FROM cs_mod_application WHERE t.PriPID= #{PriPID} AND modresult='1' AND year = '2013') WHEN '0' THEN 'N' ELSE 'Y' END) YrRepModify2013, 
+				(CASE (SELECT COUNT(1) FROM cs_pub_forbidresult WHERE t.PriPID= #{PriPID} AND year = '2013') WHEN '0' THEN 'N' ELSE 'Y' END) yrSenCheck2013,
+				t.AcceptDept AcceptDept2013 ,t.AcceptDate AcceptDate2013,t.AcceptName AcceptName2013  
+ 				FROM cs_yr_reg_check t WHERE t.Year='2013' AND t.PriPID= #{PriPID}
+ 				LIMIT 0,1
+			) yr13 ON yr13.PriPID = m.PriPID
+
+			LEFT JOIN (
+				SELECT t.PriPID,  t.IsReported yrIsRep2014,t.ReportState yrRepState2014,t.FirstReportTime yrFirRepTime2014,
+				t.LastReportTime yrRecRepTime2014,t.ReportType yrRepMode2014, t.Tel yrLiaTel2014, 
+				(CASE (SELECT COUNT(1) FROM cs_mod_application WHERE PriPID= #{PriPID} AND modresult='1' AND year = '2014') WHEN '0' THEN 'N' ELSE 'Y' END) YrRepModify2014, 
+				(CASE (SELECT COUNT(1) FROM cs_pub_forbidresult WHERE PriPID= #{PriPID} AND year = '2014') WHEN '0' THEN 'N' ELSE 'Y' END) yrSenCheck2014,
+				t.AcceptDept AcceptDept2014 ,t.AcceptDate AcceptDate2014,t.AcceptName AcceptName2014 
+ 				FROM cs_yr_reg_check t WHERE t.Year='2014' AND t.PriPID=#{PriPID}
+ 				LIMIT 0,1
+			) yr14 ON yr14.PriPID = m.PriPID
+
+			LEFT JOIN (
+				SELECT t.PriPID,  t.IsReported yrIsRep2015,t.ReportState yrRepState2015,t.FirstReportTime yrFirRepTime2015,
+				t.LastReportTime yrRecRepTime2015,t.ReportType yrRepMode2015, t.Tel yrLiaTel2015, 
+				(CASE (SELECT COUNT(1) FROM cs_mod_application WHERE PriPID= #{PriPID} AND modresult='1' AND year = '2015') WHEN '0' THEN 'N' ELSE 'Y' END) YrRepModify2015, 
+				(CASE (SELECT COUNT(1) FROM cs_pub_forbidresult WHERE PriPID= #{PriPID} AND year = '2015') WHEN '0' THEN 'N' ELSE 'Y' END) yrSenCheck2015,
+ 				t.AcceptDept AcceptDept2015 ,t.AcceptDate AcceptDate2015,t.AcceptName AcceptName2015 
+ 				FROM cs_yr_reg_check t WHERE t.Year='2015' AND t.PriPID=#{PriPID}
+ 				LIMIT 0,1
+			) yr15 ON yr15.PriPID = m.PriPID
+
+			LEFT JOIN (
+				SELECT t.PriPID,  t.IsReported yrIsRep2016,t.ReportState yrRepState2016,t.FirstReportTime yrFirRepTime2016,
+				t.LastReportTime yrRecRepTime2016,t.ReportType yrRepMode2016, t.Tel yrLiaTel2016, 
+				(CASE (SELECT COUNT(1) FROM cs_mod_application WHERE PriPID= #{PriPID} AND modresult='1' AND year = '2016') WHEN '0' THEN 'N' ELSE 'Y' END) YrRepModify2016, 
+				(CASE (SELECT COUNT(1) FROM cs_pub_forbidresult WHERE PriPID= #{PriPID} AND year = '2016') WHEN '0' THEN 'N' ELSE 'Y' END) yrSenCheck2016,
+				t.AcceptDept AcceptDept2016 ,t.AcceptDate AcceptDate2016,t.AcceptName AcceptName2016 
+ 				FROM cs_yr_reg_check t WHERE t.Year='2016' AND t.PriPID=#{PriPID}
+ 				LIMIT 0,1
+			) yr16 ON yr16.PriPID = m.PriPID
+			
+			LEFT JOIN (
+				SELECT t.PriPID,  t.IsReported yrIsRep2017,t.ReportState yrRepState2017,t.FirstReportTime yrFirRepTime2017,
+				t.LastReportTime yrRecRepTime2017,t.ReportType yrRepMode2017, t.Tel yrLiaTel2017, 
+				(CASE (SELECT COUNT(1) FROM cs_mod_application WHERE PriPID= #{PriPID} AND modresult='1' AND year = '2017') WHEN '0' THEN 'N' ELSE 'Y' END) YrRepModify2017, 
+				(CASE (SELECT COUNT(1) FROM cs_pub_forbidresult WHERE PriPID= #{PriPID} AND year = '2017') WHEN '0' THEN 'N' ELSE 'Y' END) yrSenCheck2017
+ 				FROM cs_yr_reg_check t WHERE t.Year='2017' AND t.PriPID=#{PriPID}
+ 				LIMIT 0,1
+			) yr17 ON yr17.PriPID = m.PriPID
+			
+			LEFT JOIN (
+				SELECT PriPid,'Y' IsClaimRegist FROM cs_regist_info WHERE ClaimState = '1' AND PriPID=#{PriPID} limit 0,1
+			) re ON re.PriPID = m.PriPID
+			
+			LEFT JOIN (
+				SELECT PriPID,'Y' ImState FROM cs_im_case WHERE PriPID = #{PriPID} and pubflag = '1' limit 0,1
+			) im1 ON im1.PriPID = m.PriPID
+			
+			LEFT JOIN (
+				select PriPID,'Y' ImState from (
+				SELECT  i.pripid  FROM cs_im_investment i LEFT JOIN cs_im_invprodetail p ON i.invid = p.invid
+				WHERE i.pripid = #{PriPID} AND p.pubflag = '1'
+				union 
+				SELECT  i.pripid  FROM cs_im_investment i LEFT JOIN cs_im_invactdetail a ON i.invid = a.invid
+				WHERE i.pripid = #{PriPID} AND a.pubflag = '1' ) A limit 0,1 
+ 
+			) im2 ON im2.PriPID = m.PriPID
+			
+			LEFT JOIN (
+				SELECT PriPID,'Y' ImState FROM cs_im_permit WHERE PriPID = #{PriPID} and pubflag = '1' limit 0,1
+			) im3 ON im3.PriPID = m.PriPID
+			
+			LEFT JOIN (
+				SELECT PriPID,'Y' ImState FROM cs_im_ippldg WHERE PriPID = #{PriPID} and pubflag = '1' limit 0,1
+			) im4 ON im4.PriPID = m.PriPID
+			
+			LEFT JOIN (
+				SELECT PriPID,'Y' ImState FROM cs_im_invsralt WHERE PriPID = #{PriPID} and pubflag = '1' limit 0,1
+			) im5 ON im5.PriPID = m.PriPID
+			
+			LEFT JOIN(
+				SELECT PriPid,MAX(ImPubDate) ImPubDate FROM (
+				SELECT PriPid,PublicDate ImPubDate FROM cs_im_case WHERE pubFlag  = '1' AND PriPid = #{PriPID}
+				UNION ALL 
+				SELECT PriPid,PublicDate ImPubDate FROM cs_im_permit WHERE pubFlag  = '1' AND PriPid = #{PriPID}
+				UNION ALL 
+				SELECT PriPid,PublicDate ImPubDate FROM cs_im_ippldg WHERE pubFlag  = '1' AND PriPid = #{PriPID}
+				UNION ALL 
+				SELECT PriPid,PublicDate ImPubDate FROM cs_im_invsralt WHERE pubFlag  = '1' AND PriPid = #{PriPID}
+				UNION ALL 
+				SELECT i.PRIPID PriPid ,p.PublicDate ImPubDate FROM cs_im_investment i LEFT JOIN cs_im_invprodetail p ON i.invid = p.invid WHERE  p.pubflag = '1' AND i.PriPid = #{PriPID}
+				UNION ALL 
+				SELECT i.PRIPID PriPid,p.PublicDate ImPubDate FROM cs_im_investment i LEFT JOIN cs_im_invactdetail p ON i.invid = p.invid WHERE  p.pubflag = '1' AND i.PriPid = #{PriPID}
+				) T 
+				GROUP BY T.PriPid 
+			) ipd ON ipd.PriPID = m.PriPID
+			
+			left join(
+				SELECT PriPID,'Y' IsJudicial FROM cs_pub_justiceinfo WHERE PriPID = #{PriPID} and auditState = '1' limit 0,1
+			) ju ON ju.PriPid = m.PriPID
+			
+			left join(
+				SELECT PriPID,'Y' IsSim FROM er_esc_appinfo WHERE PriPID = #{PriPID} and simplecanRea = '4' limit 0,1
+			) sim ON sim.PriPid = m.PriPID
+			
+			WHERE 
+			m.priPID = #{PriPID}
+			LIMIT 0,1
+  
+  
+  ]]>
+  </select>
+  
+  
+  
+</mapper>

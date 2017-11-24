@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.rpt.rptmapper.RptQcdzTodayMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.rpt.rptmodel.RptQcdzToday" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="daycode" property="daycode" jdbcType="DATE" />
+    <result column="newcount" property="newcount" jdbcType="INTEGER" />
+    <result column="cancount" property="cancount" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="orderid" property="orderid" jdbcType="INTEGER" />
+    <result column="update_time" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.rpt.rptdto.RptQcdzTodayDto" id="BaseResultDtoMap" extends="BaseResultMap">
+  </resultMap>
+  
+  <select id="selectRptQcdzTodayList" resultMap="BaseResultDtoMap" parameterType="Map">
+    select t.id,t.type,t.name,t.newcount,t.cancount,t.orderid,t.update_time,t.daycode from cs_rpt_qcdz_today t where 1=1
+    <if test="type !=null and type !=''">
+      and t.type = #{type}
+    </if>
+    order by t.orderid
+  </select>
+  
+</mapper>

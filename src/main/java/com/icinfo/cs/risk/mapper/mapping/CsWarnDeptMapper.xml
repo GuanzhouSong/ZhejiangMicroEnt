@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.risk.mapper.CsWarnDeptMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.risk.model.CsWarnDept" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="DeptCode" property="deptCode" jdbcType="VARCHAR" />
+     <result column="WarnNo" property="warnNo" jdbcType="VARCHAR" />
+      <result column="Type" property="type" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

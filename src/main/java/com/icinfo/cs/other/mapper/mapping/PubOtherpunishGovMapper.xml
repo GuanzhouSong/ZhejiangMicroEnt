@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.other.mapper.PubOtherpunishGovMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.other.model.PubOtherpunishGov" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="CaseNO" property="caseNO" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="PenDecNo" property="penDecNo" jdbcType="VARCHAR" />
+    <result column="PenType" property="penType" jdbcType="VARCHAR" />
+    <result column="PenAm" property="penAm" jdbcType="DECIMAL" />
+    <result column="ForfAm" property="forfAm" jdbcType="DECIMAL" />
+    <result column="PenDecIssDate" property="penDecIssDate" jdbcType="DATE" />
+    <result column="JudAuth" property="judAuth" jdbcType="VARCHAR" />
+    <result column="PubFlag" property="pubFlag" jdbcType="VARCHAR" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+    <result column="SetDate" property="setDate" jdbcType="DATE" />
+    <result column="AuditName" property="auditName" jdbcType="VARCHAR" />
+    <result column="AuditDate" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="AuditState" property="auditState" jdbcType="CHAR" />
+    <result column="AuditOpin" property="auditOpin" jdbcType="VARCHAR" />
+    <result column="SetDeptname" property="setDeptname" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="update_time" jdbcType="TIMESTAMP" />
+    <result column="IllegActType" property="illegActType" jdbcType="LONGVARCHAR" />
+    <result column="PenContent" property="penContent" jdbcType="LONGVARCHAR" />
+    <result column="PunDecDoc" property="punDecDoc" jdbcType="VARCHAR" />
+    <result column="AreaCode" property="areaCode" jdbcType="VARCHAR" />
+    <result column="AreaName" property="areaName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseExtResultMap" type="com.icinfo.cs.other.dto.PubOtherpunishGovDto" extends="BaseResultMap" >
+  </resultMap>
+  
+  <sql id="where_sql">
+	 <!-- 企业名称 -->
+	 <if test="entName !=null and entName !=''">
+	       and EntName like CONCAT('%', #{entName},'%')          
+	 </if>
+	 <!-- 处罚决定书文号 -->
+	 <if test="penDecNo !=null and penDecNo !=''">
+	       and PenDecNo like CONCAT('%', #{penDecNo},'%') 
+	 </if>
+	 <!-- 是否公示 -->
+	 <if test="pubFlag !=null and pubFlag !=''">
+	       and PubFlag = #{pubFlag}
+	 </if>
+	 <!-- 处罚决定日期 -->
+	 <if test="penDecIssDateStart !='' and penDecIssDateStart !=null">
+     	<![CDATA[
+     	   and PenDecIssDate >= #{penDecIssDateStart}
+	 	]]>
+     </if>
+     <if test="penDecIssDateEnd !='' and penDecIssDateEnd !=null">
+     	<![CDATA[
+	 	   and PenDecIssDate <= #{penDecIssDateEnd}
+	 	]]>
+     </if>
+     <!-- 违法类型 -->
+	 <if test="illegActType !=null and illegActType !=''">
+	       and IllegActType like CONCAT('%', #{illegActType},'%')          
+	 </if>
+	 <!-- 来源-->
+	 <if test="setDeptname !=null and setDeptname !=''">
+	       and SetDeptname like CONCAT('%', #{setDeptname},'%')          
+	 </if>
+  </sql>
+  
+  <select id="selectPubOtherpunishGovList" resultMap="BaseExtResultMap" parameterType="Map">
+	SELECT 
+	  EntName,
+	  PenDecNo,
+	  IllegActType,
+	  PunDecDoc,
+	  PenDecIssDate,
+	  JudAuth,
+	  PubFlag,
+	  AreaCode,
+	  AreaName,
+	  SetDeptname
+	FROM
+		cs_pub_otherpunish_gov
+	WHERE 1 = 1 
+	 <include refid="where_sql" />
+  </select>
+  
+  <select id="selectPubOtherpunishGovRegTotal" resultType="java.lang.Integer" parameterType="Map">
+	SELECT 
+	  count(*)
+	FROM
+		cs_pub_otherpunish_gov t1
+	WHERE 
+	EXISTS 
+	  (SELECT 
+	    1 
+	  FROM
+	    cs_mid_baseinfo t2 
+	  WHERE t1.PriPID = t2.PriPID) 
+	 <include refid="where_sql" />
+  </select>
+  
+  
+   <select id="selectPubOtherpunishGovByDeptnameList" resultMap="BaseExtResultMap" parameterType="Map">
+	SELECT 
+	    id,
+		CaseNO,
+		PriPID,
+		YEAR,
+		RegNO,
+		LeRep,
+		EntName,
+		PenDecNo,
+		PenType,
+		PenAm,
+		ForfAm,
+		PenDecIssDate,
+		JudAuth,
+		PubFlag,
+		SetName,
+		SetDate,
+		AuditName,
+		AuditDate,
+		AuditState,
+		AuditOpin,
+		SetDeptname,
+		CreateTime,
+		update_time,
+		IllegActType,
+		PenContent,
+		PunDecDoc,
+		AreaCode,
+		AreaName,
+		UniSCID
+	FROM
+		cs_pub_otherpunish_gov
+	WHERE  
+	SetDeptname =#{setDeptname}  LIMIT  999999
+  </select>
+  
+  <select id="selectDeptTotal" resultType="java.lang.Integer" parameterType="Map">
+	SELECT 
+	  count(DISTINCT t1.JudAuth)
+	FROM
+		cs_pub_otherpunish_gov t1
+	WHERE 1=1
+	 <include refid="where_sql" />
+  </select>
+  <select id="selectEntDeptTotal" resultType="java.lang.Integer" parameterType="Map">
+	SELECT 
+	  count(DISTINCT t1.JudAuth)
+	FROM
+		cs_pub_otherpunish_gov t1
+	WHERE 
+	EXISTS 
+	  (SELECT 
+	    1 
+	  FROM
+	    cs_mid_baseinfo t2 
+	  WHERE t1.PriPID = t2.PriPID) 
+	 <include refid="where_sql" />
+  </select>
+  
+   <select id="selectPunishGovAnthTotal" resultType="java.lang.Integer" parameterType="Map">
+	 SELECT  count(DISTINCT JudAuth) FROM cs_pub_otherpunish_gov 
+	 WHERE 1=1
+	 <include refid="where_sql" />
+   </select>
+   <select id="selectPunishGovRegTotal" resultType="java.lang.Integer" parameterType="Map">
+	 SELECT  count(0) FROM cs_pub_otherpunish_gov 
+	 WHERE 1=1 and PubFlag = '1'
+	 <include refid="where_sql" />
+   </select>
+   <select id="selectPunishGovRegAnthTotal" resultType="java.lang.Integer" parameterType="Map">
+	 SELECT  count(DISTINCT JudAuth) FROM cs_pub_otherpunish_gov 
+	 WHERE 1=1 and PubFlag = '1'
+	 <include refid="where_sql" />
+   </select>
+  
+  
+</mapper>

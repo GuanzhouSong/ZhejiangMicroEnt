@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.base.mapper.CodeInDusTryMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.base.model.CodeInDusTry" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="SupCode" property="supCode" jdbcType="VARCHAR" />
+    <result column="Content" property="content" jdbcType="VARCHAR" />
+    <result column="Code" property="code" jdbcType="VARCHAR" />
+  </resultMap>
+    <resultMap id="selectToTreeMapResultMap" type="java.util.HashMap">
+  	<result property="id" column="id" javaType="java.lang.String" jdbcType="VARCHAR"/>
+  	<result property="name" column="name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+  	<result property="pId" column="pId" javaType="java.lang.String" jdbcType="VARCHAR"/>
+  </resultMap>
+
+  <select id="selectToSmTreeMap" resultMap="selectToTreeMapResultMap" parameterType="map">
+	SELECT CODE id, content NAME, supcode pId FROM (
+	SELECT '1' CODE ,'第一产业' CONTENT, '0' AS supcode FROM cs_code_industrytype
+	UNION
+	SELECT '2' CODE , '第二产业' CONTENT, '0' AS supcode FROM cs_code_industrytype
+	UNION
+	SELECT '3' CODE , '第三产业' CONTENT, '0' AS supcode FROM cs_code_industrytype
+	
+	UNION ALL SELECT CODE, CONTENT, IndType AS supcode FROM cs_code_industrytype) t 
+	<if test="indType != null and indType != '' ">
+		<if test="indType == 'one' ">
+			WHERE ( CONTENT = '第一产业' OR supcode = '1' )
+		</if>
+		<if test="indType == 'two' ">
+			WHERE ( CONTENT = '第二产业' OR supcode = '2' )
+		</if>
+		<if test="indType == 'three' ">
+			WHERE ( CONTENT = '第三产业' OR supcode = '3' )
+		</if>
+	</if>
+	ORDER BY CODE  
+  </select>
+  
+  <select id="selectToTreeMap" resultMap="selectToTreeMapResultMap" parameterType="map">
+    SELECT
+    CODE id,
+    content name,
+    supcode pId
+    FROM
+    (SELECT
+    CODE,
+    CONTENT,
+    supcode
+    FROM
+    cs_code_industry
+    <if test="content != null and content != ''">
+        WHERE content LIKE CONCAT('%',#{content},'%')
+    </if>
+    UNION
+    ALL
+    SELECT
+    CODE,
+    CONTENT,
+    '0' AS supcode
+    FROM
+    cs_code_industrytype
+    <if test="content != null and content != ''">
+        WHERE CODE IN (SELECT supcode FROM cs_code_industry WHERE content LIKE CONCAT('%',#{content},'%') )
+    </if>
+    ) t
+    ORDER BY CODE
+  </select>
+  
+  
+</mapper>

@@ -1,0 +1,1289 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.dtinfo.mapper.PubDtInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.dtinfo.model.PubDtInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="UniSCID" property="uniSCID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="EstDate" property="estDate" jdbcType="DATE" />
+    <result column="RegCap" property="regCap" jdbcType="DECIMAL" />
+    <result column="Dom" property="dom" jdbcType="VARCHAR" />
+    <result column="OpTo" property="opTo" jdbcType="DATE" />
+    <result column="ApprDate" property="apprDate" jdbcType="DATE" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="CHAR" />
+    <result column="DomDistrict" property="domDistrict" jdbcType="CHAR" />
+    <result column="Street" property="street" jdbcType="VARCHAR" />
+    <result column="ExaCode" property="exaCode" jdbcType="VARCHAR" />
+    <result column="ExaName" property="exaName" jdbcType="VARCHAR" />
+    <result column="RegState" property="regState" jdbcType="CHAR" />
+    <result column="CheckDep" property="checkDep" jdbcType="VARCHAR" />
+    <result column="EntTypeCatg" property="entTypeCatg" jdbcType="VARCHAR" />
+    <result column="EntType" property="entType" jdbcType="CHAR" />
+    <result column="Area" property="area" jdbcType="CHAR" />
+    <result column="CheckRegType" property="checkRegType" jdbcType="CHAR" />
+    <result column="CheckPushType" property="checkPushType" jdbcType="CHAR" />
+    <result column="CheckPushDate" property="checkPushDate" jdbcType="TIMESTAMP" />
+    <result column="CheckDeptType" property="checkDeptType" jdbcType="CHAR" />
+    <result column="AcceptUser" property="acceptUser" jdbcType="VARCHAR" />
+    <result column="AcceptName" property="acceptName" jdbcType="VARCHAR" />
+    <result column="AcceptDate" property="acceptDate" jdbcType="TIMESTAMP" />
+    <result column="ReassignAccount" property="reassignAccount" jdbcType="VARCHAR" />
+    <result column="ReassignName" property="reassignName" jdbcType="VARCHAR" />
+    <result column="ReassignDate" property="reassignDate" jdbcType="TIMESTAMP" />
+    <result column="ReassignType" property="reassignType" jdbcType="CHAR" />
+    <result column="ReassignRemark" property="reassignRemark" jdbcType="VARCHAR" />
+    <result column="ReassignDeptName" property="reassignDeptName" jdbcType="VARCHAR" />
+    <result column="ReassignCode" property="reassignCode" jdbcType="CHAR" />
+    <result column="ClaimCode" property="claimCode" jdbcType="VARCHAR" />
+    <result column="ClaimName" property="claimName" jdbcType="VARCHAR" />
+    <result column="ClaimDate" property="claimDate" jdbcType="TIMESTAMP" />
+    <result column="ReceiveState" property="receiveState" jdbcType="CHAR" />
+    <result column="ClaimState" property="claimState" jdbcType="CHAR" />
+    <result column="IsIndivid" property="isIndivid" jdbcType="CHAR" />
+    <result column="IndustryCo" property="industryCo" jdbcType="CHAR" />
+    <result column="checkStopState" property="checkStopState" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="OpFrom" property="opFrom" jdbcType="DATE" />
+    <result column="OpScope" property="opScope" jdbcType="LONGVARCHAR" />
+    <result column="CheckDepName" property="checkDepName" jdbcType="VARCHAR" />
+    <result column="DutyDeptCode" property="dutyDeptCode" jdbcType="VARCHAR" />
+    <result column="DutyDeptName" property="dutyDeptName" jdbcType="VARCHAR" /> 
+    
+    <result column="DeptName" property="deptName" jdbcType="VARCHAR" />
+    <result column="DeptCode" property="deptCode" jdbcType="VARCHAR" /> 
+  </resultMap>
+  
+  <!-- 涉证企业分流 -->
+  <resultMap id="PubdtinfoFailReBackResultMap" type="com.icinfo.cs.dtinfo.dto.PubDtInfoDto" extends="BaseResultMap">
+      <result column="regOrgName" property="regOrgName" jdbcType="VARCHAR" /> 
+      <result column="localAdmName" property="localAdmName" jdbcType="VARCHAR" /> 
+      <result column="pushCount" property="pushCount" jdbcType="VARCHAR" /> 
+      <result column="claimCount" property="claimCount" jdbcType="VARCHAR" /> 
+      <result column="claimRate" property="claimRate" jdbcType="VARCHAR" />
+      <result column="backCount" property="backCount" jdbcType="VARCHAR" />
+      <result column="area" property="area" jdbcType="VARCHAR" /> 
+   </resultMap>
+   
+   <!-- 涉证企业推送与反馈统计  暂时不用-->
+   <resultMap id="inputCountRlt"  type="com.icinfo.cs.dtinfo.dto.PubDtInfoDto">
+ 	  <result column="area" property="area" jdbcType="VARCHAR" /> 
+ 	  <result column="areaName" property="areaName" jdbcType="VARCHAR" /> 
+      <result column="DeptName" property="deptName" jdbcType="VARCHAR" /> 
+      <result column="pushDoorCount" property="pushDoorCount" jdbcType="VARCHAR" /> 
+      <result column="pushCount" property="pushCount" jdbcType="VARCHAR" /> 
+      <result column="ClaimDoorCount" property="claimDoorCount" jdbcType="VARCHAR" /> 
+      <result column="ClaimCount" property="claimCount" jdbcType="VARCHAR" /> 
+      <result column="toReportDoorCount" property="toReportDoorCount" jdbcType="VARCHAR" /> 
+      <result column="toReportReceiveDoorCount" property="toReportReceiveDoorCount" jdbcType="VARCHAR" /> 
+      <result column="toReportReceiveCount" property="toReportReceiveCount" jdbcType="VARCHAR" /> 
+      <result column="checkCount" property="checkCount" jdbcType="VARCHAR" />
+      <result column="peerCount" property="peerCount" jdbcType="VARCHAR" />
+      <result column="claimRate" property="claimRate" jdbcType="VARCHAR" />
+      <result column="receiveRate" property="receiveRate" jdbcType="VARCHAR" />
+	</resultMap> 
+	
+	
+    <resultMap id="PubdtinfoCountRlt"  type="com.icinfo.cs.dtinfo.dto.PubDtInfoDto"> 
+ 	  <result column="areaName" property="areaName" jdbcType="VARCHAR" /> 
+      <result column="DeptName" property="deptName" jdbcType="VARCHAR" /> 
+      <result column="pushDoorCount" property="pushDoorCount" jdbcType="VARCHAR" /> 
+      <result column="pushCount" property="pushCount" jdbcType="VARCHAR" /> 
+      <result column="ClaimDoorCount" property="claimDoorCount" jdbcType="VARCHAR" /> 
+      <result column="ClaimCount" property="claimCount" jdbcType="VARCHAR" /> 
+      <result column="checkHandleClaimCount" property="checkHandleClaimCount" jdbcType="VARCHAR" />
+      <result column="noClaimCount" property="noClaimCount" jdbcType="VARCHAR" /> 
+      <result column="noClaimDoorCount" property="noClaimDoorCount" jdbcType="VARCHAR" /> 
+  	  <result column="backDoorCount" property="backDoorCount" jdbcType="VARCHAR" /> 
+      <result column="backCount" property="backCount" jdbcType="VARCHAR" />
+      <result column="claimRate" property="claimRate" jdbcType="VARCHAR" />
+	</resultMap> 
+	
+	
+	<!-- 涉证统计 -->
+	<select id="selectPubDtInfoCountRlt" resultMap="PubdtinfoCountRlt" parameterType="Map">
+ 	      SELECT
+				a.checkarea,
+				a.deptcode,
+				IFNULL(sum(a.pushDoorCount), 0) pushDoorCount,
+				IFNULL(sum(a.pushCount), 0) pushCount,
+				IFNULL(sum(a.noClaimDoorCount), 0) noClaimDoorCount,
+				IFNULL(sum(a.noClaimCount), 0) noClaimCount,
+				IFNULL(sum(a.BackDoorCount), 0) backDoorCount,
+				IFNULL(sum(a.BackCount), 0) backCount,
+				IFNULL(
+					sum(a.checkClaimDoorCount),
+					0
+				) ClaimDoorCount,
+				IFNULL(sum(a.checkClaimCount), 0) ClaimCount,
+				IFNULL(
+					sum(a.checkClaimCount) + sum(a.backCount),
+					0
+				) checkHandleClaimCount,
+				round(
+					IFNULL(
+						 ((sum(a.checkClaimCount) + sum(a.backCount)) /sum(a.pushCount)) * 100,
+						0
+					),
+					2
+				) claimRate,
+				a.DeptName,
+				a.areaName areaName
+			FROM
+				(
+				SELECT
+						substr(CheckDep, 1, 6) checkarea,
+						CheckDep AS deptcode,
+						count(DISTINCT PriPID) pushDoorCount,
+						0 pushCount,
+						0 noClaimDoorCount,
+						0 noClaimCount,
+						0 BackDoorCount,
+						0 BackCount,
+						0 checkClaimDoorCount,
+						0 checkClaimCount,
+						CheckDepName DeptName,
+						AreaName areaName
+					FROM
+						cs_pub_dtinfo
+					WHERE
+					<![CDATA[
+						CheckPushType IN ('1', '2', '0')
+					AND checkStopState != '1'
+					AND CheckDeptType = '1'
+					]]>
+					<include refid="pubdtinfoCount_where"></include>
+					GROUP BY
+						PriPID,CheckDep
+					UNION ALL
+					SELECT
+						substr(CheckDep, 1, 6) checkarea,
+						CheckDep AS deptcode,
+						0 pushDoorCount,
+						count(PriPID) pushCount,
+						0 noClaimDoorCount,
+						0 noClaimCount,
+						0 BackDoorCount,
+						0 BackCount,
+						0 checkClaimDoorCount,
+						0 checkClaimCount,
+						CheckDepName DeptName,
+						AreaName areaName
+					FROM
+						cs_pub_dtinfo
+					WHERE
+					<![CDATA[
+						CheckPushType IN ('1', '2', '0')
+					AND checkStopState != '1'
+					AND CheckDeptType = '1'
+					]]>
+					<include refid="pubdtinfoCount_where"></include>
+					GROUP BY
+						PriPID,CheckDep
+					UNION ALL
+						SELECT
+							substr(CheckDep, 1, 6) checkarea,
+							CheckDep AS deptcode,
+							0 pushDoorCount,
+							0 pushCount,
+							count(DISTINCT PriPID) noClaimDoorCount,
+							count(PriPID) noClaimCount,
+							0 BackDoorCount,
+							0 BackCount,
+							0 checkClaimDoorCount,
+							0 checkClaimCount,
+							CheckDepName DeptName,
+							AreaName areaName
+						FROM
+							cs_pub_dtinfo
+						WHERE
+						<![CDATA[
+							CheckPushType IN ('1', '2')
+						AND checkStopState != '1'
+						AND CheckDeptType = '1'
+						AND (
+							ClaimDate IS NULL
+							OR ClaimDate = ''
+						)
+						AND ClaimState != '1'
+						]]>
+						<include refid="pubdtinfoCount_where"></include>
+						GROUP BY
+							PriPID,CheckDep
+						UNION ALL
+							SELECT
+								substr(CheckDep, 1, 6) checkarea,
+								CheckDep AS deptcode,
+								0 pushDoorCount,
+								0 pushCount,
+								0 noClaimDoorCount,
+								0 noClaimCount,
+								count(DISTINCT PriPID) BackDoorCount,
+								count(PriPID) BackCount,
+								0 checkClaimDoorCount,
+								0 checkClaimCount,
+								CheckDepName DeptName,
+								AreaName areaName
+							FROM
+								cs_pub_dtinfo
+							WHERE
+							<![CDATA[
+								CheckPushType = '0'
+							AND checkStopState != '1'
+							AND CheckDeptType = '1'
+							AND ClaimState != '1'
+							]]>
+							<include refid="pubdtinfoCount_where"></include>
+							GROUP BY
+								PriPID,CheckDep
+							UNION ALL
+								SELECT
+									substr(CheckDep, 1, 6) checkarea,
+									CheckDep AS deptcode,
+									0 pushDoorCount,
+									0 pushCount,
+									0 noClaimDoorCount,
+									0 noClaimCount,
+									0 BackDoorCount,
+									0 BackCount,
+									count(DISTINCT PriPID) checkClaimDoorCount,
+									count(PriPID) checkClaimCount,
+									CheckDepName DeptName,
+									AreaName areaName
+								FROM
+									cs_pub_dtinfo
+								WHERE
+								<![CDATA[
+									CheckPushType IN ('1', '2')
+								AND checkStopState != '1'
+								AND CheckDeptType = '1'
+								AND ClaimState = '1'
+								AND ClaimDate IS NOT NULL
+								AND ClaimDate != ''
+								]]>
+								<include refid="pubdtinfoCount_where"></include>
+								GROUP BY
+									PriPID,CheckDep
+				) a
+			GROUP BY
+				deptcode
+	</select>
+	
+  <!-- 涉证企业推送与反馈统计   暂时不用-->
+  <select id="selectPubDtInfoCount" resultMap="inputCountRlt" parameterType="Map">
+			SELECT
+				d.DeptName,
+				d.pushDoorCount,
+				d.pushCount,
+				d.checkClaimDoorCount ClaimDoorCount,
+				d.checkClaimCount ClaimCount,
+				d.toReportDoorCount,
+				d.toReportReceiveDoorCount,
+				d.toReportReceiveCount,
+				d.checkCount,
+				d.peerCount,
+				round(d.claimRate, 2) claimRate,
+				round(d.receiveRate, 2) receiveRate,
+				d.areaName
+			FROM
+				(
+					SELECT
+						b.checkarea,
+						b.DeptName,
+						b.pushDoorCount,
+						b.pushCount,
+						b.checkClaimDoorCount,
+						b.checkClaimCount,
+						b.toReportDoorCount,
+						b.toReportReceiveDoorCount,
+						b.toReportReceiveCount,
+						b.checkCount,
+						b.peerCount,
+						b.claimRate,
+						b.receiveRate,
+						b.areaName
+					FROM
+						(
+							SELECT
+								a.checkarea,
+								a.deptcode,
+								IFNULL(sum(a.pushDoorCount), 0) pushDoorCount,
+								IFNULL(sum(a.pushCount), 0) pushCount,
+								IFNULL(
+									sum(a.checkClaimDoorCount),
+									0
+								) checkClaimDoorCount,
+								IFNULL(sum(a.checkClaimCount), 0) checkClaimCount,
+								IFNULL(sum(a.toReportDoorCount), 0) toReportDoorCount,
+								IFNULL(
+									sum(a.toReportReceiveDoorCount),
+									0
+								) toReportReceiveDoorCount,
+								IFNULL(
+									sum(a.toReportReceiveCount),
+									0
+								) toReportReceiveCount,
+								IFNULL(sum(a.checkCount), 0) checkCount,
+								IFNULL(sum(a.peerCount), 0) peerCount,
+								IFNULL(
+									sum(a.checkClaimCount) / sum(a.checkCount) * 100,
+									0
+								) claimRate,
+								IFNULL(
+									sum(a.toReportReceiveCount) / sum(a.peerCount) * 100,
+									0
+								) receiveRate,
+			          			a.DeptName,
+								a.areaName
+							FROM
+								(
+									SELECT
+										substr(CheckDep, 1, 6) checkarea,
+										CheckDep AS deptcode,
+										count(DISTINCT PriPID) pushDoorCount,
+										count(PriPID) pushCount,
+										0 checkClaimDoorCount,
+										0 checkClaimCount,
+										0 checkCount,
+										0 toReportDoorCount,
+										0 peerCount,
+										0 toReportReceiveDoorCount,
+										0 toReportReceiveCount,
+										CheckDepName DeptName,
+			             				AreaName areaName
+									FROM
+										cs_pub_dtinfo
+									WHERE
+									<![CDATA[
+									LENGTH(CheckDep)=13
+									AND CheckPushType IN ('1', '2')
+									AND checkStopState != '1'
+									]]>
+									<include refid="pubdtinfoCount_where"></include>
+									GROUP BY
+									    Area,
+										CheckDep
+									UNION ALL
+										SELECT
+											substr(CheckDep, 1, 6) checkarea,
+											CheckDep AS deptcode,
+											0 pushDoorCount,
+											0 pushCount,
+											count(DISTINCT PriPID) checkClaimDoorCount,
+											count(PriPID) checkClaimCount,
+											0 checkCount,
+											0 toReportDoorCount,
+											0 peerCount,
+											0 toReportReceiveDoorCount,
+											0 toReportReceiveCount,
+											CheckDepName DeptName,
+											AreaName areaName
+										FROM
+											cs_pub_dtinfo
+										WHERE
+										<![CDATA[
+										LENGTH(CheckDep)=13
+										AND CheckDeptType = '1'
+										AND ClaimState = '1'
+										AND checkStopState != '1'
+										]]>
+										<include refid="pubdtinfoCount_where"></include>
+										GROUP BY
+											Area,
+											CheckDep
+										UNION ALL
+											SELECT
+												substr(CheckDep, 1, 6) checkarea,
+												CheckDep AS deptcode,
+												0 pushDoorCount,
+												0 pushCount,
+												0 checkClaimDoorCount,
+												0 checkClaimCount,
+												count(PriPID) checkCount,
+												0 toReportDoorCount,
+												0 peerCount,
+												0 toReportReceiveDoorCount,
+												0 toReportReceiveCount,
+												CheckDepName DeptName,
+												AreaName areaName
+											FROM
+												cs_pub_dtinfo
+											WHERE
+											<![CDATA[
+											LENGTH(CheckDep)=13
+											AND CheckDeptType = '1'
+											AND CheckPushType IN ('1', '2')
+											AND checkStopState != '1'
+											]]>
+											<include refid="pubdtinfoCount_where"></include>
+											GROUP BY
+												Area,
+												CheckDep
+											UNION ALL
+												SELECT
+													substr(CheckDep, 1, 6) checkarea,
+													CheckDep AS deptcode,
+													0 pushDoorCount,
+													0 pushCount,
+													0 checkClaimDoorCount,
+													0 checkClaimCount,
+													0 checkCount,
+													count(DISTINCT PriPID) toReportDoorCount,
+													count(PriPID) peerCount,
+													0 toReportReceiveDoorCount,
+													0 toReportReceiveCount,
+													CheckDepName DeptName,
+													AreaName areaName
+												FROM
+													cs_pub_dtinfo
+												WHERE
+												<![CDATA[
+													CheckDeptType != '1'
+												AND CheckPushType IN ('1', '2')
+												AND checkStopState != '1'
+												]]>
+												<include refid="pubdtinfoCount_where"></include>
+												GROUP BY
+													Area,
+													CheckDep
+												UNION ALL
+													SELECT
+														substr(CheckDep, 1, 6) checkarea,
+														CheckDep AS deptcode,
+														0 pushDoorCount,
+														0 pushCount,
+														0 checkClaimDoorCount,
+														0 checkCount,
+														0 checkClaimCount,
+														0 toReportDoorCount,
+														0 peerCount,
+														count(DISTINCT PriPID) toReportReceiveDoorCount,
+														count(PriPID) toReportReceiveCount,
+														CheckDepName DeptName,
+														AreaName areaName
+													FROM
+														cs_pub_dtinfo
+													WHERE
+													<![CDATA[
+														ReceiveState = '1'
+													AND CheckDeptType != '1'
+													AND checkStopState != '1'
+													AND CheckPushType IN ('1', '2')
+													]]>
+													<include refid="pubdtinfoCount_where"></include>
+													GROUP BY
+														Area,
+														CheckDep
+								) a
+							GROUP BY
+								checkarea,
+								deptcode
+						) b
+			 	) d
+  </select>
+  
+  <!-- 查询待手动分流的企业（分流失败和退回待推送） -->
+  <select id="selectPubdtinfoFailReBackList" resultMap="PubdtinfoFailReBackResultMap" parameterType="Map">
+	 SELECT   
+	    S.UID,
+		S.PriPID,
+		S.UniSCID,
+		S.EntName,
+		S.RegNO,
+		S.LeRep,
+		S.Dom,
+		S.ApprDate,
+		S.ExaName,
+		S.CheckRegType,
+		S.CheckPushType,
+		S.CheckPushDate,
+		S.CheckDeptType,
+		S.AcceptUser,
+		S.AcceptName,
+		S.AcceptDate,
+		S.ReassignAccount,
+		S.ReassignName,
+		S.ReassignDate,
+		S.ReassignType,
+		S.ReassignRemark,
+		S.ReassignDeptName,
+		S.ReassignCode,
+		S.ClaimCode,
+		S.ClaimName,
+		S.ClaimDate,
+		S.ReceiveState,
+		S.ClaimState,
+		S.OpScope, 
+		S.DutyDeptName,
+		S.DeptName,
+		S.CheckDepName,
+		S.RegOrg,
+		S.LocalAdm, 
+		b.Content regOrgName,
+		c.Content localAdmName 
+	 FROM (
+	  SELECT   
+	    a.UID,
+		a.PriPID,
+		a.UniSCID,
+		a.EntName,
+		a.RegNO,
+		a.LeRep,
+		a.Dom,
+		a.ApprDate,
+		a.ExaName,
+		a.CheckRegType,
+		a.CheckPushType,
+		a.CheckPushDate,
+		a.CheckDeptType,
+		a.AcceptUser,
+		a.AcceptName,
+		a.AcceptDate,
+		a.ReassignAccount,
+		a.ReassignName,
+		a.ReassignDate,
+		a.ReassignType,
+		a.ReassignRemark,
+		a.ReassignDeptName,
+		a.ReassignCode,
+		a.ClaimCode,
+		a.ClaimName,
+		a.ClaimDate,
+		a.ReceiveState,
+		a.ClaimState,
+		a.OpScope, 
+		a.DutyDeptName,
+		a.DeptName,
+		a.CheckDepName,
+		a.RegOrg,
+		a.LocalAdm
+	  FROM cs_pub_dtinfo  a WHERE 
+	 <![CDATA[
+		 a.checkStopState!='1'
+	 ]]>
+	 <include refid="pubdtinfo_where"></include>
+	 <!-- 数据权限 -->
+ 	 <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	 LIMIT ${numStart},${pageSize}
+	 )S  
+	 LEFT JOIN  cs_code_regorg b  ON  S.RegOrg=b.code
+	 LEFT JOIN cs_code_regunit c ON  S.LocalAdm=c.code  
+	 order by S.CheckPushDate desc
+  </select>
+  
+  
+   <!-- 查询部门未认领的审批事项 -->
+  <select id="selectTransferPubdtinfoList" resultMap="PubdtinfoFailReBackResultMap" parameterType="Map">
+	    SELECT
+			c.UID,
+			c.PriPID,
+			c.UniSCID,
+			c.EntName,
+			c.RegNO,
+			c.LeRep,
+			c.Dom,
+			c.ApprDate,
+			c.ExaName,
+			c.CheckRegType,
+			c.CheckPushType,
+			c.CheckPushDate,
+			c.CheckDeptType,
+			c.AcceptUser,
+			c.AcceptName,
+			c.AcceptDate,
+			b.DomDistrict
+		FROM
+			(
+				SELECT
+					a.UID,
+					a.PriPID,
+					a.UniSCID,
+					a.EntName,
+					a.RegNO,
+					a.LeRep,
+					a.Dom,
+					a.ApprDate,
+					a.ExaName,
+					a.CheckRegType,
+					a.CheckPushType,
+					a.CheckPushDate,
+					a.CheckDeptType,
+					a.AcceptUser,
+					a.AcceptName,
+					a.AcceptDate
+				FROM
+					cs_pub_dtinfo a
+				WHERE
+					a.AcceptDate IS NULL
+				AND a.ClaimDate IS NULL
+				AND a.checkStopState != '1'
+				AND a.ReassignType is null 
+				AND a.CheckPushType in ('1')
+				AND a.CheckDep = #{checkDep}
+				and a.exaCode   in (${exaCode}) 
+			) c
+		LEFT JOIN cs_mid_baseinfo b ON c.PriPID = b.PriPID
+		WHERE
+			LEFT (b.Yiedistrict, 6) in (${areaCode}) 
+  </select>
+  
+  <!-- 获取手动分流条数 -->
+   <select id="selectPubdtinfoFailReBackListCount" resultType="Integer" parameterType="Map"> 
+		SELECT 
+			count(0)
+		 FROM cs_pub_dtinfo  a WHERE 
+		 <![CDATA[
+			 a.checkStopState!='1'
+		 ]]>
+		 <!-- 数据权限 -->
+ 	     <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+		 <include refid="pubdtinfo_where"></include>
+  </select>
+  
+   <!--认领撤销模块  查询已经认领的信息 --> 
+   <select id="selectPubdtinfoCancelList" resultMap="PubdtinfoFailReBackResultMap" parameterType="Map">
+	 SELECT  <include refid="pubdtinfo_sql"></include>,
+	 b.Content regOrgName,
+	 a.CheckDepName,
+	 c.Content localAdmName FROM cs_pub_dtinfo  a 
+	 LEFT JOIN  cs_code_regorg b  ON  a.RegOrg=b.code
+	 LEFT JOIN cs_code_regunit c ON  a.LocalAdm=c.code 
+	 WHERE 
+	 <![CDATA[
+	  a.checkStopState!='1' 
+	  AND 
+	   (
+	       (
+			a.ReceiveState = '1'
+			AND a.AcceptDate IS NOT NULL
+			AND a.AcceptDate != ''
+		   )
+		   OR (
+				a.ClaimState = '1'
+				AND a.ClaimDate IS NOT NULL
+				AND a.ClaimDate != ''
+	        )
+	   )
+	   AND  a.CheckPushType NOT  IN ('0','3') 
+	 ]]>
+	 <include refid="pubdtinfo_where"></include>
+	 <if test="claimName !='' and claimName !=null"> 
+		and a.ClaimName = #{claimName} 
+	 </if>
+	 <if test="acceptName !='' and acceptName !=null"> 
+		and a.AcceptName = #{acceptName} 
+	 </if>
+	 order by a.ClaimState,a.AcceptDate desc
+  </select>
+  
+  <sql id="pubdtinfo_where"> 
+	   <if test="uid !='' and uid !=null">
+	    and a.UID  =  #{uid}
+	    </if>
+	    <if test="priPID !='' and priPID !=null">
+	     and a.PriPID =#{priPID}
+	    </if>
+	    <if test="regNODesc !='' and regNODesc !=null">
+	    and (a.RegNO  LIKE concat('%', #{regNODesc},'%') or a.UniSCID  LIKE concat('%', #{regNODesc},'%'))
+	    </if>
+	    <if test="regNO !='' and regNO !=null">
+	    and a.RegNO  LIKE concat('%', #{regNO},'%')
+	    </if>
+	     <if test="uniSCID !='' and uniSCID !=null">
+	    and a.UniSCID  LIKE concat('%', #{uniSCID},'%')
+	    </if>
+	    <if test="entName !='' and entName !=null">
+	    and a.EntName  LIKE concat('%', #{entName},'%')
+	    </if>
+	    <if test="leRep !='' and leRep !=null">
+	    and a.LeRep  LIKE concat('%', #{leRep},'%')
+	    </if>
+	    <if test="regOrg !='' and regOrg !=null">
+	    and a.RegOrg  in (${regOrg})
+	    </if>
+	    <if test="localAdm !='' and localAdm !=null">
+	    and a.LocalAdm  in (${localAdm})
+	    </if>
+	    <if test="licCode !='' and licCode !=null">
+	    and a.LicCode  in (${licCode})
+	    </if>
+	    <if test="checkRegType !='' and checkRegType !=null">
+	    and a.CheckRegType = #{checkRegType}
+	    </if> 
+	    <if test="checkPushType !='' and checkPushType !=null">
+	    and a.CheckPushType in  (${checkPushType})
+	    </if>
+	    <if test="dom !='' and dom !=null">
+	    and a.Dom LIKE concat('%', #{dom},'%')
+	    </if>
+	    <if test="opScope !='' and opScope !=null">
+	    and a.OpScope  LIKE concat('%', #{opScope},'%')
+	    </if>
+	    <if test="leRep !='' and leRep !=null">
+	    and a.LeRep  LIKE concat('%', #{leRep},'%')
+	    </if>  
+		<if test="startEstDate !='' and startEstDate !=null">
+		<![CDATA[
+		and a.EstDate>= #{startEstDate}
+		]]>
+		</if>
+		<if test="endEstDate !='' and endEstDate !=null">
+		<![CDATA[
+		and a.EstDate <= #{endEstDate}
+		]]>
+		</if>
+		<if test="startApprDate !='' and startApprDate !=null">
+		<![CDATA[
+		and a.ApprDate >= #{startApprDate}
+		]]>
+		</if>
+		<if test="endApprDate !='' and endApprDate !=null">
+		<![CDATA[
+		and a.ApprDate <= #{endApprDate}
+		]]>
+		</if>
+		<if test="startCheckPushDate !='' and startCheckPushDate !=null">
+		<![CDATA[
+		and a.CheckPushDate >= #{startCheckPushDate}
+		]]>
+		</if>
+		<if test="endCheckPushDate !='' and endCheckPushDate !=null">
+		<![CDATA[
+		and a.CheckPushDate <= #{endCheckPushDate}
+		]]>
+		</if>
+		<if test="claimDateStart !='' and claimDateStart !=null">
+		<![CDATA[
+		and a.claimDate >= #{claimDateStart}
+		]]>
+		</if>
+		<if test="claimDateEnd !='' and claimDateEnd !=null">
+		<![CDATA[
+		and a.claimDate <= #{claimDateEnd}
+		]]>
+		</if>
+		<if test="acceptDateStart !='' and acceptDateStart !=null">
+		<![CDATA[
+		and a.acceptDate >= #{acceptDateStart}
+		]]>
+		</if>
+		<if test="acceptDateEnd !='' and acceptDateEnd !=null">
+		<![CDATA[
+		and a.acceptDate <= #{acceptDateEnd}
+		]]>
+		</if>
+		<!-- 审批机关 -->
+		<if test="deptCode !='' and deptCode !=null">
+	    and a.deptCode  in (${deptCode})
+	    </if>
+	    <if test="exaCode !='' and exaCode !=null">
+	    and a.exaCode  in (${exaCode})
+	    </if> 
+	    <!-- 终止状态 -->
+		<if test="checkStopState !='' and checkStopState !=null">
+	    and a.checkStopState = #{checkStopState}
+	    </if>
+	     <!-- 推送机关类型 -->
+		<if test="checkDeptType !='' and checkDeptType !=null">
+	    and a.checkDeptType = #{checkDeptType}
+	    </if>
+	    <!-- 认领状态 -->
+		<if test="claimState !='' and claimState !=null">
+		and	a.ClaimState = #{claimState}
+		</if>		
+		<!-- 接收状态 -->
+		<if test="receiveState !='' and receiveState !=null">
+		and	a.ReceiveState = #{receiveState}
+		</if>
+		<!-- 认领状态 -->
+		<if test="claimState !='' and claimState !=null">
+		and	a.checkDeptType = '1'
+		</if>		
+		<!-- 接收状态 -->
+		<if test="receiveState !='' and receiveState !=null">
+		and	a.checkDeptType != '1'
+		</if>
+		<!-- 认领接收的审批部门（仅查询本部门）协同 -->
+		<if test="checkDep !='' and checkDep !=null">
+		   and checkDep = #{checkDep}
+		</if>
+		<!-- 认领接收的审批部门（查询工商部门）工商 -->
+		<if test="checkRegDep !='' and checkRegDep !=null">
+            and LEFT(checkDep,7) = #{checkRegDep} and dutyDeptCode = 'A058'
+		</if>
+		<!-- 查询的审批部门 -->
+		<if test="checkDeps !='' and checkDeps !=null">
+	    and a.checkDep  in (${checkDeps})
+	    </if>
+	    <!-- 行业类型 -->
+	    <if test="industryCo !='' and industryCo !=null">
+	    and a.IndustryCo  in (${industryCo})
+	    </if> 	
+	    <!-- 前置许可审批事项-->
+	    <if test="qzCode !='' and qzCode !=null">
+	    and a.exaCode  in (${qzCode})
+	    </if> 	    
+  </sql>
+  
+  
+   <!-- 统计 从2016-12-26上线日期开始-->
+   <sql id="pubdtinfoCount_where"> 
+   		<if test="startCheckClaimDate !='' and startCheckClaimDate !=null">
+		<![CDATA[
+		and ClaimDate >= #{startCheckClaimDate}
+		]]>
+		</if>
+		<if test="endCheckClaimDate !='' and endCheckClaimDate !=null">
+		<![CDATA[
+		and ClaimDate <= #{endCheckClaimDate}
+		]]>
+		</if>
+		<!-- <if test="startCheckPushDate !='' and startCheckPushDate !=null">
+		<![CDATA[
+		and LEFT (CreateTime, 10) >= #{startCheckPushDate}
+		]]>
+		</if>
+		<if test="endCheckPushDate !='' and endCheckPushDate !=null">
+		<![CDATA[
+		and LEFT (CreateTime, 10) <= #{endCheckPushDate}
+		]]> 
+		</if>-->
+		<if test="startCheckPushDate !='' and startCheckPushDate !=null">
+		<![CDATA[
+		and CheckPushDate >= #{startCheckPushDate}
+		]]>
+		</if>
+		<if test="endCheckPushDate !='' and endCheckPushDate !=null">
+		<![CDATA[
+		and CheckPushDate <= #{endCheckPushDate}
+		]]>
+		</if>
+		<if test="checkRegType !='' and checkRegType !=null">
+	    and  CheckRegType =  #{checkRegType}
+	    </if>
+	    <if test="checkDep !='' and checkDep !=null">
+	    and  CheckDep  IN  (${checkDep}) 
+	    </if>
+	    <if test="area !='' and area !=null">
+	    and  substr(CheckDep, 1, 4)  =   #{area}
+	    </if>
+	    <![CDATA[
+	    and CheckPushDate >='2016-12-26'
+	    ]]>
+  </sql>
+  
+  
+  <sql id="pubdtinfo_sql">
+    a.id, 
+    a.UID,  
+    a.PriPID,  
+    a.UniSCID,  
+    a.EntName,  
+    a.RegNO,  
+    a.LeRep,  
+    a.Tel,  
+    a.EstDate,  
+    a.RegCap,  
+    a.Dom,  
+    a.OpTo,  
+    a.ApprDate,  
+    a.RegOrg,  
+    a.LocalAdm, 
+    a.DomDistrict,  
+    a.Street,  
+    a.ExaCode,  
+    a.ExaName,  
+    a.RegState,  
+    a.CheckDep,  
+    a.EntTypeCatg,  
+    a.EntType,  
+    a.Area,  
+    a.CheckRegType,  
+    a.CheckPushType,  
+    a.CheckPushDate,  
+    a.CheckDeptType,   
+    a.AcceptUser, 
+    a.AcceptName, 
+    a.AcceptDate, 
+    a.ReassignAccount, 
+    a.ReassignName,
+    a.ReassignDate,
+    a.ReassignType, 
+    a.ReassignRemark, 
+    a.ReassignDeptName, 
+    a.ReassignCode, 
+    a.ClaimCode, 
+    a.ClaimName, 
+    a.ClaimDate, 
+    a.ReceiveState, 
+    a.ClaimState, 
+    a.IsIndivid, 
+    a.IndustryCo,
+    a.checkStopState, 
+    a.CreateTime, 
+    a.OpFrom, 
+    a.OpScope 
+  </sql>
+  
+  
+   <resultMap type="com.icinfo.cs.dtinfo.dto.PubDtInfoDto" id="BaseResultExtentMap" extends="BaseResultMap">
+    <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+    <result column="DomDistrictName" property="domDistrictName" jdbcType="VARCHAR" />
+    <result column="IndustryName" property="industryName" jdbcType="VARCHAR" />
+    <result column="EntCatgName" property="entCatgName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 涉证企业查询(认领接收查询)分页 -->
+  <select id="selectPubDtinfoListSearch" resultMap="BaseResultExtentMap" parameterType="Map" >
+    SELECT D.id,UID,PriPID,UniSCID,EntName,RegNO,LeRep,Tel,EstDate,RegCap,Dom,OpTo,ApprDate,RegOrg,LocalAdm,DomDistrict,Street, ExaCode,
+	ExaName,RegState,CheckDep,EntTypeCatg,EntType,AREA,CheckRegType,CheckPushType,CheckPushDate,CheckDeptType, AcceptUser,AcceptName,
+	AcceptDate,ReassignAccount,ReassignName,ReassignDate,ReassignType,ReassignRemark,ReassignDeptName, ReassignCode,ClaimCode,
+	ClaimName,ClaimDate,ReceiveState,ClaimState,IsIndivid,IndustryCo,checkStopState,D.CreateTime,OpFrom,OpScope, D.CheckDepName,
+	D.DutyDeptName,D.DeptName ,
+	B.CONTENT RegOrgName, C.CONTENT DomDistrictName FROM 
+	(SELECT a.id,UID,PriPID,UniSCID,EntName,RegNO,LeRep,Tel,EstDate,RegCap,Dom,OpTo,ApprDate,RegOrg,LocalAdm,DomDistrict,Street, ExaCode,
+	ExaName,RegState,CheckDep,EntTypeCatg,EntType,AREA,CheckRegType,CheckPushType,CheckPushDate,CheckDeptType, AcceptUser,AcceptName,
+	AcceptDate,ReassignAccount,ReassignName,ReassignDate,ReassignType,ReassignRemark,ReassignDeptName, ReassignCode,ClaimCode,
+	ClaimName,ClaimDate,ReceiveState,ClaimState,IsIndivid,IndustryCo,checkStopState,a.CreateTime,OpFrom,OpScope, a.CheckDepName,
+	a.DutyDeptName,a.DeptName 
+	FROM cs_pub_dtinfo a
+	WHERE 1=1 
+	<!-- 认领接收查询标志 -->
+	<if test="claimFlag !=null and claimFlag == '1'.toString()">
+	   and CheckDep is 
+       not null and CheckPushType != '0' and CheckPushType !='3' AND ReceiveState != '1' AND ClaimState !='1'  AND checkStopState !='1'  
+	</if>
+	<include refid="pubdtinfo_where"></include> 
+	LIMIT ${numStart},${pageSize}
+	) D
+	LEFT JOIN cs_code_regorg B ON D.RegOrg=B.CODE 
+	LEFT JOIN cs_code_regunit C ON D.LocalAdm=C.CODE 
+	<if test="claimFlag !=null and claimFlag == '1'.toString()">
+	 ORDER BY ClaimState,CheckPushDate
+	</if> 
+  </select>
+  
+    <!-- 涉证企业查询(认领接收查询)分页条数 -->
+    <select id="selectPubDtinfoListSearchCount" resultType="Integer" parameterType="Map"> 
+	SELECT COUNT(0) FROM cs_pub_dtinfo a WHERE 1 = 1
+    <!-- 认领接收查询标志 -->
+	<if test="claimFlag !=null and claimFlag == '1'.toString()">
+	   and CheckDep is 
+       not null and CheckPushType != '0' and CheckPushType !='3' AND ReceiveState != '1' AND ClaimState !='1'   AND checkStopState !='1' 
+	</if>
+	<include refid="pubdtinfo_where"></include> 
+    </select>
+  
+  <!-- 涉证企业查询详情  设置基本信息 -->
+  <select id="selectPubDtInfoByPraMap" resultMap="BaseResultExtentMap" parameterType="Map" >
+	SELECT D.id,UID,PriPID,UniSCID,EntName,RegNO,LeRep,Tel,EstDate,RegCap,Dom,OpTo,ApprDate,RegOrg,LocalAdm,DomDistrict,Street,
+	ExaCode,ExaName,RegState,CheckDep,EntTypeCatg,EntType,AREA,CheckRegType,CheckPushType,CheckPushDate,CheckDeptType,
+	AcceptUser,AcceptName,AcceptDate,ReassignAccount,ReassignName,ReassignDate,ReassignType,ReassignRemark,ReassignDeptName,
+	ReassignCode,ClaimCode,ClaimName,ClaimDate,ReceiveState,ClaimState,IsIndivid,IndustryCo,checkStopState,D.CreateTime,OpFrom,OpScope,
+	D. CheckDepName,
+	B.CONTENT RegOrgName,
+	C.CONTENT DomDistrictName,
+	F.CONTENT IndustryName,
+	G.content entCatgName FROM
+	(SELECT a.id,UID,PriPID,UniSCID,EntName,RegNO,LeRep,Tel,EstDate,RegCap,Dom,OpTo,ApprDate,RegOrg,LocalAdm,DomDistrict,Street,
+	ExaCode,ExaName,RegState,CheckDep,EntTypeCatg,EntType,AREA,CheckRegType,CheckPushType,CheckPushDate,CheckDeptType,
+	AcceptUser,AcceptName,AcceptDate,ReassignAccount,ReassignName,ReassignDate,ReassignType,ReassignRemark,ReassignDeptName,
+	ReassignCode,ClaimCode,ClaimName,ClaimDate,ReceiveState,ClaimState,IsIndivid,IndustryCo,checkStopState,a.CreateTime,OpFrom,OpScope,
+	a. CheckDepName
+	FROM cs_pub_dtinfo a 
+	WHERE 1=1
+	<include refid="pubdtinfo_where"></include>
+	) D 
+	LEFT JOIN cs_code_regorg B ON D.RegOrg=B.CODE
+	LEFT JOIN cs_code_regunit C ON D.DomDistrict=C.CODE
+	LEFT JOIN cs_code_industry F ON D.IndustryCo = F.Code
+	LEFT JOIN cs_code_entcatg G ON D.EntTypeCatg= G.Code
+
+  </select>
+  
+  
+    <!-- 涉证企业查询处统计1 -->
+	<select id="pubDtinfoSearchCount" parameterType="Map" resultType="java.lang.Integer">
+		SELECT 
+		    COUNT(a.UID) 
+		FROM 
+		      cs_pub_dtinfo a  
+		where 1=1  
+		<if test="sendSuccess !='' and sendSuccess !=null"> <!-- 推送信息(分流成功)条数标志 -->
+		<![CDATA[
+		and a.CheckPushType IN ('1','2') AND a.checkStopState!='1'
+		]]>
+		</if>
+		<if test="sendFail !='' and sendFail !=null"> <!-- 分流失败条数标志（推送失败） -->
+		<![CDATA[
+		and a.CheckPushType='3' AND a.checkStopState!='1'
+		]]>
+		</if>
+		<if test="reback !='' and reback !=null"> <!-- 回退待分流条数标志 -->
+		<![CDATA[
+		and a.CheckPushType='0' AND a.checkStopState!='1' AND a.ReassignType='2' 
+		]]>
+		</if>
+		<if test="pushStop !='' and pushStop !=null"> <!-- 终止推送条数标志 -->
+		<![CDATA[
+		and a.checkStopState ='1'
+		]]>
+		</if>
+		<include refid="pubdtinfo_where"></include>
+	</select>
+	
+	<!-- 推送企业条数 -->
+	<select id="pubDtinfoCount" parameterType="Map" resultType="java.lang.Integer" >
+		SELECT COUNT(DISTINCT a.PriPID) FROM cs_pub_dtinfo a WHERE 1=1 
+		<include refid="pubdtinfo_where"></include>
+	</select>
+	
+	<!-- 推送审批 部门条数 -->
+	<select id="sendDeptCount" parameterType="Map" resultType="java.lang.Integer" >
+		SELECT COUNT(DISTINCT a.CheckDep) FROM cs_pub_dtinfo a WHERE 1=1 
+		and a.CheckDeptType ='1'
+		<include refid="pubdtinfo_where"></include>
+	</select>
+	
+    <!-- 查询当前部门本年度累计认领/接收条数 -->
+	<select id="claimAndReceiveCount" parameterType="java.lang.String" resultType="java.lang.Integer" >
+		SELECT COUNT(a.uid) FROM cs_pub_dtinfo a WHERE (DATE_FORMAT(ClaimDate,'%Y') = #{year}
+        OR DATE_FORMAT(AcceptDate,'%Y') = #{year}) 
+		<if test="userType !='' and userType == 1 ">
+		<if test="checkDep !='' and checkDep !=null"> <!-- 警示人员-->
+            and LEFT(checkDep,7) = #{checkDep} and dutyDeptCode = 'A058'
+        </if>
+		</if>
+		<if test="userType !='' and userType == 2 ">
+		<if test="checkDep !='' and checkDep !=null"> <!-- 协同人员 -->
+            and checkDep = #{checkDep}
+        </if>
+		</if>
+	</select>
+	
+	<!-- 根据注册号和主体身份代码获取不重复的审批事项编码 -->
+	<select id="selectDistinctExaCodeByRegNoAndPriPID" resultMap="BaseResultMap" parameterType="Map">
+	 SELECT  
+	    DISTINCT exaCode
+	 FROM 
+	 cs_pub_dtinfo
+	 WHERE
+	 RegNO=#{regNO} and PriPID=#{priPID} 
+   </select> 
+   
+    <!-- 认领撤销  -->
+    <update id="updatePubDtInfoCancel" parameterType="Map">
+      update cs_pub_dtinfo set  ClaimCode=null,ClaimName=null,ClaimDate=null,ClaimState='0', AcceptUser=null,AcceptName=null,AcceptDate=null,ReceiveState='0' 
+      where UID in  (${uid}) 
+   </update>
+   
+   <!-- 审批个数-->
+   <select id="selectCheckDepTotalForCharts" resultType="java.lang.String" parameterType="Map">
+		SELECT 
+			COUNT(DISTINCT CheckDep) 
+		FROM 
+			cs_pub_dtinfo  
+		where 
+		CheckPushType in ('1','2') AND checkStopState='0' AND CheckDeptType='1'
+		<include refid="regcharts_where"></include>
+   </select>
+   
+   <!-- 推送个数 -->
+   <select id="selectPushTotalForCharts" resultType="java.lang.String" parameterType="Map">
+		SELECT 
+			COUNT(id)
+		FROM
+			cs_pub_dtinfo  
+		where 
+		CheckPushType in ('1','2') 
+		AND checkStopState='0' 
+		AND CheckDeptType='1'
+		<include refid="regcharts_where"></include>
+   </select>
+   
+   <!-- 认领个数 -->
+   <select id="selectClaimTotalForCharts" resultType="java.lang.String" parameterType="Map">
+		SELECT 
+		COUNT(id) 
+		FROM 
+			cs_pub_dtinfo  
+		where 
+		CheckPushType in ('1','2') 
+		AND checkStopState='0' 
+		AND CheckDeptType='1' 
+		AND ClaimState = '1'
+		<include refid="regcharts_where"></include>
+   </select>
+   
+   <!-- 退回个数-->
+   <select id="selectBackTotalForCharts" resultType="java.lang.String" parameterType="Map">
+	    SELECT
+			COUNT(*)
+		FROM
+			cs_pub_dtinfo
+		WHERE
+			CheckPushType IN ('0')
+		AND checkStopState = '0'
+		AND CheckDeptType = '1'
+		<include refid="regcharts_where"></include>
+   </select>
+   
+   <!-- 未认领个数 -->
+   <select id="selectNoClaimCountForCharts" resultType="java.lang.String" parameterType="Map">
+	    SELECT
+			COUNT(*)
+		FROM
+			cs_pub_dtinfo
+		WHERE
+			CheckPushType IN ('1', '2')
+		AND checkStopState = '0'
+		AND CheckDeptType = '1'
+		AND ClaimState = '0'
+		<include refid="regcharts_where"></include>
+   </select>
+   
+   <select id="selectClaimInfoForDuty" resultMap="PubdtinfoFailReBackResultMap" parameterType="Map">
+   		SELECT
+		t.DutyDeptName,
+		t.DutyDeptCode,
+		t.pushCount,
+		t.claimCount,
+    	ROUND(IFNULL(
+			(t.claimCount / t.pushCount) * 100,
+			0
+		),2) claimRate
+		FROM
+		(
+			SELECT
+				DutyDeptName,
+				DutyDeptCode,
+				COUNT(id) pushCount,
+        		SUM(CASE WHEN ClaimState ='1' THEN 1 ELSE 0 END ) claimCount
+			FROM
+				cs_pub_dtinfo
+			WHERE
+				CheckPushType IN ('1', '2')
+			AND checkStopState = '0'
+			AND CheckDeptType = '1'
+			<include refid="regcharts_where"></include>
+			GROUP BY
+				DutyDeptCode
+		) t
+	ORDER BY
+		t.pushCount DESC
+		limit 10
+   </select>
+   
+    <select id="selectClaimInfoForArea" resultMap="PubdtinfoFailReBackResultMap" parameterType="Map">
+          SELECT
+			temp.orgCode area,
+			IFNULL(a.pushCount, 0) pushCount,
+			IFNULL(a.claimCount, 0) claimCount,
+			IFNULL(SUM(b.backCount), 0) backCount,
+			ROUND(
+				IFNULL(
+					(a.claimCount / a.pushCount) * 100,
+					0
+				),
+				2
+			) claimRate
+		FROM
+			(
+				SELECT
+					LEFT (t. CODE, 4) orgCode
+				FROM
+					cs_code_regorg t
+				WHERE
+					CODE != '100000'
+				AND CODE != '999999'
+				GROUP BY
+					LEFT (t. CODE, 4)
+			) temp
+		LEFT JOIN (
+			SELECT
+				LEFT (CheckDep, '4') areaCode,
+				COUNT(id) pushCount,
+				SUM(
+					CASE
+					WHEN ClaimState = '1' THEN
+						1
+					ELSE
+						0
+					END
+				) claimCount
+			FROM
+				cs_pub_dtinfo
+			WHERE
+				CheckPushType IN ('1', '2')
+			AND checkStopState = '0'
+			AND CheckDeptType = '1'
+			<include refid="regcharts_where"></include>
+			GROUP BY
+				LEFT (CheckDep, '4')
+		) a ON temp.orgCode = a.areaCode
+		LEFT JOIN (
+			SELECT
+				LEFT (CheckDep, '4') areaCode,
+				COUNT(0) backCount
+			FROM
+				cs_pub_dtinfo
+			WHERE
+				CheckPushType IN ('0')
+			AND checkStopState = '0'
+			AND CheckDeptType = '1'
+			<include refid="regcharts_where"></include>
+			GROUP BY
+				LEFT (CheckDep, '4')
+		) b ON temp.orgCode = b.areaCode
+	GROUP BY
+		temp.orgCode
+    </select>
+   
+   <!--省，市，县认领个数-->
+   <select id="selectClaimTotalForCity" resultType="java.lang.String" parameterType="Map">
+		SELECT COUNT(id) FROM cs_pub_dtinfo where CheckPushType in ('1','2') AND checkStopState='0' AND CheckDeptType='1' AND ClaimState = '1'
+		<if test="areaCode!=null and areaCode!=''">
+			 AND CheckDep like CONCAT(#{areaCode},'00','%')
+		</if>
+		<if test="areaCode ==''">
+			<![CDATA[ AND SUBSTR(CheckDep,5,2) = '00' AND LEFT(CheckDep,6) <> '330000']]>
+		</if>
+		 AND LEFT(CheckPushDate,'4') = #{dtyear}
+   </select>
+   <select id="selectClaimTotalForCounty" resultType="java.lang.String" parameterType="Map">
+		SELECT COUNT(id) FROM cs_pub_dtinfo where CheckPushType in ('1','2') AND checkStopState='0' AND CheckDeptType='1' AND ClaimState = '1'
+		<if test="areaCode!=null and areaCode!=''">
+			<![CDATA[ AND CheckDep like CONCAT(#{areaCode},'%') AND LEFT(CheckDep,6) <> CONCAT(#{areaCode},'00') ]]>
+		</if>
+		<if test="areaCode ==''">
+			<![CDATA[ AND SUBSTR(CheckDep,5,2) <> '00' AND LEFT(CheckDep,4) <> '3300' ]]>
+		</if>
+		 AND LEFT(CheckPushDate,'4') = #{dtyear}
+   </select>
+   <select id="selectClaimTotalForPro" resultType="java.lang.String" parameterType="Map">
+		SELECT COUNT(id) FROM cs_pub_dtinfo where CheckPushType in ('1','2') AND checkStopState='0' AND CheckDeptType='1' AND ClaimState = '1'
+		AND CheckDep like CONCAT('3300','%') 
+		AND LEFT(CheckPushDate,'4') = #{dtyear}
+   </select>
+   
+   <sql id="regcharts_where">
+      <if test="areaCode !=null and areaCode!=''">
+        AND LEFT(CheckDep,'4') = #{areaCode}
+      </if>
+      <if test="dtyear !=null and dtyear!=''">
+        AND LEFT(CheckPushDate,'4') = #{dtyear}
+      </if>
+      <if test="dutyDeptCode !=null and dutyDeptCode!=''">
+        AND DutyDeptCode = #{dutyDeptCode}
+      </if>
+   </sql>
+   
+</mapper>

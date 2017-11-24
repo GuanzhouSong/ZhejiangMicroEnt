@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.rpt.rptmapper.RptWarningInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.rpt.rptmodel.RptWarningInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="foodexpired" property="foodexpired" jdbcType="INTEGER" />
+    <result column="areacode" property="areacode" jdbcType="VARCHAR" />
+    <result column="regorg" property="regorg" jdbcType="VARCHAR" />
+    <result column="localadm" property="localadm" jdbcType="VARCHAR" />
+    <result column="drugexpired" property="drugexpired" jdbcType="INTEGER" />
+    <result column="qualifilimit" property="qualifilimit" jdbcType="INTEGER" />
+    <result column="reporteover" property="reporteover" jdbcType="INTEGER" />
+    <result column="reporteabnormal" property="reporteabnormal" jdbcType="INTEGER" />
+    <result column="notopanomaly" property="notopanomaly" jdbcType="INTEGER" />
+    <result column="notremove" property="notremove" jdbcType="INTEGER" />
+    <result column="notfoundalter" property="notfoundalter" jdbcType="INTEGER" />
+    <result column="notfoundreported" property="notfoundreported" jdbcType="INTEGER" />
+    <result column="illdisdetail" property="illdisdetail" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.rpt.rptdto.RptWarningInfoDto" id="BaseResultDtoMap" extends="BaseResultMap">
+     <result column="deptCode" property="deptCode" jdbcType="VARCHAR" />
+     <result column="SetUserUid" property="setUserUid" jdbcType="VARCHAR" />
+     <result column="num" property="num" jdbcType="BIGINT" />
+  </resultMap>
+  
+  
+  <select id="selectWarnCount" parameterType="Map" resultMap="BaseResultDtoMap">
+  SELECT 
+	SUM(t.foodexpired) foodexpired,SUM(t.drugexpired) drugexpired,SUM(t.qualifilimit) qualifilimit,
+	SUM(reporteover) reporteover,SUM(reporteabnormal) reporteabnormal,
+	SUM(notopanomaly) notopanomaly,SUM(notremove) notremove,SUM(notfoundalter) notfoundalter,
+	SUM(notfoundreported) notfoundreported,SUM(illdisdetail) illdisdetail
+  FROM cs_rpt_warning_info t
+  WHERE 1=1
+  <if test="selectCode !=null and selectCode !=''">
+    <if test="selectCode == '1'.toString()"><!-- 本市 -->
+      and areacode = left(#{deptCode},4) 
+    </if>
+    <if test="selectCode == '2'.toString()"><!-- 本局 -->
+      and regorg = left(#{deptCode},6) 
+    </if>
+    <if test="selectCode == '3'.toString()"><!-- 本所 -->
+      and localadm = left(#{deptCode},8)
+    </if>
+  </if>
+  <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+  </select>
+  
+  
+  <select id="selectRptScentCheck" parameterType="Map" resultMap="BaseResultDtoMap">
+   SELECT deptCode,SetUserUid,num FROM cs_rpt_scent_check where 1=1 
+   <if test="deptCode !='' and deptCode !=null and userId !='' and userId !=null">
+	 AND (deptCode = #{deptCode} or SetUserUid = #{userId})
+	</if>
+  </select>
+</mapper>

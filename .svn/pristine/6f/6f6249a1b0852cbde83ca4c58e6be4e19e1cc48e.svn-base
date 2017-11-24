@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icinfo.cs.im.mapper.ImInvestmentMapper">
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.im.model.ImInvestment">
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="PriPID" jdbcType="CHAR" property="priPID" />
+    <result column="EntName" jdbcType="VARCHAR" property="entName" />
+    <result column="RegNO" jdbcType="CHAR" property="regNO" />
+    <result column="Inv" jdbcType="VARCHAR" property="inv" />
+    <result column="InvID" jdbcType="VARCHAR" property="invID" />
+    <result column="LiSubConAm" jdbcType="DECIMAL" property="liSubConAm" />
+    <result column="LiAcConAm" jdbcType="DECIMAL" property="liAcConAm" />
+    <result column="UniCode" jdbcType="CHAR" property="uniCode" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <resultMap id="ImInvactdetail" type="com.icinfo.cs.im.model.ImInvactdetail">
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="Inv" jdbcType="VARCHAR" property="inv" />
+    <result column="InvID" jdbcType="VARCHAR" property="invID" />
+    <result column="ConDate" jdbcType="DATE" property="conDate" />
+    <result column="AcConAm" jdbcType="DECIMAL" property="acConAm" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="PaidID" jdbcType="VARCHAR" property="paidID" />
+    <result column="AcConFormCn" jdbcType="VARCHAR" property="acConFormCn" />
+    <result column="PubFlag" jdbcType="VARCHAR" property="pubFlag" />
+    <result column="PublicDate" jdbcType="DATE" property="publicDate" />
+    <result column="AcConForm" jdbcType="VARCHAR" property="acConForm" />
+  </resultMap>
+
+
+
+  <resultMap id="ImInvprodetail" type="com.icinfo.cs.im.model.ImInvprodetail">
+
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Inv" property="inv" jdbcType="VARCHAR" />
+    <result column="InvID" property="invID" jdbcType="VARCHAR" />
+    <result column="ConForm" property="conForm" jdbcType="CHAR" />
+    <result column="ConDate" property="conDate" jdbcType="DATE" />
+    <result column="SubConAm" property="subConAm" jdbcType="DECIMAL" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="ConFormCN" property="conFormCN" jdbcType="VARCHAR" />
+    <result column="SubID" property="subID" jdbcType="VARCHAR" />
+    <result column="PubFlag" property="pubFlag" jdbcType="VARCHAR" />
+    <result column="PublicDate" property="publicDate" jdbcType="DATE" />
+
+
+  </resultMap>
+
+
+  <resultMap extends="BaseResultMap" id="ImInvestmentWithDetail" type="com.icinfo.cs.im.dto.ImInvestmentDto">
+    <collection column="InvID" property="imInvprodetailList" ofType="ImInvprodetail" select="findImInvprodetailByInvId" >
+    </collection>
+    <collection column="InvID" property="imInvactdetailList" ofType="ImInvactdetail" select="findImInvactdetailByInvId" >
+
+    </collection>
+  </resultMap>
+
+
+  <resultMap extends="BaseResultMap" id="ImInvestmentWithDetailT" type="com.icinfo.cs.im.dto.ImInvestmentDto">
+  </resultMap>
+
+  <select id="genInvId" resultType="string">
+    select replace(uuid(), '-', '')
+  </select>
+  <select id="findInvestmentWithDetailByPriPID" parameterType="Map" resultMap="ImInvestmentWithDetailT">
+    select PriPID,EntName,RegNO, inv.Inv,inv.InvID,UniCode,inv.CreateTime,LiSubConAm,LiAcConAm
+    from cs_im_investment inv
+    where PriPID=#{priPID}
+  </select>
+
+  <select id="findImInvprodetailByInvId" parameterType="string" resultMap="ImInvprodetail">
+    select Inv,InvID,ConDate,ConForm,ConDate,SubConAm,CreateTime,ConFormCN,SubID,PubFlag,PublicDate
+    from cs_im_invprodetail
+    where InvID=#{invID}
+  </select>
+
+  <select id="findImInvactdetailByInvId" parameterType="string" resultMap="ImInvactdetail">
+    select Inv,InvID,ConDate,AcConAm,CreateTime,PaidID,AcConFormCn,PubFlag,PublicDate,AcConForm
+    from cs_im_invactdetail
+    where InvID=#{invID}
+  </select>
+
+
+</mapper>

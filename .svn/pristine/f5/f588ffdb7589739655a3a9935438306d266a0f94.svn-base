@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.im.mapper.ImCaseMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.im.model.ImCase" >
+    <!--
+      WARNING - @frameworkgenerated
+    --> 
+     <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="CaseNO" property="caseNO" jdbcType="CHAR" />
+    <result column="IllegActType" property="illegActType" jdbcType="VARCHAR" />
+    <result column="PenType" property="penType" jdbcType="CHAR" />
+    <result column="PenAm" property="penAm" jdbcType="DECIMAL" />
+    <result column="ForfAm" property="forfAm" jdbcType="DECIMAL" />
+    <result column="PenDecNo" property="penDecNo" jdbcType="VARCHAR" />
+    <result column="PenDecIssDate" property="penDecIssDate" jdbcType="DATE" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="PenTypeCN" property="penTypeCN" jdbcType="VARCHAR" />
+    <result column="PubType" property="pubType" jdbcType="VARCHAR" />
+    <result column="PubFlag" property="pubFlag" jdbcType="VARCHAR" />
+    <result column="JudAuth" property="judAuth" jdbcType="VARCHAR" />
+    <result column="PublicDate" property="publicDate" jdbcType="DATE" />
+    <result column="PenContent" property="penContent" jdbcType="LONGVARCHAR" />
+
+  </resultMap>
+    
+   <resultMap type="com.icinfo.cs.im.model.ImCasalt" id="ImCasalt">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="AltDate" property="altDate" jdbcType="DATE" />
+    <result column="CaseNO" property="caseNO" jdbcType="CHAR" />
+    <result column="PenAuth" property="penAuth" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CaseAltID" property="caseAltID" jdbcType="VARCHAR" />
+    <result column="PenAuthName" property="penAuthName" jdbcType="VARCHAR" />
+    <result column="Remark" property="remark" jdbcType="LONGVARCHAR" />
+    <result column="PenContent" property="penContent" jdbcType="LONGVARCHAR" /> 
+   </resultMap> 
+  
+ <resultMap extends="BaseResultMap" id="ImCaseWithDetail" type="com.icinfo.cs.im.dto.ImCaseDto">
+       
+  </resultMap>  
+
+
+  <select id="findCaseByPriPID" parameterType="map" resultMap="ImCaseWithDetail">
+    
+    SELECT id,PriPID,entName,regNO,UNICODE,caseNO,illegActType,penType,penAm,forfAm,penDecNo,penDecIssDate,createTime,penContent,penTypeCN,pubType,pubFlag,judAuth,publicDate FROM cs_im_case
+  
+  where priPId=#{priPID} 
+     <if test="pubFlag!=null and pubFlag!=''">
+      and pubFlag=#{pubFlag}
+     
+     </if>
+
+  </select>
+
+  <select id="findCasaltByInvId" parameterType="string" resultMap="ImCasalt">
+   SELECT id,altDate,remark,caseNO,penAuth,CreateTime,caseAltID,PenContent,penAuthName FROM cs_im_casalt WHERE caseNO=#{caseNO}
+    
+    
+  </select> 
+  
+</mapper>

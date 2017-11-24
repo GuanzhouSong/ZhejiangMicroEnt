@@ -1,0 +1,2419 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.opanomaly.mapper.PubOpanoMalyMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.opanomaly.model.PubOpanoMaly" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="UniSCID" property="uniSCID" jdbcType="CHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="CerType" property="cerType" jdbcType="CHAR" />
+    <result column="CerNO" property="cerNO" jdbcType="VARCHAR" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="CHAR" />
+    <result column="SpeCauseCN" property="speCauseCN" jdbcType="VARCHAR" />
+    <result column="SpeCause" property="speCause" jdbcType="VARCHAR" />
+    <result column="AbnTime" property="abnTime" jdbcType="TIMESTAMP" />
+    <result column="DecOrg" property="decOrg" jdbcType="VARCHAR" />
+    <result column="DecorgCN" property="decorgCN" jdbcType="VARCHAR" />
+    <result column="AnomalyRea" property="anomalyRea" jdbcType="VARCHAR" />
+    <result column="FirstDept" property="firstDept" jdbcType="VARCHAR" />
+    <result column="FirstName" property="firstName" jdbcType="VARCHAR" />
+    <result column="Firstdate" property="firstdate" jdbcType="TIMESTAMP" />
+    <result column="FirstOpin" property="firstOpin" jdbcType="VARCHAR" />
+    <result column="AuditDept" property="auditDept" jdbcType="VARCHAR" />
+    <result column="AuditName" property="auditName" jdbcType="VARCHAR" />
+    <result column="AuditDate" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="AuditOpin" property="auditOpin" jdbcType="VARCHAR" />
+    <result column="AuditState" property="auditState" jdbcType="CHAR" />
+    <result column="PenDecNo" property="penDecNo" jdbcType="VARCHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="SeqYear" property="seqYear" jdbcType="INTEGER" />
+    <result column="DeptName" property="deptName" jdbcType="VARCHAR" />
+    <result column="DeptUpName" property="deptUpName" jdbcType="VARCHAR" />
+    <result column="DeptSameCourt" property="deptSameCourt" jdbcType="VARCHAR" />
+    <result column="DeptSameGov" property="deptSameGov" jdbcType="VARCHAR" />
+    <result column="RevokeFlag" property="revokeFlag" jdbcType="CHAR" />
+    <result column="BatchEntType" property="batchEntType" jdbcType="CHAR" />
+    <result column="ImpFlag" property="impFlag" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="BusExcList" property="busExcList" jdbcType="VARCHAR" />
+    <result column="Remark" property="remark" jdbcType="LONGVARCHAR" />
+    <result column="RegState" property="regState" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="PubOpanoMalyListForPubResultMap" type="com.icinfo.cs.opanomaly.dto.PubOpanoMalyDto" extends="BaseResultMap">
+      <result column="ReDecOrgCN" property="reDecOrgCN" jdbcType="VARCHAR" /> 
+      <result column="RemExcpresCN" property="remExcpresCN" jdbcType="VARCHAR" /> 
+      <result column="RemDate" property="remDate" jdbcType="TIMESTAMP"/>
+      <result column="canOutPenDecNo" property="canOutPenDecNo" jdbcType="VARCHAR"/>
+  </resultMap>
+  
+  <resultMap id="PubOpanoMalyListResultMap" type="com.icinfo.cs.opanomaly.dto.PubOpanoMalyDto" extends="PubOpanoMalyListForPubResultMap">
+      <result column="regOrgName" property="regOrgName" jdbcType="VARCHAR" /> 
+      <result column="localAdmName" property="localAdmName" jdbcType="VARCHAR" /> 
+      <result column="Dom" property="dom" jdbcType="VARCHAR" /> 
+      <result column="EstDate" property="estDate" jdbcType="TIMESTAMP"/>
+      <result column="RegState" property="regState" jdbcType="TIMESTAMP"/>
+      <result column="AuditDateDesc" property="auditDateDesc" jdbcType="TIMESTAMP"/>  
+      <result column="PenDecNoDetail" property="penDecNoDetail" jdbcType="TIMESTAMP"/> 
+      
+      <result column="IsMove" property="isMove" jdbcType="VARCHAR" /> 
+      <result column="SliceNOName" property="sliceNOName" jdbcType="VARCHAR" /> 
+      <result column="CanOutPenDecNo" property="canOutPenDecNo" jdbcType="VARCHAR" />
+      <result column="RemoveRea" property="removeRea" jdbcType="VARCHAR" />
+      <result column="pubState" property="pubState" jdbcType="VARCHAR"/> 
+      <result column="DownState" property="downState" jdbcType="VARCHAR"/>
+      <result column="deptName" property="deptName" jdbcType="VARCHAR"/>
+      
+      <result column="isErEscApp" property="isErEscApp" jdbcType="VARCHAR"/>
+      <result column="entCatgFlag" property="entCatgFlag" jdbcType="VARCHAR"/>
+      
+      <result column="initBatchNum" property="initBatchNum" jdbcType="BIGINT" />
+      <result column="batchRemoveNum" property="batchRemoveNum" jdbcType="BIGINT" />
+      <result column="batchNum" property="batchNum" jdbcType="BIGINT" />
+  </resultMap>
+  
+  <resultMap id="PubOpanoMalyTotalResultMap" type="com.icinfo.cs.opanomaly.dto.PubOpanoMalyDto" extends="BaseResultMap">
+      <result column="countAll" property="countAll" jdbcType="VARCHAR"/>
+      <result column="disCountAllTotal" property="disCountAllTotal" jdbcType="VARCHAR"/>
+      <result column="totalType" property="totalType" jdbcType="VARCHAR"/>
+  </resultMap>
+  
+  
+   <resultMap id="MidBaseResultMapDto" type="com.icinfo.cs.ext.dto.MidBaseInfoDto" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="Dom" property="dom" jdbcType="VARCHAR" />
+    <result column="DomDistrict" property="domDistrict" jdbcType="CHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="RegCap" property="regCap" jdbcType="DECIMAL" />
+    <result column="EntType" property="entType" jdbcType="CHAR" />
+    <result column="EstDate" property="estDate" jdbcType="DATE" />
+    <result column="IndustryCo" property="industryCo" jdbcType="CHAR" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="CHAR" />
+    <result column="IndustryPhy" property="industryPhy" jdbcType="CHAR" />
+    <result column="RegState" property="regState" jdbcType="CHAR" />
+    <result column="RegCapUSD" property="regCapUSD" jdbcType="DECIMAL" />
+    <result column="RecCapUSD" property="recCapUSD" jdbcType="DECIMAL" />
+    <result column="RecCapRMB" property="recCapRMB" jdbcType="DECIMAL" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="PostalCode" property="postalCode" jdbcType="CHAR" />
+    <result column="OpFrom" property="opFrom" jdbcType="DATE" />
+    <result column="OpTo" property="opTo" jdbcType="DATE" />
+    <result column="EmpNum" property="empNum" jdbcType="INTEGER" />
+    <result column="Country" property="country" jdbcType="CHAR" />
+    <result column="Currency" property="currency" jdbcType="CHAR" />
+    <result column="Town" property="town" jdbcType="BIT" />
+    <result column="Street" property="street" jdbcType="VARCHAR" />
+    <result column="CerNO" property="cerNO" jdbcType="VARCHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="Email" property="email" jdbcType="VARCHAR" />
+    <result column="ApprDate" property="apprDate" jdbcType="DATE" />
+    <result column="AltDate" property="altDate" jdbcType="DATE" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="IsIndivid" property="isIndivid" jdbcType="VARCHAR" />
+    <result column="ImpDate" property="impDate" jdbcType="TIMESTAMP" />
+    <result column="CheckDep" property="checkDep" jdbcType="VARCHAR" />
+    <result column="Yiedistrict" property="yiedistrict" jdbcType="VARCHAR" />
+    <result column="CurrencyCn" property="currencyCn" jdbcType="VARCHAR" />
+    <result column="EntTypeCatg" property="entTypeCatg" jdbcType="VARCHAR" />
+    <result column="ProLoc" property="proLoc" jdbcType="LONGVARCHAR" />
+    <result column="OpForm" property="opForm" jdbcType="LONGVARCHAR" />
+    <result column="OpScope" property="opScope" jdbcType="LONGVARCHAR" />
+    <result column="IndividDate" property="individDate" jdbcType="DATE" />
+	<result column="CheckOrg" property="checkOrg" jdbcType="VARCHAR" />
+	<result column="DelegateOrg" property="delegateOrg" jdbcType="VARCHAR" />
+    <result column="regOrgName" property="regOrgName" jdbcType="VARCHAR" />
+    <result column="localAdmName" property="localAdmName" jdbcType="VARCHAR" />
+   </resultMap>
+   
+   
+    <!-- 查询列入异常的企业 -->
+    <select id="selectMidBasePubOpanoMalyList" resultMap="MidBaseResultMapDto" parameterType="Map"> 
+	        SELECT 
+ 				PriPID,
+				EntName,
+				RegNO, 
+				LeRep, 
+ 				EstDate,
+ 				RegOrg,
+				LocalAdm, 
+				RegState, 
+				UniCode,
+				ApprDate, 
+				RegOrgName,
+				localAdmName
+	        FROM
+	        cs_mid_baseinfo
+	        WHERE
+	          RegState NOT IN (${regState})
+	        <if test="pripid !='' and pripid !=null">
+	        and PriPID =#{pripid}
+	        </if>
+	        <if test="entTypeFlag ==0 "><!-- 企业类型标识 0表示查询农专 1表示查询企业 -->
+	        and EntTypeCatg  in ('16','17')
+	        </if>
+	        <if test="entTypeFlag ==1 "><!-- 排除农专和个体户 -->
+	        and EntTypeCatg not in ('16','17','50')
+	        </if> 
+	        <if test="regNO !='' and regNO !=null">
+		    and RegNO  LIKE concat('%', #{regNO},'%')
+		    </if>
+		    <if test="entName !='' and entName !=null">
+		    and EntName  LIKE concat('%', #{entName},'%')
+		    </if>
+		    <if test="leRep !='' and leRep !=null">
+	        and LeRep  LIKE concat('%', #{leRep},'%')
+	        </if>
+	        <if test="regOrg !='' and regOrg !=null">
+		    and RegOrg  IN  (${regOrg})
+		    </if>
+		    <if test="localAdm !='' and localAdm !=null">
+		    and LocalAdm IN  (${localAdm})
+		    </if>
+    </select>
+    
+    <select id="selectPubOpanoMalyListByPriPID" resultMap="PubOpanoMalyListResultMap" parameterType="Map">
+    	SELECT 
+  A.id,
+  A.PriPID,
+  A.EntName,
+  A.RegNO,
+  A.UniSCID,
+  A.LeRep,
+  A.CerType,
+  A.CerNO,
+  A.RegOrg,
+  A.LocalAdm,
+  A.SpeCauseCN,
+  A.SpeCause,
+  A.AbnTime,
+  A.DecOrg,
+  A.DecorgCN,
+  A.AnomalyRea,
+  A.FirstDept,
+  A.FirstName,
+  A.Firstdate,
+  A.FirstOpin,
+  A.AuditDept,
+  A.AuditName,
+  A.AuditDate,
+  A.AuditOpin,
+  A.AuditState,
+  A.PenDecNo,
+  A.YEAR,
+  A.SeqYear,
+  A.DeptName,
+  A.DeptUpName,
+  A.DeptSameCourt,
+  A.DeptSameGov,
+  A.RevokeFlag,
+  A.BatchEntType,
+  A.ImpFlag,
+  A.CreateTime,
+  A.BusExcList,
+  A.Remark,
+  A.EstDate,
+  E.Dom,
+  E.LocalAdmName,
+  E.SliceNOName,
+  E.RegOrgName,
+  C.IsMove IsMove,
+  C.PenDecNo CanOutPenDecNo,
+  C.RemExcpresCN,
+  C.RemDate,
+  C.ReDecOrgCN 
+FROM
+  cs_pub_opanomaly A 
+  LEFT JOIN cs_mid_baseinfo E 
+    ON A.PriPID = E.PriPID 
+  LEFT JOIN cs_pub_opadetail C 
+    ON A.BusExcList = C.BusExcList 
+WHERE A.AuditState = '1' 
+  AND A.PriPID = #{priPID}
+    </select>
+    
+    <!-- 异常名录查询 -->
+    <select id="selectPubOpanoMalySearchList" resultMap="PubOpanoMalyListResultMap" parameterType="Map">
+			SELECT 
+			D.PriPID,
+			D.EntName,
+			D.RegNO,
+			D.UniSCID,
+			D.LeRep, 
+ 			D.SpeCauseCN,
+ 			D.AbnTime,
+ 			D.DecorgCN,
+			D.AnomalyRea,  
+ 			D.PenDecNo,
+ 			D.BusExcList,
+ 			D.EstDate,
+			D.Dom,
+			D.LocalAdmName,
+			D.SliceNOName,
+			D.RegOrgName,
+			C.IsMove IsMove,
+			C.PenDecNo CanOutPenDecNo,
+ 			C.RemExcpresCN,
+			C.RemDate,
+			C.reDecOrgCN,
+			C.RemoveRea,
+			C.AuditState
+		FROM
+			(
+				SELECT 
+					A.PriPID,
+					A.EntName,
+					A.RegNO,
+					A.UniSCID,
+					A.LeRep, 
+ 					A.SpeCauseCN,
+ 					A.AbnTime,
+ 					A.DecorgCN,
+					A.AnomalyRea, 
+ 					A.PenDecNo,
+ 					A.BusExcList,
+ 					E.EstDate,
+					E.Dom,
+					E.LocalAdmName,
+					E.SliceNOName,
+					E.RegOrgName
+				FROM
+					cs_pub_opanomaly A,
+					cs_mid_baseinfo E
+				WHERE
+					A.AuditState = '1'
+				AND A.PriPID = E.PriPID
+			    <if test="entTypeFlag ==0 "><!-- 企业类型标识 0表示查询农专 1表示查询企业 -->
+				AND E.EntTypeCatg  in ('16','17')
+				</if>
+				<if test="entTypeFlag ==1 "><!-- 排除农专和个体户 -->
+				AND E.EntTypeCatg   not  in ('16','17','50')
+				</if> 
+				<include refid="pubopanomaly_where"></include> 
+				LIMIT ${numStart},${pageSize}
+			) D
+		LEFT JOIN cs_pub_opadetail C ON D.BusExcList = C.BusExcList AND C.AuditState = '1'
+  </select>
+  
+  
+    <!-- 异常名录查询  分页条数 -->
+    <select id="selectPubOpanoMalySearchCount" resultType="Integer" parameterType="Map"> 
+		SELECT 
+			count(0)
+		FROM
+			cs_pub_opanomaly A,
+			cs_mid_baseinfo E
+		WHERE
+			A.AuditState = '1'
+		AND A.PriPID = E.PriPID
+	    <if test="entTypeFlag ==0 "><!-- 企业类型标识 0表示查询农专 1表示查询企业 -->
+		AND E.EntTypeCatg IN ('16','17') 
+		</if>
+		<if test="entTypeFlag ==1 "><!-- 排除农专和个体户 -->
+		AND E.EntTypeCatg   not  in ('16','17','50')
+		</if> 
+		<include refid="pubopanomaly_where"></include> 
+  </select>
+    
+    
+    
+    
+    
+  
+   <!--查询已经列入未移出撤销的异常信息 统计已下载的条数 -->
+  <select id="selectPubOpanoMalyList_downnum" resultMap="PubOpanoMalyListResultMap" parameterType="Map">
+	 <!-- SELECT
+	  count(1) DownState
+	  FROM
+	  cs_info_rece_stat
+	  WHERE TYPE = '3'
+	  <if test="adCode != null and adCode != ''">
+		  AND Adcode = #{adCode}
+	  </if>-->
+	  SELECT
+	  COUNT(1) DownState
+	  FROM
+	  cs_info_rece_stat t
+	  WHERE 1 = 1
+	  AND t.TYPE = '3'
+	  <if test="adCode != null and adCode != ''">
+		  AND t.Adcode = #{adCode}
+	  </if>
+	  AND EXISTS
+	  (SELECT
+	  1
+	  FROM
+	  cs_pub_opanomaly A
+	  LEFT JOIN cs_pub_opadetail B
+	  ON A.BusExcList = B.BusExcList
+	  WHERE t.RelateId = A.`id`
+	  AND A.RevokeFlag IS NULL
+	  AND (
+	  B.AuditState IS NULL
+	  OR B.AuditState != '1'
+	  )
+	  <if test='applyFalg ==1'>
+		  AND A.AuditState  ='1'
+	  </if>
+	  <if test="uniCode_regNO !='' and uniCode_regNO !=null">
+		  and (
+		  A.RegNO  LIKE concat('%', #{uniCode_regNO},'%')
+		  OR
+		  A.UniSCID  LIKE concat('%', #{uniCode_regNO},'%')
+		  )
+	  </if>
+	  <if test="entName !='' and entName !=null">
+		  and A.EntName  LIKE concat('%', #{entName},'%')
+	  </if>
+	  )
+
+    <!--select count(1) DownState
+	  FROM
+	  cs_pub_opanomaly A
+	  LEFT JOIN cs_pub_opadetail B ON A.BusExcList = B.BusExcList
+	  WHERE
+	  A.RevokeFlag IS NULL
+	  AND  (B.AuditState IS NULL OR  B.AuditState != '1')
+	  AND EXISTS
+	  (SELECT
+	  1
+	  FROM
+	  cs_info_rece_stat t
+	  WHERE 1 = 1
+	  AND t.RelateId = A.`id`
+	  AND t.TYPE = '3'
+	  <if test="adCode != null and adCode != ''">
+		  AND t.Adcode = #{adCode}
+	  </if>
+	  )
+	  <if test='applyFalg ==1'>
+		  AND A.AuditState  ='1'
+	  </if>
+	  <if test="uniCode_regNO !='' and uniCode_regNO !=null">
+		  and (
+		  A.RegNO  LIKE concat('%', #{uniCode_regNO},'%')
+		  OR
+		  A.UniSCID  LIKE concat('%', #{uniCode_regNO},'%')
+		  )
+	  </if>
+	  <if test="entName !='' and entName !=null">
+		  and A.EntName  LIKE concat('%', #{entName},'%')
+	  </if>-->
+
+  </select>
+	<!-- 查询列入过异常的企业 -->
+	<select id="selectPubOpanoMalyList_Fordatain" resultMap="PubOpanoMalyListResultMap" parameterType="Map">
+		SELECT
+		A.id,
+		A.PriPID,
+		A.EntName ,
+		A.RegNO ,
+		A.UniSCID ,
+		A.LeRep ,
+		A.CerType,
+		A.CerNO ,
+		A.RegOrg ,
+		A.LocalAdm ,
+		A.SpeCauseCN ,
+		A.SpeCause ,
+		A.AbnTime ,
+		A.DecOrg ,
+		A.DecorgCN ,
+		A.AnomalyRea,
+		A.FirstDept,
+		A.FirstName,
+		A.Firstdate,
+		A.FirstOpin,
+		A.AuditDept,
+		A.AuditName,
+		A.AuditDate,
+		A.AuditOpin,
+		A.AuditState,
+		A.PenDecNo,
+		A.Year,
+		A.SeqYear,
+		A.DeptName,
+		A.DeptUpName,
+		A.DeptSameCourt,
+		A.DeptSameGov,
+		A.RevokeFlag,
+		A.BatchEntType,
+		A.ImpFlag,
+		A.CreateTime,
+		A.BusExcList,
+		A.Remark,
+		E.RegOrgName regOrgName,
+		E.LocalAdmName localAdmName,
+		E.EstDate,
+		E.Dom ,
+		CASE
+		WHEN t.id IS NULL
+		THEN '0'
+		ELSE '1'
+		END DownState
+		FROM
+		cs_pub_opanomaly A
+		LEFT JOIN cs_pub_opadetail B ON A.BusExcList = B.BusExcList
+		LEFT JOIN cs_mid_baseinfo E ON A.PriPID = E.PriPID
+		LEFT JOIN cs_info_rece_stat t ON A.id = t.RelateId  <if test="adCode != null and adCode != ''"> AND t.Adcode = #{adCode} </if> AND  t.TYPE = '3'
+		WHERE
+		A.RevokeFlag IS NULL
+		<![CDATA[
+	AND  (B.AuditState IS NULL OR  B.AuditState != '1')
+	]]>
+		<if test='applyFalg ==1'>
+			AND A.AuditState  ='1'
+		</if>
+		<!-- add by liuhq统一代码、注册号联合查询 -->
+		<if test="uniCode_regNO !='' and uniCode_regNO !=null">
+			and (
+			A.RegNO  LIKE concat('%', #{uniCode_regNO},'%')
+			OR
+			A.UniSCID  LIKE concat('%', #{uniCode_regNO},'%')
+			)
+		</if>
+		<if test="entName !='' and entName !=null">
+			and A.EntName  LIKE concat('%', #{entName},'%')
+		</if>
+		<!-- add by liuhq统一代码、注册号联合查询 end-->
+  </select>
+			
+			
+  <!-- 查询列入过异常的企业 -->
+  <select id="selectPubOpanoMalyList" resultMap="PubOpanoMalyListResultMap" parameterType="Map"> 
+            SELECT 
+		    A.PriPID,  
+		    A.EntName ,
+		    A.RegNO ,
+		    A.UniSCID ,
+		    A.LeRep , 
+		    A.SpeCause ,
+		    A.SpeCauseCN ,
+ 		    A.AbnTime ,
+ 		    A.DecorgCN ,
+		    A.AnomalyRea,  
+ 		    A.FirstName,  
+		    A.Firstdate,
+		    A.AuditName,  
+		    A.AuditDate, 
+		    A.AuditState,  
+		    A.PenDecNo,  
+ 		    A.BusExcList,
+ 		    A.Year,  
+		    E.RegOrgName regOrgName,
+			E.LocalAdmName localAdmName,
+			E.EstDate,
+			E.Dom
+			FROM
+			cs_pub_opanomaly A
+ 		 	LEFT JOIN cs_mid_baseinfo E ON A.PriPID = E.PriPID
+ 		 	LEFT JOIN cs_pub_opadetail B ON A.BusExcList = B.BusExcList
+			  WHERE
+			A.RevokeFlag IS NULL
+			 <![CDATA[
+			AND  (B.AuditState IS NULL OR  B.AuditState != '1') 
+			]]> 
+		    <if test='applyFalg ==1'>
+		    AND A.AuditState  ='1'
+		    </if>
+		    <if test="entTypeFlag ==0 "><!-- 企业类型标识 0表示查询农专 1表示查询企业 --> 
+			 AND E.EntTypeCatg IN ('16','17')
+			</if>
+			<if test="entTypeFlag ==1 "><!-- 排除农专和个体户 -->
+ 			 AND E.EntTypeCatg NOT  IN ('16','17','50') 
+			</if> 
+		 	<include refid="pubopanomaly_where"></include>
+		 	ORDER BY A.AuditState ASC,A.AbnTime DESC
+		 	LIMIT ${numStart},${pageSize} 
+  </select>
+  
+  <!-- 查询列入过异常的企业  条数-->
+  <select id="selectPubOpanoMalyListCount" resultType="Integer" parameterType="Map">
+	SELECT 
+     count(0)
+	FROM
+	cs_pub_opanomaly A
+	LEFT JOIN cs_pub_opadetail B ON A.BusExcList = B.BusExcList
+	LEFT JOIN cs_mid_baseinfo  E ON A.PriPID=E.PriPID
+ 	WHERE
+	A.RevokeFlag IS NULL
+   <!-- <![CDATA[ 
+    AND NOT EXISTS (
+		SELECT
+			1
+		FROM
+			cs_pub_opadetail B
+		WHERE
+		A.BusExcList = B.BusExcList
+		AND (B.AuditState IS NULL OR  B.AuditState != '1') 
+	 ) 
+	]]> --> 
+	<![CDATA[
+		AND  (B.AuditState IS NULL OR  B.AuditState != '1') 
+	]]> 
+    <if test='applyFalg ==1'>
+    AND A.AuditState  ='1'
+    </if>
+    <if test="entTypeFlag ==0 "><!-- 企业类型标识 0表示查询农专 1表示查询企业 -->
+    AND E.EntTypeCatg  IN ('16','17')  
+	</if>
+	<if test="entTypeFlag ==1 "><!-- 排除农专和个体户 --> 
+	AND E.EntTypeCatg NOT  IN ('16','17','50') 
+	</if> 
+ 	<include refid="pubopanomaly_where"></include> 
+  </select>
+  
+  <!-- 列入，列出，期满三年公告 -->
+  <select id="queryPubOpanoMalyListForNotice" resultMap="PubOpanoMalyListResultMap" parameterType="java.lang.String">
+  select
+    exp.AuditDate,
+	exp.EntName,
+	exp.PriPID,
+	exp.BusExcList,
+	exp.deptName,
+	exp.pubState
+  from(	
+	SELECT
+	t.AuditDate,
+	t.EntName,
+	t.PriPID,
+	t.BusExcList,
+	t.decorgCN deptName,
+	1 pubState
+	FROM
+		cs_pub_opanomaly t
+	WHERE
+		t.AuditState = '1'
+	<if test="_parameter !='' and _parameter != null">
+	and <![CDATA[ t.update_time >= #{_parameter}]]>
+	</if>	
+	UNION ALL
+			SELECT
+				a.AuditDate,
+				a.EntName,
+				a.PriPID,
+				a.BusExcList,
+				a.reDecOrgCN deptName,
+				2 pubState
+			FROM
+				cs_pub_opadetail a
+			WHERE
+				a.AuditState = '1' AND a.IsMove = '1' 
+            <if test="_parameter !='' and _parameter != null">
+			and <![CDATA[ a.update_time >= #{_parameter}]]>
+			</if>
+	UNION ALL
+			  SELECT
+				a.AbnTime AuditDate,
+				a.EntName,
+				a.PriPID,
+				a.BusExcList,
+				a.decorgCN deptName,
+				3 pubState
+			FROM
+				cs_pub_opanomaly a
+			WHERE
+				a.AuditState = '1' and revokeFlag is null
+			AND NOT EXISTS (
+			SELECT 1 FROM
+				cs_pub_opadetail b
+			WHERE
+				a.BusExcList = b.BusExcList
+			AND IsMove IN (1, 2) AND b.AuditState='1' )
+			AND date_sub(date_sub(curdate(),interval 3 year),interval -60 day) >=a.AbnTime
+			AND a.AbnTime>=date_sub(curdate(),interval 3 year)
+
+		) exp	
+  </select>
+  
+  <sql id="pubopanomaly_where">
+		<if test="uniCode_regNO !='' and uniCode_regNO !=null">
+			and (
+			A.RegNO  LIKE concat('%',#{uniCode_regNO},'%')
+			OR
+			A.UniSCID  LIKE concat('%',#{uniCode_regNO},'%')
+			)
+		</if>
+	   <if test="busExcList !='' and busExcList !=null">
+	    and A.BusExcList  =  #{busExcList}
+	    </if>
+	    <if test="priPID !='' and priPID !=null">
+	        and A.PriPID =#{priPID}
+	    </if>
+	    <if test="regNO !='' and regNO !=null">
+	    and A.RegNO  LIKE concat('%', #{regNO},'%')
+	    </if>
+	    <if test="entName !='' and entName !=null">
+	    and A.EntName  LIKE concat('%',#{entName},'%')
+	    </if>
+	    <if test="leRep !='' and leRep !=null">
+	    and A.LeRep  LIKE concat('%', #{leRep},'%')
+	    </if>
+	    <if test="regOrg !='' and regOrg !=null">
+	    and E.RegOrg IN (${regOrg})
+	    </if>
+		<if test="regOrgQx !=null and regOrgQx !=''">
+         and (E.RegOrg  = #{regOrgQx})
+        </if>
+	    <if test="sliceNO !='' and sliceNO !=null">
+	    and E.sliceNO  IN  (${sliceNO})
+	    </if> 
+	    <if test="localAdm !='' and localAdm !=null">
+	    and E.LocalAdm  IN (${localAdm})
+	    </if>
+	    <if test="dom !='' and dom !=null">
+	    and E.Dom  LIKE concat('%', #{dom},'%')
+	    </if>
+	    <if test="entType !='' and entType !=null">
+	    and E.EntType IN (${entType})
+	    </if>
+	    <if test="isIndivid != null and isIndivid != '' and isIndivid ==1 ">
+	    and E.IsIndivid = #{isIndivid}
+	    </if>
+	    <if test="isIndivid != null and isIndivid != '' and isIndivid ==0 ">
+	    and (E.IsIndivid = #{isIndivid} or E.IsIndivid = '' or E.IsIndivid is null )
+		</if>
+        <if test="regStates!=null and regStates!=''">
+			and E.RegState IN
+			<foreach item="item" index="index" collection="regStates" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+        <if test="industryCos!=null and industryCos!=''">
+			and E.IndustryCo IN
+			<foreach item="item" index="index" collection="industryCos" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	    <if test="speCause !='' and speCause !=null">
+	    and A.SpeCause  =#{speCause}
+	    </if>
+	    <if test="penDecNo !='' and penDecNo !=null">
+	    and A.PenDecNo  LIKE concat('%', #{penDecNo},'%')
+	    </if>
+	    <if test="decorgCN !='' and decorgCN !=null">
+	    and A.DecorgCN  LIKE concat('%', #{decorgCN},'%')
+	    </if>
+	    <if test="auditState !='' and auditState !=null">
+	    and A.AuditState  =#{auditState}
+	    </if>
+	    <if test="firstName !='' and firstName !=null">
+	    and A.FirstName  =#{firstName}
+	    </if>
+	    <if test="auditName !='' and auditName !=null">
+	    and A.AuditName  =#{auditName}
+	    </if>
+	    <if test="isRecovery !='' and isRecovery !=null">
+	    and A.IsRecovery  =#{isRecovery}
+	    </if>
+	    <if test="year !='' and year !=null">
+	    and A.Year  =#{year}
+	    </if> 
+		<if test="startFirstdate !='' and startFirstdate !=null">
+		<![CDATA[
+		and DATE_FORMAT(A.Firstdate,'%Y-%m-%d') >= #{startFirstdate}
+		]]>
+		</if>
+		<if test="endFirstdate !='' and endFirstdate !=null">
+		<![CDATA[
+		and DATE_FORMAT(A.Firstdate,'%Y-%m-%d') <= #{endFirstdate}
+		]]>
+		</if>
+		<if test="startExtDate !='' and startExtDate !=null">
+		<![CDATA[
+		and DATE_FORMAT(E.EstDate,'%Y-%m-%d') >= #{startExtDate}
+		]]>
+		</if>
+		<if test="endExtDate !='' and endExtDate !=null">
+		<![CDATA[
+		and DATE_FORMAT(E.EstDate,'%Y-%m-%d') <= #{endExtDate}
+		]]>
+		</if>
+		<if test="startAuditDate !='' and startAuditDate !=null">
+		<![CDATA[
+		and DATE_FORMAT(A.AuditDate,'%Y-%m-%d') >= #{startAuditDate}
+		]]>
+		</if>
+		<if test="endAuditDate !='' and endAuditDate !=null">
+		<![CDATA[
+		and DATE_FORMAT(A.AuditDate,'%Y-%m-%d') <= #{endAuditDate}
+		]]>
+		</if>
+		<if test="startAbnTime !='' and startAbnTime !=null">
+		<![CDATA[
+		and DATE_FORMAT(A.AbnTime,'%Y-%m-%d') >= #{startAbnTime}
+		]]>
+		</if>
+		<if test="endAbnTime !='' and endAbnTime !=null">
+		<![CDATA[
+		and DATE_FORMAT(A.AbnTime,'%Y-%m-%d') <= #{endAbnTime}
+		]]>
+		</if> 
+		<if test="entZtType ==1 "><!--内资 -->
+		and E.EntTypeCatg  in (11,12,13,14,15,31,32,33,34)
+		</if>
+		<if test="entZtType ==2 "><!-- 外资 -->
+		and E.EntTypeCatg  in (21,22,23,24,25,26,27,28)
+		</if> 
+		<!-- 列入状态:1已移出；2未移出；3已撤销   -->
+		<if test="inState ==1 or shiftOutType == 1">
+		and A.BusExcList  in (SELECT H.BusExcList FROM cs_pub_opadetail H WHERE H.AuditState = '1' AND H.IsMove = '1')
+		</if>
+		<if test="inState ==2 "> 
+		and A.BusExcList not  in (SELECT H.BusExcList FROM cs_pub_opadetail H WHERE H.AuditState = '1')
+		</if> 
+		<if test="inState ==3 or shiftOutType ==3">
+		and A.BusExcList  in (SELECT H.BusExcList FROM cs_pub_opadetail H WHERE H.AuditState = '1' AND H.IsMove = '2')
+		</if>
+		<if test="shiftOutType ==2">
+		and A.BusExcList  in (SELECT H.BusExcList FROM cs_pub_opadetail H WHERE H.AuditState = '1' AND (H.IsMove = '2' OR H.IsMove = '1'))
+		</if>
+		<if test="reDecOrgCN !='' and reDecOrgCN !=null">
+		and A.BusExcList in (SELECT H.BusExcList FROM cs_pub_opadetail H WHERE H.AuditState = '1' And H.ReDecOrgCN LIKE concat('%',#{reDecOrgCN},'%') )
+		</if>
+		<choose>
+		  <when test="(starRemDate !='' and starRemDate !=null) and (endRemDate !='' and endRemDate !=null)">
+		       <![CDATA[
+		       and  A.BusExcList in (SELECT S.BusExcList FROM cs_pub_opadetail S WHERE DATE_FORMAT(S.RemDate,'%Y-%m-%d') >= #{starRemDate} AND  DATE_FORMAT(S.RemDate,'%Y-%m-%d') <= #{endRemDate} AND S.AuditState = '1')
+		       ]]>
+		  </when>
+		  <when test="starRemDate !='' and starRemDate !=null">
+		       <![CDATA[
+		       and  A.BusExcList in (SELECT S.BusExcList FROM cs_pub_opadetail S WHERE DATE_FORMAT(S.RemDate,'%Y-%m-%d') >= #{starRemDate} AND S.AuditState = '1')
+		       ]]>
+		  </when>
+		  <when test="endRemDate !='' and endRemDate !=null">
+		       <![CDATA[
+		       and  A.BusExcList in (SELECT S.BusExcList FROM cs_pub_opadetail S WHERE DATE_FORMAT(S.RemDate,'%Y-%m-%d') <= #{endRemDate} AND S.AuditState = '1')
+		       ]]>
+		  </when>
+		</choose>
+		<if test="remExcpres !='' and remExcpres !=null "> 
+		and A.BusExcList  in (SELECT T.BusExcList FROM cs_pub_opadetail T   WHERE T.RemExcpres=#{remExcpres} AND   T.AuditState = '1' AND T.IsMove = '1')
+		</if>
+		<if test="isErescEnt != null and isErescEnt !='' and isErescEnt ==1">
+		AND A.PriPID IN (SELECT H.PriPID FROM er_esc_appinfo H WHERE H.SimplecanRea ='4')
+		</if>
+		<if test="isErescEnt != null and isErescEnt !='' and isErescEnt ==0">
+		AND A.PriPID NOT IN (SELECT H.PriPID FROM er_esc_appinfo H WHERE H.SimplecanRea ='4')
+		</if>
+		<!-- 数据权限 -->
+ 	   <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+  </sql>
+  
+  <!-- 根据文号简称获取当前文号简称下的最大文号 -->
+  <select id="selectPenDecNoByRegOrg" parameterType="Map"   resultType="Integer">
+      <!-- SELECT
+		MAX(
+			IFNULL(
+				REPLACE (
+					substr(
+						penDecNo,
+						instr(penDecNo, '第') + 1
+					),
+					'号',
+					''
+				),
+				0
+			)
+		) + 1
+	   FROM
+		cs_pub_opanomaly a
+	    LEFT JOIN cs_mid_baseinfo b ON a.PriPID = b.PriPID
+	  WHERE
+		a.SeqYear = extract(YEAR FROM sysdate())
+	  AND a.RegOrg = #{regOrg} -->
+	  
+	  
+	  SELECT 
+		  IFNULL(
+		MAX(
+			IFNULL(
+				REPLACE (
+					SUBSTR(
+						penDecNo,
+						INSTR(penDecNo, '第') + 1
+					),
+					'号',
+					''
+				)+0,
+				0
+			)
+		),
+		0
+	) + 1
+		FROM
+		  cs_pub_opanomaly a  
+ 		WHERE 
+		  a.SeqYear = #{year} 
+		 AND LEFT(a.penDecNo,INSTR(a.penDecNo, '异') - 1) = #{regOrg} 
+  </select> 
+  
+    <!-- 统计已移出的企业多少家 -->
+    <select id="selectIsInAndIsOutCount"  resultType="Integer" parameterType="Map">
+		SELECT
+			  COUNT(DISTINCT A.PriPID)
+		FROM
+			cs_pub_opanomaly A,
+			cs_mid_baseinfo E
+		WHERE
+			A.PriPID = E.PriPID
+		AND A.AuditState = '1'
+		<if test="entTypeFlag ==0 "><!-- 企业类型标识 0表示查询农专 1表示查询企业 -->
+		AND E.EntTypeCatg IN ('16','17') 
+		</if>
+		<if test="entTypeFlag ==1 "><!-- 排除农专和个体户 -->
+		AND E.EntTypeCatg   not  in ('16','17','50')
+		</if>
+		<include refid="pubopanomaly_where"></include>
+		AND A.BusExcList IN (
+			SELECT
+				D.BusExcList
+			FROM
+				cs_pub_opadetail D
+			WHERE
+				D.IsMove = '1'
+			AND D.AuditState = '1'
+		)
+   </select>
+  
+  <!-- 统计列入未移出企业多少家 -->
+   <select id="selectIsInAndNotOutCount"  resultType="Integer" parameterType="Map">
+		    SELECT
+			IFNULL(COUNT(DISTINCT A.PriPID),0) 
+			FROM
+				cs_pub_opanomaly A,
+			    cs_mid_baseinfo E
+			WHERE
+			    A.PriPID=E.PriPID 
+				AND A.AuditState = '1'
+				AND A.RevokeFlag IS NULL
+				<if test="entTypeFlag ==0 "><!-- 企业类型标识 0表示查询农专 1表示查询企业 -->
+				AND E.EntTypeCatg IN ('16','17') 
+				</if>
+				<if test="entTypeFlag ==1 "><!-- 排除农专和个体户 -->
+				AND E.EntTypeCatg   not  in ('16','17','50')
+				</if>
+				<include refid="pubopanomaly_where"></include>
+			    AND NOT EXISTS (
+					SELECT
+						1
+					FROM
+						cs_pub_opadetail C
+					WHERE
+						A.BusExcList = C.BusExcList
+					AND IsMove ='1'
+			    AND C.AuditState = '1' 
+			)
+  </select>
+  
+   <!-- 统计已公示的企业多少家 -->
+   <select id="selectIsPubCount"  resultType="Integer" parameterType="Map">
+		SELECT 
+			 COUNT(DISTINCT A.PriPID)
+		FROM
+			cs_pub_opanomaly A,
+			cs_mid_baseinfo E
+		WHERE
+			A.PriPID = E.PriPID
+		AND A.AuditState = '1'
+		AND A.RevokeFlag IS NULL
+		<if test="entTypeFlag ==0 "><!-- 企业类型标识 0表示查询农专 1表示查询企业 -->
+		AND E.EntTypeCatg IN ('16','17') 
+		</if>
+		<if test="entTypeFlag ==1 "><!-- 排除农专和个体户 -->
+		AND E.EntTypeCatg   not  in ('16','17','50')
+		</if> 
+		<include refid="pubopanomaly_where"></include>
+  </select>
+  
+  <!-- 纳入/移出经营异常名录信息（公示单个企业展示） -->
+   <select id="selectPubOpanoMalyListForPub" resultMap="PubOpanoMalyListForPubResultMap" parameterType="Map">
+  	<!--SELECT 
+	  a.id,
+	  a.SpeCauseCN,
+	  a.AbnTime,
+	  a.DecorgCN,
+	  b.ReDecOrgCN,
+	  b.RemExcpresCN,
+	  b.RemDate 
+	FROM
+	  cs_pub_opanomaly a 
+	  LEFT JOIN cs_pub_opadetail b 
+	    ON a.BusExcList = b.BusExcList 
+	    AND b.AuditState = '1' AND b.IsMove = '1' 
+	WHERE a.AuditState = '1' 
+	  and a.PriPID = #{priPID,jdbcType=VARCHAR}
+	  <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	 -->  
+	  SELECT
+		a.id,
+		a.SpeCauseCN,
+		a.AbnTime,
+		a.DecorgCN,
+		a.BusExcList,
+		b.ReDecOrgCN,
+		b.RemExcpresCN,
+		b.RemDate,
+		a.PenDecNo,
+        b.PenDecNo canOutPenDecNo
+	FROM
+	cs_pub_opanomaly a
+	LEFT JOIN cs_pub_opadetail b ON a.BusExcList = b.BusExcList  
+	AND EXISTS (
+      SELECT 1 FROM cs_pub_opadetail C WHERE C.AuditState = '1' AND a.BusExcList=C.BusExcList AND C.IsMove='1'
+	)
+	WHERE
+	a.PriPID = #{priPID,jdbcType=VARCHAR}
+	AND a.revokeFlag IS NULL
+	AND a.AuditState = '1'
+  </select>
+  
+   <!--根据自然人身份证获取列表 -->
+   <select id="selectListByCerNO" resultMap="BaseResultMap" parameterType="Map">
+		SELECT
+			cpo.id,
+			cpo.PriPID,
+			cpo.EntName,
+			cpo.RegNO,
+			cpo.LeRep,
+			cpo.CerType,
+			cpo.CerNO,
+			cpo.RegOrg,
+			cpo.LocalAdm,
+			cpo.SpeCauseCN,
+			cpo.SpeCause,
+			cpo.AbnTime,
+			cpo.DecOrg,
+			cpo.DecorgCN,
+			cpo.AnomalyRea,
+			cpo.FirstDept,
+			cpo.FirstName,
+			cpo.Firstdate,
+			cpo.FirstOpin,
+			cpo.AuditDept,
+			cpo.AuditName,
+			cpo.AuditDate,
+			cpo.AuditOpin,
+			cpo.AuditState,
+			cpo.Remark,
+			cpo.PenDecNo,
+			cpo.Year,
+			cpo.SeqYear,
+			cpo.DeptName,
+			cpo.DeptUpName,
+			cpo.DeptSameCourt,
+			cpo.DeptSameGov,
+			cpo.RevokeFlag,
+			cpo.BatchEntType,
+			cpo.ImpFlag,
+			cpo.CreateTime,
+			cpo.update_time,
+			cpo.BusExcList,
+			cpo.UniSCID,
+			cpo.EstDate,
+			cpo.RegState
+		FROM
+			cs_pub_opanomaly cpo
+		LEFT JOIN cs_mid_baseinfo cmb ON cmb.PriPID = cpo.PriPID
+		AND cmb.EntTypeCatg != '50'
+		WHERE
+			cpo.PriPID IN (
+				SELECT
+					t.PriPID
+				FROM
+					(
+						SELECT
+							cmi.PriPID
+						FROM
+							cs_mid_inv cmi
+						WHERE
+							cmi.CerNO = #{cerNO}
+						UNION
+							SELECT
+								cmm.PriPID
+							FROM
+								cs_mid_member cmm
+							WHERE
+								cmm.CerNO = #{cerNO}
+							UNION
+								SELECT
+									cml.PriPID
+								FROM
+									cs_mid_lerep cml
+								WHERE
+									cml.CerNO = #{cerNO}
+					) t
+			)
+		AND cpo.AuditState = '1'
+		AND cpo.revokeFlag IS NULL
+		AND NOT EXISTS (
+			SELECT
+				1
+			FROM
+				cs_pub_opadetail b
+			WHERE
+				cpo.BusExcList = b.BusExcList
+			AND IsMove IN ('1', '2')
+			AND b.AuditState = '1'
+		)
+		GROUP BY
+			cpo.id
+		ORDER BY
+			cpo.id DESC
+  </select>
+  
+  <select id="selectPubOpanoMalyServicePriPID" parameterType="map" resultMap="PubOpanoMalyListResultMap">
+	SELECT 
+      D.AbnTime 
+    FROM
+      cs_pub_opanomaly D 
+    WHERE 
+      D.AuditState = '1' 
+      AND D.revokeFlag IS NULL 
+      AND NOT EXISTS 
+      (SELECT 
+        1 
+      FROM
+        cs_pub_opadetail F 
+      WHERE D.BusExcList = F.BusExcList 
+        AND IsMove IN (1, 2) 
+        AND F.AuditState = '1')
+      AND D.PriPID=#{priPID}
+       order by D.AbnTime desc
+   </select>
+   
+   <!-- 经营异常名录全景查询 -->
+   <select id="selectPubOpanoMalyNewSearchList"  resultMap="PubOpanoMalyListResultMap" parameterType="Map">
+	   <if test="entTypeFlag ==01 || entTypeFlag==02">
+	       SELECT 
+				D.PriPID,
+				D.EntName,
+				D.RegNO,
+				D.UniSCID,
+				D.LeRep, 
+	 			D.SpeCauseCN,
+	 			D.AbnTime,
+	 			D.DecorgCN,
+				D.AnomalyRea,  
+	 			D.EstDate,
+				D.Dom,
+				D.LocalAdmName,
+				D.RegOrgName,
+				D.RegState,
+				D.BusExcList,
+				D.PenDecNo,
+	 			C.RemExcpresCN,
+				C.RemDate,
+				C.reDecOrgCN,
+				C.RemoveRea,
+				C.PenDecNo CanOutPenDecNo,
+				CASE
+				WHEN F.PriPID IS NULL 
+				THEN '0' ELSE '1' END AS isErEscApp
+			FROM
+				(
+					SELECT 
+						A.PriPID,
+						A.EntName,
+						A.RegNO,
+						A.UniSCID,
+						A.LeRep, 
+	 					A.SpeCauseCN,
+	 					A.AbnTime,
+	 					A.DecorgCN,
+						A.AnomalyRea, 
+	 					A.PenDecNo,
+	 					A.BusExcList,
+	 					E.EstDate,
+						E.Dom,
+						E.LocalAdmName,
+						E.SliceNOName,
+						E.RegOrgName,
+						E.RegState
+					FROM
+						cs_pub_opanomaly A,
+						cs_mid_baseinfo E
+					WHERE
+						A.AuditState = '1'
+					AND A.PriPID = E.PriPID
+					<if test="entTypeFlag ==01 "><!-- 排除农专和个体户 -->
+					AND E.EntTypeCatg   not  in ('16','17','50')
+					</if> 
+					<if test="entTypeFlag ==02 "><!-- 企业类型标识 0表示查询农专 1表示查询企业 -->
+					AND E.EntTypeCatg  in ('16','17')
+					</if>
+					<if test="inState != 1 and inState !=2">
+					AND A.BusExcList NOT IN (
+						SELECT
+							H.BusExcList
+						FROM
+							cs_pub_opadetail H
+						WHERE
+							H.AuditState = '1'
+						AND H.IsMove = '2'
+					)
+					</if>
+					<include refid="pubopanomaly_where"></include> 
+					ORDER BY A.AbnTime desc
+					LIMIT ${numStart},${pageSize}
+				) D
+			LEFT JOIN cs_pub_opadetail C ON D.BusExcList = C.BusExcList And C.AuditState = '1'
+			LEFT JOIN er_esc_appinfo F ON D.PriPID = F.PriPID And F.SimplecanRea = '4'
+	   </if>
+	  <if test="entTypeFlag ==03">
+			SELECT
+			    D.PriPID,
+				D.EntName,
+				D.RegNO,
+				D.UniSCID,
+				D.LeRep,
+				D.ExcpStaResCN speCauseCN,
+				D.CogDate abnTime,
+				D.DecorgCN,
+				D.SignRea AnomalyRea,
+				D.EstDate,
+				D.Dom,
+				D.LocalAdmName,
+				D.RegOrgName,
+				D.SliceNOName,
+				D.RegState,
+				D.BusExcList,
+			    C.AuditState,
+				C.NorReaCN remExcpresCN,
+				C.RecoveryType IsMove,
+				C.NorDate RemDate,
+				C.NorDecOrgCN reDecOrgCN,
+				C.RecoverRea RemoveRea,
+			    CASE
+				WHEN F.PriPID IS NULL THEN
+					'0'
+				ELSE
+					'1'
+				END AS isErEscApp,
+				2 entCatgFlag
+			FROM(
+				SELECT
+					t.PriPID,
+					t.EntName,
+					t.RegNO,
+					t.UniSCID,
+					t.LeRep,
+					t.ExcpStaResCN,
+					t.CogDate,
+					t.DecorgCN,
+					t.SignRea,
+					t.BusExcList,
+					E.EstDate,
+					E.Dom,
+					E.LocalAdmName,
+					E.SliceNOName,
+					E.RegOrgName,
+					E.RegState
+				FROM
+					cs_pub_pbopanomaly t
+				LEFT JOIN cs_mid_baseinfo E ON t.PriPID = E.PriPID
+				WHERE
+					t.AuditState = '1' And E.EntTypeCatg ='50'
+					<if test="inState != 1 and inState !=2">
+					AND t.BusExcList NOT IN (
+						SELECT
+							H.BusExcList
+						FROM
+							cs_pub_pbopadetail H
+						WHERE
+							H.AuditState = '3' AND H.RecoveryType = '2'
+					)
+					</if>
+					<include refid="pubpbopanomalysearch_where"></include>
+					LIMIT ${numStart},${pageSize}
+			)D
+			LEFT JOIN er_esc_appinfo F ON D.PriPID = F.PriPID AND F.SimplecanRea = '4'
+			LEFT JOIN cs_pub_pbopadetail C ON c.BusExcList = D.BusExcList AND C.AuditState IN ('1','3')
+	   </if>
+   </select>
+   
+    <!-- 异常名录查询  分页条数 -->
+    <select id="selectPubOpanoMalyNewSearchCount" resultType="Integer" parameterType="Map"> 
+       <if test="entTypeFlag ==01 || entTypeFlag==02">
+	         SELECT 
+				count(0)
+			FROM
+				cs_pub_opanomaly A,
+				cs_mid_baseinfo E
+			WHERE
+				A.AuditState = '1'
+			AND A.PriPID = E.PriPID
+			<if test="entTypeFlag ==01"><!-- 排除农专和个体户 -->
+			AND E.EntTypeCatg   not  in ('16','17','50')
+			</if> 
+			<if test="entTypeFlag ==02 "><!-- 企业类型标识 0表示查询农专 1表示查询企业 -->
+			AND E.EntTypeCatg IN ('16','17') 
+			</if>
+			<if test="inState != 1 and inState !=2">
+			AND A.BusExcList NOT IN (
+				SELECT
+					H.BusExcList
+				FROM
+					cs_pub_opadetail H
+				WHERE
+					H.AuditState = '1'
+				AND H.IsMove = '2'
+			)
+			</if>
+			<include refid="pubopanomaly_where"></include> 
+       </if>
+       <if test="entTypeFlag ==03">
+            SELECT 
+				count(0)
+			FROM
+			cs_pub_pbopanomaly t
+			LEFT JOIN cs_mid_baseinfo E ON t.PriPID = E.PriPID
+			WHERE t.AuditState = '1' And E.EntTypeCatg ='50'
+			<if test="inState != 1 and inState !=2">
+				AND t.BusExcList NOT IN (
+					SELECT
+						H.BusExcList
+					FROM
+						cs_pub_pbopadetail H
+					WHERE
+						H.AuditState = '3' AND H.RecoveryType = '2'
+				)
+			</if>
+			<include refid="pubpbopanomalysearch_where"></include>
+       </if>
+  </select>
+  
+   <!-- 经营异常管理-经营异常记录查询 -->
+   <select id="selectPubOpanoMalyNewSearchHisList"  resultMap="PubOpanoMalyListResultMap" parameterType="Map">
+	   <if test="entTypeFlag ==01 || entTypeFlag==02">
+	       SELECT 
+				D.PriPID,
+				D.EntName,
+				D.RegNO,
+				D.UniSCID,
+				D.LeRep, 
+	 			D.SpeCauseCN,
+	 			D.AbnTime,
+	 			D.DecorgCN,
+				D.AnomalyRea,  
+	 			D.EstDate,
+				D.Dom,
+				D.LocalAdmName,
+				D.RegOrgName,
+				D.SliceNOName,
+				D.RegState,
+				D.BusExcList,
+				D.PenDecNo,
+				C.AuditState,
+	 			C.RemExcpresCN,
+	 			C.IsMove IsMove,
+				C.RemDate,
+				C.reDecOrgCN,
+				C.RemoveRea,
+				C.PenDecNo CanOutPenDecNo,
+				CASE
+				WHEN F.PriPID IS NULL 
+				THEN '0' ELSE '1' END AS isErEscApp,
+				1 entCatgFlag
+			FROM
+				(
+					SELECT 
+						A.PriPID,
+						A.EntName,
+						A.RegNO,
+						A.UniSCID,
+						A.LeRep, 
+	 					A.SpeCauseCN,
+	 					A.AbnTime,
+	 					A.DecorgCN,
+						A.AnomalyRea, 
+	 					A.PenDecNo,
+	 					A.BusExcList,
+	 					E.EstDate,
+						E.Dom,
+						E.LocalAdmName,
+						E.SliceNOName,
+						E.RegOrgName,
+						E.RegState
+					FROM
+						cs_pub_opanomaly A,
+						cs_mid_baseinfo E
+					WHERE
+						A.AuditState = '1'
+					AND A.PriPID = E.PriPID
+					<if test="entTypeFlag ==01 "><!-- 排除农专和个体户 -->
+					AND E.EntTypeCatg   not  in ('16','17','50')
+					</if> 
+					<if test="entTypeFlag ==02 "><!-- 企业类型标识 0表示查询农专 1表示查询企业 -->
+					AND E.EntTypeCatg  in ('16','17')
+					</if>
+					<include refid="pubopanomaly_where"></include>
+					ORDER BY A.AbnTime desc 
+					LIMIT ${numStart},${pageSize}
+				) D
+			LEFT JOIN cs_pub_opadetail C ON D.BusExcList = C.BusExcList And C.AuditState = '1'
+			LEFT JOIN er_esc_appinfo F ON D.PriPID = F.PriPID And F.SimplecanRea = '4'
+	   </if>
+	  <if test="entTypeFlag ==03">
+			SELECT
+			    D.PriPID,
+				D.EntName,
+				D.RegNO,
+				D.UniSCID,
+				D.LeRep,
+				D.ExcpStaResCN speCauseCN,
+				D.CogDate abnTime,
+				D.DecorgCN,
+				D.SignRea AnomalyRea,
+				D.EstDate,
+				D.Dom,
+				D.LocalAdmName,
+				D.RegOrgName,
+				D.SliceNOName,
+				D.RegState,
+				D.BusExcList,
+			    C.AuditState,
+				C.NorReaCN remExcpresCN,
+				C.RecoveryType IsMove,
+				C.NorDate RemDate,
+				C.NorDecOrgCN reDecOrgCN,
+				C.RecoverRea RemoveRea,
+			    CASE
+				WHEN F.PriPID IS NULL THEN
+					'0'
+				ELSE
+					'1'
+				END AS isErEscApp,
+				2 entCatgFlag
+			FROM(
+				SELECT
+					t.PriPID,
+					t.EntName,
+					t.RegNO,
+					t.UniSCID,
+					t.LeRep,
+					t.ExcpStaResCN,
+					t.CogDate,
+					t.DecorgCN,
+					t.SignRea,
+					t.BusExcList,
+					E.EstDate,
+					E.Dom,
+					E.LocalAdmName,
+					E.SliceNOName,
+					E.RegOrgName,
+					E.RegState
+				FROM
+					cs_pub_pbopanomaly t
+				LEFT JOIN cs_mid_baseinfo E ON t.PriPID = E.PriPID
+				WHERE
+					t.AuditState = '1' And E.EntTypeCatg ='50'
+					<include refid="pubpbopanomalysearch_where"></include>
+					LIMIT ${numStart},${pageSize}
+			)D
+			LEFT JOIN er_esc_appinfo F ON D.PriPID = F.PriPID AND F.SimplecanRea = '4'
+			LEFT JOIN cs_pub_pbopadetail C ON c.BusExcList = D.BusExcList AND C.AuditState IN ('1','3')
+	   </if>
+   </select>
+   
+    <!-- 异常名录查询  分页条数 -->
+    <select id="selectPubOpanoMalyNewSearchHisCount" resultType="Integer" parameterType="Map"> 
+       <if test="entTypeFlag ==01 || entTypeFlag==02">
+	         SELECT 
+				count(0)
+			FROM
+				cs_pub_opanomaly A,
+				cs_mid_baseinfo E
+			WHERE
+				A.AuditState = '1'
+			AND A.PriPID = E.PriPID
+			<if test="entTypeFlag ==01"><!-- 排除农专和个体户 -->
+			AND E.EntTypeCatg   not  in ('16','17','50')
+			</if> 
+			<if test="entTypeFlag ==02 "><!-- 企业类型标识 0表示查询农专 1表示查询企业 -->
+			AND E.EntTypeCatg IN ('16','17') 
+			</if>
+			<include refid="pubopanomaly_where"></include> 
+       </if>
+       <if test="entTypeFlag ==03">
+            SELECT 
+				count(0)
+			FROM
+			cs_pub_pbopanomaly t
+			LEFT JOIN cs_mid_baseinfo E ON t.PriPID = E.PriPID
+			WHERE t.AuditState = '1' And E.EntTypeCatg ='50'
+			<include refid="pubpbopanomalysearch_where"></include>
+       </if>
+  </select>
+  
+  <!-- 列入企业 -->
+  <select id="selectOpanoMalyTotalAll"  resultMap="PubOpanoMalyTotalResultMap" parameterType="Map">
+     <if test="entTypeFlag ==01 || entTypeFlag==02">
+        SELECT
+				count(0) countAll,
+				COUNT(DISTINCT A.PriPID) disCountAllTotal,
+				1 totalType
+			FROM
+				cs_pub_opanomaly A,
+				cs_mid_baseinfo E
+			WHERE
+				A.AuditState = '1'
+			AND A.PriPID = E.PriPID
+			<if test="entTypeFlag ==01">
+			AND E.EntTypeCatg   not  in ('16','17','50')
+			</if> 
+			<if test="entTypeFlag ==02 ">
+			AND E.EntTypeCatg IN ('16','17') 
+			</if>
+			<if test="isOpaManageSearchFlag == null">
+					<if test="inState != 1 and inState !=2">
+					AND A.BusExcList NOT IN (
+						SELECT
+							H.BusExcList
+						FROM
+							cs_pub_opadetail H
+						WHERE
+							H.AuditState = '1'
+						AND H.IsMove = '2'
+					)
+				  </if>
+			</if>
+			<include refid="pubopanomaly_where"></include> 
+     </if>
+     <if test="entTypeFlag ==03">
+          SELECT
+			count(0) countAll,
+	  		count(DISTINCT t.PriPID) disCountAllTotal
+		FROM
+			cs_pub_pbopanomaly t
+		LEFT JOIN cs_mid_baseinfo E ON t.PriPID = E.PriPID
+		WHERE
+			E.EntTypeCatg = '50' AND t.AuditState = '1'
+		<if test="isOpaManageSearchFlag == null">
+				<if test="inState != 1 and inState !=2">
+				AND t.BusExcList NOT IN (
+					SELECT
+						H.BusExcList
+					FROM
+						cs_pub_pbopadetail H
+					WHERE
+						H.AuditState = '3' AND H.RecoveryType = '2'
+				)
+			  </if>
+		</if>
+		<include refid="pubpbopanomalysearch_where"></include>
+     </if>
+  </select>
+  
+  <!-- 列入未移出 -->
+  <select id="selectOpanoMalyNoOutTotal"  resultMap="PubOpanoMalyTotalResultMap" parameterType="Map">
+      <if test="entTypeFlag ==01 || entTypeFlag==02">
+          SELECT
+				count(0) countAll,
+				COUNT(DISTINCT A.PriPID) disCountAllTotal,
+				2 totalType
+			FROM
+				cs_pub_opanomaly A,
+				cs_mid_baseinfo E
+			WHERE
+				A.AuditState = '1'
+			AND A.PriPID = E.PriPID
+			<if test="entTypeFlag ==01">
+			AND E.EntTypeCatg   not  in ('16','17','50')
+			</if> 
+			<if test="entTypeFlag ==02 ">
+			AND E.EntTypeCatg IN ('16','17') 
+			</if>
+			<if test="inState != 2">
+				AND A.BusExcList NOT IN (
+					SELECT
+						H.BusExcList
+					FROM
+						cs_pub_opadetail H
+					WHERE
+						H.AuditState = '1'
+				)
+			</if>
+			<include refid="pubopanomaly_where"></include>
+      </if>
+      <if test="entTypeFlag ==03">
+           SELECT
+			count(0) countAll,
+	     	count(DISTINCT t.PriPID) disCountAllTotal
+		FROM
+			cs_pub_pbopanomaly t
+		LEFT JOIN cs_mid_baseinfo E ON t.PriPID = E.PriPID
+		WHERE
+			E.EntTypeCatg = '50' AND t.AuditState = '1'
+		<if test="inState != 2">
+			AND t.BusExcList NOT IN (
+				SELECT 
+				  H.BusExcList 
+				FROM 
+				cs_pub_pbopadetail H 
+				WHERE H.AuditState IN ('1','3')
+			)
+		</if>
+		<include refid="pubpbopanomalysearch_where"></include>
+     </if>
+  </select>
+  
+  <!-- 已移出 -->
+  <select id="selectOpanoMalyOutTotal" resultMap="PubOpanoMalyTotalResultMap" parameterType="Map">
+     <if test="entTypeFlag ==01 || entTypeFlag==02">
+				SELECT
+					count(0) countAll,
+					COUNT(DISTINCT A.PriPID) disCountAllTotal,
+					3 totalType
+				FROM
+					cs_pub_opanomaly A,
+					cs_mid_baseinfo E
+				WHERE
+					A.AuditState = '1'
+				AND A.PriPID = E.PriPID
+				<if test="entTypeFlag ==01">
+				AND E.EntTypeCatg   not  in ('16','17','50')
+				</if> 
+				<if test="entTypeFlag ==02 ">
+				AND E.EntTypeCatg IN ('16','17') 
+				</if>
+				<if test="inState != 1">
+					AND A.BusExcList IN (
+						SELECT
+							H.BusExcList
+						FROM
+							cs_pub_opadetail H
+						WHERE
+							H.AuditState = '1'
+						AND H.IsMove = '1'
+					)
+				</if>
+			   <include refid="pubopanomaly_where"></include>
+	 </if>
+	 <if test="entTypeFlag ==03">
+          SELECT
+			count(0) countAll,
+		    count(DISTINCT t.PriPID) disCountAllTotal
+			FROM
+				cs_pub_pbopanomaly t
+			LEFT JOIN cs_mid_baseinfo E ON t.PriPID = E.PriPID
+			WHERE
+				E.EntTypeCatg = '50' AND t.AuditState = '1'
+			<if test="inState != 1">
+				AND t.BusExcList IN (
+					SELECT
+					   H.BusExcList 
+					FROM 
+					   cs_pub_pbopadetail H 
+					WHERE H.AuditState = '1' AND H.RecoveryType = '1'
+				)
+			</if>
+		<include refid="pubpbopanomalysearch_where"></include>
+     </if>
+  </select>
+  
+  <!-- 撤销 -->
+  <select id="selectOpanoMalyRevokeTotal" resultMap="PubOpanoMalyTotalResultMap" parameterType="Map">
+   <if test="entTypeFlag ==01 || entTypeFlag==02">
+          <if test="isOpaManageSearchFlag ==01">
+			    SELECT
+					count(0) countAll,
+					COUNT(DISTINCT A.PriPID) disCountAllTotal,
+					4 totalType
+				FROM
+					cs_pub_opanomaly A,
+					cs_mid_baseinfo E
+				WHERE
+					A.AuditState = '1'
+				AND A.PriPID = E.PriPID
+				<if test="entTypeFlag ==01">
+				AND E.EntTypeCatg   not  in ('16','17','50')
+				</if> 
+				<if test="entTypeFlag ==02 ">
+				AND E.EntTypeCatg IN ('16','17') 
+				</if>
+				<if test="inState != 3">
+					AND A.BusExcList IN (
+						SELECT
+							H.BusExcList
+						FROM
+							cs_pub_opadetail H
+						WHERE
+							H.AuditState = '1'
+						AND H.IsMove = '2'
+					)
+				</if>
+			  <include refid="pubopanomaly_where"></include>
+		</if>
+   </if>
+   <if test="entTypeFlag ==03">
+      <if test="isOpaManageSearchFlag ==01">
+        SELECT
+			count(0) countAll,
+		    count(DISTINCT t.PriPID) disCountAllTotal
+			FROM
+				cs_pub_pbopanomaly t
+			LEFT JOIN cs_mid_baseinfo E ON t.PriPID = E.PriPID
+			WHERE
+				E.EntTypeCatg = '50' AND t.AuditState = '1'
+			<if test="inState != 3">
+				AND t.BusExcList IN (
+					SELECT 
+					  H.BusExcList 
+					FROM cs_pub_pbopadetail H 
+				 WHERE H.AuditState = '3' AND H.RecoveryType = '2'
+			  )
+			</if>
+			<include refid="pubpbopanomalysearch_where"></include>
+	  </if>
+   </if>  
+  </select>
+  
+  <sql id="pubpbopanomalysearch_where">
+     <if test="priPID !='' and priPID !=null">
+	and t.PriPID =#{priPID}
+    </if>
+    <if test="busExcList !='' and busExcList !=null">
+    and t.BusExcList  =  #{busExcList}
+    </if>
+    <if test="uniCode_regNO !='' and uniCode_regNO !=null">
+		and (t.RegNO  = #{uniCode_regNO} OR t.UniSCID  = #{uniCode_regNO})
+	</if>
+    <if test="entName !='' and entName !=null">
+    and t.EntName  = #{entName}
+    </if>
+    <if test="leRep !='' and leRep !=null">
+    and t.LeRep  LIKE concat('%', #{leRep},'%')
+    </if>
+    <if test="regOrg !='' and regOrg !=null">
+    and E.RegOrg  IN  (${regOrg})
+    </if>
+   <if test="dom !='' and dom !=null">
+	and E.Dom  LIKE concat('%', #{dom},'%')
+	</if>
+    <if test="localAdm !='' and localAdm !=null">
+    and E.LocalAdm  IN (${localAdm})
+    </if>
+    <if test="sliceNO !='' and sliceNO !=null">
+	and E.SliceNO  IN  (${sliceNO})
+    </if>
+    <if test="entType !='' and entType !=null">
+    and E.EntType IN (${entType})
+    </if>
+    <if test="isIndivid != null and isIndivid != '' and isIndivid ==1 ">
+    and E.IsIndivid = #{isIndivid}
+    </if>
+    <if test="isIndivid != null and isIndivid != '' and isIndivid ==0 ">
+    and (E.IsIndivid = #{isIndivid} or E.IsIndivid = '' or E.IsIndivid is null )
+	</if> 
+    <if test="regStates!=null and regStates!=''">
+		and E.RegState IN
+		<foreach item="item" index="index" collection="regStates" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</if>
+	<if test="industryCos!=null and industryCos!=''">
+			and E.IndustryCo IN
+			<foreach item="item" index="index" collection="industryCos" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+    <if test="inState ==1 or shiftOutType == 1">
+	and t.BusExcList  in (SELECT H.BusExcList FROM cs_pub_pbopadetail H WHERE H.AuditState = '1' AND H.RecoveryType = '1')
+	</if>
+    <if test="inState ==2 "> 
+	and t.BusExcList not in (SELECT H.BusExcList FROM cs_pub_pbopadetail H WHERE H.AuditState IN ('1','3'))
+	</if>
+    <if test="inState ==3 or shiftOutType ==3">
+	and t.BusExcList in (SELECT H.BusExcList FROM cs_pub_pbopadetail H WHERE H.AuditState = '3' AND H.RecoveryType = '2')
+    </if>
+    <if test="shiftOutType ==2">
+	and t.BusExcList in (SELECT H.BusExcList FROM cs_pub_pbopadetail H WHERE H.AuditState IN ('1','3'))
+	</if>
+    <if test="speCause !='' and speCause !=null">
+    and t.ExcpStaRes  =#{speCause}
+    </if>
+    <if test="remExcpres !='' and remExcpres !=null "> 
+	and t.BusExcList  in (SELECT H.BusExcList FROM cs_pub_pbopadetail H WHERE H.NorRea=#{remExcpres} AND H.AuditState = '1' AND H.RecoveryType = '1')
+	</if>
+    <if test="decorgCN !='' and decorgCN !=null">
+    and t.DecorgCN  LIKE concat('%', #{decorgCN},'%')
+    </if>
+    <if test="reDecOrgCN !='' and reDecOrgCN !=null">
+	and t.BusExcList in (SELECT H.BusExcList FROM cs_pub_pbopadetail H WHERE H.AuditState IN ('1','3') And H.norDecOrgCN LIKE concat('%',#{reDecOrgCN},'%') )
+	</if>
+	<if test="startExtDate !='' and startExtDate !=null">
+	<![CDATA[
+	and DATE_FORMAT(E.EstDate,'%Y-%m-%d') >= #{startExtDate}
+	]]>
+	</if>
+	<if test="endExtDate !='' and endExtDate !=null">
+	<![CDATA[
+	and DATE_FORMAT(E.EstDate,'%Y-%m-%d') <= #{endExtDate}
+	]]>
+	</if>
+	<choose>
+	  <when test="(starRemDate !='' and starRemDate !=null) and (endRemDate !='' and endRemDate !=null)">
+	       <![CDATA[
+	       and  t.BusExcList in (SELECT S.BusExcList FROM cs_pub_pbopadetail S WHERE DATE_FORMAT(S.NorDate,'%Y-%m-%d') >= #{starRemDate} AND DATE_FORMAT(S.NorDate,'%Y-%m-%d') <= #{endRemDate} AND S.AuditState IN ('1','3'))
+	       ]]>
+	  </when>
+	  <when test="starRemDate !='' and starRemDate !=null">
+	       <![CDATA[
+	       and  t.BusExcList in (SELECT S.BusExcList FROM cs_pub_pbopadetail S WHERE DATE_FORMAT(S.NorDate,'%Y-%m-%d') >= #{starRemDate} AND S.AuditState IN ('1','3'))
+	       ]]>
+	  </when>
+	  <when test="endRemDate !='' and endRemDate !=null">
+	       <![CDATA[
+	       and  t.BusExcList in (SELECT S.BusExcList FROM cs_pub_pbopadetail S WHERE DATE_FORMAT(S.NorDate,'%Y-%m-%d') <= #{endRemDate} AND S.AuditState IN ('1','3'))
+	       ]]>
+	  </when>
+	</choose>
+	<if test="startAbnTime !='' and startAbnTime !=null">
+	<![CDATA[
+	and DATE_FORMAT(t.CogDate,'%Y-%m-%d') >= #{startAbnTime}
+	]]>
+	</if>
+	<if test="endAbnTime !='' and endAbnTime !=null">
+	<![CDATA[
+	and DATE_FORMAT(t.CogDate,'%Y-%m-%d') <= #{endAbnTime}
+	]]>
+	</if>
+	<if test="isErescEnt != null and isErescEnt !='' and isErescEnt ==1">
+	AND t.PriPID IN (SELECT H.PriPID FROM er_esc_appinfo H WHERE H.SimplecanRea ='4')
+	</if>
+	<if test="isErescEnt != null and isErescEnt !='' and isErescEnt ==0">
+	AND t.PriPID NOT IN (SELECT H.PriPID FROM er_esc_appinfo H WHERE H.SimplecanRea ='4')
+	</if>
+	<!-- 数据权限 -->
+ 	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+  </sql>
+    
+   <!--企业农专社批量列入查询列表 -->
+   <select id="selectBatchInList" parameterType="map" resultMap="PubOpanoMalyListResultMap" >
+	SELECT DISTINCT(LEFT(t.pendecno,INSTR(t.penDecNo, '号'))) PenDecNo,t.SpeCauseCN,t.BatchEntType,t.Year,t.SeqYear,t.SpeCause,
+	t.AbnTime,t.DecOrg,t.DecorgCN,t.Firstdate,t.FirstDept,t.FirstName,t.AuditDate,t.AuditDept,t.AuditName,
+	COUNT(DISTINCT t.PriPID) initBatchNum,
+    <![CDATA[
+	SUM(case WHEN b.BusExcList IS NOT NULL  AND b.AuditState = '1' And b.IsMove = '2' THEN 1 ELSE 0 END) batchRemoveNum
+	]]>
+	FROM cs_pub_opanomaly t
+	left JOIN
+	cs_pub_opadetail b
+	on t.BusExcList = b.BusExcList
+	AND t.PriPID = b.PriPID
+	WHERE ImpFlag = '0' and t.AuditState = '1'
+	<if test="batchEntTypes != null and batchEntTypes != ''">
+	  and t.BatchEntType in (${batchEntTypes})
+	</if>
+	<if test="penDecNo != null and penDecNo != ''">
+	and t.penDecNo like CONCAT('%',#{penDecNo},'%')
+	</if>
+	<if test="decorgCN != null and decorgCN != ''">
+	  and (t.decorgCN = #{decorgCN} or t.decOrg = #{decOrg} )
+	</if>
+	<if test="decOrg != null and decOrg != ''">
+<!-- 	  and t.decOrg = #{decOrg} -->
+	</if>
+	<if test="year != null and year != ''">
+	  and t.year = #{year}
+	</if>
+	<if test="startAbnDate != null and startAbnDate != ''">
+		<![CDATA[
+		and DATE_FORMAT(t.AbnTime,'%Y-%m-%d') >= #{startAbnDate}
+		]]>
+	</if>
+	<if test="endAbnDate != null and endAbnDate != ''">
+		<![CDATA[
+		and DATE_FORMAT(t.AbnTime,'%Y-%m-%d') <= #{endAbnDate}
+		]]>
+	</if>
+	<if test="starFirstDate != null and starFirstDate != ''">
+		<![CDATA[
+		and DATE_FORMAT(t.FirstDate,'%Y-%m-%d') >= #{starFirstDate}
+		]]>
+	</if>
+	<if test="endFirstDate != null and endFirstDate != ''">
+		<![CDATA[
+		and DATE_FORMAT(t.FirstDate,'%Y-%m-%d') <= #{endFirstDate}
+		]]>
+	</if>
+	<if test="startAuditDate != null and startAuditDate != ''">
+		<![CDATA[
+		and DATE_FORMAT(t.AuditDate,'%Y-%m-%d') >= #{startAuditDate}
+		]]>
+	</if>
+	<if test="endAuditDate != null and endAuditDate != ''">
+		<![CDATA[
+		and DATE_FORMAT(t.AuditDate,'%Y-%m-%d') <= #{endAuditDate}
+		]]>
+	</if>
+	<if test="firstName != null and firstName != ''">
+	  and t.firstName like  CONCAT('%',#{firstName},'%') 
+	</if>
+	<if test="auditName != null and auditName != ''">
+	  and t.auditName like  CONCAT('%',#{auditName},'%') 
+	</if>
+	group by LEFT(t.pendecno,INSTR(t.penDecNo, '号'))
+	order by t.AbnTime desc
+   </select>
+   
+   
+   
+   <!-- 全部批量列入异常 -->
+   <insert id="insertIntoPubopaNomalyInALl" parameterType="Map">
+   INSERT INTO cs_pub_opanomaly 
+   (PriPID,EntName,EstDate,RegState,RegNO,UniSCID,LeRep,CerType,CerNO,RegOrg,LocalAdm,SpeCauseCN,SpeCause,AbnTime,DecOrg,
+	DecorgCN,AnomalyRea,FirstDept,FirstName,Firstdate,FirstOpin,AuditDept,AuditName,AuditDate,AuditOpin,AuditState,PenDecNo,
+	YEAR,SeqYear,DeptName,DeptUpName,DeptSameCourt,DeptSameGov,RevokeFlag,BatchEntType,ImpFlag,CreateTime,BusExcList,Remark) 
+	SELECT 
+	a.PriPID,a.EntName,a.EstDate,a.RegState,a.RegNO,a.UniCode,a.LeRep,'10',a.CerNO,
+	#{regOrg},
+	a.LocalAdm,
+	#{speCauseCN}, 
+	#{speCause},
+	#{abnTime},
+	#{decOrg},
+	#{decorgCN},
+	#{anomalyRea},
+	#{firstDept},
+	#{firstName},
+	#{firstdate}, 
+	#{firstOpin},
+	#{auditDept},
+	#{auditName},
+	#{auditDate},
+	#{auditOpin},
+	#{auditState},
+	CONCAT(#{penDecNo},@rownum:=@rownum+1) PenDecNo,
+	${year},
+	${seqYear},
+	#{deptName},
+	#{deptUpName},
+	#{deptSameCourt},
+	#{deptSameGov},
+	#{revokeFlag},
+	#{batchEntType},
+	#{impFlag},
+	#{createTime},
+	REPLACE(UUID(),'-','') BusExcList,
+	#{remark} Remark
+	FROM
+	(SELECT @rownum:=0) r
+	INNER JOIN
+	cs_mid_baseinfo a 
+	LEFT JOIN cs_yr_reg_check b ON a.PriPID = b.PriPID AND YEAR = ${year} 
+	LEFT JOIN 
+	    (SELECT 
+	      PriPID 
+	    FROM
+	      cs_pub_opanomaly 
+	    WHERE SpeCause = '1' 
+	      AND YEAR = ${year} 
+	      AND SeqYear > ${year} ) c 
+	    ON a.PriPID = c.PriPID 
+		WHERE 1=1
+		<![CDATA[ and NOW() > CONCAT(${year}+1,'-07-01')]]>
+		<if test="uniSCID != null and uniSCID != ''">
+	     and ( a.RegNO = #{uniSCID} or a.UniCode = #{uniSCID} )
+        </if>
+		<if test="batchEntType != null and batchEntType ==1 "><!--内资 需年报的-->
+		and a.EntTypeCatg  in (11,12,13,14,31,32,33,34)
+		</if>
+		<if test="batchEntType != null and batchEntType ==3 "><!-- 外资需年报的 -->
+		and a.EntTypeCatg  in (21,22,24,27,28)
+		</if> 
+		<if test="batchEntType != null and batchEntType ==2 "><!-- 农专 -->
+		and a.EntTypeCatg  in (16,17)
+		</if> 
+		<if test="isIndivid != null and isIndivid != '' "><!-- 是否个转企 -->
+		   <if test="isIndivid != null and isIndivid ==1 "><!--是 -->
+		     and a.IsIndivid = #{isIndivid}
+		   </if>
+		   <if test="isIndivid != null and isIndivid ==0 "><!--  否 -->
+		     and (a.IsIndivid = #{isIndivid} or a.IsIndivid = '' or a.IsIndivid is null )
+		   </if>
+		</if> 
+		<if test="localAdm !=null and localAdm !='' ">
+            and a.LocalAdm IN (${localAdm})
+        </if>
+        <if test="estDateStart !='' and estDateStart !=null">
+            <![CDATA[
+		and a.EstDate >= #{estDateStart}
+		   ]]>
+        </if>
+        <if test="estDateEnd !='' and estDateEnd !=null">
+            <![CDATA[
+		and a.EstDate <= #{estDateEnd}
+		]]>
+		</if>
+		And a.RegOrg = #{decOrg}
+		<![CDATA[And a.RegState IN (${regState}) AND a.EstDate < CONCAT(${year}+1,'-01-01')
+		AND (b.PriPID IS NULL OR (b.PriPID IS NOT NULL AND b.YEAR = ${year} AND (b.FirstReportTime>CONCAT(${year}+1,'-07-01') OR b.IsReported = '0')))]]>
+		AND c.PriPID IS NULL
+   </insert>
+   
+   <select id="selectBatchInListByPenDecNo" parameterType="Map" resultMap="PubOpanoMalyListResultMap" >
+	SELECT
+	DISTINCT t.BusExcList, 
+	t.PenDecNo,
+	t.SpeCauseCN,
+	t.BatchEntType,
+	t.Year,
+	t.SeqYear,
+	t.SpeCause,
+	t.AbnTime,
+	t.DecOrg,
+	t.DecorgCN,
+	t.Firstdate,
+	t.FirstDept,
+	t.FirstName,
+	t.AuditDate,
+	t.AuditDept,
+	t.AuditName,
+	t.AnomalyRea,
+	t.ImpFlag,
+	t.DeptName,
+	t.DeptUpName,t.DeptSameCourt,t.DeptSameGov,
+	c.RegState RegState,
+	c.EntName EntName,
+	c.RegNO RegNO,
+	c.UniCode UniSCID,
+	  CASE
+	    WHEN b.BusExcList IS NOT NULL 
+	    AND b.AuditState = '1'
+	    AND b.IsMove = '2' 
+	    THEN 1 
+	    ELSE 0 
+	  END
+	RevokeFlag 
+	FROM
+	 cs_pub_opanomaly t 
+	 LEFT JOIN cs_pub_opadetail b
+	   ON t.BusExcList = b.BusExcList 
+	   AND t.PriPID = b.PriPID
+	 LEFT JOIN cs_mid_baseinfo c
+	ON t.PriPID = c.PriPID
+	WHERE ImpFlag = '0' 
+	AND t.AuditState = '1' 
+	AND t.penDecNo LIKE CONCAT(#{penDecNo},'%')
+	ORDER BY SUBSTRING(t.penDecNo,INSTR(t.penDecNo, '-') + 1)+0 
+	limit 0,20000
+   </select>
+   
+   
+   <!-- 企信连联 专项查询 异常 -根据企业名称和信用代码获取异常信息 -->
+   <select id="selectOpanoMalyList" resultMap="PubOpanoMalyListResultMap" parameterType="Map">
+			SELECT
+				C.PriPID,
+				C.EntName,
+				SUM(C.moveInCount) initBatchNum,
+				SUM(C.moveOutCount) batchNum,
+				IFNULL(D.UniCode, D.RegNO) uniSCID,
+				E.CsStateDesc regState,
+				CASE
+				WHEN D.RegState IN (${regState}) THEN
+					0
+				ELSE
+					1
+				END orderflag
+			FROM
+				(
+					SELECT
+						0 moveOutCount,
+						COUNT(0) moveInCount,
+						A.PriPID,
+						A.EntName
+					FROM
+						cs_pub_opanomaly A
+					WHERE
+						A.AuditState = '1'
+					AND (
+						A.RevokeFlag IS NULL
+						OR A.RevokeFlag = ''
+					)
+					AND  (A.EntName like  CONCAT(#{keyword},'%') or (A.UniSCID=#{keyword} or A.RegNO=#{keyword}))
+					GROUP BY
+						A.PriPID
+					UNION ALL
+						SELECT
+							COUNT(0) moveOutCount,
+							0 moveInCount,
+							B.PriPID,
+							B.EntName
+						FROM
+							cs_pub_opadetail B
+						WHERE
+						<![CDATA[
+							B.AuditState = '1'
+						AND B.IsMove != '2'
+						]]>
+						AND  (B.EntName like  CONCAT(#{keyword},'%') or (B.UniSCID=#{keyword} or B.RegNO=#{keyword}))
+						GROUP BY
+							B.PriPID
+							
+						UNION ALL
+						SELECT
+							0 moveOutCount,
+							COUNT(0) moveInCount,
+							A.PriPID,
+							A.EntName
+						FROM
+							cs_pub_pbopanomaly A,
+							cs_pub_pbopadetail E
+						WHERE
+						<![CDATA[
+							E.PriPID = A.PriPID
+						AND A.BusExcList = E.BusExcList
+						AND A.AuditState = '1'
+						AND E.RecoveryType != '2'
+						AND E.AuditState != '3'
+						AND  (A.EntName like  CONCAT(#{keyword},'%') or (A.UniSCID=#{keyword} or A.RegNO=#{keyword}))
+						]]>
+						GROUP BY
+							A.PriPID
+						UNION ALL
+							SELECT
+								COUNT(0) moveOutCount,
+								0 moveInCount,
+								E.PriPID,
+								A.EntName
+							FROM
+								cs_pub_pbopanomaly A,
+								cs_pub_pbopadetail E
+							WHERE
+							<![CDATA[
+							E.PriPID = A.PriPID
+							AND	E.AuditState = '1'
+							AND E.RecoveryType != '2'
+							]]>
+							AND  (A.EntName like  CONCAT(#{keyword},'%') or (A.UniSCID=#{keyword} or A.RegNO=#{keyword}))
+							GROUP BY
+								E.PriPID 
+				) C,
+				cs_mid_baseinfo D
+			LEFT JOIN cs_code_regstate E ON D.RegState = E.RegState
+			WHERE
+				C.PriPID = D.PriPID   
+				GROUP BY
+				  C.PriPID  ORDER BY  orderflag
+				  LIMIT ${numStart},${pageSize}
+  </select>
+  
+  <!-- 企信联连获取联络员旗下的异常信息 -->
+  <select id="selectOpanoMalyListByTel" resultMap="PubOpanoMalyListResultMap" parameterType="Map">
+			<!-- SELECT
+				C.PriPID,
+				IFNULL(D.UniCode, D.RegNO) uniSCID,
+				C.EntName,
+				max(AbnTime) AbnTime,
+				E.CsStateDesc regState,
+				C.isMove
+			FROM
+				(
+					SELECT
+						A.PriPID,
+						A.EntName,
+						A.AbnTime AbnTime,
+						'2' isMove
+					FROM
+						cs_pub_opanomaly A,
+						cs_pub_eppassword E
+					WHERE
+						A.PriPID = E.PriPID
+					AND E.Tel=#{tel}
+					AND A.AuditState = '1'
+					AND (
+						A.RevokeFlag IS NULL
+						OR A.RevokeFlag = ''
+					)
+					<if test="keyword !='' and keyword !=null">
+					AND  (A.EntName like  CONCAT('%',#{keyword},'%') or (A.UniSCID=#{keyword} or A.RegNO=#{keyword}))
+					</if>
+					GROUP BY
+						A.PriPID
+					UNION ALL
+						SELECT
+							B.PriPID,
+							B.EntName,
+							B.RemDate AbnTime,
+							'1' isMove
+						FROM
+							cs_pub_opadetail B,
+							cs_pub_eppassword E
+						WHERE
+						<![CDATA[ 
+							B.PriPID = E.PriPID
+			      		AND E.Tel=#{tel}
+						AND B.AuditState = '1'
+						AND B.IsMove != '2'
+						]]>
+						<if test="keyword !='' and keyword !=null">
+						AND  (B.EntName like  CONCAT('%',#{keyword},'%') or (B.UniSCID=#{keyword} or B.RegNO=#{keyword}))
+						</if>
+						GROUP BY
+							B.PriPID 
+						UNION ALL
+							SELECT
+								A.PriPID,
+								A.EntName,
+								A.CogDate AbnTime,
+								'2' isMove
+							FROM
+								cs_pub_pbopanomaly A,
+								cs_pub_pbopadetail E,
+								cs_pub_eppassword F
+							WHERE
+							<![CDATA[ 
+								E.PriPID = A.PriPID
+							AND	E.PriPID=F.PriPID 
+							AND F.Tel=#{tel}
+							AND A.BusExcList = E.BusExcList
+							AND A.AuditState = '1'
+							AND E.RecoveryType != '2'
+							AND E.AuditState != '3'
+							]]>
+							<if test="keyword !='' and keyword !=null">
+							AND  (A.EntName like  CONCAT('%',#{keyword},'%') or (A.UniSCID=#{keyword} or A.RegNO=#{keyword}))
+							</if>
+							GROUP BY
+								A.PriPID 
+							UNION ALL
+							SELECT
+								E.PriPID,
+								A.EntName,
+								E.NorDate AbnTime,
+								'1' isMove
+							FROM
+								cs_pub_pbopanomaly A,
+								cs_pub_pbopadetail E,
+								cs_pub_eppassword F
+							WHERE
+							<![CDATA[ 
+							 E.PriPID=F.PriPID 
+							AND	E.PriPID = A.PriPID
+							AND F.Tel=#{tel}
+							AND	E.AuditState = '1'
+							AND E.RecoveryType != '2'
+							]]>
+							<if test="keyword !='' and keyword !=null">
+							AND  (A.EntName like  CONCAT('%',#{keyword},'%') or (A.UniSCID=#{keyword} or A.RegNO=#{keyword}))
+							</if>
+							GROUP BY
+								E.PriPID
+							
+				) C,
+				cs_mid_baseinfo D
+			LEFT JOIN cs_code_regstate E ON D.RegState = E.RegState
+			WHERE
+				C.PriPID = D.PriPID
+			GROUP BY
+				PRIPID 
+			LIMIT ${numStart},${pageSize} --> 
+			SELECT
+				 G.PriPID,
+				 G.EntName,
+				 G.AbnTime,
+				 IFNULL(H.UniCode, H.RegNO) uniSCID,
+				 J.CsStateDesc regState,
+				 G.IsMove isMove
+			FROM
+				(
+					SELECT
+						A.PriPID,
+						A.EntName,
+						ifnull(B.RemDate, A.AbnTime) AbnTime,
+						CASE
+					WHEN B.IsMove IS NULL
+					OR B.IsMove = '' THEN
+						'2'
+					ELSE
+						'1'
+					END IsMove
+					FROM
+						cs_pub_opanomaly A
+					LEFT JOIN cs_pub_opadetail B ON A.BusExcList = B.BusExcList
+					AND b.AuditState = '1',
+					cs_pub_eppassword E
+				WHERE
+					A.AuditState = '1'
+				<if test="keyword !='' and keyword !=null">
+				AND  (A.EntName like  CONCAT('%',#{keyword},'%') or (A.UniSCID=#{keyword} or A.RegNO=#{keyword}))
+				</if>
+				AND A.PriPID = E.PriPID
+				AND E.tel =#{tel}
+				AND ifnull(B.RemDate, A.AbnTime) = (
+					SELECT
+						max(
+							ifnull(k.RemDate, f.AbnTime)
+						) AbnTime
+					FROM
+						cs_pub_opanomaly f
+					LEFT JOIN cs_pub_opadetail k ON f.BusExcList = k.BusExcList
+					WHERE
+						f.PriPID = A.PriPID
+					AND f.AuditState = '1' 
+				) GROUP BY
+						A.PriPID
+				UNION ALL
+					SELECT
+						A.PriPID,
+						A.EntName,
+						ifnull(B.NorDate, A.CogDate) AbnTime,
+						CASE
+					WHEN B.IsRecovery IS NULL
+					OR B.IsRecovery = '' THEN
+						'2'
+					ELSE
+						'1'
+					END IsMove
+					FROM
+						cs_pub_pbopanomaly A
+					LEFT JOIN cs_pub_pbopadetail B ON A.BusExcList = B.BusExcList
+					AND B.AuditState = '1',
+					cs_pub_eppassword E
+				WHERE
+					A.PriPID = E.PriPID
+				<if test="keyword !='' and keyword !=null">
+					AND  (A.EntName like  CONCAT('%',#{keyword},'%') or (A.UniSCID=#{keyword} or A.RegNO=#{keyword}))
+				</if>
+				AND A.AuditState = '1'
+				AND E.tel = #{tel}
+				AND ifnull(B.NorDate, A.CogDate) = (
+					SELECT
+						max(
+							ifnull(k.NorDate, f.CogDate)
+						) AbnTime
+					FROM
+						cs_pub_pbopanomaly f
+					LEFT JOIN cs_pub_pbopadetail k ON k.BusExcList = f.BusExcList
+					AND k.AuditState = '1'
+					WHERE
+						f.AuditState = '1'
+					AND f.PriPID = A.PriPID
+				)
+				GROUP BY
+					A.PriPID
+				) G,
+				cs_mid_baseinfo H
+			LEFT JOIN cs_code_regstate J ON H.RegState = J.RegState
+			WHERE
+				G.PriPID = H.PriPID
+			LIMIT ${numStart},${pageSize}
+  </select>
+  
+  
+  <select id="notFoundAltNum" parameterType="map" resultType="java.lang.Integer">
+  SELECT COUNT(d.PriPID) FROM 
+	(SELECT 
+	a.PriPID,
+	(SELECT COUNT(1) FROM cs_mid_altitem c WHERE c.PriPID=a.PriPID AND c.update_time>a.AbnTime) altcount
+	FROM cs_pub_opanomaly a 
+	LEFT JOIN cs_mid_baseinfo b ON a.PriPID=b.PriPID
+	WHERE a.SpeCause=4
+	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	HAVING altcount>0
+	UNION ALL
+	SELECT 
+	a.PriPID,
+	(SELECT COUNT(1) FROM cs_mid_altitem c WHERE c.PriPID=a.PriPID AND c.update_time>a.CogDate) altcount
+	FROM cs_pub_pbopanomaly a 
+	LEFT JOIN cs_mid_baseinfo b ON a.PriPID=b.PriPID
+	WHERE a.ExcpStaRes=2
+	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	HAVING altcount>0
+	) d
+	</select>
+	
+	<select id="notFoundYcNum" parameterType="map" resultType="java.lang.Integer">
+	SELECT COUNT(d.PriPID) FROM 
+	(SELECT 
+	a.PriPID,
+	(SELECT COUNT(1) FROM cs_pub_eppassword c WHERE c.PriPID=a.PriPID AND c.update_time>a.AbnTime) altcount
+	FROM cs_pub_opanomaly a 
+	LEFT JOIN cs_mid_baseinfo b ON a.PriPID=b.PriPID
+	WHERE a.SpeCause=4
+	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	HAVING altcount>0
+	UNION ALL
+	SELECT 
+	a.PriPID,
+	(SELECT COUNT(1) FROM cs_pub_eppassword c WHERE c.PriPID=a.PriPID AND c.update_time>a.CogDate) altcount
+	FROM cs_pub_pbopanomaly a 
+	LEFT JOIN cs_mid_baseinfo b ON a.PriPID=b.PriPID
+	WHERE a.ExcpStaRes=2
+	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	HAVING altcount>0
+	) d
+	</select>
+	
+	<select id="opanomalySoonThreeYear" parameterType="map" resultType="java.lang.Integer">
+	SELECT COUNT(1) FROM cs_pub_opanomaly a
+	LEFT JOIN cs_mid_baseinfo b ON a.PriPID=b.PriPID
+	WHERE
+		a.AuditState = '1' AND revokeFlag IS NULL
+	AND NOT EXISTS (SELECT 1 FROM cs_pub_opadetail b
+	WHERE a.BusExcList = b.BusExcList AND IsMove IN (1, 2) AND b.AuditState='1' )
+	AND DATE_SUB(DATE_SUB(CURDATE(),INTERVAL 3 YEAR),INTERVAL -60 DAY) >=a.AbnTime
+	AND a.AbnTime>=DATE_SUB(CURDATE(),INTERVAL 3 YEAR)
+	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	</select>
+	
+	
+	<!-- 查询企业查无下落原因的最大列入日期 -->
+	<select id="selectMaxAbnTimePubOpanoMalyByPriPID"  resultMap="PubOpanoMalyListResultMap" parameterType="Map">
+	   <if test="entTypeCatg !=50"> 
+			SELECT
+	 		MAX(A.AbnTime) AbnTime
+			FROM
+				cs_pub_opanomaly A,
+				cs_mid_baseinfo E
+			WHERE
+				A.AuditState = '1'
+			AND A.RevokeFlag IS NULL
+			AND A.PriPID = E.PriPID
+			AND E.EntTypeCatg NOT IN ('50') 
+			<if test="speCause !=null and speCause!=''">
+			AND A.SpeCause = #{speCause}
+			</if> 
+			AND NOT EXISTS (
+				SELECT
+					1
+				FROM
+					cs_pub_opadetail C
+				WHERE
+					A.BusExcList = C.BusExcList
+				AND C.IsMove = '1'
+				AND C.AuditState = '1'
+			)
+			AND A.PriPID = #{priPID} 
+	  </if>
+	  <if test="entTypeCatg ==50">
+			SELECT
+			max(A.CogDate)  AbnTime
+			FROM
+				cs_pub_pbopanomaly A
+			LEFT JOIN cs_pub_pbopadetail B ON A.BusExcList = B.BusExcList
+			WHERE
+				A.PriPID=#{priPID} And
+				A.AuditState = '1' And A.ExcpStaRes='2'
+			AND IFNULL(B.AuditState, 0) NOT IN ('1', '3')
+			ORDER BY A.CogDate DESC
+	   </if>
+   </select>
+</mapper>

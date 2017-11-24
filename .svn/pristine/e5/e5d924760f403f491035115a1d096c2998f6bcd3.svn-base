@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.ext.mapper.MidLeRepMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.ext.model.MidLeRep" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="Country" property="country" jdbcType="CHAR" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="CerType" property="cerType" jdbcType="CHAR" />
+    <result column="CerNO" property="cerNO" jdbcType="VARCHAR" />
+    <result column="LeRepPos" property="leRepPos" jdbcType="CHAR" />
+    <result column="PosBrForm" property="posBrForm" jdbcType="CHAR" />
+    <result column="Sex" property="sex" jdbcType="CHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="HouseAdd" property="houseAdd" jdbcType="VARCHAR" />
+    <result column="RegPerResAddr" property="regPerResAddr" jdbcType="VARCHAR" />
+    <result column="AppoUnit" property="appoUnit" jdbcType="VARCHAR" />
+    <result column="MobTel" property="mobTel" jdbcType="VARCHAR" />
+    <result column="LiteDeg" property="liteDeg" jdbcType="VARCHAR" />
+    <result column="PolStand" property="polStand" jdbcType="VARCHAR" />
+    <result column="Nation" property="nation" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap id="MidLeRepDto" type="com.icinfo.cs.ext.dto.MidLeRepDto" extends="BaseResultMap" >
+  	<result column="EntName" property="entName" jdbcType="VARCHAR"/>
+  	<result column="RegNo" property="regNo" jdbcType="VARCHAR"/>
+  	<result column="LinkType" property="linkType" jdbcType="VARCHAR"/>
+  	<result column="BlackType" property="blackType" jdbcType="VARCHAR"/>
+  	<result column="UniCode" property="uniCode" jdbcType="VARCHAR"/>
+  	<result column="LimitReason" property="limitReason" jdbcType="VARCHAR"/>
+  	<result column="LimitCaseCode" property="limitCaseCode" jdbcType="VARCHAR"/>
+  	<result column="LimitDepartName" property="limitDepartName" jdbcType="VARCHAR"/>
+  	<result column="PublishDate" property="publishDate" jdbcType="TIMESTAMP"/>
+  </resultMap>
+  
+  <select id="selectMidLeRepList" resultMap="MidLeRepDto" parameterType="map">
+<!--   	<if test="certList!=null and certList.size()>0"> -->
+	  	SELECT A.id,A.PriPID,A.Name,A.CerType,A.CerNO,A.LeRepPos,A.Sex,A.HouseAdd,B.EntName EntName,B.RegNO RegNo,'企业法人' LinkType
+		FROM cs_mid_lerep A
+		LEFT JOIN cs_mid_baseinfo B ON A.PriPID = B.PriPID 
+		WHERE A.CerNO IN 
+		<foreach collection="certList" index="index" item="certno" open="(" separator="," close=")">
+	           #{certno}
+	    </foreach>
+<!-- 	    <if test="priPIDList!=null and priPIDList.size()>0"> -->
+<!-- 	    and A.PriPID not in -->
+<!-- 	  		<foreach collection="priPIDList" index="index" item="pripid" open="(" separator="," close=")"> -->
+<!-- 		           #{pripid} -->
+<!-- 		    </foreach> -->
+<!--   		</if> -->
+<!--   	</if> -->
+	</select>
+	
+	<select id="selectMidLeRepCountByCerNOAndName" resultType="int" parameterType="Map">
+		SELECT 
+		  count(DISTINCT(PriPID))
+		FROM
+		  cs_mid_lerep
+		WHERE CerNO=#{cerNO} and Name=#{name}
+	</select>
+	
+	<select id="selectMidLeRepBackList" resultMap="MidLeRepDto" parameterType="map">
+<!-- 	  	SELECT temp.Name,temp.CerType,temp.CerNO,temp.EntName,temp.PriPID,temp.RegNo,temp.UniCode,temp.BlackType, -->
+<!-- 	  		temp.LimitReason,temp.LimitCaseCode ,temp.LimitDepartName,temp.PublishDate	 -->
+<!-- 	   from ( -->
+			select n.Name,n.CerType,n.CerNO,t.EntName,t.PriPID,t.RegNO RegNo,t.UniCode,'1' BlackType,'' LimitReason,'' LimitCaseCode ,'' LimitDepartName,'' PublishDate
+			from cs_mid_baseinfo t 
+			LEFT JOIN cs_mid_lerep n ON t.PriPID = n.PriPID
+			where t.RegState in (${regState})
+<!-- 			UNION  -->
+<!-- 			select t.IName Name,'1' CerType,t.CardNum CerNO,'' EntName,'' PriPID,'' RegNo ,'' UniCode,'2' BlackType,t.DisReputTypeName LimitReason,t.GistCID LimitCaseCode,t.GistUnit LimitDepartName,t.PublishDate -->
+<!-- 			from cs_mid_dishonestexe t -->
+<!-- 		)temp  -->
+		<trim prefix="WHERE" prefixOverrides="AND | OR"> 
+			<if test="name !=null and name != ''">
+	            AND n.Name = #{name}
+	        </if>
+			<if test="cerType !=null and cerType != ''">
+	            AND n.CerType = #{cerType}
+	        </if>
+			<if test="cerNO !=null and cerNO != ''">
+	            AND n.CerNO = #{cerNO}
+	        </if>
+			<if test="entName !=null and entName != ''">
+	            AND t.EntName = #{entName}
+	        </if>
+			<if test="regNO !=null and regNO != ''">
+	            AND (t.RegNO like CONCAT('%', #{regNO},'%') OR t.UniCode like CONCAT('%', #{regNO},'%'))
+	        </if>
+        </trim>
+	</select>
+	
+	<!-- 	* 描述：受限对象受限原因 -->
+	<select id="selectMidLeRepBackReasonList" resultMap="MidLeRepDto" parameterType="map">
+<!-- 	  	SELECT temp.Name,temp.CerType,temp.CerNO,temp.EntName,temp.PriPID,temp.RegNo,temp.UniCode,temp.BlackType, -->
+<!-- 	  		temp.LimitReason,temp.LimitCaseCode ,temp.LimitDepartName,temp.PublishDate	 -->
+<!-- 	   from ( -->
+			select n.Name,n.CerType,n.CerNO,t.EntName,t.PriPID,t.RegNO RegNo,t.UniCode,'1' BlackType,'' LimitReason,'' LimitCaseCode ,'' LimitDepartName,'' PublishDate
+			from cs_mid_baseinfo t 
+			LEFT JOIN cs_mid_lerep n ON t.PriPID = n.PriPID
+			where t.RegState in (${regState})
+<!-- 			UNION  -->
+<!-- 			select t.IName Name,'1' CerType,t.CardNum CerNO,'' EntName,'' PriPID,'' RegNo ,'' UniCode,'2' BlackType,t.DisReputTypeName LimitReason,t.GistCID LimitCaseCode,t.GistUnit LimitDepartName,t.PublishDate -->
+<!-- 			from cs_mid_dishonestexe t -->
+<!-- 		)temp  -->
+		<trim prefix="WHERE" prefixOverrides="AND | OR"> 
+			<if test="name !=null and name != ''">
+	            AND n.Name = #{name}
+	        </if>
+			<if test="cerType !=null and cerType != ''">
+	            AND n.CerType = #{cerType}
+	        </if>
+			<if test="cerNO !=null and cerNO != ''">
+	            AND n.CerNO = #{cerNO}
+	        </if>
+        </trim>
+	</select>
+	
+	<select id="selectMidLeRepListByCerNO" resultMap="BaseResultMap" parameterType="java.lang.String">
+	    SELECT 
+		    id,PriPID,
+		    Name,
+		    CerType,
+		    CerNO
+		FROM 
+		cs_mid_lerep
+		where CerNO = #{certNO}
+	    group by PriPID
+	</select>
+	
+	<select id="findMidLerepByPriPIDList" resultMap="BaseResultMap" parameterType="Map">
+  	SELECT
+		Name,PriPID,Tel ,MobTel,update_time
+	FROM 
+	 	cs_mid_lerep   
+    where PriPID in 
+    <foreach collection="priPidList" item="priPidList" index="index"  open="(" close=")" separator=",">
+         #{priPidList}
+    </foreach>
+  </select>
+</mapper>
+
+
+
+

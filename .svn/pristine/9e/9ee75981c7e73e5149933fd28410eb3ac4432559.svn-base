@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.es.mapper.PubSearchLogMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.es.model.PubSearchLog" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PubSearchKey" property="pubSearchKey" jdbcType="VARCHAR" />
+    <result column="PubTime" property="pubTime" jdbcType="TIMESTAMP" />
+    <result column="PubIp" property="pubIp" jdbcType="VARCHAR" />
+    <result column="PubType" property="pubType" jdbcType="CHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="PubRemark" property="pubRemark" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

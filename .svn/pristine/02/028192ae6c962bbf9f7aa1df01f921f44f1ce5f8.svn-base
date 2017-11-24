@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.nocreditPunish.mapper.NoCreditPunishInfoMapper">
+
+	<resultMap id="NoCreditPunishInfoMap" type="com.icinfo.cs.nocreditPunish.dto.NoCreditPunishInfoDto">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="CreateTime" property="createTime" jdbcType="DATE" />
+		<result column="PunType" property="punType" jdbcType="VARCHAR" />
+		<result column="BatchNo" property="batchNo" jdbcType="VARCHAR" />
+		<result column="PunField" property="punField" jdbcType="VARCHAR" />
+		<result column="PunCause" property="punCause" jdbcType="VARCHAR" />
+		<result column="LegBasis" property="legBasis" jdbcType="VARCHAR" />
+		<result column="PunRule" property="punRule" jdbcType="VARCHAR" />
+		<result column="PunMea" property="punMea" jdbcType="VARCHAR" />
+		<result column="LegNo" property="legNo" jdbcType="VARCHAR" />
+		<result column="LegDate" property="legDate" jdbcType="DATE" />
+		<result column="PunExeDeptCode" property="punExeDeptCode" jdbcType="VARCHAR" />
+		<result column="PunExeDept" property="punExeDept" jdbcType="VARCHAR" />
+		<result column="PunReqDeptCode" property="punReqDeptCode" jdbcType="VARCHAR" />
+		<result column="PunReqDept" property="punReqDept" jdbcType="VARCHAR" />
+		<result column="OperDeptCode" property="operDeptCode" jdbcType="VARCHAR" />
+		<result column="OperDept" property="operDept" jdbcType="VARCHAR" />
+		<result column="ExeBegin" property="exeBegin" jdbcType="DATE" />
+		<result column="ExeEnd" property="exeEnd" jdbcType="DATE" />
+		<result column="IsLife" property="isLife" jdbcType="VARCHAR" />
+		<result column="Files" property="files" jdbcType="VARCHAR" />
+		<result column="FeedBack" property="feedBack" jdbcType="VARCHAR" />
+		<result column="Contact" property="contact" jdbcType="VARCHAR" />
+		<result column="Phone" property="phone" jdbcType="VARCHAR" />
+		<result column="Fax" property="fax" jdbcType="VARCHAR" />
+		<result column="Email" property="email" jdbcType="VARCHAR" />
+		<result column="State" property="state" jdbcType="INTEGER" />
+		<result column="AuditRes" property="auditRes" jdbcType="VARCHAR" />
+		<result column="Auditor" property="auditor" jdbcType="VARCHAR" />
+		<result column="AuditTime" property="auditTime" jdbcType="DATE" />
+		<result column="AuditView" property="auditView" jdbcType="VARCHAR" />
+		
+		<result column="IllegalProperty" property="illegalProperty" jdbcType="VARCHAR" />
+		<result column="PunHandleRes" property="punHandleRes" jdbcType="VARCHAR" />
+		<result column="IllegalFact" property="illegalFact" jdbcType="VARCHAR" />
+		<result column="PunReqUser" property="punReqUser" jdbcType="VARCHAR" />
+
+		<result column="HasBack" property="hasBack" jdbcType="INTEGER" />
+		<result column="ExeDateStr" property="exeDateStr" jdbcType="VARCHAR" />
+
+		<result column="EntName" property="entName" jdbcType="VARCHAR" />
+		<result column="UniCode" property="uniCode" jdbcType="VARCHAR" />
+		<result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+		<result column="RegNo" property="regNo" jdbcType="VARCHAR" />
+		<result column="CerType" property="cerType" jdbcType="VARCHAR" />
+		<result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+		<result column="CardNo" property="cardNo" jdbcType="VARCHAR" />
+		<result column="LitiName" property="litiName" jdbcType="VARCHAR" />
+		<result column="Record" property="record" jdbcType="VARCHAR" />
+		<result column="ManPhone" property="manphone" jdbcType="VARCHAR" />
+		<result column="RecordCount" property="recordCount" jdbcType="INTEGER" />
+		<result column="CerTypeDesc" property="cerTypeDesc" jdbcType="VARCHAR" />
+		
+		<result column="DownState" property="downState" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="selectAuditedInfoList" parameterType="Map" resultMap="NoCreditPunishInfoMap">
+	    SELECT t.id id, t.CreateTime, t.BatchNo, t.State, t.AuditRes, t.FeedBack, t.PunField, t.LegBasis, t.PunCause, t.PunRule, t.PunReqDept, t.ExeBegin, t.ExeEnd, t.PunExeDept, t.PunMea, t.Contact, t.Phone, t.Fax, t.Email,  
+		    t2.State HasBack, t.PunReqUser, t.LegNo,LegDate,t.Auditor,t.AuditTime,t.IsLife
+		    FROM cs_nocredit_punishinfo t LEFT JOIN cs_nocredit_punishdetail t1 
+		    ON t.BatchNo=t1.BatchNo 
+		    LEFT JOIN  cs_nocredit_punishback t2 ON t.BatchNo=t2.BatchNo 
+		    <!-- 这里如果是警示，则要是工商部门的范围 -->
+		    <if test="userType != null and userDeptCode != null and userDeptCode != ''">
+		     LEFT JOIN  cs_dept_dutycode_ref t3 ON t2.BackDeptCode=t3.AdCode 
+		    </if>
+	    <trim prefix="WHERE" prefixOverrides="AND | OR">
+	    	 t.State>=1 AND t.AuditRes!='1' 
+	    	<if test="type != null and type != ''">
+	    	 	AND t.PunType=#{type} 
+	    	</if>
+			<!-- 这里判断警示，还是协同 -->
+			<if test="userType != null and userDeptCode != null and userDeptCode != ''">
+				AND t3.DutyDeptCode = 'A058' AND t2.BackDeptCode like concat('', #{userDeptCode},'%') 
+			</if>
+			<if test="userType == null and userDeptCode != null and userDeptCode != ''">
+				AND t2.BackDeptCode=#{userDeptCode}
+			</if>
+			<if test="operDeptCode != null and operDeptCode != ''">
+				AND t.OperDeptCode=#{operDeptCode}
+			</if>
+			<if test="uniCode != null and uniCode != ''">
+				AND (t1.UniCode=#{uniCode} OR t1.RegNo=#{uniCode})
+			</if>
+			<if test="entName != null and entName != ''">
+				AND t1.EntName=#{entName}
+			</if>
+			<if test="litiName != null and litiName != ''">
+				AND t1.LitiName=#{litiName}
+			</if>
+			<if test="priPID != null and priPID != ''">
+				AND t1.PriPID=#{priPID}
+			</if>
+			<if test="cardNo != null and cardNo != ''">
+				AND t1.CardNo=#{cardNo}
+			</if>
+			<if test="punReqDeptCode != null and punReqDeptCode != ''">
+				AND t.PunReqDeptCode=#{punReqDeptCode}
+			</if>
+			<if test="punField != null and punField != ''">
+				AND t.PunField=#{punField}
+			</if>
+			<if test="punCause != null and punCause != ''">
+				AND t.PunCause=#{punCause}
+			</if>
+			<if test="expired != null and expired !=''  and expired == 0">
+				and t.ExeEnd &lt;= #{exeEnd,jdbcType=DATE}
+			</if>
+			<if test="expired != null and expired !=''  and expired == 1">
+				and t.ExeEnd &gt;= #{exeEnd,jdbcType=DATE}
+			</if>
+			<if test="punExeDeptCode != null and punExeDeptCode != ''">
+				AND t2.BackDeptCode=#{punExeDeptCode}
+			</if>
+			<if test="punMea != null and punMea != ''">
+				AND t.PunMea=#{punMea}
+			</if>
+			<if test="backState != null and backState != '' and backState==0">
+				AND t2.State=0 AND t.FeedBack=1
+			</if>
+			<if test="backState != null and backState != '' and backState==1">
+				AND t2.State=1 AND t.FeedBack=1
+			</if>
+			<if test="backState != null and backState != '' and backState==2">
+				AND t.FeedBack=0
+			</if>
+			<if test="state != null and state != ''">
+				AND t.State=#{state}
+			</if>
+			<if test="batchNo != null and batchNo != ''">
+				AND t.BatchNo=#{batchNo}
+			</if>
+		</trim>
+		GROUP BY t.BatchNo ORDER BY t.CreateTime DESC
+	</select>
+	
+	<select id="selectAllInfoList" parameterType="Map" resultMap="NoCreditPunishInfoMap">
+	    SELECT t.id id, t.CreateTime, t.BatchNo, t.State, t.AuditRes, t.FeedBack, t.PunField, t.LegBasis, t.PunCause, t.PunRule, t.PunReqDept, t.ExeBegin, t.ExeEnd, t.PunExeDept, t.PunMea, t.Contact, t.Phone, t.Fax, t.Email 
+		,t.PunType,t.AuditTime,t.Auditor,t.PunReqUser
+		    FROM cs_nocredit_punishinfo t LEFT JOIN cs_nocredit_punishdetail t1 
+		    ON t.BatchNo=t1.BatchNo 
+		    LEFT JOIN  cs_nocredit_punishback t2 ON t.BatchNo=t2.BatchNo 
+	    <trim prefix="WHERE" prefixOverrides="AND | OR">
+	    	<if test="type != null and type != ''">
+	    	 t.PunType=#{type} 
+	    	</if>
+			<if test="operDeptCode != null and operDeptCode != ''">
+				AND t.OperDeptCode=#{operDeptCode}
+			</if>
+			<if test="uniCode != null and uniCode != ''">
+				AND (t1.UniCode=#{uniCode} OR t1.RegNo=#{uniCode})
+			</if>
+			<if test="entName != null and entName != ''">
+				AND t1.EntName=#{entName}
+			</if>
+			<if test="litiName != null and litiName != ''">
+				AND t1.LitiName=#{litiName}
+			</if>
+			<if test="cardNo != null and cardNo != ''">
+				AND t1.CardNo=#{cardNo}
+			</if>
+			<if test="punReqDeptCode != null and punReqDeptCode != ''">
+				AND t.PunReqDeptCode=#{punReqDeptCode}
+			</if>
+			<if test="punField != null and punField != ''">
+				AND t.PunField=#{punField}
+			</if>
+			<if test="punCause != null and punCause != ''">
+				AND t.PunCause=#{punCause}
+			</if>
+			<if test="expired != null and expired !=''  and expired == 0">
+				and t.ExeEnd &lt;= #{exeEnd,jdbcType=DATE}
+			</if>
+			<if test="expired != null and expired !=''  and expired == 1">
+				and t.ExeEnd &gt;= #{exeEnd,jdbcType=DATE}
+			</if>
+			<if test="expired != null and expired !=''  and expired == 2">
+				and t.IsLife=1
+			</if>
+			<if test="punExeDeptCode != null and punExeDeptCode != ''">
+				AND t2.BackDeptCode=#{punExeDeptCode}
+			</if>
+			<if test="punMea != null and punMea != ''">
+				AND t.PunMea=#{punMea}
+			</if>
+			<if test="feedBack != null and feedBack != ''">
+				AND t.FeedBack=#{feedBack}
+			</if>
+			<if test="state != null and state != '' and state  &lt; 2">
+				AND t.State=#{state}
+			</if>
+			<if test="state != null and state != '' and state == 2">
+				AND t2.BackDeptCode =#{operDeptCode} AND t2.state =1
+			</if>
+			<if test="state != null and state != '' and state == 3">
+				AND t.AuditRes ='2'
+			</if>
+			<if test="auditRes != null and auditRes != ''">
+				AND t.auditRes !=#{auditRes}
+			</if>
+			<if test="batchNo != null and batchNo != ''">
+				AND t.BatchNo=#{batchNo}
+			</if>
+		</trim>
+		GROUP BY t.BatchNo ORDER BY t.CreateTime DESC
+	</select>
+	<select id="searchlistJSON_downednum" parameterType="Map" resultMap="NoCreditPunishInfoMap">
+SELECT
+  COUNT(X.DownState) DownState
+FROM
+  (SELECT
+    s.DownState
+  FROM
+    cs_nocredit_punishdetail t
+    LEFT JOIN cs_nocredit_punishinfo t1
+      ON t.BatchNo = t1.BatchNo
+    LEFT JOIN
+      (SELECT DISTINCT
+        RelateId RelateId,
+        '1' DownState
+      FROM
+        cs_info_rece_stat
+      WHERE TYPE = '4'
+		<if test="adCode != null and adCode != ''">
+			AND Adcode = #{adCode}
+		</if>
+      ) s
+      ON t.id = s.RelateId
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			t1.State>=1 AND t1.AuditRes!='1'
+		<if test="uniCode != null and uniCode != ''">
+			AND (t.UniCode=#{uniCode} OR t.RegNo=#{uniCode})
+		</if>
+		<if test="entName != null and entName != ''">
+			AND t.EntName=#{entName}
+		</if>
+		</trim>
+		) X
+WHERE X.DownState = '1'
+			</select>
+	<select id="selectAllFullInfoList" parameterType="Map" resultMap="NoCreditPunishInfoMap">
+		SELECT t.id,t.RegNo, t.PriPID, t.UniCode, t.CardNo, t.EntName, t.LeRep, t.LitiName,t.CerType,t.Phone ManPhone,
+		t1.CreateTime,t1.PunType,t1.BatchNo,t1.PunField,t1.PunCause,t1.LegBasis,t1.PunRule,t1.PunMea,t1.LegNo,t1.LegDate,
+		t1.PunExeDeptCode,t1.PunExeDept,t1.ExeBegin,t1.ExeEnd,t1.IsLife,t1.IllegalProperty,t1.PunHandleRes,t1.IllegalFact,
+		t1.Files,t1.PunReqDeptCode,t1.PunReqDept,t1.PunReqUser,t1.PunReqUserCode,t1.FeedBack,t1.Contact,t1.Phone,t1.Fax,t1.Email,
+		t1.State,t1.AuditRes,t1.Auditor,t1.AuditTime,t1.AuditView,t1.OperDept,t1.OperDeptCode,t1.IllegalProperty,t1.PunHandleRes,
+		t1.IllegalFact,t1.PunReqUser,
+		s.DownState 
+		FROM cs_nocredit_punishdetail t   
+		LEFT JOIN cs_nocredit_punishinfo t1 
+		ON t.BatchNo=t1.BatchNo 
+		LEFT JOIN (SELECT DISTINCT RelateId RelateId, '1' DownState FROM cs_info_rece_stat WHERE TYPE = '4' 
+		<if test="adCode != null and adCode != ''">
+		AND Adcode = #{adCode}
+		</if>
+		) s
+		ON t.id = s.RelateId
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+	    	t1.State is not null AND t1.AuditRes!='-1' 
+	    	<if test="type != null and type != ''">
+				AND t1.PunType=#{type}
+			</if>
+			<!-- 创建部门编号 -->
+			<if test="operDeptCode != null and operDeptCode != ''">
+				AND t1.OperDeptCode=#{operDeptCode}
+			</if>
+			<if test="uniCode != null and uniCode != ''">
+				AND (t.UniCode  LIKE concat('%', #{uniCode},'%') OR t.RegNo like concat('%', #{uniCode},'%'))
+			</if>
+			<!-- 惩戒企业 -->
+			<if test="entName != null and entName != ''">
+				AND t.EntName like concat('%',#{entName},'%')
+			</if>
+			<!-- 惩戒企业法人代表 -->
+			<if test="leRep != null and leRep != ''">
+				AND t.LeRep like concat('%',#{leRep},'%')
+			</if>
+			<!-- 证件号码 -->
+			<if test="cardNo != null and cardNo != ''">
+				AND t.CardNo like concat('%', #{cardNo},'%')
+			</if>
+			<!-- 惩戒提请部门编号 -->
+			<if test="punReqDeptCode != null and punReqDeptCode != ''">
+				AND t1.PunReqDeptCode=#{punReqDeptCode}
+			</if>
+			<!-- 惩戒提请部门中文名称 -->
+			<if test="punReqDept != null and punReqDept != ''">
+				AND t1.PunReqDept like concat('%', #{punReqDept},'%')
+			</if>
+			<!-- 惩戒执行部门编号(多个) -->
+			<if test="punExeDeptCode != null and punExeDeptCode != ''">
+				AND FIND_IN_SET(#{punExeDeptCode},t1.PunExeDeptCode)
+			</if>
+			<!-- 惩戒领域 -->
+			<if test="punField != null and punField != ''">
+				AND t1.PunField=#{punField}
+			</if>
+			<!-- 惩戒事由 -->
+			<if test="punCause != null and punCause != ''">
+				AND t1.PunCause=#{punCause}
+			</if>
+			<!-- 惩戒有效状态（旧） -->
+			<if test="expired != null and expired !=''  and expired == 0">
+				and t1.ExeEnd &lt;= #{exeEnd,jdbcType=DATE}
+			</if>
+			<if test="expired != null and expired !=''  and expired == 1">
+				and t1.ExeEnd &gt;= #{exeEnd,jdbcType=DATE}
+			</if>
+			<if test="expired != null and expired !=''  and expired == 2">
+				and t1.IsLife=1
+			</if>
+			<!-- 惩戒有效状态（新） -->
+			<!-- 无效 -->
+			<if test="state != null and state !=''  and state == 0">
+				and ( t1.state=0 or (state=1 and DATE_FORMAT(t1.ExeEnd,'%Y-%m-%d') &lt; #{exeEnd,jdbcType=DATE}))
+			</if>
+			<!-- 有效 -->
+			<if test="state != null and state !=''  and state == 1">
+				and ( t1.state=2 or (state=1 and DATE_FORMAT(t1.ExeEnd,'%Y-%m-%d') &gt;= #{exeEnd,jdbcType=DATE}))
+			</if>
+			<if test="state != null and state !=''  and state == 2">
+				and (t1.state=2)  
+			</if>
+			<!-- 惩戒措施 -->
+			<if test="punMea != null and punMea != ''">
+				AND t1.PunMea=#{punMea}
+			</if>
+			<!-- 法律文书编号 -->
+			<if test="legNo != null and legNo != ''">
+				AND t1.LegNo like concat('%', #{legNo},'%')
+			</if>
+			<!-- 文书日期开始 -->
+			<if test="startLegDate !='' and startLegDate !=null">
+			<![CDATA[
+			and DATE_FORMAT(t1.LegDate,'%Y-%m-%d') >= #{startLegDate}
+			]]>
+			</if>
+			<if test="endLegDate !='' and endLegDate !=null">
+			<![CDATA[
+			and DATE_FORMAT(t1.LegDate,'%Y-%m-%d') <= #{endLegDate}
+			]]>
+			</if>
+			<!-- 公示日期开始 -->
+			<if test="startAuditTime !='' and startAuditTime !=null">
+			<![CDATA[
+			and DATE_FORMAT(t1.AuditTime,'%Y-%m-%d') >= #{startAuditTime}
+			]]>
+			</if>
+			<if test="endAuditTime !='' and endAuditTime !=null">
+			<![CDATA[
+			and DATE_FORMAT(t1.AuditTime,'%Y-%m-%d') <= #{endAuditTime}
+			]]>
+			</if>
+			<!-- 联系人 -->
+			<if test="contact != null and contact != ''">
+				AND t1.Contact like concat('%', #{contact},'%')
+			</if>
+			<!-- 惩戒当事人姓名 -->
+			<if test="litiName != null and litiName != ''">
+				AND t.LitiName like concat('%', #{litiName},'%')
+			</if>
+			<if test="batchNo != null and batchNo != ''">
+				AND t1.BatchNo=#{batchNo}
+			</if>
+			<if test="priPID != null and priPID != ''">
+				AND t.PriPID = #{priPID}
+			</if>
+		</trim>
+		 ORDER BY t1.CreateTime DESC
+	</select>
+	
+	
+	<select id="selectByBatchNo" parameterType="String" resultMap="NoCreditPunishInfoMap">
+		SELECT CreateTime, PunType, BatchNo, PunField, PunCause, LegBasis, PunRule, PunMea, LegNo, LegDate, PunExeDeptCode, PunExeDept, PunReqDeptCode, PunReqDept,
+					OperDeptCode, OperDept, ExeBegin, ExeEnd, IsLife, Files, FeedBack, Contact, Phone, Fax, Email, State, AuditRes, Auditor, AuditTime, AuditView
+	    FROM cs_nocredit_punishinfo t WHERE t.BatchNo=#{batchNo}
+	</select>
+	
+	<select id="selectInfoListByPriPID" resultMap="NoCreditPunishInfoMap" parameterType="map">
+		SELECT t.id id,t1.priPID, t.BatchNo, t.State, t.AuditRes, t.FeedBack, t.PunField, t.LegBasis, t.PunCause, t.PunRule, t.PunReqDept, t.ExeBegin, t.ExeEnd, t.PunExeDept, t.PunMea, t.Contact, t.Fax, t.Email 
+		    FROM cs_nocredit_punishinfo t LEFT JOIN cs_nocredit_punishdetail t1 
+		    ON t.BatchNo=t1.BatchNo 
+		where
+		<![CDATA[
+		t1.priPID = #{priPID} AND t.AuditRes = '0'
+		]]>
+	</select>
+	
+	<select id="selectInfoListByCerNO" resultMap="NoCreditPunishInfoMap" parameterType="map">
+		SELECT t.id id,b.EntName,b.UniCode,t1.priPID, t.BatchNo, t.State, t.AuditRes, t.FeedBack, t.PunField, t.LegBasis, t.PunCause, t.PunRule, t.PunReqDept, t.ExeBegin, t.ExeEnd, t.PunExeDept, t.PunMea, t.Contact, t.Fax, t.Email 
+		    FROM cs_nocredit_punishinfo t LEFT JOIN cs_nocredit_punishdetail t1 ON t.BatchNo=t1.BatchNo 
+		    LEFT JOIN cs_mid_baseinfo b ON t1.PriPID = b.PriPID
+		WHERE t1.CardNo = #{cerNO}
+	</select>
+	
+	<select id="selectNeedCreateEntBulletinTotal" resultType="java.lang.Integer">
+	      SELECT
+			   count(0)
+			FROM
+			   cs_nocredit_punishdetail t
+		    LEFT JOIN cs_nocredit_punishinfo t1 ON t.BatchNo = t1.BatchNo
+		    LEFT JOIN cs_pub_announcement b ON t.BatchNo = b.LinkUID
+		    LEFT JOIN cs_mid_baseinfo a ON t.PriPID = a.PriPID
+		    WHERE
+			t1.State >= 1 AND t1.AuditRes != '1'
+			AND t1.PunType = 'ent' AND b.LinkUID IS NULL
+	</select>
+	
+	<select id="selectNeedCreateManBulletinTotal" resultType="java.lang.Integer">
+	      SELECT
+		     count(0)
+		  FROM
+			cs_nocredit_punishdetail t
+		  LEFT JOIN cs_nocredit_punishinfo t1 ON t.BatchNo = t1.BatchNo
+		  LEFT JOIN cs_pub_announcement b ON t.BatchNo = b.LinkUID
+		  LEFT JOIN cs_mid_baseinfo a ON t.PriPID = a.PriPID
+		  WHERE
+		  t1.State >= 1 AND t1.AuditRes != '1'
+		  AND t1.PunType = 'man' AND b.LinkUID IS NULL
+	</select>
+	
+	<insert id="doInsertAnnounceByNocreditInfo">
+		   INSERT INTO cs_pub_announcement (
+		   		AuditDate,EntName,PriPID,LinkUID,AuditDeptName,AuditArea,PubTitle,PubType
+		    )
+			SELECT
+			   LEFT(IFNULL(t1.AuditTime,t1.CreateTime),10) AuditDate,t.EntName,t.PriPID,t.BatchNo,
+			   t1.PunReqDept,LEFT(a.RegOrg,4),t.EntName PubTitle,'20'
+			FROM
+			   cs_nocredit_punishdetail t
+		    LEFT JOIN cs_nocredit_punishinfo t1 ON t.BatchNo = t1.BatchNo
+		    LEFT JOIN cs_pub_announcement b ON t.BatchNo = b.LinkUID
+		    LEFT JOIN cs_mid_baseinfo a ON t.PriPID = a.PriPID
+		    WHERE
+			t1.State >= 1
+			AND t1.AuditRes != '1'
+			AND t1.PunType = 'ent'
+			AND b.LinkUID IS NULL
+    </insert>
+    
+    <insert id="doInsertAnnounceByNocreditManInfo">
+		INSERT INTO cs_pub_announcement (
+		   	  AuditDate,EntName,PriPID,LinkUID,AuditDeptName,AuditArea,PubTitle,PubType
+		)
+		SELECT
+		   LEFT(IFNULL(t1.AuditTime,t1.CreateTime),10) AuditDate,t.EntName,t.PriPID,t.BatchNo,
+		   t1.PunReqDept,LEFT(a.RegOrg,4),IFNULL(t.LitiName,t.EntName) PubTitle,'21'
+		FROM
+			cs_nocredit_punishdetail t
+		  LEFT JOIN cs_nocredit_punishinfo t1 ON t.BatchNo = t1.BatchNo
+		  LEFT JOIN cs_pub_announcement b ON t.BatchNo = b.LinkUID
+		  LEFT JOIN cs_mid_baseinfo a ON t.PriPID = a.PriPID
+		  WHERE
+		  t1.State >= 1
+		  AND t1.AuditRes != '1'
+		  AND t1.PunType = 'man'
+		  AND b.LinkUID IS NULL
+    </insert>
+	
+	<select id="selectAllInfoJsonList" parameterType="Map" resultMap="NoCreditPunishInfoMap">
+	    SELECT t.id id, t.CreateTime, t.BatchNo, t.State, t.AuditRes, t.FeedBack, t.PunField, t.LegBasis, t.PunCause, t.PunRule, t.PunReqDept, t.ExeBegin, t.ExeEnd, t.PunExeDept, t.PunMea, t.Contact, t.Phone, t.Fax, t.Email 
+		,t.PunType,t.AuditTime,t.Auditor,t.PunReqUser,substring_index(
+				group_concat(DISTINCT t1.EntName),
+				',',
+				200
+			) EntName ,substring_index(
+			group_concat(DISTINCT t1.UniCode),
+			',',
+				200
+			) UniCode,substring_index(
+			group_concat(DISTINCT t1.LitiName),
+			',',
+				200
+			) LitiName,substring_index(
+			group_concat(DISTINCT t1.CardNo),
+			',',
+				200
+			) CardNo,t.legNo,t.isLife,
+				CASE
+			WHEN t.auditRes = '2' THEN
+				0
+			WHEN t.auditRes = '0' THEN
+				1
+			ELSE
+				t.auditRes
+			END flag
+		    FROM cs_nocredit_punishinfo t LEFT JOIN cs_nocredit_punishdetail t1 
+		    ON t.BatchNo=t1.BatchNo 
+		    LEFT JOIN  cs_nocredit_punishback t2 ON t.BatchNo=t2.BatchNo 
+	    <trim prefix="WHERE" prefixOverrides="AND | OR"> 
+	    	<if test="proveType != null and proveType != ''">
+	    	 t.PunType IN (${proveType}) 
+	    	</if>
+			<if test="operDeptCode != null and operDeptCode != ''">
+				AND t.OperDeptCode=#{operDeptCode}
+			</if>
+			<if test="uniCode != null and uniCode != ''">
+				AND (t1.UniCode=#{uniCode} OR t1.RegNo=#{uniCode})
+			</if>
+			<if test="entName != null and entName != ''">
+				AND t1.EntName=#{entName}
+			</if>
+			<if test="litiName != null and litiName != ''">
+				AND t1.LitiName=#{litiName}
+			</if>
+			<if test="legNo != null and legNo != ''">
+				AND t.LegNo like  concat('%', #{legNo},'%') 
+			</if>
+			<if test="punReqUser != null and punReqUser != ''">
+				AND t.PunReqUser like  concat('%', #{punReqUser},'%') 
+			</if>
+			<if test="auditor != null and auditor != ''">
+				AND t.Auditor like  concat('%', #{auditor},'%') 
+			</if> 
+			<if test="entlitiName != null and entlitiName != ''">
+				AND ( t1.LitiName like  concat('%', #{entlitiName},'%') or t1.EntName like concat('%', #{entlitiName},'%') )
+			</if>
+			<if test="cardNouniCode != null and cardNouniCode != ''">
+				AND  ( t1.UniCode like  concat('%', #{cardNouniCode},'%') or t1.CardNo like concat('%', #{cardNouniCode},'%') )
+			</if> 
+			<if test="cardNo != null and cardNo != ''">
+				AND t1.CardNo=#{cardNo}
+			</if>
+			<if test="punReqDeptCode != null and punReqDeptCode != ''">
+				AND t.PunReqDeptCode=#{punReqDeptCode}
+			</if>
+			<if test="punReqDept != null and punReqDept != ''">
+				AND t.PunReqDept like  concat('%', #{punReqDept},'%') 
+			</if> 
+			<if test="punField != null and punField != ''">
+				AND t.PunField=#{punField}
+			</if>
+			<if test="punCause != null and punCause != ''">
+				AND t.PunCause=#{punCause}
+			</if>
+			<if test="expired != null and expired !=''  and expired == 0">
+				and t.ExeEnd &lt;= #{exeEnd,jdbcType=DATE}
+			</if>
+			<if test="expired != null and expired !=''  and expired == 1">
+				and t.ExeEnd &gt;= #{exeEnd,jdbcType=DATE}
+			</if>
+			<if test="expired != null and expired !=''  and expired == 2">
+				and t.IsLife=1
+			</if>
+			<if test="punExeDeptCode != null and punExeDeptCode != ''">
+				AND t2.BackDeptCode=#{punExeDeptCode}
+			</if>
+			<if test="punMea != null and punMea != ''">
+				AND t.PunMea=#{punMea}
+			</if>
+			<if test="feedBack != null and feedBack != ''">
+				AND t.FeedBack=#{feedBack}
+			</if>
+			<!-- 惩戒有效状态（新） -->
+			<!-- 无效 -->
+			<if test="state != null and state !=''  and state == 0">
+				and ( t.state=0 or (t.state=1 and DATE_FORMAT(t.ExeEnd,'%Y-%m-%d') &lt;= #{exeEnd,jdbcType=DATE}))
+			</if>
+			<!-- 有效 -->
+			<if test="state != null and state !=''  and state == 1">
+				and ( t.state=2 or (t.state=1 and DATE_FORMAT(t.ExeEnd,'%Y-%m-%d') &gt;= #{exeEnd,jdbcType=DATE}))
+			</if>
+			<if test="state != null and state !=''  and state == 2">
+				and (t.state=2)  
+			</if>
+			<if test="auditRes != null and auditRes != ''">
+				AND t.auditRes =#{auditRes}
+			</if>
+			<if test="batchNo != null and batchNo != ''">
+				AND t.BatchNo=#{batchNo}
+			</if>
+			<if test="startCreateTime != null and startCreateTime != ''">
+				<![CDATA[ AND left(t.CreateTime,10) >=#{startCreateTime} ]]>  
+			</if>
+			<if test="endCreateTime != null and endCreateTime != ''">
+				<![CDATA[ AND left(t.CreateTime,10) <=#{endCreateTime} ]]>  
+			</if>
+			<if test="startAuditTime != null and startAuditTime != ''">
+				<![CDATA[ AND left(t.AuditTime,10) >=#{startAuditTime} ]]>  
+			</if>
+			<if test="endAuditTime != null and endAuditTime != ''">
+				<![CDATA[ AND left(t.AuditTime,10) <=#{endAuditTime} ]]>  
+			</if>
+		</trim>
+		GROUP BY t.BatchNo ORDER BY flag asc,t.CreateTime desc 
+	</select>
+	
+</mapper>

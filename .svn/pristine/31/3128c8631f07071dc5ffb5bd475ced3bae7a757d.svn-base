@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.sment.mapper.SmBusEntarchivesAreaMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sment.model.SmBusEntarchivesArea" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="AreaCode" property="areaCode" jdbcType="VARCHAR" />
+    <result column="AreaName" property="areaName" jdbcType="VARCHAR" />
+    <result column="AreaPcode" property="areaPcode" jdbcType="VARCHAR" />
+    <result column="DeptCode" property="deptCode" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <resultMap id="BaseResultMapDto" type="com.icinfo.cs.sment.dto.SmBusEntarchivesAreaDto" extends="BaseResultMap">
+		<result column="parentid" property="parentid" jdbcType="VARCHAR" />
+		<result column="Nocheck" property="Nocheck" jdbcType="VARCHAR" />
+		<result column="IsParent" property="IsParent" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <select id="selectAreaList" resultMap="BaseResultMapDto">
+  		SELECT 
+		  AreaName,
+		  '-1' parentid,
+		  AreaCode,
+		  'true' AS Nocheck,
+		  'true' AS IsParent 
+		FROM
+		  sm_bus_entarchives_area
+		WHERE AreaPcode IS NULL 
+		UNION
+		ALL 
+		SELECT 
+		  AreaName,
+		  AreaPcode parentid,
+		  AreaCode,
+		  'false' AS Nocheck,
+		  'false' AS IsParent 
+		FROM
+		  sm_bus_entarchives_area 
+		WHERE AreaPcode IS NOT NULL  
+  </select>
+  
+  <select id="selectListByMap" parameterType="Map" resultMap="BaseResultMap">
+       select  id,AreaCode,AreaName,AreaPcode
+       from sm_bus_entarchives_area
+       where 1=1
+       <if test="areaCode !=null and areaCode !=''">
+       		and AreaCode = #{areaCode}
+       </if>
+       <if test="areaPcode !=null and areaPcode !=''">
+       		and AreaPcode = #{areaPcode}
+       </if>
+       <if test="areaName !=null and areaName !=''">
+       		and AreaName = #{areaName}
+       </if>
+       <if test="deptCode !=null and deptCode !=''">
+       		and DeptCode like '${deptCode}%'
+       </if>
+  </select>
+</mapper>

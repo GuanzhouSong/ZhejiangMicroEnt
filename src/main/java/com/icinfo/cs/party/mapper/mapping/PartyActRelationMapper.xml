@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.party.mapper.PartyActRelationMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.party.model.PartyActRelation" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="MemberID" property="memberID" jdbcType="VARCHAR" />
+    <result column="ActivityID" property="activityID" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

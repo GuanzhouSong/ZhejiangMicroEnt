@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.deptpubinfo.mapper.DeptPubInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.deptpubinfo.model.DeptPubInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" /> 
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="Dom" property="dom" jdbcType="VARCHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="EstDate" property="estDate" jdbcType="DATE" />
+    <result column="RegState" property="regState" jdbcType="CHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+    <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+    <result column="SliceNOName" property="sliceNOName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseExtResultMap" type="com.icinfo.cs.deptpubinfo.dto.DeptPubInfoDto" extends="BaseResultMap" >
+    <result column="MortTotal" property="mortTotal" jdbcType="INTEGER" />
+    <result column="StockTotal" property="stockTotal" jdbcType="INTEGER" />
+    <result column="IppldgTotal" property="ippldgTotal" jdbcType="INTEGER" />
+    <result column="BrandTotal" property="brandTotal" jdbcType="INTEGER" />
+    <result column="SccheckTotal" property="sccheckTotal" jdbcType="INTEGER" />
+    <result column="JusticeTotal" property="justiceTotal" jdbcType="INTEGER" />
+    <result column="PermitTotal" property="permitTotal" jdbcType="INTEGER" />
+    <result column="PunishTotal" property="punishTotal" jdbcType="INTEGER" />
+    <result column="AnomalyTotal" property="anomalyTotal" jdbcType="INTEGER" />
+    <result column="IllegalTotal" property="illegalTotal" jdbcType="INTEGER" />
+    <result column="SimpleescTotal" property="simpleescTotal" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <!-- 查询部门公示信息 -->
+    <select id="selectDeptPubInfoList" resultMap="BaseResultMap" parameterType="Map">
+     SELECT 
+      DISTINCT t1.id,
+	  t1.PriPID,
+	  t1.UniCode,
+	  t1.RegNO,
+	  t1.EntName,
+	  t1.LeRep,
+	  t1.EstDate,
+	  t1.Dom,
+	  t1.RegOrgName,
+	  t1.LocalAdmName,
+	  t1.SliceNOName,
+	  t1.RegState
+	FROM
+	  cs_mid_baseinfo t1
+	JOIN 
+     <!-- 公示信息项 -->
+	 <if test="pubItem !=null and pubItem == 'isMort'">
+	  cs_mort_reg_info t2
+	  ON (t1.UniCode = t2.MortGagorCertNO
+	  OR t1.RegNO = t2.MortGagorCertNO)
+	  AND CancelStatus = '0' 
+	  AND CheckStatus='1' 
+	 </if>
+	 <if test="pubItem !=null and pubItem == 'isStock'">
+		(SELECT PriPID
+		FROM cs_sp_pledge
+		WHERE  EquPleDate >= '2014-10-01 00:00:00' AND EquSource='0'
+		UNION
+		SELECT PriPID
+		FROM cs_sp_pledge
+		WHERE  EquPleDate >= '2014-10-01 00:00:00' AND EquSource='1' AND STATUS='X') t2
+		on t1.PriPID =  t2.PriPID
+	 </if>
+	 <if test="pubItem !=null and pubItem =='isIppldg'">
+		 cs_im_ippldg t2 
+		 on t1.PriPID =  t2.PriPID
+		 and t2.PubFlag = '1' 
+	 </if>
+	 <if test="pubItem !=null and pubItem =='isBrand'">
+		 cs_tm_detail_info t2
+		 on t1.PriPID =  t2.PriPID
+	 </if>
+	 <if test="pubItem !=null and pubItem =='isSccheck'">
+	    (SELECT priPID FROM cs_pub_scent_result WHERE AuditState = '5' 
+		UNION
+		SELECT priPID FROM cs_report_check_info WHERE InfoAuditResult = '4'
+		UNION
+		SELECT priPID FROM cs_pub_scresult WHERE AuditState = '2') t2
+		on t1.PriPID =  t2.PriPID
+	 </if>
+	 <if test="pubItem !=null and pubItem =='isJustice'">
+		cs_pub_justiceinfo t2
+		on t1.PriPID =  t2.PriPID
+		and t2.AuditState = '1' 
+	 </if>
+	 <if test="pubItem !=null and pubItem =='isPermit'">
+	 	cs_pub_otherlicence t2
+	 	on t1.PriPID =  t2.PriPID
+	 	AND t2.PubFlag = '1' 
+	 	AND t2.LicState = '1'
+	 </if>
+	 <if test="pubItem !=null and pubItem =='isPunish'">
+	   (SELECT PriPID
+		FROM cs_pub_otherpunish 
+		WHERE PubFlag = '1' 
+		UNION 
+		SELECT PriPID
+		FROM cs_mid_caseinfo 
+		WHERE IsPub = '1'
+		) t2
+		on t1.PriPID =  t2.PriPID
+	 </if>
+	 <if test="pubItem !=null and pubItem =='isAnomaly'">
+	 (SELECT 
+	  DISTINCT a.priPID
+	FROM
+	  cs_pub_opanomaly a 
+	  LEFT JOIN cs_pub_opadetail b 
+	    ON a.BusExcList = b.BusExcList 
+	    AND EXISTS 
+	    (SELECT 
+	      1 
+	    FROM
+	      cs_pub_opadetail C 
+	    WHERE C.AuditState = '1' 
+	      AND a.BusExcList = C.BusExcList 
+	      AND C.IsMove = '1') 
+	WHERE  a.revokeFlag IS NULL 
+	  AND a.AuditState = '1'
+	  union
+		  SELECT 
+	  DISTINCT A.PriPID
+	FROM
+	  cs_pub_pbopanomaly A 
+	  LEFT JOIN cs_pub_pbopadetail C 
+	    ON A.BusExcList = C.BusExcList 
+	WHERE  A.AuditState = '1' 
+	  AND IFNULL(C.AuditState, 0) NOT IN ('3')) t2
+	  on t1.PriPID =  t2.PriPID
+	 </if>
+	 <if test="pubItem !=null and pubItem =='isIllegal'">
+		cs_exp_serious_crime_list t2
+		on  t1.PriPID =  t2.PriPID
+		and BusinessStatus = '4'
+	 </if>
+	 <if test="pubItem !=null and pubItem =='isSimpleesc'">
+	 	er_esc_appinfo t2
+		on  t1.PriPID =  t2.PriPID
+		and (t2.SimplecanRea IS NOT NULL OR t2.SimplecanRea!="")
+	 </if>
+	 WHERE 1=1
+	 <include refid="where_sql" />
+  </select>
+  
+  <sql id="where_sql">
+  	<!-- 年报主体 -->
+	 <if test="entTypeCatg !=null and entTypeCatg !=''">
+	       and  t1.EntTypeCatg  in
+     <foreach item="item" index="index" collection="entTypeCatg" open="("
+					separator="," close=")">
+					#{item}
+	 </foreach>    
+	 </if>
+	 <!-- 统一信用代码/注册号 -->
+	 <if test="regno !=null and regno !=''">
+	       and ( t1.RegNO like CONCAT('%', #{regno}) or t1.UNICODE like CONCAT('%', #{regno}) )
+	 </if>
+	 <!-- 法定代表人/负责人 -->
+	 <if test="leRep !=null and leRep !=''">
+	       and t1.LeRep like CONCAT('%', #{leRep},'%')
+	 </if>
+	 <!-- 企业类型 -->
+	 <if test="entType !=null and entType !=''">
+	       and  t1.EntType  in
+     <foreach item="item" index="index" collection="entType" open="("
+					separator="," close=")">
+					#{item}
+	 </foreach>    
+	 </if>
+	 <!-- 企业名称 -->
+	 <if test="entName !=null and entName !=''">
+	       and t1.EntName like CONCAT('%', #{entName},'%')          
+	 </if>
+	 <!-- 登记机关 -->
+	 <if test="regOrg !=null and regOrg !=''">
+	       and  t1.regOrg in
+     <foreach item="item" index="index" collection="regOrg" open="("
+					separator="," close=")">
+					#{item}
+	 </foreach>  
+	 </if>
+	 <!-- 成立日期 -->
+	 <if test="estDateStart !=null and estDateStart !=''">
+	       and  t1.EstDate &gt;= #{estDateStart}
+	 </if>
+	  <if test="estDateEnd !=null and estDateEnd !=''">
+	       and  t1.EstDate &lt;=  CONCAT(#{estDateEnd},' 23:59:59')
+	 </if>
+	 <!-- 管辖单位 -->
+	 <if test="regUnit !=null and regUnit !=''">
+	       and  t1.LocalAdm in
+     <foreach item="item" index="index" collection="regUnit" open="("
+					separator="," close=")">
+					#{item}
+	 </foreach>   
+	 </if>
+	 <!-- 登记状态 -->
+	 <if test="regState !=null and regState !=''">
+	       and  t1.RegState  in
+     <foreach item="item" index="index" collection="regState" open="("
+					separator="," close=")">
+					#{item}
+	 </foreach>    
+	 </if>
+	 <!-- 注册资本 -->
+	 <if test="regCapStart !=null and regCapStart !=''">
+	       and  t1.RegCap &gt;= #{regCapStart}
+	 </if>
+	  <if test="regCapEnd !=null and regCapEnd !=''">
+	       and  t1.RegCap &lt;=  #{regCapEnd}
+	 </if>
+	 <!-- 片区 -->
+	 <if test="sliceNO !=null and sliceNO !=''">
+	       and  t1.SliceNO  in
+     <foreach item="item" index="index" collection="sliceNO" open="("
+					separator="," close=")">
+					#{item}
+	 </foreach>    
+	 </if>
+	 <!-- 行业 -->
+	 <if test="industryCo !=null and industryCo !=''">
+	       and  t1.industryCo  in
+     <foreach item="item" index="index" collection="industryCo" open="("
+					separator="," close=")">
+					#{item}
+	 </foreach>    
+	 </if>
+	 <!-- 经营范围 -->
+	 <if test="opScope !=null and opScope !=''">
+	       and t1.opScope like CONCAT('%', #{opScope},'%')
+	 </if>
+	 <!-- 住所 -->
+	 <if test="dom !=null and dom !=''">
+	       and t1.dom like CONCAT('%', #{dom},'%')
+	 </if>
+	 
+	 <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+  </sql>
+</mapper>

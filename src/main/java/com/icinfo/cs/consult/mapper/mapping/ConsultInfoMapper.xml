@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.consult.mapper.ConsultInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.consult.model.ConsultInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="UniSCID" property="uniSCID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="regOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="CHAR" />
+    <result column="consultTitle" property="consultTitle" jdbcType="VARCHAR" />
+    <result column="consultTime" property="consultTime" jdbcType="TIMESTAMP" />
+    <result column="consultName" property="consultName" jdbcType="VARCHAR" />
+    <result column="consultTel" property="consultTel" jdbcType="VARCHAR" />
+    <result column="BackDeptCode" property="backDeptCode" jdbcType="VARCHAR" />
+    <result column="BackDept" property="backDept" jdbcType="VARCHAR" />
+    <result column="BackName" property="backName" jdbcType="VARCHAR" />
+    <result column="BackTime" property="backTime" jdbcType="TIMESTAMP" />
+    <result column="State" property="state" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="consultContent" property="consultContent" jdbcType="LONGVARCHAR" />
+    <result column="BackContent" property="backContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <resultMap id="ConsultInfoDtoResultMap" type="com.icinfo.cs.consult.dto.ConsultInfoDto" extends="BaseResultMap">
+      <result column="regOrgName" property="regOrgName" jdbcType="VARCHAR" /> 
+      <result column="localAdmName" property="localAdmName" jdbcType="VARCHAR" />
+   </resultMap> 
+   
+   
+   <!-- 根据条件查询 -->
+  <select id="selectConsultInfoList" resultMap="ConsultInfoDtoResultMap" parameterType="Map">
+	  SELECT
+		A.UID,
+		A.PriPID,
+		A.EntName,
+		A.UniSCID,
+		A.RegNO,
+		A.regOrg,
+		A.LocalAdm,
+		A.consultTitle,
+		A.consultContent,
+		A.consultName,
+		A.consultTel,
+		A.consultTime,
+		A.BackContent,
+		A.BackDept,
+		A.BackDeptCode,
+		A.BackName,
+		A.BackTime,
+		A.State,
+		B.Content regOrgName,
+		C.Content localAdmName,
+		A.CreateTime
+	FROM
+		cs_consult_info A
+	LEFT JOIN cs_code_regorg B ON A.regOrg = B. CODE
+	LEFT JOIN cs_code_regunit C ON A.LocalAdm = C. CODE
+	where 1=1  
+	 <if test="regOrg !='' and regOrg !=null">
+	    and A.regOrg  IN  (${regOrg})
+	    </if> 
+        <if test="localAdm !='' and localAdm !=null">
+	    and A.localAdm  IN  (${localAdm})
+	    </if> 
+	    <if test="uniCode_regNO !='' and uniCode_regNO !=null">
+	    and (A.UniSCID=#{uniCode_regNO} OR A.RegNO=#{uniCode_regNO})
+	    </if>
+	    <if test="consultContent !='' and consultContent !=null">
+	    and A.consultContent  LIKE concat('%', #{consultContent},'%')
+	    </if>
+	    <if test="consultTitle !='' and consultTitle !=null">
+	    and A.consultTitle  LIKE concat('%', #{consultTitle},'%')
+	    </if> 
+	    <if test="state !='' and state !=null">
+	    and A.state  =#{state}
+	    </if>
+	    <if test="entName !='' and entName !=null">
+	    and A.EntName  LIKE concat('%', #{entName},'%')
+	    </if>
+	    <if test="title_content !='' and title_content !=null">
+	    and  (A.consultTitle  LIKE concat('%', #{title_content},'%') or  A.consultContent  LIKE concat('%', #{title_content},'%'))   
+	    </if>
+	    <if test="backName !='' and backName !=null">
+	    and A.backName  LIKE concat('%', #{backName},'%')
+	    </if>
+	    <if test="licType !='' and licType !=null">
+	    and b.LicType  =#{licType}
+	    </if>
+	    <if test="consultName !='' and consultName !=null">
+	    and A.consultName  Like concat('%', #{consultName},'%')
+	    </if> 
+		<if test="startBackTime !='' and startBackTime !=null">
+		<![CDATA[
+		and LEFT (A.BackTime,10)>= #{startBackTime}
+		]]>
+		</if>
+		<if test="endBackTime !='' and endBackTime !=null">
+		<![CDATA[
+		and LEFT (A.BackTime,10)<= #{endBackTime}
+		]]>
+		</if>
+		<if test="startConsultTime !='' and startConsultTime !=null">
+		<![CDATA[
+		and   LEFT (A.ConsultTime,10)> = #{startConsultTime}
+		]]>
+		</if>
+		<if test="endConsultTime !='' and endConsultTime !=null">
+		<![CDATA[
+		and  LEFT (A.ConsultTime,10)<= #{endConsultTime}
+		]]>
+		<!-- 数据权限 -->
+ 	    <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+		</if> 
+		<if test="searchFlag !='' and searchFlag !=null and searchFlag==2">
+		    ORDER BY A.State ASC, A.consultTime desc 
+		</if> 
+		<if test="searchFlag !='' and searchFlag !=null and searchFlag==1">
+		    AND A.PriPID=#{priPID} 
+		    ORDER BY A.State desc, A.BackTime desc 
+		</if>
+  </select>
+</mapper>

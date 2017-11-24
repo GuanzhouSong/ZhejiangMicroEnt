@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.system.mapper.UnifiedUserRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.system.model.UnifiedUserRecord" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="UserId" property="userId" jdbcType="VARCHAR" />
+    <result column="OrgCoding" property="orgCoding" jdbcType="VARCHAR" />
+    <result column="OldOrgCoding" property="oldOrgCoding" jdbcType="VARCHAR" />
+    <result column="ExTendOrgCoding" property="exTendOrgCoding" jdbcType="VARCHAR" />
+    <result column="ExTendOrderBy" property="exTendOrderBy" jdbcType="VARCHAR" />
+    <result column="UserName" property="userName" jdbcType="VARCHAR" />
+    <result column="OldLoginName" property="oldLoginName" jdbcType="VARCHAR" />
+    <result column="LoginName" property="loginName" jdbcType="VARCHAR" />
+    <result column="EncrypTionType" property="encrypTionType" jdbcType="CHAR" />
+    <result column="LoginPwd" property="loginPwd" jdbcType="VARCHAR" />
+    <result column="Email" property="email" jdbcType="VARCHAR" />
+    <result column="Mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="Mobile2" property="mobile2" jdbcType="VARCHAR" />
+    <result column="TelepHone" property="telepHone" jdbcType="VARCHAR" />
+    <result column="TelepHone2" property="telepHone2" jdbcType="VARCHAR" />
+    <result column="VirtualNum" property="virtualNum" jdbcType="VARCHAR" />
+    <result column="UserPosiTion" property="userPosiTion" jdbcType="VARCHAR" />
+    <result column="UserTitle" property="userTitle" jdbcType="VARCHAR" />
+    <result column="CaKey" property="caKey" jdbcType="VARCHAR" />
+    <result column="PostCode" property="postCode" jdbcType="VARCHAR" />
+    <result column="Sex" property="sex" jdbcType="VARCHAR" />
+    <result column="BirthDay" property="birthDay" jdbcType="DATE" />
+    <result column="Country" property="country" jdbcType="VARCHAR" />
+    <result column="Province" property="province" jdbcType="VARCHAR" />
+    <result column="City" property="city" jdbcType="VARCHAR" />
+    <result column="OfficeAddress" property="officeAddress" jdbcType="VARCHAR" />
+    <result column="OfficeNum" property="officeNum" jdbcType="VARCHAR" />
+    <result column="OfficePhone" property="officePhone" jdbcType="VARCHAR" />
+    <result column="OfficeFax" property="officeFax" jdbcType="VARCHAR" />
+    <result column="HomePhone" property="homePhone" jdbcType="VARCHAR" />
+    <result column="HomeAddress" property="homeAddress" jdbcType="VARCHAR" />
+    <result column="IdNum" property="idNum" jdbcType="VARCHAR" /> 
+    <result column="Official" property="official" jdbcType="CHAR" />
+    <result column="OfficialType" property="officialType" jdbcType="CHAR" />
+    <result column="IdType" property="idType" jdbcType="CHAR" />
+    <result column="UseAble" property="useAble" jdbcType="CHAR" />
+    <result column="Orderby" property="orderby" jdbcType="VARCHAR" />
+    <result column="HeadPicture" property="headPicture" jdbcType="VARCHAR" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="UnifiedState" property="unifiedState" jdbcType="VARCHAR" />
+    <result column="UnifiedMessage" property="unifiedMessage" jdbcType="VARCHAR" />
+    <result column="IStateType" property="stateType" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="Content" property="content" jdbcType="VARCHAR" />
+    <result column="USER_TYPE" property="userType" jdbcType="VARCHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="VARCHAR" />
+    <result column="RegOrg" property="regOrg" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

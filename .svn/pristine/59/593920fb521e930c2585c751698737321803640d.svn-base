@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.message.mapper.MessageOpanoMalyMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.message.model.MessageOpanoMaly" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="MsgUid" property="msgUid" jdbcType="VARCHAR" />
+    <result column="MsgType" property="msgType" jdbcType="CHAR" />
+    <result column="Content" property="content" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="SetUserUid" property="setUserUid" jdbcType="VARCHAR" />
+    <result column="SetUserName" property="setUserName" jdbcType="VARCHAR" />
+    <result column="SetDeptName" property="setDeptName" jdbcType="VARCHAR" />
+    <result column="SetDeptCode" property="setDeptCode" jdbcType="VARCHAR" />
+    <result column="LiaisonManName" property="liaisonManName" jdbcType="VARCHAR" />
+    <result column="LiaisonManTel" property="liaisonManTel" jdbcType="VARCHAR" />
+    <result column="LiaisonManId" property="liaisonManId" jdbcType="VARCHAR" />
+    <result column="IsMove" property="isMove" jdbcType="VARCHAR" />
+    <result column="State" property="state" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

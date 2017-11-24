@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.SfcBaseInfoHisMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.SfcBaseInfoHis" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="FarSpeArtName" property="farSpeArtName" jdbcType="VARCHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="Email" property="email" jdbcType="VARCHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="MemNum" property="memNum" jdbcType="INTEGER" />
+    <result column="AnnNewMemNum" property="annNewMemNum" jdbcType="INTEGER" />
+    <result column="AnnRedMemNum" property="annRedMemNum" jdbcType="INTEGER" />
+    <result column="Farnum" property="farnum" jdbcType="INTEGER" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="AnCheID" property="anCheID" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="RatGro" property="ratGro" jdbcType="DECIMAL" />
+    <result column="VendIncIsPub" property="vendIncIsPub" jdbcType="VARCHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="VendInc" property="vendInc" jdbcType="DECIMAL" />
+    <result column="PriYeaProfit" property="priYeaProfit" jdbcType="DECIMAL" />
+    <result column="PriYeaSub" property="priYeaSub" jdbcType="DECIMAL" />
+    <result column="PriYeaLoan" property="priYeaLoan" jdbcType="DECIMAL" />
+    <result column="LastReportTime" property="lastReportTime" jdbcType="TIMESTAMP" />
+    <result column="AncheDate" property="ancheDate" jdbcType="TIMESTAMP" />
+    <result column="MaiBusIncIsPub" property="maiBusIncIsPub" jdbcType="VARCHAR" />
+    <result column="RatGroIsPub" property="ratGroIsPub" jdbcType="VARCHAR" />
+    <result column="PriYeaLoanIsPub" property="priYeaLoanIsPub" jdbcType="VARCHAR" />
+    <result column="PriYeaSubIsPub" property="priYeaSubIsPub" jdbcType="VARCHAR" />
+    <result column="ReportNo" property="reportNo" jdbcType="VARCHAR" />
+    
+   <result column="EmpNum" property="empNum" jdbcType="INTEGER" />
+   <result column="EmpNumDis" property="empNumDis" jdbcType="VARCHAR" />
+   <result column="FemaleEmploye" property="femaleEmploye" jdbcType="INTEGER" />
+   <result column="FemaleEmployeIsPub" property="femaleEmployeIsPub" jdbcType="VARCHAR" />
+   <result column="EntMainBusActivity" property="entMainBusActivity" jdbcType="VARCHAR" />
+   
+   <result column="EndowmentNum" property="endowmentNum" jdbcType="INTEGER" />
+   <result column="UnemploymentNum" property="unemploymentNum" jdbcType="INTEGER" />
+   <result column="MedicalNum" property="medicalNum" jdbcType="INTEGER" />
+   <result column="EmpInjuryNum" property="empInjuryNum" jdbcType="INTEGER" />
+   <result column="MaternityNum" property="maternityNum" jdbcType="INTEGER" />
+   <result column="PaymentBase" property="paymentBase" jdbcType="DECIMAL" />
+   <result column="PaymentBaseIsPub" property="paymentBaseIsPub" jdbcType="CHAR" />
+   <result column="ActualPayment" property="actualPayment" jdbcType="DECIMAL" />
+   <result column="ActualPaymentIsPub" property="actualPaymentIsPub" jdbcType="CHAR" />
+   <result column="CumulArrears" property="cumulArrears" jdbcType="DECIMAL" />
+   <result column="CumulArrearsIsPub" property="cumulArrearsIsPub" jdbcType="CHAR" />
+   <result column="PaymentEndowment" property="paymentEndowment" jdbcType="DECIMAL" />
+   <result column="PaymentUnemployment" property="paymentUnemployment" jdbcType="DECIMAL" />
+   <result column="PaymentMedical" property="paymentMedical" jdbcType="DECIMAL" />
+   <result column="PaymentEmpInjury" property="paymentEmpInjury" jdbcType="DECIMAL" />
+   <result column="PaymentMaternity" property="paymentMaternity" jdbcType="DECIMAL" />
+   <result column="ActualPayEndowment" property="actualPayEndowment" jdbcType="DECIMAL" />
+   <result column="ActualPayUnemployment" property="actualPayUnemployment" jdbcType="DECIMAL" />
+   <result column="ActualPayMedical" property="actualPayMedical" jdbcType="DECIMAL" />
+   <result column="ActualPayEmpInjury" property="actualPayEmpInjury" jdbcType="DECIMAL" />
+   <result column="ActualPayMaternity" property="actualPayMaternity" jdbcType="DECIMAL" />
+   <result column="CumuEndowment" property="cumuEndowment" jdbcType="DECIMAL" />
+   <result column="CumuUnemployment" property="cumuUnemployment" jdbcType="DECIMAL" />
+   <result column="CumuMedical" property="cumuMedical" jdbcType="DECIMAL" />
+   <result column="CumuEmpInjury" property="cumuEmpInjury" jdbcType="DECIMAL" />
+   <result column="CumuMaternity" property="cumuMaternity" jdbcType="DECIMAL" />
+   
+   <result column="Dom" property="dom" jdbcType="VARCHAR" />
+   
+  </resultMap>
+  
+    <!-- 根据年度和主体代码查询最新年报日期和年报日期不相等的历史记录 -->
+    <select id="selectSfcBaseinfoHisListYear" resultMap="BaseResultMap" parameterType="Map">
+	   SELECT 
+			PriPID,
+			FarSpeArtName,
+			RegNO, 
+			LastReportTime,
+			AncheDate 
+		FROM
+		cs_sfc_baseinfo_his  
+		WHERE 
+		<![CDATA[ 
+		PriPID = #{priPID}  AND Year = #{year}
+		AND  LastReportTime !=AncheDate 
+		order by id desc 
+		]]> 
+  </select>
+  
+</mapper>

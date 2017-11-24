@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.base.mapper.CsMidLerepMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.base.model.CsMidLerep" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="Country" property="country" jdbcType="CHAR" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="CerType" property="cerType" jdbcType="CHAR" />
+    <result column="CerNO" property="cerNO" jdbcType="VARCHAR" />
+    <result column="LeRepPos" property="leRepPos" jdbcType="CHAR" />
+    <result column="PosBrForm" property="posBrForm" jdbcType="CHAR" />
+    <result column="Sex" property="sex" jdbcType="CHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="HouseAdd" property="houseAdd" jdbcType="VARCHAR" />
+    <result column="RegPerResAddr" property="regPerResAddr" jdbcType="VARCHAR" />
+    <result column="AppoUnit" property="appoUnit" jdbcType="VARCHAR" />
+    <result column="MobTel" property="mobTel" jdbcType="VARCHAR" />
+    <result column="LiteDeg" property="liteDeg" jdbcType="VARCHAR" />
+    <result column="PolStand" property="polStand" jdbcType="VARCHAR" />
+    <result column="Nation" property="nation" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="update_time" jdbcType="TIMESTAMP" />
+    <result column="delflag" property="delflag" jdbcType="BIT" />
+  </resultMap>
+</mapper>

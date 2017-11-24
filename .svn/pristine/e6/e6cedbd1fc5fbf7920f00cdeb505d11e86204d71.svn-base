@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.dzdtinfo.mapper.HzDzhyLxsfsfwwdbaMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.dzdtinfo.model.HzDzhyLxsfsfwwdba" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="PRIPID" property="priPid" jdbcType="VARCHAR" />
+    <result column="JGLX" property="jglx" jdbcType="VARCHAR" />
+    <result column="ADDDATE" property="addDate" jdbcType="DATE" />
+    <result column="ADDJE" property="addje" jdbcType="DECIMAL" />
+    <result column="ZYKHYH" property="zykhyh" jdbcType="VARCHAR" />
+    <result column="ZYKHYHZH" property="zykhyhzh" jdbcType="VARCHAR" />
+    <result column="CURRENCY" property="currency" jdbcType="VARCHAR" />
+    <result column="TRAVETYPE" property="traveType" jdbcType="VARCHAR" /> 
+  </resultMap>
+  
+   <resultMap id="HzDzhyLxsfsfwwdbaDtoResultMap" type="com.icinfo.cs.dzdtinfo.dto.HzDzhyLxsfsfwwdbaDto" extends="BaseResultMap">
+      <result column="currencyName" property="currencyName" jdbcType="VARCHAR" /> 
+   </resultMap>
+   
+   <select id="selectHzDzhyLxsfsfwwdbaDtoByPriPid" resultMap="HzDzhyLxsfsfwwdbaDtoResultMap" parameterType="Map">
+   		SELECT PRIPID,JGLX,ADDDATE,ADDJE,ZYKHYH,ZYKHYHZH,B.Content currencyName,TRAVETYPE  FROM CS_HZ_DZHY_LXSFSFWWDBA A
+		LEFT JOIN cs_code_currency B on A.CURRENCY=B.Code
+		where PRIPID=#{priPid}
+   </select>
+</mapper>

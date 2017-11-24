@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.supervise.mapper.CsSuperviseObjMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.supervise.model.CsSuperviseObj" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="BatchNO" property="batchNO" jdbcType="VARCHAR" />
+    <result column="MarkCode" property="markCode" jdbcType="VARCHAR" />
+    <result column="SupState" property="supState" jdbcType="VARCHAR" />
+    <result column="SupCheckState" property="supCheckState" jdbcType="VARCHAR" />
+    <result column="CheckPer" property="checkPer" jdbcType="VARCHAR" />
+    <result column="CheckPerID" property="checkPerID" jdbcType="VARCHAR" />
+    <result column="CheckDate" property="checkDate" jdbcType="TIMESTAMP" />
+    <result column="CheckAdv" property="checkAdv" jdbcType="VARCHAR" />
+    <result column="InputPer" property="inputPer" jdbcType="VARCHAR" />
+    <result column="InputPerID" property="inputPerID" jdbcType="VARCHAR" />
+    <result column="InputDate" property="inputDate" jdbcType="TIMESTAMP" />
+    <result column="InputDepCode" property="inputDepCode" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap  id="CsSuperviseObjDto" type="com.icinfo.cs.supervise.dto.CsSuperviseObjDto" extends="BaseResultMap">
+  	<result column="UniCode" property="uniscid" jdbcType="VARCHAR" />
+  	<result column="RegNO" property="regNO" jdbcType="VARCHAR" />
+  	<result column="EntName" property="entName" jdbcType="VARCHAR" />
+  	<result column="LocalAdm" property="localAdm" jdbcType="VARCHAR" />
+  	<result column="RegOrg" property="regOrg" jdbcType="VARCHAR" />
+  	<result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+  	<result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+  	<result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+  	<result column="EntType" property="entType" jdbcType="VARCHAR" />
+  	<result column="IndustryCo" property="industryCo" jdbcType="VARCHAR" />
+  	<result column="Dom" property="dom" jdbcType="VARCHAR" />
+  	<result column="MarkName" property="markName" jdbcType="VARCHAR" />
+  	<result column="MarkStartDate" property="markStartDate" jdbcType="TIMESTAMP" />
+  	<result column="MarkEndDate" property="markEndDate" jdbcType="TIMESTAMP" />
+  	<result column="MarkClass" property="markClass" jdbcType="VARCHAR" />
+  	<result column="MarkUseArea" property="markUseArea" jdbcType="VARCHAR" />
+  	<result column="MarkState" property="markState" jdbcType="VARCHAR" />
+  	<result column="MarkCreateTime" property="markCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  
+  <select id="selectCsSuperviseObjDtoList" resultMap="CsSuperviseObjDto" parameterType="Map">
+	  SELECT 
+	  	s.id,s.UID,s.PriPID,BatchNO,MarkCode,SupState,SupCheckState,CheckPer,
+	  	CheckPerId,CheckDate,CheckAdv,InputPer,InputPerID,InputDate,InputDepCode,
+	  	
+		b.UniCode Uniscid,b.RegNO,b.EntName,b.LocalAdm,b.RegOrg,
+		b.RegOrgName,b.LocalAdmName,b.LeRep,e.Content EntType,i.Content IndustryCo,b.Dom,
+		
+		m.MarkName,m.MarkStartDate,m.MarkEndDate,m.MarkClass,m.MarkUseArea,m.MarkState,m.createTime MarkCreateTime 
+	 FROM
+	 	cs_supervise_obj s
+	 LEFT JOIN cs_mid_baseinfo b ON s.PripID = b.PriPID
+	 LEFT JOIN cs_mark         m ON s.MarkCode = m.MarkNo
+	 LEFT JOIN cs_code_enttype e ON b.EntType = e.Code
+	 LEFT JOIN cs_code_industry i ON b.IndustryCo = i.Code
+	 WHERE 1=1
+	 <include refid="sql_where" />
+	<if test="inputDepCode != null and inputDepCode != ''">
+			and  m.MarkNo IN (SELECT DISTINCT WarnNo FROM cs_warn_dept WHERE DeptCode = #{inputDepCode} OR DeptCode IS NULL)
+    </if>
+  </select>
+  
+  
+  <select id="selectByBatchNOList" resultMap="CsSuperviseObjDto" parameterType="Map">
+	  SELECT 
+	 	DISTINCT
+	 	s.id,s.UID,s.PriPID,s.BatchNO,s.MarkCode,s.SupState,s.SupCheckState,s.CheckPer, 
+	 	s.CheckPerId, s.CheckDate,s.CheckAdv, s.InputPer, s.InputPerID,s.InputDate,s.InputDepCode,
+	 	'' Uniscid,'' RegNO, '' EntName,'' LocalAdm,'' RegOrg,
+	 	'' RegOrgName,'' LocalAdmName,'' LeRep,'' EntType,'' IndustryCo,'' Dom,
+		m.MarkName,m.MarkStartDate,m.MarkEndDate,m.MarkClass,m.MarkUseArea,m.MarkState,m.createTime MarkCreateTime 
+	 FROM
+	 	( SELECT MIN(id) id,BatchNO,markCode 
+	 		FROM cs_supervise_obj
+	 		WHERE 
+	 		SupCheckState != '3'
+	 		AND InputDepCode = #{inputDepCode} 
+	 		GROUP BY BatchNO) g
+	 LEFT JOIN cs_supervise_obj s ON s.id = g.id
+	 LEFT JOIN cs_mark          m ON g.MarkCode = m.MarkNo
+	 WHERE 1=1
+	 <include refid="sql_where" />
+  </select>
+  
+  <select id="selectCsSuperviseObjDtoForViewList" resultMap="CsSuperviseObjDto" parameterType="Map">
+	  SELECT 
+	  	s.id,s.UID,s.PriPID,BatchNO,MarkCode,SupState,SupCheckState,CheckPer,
+	  	CheckPerId,CheckDate,CheckAdv,InputPer,InputPerID,InputDate,InputDepCode,
+		b.UniCode Uniscid,b.RegNO,b.EntName,b.LocalAdm,b.RegOrg,
+		b.RegOrgName,b.LocalAdmName,b.LeRep,e.Content EntType,i.Content IndustryCo,b.Dom,
+		m.MarkName,m.MarkStartDate,m.MarkEndDate,m.MarkClass,m.MarkUseArea,m.MarkState,m.createTime MarkCreateTime 
+	 FROM
+	 	cs_supervise_obj s
+	 LEFT JOIN cs_mid_baseinfo b ON s.PripID = b.PriPID
+	 LEFT JOIN cs_mark         m ON s.MarkCode = m.MarkNo
+	 LEFT JOIN cs_code_enttype e ON b.EntType = e.Code
+	 LEFT JOIN cs_code_industry i ON b.IndustryCo = i.Code
+	 WHERE 1=1
+	 <include refid="sql_where" />
+	 and MarkCode IN 
+	(   SELECT
+			DISTINCT MarkNo 
+		FROM 
+			cs_mark 
+		WHERE 
+			MarkFunc = 'jg' AND MarkSetDeptCode = #{markSetDeptCode}
+	)
+	 
+  </select>
+  
+  
+  <select id="doGetSuperviewInfoForIndex" resultType="String" parameterType="Map">
+	   	SELECT  
+	   		GROUP_CONCAT(m.MarkName) markName
+	   	FROM
+		 	cs_supervise_obj s
+		LEFT JOIN cs_mark m ON s.MarkCode = m.MarkNo
+		WHERE 1=1 
+		<include refid="sql_where" />
+		GROUP BY  s.pripid
+  </select>
+  
+  
+  <sql id="sql_where">
+  	 <if test="priPID !=null and priPID != ''">
+	 	and s.PriPID = #{priPID} 
+	 </if>
+	 <if test="markCode !=null and markCode != ''">
+	 	and s.markCode = #{markCode} 
+	 </if>
+	 <if test="regNO !=null and regNO != ''">
+	 	and ( b.UniCode = #{regNO} or b.RegNO = #{regNO} )
+	 </if>
+	 <if test="entName !=null and entName != ''">
+	 	and b.EntName like concat('%', #{entName},'%') 
+	 </if>
+	 <if test="batchNO !=null and batchNO != ''">
+	 	and s.BatchNO = #{batchNO} 
+	 </if>
+	 <if test="markName !=null and markName != ''">
+	 	and m.MarkName = #{markName} 
+	 </if>
+	 <if test="markNameDesc !=null and markNameDesc != ''">
+	 	and m.MarkName like concat('%', #{markNameDesc},'%') 
+	 </if>
+	 <if test="markStartDate != null and markStartDate != ''">
+		and  <![CDATA[ m.MarkStartDate >= #{markStartDate} ]]>
+	 </if>
+	 <if test="markEndDate != null and markEndDate != ''">
+	 	and  <![CDATA[ m.MarkEndDate  <= #{markEndDate} ]]>
+	 </if>
+	 <if test="markNo != null and markNo != ''">
+	 	and  m.MarkNo = #{markNo}
+	 </if>
+	 <if test="markUseArea !=null and markUseArea != ''">
+	 	and m.MarkUseArea = #{markUseArea} 
+	 </if>
+	 <if test="supState !=null and supState != ''">
+	 	<if test="supState == 1 ">
+			and <![CDATA[(supState='1' and m.MarkState='1' and (DATE_FORMAT(NOW(), '%Y-%m-%d') >= m.MarkStartDate and DATE_FORMAT(NOW(),'%Y-%m-%d') <= m.MarkEndDate))]]>
+		</if>
+		<if test="supState == 0 ">
+			and <![CDATA[(supState='0' or m.MarkState = '0' or (DATE_FORMAT(NOW(), '%Y-%m-%d') < m.MarkStartDate) or (DATE_FORMAT(NOW(), '%Y-%m-%d') > m.MarkEndDate))]]>
+		</if>
+	 </if>
+	 <if test="markClass !=null and markClass != ''">
+	 	and s.MarkClass = #{markClass} 
+	 </if>
+	 <if test="supCheckState !=null and supCheckState != ''">
+	 	and s.SupCheckState = #{supCheckState} 
+	 </if>
+	 <if test="inputDepCode !=null and inputDepCode != ''">
+	 	and s.InputDepCode = #{inputDepCode}
+	 </if>
+	 <if test="inputPer !=null and inputPer != ''">
+	 	and s.InputPer = #{inputPer}
+	 </if>
+	 <if test="checkPer !=null and checkPer != ''">
+	 	and s.CheckPer = #{checkPer}
+	 </if>
+	 <if test="regOrgDeptCode !=null and regOrgDeptCode != ''">
+	 	and b.regOrg in (${regOrgDeptCode}) 
+	 </if>
+	 <if test="regUnitDetpCode !=null and regUnitDetpCode != ''">
+	 	and b.localAdm in (${regUnitDetpCode})
+	 </if>
+  </sql>
+  
+  <select id="selectCsSuperviseObjDtoByPriPID" resultMap="CsSuperviseObjDto" parameterType="Map" >
+     SELECT  
+   	b.MarkName
+   	FROM
+	cs_supervise_obj a
+	LEFT JOIN cs_mark b ON a.MarkCode = b.MarkNo
+	WHERE a.PriPID=${priPID} 
+	AND a.SupCheckState='1'
+	AND a.SupState='1'
+  </select>
+  
+</mapper>

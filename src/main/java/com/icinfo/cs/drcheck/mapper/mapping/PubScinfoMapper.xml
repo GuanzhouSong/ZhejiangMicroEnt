@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.drcheck.mapper.PubScinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.drcheck.model.PubScinfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="TaskNO" property="taskNO" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+   
+  <resultMap id="BaseResultMapDto" type="com.icinfo.cs.drcheck.dto.PubScinfoDto" extends="BaseResultMap">
+  	   <result column="EntName" property="entName" jdbcType="VARCHAR" />
+	    <result column="UniCode" property="uniCode" jdbcType="VARCHAR" />
+	    <result column="RegNO" property="regNO" jdbcType="VARCHAR" />
+	    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+	    <result column="OpLoc" property="opLoc" jdbcType="VARCHAR" />
+	    <result column="RegOrg" property="regOrg" jdbcType="VARCHAR" />
+	    <result column="RegOrgDesc" property="regOrgDesc" jdbcType="VARCHAR" />
+	    <result column="EstDate" property="estDate" jdbcType="TIMESTAMP" />
+	    <result column="EntTypeCatg" property="entTypeCatg" jdbcType="VARCHAR" />
+	    <result column="IndustryDesc" property="industryDesc" jdbcType="VARCHAR" />
+	    <result column="LocalAdm" property="localAdm" jdbcType="VARCHAR" />
+	    <result column="SlicenNO" property="slicenNO" jdbcType="VARCHAR" />
+	    <result column="LinkMan" property="linkMan" jdbcType="VARCHAR" />
+	    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+	    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+       <result column="TaskCode" property="taskCode" jdbcType="VARCHAR" />
+       <result column="TaskName" property="taskName" jdbcType="VARCHAR" />
+       <result column="AuditState" property="auditState" jdbcType="CHAR" />
+	   <result column="AuditOpin" property="auditOpin" jdbcType="VARCHAR" />
+	   <result column="AuditName" property="auditName" jdbcType="VARCHAR" />
+	   <result column="AuditDate" property="auditDate" jdbcType="TIMESTAMP" />
+	   <result column="AuditDept" property="auditDept" jdbcType="VARCHAR" />
+	   <result column="LiaName" property="liaName" jdbcType="VARCHAR"/>
+	    <result column="LeRepPhone" property="leRepPhone" jdbcType="VARCHAR"/>
+	    <result column="EntTypeCatgDesc" property="entTypeCatgDesc" jdbcType="VARCHAR"/>
+	    <result column="IndustryDesc" property="industryDesc" jdbcType="VARCHAR"/>
+	    <result column="Dom" property="dom" jdbcType="VARCHAR"/>
+	    <result column="EndDate" property="endDate" jdbcType="TIMESTAMP"/>
+	    <result column="AgentName" property="agentName" jdbcType="VARCHAR"/>
+	    <result column="regOrgShort" property="regOrgShort" jdbcType="VARCHAR"/>
+	    <result column="regOrgShortDesc" property="regOrgShortDesc" jdbcType="VARCHAR"/>
+	    <result column="totalEnt" property="totalEnt" jdbcType="INTEGER"/>
+	    <result column="backTotalEnt" property="backTotalEnt" jdbcType="INTEGER"/>
+	    <result column="deptTaskNO" property="deptTaskNO" jdbcType="VARCHAR"/>
+   </resultMap>
+  
+  <!--批量导入  未进行设置编码-->
+   <insert id="insertBatch"  parameterType="java.util.List">
+        INSERT INTO cs_pub_scinfo
+        (TaskNO,PriPID,CreateTime)
+        values
+        <foreach collection="list" item="item" index="index" separator="," >
+           (#{item.taskNO},#{item.priPID},#{item.createTime})
+        </foreach>
+   </insert>
+   
+   <!-- 查抽检查结果录入列表 -->
+  <select id="selectPubScinfoDtoList" resultMap="BaseResultMapDto" parameterType="Map"> 
+	SELECT
+		s.PriPID,s.id,s.TaskNO,m.AuditState,t.TaskCode,t.TaskName,k.InspectDept,m.ResultFlag
+		,i.LeRep,i.Dom,i.EntName,i.UniCode,i.RegNO,i.EstDate,t.EndDate,k.UID
+<!-- 		,n.AgentName -->
+	FROM
+		cs_pub_scinfo s
+	LEFT JOIN cs_mid_baseinfo i ON s.PriPID = i.PriPID
+	LEFT JOIN cs_pub_sctask t ON s.TaskNO = t.UID
+	LEFT JOIN cs_pub_dept_sctask k ON s.TaskNO = k.TaskNO 
+	LEFT JOIN cs_pub_scresult m ON m.TaskNO = k.UID AND m.InspectDept = k.InspectDept AND m.PriPID = s.PriPID
+<!-- 	LEFT JOIN cs_pub_scinfo_agent h ON s.PriPID = h.PriPID  AND t.UID = h.TaskNO and k.UID = h.DeptTaskNO -->
+<!-- 	LEFT JOIN cs_pub_scagent n ON h.AgentUid = n.UID -->
+	<trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="auditType != null and auditType != '' and auditType == 'edit'">
+			and (m.AuditState is null OR m.AuditState = '0' Or m.AuditState = '3' Or m.AuditState = '5')
+			and k.InspectState = '2'
+		</if>
+		<if test="auditType != null and auditType != '' and auditType == 'audit'">
+		   and m.AuditState = '1'
+		   and k.InspectState = '2'
+		</if>
+		<if test="entName != null and entName != ''">
+			and i.EntName like concat('%', #{entName},'%')
+		</if>
+		<if test="taskName != null and taskName != ''">
+			and t.TaskName like concat('%', #{taskName},'%')
+		</if>
+		<if test="regNO != null and regNO != ''">
+			and (i.RegNO = #{regNO,jdbcType=VARCHAR} OR i.UniCode = #{regNO,jdbcType=VARCHAR})
+		</if>
+		<if test="taskCode != null and taskCode != ''">
+			and t.TaskCode like concat('%', #{taskCode},'%')
+		</if>
+		<if test="userDeptCode != null and userDeptCode != ''">
+			and k.InspectDept = #{userDeptCode,jdbcType=VARCHAR}
+		</if>
+		<if test="entTypeCatg != null and entTypeCatg != ''">
+			and i.EntTypeCatg = #{entTypeCatg,jdbcType=VARCHAR}
+		</if>
+		<if test="leaderDept != null and leaderDept != ''">
+			and t.LeaderDeptCode = #{leaderDept,jdbcType=VARCHAR}
+		</if>
+		<if test="inspectDept != null and inspectDept != ''">
+			and m.InspectDept = #{inspectDept,jdbcType=VARCHAR}
+		</if>
+		<if test="regOrg != null and regOrg != ''">
+			and i.RegOrg = #{regOrg,jdbcType=VARCHAR}
+		</if>
+		<if test="localAdm != null and localAdm != ''">
+			and i.LocalAdm = #{localAdm,jdbcType=VARCHAR}
+		</if>
+		<if test="leaderDepts != null and leaderDepts != ''">
+			and t.LeaderDeptCode in
+			<foreach item="item" index="index" collection="leaderDepts" open="(" separator="," close=")">
+						#{item}
+		    </foreach>
+	   </if>
+		<if test="inspectDepts != null and inspectDepts != ''">
+			and k.InspectDept in
+			<foreach item="item" index="index" collection="inspectDepts" open="(" separator="," close=")">
+						#{item}
+		    </foreach>
+	   </if>
+		<if test="regOrgs != null and regOrgs != ''">
+			and i.RegOrg in
+			<foreach item="item" index="index" collection="regOrgs" open="(" separator="," close=")">
+						#{item}
+		    </foreach>
+	   </if>
+		<if test="localAdms != null and localAdms != ''">
+			and i.LocalAdm in
+			<foreach item="item" index="index" collection="localAdms" open="(" separator="," close=")">
+						#{item}
+		    </foreach>
+	   </if>
+	   <if test="startDate!=null and startDate!=''">
+	     <![CDATA[ and  DATE_FORMAT(t.CreateTime, '%Y-%m-%d') >= #{startDate} ]]> 
+	   </if>
+	    <if test="endDate!=null and endDate!=''">
+	     <![CDATA[ and  DATE_FORMAT(t.CreateTime, '%Y-%m-%d') <= #{endDate} ]]> 
+	   </if> 
+	   and t.TaskState in ('03','04','05','06')
+	   <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	</trim>
+	GROUP BY m.TaskNO,s.PriPID order by t.CreateTime DESC
+  </select>
+  
+  <!-- 查抽检查结果录入列表（权限） -->
+  <select id="selectPubScinfoDtoListByauth" resultMap="BaseResultMapDto" parameterType="Map"> 
+	SELECT
+		s.PriPID,s.id,s.TaskNO,m.AuditState,t.TaskCode,t.TaskName,k.InspectDept,m.ResultFlag
+		,i.LeRep,i.Dom,i.EntName,i.UniCode,i.RegNO,i.EstDate,t.EndDate,k.UID
+<!-- 		,n.AgentName -->
+	FROM
+		cs_pub_scinfo s
+	LEFT JOIN cs_mid_baseinfo i ON s.PriPID = i.PriPID
+	LEFT JOIN cs_pub_sctask t ON s.TaskNO = t.UID
+	LEFT JOIN cs_pub_dept_sctask k ON s.TaskNO = k.TaskNO 
+	LEFT JOIN cs_pub_scresult m ON m.TaskNO = k.UID AND m.InspectDept = k.InspectDept AND m.PriPID = s.PriPID
+<!-- 	LEFT JOIN cs_pub_scinfo_agent h ON s.PriPID = h.PriPID  AND t.UID = h.TaskNO and k.UID = h.DeptTaskNO -->
+<!-- 	LEFT JOIN cs_pub_scagent n ON h.AgentUid = n.UID -->
+	<trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="auditType != null and auditType != '' and auditType == 'edit'">
+			and (m.AuditState is null OR m.AuditState = '0' Or m.AuditState = '3' Or m.AuditState = '5')
+			and k.InspectState = '2'
+		</if>
+		<if test="auditType != null and auditType != '' and auditType == 'audit'">
+		   and m.AuditState = '1'
+		   and k.InspectState = '2'
+		</if>
+		<if test="entName != null and entName != ''">
+			and i.EntName like concat('%', #{entName},'%')
+		</if>
+		<if test="taskName != null and taskName != ''">
+			and t.TaskName like concat('%', #{taskName},'%')
+		</if>
+		<if test="regNO != null and regNO != ''">
+			and (i.RegNO = #{regNO,jdbcType=VARCHAR} OR i.UniCode = #{regNO,jdbcType=VARCHAR})
+		</if>
+		<if test="taskCode != null and taskCode != ''">
+			and t.TaskCode like concat('%', #{taskCode},'%')
+		</if>
+		<if test="userDeptCode != null and userDeptCode != ''">
+			and k.InspectDept = #{userDeptCode,jdbcType=VARCHAR}
+		</if>
+		<if test="entTypeCatg != null and entTypeCatg != ''">
+			and i.EntTypeCatg = #{entTypeCatg,jdbcType=VARCHAR}
+		</if>
+		<if test="leaderDept != null and leaderDept != ''">
+			and t.LeaderDeptCode = #{leaderDept,jdbcType=VARCHAR}
+		</if>
+		<if test="inspectDept != null and inspectDept != ''">
+			and m.InspectDept = #{inspectDept,jdbcType=VARCHAR}
+		</if>
+		<if test="regOrg != null and regOrg != ''">
+			and i.RegOrg = #{regOrg,jdbcType=VARCHAR}
+		</if>
+		<if test="localAdm != null and localAdm != ''">
+			and i.LocalAdm = #{localAdm,jdbcType=VARCHAR}
+		</if>
+		<if test="leaderDepts != null and leaderDepts != ''">
+			and t.LeaderDeptCode in
+			<foreach item="item" index="index" collection="leaderDepts" open="(" separator="," close=")">
+						#{item}
+		    </foreach>
+	   </if>
+		<if test="inspectDepts != null and inspectDepts != ''">
+			and k.InspectDept in
+			<foreach item="item" index="index" collection="inspectDepts" open="(" separator="," close=")">
+						#{item}
+		    </foreach>
+	   </if>
+		<if test="regOrgs != null and regOrgs != ''">
+			and i.RegOrg in
+			<foreach item="item" index="index" collection="regOrgs" open="(" separator="," close=")">
+						#{item}
+		    </foreach>
+	   </if>
+		<if test="localAdms != null and localAdms != ''">
+			and i.LocalAdm in
+			<foreach item="item" index="index" collection="localAdms" open="(" separator="," close=")">
+						#{item}
+		    </foreach>
+	   </if>
+	   <if test="startDate!=null and startDate!=''">
+	     <![CDATA[ and  DATE_FORMAT(t.CreateTime, '%Y-%m-%d') >= #{startDate} ]]> 
+	   </if>
+	    <if test="endDate!=null and endDate!=''">
+	     <![CDATA[ and  DATE_FORMAT(t.CreateTime, '%Y-%m-%d') <= #{endDate} ]]> 
+	   </if> 
+	   and t.TaskState in ('03','04','05','06')
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	</trim>
+	GROUP BY m.TaskNO,s.PriPID order by t.CreateTime DESC
+  </select>
+  
+<!--   =============随机=========== -->
+  <!-- 查询随机结果 -->
+  <select id="selectPubScinfoByOrderList" resultMap="BaseResultMap" parameterType="Map"> 
+	SELECT
+		t.TaskNO,t.PriPID,t.CreateTime
+	FROM
+		cs_pub_scinfo_his t
+	<trim prefix="WHERE" prefixOverrides="AND | OR">
+			and t.InfoOrder in
+			<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+						#{item}
+		    </foreach>
+		    and t.taskNO = #{taskNO,jdbcType=VARCHAR}
+	</trim>
+  </select>
+  
+  <select id="selectPubScinfoByTaskNO" resultMap="BaseResultMapDto" parameterType="Map"> 
+  	SELECT DISTINCT t.PriPID,t.TaskNO,m.EntName,m.RegNO,m.UniCode,m.LeRep,m.EstDate,m.Tel,d.LiaName,d.Tel LeRepPhone,g.Content EntTypeCatgDesc,e.Content IndustryDesc
+	FROM
+		cs_pub_scinfo t
+	LEFT JOIN cs_mid_baseinfo m ON t.PriPID = m.PriPID
+	LEFT JOIN cs_pub_eppassword d ON t.PriPID = d.PriPID
+	LEFT JOIN cs_code_entcatg g ON m.EntTypeCatg = g.Code
+	LEFT JOIN cs_code_industrytype e ON m.IndustryPhy = e.Code
+	<trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="taskNO != null and taskNO != ''">
+			t.TaskNO = #{taskNO,jdbcType=VARCHAR}
+		</if>
+	</trim>
+	GROUP BY t.PriPID
+  </select>
+  
+  <select id="selectPubScinfoDtoByTaskNO" resultMap="BaseResultMapDto" parameterType="Map"> 
+  	SELECT DISTINCT t.PriPID,t.TaskNO,m.EntName,m.RegNO,m.UniCode,m.LeRep,m.RegOrgName RegOrgDesc,m.EstDate,m.Tel,m.Dom,d.LiaName,d.Tel LeRepPhone
+	FROM
+		cs_pub_scinfo t
+	LEFT JOIN cs_mid_baseinfo m ON t.PriPID = m.PriPID
+	LEFT JOIN cs_pub_eppassword d ON t.PriPID = d.PriPID
+	<trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="taskNO != null and taskNO != ''">
+			t.TaskNO = #{taskNO,jdbcType=VARCHAR}
+		</if>
+		<if test="priPID != null and priPID != ''">
+			and t.PriPID = #{priPID,jdbcType=VARCHAR}
+		</if>
+	</trim>
+  </select>
+  
+  <select id="selectPubScinfoForInsert" resultMap="BaseResultMap" parameterType="Map"> 
+  	SELECT t.TaskNO,t.PriPID
+	FROM
+		cs_pub_scinfo_back t
+	LEFT JOIN cs_mid_baseinfo m ON t.PriPID = m.PriPID
+	<trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="taskNO != null and taskNO != ''">
+			t.TaskNO = #{taskNO,jdbcType=VARCHAR}
+		</if>
+		<if test="regOrg != null and regOrg != ''">
+			and m.RegOrg = #{regOrg,jdbcType=VARCHAR}
+		</if>
+	</trim>
+	limit #{entNumber},1
+  </select>
+  
+	<!--   更新es索引文件 -->
+  <select id="selectPubScinfoForUpdateEs" resultMap="BaseResultMap" parameterType="Map"> 
+  	select t.TaskNO,t.PriPID,k.CreateTime from cs_pub_scinfo t LEFT JOIN cs_pub_sctask k ON t.TaskNO = k.UID
+	WHERE k.TaskState in ('02','05','06') 
+	<if test="creatTime != null and creatTime != ''">
+		AND DATE_FORMAT(k.CreateTime,'%Y-%c-%d') = #{creatTime}
+	</if>
+  </select>
+  
+	<!--  先查询此次任务中的管辖单位  -->
+  <select id="selectLocalAdmList" parameterType="Map"  resultType="java.lang.String"> 
+  	select DISTINCT c.LocalAdm from cs_pub_scinfo t LEFT JOIN cs_mid_baseinfo c ON t.PriPID = c.PriPID
+  	<trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="taskNO != null and taskNO != ''">
+			t.TaskNO = #{taskNO,jdbcType=VARCHAR}
+		</if>
+	</trim>
+  </select>
+  
+	<!--  先查询此次任务中的管辖单位  -->
+  <select id="selectPubScinfoForCross" resultMap="BaseResultMapDto" parameterType="Map"> 
+  	SELECT t.TaskNO,t.PriPID,m.LocalAdm
+	FROM
+		cs_pub_scinfo t
+	LEFT JOIN cs_mid_baseinfo m ON t.PriPID = m.PriPID
+  	<trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="taskNO != null and taskNO != ''">
+			t.TaskNO = #{taskNO,jdbcType=VARCHAR}
+		</if>
+		<if test="localAdm != null and localAdm != ''">
+			and m.LocalAdm = #{localAdm,jdbcType=VARCHAR}
+		</if>
+	</trim>
+	GROUP BY t.TaskNO,t.PriPID
+  </select>
+  
+  <!--  各个地区抽取的企业数量  -->
+  <select id="selectRegOrgShortCount" resultMap="BaseResultMapDto" parameterType="Map"> 
+  	SELECT temp.regOrgShort,
+	(SELECT count(k.PriPID) FROM cs_pub_scinfo_back k LEFT JOIN cs_mid_baseinfo l ON k.PriPID = l.PriPID where k.TaskNO = temp.TaskNO AND l.RegOrg like concat(temp.regOrgShort,'%')) backTotalEnt,
+	count(temp.PriPID) totalEnt from (
+		select 
+			substring(m.RegOrg,1,4) regOrgShort,m.PriPID,t.TaskNO
+			from cs_pub_scinfo t 
+			LEFT JOIN cs_mid_baseinfo m ON t.PriPID = m.PriPID 
+		WHERE t.TaskNO = #{taskNO}) temp
+	GROUP BY temp.regOrgShort ORDER BY temp.regOrgShort
+  </select>
+  
+  <!--  各个登记机关抽取的企业数量  -->
+  <select id="selectRegOrgCount" resultMap="BaseResultMapDto" parameterType="Map"> 
+  		SELECT
+			n.ContentShort regOrgShortDesc,
+			(SELECT count(k.PriPID) FROM cs_pub_scinfo_back k LEFT JOIN cs_mid_baseinfo l ON k.PriPID = l.PriPID where k.TaskNO = t.TaskNO AND l.RegOrg = m.RegOrg) backTotalEnt,
+			count(m.PriPID) totalEnt
+		FROM
+			cs_pub_scinfo t
+		LEFT JOIN cs_mid_baseinfo m ON t.PriPID = m.PriPID
+		LEFT JOIN cs_code_regorg n ON m.RegOrg = n.Code
+		WHERE
+			t.TaskNO = #{taskNO}
+		GROUP BY
+			m.RegOrg
+		ORDER BY
+			m.RegOrg
+  </select>
+</mapper>

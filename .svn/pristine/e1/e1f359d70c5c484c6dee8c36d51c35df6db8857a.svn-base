@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.rpt.rptmapper.RptOptoInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.rpt.rptmodel.RptOptoInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <result column="areacode" property="areacode" jdbcType="VARCHAR" />
+    <result column="regorg" property="regorg" jdbcType="VARCHAR" />
+    <result column="localadm" property="localadm" jdbcType="VARCHAR" />
+    <result column="willexpired" property="willexpired" jdbcType="BIGINT" />
+    <result column="expired" property="expired" jdbcType="BIGINT" />
+  </resultMap>
+  
+  <!-- 统计经营期限到期和即将到期数量 -->
+   <select id="selectRptOptoCount" resultMap="BaseResultMap" parameterType="Map">
+     SELECT  SUM(willexpired) willexpired ,SUM(expired) expired FROM cs_rpt_opto_info 
+     where 1=1 
+    <if test="selectCode !=null and selectCode !=''">
+    <if test="selectCode == '1'.toString()"><!-- 本市 -->
+     and areacode = left(#{deptCode},4) 
+    </if>
+    <if test="selectCode == '2'.toString()"><!-- 本局 -->
+     and regorg = left(#{deptCode},6) 
+    </if>
+    <if test="selectCode == '3'.toString()"><!-- 本所 -->
+      and localadm = left(#{deptCode},8)
+     </if>
+     </if>
+     <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+   </select>
+   
+   
+
+</mapper>

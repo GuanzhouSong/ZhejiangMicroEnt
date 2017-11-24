@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.webservice.mapper.WsMidInvMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.webservice.model.WsMidInv" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="Dom" property="dom" jdbcType="VARCHAR" />
+    <result column="Currency" property="currency" jdbcType="CHAR" />
+    <result column="RespForm" property="respForm" jdbcType="CHAR" />
+    <result column="Inv" property="inv" jdbcType="VARCHAR" />
+    <result column="InvID" property="invID" jdbcType="VARCHAR" />
+    <result column="InvType" property="invType" jdbcType="CHAR" />
+    <result column="Country" property="country" jdbcType="CHAR" />
+    <result column="CurActConAmUSD" property="curActConAmUSD" jdbcType="DECIMAL" />
+    <result column="SConForm" property="SConForm" jdbcType="CHAR" />
+    <result column="BLicType" property="BLicType" jdbcType="CHAR" />
+    <result column="BLicNO" property="BLicNO" jdbcType="VARCHAR" />
+    <result column="SubConProp" property="subConProp" jdbcType="DECIMAL" />
+    <result column="ForSubConAmUSD" property="forSubConAmUSD" jdbcType="DECIMAL" />
+    <result column="SubConAm" property="subConAm" jdbcType="DECIMAL" />
+    <result column="AcConAm" property="acConAm" jdbcType="DECIMAL" />
+    <result column="PostalCode" property="postalCode" jdbcType="CHAR" />
+    <result column="CerType" property="cerType" jdbcType="CHAR" />
+    <result column="CerNO" property="cerNO" jdbcType="VARCHAR" />
+    <result column="Sex" property="sex" jdbcType="CHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="NatDate" property="natDate" jdbcType="DATE" />
+    <result column="LiteDeg" property="liteDeg" jdbcType="VARCHAR" />
+    <result column="PolStand" property="polStand" jdbcType="VARCHAR" />
+    <result column="Nation" property="nation" jdbcType="CHAR" />
+    <result column="OccSt" property="occSt" jdbcType="VARCHAR" />
+    <result column="ExeAffSign" property="exeAffSign" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="SubConForm" property="subConForm" jdbcType="VARCHAR" />
+    <result column="SubConDate" property="subConDate" jdbcType="DATE" />
+  </resultMap>
+  
+  <select id="selectWsMidInvListByContion" parameterType="map" resultMap="BaseResultMap">
+  	SELECT 
+		id,PRIPID,Dom,Currency,RespForm,Inv,InvID,InvType,Country,CurActConAmUSD,SConForm,BLicType,BLicNO,SubConProp,ForSubConAmUSD,SubConAm,AcConAm,PostalCode,CerType,CerNO,Sex,Tel,NatDate,LiteDeg,PolStand,Nation,OccSt,ExeAffSign,CREATETIME,SubConForm,SubConDate,UPDATE_TIME
+	FROM
+    	cs_mid_inv
+    WHERE 
+    	UPDATE_TIME BETWEEN STR_TO_DATE(#{startdate},'%Y%m%d%H%i%s') AND STR_TO_DATE(#{enddate},'%Y%m%d%H%i%s') 
+ 	AND id BETWEEN #{startNum} AND #{endNum}
+  </select>
+  
+  
+  <select id="selectWsMidInvCountByContion" parameterType="map" resultType="Integer">
+  	SELECT
+      	count(*)
+    FROM
+    	cs_mid_inv
+    WHERE 
+    	UPDATE_TIME BETWEEN STR_TO_DATE(#{startdate},'%Y%m%d%H%i%s') AND STR_TO_DATE(#{enddate},'%Y%m%d%H%i%s')
+  </select>
+  
+  <select id="selectWsMidInvCountByPripid" parameterType="string" resultMap="BaseResultMap">
+  	SELECT 
+		id,PRIPID,Dom,Currency,RespForm,Inv,InvID,InvType,Country,CurActConAmUSD,SConForm,BLicType,BLicNO,SubConProp,ForSubConAmUSD,SubConAm,AcConAm,PostalCode,CerType,CerNO,Sex,Tel,NatDate,LiteDeg,PolStand,Nation,OccSt,ExeAffSign,CREATETIME,SubConForm,SubConDate,UPDATE_TIME
+	FROM
+    	cs_mid_inv
+    WHERE 
+    	PRIPID = #{pripid}
+  </select>
+  
+   <select id="selectWsMidInvMaxId" parameterType="map" resultType="Integer">
+  	SELECT 
+		MAX(id)
+	FROM
+    	cs_mid_inv
+    WHERE 
+    	UPDATE_TIME BETWEEN STR_TO_DATE(#{startdate},'%Y%m%d%H%i%s') AND STR_TO_DATE(#{enddate},'%Y%m%d%H%i%s')
+  </select>
+  
+   <select id="selectWsMidInvMinId" parameterType="map" resultType="Integer">
+  	SELECT 
+		MIN(id)
+	FROM
+    	cs_mid_inv
+    WHERE 
+    	UPDATE_TIME BETWEEN STR_TO_DATE(#{startdate},'%Y%m%d%H%i%s') AND STR_TO_DATE(#{enddate},'%Y%m%d%H%i%s')
+  </select>
+  
+  
+</mapper>

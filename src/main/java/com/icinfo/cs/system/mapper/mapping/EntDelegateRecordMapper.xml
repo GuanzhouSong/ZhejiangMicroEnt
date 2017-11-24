@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.system.mapper.EntDelegateRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.system.model.EntDelegateRecord" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="ID" property="ID" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="DelegateOrg" property="delegateOrg" jdbcType="VARCHAR" />
+    <result column="DelegateOrgName" property="delegateOrgName" jdbcType="VARCHAR" />
+    <result column="UserId" property="userId" jdbcType="VARCHAR" />
+    <result column="Username" property="username" jdbcType="VARCHAR" />
+    <result column="AppReviewOrg" property="appReviewOrg" jdbcType="VARCHAR" />
+    <result column="AppReviewOrgName" property="appReviewOrgName" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="IsCancle" property="isCancle" jdbcType="CHAR" />
+  </resultMap>
+</mapper>

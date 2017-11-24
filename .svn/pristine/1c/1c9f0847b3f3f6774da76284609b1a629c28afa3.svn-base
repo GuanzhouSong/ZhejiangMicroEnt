@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.system.mapper.EmailTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.system.model.EmailTask" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="TaskName" property="taskName" jdbcType="VARCHAR" />
+    <result column="StartTime" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="DeptId" property="deptId" jdbcType="VARCHAR" />
+    <result column="DeptName" property="deptName" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="EmailInstruction" property="emailInstruction" jdbcType="VARCHAR" />
+    <result column="Uid" property="uid" jdbcType="VARCHAR" />
+    <result column="TaskContent" property="taskContent" jdbcType="LONGVARCHAR" />
+    <result column="TaskType" property="taskType" jdbcType="CHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseResultDtoMap" type="com.icinfo.cs.system.dto.EmailTaskDto" extends="BaseResultMap">
+  </resultMap>
+  
+  <select id="selectEmailTask" resultMap="BaseResultDtoMap" parameterType="Map">
+    select
+     id,Uid,TaskName,TaskType,TaskContent,StartTime,SetName,SetTime,DeptId,DeptName,EmailInstruction
+    from
+    cs_email_task
+    <where>
+      <include refid="emailTask_where" />
+    </where>
+    ORDER BY StartTime DESC
+  </select>
+  <sql id="emailTask_where">
+     <if test="taskName !='' and taskName !=null">
+      And TaskName LIKE concat('%', #{taskName},'%')
+     </if>
+     <if test="startTimeStart !='' and startTimeStart !=null">
+       <![CDATA[
+		and DATE_FORMAT(SetTime,'%Y-%m-%d') >= #{startTimeStart}
+	  ]]>
+     </if>
+     <if test="startTimeEnd !='' and startTimeEnd !=null">
+       <![CDATA[
+		and DATE_FORMAT(SetTime,'%Y-%m-%d') <= #{startTimeEnd}
+	   ]]>
+     </if>
+     <if test="deptId !='' and deptId !=null">
+      And DeptId IN ('${deptId}')
+     </if>
+     <if test="setTimeStart !='' and setTimeStart !=null">
+       <![CDATA[
+		and DATE_FORMAT(SetTime,'%Y-%m-%d') >= #{setTimeStart}
+	  ]]>
+     </if>
+     <if test="setTimeEnd !='' and setTimeEnd !=null">
+       <![CDATA[
+		and DATE_FORMAT(SetTime,'%Y-%m-%d') <= #{setTimeEnd}
+	  ]]>
+     </if>
+     <if test="taskType !='' and taskType !=null">
+      And TaskType = #{taskType}
+     </if>
+     <if test="setName !='' and setName !=null">
+      And SetName = #{setName}
+     </if>
+     
+  </sql>
+  
+</mapper>

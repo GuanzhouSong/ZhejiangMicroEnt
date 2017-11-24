@@ -1,0 +1,993 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.sccheck.mapper.PubScPlanTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sccheck.model.PubScPlanTask" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Uid" property="uid" jdbcType="VARCHAR" />
+    <result column="TaskCode" property="taskCode" jdbcType="VARCHAR" />
+    <result column="TaskName" property="taskName" jdbcType="VARCHAR" />
+    <result column="TaskState" property="taskState" jdbcType="CHAR" />
+    <result column="TaskLeadDeptCode" property="taskLeadDeptCode" jdbcType="VARCHAR" />
+    <result column="TaskLeadDeptName" property="taskLeadDeptName" jdbcType="VARCHAR" />
+    <result column="TaskResource" property="taskResource" jdbcType="CHAR" />
+    <result column="ResourcePlanUid" property="resourcePlanUid" jdbcType="VARCHAR" />
+    <result column="ResourcePlanName" property="resourcePlanName" jdbcType="VARCHAR" />
+    <result column="TaskStartTime" property="taskStartTime" jdbcType="TIMESTAMP" />
+    <result column="TaskEndTime" property="taskEndTime" jdbcType="TIMESTAMP" />
+    <result column="TaskType" property="taskType" jdbcType="CHAR" />
+    <result column="TaskObject" property="taskObject" jdbcType="VARCHAR" />
+    <result column="TaskCondition" property="taskCondition" jdbcType="VARCHAR" />
+    <result column="RandomType" property="randomType" jdbcType="CHAR" />
+    <result column="EntTotal" property="entTotal" jdbcType="INTEGER" />
+    <result column="RandomTotal" property="randomTotal" jdbcType="INTEGER" />
+    <result column="RandomPercent" property="randomPercent" jdbcType="VARCHAR" />
+    <result column="RandomDate" property="randomDate" jdbcType="TIMESTAMP" />
+    <result column="SetDeptCode" property="setDeptCode" jdbcType="VARCHAR" />
+    <result column="SetDeptName" property="setDeptName" jdbcType="VARCHAR" />
+    <result column="SetUserUid" property="setUserUid" jdbcType="VARCHAR" />
+    <result column="SetUserName" property="setUserName" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="TaskContent" property="taskContent" jdbcType="LONGVARCHAR" />
+    <result column="TaskInspectDeptName" property="taskInspectDeptName" jdbcType="VARCHAR" />
+    <result column="SeqYear" property="seqYear" jdbcType="INTEGER" />
+    <result column="InnerCode" property="innerCode" jdbcType="VARCHAR" />
+    <result column="DutyDeptCode" property="dutyDeptCode" jdbcType="VARCHAR" />
+    <result column="DutyDeptName" property="dutyDeptName" jdbcType="VARCHAR" />
+    <result column="CrossDepartFlag" property="crossDepartFlag" jdbcType="CHAR" />
+    <result column="ItemNum" property="itemNum" jdbcType="INTEGER" />
+    <result column="PublicFlag" property="publicFlag" jdbcType="CHAR" />
+  </resultMap>
+  
+  <resultMap id="PubScPlanTaskDtoResultMap" type="com.icinfo.cs.sccheck.dto.PubScPlanTaskDto" extends="BaseResultMap">
+    <result column="DeptState" property="deptState" jdbcType="CHAR" />
+    <result column="CheckNum" property="checkNum" jdbcType="INTEGER" />
+    <result column="SpecialNum" property="specialNum" jdbcType="INTEGER" />
+    <result column="EntNum" property="entNum" jdbcType="INTEGER" />
+    <result column="MinNum" property="minNum" jdbcType="INTEGER" />
+    <result column="ownNum" property="ownNum" jdbcType="INTEGER" />
+    <result column="crossNum" property="crossNum" jdbcType="INTEGER" />
+    <result column="TaskUid" property="taskUid" jdbcType="VARCHAR" /> 
+    <result column="areaCode" property="areaCode" jdbcType="VARCHAR" /> 
+    <result column="deptCode" property="deptCode" jdbcType="VARCHAR" /> 
+    <result column="deptName" property="deptName" jdbcType="VARCHAR" /> 
+    <result column="taskState01" property="taskState01" jdbcType="INTEGER" />
+    <result column="taskState02" property="taskState02" jdbcType="INTEGER" />
+    <result column="taskState03" property="taskState03" jdbcType="INTEGER" />
+    <result column="taskResource1" property="taskResource1" jdbcType="INTEGER" />
+    <result column="taskResource2" property="taskResource2" jdbcType="INTEGER" />
+    <result column="totalTask" property="totalTask" jdbcType="INTEGER" />
+    <result column="finishedNum" property="finishedNum" jdbcType="INTEGER" />
+  	<result column="disposeNum" property="disposeNum" jdbcType="INTEGER" />
+  	<result column="planState01" property="planState01" jdbcType="INTEGER" />
+    <result column="planState02" property="planState02" jdbcType="INTEGER" />
+    <result column="planState03" property="planState03" jdbcType="INTEGER" />
+    <result column="totalWork" property="totalWork" jdbcType="INTEGER" />
+    
+     <result column="resultUid" property="resultUid" jdbcType="VARCHAR" />
+     <result column="EntName" property="entName" jdbcType="VARCHAR" />
+     <result column="RegNO" property="regNO" jdbcType="VARCHAR" />
+     <result column="unicode" property="unicode" jdbcType="VARCHAR" />
+     <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+     <result column="CheckDeptName" property="checkDeptName" jdbcType="VARCHAR" />
+     <result column="CheckDeptPerson" property="checkDeptPerson" jdbcType="VARCHAR" />
+     <result column="toEndDays" property="toEndDays" jdbcType="VARCHAR" />
+     
+     <result column="ResourcePlanCode" property="resourcePlanCode" jdbcType="VARCHAR" />
+     <result column="CheckItemName" property="checkItemName" jdbcType="VARCHAR" />
+     <result column="PlanLeadDeptName" property="planLeadDeptName" jdbcType="VARCHAR" />
+     
+     <result column="PlanOwnNum" property="planOwnNum" jdbcType="INTEGER" />
+     <result column="PlanCrossNum" property="planCrossNum" jdbcType="INTEGER" />
+     <result column="checkRoate" property="checkRoate" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <resultMap id="pubbulletinMap" type="com.icinfo.cs.sccheck.dto.PubScPlanTaskDto" extends="BaseResultMap">
+     <result column="pubTitle" property="pubTitle" jdbcType="VARCHAR" />
+     <result column="auditDeptName" property="auditDeptName" jdbcType="VARCHAR" />
+     <result column="auditDate" property="auditDate" jdbcType="VARCHAR" />
+     <result column="linkUID" property="linkUID" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectTaskNames" parameterType="Map" resultMap="BaseResultMap">
+        SELECT
+        	Uid,
+			TaskName,
+			TaskCode
+		FROM
+			cs_pub_scplan_task
+        <if test="deptCodeLike !=null and deptCodeLike != ''">
+            WHERE SetDeptCode LIKE concat(#{deptCodeLike},'%')
+            OR SetDeptCode LIKE concat ('3300%')
+        </if>
+        ORDER BY LEFT(setdeptcode,6),settime
+  </select>
+  
+  <select id="selectTaskNamesByParams" parameterType="Map" resultMap="BaseResultMap">
+        SELECT
+        	Uid,
+			TaskName,
+			TaskCode
+		FROM
+			cs_pub_scplan_task
+		where 1=1
+		<if test="year != null and year !=''">
+			and DATE_FORMAT(SetTime,'%Y') = #{year}
+		</if>
+        <if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+			<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+				separator="OR" close=")">
+				DutyDeptCode like concat('%',#{item},'%')
+			</foreach>
+		</if>
+        ORDER BY LEFT(setdeptcode,6),settime
+  </select>
+  
+  <!-- 分页查询 -->
+  <select id="selectPubScPlanTaskList" parameterType="Map" resultMap="PubScPlanTaskDtoResultMap">
+        SELECT
+			A.Uid,
+			A.TaskName,
+			A.TaskCode,
+			A.TaskState,
+			A.TaskLeadDeptCode,
+			A.TaskLeadDeptName,
+			A.TaskResource,
+			A.ResourcePlanUid,
+			A.ResourcePlanName,
+			A.TaskStartTime,
+			A.TaskEndTime,
+			A.TaskType,
+			A.TaskContent,
+			A.TaskObject,
+			A.TaskCondition,
+			A.SetDeptCode,
+			A.SetDeptName,
+			A.SetUserUid,
+			A.SetUserName,
+			A.SetTime,
+			A.EntTotal,
+			A.RandomTotal,
+			A.TaskInspectDeptName,
+			A.CrossDepartFlag,
+			A.ItemNum
+		FROM
+			cs_pub_scplan_task A
+	    WHERE 1=1 
+	    <include refid="queryPageResultSql" />
+       <!-- 数据权限 -->
+ 	   <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+        ORDER BY A.TaskState ASC
+    </select>
+    
+     <select id="selectCountAll" parameterType="Map" resultMap="PubScPlanTaskDtoResultMap">
+       <![CDATA[ SELECT
+			count(A.id) totalWork,
+			SUM(CASE WHEN A.CrossDepartFlag = '1' THEN 1 ELSE 0 END ) ownNum,
+			SUM(CASE WHEN A.CrossDepartFlag = '2' THEN 1 ELSE 0 END ) crossNum,
+			SUM(CASE WHEN (A.TaskState = '02' OR A.TaskState = '03') AND A.RandomTotal <> 0 THEN A.RandomTotal ELSE 0 END ) EntNum
+		FROM
+			cs_pub_scplan_task A ]]> 
+	   where 1=1
+       <include refid="queryPageResultSql" />
+ 	   <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </select>
+    
+    <sql id="queryPageResultSql">
+    	<if test="taskName !=null and taskName != ''">
+            AND A.TaskName  LIKE concat('%', #{taskName},'%')
+        </if>
+        <if test="searchFlag !=null and searchFlag != '' and searchFlag==0  ">
+			AND A.SetDeptCode = #{deptCode}
+		</if>
+        <if test="taskCode !=null and taskCode != ''">
+            AND A.TaskCode  LIKE concat('%', #{taskCode},'%')
+        </if> 
+        <if test="taskStartTime !=null and taskStartTime != ''">
+          <![CDATA[ AND  LEFT(A.TaskStartTime,10) >= #{taskStartTime}  ]]>  
+        </if>
+        <if test="taskEndTime !=null and taskEndTime != ''">
+            <![CDATA[ AND  LEFT(A.TaskEndTime,10) <= #{taskEndTime}  ]]> 
+        </if>
+        <if test="taskLeadDeptName !=null and taskLeadDeptName != ''">
+            AND  A.TaskLeadDeptName LIKE concat('%', #{taskLeadDeptName},'%')
+        </if>
+        <if test="taskInspectDeptName !=null and taskInspectDeptName != ''">
+            AND  A.TaskInspectDeptName LIKE concat('%', #{taskInspectDeptName},'%')
+        </if>
+        <if test="taskLeadDeptCode !=null and taskLeadDeptCode != ''">
+            AND  A.TaskLeadDeptCode IN (${taskLeadDeptCode})
+        </if>
+        <if test="setDeptCode !=null and setDeptCode != ''">
+            AND  A.SetDeptCode IN (${setDeptCode})
+        </if>
+        <if test="taskType !=null and taskType != ''">
+            AND A.TaskType = #{taskType}
+        </if>
+        <if test="crossDepartFlag !=null and crossDepartFlag != ''">
+            AND A.CrossDepartFlag = #{crossDepartFlag}
+        </if>
+        <if test="taskState !=null and taskState != ''">
+            AND A.TaskState = #{taskState}
+        </if>
+        <if test="taskResource !=null and taskResource != ''">
+            AND A.TaskResource = #{taskResource}
+        </if>
+        <if test="pubTaskStates !=null and pubTaskStates != ''">
+            AND A.TaskState IN 
+            <foreach item="item" index="index" collection="pubTaskStates" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+        </if>
+        <if test="setUserName !=null and setUserName != ''">
+            AND A.SetUserName  LIKE concat('%', #{setUserName},'%')
+        </if> 
+        <if test="setDeptName !=null and setDeptName != ''">
+            AND A.SetDeptName  LIKE concat('%', #{setDeptName},'%')
+        </if> 
+        <if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+			<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+				separator="OR" close=")">
+				A.DutyDeptCode like concat('%',#{item},'%')
+			</foreach>
+		</if>
+        <if test="taskObjectStr !=null and taskObjectStr != ''">
+         AND 
+         ( 
+		       <choose>
+		          <when test="taskObjectOne !=null and taskObjectOne != ''">
+		                    LOCATE(#{taskObjectOne},A.TaskObject) >0 
+		                   <if test="taskObjectTwo !=null and taskObjectTwo != ''">
+		         			 OR   LOCATE(#{taskObjectTwo},A.TaskObject) >0 
+					       </if>
+					       <if test="taskObjectThree !=null and taskObjectThree != ''">
+					          OR   LOCATE(#{taskObjectThree},A.TaskObject) >0 
+					       </if>
+					       <if test="taskObjectFour !=null and taskObjectFour != ''">
+					          OR   LOCATE(#{taskObjectFour},A.TaskObject) >0 
+					       </if>
+		          </when>
+		          <when test="taskObjectTwo !=null and taskObjectTwo != ''   ">
+		         			  LOCATE(#{taskObjectTwo},A.TaskObject) >0 
+					       <if test="taskObjectThree !=null and taskObjectThree != ''">
+					          OR   LOCATE(#{taskObjectThree},A.TaskObject) >0 
+					       </if>
+					       <if test="taskObjectFour !=null and taskObjectFour != ''">
+					          OR   LOCATE(#{taskObjectFour},A.TaskObject) >0 
+					       </if>
+		          </when>
+		          <when test="taskObjectThree !=null and taskObjectThree != ''">
+					           LOCATE(#{taskObjectThree},A.TaskObject) >0 
+					       <if test="taskObjectFour !=null and taskObjectFour != ''">
+					          OR  LOCATE(#{taskObjectFour},A.TaskObject) >0 
+					       </if>
+		          </when>
+		          <otherwise>
+		          		    LOCATE(#{taskObjectFour},A.TaskObject) >0 
+		          </otherwise>
+		       </choose>
+         )
+        </if>
+    </sql>
+    
+     <!-- 分页查询 -->
+   <select id="selectPubScPlanTaskAndDeptList" parameterType="Map" resultMap="PubScPlanTaskDtoResultMap">
+	SELECT c.Uid,b.Uid TaskUid,b.TaskName,b.TaskCode,b.TaskState,b.TaskLeadDeptCode,b.TaskLeadDeptName,b.TaskResource,
+	            b.ResourcePlanUid,b.ResourcePlanName,
+				b.TaskStartTime,b.TaskEndTime,
+				b.TaskType,
+				b.TaskContent,
+				b.TaskObject,
+				b.TaskCondition,
+				b.SetDeptCode,
+				b.SetDeptName,
+				b.SetUserUid,
+				c.SetUserName,
+				c.SetTime,
+	c.DeptState,c.CheckNum,c.EntNum,c.SpecialNum,c.MinNum,c.RandomType,
+	<if test="crossType !='' and crossType !=null and crossType == 'N'.toString()">
+	u.content deptName
+	</if>
+	<if test="crossType !='' and crossType !=null and crossType == 'Y'.toString()">
+	  	u.OrgName deptName
+  	</if>
+	FROM pub_scdept_task c  
+	LEFT JOIN cs_pub_scplan_task b ON b.uid=c.TaskUid 
+	<if test="crossType !='' and crossType !=null and crossType == 'N'.toString()">
+	LEFT JOIN cs_code_regunit u on u.code = c.UnitDeptCode
+	</if>
+	<if test="crossType !='' and crossType !=null and crossType == 'Y'.toString()">
+		LEFT JOIN cs_dept_dutycode_ref u ON u.AdCode = c.UnitDeptCode
+		</if>
+	WHERE 1=1  
+	and b.taskState in ('02','03') 
+    <!-- 主任务id -->
+    <if test="taskUid !=null and taskUid != ''">
+           AND b.Uid = #{taskUid}
+    </if>
+    <!-- 部门任务表id -->
+    <if test="uid !=null and uid != ''">
+           AND c.Uid = #{uid}
+    </if>
+    <if test="unitDeptCode !=null and unitDeptCode != ''">
+           AND c.UnitDeptCode = #{unitDeptCode}
+    </if>
+    <if test="unitDeptCodeArr !=null and unitDeptCodeArr != ''">
+           AND c.UnitDeptCode in 
+            <foreach item="item" index="index" collection="unitDeptCodeArr" open="("
+                     separator="," close=")">
+                #{item}
+            </foreach>
+    </if>
+<!--     <if test="deptCode !=null and deptCode != '' and userId !=null and userId != ''" > -->
+<!--         AND (c.deptCode = #{deptCode} or c.RelateUserUid = #{userId})  -->
+<!--     </if> -->
+     <if test="taskName !=null and taskName != ''">
+         AND b.TaskName  LIKE concat('%', #{taskName},'%')
+     </if>
+     <if test="taskCode !=null and taskCode != ''">
+         AND b.TaskCode  LIKE concat('%', #{taskCode},'%')
+     </if> 
+     <!-- 任务组织部门 -->
+     <if test="taskLeadDeptCode !=null and taskLeadDeptCode != ''">
+         AND b.TaskLeadDeptCode  in (${taskLeadDeptCode})
+     </if> 
+     <!-- 抽查方式 -->
+     <if test="taskType !=null and taskType != '' ">
+         AND b.TaskType = #{taskType}
+     </if> 
+     <if test="taskStartTime !=null and taskStartTime != ''">
+          <![CDATA[ AND  DATE_FORMAT(b.TaskStartTime,'%Y-%m-%d') >= #{taskStartTime}  ]]>  
+      </if>
+      <if test="taskEndTime !=null and taskEndTime != ''">
+           <![CDATA[ AND  DATE_FORMAT(b.TaskEndTime,'%Y-%m-%d') >= #{taskEndTime}  ]]>  
+            
+      </if>
+      <if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+			<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+				separator="OR" close=")">
+				b.DutyDeptCode like concat('%',#{item},'%')
+			</foreach>
+		</if>
+     <if test="setUserName !=null and setUserName != ''">
+         AND b.setUserName  LIKE concat('%', #{setUserName},'%')
+     </if>
+    <if test="taskObject !=null and taskObject !=''">
+		And (
+		<foreach item="taskObjectOne" index="index" collection="taskObject" open="" close="" separator="OR">
+			LOCATE(#{taskObjectOne}, b.TaskObject) >0
+		</foreach>
+		)
+	</if>
+	 <if test="deptState !=null and deptState != ''">
+            AND c.DeptState = #{deptState}
+     </if> 
+     order by c.DeptState 
+   </select>
+   
+   <select id="selectPubScPlanTaskToExtractCount" resultType="java.lang.Integer" parameterType="Map">
+      SELECT
+	    COUNT(c.Uid)
+	 FROM
+		pub_scdept_task c
+	 LEFT JOIN cs_pub_scplan_task b ON b.uid = c.TaskUid
+	 LEFT JOIN cs_code_regunit u ON u. CODE = c.UnitDeptCode
+	 WHERE
+		1 = 1
+	 AND b.taskState IN ('02')
+	 AND c.UnitDeptCode = #{unitDeptCode}
+	 AND c.DeptState = '1'
+	 <if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+		<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+			separator="OR" close=")">
+			b.DutyDeptCode like concat('%',#{item},'%')
+		</foreach>
+	</if>
+   </select>
+    
+    <!-- 根据文号简称获取当前文号简称下的最大文号 -->
+  <select id="selectDocNumBydeptShortName" parameterType="Map"   resultType="Integer"> 
+	   SELECT 
+		  IFNULL(
+		MAX(
+			IFNULL(
+				REPLACE (
+					SUBSTR(
+						TaskCode,
+						INSTR(TaskCode, '〕') + 1
+					),
+					'号',
+					''
+				)+0,
+				0
+			)
+		),
+		0
+	) + 1
+		FROM
+		  cs_pub_scplan_task a  
+ 		WHERE 
+		  a.SeqYear = #{seqYear} 
+		 AND LEFT(a.TaskCode,INSTR(a.TaskCode, '抽') - 1) =#{deptShortName}  
+  </select> 
+    
+  	<select id="selectScPlanTaskCount" resultMap="PubScPlanTaskDtoResultMap" parameterType="Map">
+		SELECT 
+			temp.areaCode,
+			<if test="statLevel !='' and statLevel !=null and statLevel == 'area' ">
+				temp.deptCode,'' deptName,
+			</if>
+			<if test="statLevel !='' and statLevel !=null and statLevel != 'area' ">
+				temp.deptCode,d.Content deptName,
+			</if>
+			IFNULL(a.planState01,0) planState01
+			,IFNULL(a.planState02,0) planState02,IFNULL(a.planState03,0) planState03,IFNULL(a.totalWork,0) totalWork
+			,IFNULL(b.taskState01,0) taskState01,IFNULL(b.taskState02,0) taskState02,IFNULL(b.taskState03,0) taskState03
+			,IFNULL(b.taskResource1,0) taskResource1,IFNULL(b.taskResource2,0) taskResource2
+			,IFNULL(b.totalTask,0) totalTask,IFNULL(c.finishedNum,0) finishedNum
+			,IFNULL(c.disposeNum,0) disposeNum,IFNULL(c.EntTotal,0) EntTotal,IFNULL(a.PlanOwnNum,0) PlanOwnNum 
+			,IFNULL(a.PlanCrossNum,0) PlanCrossNum,IFNULL(b.ownNum,0) ownNum,IFNULL(b.crossNum,0) crossNum
+		FROM (
+			SELECT 
+				LEFT(t.SetDeptCode,4) areaCode,
+				<if test="statLevel !='' and statLevel !=null and statLevel == 'area' ">
+					LEFT(t.SetDeptCode,4) deptCode 
+				</if>
+				<if test="statLevel !='' and statLevel !=null and statLevel == 'regOrg' ">
+					LEFT(t.SetDeptCode,6) deptCode 
+				</if>
+				<if test="statLevel !='' and statLevel !=null and statLevel == 'localAdm' ">
+					t.SetDeptCode deptCode 
+				</if>
+			FROM cs_pub_scwork_plan t
+			where 1=1
+			<if test="statArea !='' and statArea !=null">
+		    	and LEFT(t.SetDeptCode,4)  IN  (${statArea}) 
+		    </if>
+		    <if test="setTimeEnd !='' and setTimeEnd !=null">
+		      <![CDATA[
+			  and DATE_FORMAT(t.SetTime,'%Y-%m-%d') <= #{setTimeEnd}
+			  ]]>
+		    </if>
+		    <if test="searchYear !='' and searchYear !=null">
+			  and DATE_FORMAT(t.SetTime,'%Y') = #{searchYear}
+		    </if>
+		    <if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+				<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+					separator="OR" close=")">
+					t.DutyDeptCode like concat('%',#{item},'%')
+				</foreach>
+			</if>
+		    <if test="statLevel !='' and statLevel !=null and statArea == 'area' ">
+				GROUP BY LEFT(t.SetDeptCode,4)
+		    </if>
+		    <if test="statLevel !='' and statLevel !=null and statArea == 'regOrg' ">
+				GROUP BY LEFT(t.SetDeptCode,6)
+		    </if>
+		    <if test="statLevel !='' and statLevel !=null and statArea == 'localAdm' ">
+				GROUP BY t.SetDeptCode
+		    </if>
+			UNION 
+			SELECT 
+				LEFT(t.SetDeptCode,4) areaCode,
+				<if test="statLevel !='' and statLevel !=null and statLevel == 'area' ">
+					LEFT(t.SetDeptCode,4) deptCode 
+				</if>
+				<if test="statLevel !='' and statLevel !=null and statLevel == 'regOrg' ">
+					LEFT(t.SetDeptCode,6) deptCode 
+				</if>
+				<if test="statLevel !='' and statLevel !=null and statLevel == 'localAdm' ">
+					t.SetDeptCode deptCode 
+				</if>
+			FROM cs_pub_scplan_task t 
+			where 1=1
+			<if test="statArea !='' and statArea !=null">
+		    	and LEFT(t.SetDeptCode,4)  IN  (${statArea}) 
+		    </if>
+		    <if test="setTimeEnd !='' and setTimeEnd !=null">
+		      <![CDATA[
+			  and DATE_FORMAT(t.SetTime,'%Y-%m-%d') <= #{setTimeEnd}
+			  ]]>
+		    </if>
+		    <if test="searchYear !='' and searchYear !=null">
+			  and DATE_FORMAT(t.SetTime,'%Y') = #{searchYear}
+			</if>
+		    <if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+				<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+					separator="OR" close=")">
+					t.DutyDeptCode like concat('%',#{item},'%')
+				</foreach>
+			</if>
+			<if test="statLevel !='' and statLevel !=null and statLevel == 'area' ">
+				GROUP BY LEFT(t.SetDeptCode,4)
+		    </if>
+		    <if test="statLevel !='' and statLevel !=null and statLevel == 'regOrg' ">
+				GROUP BY LEFT(t.SetDeptCode,6)
+		    </if>
+		    <if test="statLevel !='' and statLevel !=null and statLevel == 'localAdm' ">
+				GROUP BY t.SetDeptCode
+		    </if>
+		) temp LEFT JOIN (
+			SELECT 
+				LEFT(t.SetDeptCode,4) areaCode,
+				<if test="statLevel !='' and statLevel !=null and statLevel == 'area' ">
+					LEFT(t.SetDeptCode,4) deptCode,
+				</if>
+				<if test="statLevel !='' and statLevel !=null and statLevel == 'regOrg' ">
+					LEFT(t.SetDeptCode,6) deptCode,
+				</if>
+				<if test="statLevel !='' and statLevel !=null and statLevel == 'localAdm' ">
+					t.SetDeptCode deptCode,
+				</if>
+				SUM(CASE WHEN t.PlanState = '01' THEN 1 ELSE 0 END ) planState01,
+				SUM(CASE WHEN t.PlanState = '02' THEN 1 ELSE 0 END ) planState02,
+				SUM(CASE WHEN t.PlanState = '03' THEN 1 ELSE 0 END ) planState03,
+				SUM(CASE WHEN t.CrossDepartFlag = '1' THEN 1 ELSE 0 END ) PlanOwnNum,
+				SUM(CASE WHEN t.CrossDepartFlag = '2' THEN 1 ELSE 0 END ) PlanCrossNum,
+				SUM(1) totalWork
+			FROM cs_pub_scwork_plan t 
+			where 1=1
+			<if test="setTimeEnd !='' and setTimeEnd !=null">
+		      <![CDATA[
+			   AND DATE_FORMAT(t.SetTime,'%Y-%m-%d') <= #{setTimeEnd}
+			  ]]>
+		    </if>
+		    <if test="searchYear !='' and searchYear !=null">
+			  and DATE_FORMAT(t.SetTime,'%Y') = #{searchYear}
+			</if>
+		    <if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+				<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+					separator="OR" close=")">
+					t.DutyDeptCode like concat('%',#{item},'%')
+				</foreach>
+			</if>
+			<if test="statLevel !='' and statLevel !=null and statLevel == 'area' ">
+				GROUP BY LEFT(t.SetDeptCode,4)
+		    </if>
+		    <if test="statLevel !='' and statLevel !=null and statLevel == 'regOrg' ">
+				GROUP BY LEFT(t.SetDeptCode,6)
+		    </if>
+		    <if test="statLevel !='' and statLevel !=null and statLevel == 'localAdm' ">
+				GROUP BY t.SetDeptCode
+		    </if>
+		) a ON temp.deptCode = a.deptCode
+		LEFT JOIN (
+			SELECT 
+				LEFT(t.SetDeptCode,4) areaCode,
+				<if test="statLevel !='' and statLevel !=null and statLevel == 'area' ">
+					LEFT(t.SetDeptCode,4) deptCode,
+				</if>
+				<if test="statLevel !='' and statLevel !=null and statLevel == 'regOrg' ">
+					LEFT(t.SetDeptCode,6) deptCode,
+				</if>
+				<if test="statLevel !='' and statLevel !=null and statLevel == 'localAdm' ">
+					t.SetDeptCode deptCode,
+				</if>
+				SUM(CASE WHEN t.TaskState = '01' THEN 1 ELSE 0 END ) taskState01,
+				SUM(CASE WHEN t.TaskState = '02' THEN 1 ELSE 0 END ) taskState02,
+				SUM(CASE WHEN t.TaskState = '03' THEN 1 ELSE 0 END ) taskState03,
+				SUM(CASE WHEN t.TaskResource = '1' THEN 1 ELSE 0 END ) taskResource1,
+				SUM(CASE WHEN t.TaskResource = '2' THEN 1 ELSE 0 END ) taskResource2,
+				SUM(CASE WHEN t.CrossDepartFlag = '1' THEN 1 ELSE 0 END ) ownNum,
+				SUM(CASE WHEN t.CrossDepartFlag = '2' THEN 1 ELSE 0 END ) crossNum,
+				SUM(1) totalTask
+			FROM cs_pub_scplan_task t 
+			where 1=1
+			<if test="setTimeEnd !='' and setTimeEnd !=null">
+		      <![CDATA[
+			   AND DATE_FORMAT(t.SetTime,'%Y-%m-%d') <= #{setTimeEnd}
+			  ]]>
+		    </if>
+		    <if test="searchYear !='' and searchYear !=null">
+			  and DATE_FORMAT(t.SetTime,'%Y') = #{searchYear}
+			</if>
+		    <if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+				<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+					separator="OR" close=")">
+					t.DutyDeptCode like concat('%',#{item},'%')
+				</foreach>
+			</if>
+			<if test="statLevel !='' and statLevel !=null and statLevel == 'area' ">
+				GROUP BY LEFT(t.SetDeptCode,4)
+		    </if>
+		    <if test="statLevel !='' and statLevel !=null and statLevel == 'regOrg' ">
+				GROUP BY LEFT(t.SetDeptCode,6)
+		    </if>
+		    <if test="statLevel !='' and statLevel !=null and statLevel == 'localAdm' ">
+				GROUP BY t.SetDeptCode
+		    </if>
+		) b ON temp.deptCode = b.deptCode
+		LEFT JOIN (
+			SELECT
+			    LEFT(k.SetDeptCode,4) areaCode,
+			    <if test="statLevel !='' and statLevel !=null and statLevel == 'area' ">
+					LEFT(k.SetDeptCode,4) deptCode,
+				</if>
+				<if test="statLevel !='' and statLevel !=null and statLevel == 'regOrg' ">
+					LEFT(k.SetDeptCode,6) deptCode,
+				</if>
+				<if test="statLevel !='' and statLevel !=null and statLevel == 'localAdm' ">
+					k.SetDeptCode deptCode,
+				</if>
+			    SUM(CASE WHEN <![CDATA[t.AuditState <> '1']]> THEN 1 ELSE 0 END ) finishedNum,
+			    SUM(CASE WHEN t.disposeState = '2' THEN 1 ELSE 0 END ) disposeNum,
+			    SUM(1) EntTotal
+			FROM cs_pub_scent_result t LEFT JOIN cs_pub_scplan_task k ON t.MainTaskUid = k.Uid
+			where 1=1
+			<if test="setTimeEnd !='' and setTimeEnd !=null">
+		      <![CDATA[
+			   AND DATE_FORMAT(k.SetTime,'%Y-%m-%d') <= #{setTimeEnd}
+			  ]]>
+		    </if>
+		    <if test="searchYear !='' and searchYear !=null">
+			  and DATE_FORMAT(k.SetTime,'%Y') = #{searchYear}
+		    </if>
+		    <if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+				<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+					separator="OR" close=")">
+					k.DutyDeptCode like concat('%',#{item},'%')
+				</foreach>
+			</if>
+			<if test="statLevel !='' and statLevel !=null and statLevel == 'area' ">
+				GROUP BY LEFT(k.SetDeptCode,4)
+		    </if>
+		    <if test="statLevel !='' and statLevel !=null and statLevel == 'regOrg' ">
+				GROUP BY LEFT(k.SetDeptCode,6)
+		    </if>
+		    <if test="statLevel !='' and statLevel !=null and statLevel == 'localAdm' ">
+				GROUP BY k.SetDeptCode
+		    </if>
+		) c ON temp.deptCode = c.deptCode
+		<if test="statLevel != null and statLevel != '' and  statLevel == 'regOrg' ">
+			LEFT JOIN cs_code_regorg d ON temp.deptCode = d.code
+		</if>
+		<if test="statLevel != null and statLevel != '' and  statLevel == 'localAdm' ">
+	   		LEFT JOIN cs_code_regunit d ON temp.deptCode = d.code
+		</if>
+		ORDER BY temp.deptCode
+  	</select>
+  	
+  	<!-- 台州双随机查任务列表 -->
+  	<select id="selectScentCheckTaskListForTz" resultMap="PubScPlanTaskDtoResultMap" parameterType="Map">
+		SELECT
+			k.TaskName,
+			k.TaskCode,
+			k.TaskEndTime,
+			k.TaskLeadDeptName,
+			k.TaskContent,
+			k.TaskObject,
+			h.EntName,
+			h.RegNO,
+			h.unicode,
+			h.PriPID,
+			t.CheckDeptName,
+			t.CheckDeptPerson,
+			t.Uid resultUid,
+			datediff(k.TaskEndTime, now()) toEndDays
+		FROM
+			cs_pub_scent_result t
+		LEFT JOIN cs_pub_scplan_task k ON t.MainTaskUid = k.Uid
+		LEFT JOIN pub_scdept_task s ON k.Uid = s.TaskUid
+		AND t.TaskUid = s.Uid
+		LEFT JOIN cs_pub_scent_agent a ON t.TaskUid = a.TaskUid
+		AND t.PriPID = a.PRIPID
+		LEFT JOIN cs_pub_scagent g ON a.AgentUid = g.UID
+		LEFT JOIN cs_pub_scent h ON t.MainTaskUid = h.TaskUid
+		AND t.PriPID = h.PriPID
+		WHERE
+		<if test="moduleid  !=null and moduleid !=''">
+		   <!-- 待办 -->
+		   <if test="moduleid == 'todo'">
+		      k.TaskState = '02'
+		      AND s.DeptState = '2'
+		      AND t.AuditState = '1'
+		      <![CDATA[  AND k.TaskEndTime >= DATE_FORMAT(NOW(),'%Y-%m-%d')]]>
+		   </if>
+		   <!-- 已办-->
+		   <if test="moduleid == 'done'">
+		      k.TaskState IN ('02','03')
+		      AND s.DeptState IN ('2','3')
+		      <![CDATA[ AND t.AuditState <> '1']]>
+		   </if>
+		   <!-- 过期 -->
+		   <if test="moduleid == 'overdue'">
+		      k.TaskState = '02'
+		      AND s.DeptState = '2'
+		      AND t.AuditState = '1'
+		      <![CDATA[  AND k.TaskEndTime < DATE_FORMAT(NOW(),'%Y-%m-%d')]]>
+		   </if>
+		 </if>
+		 AND s.UnitDeptCode = '33100000'
+		 AND g.Mobile = #{telPhoneNum}
+		 <if test="apprivalid !=null and apprivalid !=''">
+		 AND t.Uid = #{apprivalid}
+		 </if>
+		 LIMIT ${numStart},${pageSize}
+  	</select>
+  	
+  	<select id="selectScentCheckTaskListTotalForTz" resultType="Integer" parameterType ="Map">
+  	    SELECT 
+  	      COUNT(0)
+  	    FROM
+			cs_pub_scent_result t
+		LEFT JOIN cs_pub_scplan_task k ON t.MainTaskUid = k.Uid
+		LEFT JOIN pub_scdept_task s ON k.Uid = s.TaskUid
+		AND t.TaskUid = s.Uid
+		LEFT JOIN cs_pub_scent_agent a ON t.TaskUid = a.TaskUid
+		AND t.PriPID = a.PRIPID
+		LEFT JOIN cs_pub_scagent g ON a.AgentUid = g.UID
+		LEFT JOIN cs_pub_scent h ON t.MainTaskUid = h.TaskUid
+		AND t.PriPID = h.PriPID
+		WHERE
+		  <if test="moduleid  !=null and moduleid !=''">
+		   <if test="moduleid == 'todo'">
+		      k.TaskState = '02'
+		      AND s.DeptState = '2'
+		      AND t.AuditState = '1'
+		      <![CDATA[  AND k.TaskEndTime >= DATE_FORMAT(NOW(),'%Y-%m-%d')]]>
+		   </if>
+		   <if test="moduleid == 'done'">
+		      k.TaskState IN ('02','03')
+		      AND s.DeptState IN ('2','3')
+		      <![CDATA[ AND t.AuditState <> '1']]>
+		   </if>
+		   <if test="moduleid == 'overdue'">
+		      k.TaskState = '02'
+		      AND s.DeptState = '2'
+		      AND t.AuditState = '1'
+		      <![CDATA[  AND k.TaskEndTime < DATE_FORMAT(NOW(),'%Y-%m-%d')]]>
+		   </if>
+		 </if>
+		 AND s.UnitDeptCode = '33100000'
+		 AND g.Mobile = #{telPhoneNum}
+		 <if test="apprivalid !=null and apprivalid !=''">
+		 AND t.Uid = #{apprivalid}
+		 </if>
+  	</select>
+  	
+  	<select id="selectScentTaskForBulletin" resultMap="PubScPlanTaskDtoResultMap" parameterType="java.lang.String">
+  	   SELECT
+  	    t.uid,
+  	    a.PlanLeadDeptName,
+		a.PlanName ResourcePlanName,
+	  	a.InnerCode ResourcePlanCode,
+		t.TaskName ,
+	 	t.InnerCode,
+		t.TaskType,
+		t.TaskObject,
+		t.TaskContent,
+		t.TaskStartTime,
+		t.TaskEndTime,
+		t.TaskLeadDeptName,
+		t.RandomTotal,
+		t.PublicFlag,
+		(
+			SELECT
+				GROUP_CONCAT(CheckName)
+			FROM
+				cs_pub_sccheck_item
+			WHERE
+				taskuid = #{_parameter}
+			ORDER BY
+				checkcode
+		) CheckItemName
+	FROM
+		cs_pub_scplan_task t
+	LEFT JOIN cs_pub_scwork_plan a ON t.ResourcePlanUid = a.Uid
+	WHERE
+		t.uid = #{_parameter}
+	ORDER BY
+	t.taskcode
+  	</select>
+  	
+  	<select id="selectScPlanTaskForBulletin" resultMap="pubbulletinMap" parameterType="Map">
+		 SELECT
+		    t.Uid linkUID,
+			CONCAT(
+				t.TaskLeadDeptName,
+				SUBSTR(t.InnerCode, 7, 4),
+				"年度第",
+				SUBSTR(t.InnerCode, 16, 3),
+				'号抽查任务公告'
+			) pubTitle,
+			t.SetDeptName auditDeptName,
+			LEFT (t.TaskStartTime, 10) auditDate
+		FROM
+			cs_pub_scplan_task t
+		WHERE
+			t.TaskState IN ('02', '03')
+			<if test="pubTitle !=null and pubTitle !=''">
+		    and  t.TaskName  LIKE concat('%', #{pubTitle},'%')
+		    </if>
+		    <if test="auditArea !=null and auditArea !=''">
+		    and  LEFT(t.SetDeptCode,4) = #{auditArea}
+    		</if>
+    	ORDER BY t.TaskStartTime DESC
+  	</select>
+  	
+  	<select id="selectScWorkPlanForBulletin" resultMap="pubbulletinMap" parameterType="Map">
+		 SELECT
+			a.Uid linkUID,
+			CONCAT(
+				t.PlanLeadDeptName,
+				t.PlanYear,
+				'年度抽查工作计划公告'
+			) pubTitle,
+			t.SetDeptName auditDeptName,
+		 LEFT (t.PlanStartTime, 10) auditDate
+		 FROM
+			cs_pub_scwork_plan t
+		 LEFT JOIN cs_pub_scplan_task a ON t.Uid = a.ResourcePlanUid
+		 WHERE
+		 t.PlanState IN ('02', '03')
+		   <if test="pubTitle !=null and pubTitle !=''">
+		    and  t.PlanName  LIKE concat('%', #{pubTitle},'%')
+		   </if>
+		   <if test="auditArea !=null and auditArea !=''">
+		   and  LEFT(t.SetDeptCode,4) = #{auditArea}
+    	   </if>
+    	 ORDER BY t.PlanStartTime DESC
+  	</select>
+  	
+  	<select id="selectScResultForBulletin" resultMap="pubbulletinMap" parameterType="Map">
+  	      SELECT
+		    t.Uid linkUID,
+			CONCAT(
+				t.TaskLeadDeptName,
+				SUBSTR(t.InnerCode, 7, 4),
+				"年度第",
+				SUBSTR(t.InnerCode, 16, 3),
+				'号抽查任务检查结果公告'
+			) pubTitle,
+			t.SetDeptName auditDeptName,
+			LEFT (t.TaskStartTime, 10) auditDate
+		FROM
+			cs_pub_scplan_task t
+		WHERE
+			t.TaskState IN ('02', '03')
+			<if test="pubTitle !=null and pubTitle !=''">
+		    and  t.TaskName  LIKE concat('%', #{pubTitle},'%')
+		    </if>
+		    <if test="auditArea !=null and auditArea !=''">
+		    and  LEFT(t.SetDeptCode,4) = #{auditArea}
+    		</if>
+    	ORDER BY t.TaskStartTime DESC
+  	</select>
+  	
+  	<select id="selectMaxInnerCode" resultType="java.lang.String" parameterType="java.lang.String">
+	 SELECT
+	 	Max(InnerCode)
+		from cs_pub_scplan_task
+		where  InnerCode like concat(#{innerCodeLike},'%')
+	</select>
+	
+	<!-- 可视化抽查任务统计 -->
+	<select id="selectScPlanTaskChartsCount" resultMap="PubScPlanTaskDtoResultMap" parameterType="Map">
+	SELECT temp.areaCode, temp.deptCode, 
+	IFNULL(a.totalWork,0) totalWork ,
+	IFNULL(a.PlanOwnNum,0) PlanOwnNum , 
+	IFNULL(a.PlanCrossNum,0) PlanCrossNum,
+	IFNULL(b.totalTask,0) totalTask,
+	IFNULL(b.ownNum,0) ownNum, 
+	IFNULL(b.crossNum,0) crossNum,
+	IFNULL(c.finishedNum,0) finishedNum ,
+	IFNULL(c.EntTotal,0) EntTotal,
+	ROUND(IF(IFNULL(c.EntTotal,0)=0,0,IFNULL(c.finishedNum,0)*100/IFNULL(c.EntTotal,0)),2) checkRoate
+	FROM (SELECT LEFT(t.code,4) areaCode, LEFT(t.code,4) deptCode 
+	FROM cs_code_regorg t WHERE CODE != '100000' and CODE != '999999' GROUP BY LEFT(t.code,4)) temp 
+	LEFT JOIN 
+	( SELECT LEFT(t.SetDeptCode,4) areaCode,
+	<if test="groupFlag != null and groupFlag != ''">
+      	LEFT(t.SetDeptCode,4) deptCode,
+    </if>
+	<if test="groupFlag == null || groupFlag == ''">
+	 '3300' deptCode,
+	</if>
+	SUM(CASE WHEN t.CrossDepartFlag = '1' THEN 1 ELSE 0 END ) PlanOwnNum, 
+	SUM(CASE WHEN t.CrossDepartFlag = '2' THEN 1 ELSE 0 END ) PlanCrossNum, 
+	SUM(1) totalWork 
+	FROM cs_pub_scwork_plan t where 1=1
+	<if test="rptDateEnd != null and rptDateEnd != ''">
+	<![CDATA[ AND DATE_FORMAT(t.SetTime,'%Y-%m-%d') <= #{rptDateEnd} ]]>
+	</if>
+	<if test="rptYear != null and rptYear !=''">
+	and DATE_FORMAT(t.SetTime,'%Y') = #{rptYear}
+	</if> 
+	<if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+		<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+			separator="OR" close=")">
+			t.DutyDeptCode like concat('%',#{item},'%')
+		</foreach>
+	</if>
+	<if test="checkRptArea != null and checkRptArea != ''">
+	  and LEFT(t.SetDeptCode,4) = #{checkRptArea}
+	</if> 
+	<if test="groupFlag != null and groupFlag != ''">
+	 GROUP BY LEFT(t.SetDeptCode,4)
+	</if>
+	) a 
+	ON temp.deptCode = a.deptCode 
+	LEFT JOIN 
+	(SELECT LEFT(t.SetDeptCode,4) areaCode,      		
+	<if test="groupFlag != null and groupFlag != ''">
+      	LEFT(t.SetDeptCode,4) deptCode,
+    </if>
+	<if test="groupFlag == null || groupFlag == ''">
+	 '3300' deptCode,
+	</if>
+	SUM(CASE WHEN t.CrossDepartFlag = '1' THEN 1 ELSE 0 END ) ownNum, 
+	SUM(CASE WHEN t.CrossDepartFlag = '2' THEN 1 ELSE 0 END ) crossNum, 
+	SUM(1) totalTask 
+	FROM cs_pub_scplan_task t where 1=1 
+	<if test="rptDateEnd != null and rptDateEnd != ''">
+	<![CDATA[ AND DATE_FORMAT(t.SetTime,'%Y-%m-%d') <= #{rptDateEnd} ]]>
+	</if>
+	<if test="rptYear != null and rptYear !=''">
+	and DATE_FORMAT(t.SetTime,'%Y') = #{rptYear}
+	</if> 
+	<if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+		<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+			separator="OR" close=")">
+			t.DutyDeptCode like concat('%',#{item},'%')
+		</foreach>
+	</if>
+	<if test="checkRptArea != null and checkRptArea != ''">
+	  and LEFT(t.SetDeptCode,4) = #{checkRptArea}
+	</if> 
+	<if test="groupFlag != null and groupFlag != ''">
+	 GROUP BY LEFT(t.SetDeptCode,4)
+	</if> 
+	) b ON temp.deptCode = b.deptCode 
+	LEFT JOIN 
+	( 
+      SELECT 
+      LEFT (k.DeptCode, 4) areaCode,
+      		<if test="groupFlag != null and groupFlag != ''">
+      		LEFT(k.DeptCode, 4) deptCode,
+      		</if>
+      		<if test="groupFlag == null || groupFlag == ''">
+      		 '3300' deptCode,
+      		</if>
+     		<![CDATA[ SUM(CASE
+				WHEN t.AuditState <> '1' THEN
+					1
+				ELSE
+					0
+				END
+			) finishedNum,]]> 
+			SUM(1) EntTotal 
+   FROM
+			cs_pub_scent m
+		LEFT JOIN cs_pub_scent_result t ON m.taskuid = t.MainTaskUid
+		AND m.pripid = t.pripid
+		AND m.Uid = t.ScentUid
+		LEFT JOIN pub_scdept_task k ON m.DeptTaskUid = k.Uid
+		LEFT JOIN cs_pub_scplan_task a ON k.TaskUid = a.Uid
+		WHERE
+			LEFT(k.DeptCode, 4) IN (3300,3301,3302,3303,3304,3305,3306,3307,3308,3309,3310,3325)
+	   	<if test="rptDateEnd != null and rptDateEnd != ''">
+		<![CDATA[ AND DATE_FORMAT(a.SetTime,'%Y-%m-%d') <= #{rptDateEnd} ]]>
+		</if>
+		<if test="rptYear != null and rptYear !=''">
+		and DATE_FORMAT(a.SetTime,'%Y') = #{rptYear}
+		</if> 
+		<if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+			<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+				separator="OR" close=")">
+				a.DutyDeptCode like concat('%',#{item},'%')
+			</foreach>
+		</if>
+		<if test="checkRptArea != null and checkRptArea != ''">
+		  and LEFT (k.DeptCode, 4) = #{checkRptArea}
+		</if> 
+		<if test="groupFlag != null and groupFlag != ''">
+		 GROUP BY LEFT (k.DeptCode, 4)
+		</if>
+	) c 
+	ON temp.deptCode = c.deptCode ORDER BY temp.deptCode
+	</select>
+	
+</mapper>

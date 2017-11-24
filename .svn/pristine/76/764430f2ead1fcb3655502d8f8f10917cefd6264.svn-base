@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.sccheck.mapper.DrandomSpecialEntMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sccheck.model.DrandomSpecialEnt" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Uid" property="uid" jdbcType="VARCHAR" />
+    <result column="DutyDeptCode" property="dutyDeptCode" jdbcType="VARCHAR" />
+    <result column="DutyDeptName" property="dutyDeptName" jdbcType="VARCHAR" />
+    <result column="SpecialCode" property="specialCode" jdbcType="VARCHAR" />
+    <result column="SpecialName" property="specialName" jdbcType="VARCHAR" />
+    <result column="MarkCode" property="markCode" jdbcType="VARCHAR" />
+    <result column="MarkName" property="markName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="EntTypeCatg" property="entTypeCatg" jdbcType="VARCHAR" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="CHAR" />
+    <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+    <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+    <result column="OpScope" property="opScope" jdbcType="VARCHAR" />
+    <result column="Dom" property="dom" jdbcType="VARCHAR" />
+    <result column="EstDate" property="estDate" jdbcType="DATE" />
+    <result column="RegState" property="regState" jdbcType="CHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="CheckDeptCode" property="checkDeptCode" jdbcType="VARCHAR" />
+    <result column="CheckDeptName" property="checkDeptName" jdbcType="VARCHAR" />
+    <result column="OrganizationNO" property="organizationNO" jdbcType="VARCHAR" />
+    <result column="SubjectType" property="subjectType" jdbcType="VARCHAR" />
+    <result column="CreatTime" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="SetUserUid" property="setUserUid" jdbcType="VARCHAR" />
+    <result column="SetUserName" property="setUserName" jdbcType="VARCHAR" />
+    <result column="SetDeptCode" property="setDeptCode" jdbcType="VARCHAR" />
+    <result column="LicName" property="licName" jdbcType="VARCHAR" />
+    <result column="LicNO" property="licNO" jdbcType="VARCHAR" />
+    <result column="LicApprDate" property="licApprDate" jdbcType="TIMESTAMP" />
+    <result column="LicSaveEndDate" property="licSaveEndDate" jdbcType="TIMESTAMP" />
+    <result column="LicSendDeptCode" property="licSendDeptCode" jdbcType="VARCHAR" />
+    <result column="LicSendDeptName" property="licSendDeptName" jdbcType="VARCHAR" />
+    <result column="IsVlid" property="isVlid" jdbcType="CHAR" />
+  </resultMap>
+  
+  <resultMap id="DrandomSpecialEntDto" type="com.icinfo.cs.sccheck.dto.DrandomSpecialEntDto" extends="BaseResultMap">
+  		<result column="count" property="count" jdbcType="INTEGER" />
+		<result column="totalType" property="totalType" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 查询抽中企业的企业类型-->
+  <select id="selectCheckCodeList" resultType="java.lang.String" parameterType="java.lang.String"> 
+	SELECT
+		n.CheckCode
+	FROM
+		cs_drandom_special_ent t
+		left join cs_code_special_type n on t.SpecialCode = n.SpecialCode
+	WHERE t.PriPID = #{priPID}
+	AND t.IsVlid = '1'
+	AND n.CheckCode IS NOT NULL
+	GROUP BY n.CheckCode
+  </select>
+  
+    <select id="selectDrandomSpecialEntDtoList" resultMap="DrandomSpecialEntDto" parameterType="Map">
+		SELECT
+		 	t.Uid,t.DutyDeptCode,t.DutyDeptName,t.SpecialCode,t.SpecialName,t.MarkCode,t.MarkName,t.CheckDeptCode,t.CheckDeptName,
+		 	t.OrganizationNO,t.SubjectType,t.CreatTime,t.SetUserUid,t.SetUserName,t.SetDeptCode,t.LicName,t.LicNO,t.LicApprDate,
+		 	t.LicSaveEndDate,t.LicSendDeptCode,t.LicSendDeptName,t.OrganizationNO,t.IsVlid,
+		 	<if test="subjectType !='' and subjectType !=null and subjectType == 1">
+		 		m.RegNO,m.UniCode,m.PriPID,m.EntName,m.EntTypeCatg,m.RegOrg,m.LocalAdm,m.RegOrgName,m.LocalAdmName,m.EstDate,m.RegState,m.LeRep,m.Dom
+		 	</if>
+		 	<if test="subjectType !='' and subjectType !=null and subjectType != 1">
+		 		t.RegNO,t.UniCode,t.PriPID,t.EntName,t.EntTypeCatg,t.RegOrg,t.LocalAdm,t.RegOrgName,t.LocalAdmName,t.EstDate,t.RegState,t.LeRep,t.Dom
+		 	</if>
+		FROM
+			cs_drandom_special_ent t
+			<if test="subjectType !='' and subjectType !=null and subjectType == 1">
+				LEFT JOIN cs_mid_baseinfo m ON t.PriPID = m.PriPID
+			</if>
+		WHERE 1=1
+		<include refid="queryPageWhere" />
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	</select>
+	
+	<select id="selectSpecialCount" resultMap="DrandomSpecialEntDto" parameterType="Map">
+   SELECT
+	COUNT(DISTINCT t.PriPID) count,1 totalType
+	FROM
+		cs_drandom_special_ent t
+	  WHERE 1=1
+		<include refid="queryPageWhere" />
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	UNION ALL
+	SELECT
+	  COUNT(DISTINCT t.MarkCode) count,2 totalType
+	FROM
+		cs_drandom_special_ent t
+	  WHERE 1=1
+		<include refid="queryPageWhere" />
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	UNION ALL
+	SELECT
+	  COUNT(DISTINCT t.LicNO) count,3 totalType
+	FROM
+		cs_drandom_special_ent t
+	 WHERE t.LicNO != '' and t.LicNO is not null 
+		<include refid="queryPageWhere" />
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+  </select>
+	
+	<sql id="queryPageWhere">
+		<if test="subjectType !='' and subjectType !=null and subjectType == 1">
+			<if test="entName !='' and entName !=null">
+			    and t.EntName LIKE concat('%', #{entName},'%')
+			</if>
+			<if test="regNO !='' and regNO !=null">
+				and (t.Unicode LIKE concat('%', #{regNO},'%') or t.RegNO LIKE concat('%', #{regNO},'%'))
+			</if>
+			<if test="regOrgs!=null and regOrgs!=''">
+				and t.RegOrg IN
+				<foreach item="item" index="index" collection="regOrgs" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="localAdms!=null and localAdms!=''">
+				and t.LocalAdm IN
+				<foreach item="item" index="index" collection="localAdms" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="regStates!=null and regStates!=''">
+				and t.RegState IN
+				<foreach item="item" index="index" collection="regStates" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="dom !='' and dom !=null">
+			    and t.Dom concat('%', #{dom},'%')
+			</if>
+		</if>
+		<if test="subjectType !='' and subjectType !=null">
+		    and t.subjectType = ${subjectType}
+		</if>
+		 <if test="checkDeptCodes !=null and checkDeptCodes!=''">
+			and t.CheckDeptCode IN
+			<foreach item="item" index="index" collection="checkDeptCodes" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+<!-- 	     <if test="specialCodes!=null and specialCodes!=''"> -->
+<!-- 			and t.SpecialCode IN -->
+<!-- 			<foreach item="item" index="index" collection="specialCodes" open="(" -->
+<!-- 				separator="," close=")"> -->
+<!-- 				#{item} -->
+<!-- 			</foreach> -->
+<!-- 		</if> -->
+<!-- 	     <if test="markCodes!=null and markCodes!=''"> -->
+<!-- 			and t.MarkCode IN -->
+<!-- 			<foreach item="item" index="index" collection="markCodes" open="(" -->
+<!-- 				separator="," close=")"> -->
+<!-- 				#{item} -->
+<!-- 			</foreach> -->
+<!-- 		</if> -->
+	     <if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+			<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+				separator="OR" close=")">
+				t.DutyDeptCode like concat('%',#{item},'%')
+			</foreach>
+		</if>
+		<if test="specialCode !='' and specialCode !=null">
+		    and t.SpecialCode = #{specialCode}
+		</if>
+		<if test="markCode !='' and markCode !=null">
+		    and t.MarkCode = #{markCode}
+		</if>
+		<if test="setUserName !='' and setUserName !=null">
+		    and t.SetUserName = #{setUserName}
+		</if>
+		<if test="licName !='' and licName !=null">
+		    and t.LicName = #{licName}
+		</if>
+		<if test="licNO !='' and licNO !=null">
+		    and t.LicNO = #{licNO}
+		</if>
+		<if test="isVlid !='' and isVlid !=null">
+		    and t.IsVlid = #{isVlid}
+		</if>
+		<if test="licSendDeptName !='' and licSendDeptName !=null">
+		    and t.LicSendDeptName = #{licSendDeptName}
+		</if>
+		<if test="licSaveEndDateStart !='' and licSaveEndDateStart !=null">
+	      <![CDATA[
+		  and DATE_FORMAT(t.LicSaveEndDate,'%Y-%m-%d') >= #{licSaveEndDateStart}
+		  ]]>
+	     </if>
+	     <if test="licSaveEndDateEnd !='' and licSaveEndDateEnd !=null">
+	      <![CDATA[
+		  and DATE_FORMAT(t.LicSaveEndDate,'%Y-%m-%d') <= #{licSaveEndDateEnd}
+		  ]]>
+	     </if>
+	     <if test="creatTimeStart !='' and creatTimeStart !=null">
+	      <![CDATA[
+		  and DATE_FORMAT(t.CreatTime,'%Y-%m-%d') >= #{creatTimeStart}
+		  ]]>
+	     </if>
+	     <if test="creatTimeEnd !='' and creatTimeEnd !=null">
+	      <![CDATA[
+		  and DATE_FORMAT(t.CreatTime,'%Y-%m-%d') <= #{creatTimeEnd}
+		  ]]>
+	     </if>
+	</sql>
+</mapper>

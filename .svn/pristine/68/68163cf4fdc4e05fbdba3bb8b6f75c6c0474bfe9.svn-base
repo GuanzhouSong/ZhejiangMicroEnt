@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.es.mapper.SmEntSearchMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.es.model.SmEntSearch" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="EntType" property="entType" jdbcType="CHAR" />
+    <result column="EntNameNPPL" property="entNameNPPL" jdbcType="VARCHAR" />
+    <result column="EntTypeName" property="entTypeName" jdbcType="VARCHAR" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+    <result column="EntTypeCatg" property="entTypeCatg" jdbcType="CHAR" />
+    <result column="EntTypeCatgName" property="entTypeCatgName" jdbcType="VARCHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="CHAR" />
+    <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+    <result column="RegState" property="regState" jdbcType="CHAR" />
+    <result column="EstDate" property="estDate" jdbcType="TIMESTAMP" />
+    <result column="IndustryCo" property="industryCo" jdbcType="CHAR" />
+    <result column="IndustryCoName" property="industryCoName" jdbcType="VARCHAR" />
+    <result column="Dom" property="dom" jdbcType="VARCHAR" />
+    <result column="IndustryType" property="industryType" jdbcType="CHAR" />
+    <result column="IndustryName" property="industryName" jdbcType="VARCHAR" />
+    <result column="RegCap" property="regCap" jdbcType="DECIMAL" />
+    <result column="RegCapUSD" property="regCapUSD" jdbcType="DECIMAL" />
+    <result column="CultivationTypeCode" property="cultivationTypeCode" jdbcType="CHAR" />
+    <result column="CultivationTypeName" property="cultivationTypeName" jdbcType="VARCHAR" />
+    <result column="HelpState" property="helpState" jdbcType="CHAR" />
+    <result column="HelpTypeCode" property="helpTypeCode" jdbcType="CHAR" />
+    <result column="HelpTypeName" property="helpTypeName" jdbcType="VARCHAR" />
+    <result column="DemandType" property="demandType" jdbcType="CHAR" />
+    <result column="SliceNO" property="sliceNO" jdbcType="CHAR" />
+    <result column="SliceNOName" property="sliceNOName" jdbcType="VARCHAR" />
+    <result column="EmpNum2013" property="empNum2013" jdbcType="INTEGER" />
+    <result column="EmpNum2014" property="empNum2014" jdbcType="INTEGER" />
+    <result column="EmpNum2015" property="empNum2015" jdbcType="INTEGER" />
+    <result column="EmpNum2016" property="empNum2016" jdbcType="INTEGER" />
+    <result column="EmpNum2017" property="empNum2017" jdbcType="INTEGER" />
+    <result column="EmpNum2018" property="empNum2018" jdbcType="INTEGER" />
+    <result column="EmpNum2019" property="empNum2019" jdbcType="INTEGER" />
+    <result column="EmpNum2020" property="empNum2020" jdbcType="INTEGER" />
+    <result column="EmpNum2021" property="empNum2021" jdbcType="INTEGER" />
+    <result column="EmpNum2022" property="empNum2022" jdbcType="INTEGER" />
+    <result column="VendInc2013" property="vendInc2013" jdbcType="DECIMAL" />
+    <result column="VendInc2014" property="vendInc2014" jdbcType="DECIMAL" />
+    <result column="VendInc2015" property="vendInc2015" jdbcType="DECIMAL" />
+    <result column="VendInc2016" property="vendInc2016" jdbcType="DECIMAL" />
+    <result column="VendInc2017" property="vendInc2017" jdbcType="DECIMAL" />
+    <result column="VendInc2018" property="vendInc2018" jdbcType="DECIMAL" />
+    <result column="VendInc2019" property="vendInc2019" jdbcType="DECIMAL" />
+    <result column="VendInc2020" property="vendInc2020" jdbcType="DECIMAL" />
+    <result column="VendInc2021" property="vendInc2021" jdbcType="DECIMAL" />
+    <result column="VendInc2022" property="vendInc2022" jdbcType="DECIMAL" />
+    <result column="OpScope" property="opScope" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapDto" type="com.icinfo.cs.es.dto.SmEntSearchDto" extends="BaseResultMap">
+  </resultMap>
+    
+  <select id="selectMaxId" resultType="Integer">
+  	  select max(id) from sm_baseinfo
+  </select>
+  
+  <select id="selectIndexListById" parameterType="map" resultMap="BaseResultMapDto">
+	SELECT 
+	  A.id,
+	  A.PriPID priPID,
+	  A.RegNO regNO,
+	  A.UniCode uniCode,
+	  A.EntName entName,
+	  A.EntNameNPPL entNameNPPL,
+	  A.LeRep leRep,
+	  A.EntType entType,
+	  A.EntTypeName entTypeName,
+	  A.RegOrg regOrg,
+	  A.RegOrgName regOrgName,
+	  A.EntTypeCatg entTypeCatg,
+	  A.EntTypeCatgName entTypeCatgName,
+	  A.LocalAdm localAdm,
+	  A.LocalAdmName localAdmName,
+	  A.RegState regState,
+	  A.EstDate estDate,
+	  A.IndustryCo,
+	  A.IndustryCoName,
+	  A.Dom dom,
+	  A.OpScope opScope,
+	  A.IndustryType industryType,
+	  A.IndustryName industryName,
+	  A.RegCap regCap,
+	  A.RegCapUSD regCapUSD,
+	  A.RegState regState,
+	  A.CultivationTypeCode cultivationTypeCode,
+	  A.CultivationTypeName cultivationTypeName,
+	  A.HelpState helpState,
+	  A.HelpTypeCode helpTypeCode,
+	  A.HelpTypeName helpTypeName,
+	  A.DemandType demandType,
+	  A.SliceNO sliceNO,
+	  A.SliceNOName sliceNOName,
+	  A.EmpNum2013 empNum2013,
+	  A.EmpNum2014 empNum2014,
+	  A.EmpNum2015 empNum2015,
+	  A.EmpNum2016 empNum2016,
+	  A.EmpNum2017 empNum2017,
+	  A.EmpNum2018 empNum2018,
+	  A.EmpNum2019 empNum2019,
+	  A.EmpNum2020 empNum2020,
+	  A.EmpNum2021 empNum2021,
+	  A.EmpNum2022 empNum2022,
+	  A.VendInc2013 vendInc2013,
+	  A.VendInc2014 vendInc2014,
+	  A.VendInc2015 vendInc2015,
+	  A.VendInc2016 vendInc2016,
+	  A.VendInc2017 vendInc2017,
+	  A.VendInc2018 vendInc2018,
+	  A.VendInc2019 vendInc2019,
+	  A.VendInc2020 vendInc2020,
+	  A.VendInc2021 vendInc2021,
+	  A.VendInc2022 vendInc2022
+	FROM
+	  sm_ent_search A 
+    <![CDATA[
+    where A.id> #{start} and A.id<=#{end}
+    ]]>
+  limit 0,250000
+</select>
+</mapper>

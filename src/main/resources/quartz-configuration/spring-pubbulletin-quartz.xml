@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+	default-lazy-init="false">
+
+	
+	<bean id="pubBulletinQuartzJob" class="com.icinfo.cs.bulletin.controller.pub.PubBulletinController"> 
+	</bean>
+	
+	<bean id="pubBulletinQuartzJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">   
+        <property name="targetObject" ref="pubBulletinQuartzJob"/>  
+        <property name="targetMethod" value="creatBulletinByQuartz"/>  
+        <property name="concurrent" value="false"/>
+        <!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->  
+	</bean>
+	
+	<bean id="pubBulletinQuartzJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="pubBulletinQuartzJobDetail"/>  
+       <property name="cronExpression" value="0 0 1 * * ?"/>  
+	</bean>
+	
+	<!-- 定时触发器 *配置哪些定时任务需要执行*-->
+	<bean id="timer" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
+       <property name="triggers">  
+           <list>  
+              <ref bean="pubBulletinQuartzJobTrigger"/>
+           </list>  
+       </property>  
+       <property name="autoStartup" value="true"/>  
+</bean>
+</beans>
+

@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.BaseInfoMapper">
+	<resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.BaseInfo">
+		<!-- WARNING - @frameworkgenerated -->
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="PriPID" property="priPID" jdbcType="CHAR" />
+		<result column="EntName" property="entName" jdbcType="VARCHAR" />
+		<result column="RegNO" property="regNO" jdbcType="CHAR" />
+		<result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+		<result column="EntType" property="entType" jdbcType="CHAR" />
+		<result column="UniCode" property="uniCode" jdbcType="CHAR" />
+		<result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="LeRepPhone" property="leRepPhone" jdbcType="VARCHAR" />
+		<result column="EmpNum" property="empNum" jdbcType="INTEGER" />
+		<result column="Addr" property="addr" jdbcType="VARCHAR" />
+		<result column="ProGro" property="proGro" jdbcType="DECIMAL" />
+		<result column="RatGro" property="ratGro" jdbcType="DECIMAL" />
+		<result column="PostalCode" property="postalCode" jdbcType="CHAR" />
+		<result column="VendIncIsPub" property="vendIncIsPub" jdbcType="VARCHAR" />
+		<result column="DisableMgr" property="disableMgr" jdbcType="DECIMAL" />
+		<result column="Tel" property="tel" jdbcType="VARCHAR" />
+		<result column="Email" property="email" jdbcType="VARCHAR" />
+		<result column="Year" property="year" jdbcType="INTEGER" />
+		<result column="AssGro" property="assGro" jdbcType="DECIMAL" />
+		<result column="LiaGro" property="liaGro" jdbcType="DECIMAL" />
+		<result column="VendInc" property="vendInc" jdbcType="DECIMAL" />
+		<result column="NetInc" property="netInc" jdbcType="DECIMAL" />
+		<result column="BusSt" property="busSt" jdbcType="CHAR" />
+		<result column="MaiBusInc" property="maiBusInc" jdbcType="DECIMAL" />
+		<result column="TotEqu" property="totEqu" jdbcType="DECIMAL" />
+		<result column="EntSetDis" property="entSetDis" jdbcType="DECIMAL" />
+		<result column="EntOugthSetDis" property="entOugthSetDis"
+			jdbcType="DECIMAL" />
+		<result column="IsLegPay" property="isLegPay" jdbcType="CHAR" />
+		<result column="BusStatusCN" property="busStatusCN" jdbcType="VARCHAR" />
+		<result column="EmpNumDis" property="empNumDis" jdbcType="VARCHAR" />
+		<result column="AnType" property="anType" jdbcType="VARCHAR" />
+		<result column="AnCheID" property="anCheID" jdbcType="VARCHAR" />
+		<result column="ParInsCN" property="parInsCN" jdbcType="VARCHAR" />
+		<result column="SupEntname" property="supEntname" jdbcType="VARCHAR" />
+		<result column="SupRegNO" property="supRegNO" jdbcType="VARCHAR" />
+		<result column="LastReportTime" property="lastReportTime"
+			jdbcType="TIMESTAMP" />
+		<result column="AncheDate" property="ancheDate" jdbcType="TIMESTAMP" />
+		<result column="ParIns" property="parIns" jdbcType="CHAR" />
+		<result column="NumParM" property="numParM" jdbcType="INTEGER" />
+		<result column="ResParMSign" property="resParMSign" jdbcType="CHAR" />
+		<result column="ResParSecSign" property="resParSecSign"
+			jdbcType="CHAR" />
+		<result column="AssGroIsPub" property="assGroIsPub" jdbcType="VARCHAR" />
+		<result column="LiaGroIsPub" property="liaGroIsPub" jdbcType="VARCHAR" />
+		<result column="MaiBusIncIsPub" property="maiBusIncIsPub"
+			jdbcType="VARCHAR" />
+		<result column="RatGroIsPub" property="ratGroIsPub" jdbcType="VARCHAR" />
+		<result column="NetIncIsPub" property="netIncIsPub" jdbcType="VARCHAR" />
+		<result column="ProGroIsPub" property="proGroIsPub" jdbcType="VARCHAR" />
+		<result column="TotEquIsPub" property="totEquIsPub" jdbcType="VARCHAR" />
+		<result column="DisEmps" property="disEmps" jdbcType="INTEGER" />
+		<result column="DisOpers" property="disOpers" jdbcType="INTEGER" />
+		<result column="ExSoldEmps" property="exSoldEmps" jdbcType="INTEGER" />
+		<result column="ExSoldOpers" property="exSoldOpers" jdbcType="INTEGER" />
+		<result column="UniGradEmps" property="uniGradEmps" jdbcType="INTEGER" />
+		<result column="UniGradOpers" property="uniGradOpers" jdbcType="INTEGER" />
+		<result column="UnemEmps" property="unemEmps" jdbcType="INTEGER" />
+		<result column="UnemOpers" property="unemOpers" jdbcType="INTEGER" />
+		
+		<result column="Dom" property="dom" jdbcType="VARCHAR" />
+		<result column="EntMainBusActivity" property="entMainBusActivity" jdbcType="VARCHAR" />
+		<result column="EndowmentNum" property="endowmentNum" jdbcType="VARCHAR" />
+		<result column="UnemploymentNum" property="unemploymentNum" jdbcType="VARCHAR" />
+		<result column="MedicalNum" property="medicalNum" jdbcType="VARCHAR" />
+		<result column="EmpInjuryNum" property="empInjuryNum" jdbcType="VARCHAR" />
+		<result column="MaternityNum" property="maternityNum" jdbcType="VARCHAR" />
+		<result column="PaymentBase" property="paymentBase" jdbcType="VARCHAR" />
+		<result column="PaymentBaseIsPub" property="paymentBaseIsPub" jdbcType="VARCHAR" />
+		<result column="ActualPayment" property="actualPayment" jdbcType="VARCHAR" />
+		<result column="ActualPaymentIsPub" property="actualPaymentIsPub" jdbcType="VARCHAR" />
+		<result column="CumulArrears" property="cumulArrears" jdbcType="VARCHAR" />
+		<result column="CumulArrearsIsPub" property="cumulArrearsIsPub" jdbcType="VARCHAR" />
+		<result column="PaymentEndowment" property="paymentEndowment" jdbcType="VARCHAR" />
+		<result column="ActualPayEndowment" property="actualPayEndowment" jdbcType="VARCHAR" />
+		<result column="CumuEndowment" property="cumuEndowment" jdbcType="VARCHAR" />
+		<result column="PaymentUnemployment" property="paymentUnemployment" jdbcType="VARCHAR" />
+		<result column="ActualPayUnemployment" property="actualPayUnemployment" jdbcType="VARCHAR" />
+		<result column="CumuUnemployment" property="cumuUnemployment" jdbcType="VARCHAR" />
+		<result column="PaymentMedical" property="paymentMedical" jdbcType="VARCHAR" />
+		<result column="ActualPayMedical" property="actualPayMedical" jdbcType="VARCHAR" />
+		<result column="CumuMedical" property="cumuMedical" jdbcType="VARCHAR" />
+		<result column="PaymentEmpInjury" property="paymentEmpInjury" jdbcType="VARCHAR" />
+		<result column="ActualPayEmpInjury" property="actualPayEmpInjury" jdbcType="VARCHAR" />
+		<result column="CumuEmpInjury" property="cumuEmpInjury" jdbcType="VARCHAR" />
+		<result column="PaymentMaternity" property="paymentMaternity" jdbcType="VARCHAR" />
+		<result column="ActualPayMaternity" property="actualPayMaternity" jdbcType="VARCHAR" />
+		<result column="CumuMaternity" property="cumuMaternity" jdbcType="VARCHAR" />
+		
+		<result column="FemaleEmploye" property="femaleEmploye" jdbcType="INTEGER" />
+		<result column="EntControl" property="entControl" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="BaseResultMapDto" type="com.icinfo.cs.yr.dto.BaseInfoDto" extends="BaseResultMap">
+		<result column="AnCheName" property="anCheName" jdbcType="VARCHAR" />
+		<result column="AncheDateStr" property="ancheDateStr" jdbcType="VARCHAR" />
+		<result column="UpdateInfo" property="updateInfo" jdbcType="VARCHAR" />
+		<result column="EmpNumStr" property="empNumStr" jdbcType="VARCHAR" />
+		<result column="IfWebSite" property="ifWebSite" jdbcType="VARCHAR" />
+		<result column="IfForInvest" property="ifForInvest" jdbcType="VARCHAR" />
+		<result column="IfAleErstock" property="ifAleErstock" jdbcType="VARCHAR" />
+		
+		<result column="ProGroStr" property="proGroStr" jdbcType="VARCHAR" />
+		<result column="AssGroStr" property="assGroStr" jdbcType="VARCHAR" />
+		<result column="LiaGroStr" property="liaGroStr" jdbcType="VARCHAR" />
+		<result column="VendIncStr" property="vendIncStr" jdbcType="VARCHAR" />
+		<result column="NetIncStr" property="netIncStr" jdbcType="VARCHAR" />
+		<result column="MaiBusIncStr" property="maiBusIncStr" jdbcType="VARCHAR" />
+		<result column="TotEquStr" property="totEquStr" jdbcType="VARCHAR" />
+		<result column="RatGroStr" property="ratGroStr" jdbcType="VARCHAR" />
+		<result column="AltItem" property="altItem" jdbcType="VARCHAR" />
+        <result column="AltTable" property="altTable" jdbcType="VARCHAR" />
+		<result column="AltTableItem" property="altTableItem" jdbcType="VARCHAR" />
+		
+		<result column="FemaleEmployeStr" property="femaleEmployeStr" jdbcType="VARCHAR" />
+		<result column="EntControlStr" property="entControlStr" jdbcType="VARCHAR" />
+		<result column="IfForguarantee" property="ifForguarantee" jdbcType="VARCHAR" />
+		
+		<result column="PaymentBaseStr" property="paymentBaseStr" jdbcType="VARCHAR" />
+		<result column="ActualPaymentStr" property="actualPaymentStr" jdbcType="VARCHAR" />
+		<result column="CumulArrearsStr" property="cumulArrearsStr" jdbcType="VARCHAR" />
+		
+		<result column="PaymentEndowmentStr" property="paymentEndowmentStr" jdbcType="VARCHAR" />
+		<result column="ActualPayEndowmentStr" property="actualPayEndowmentStr" jdbcType="VARCHAR" />
+		<result column="CumuEndowmentStr" property="cumuEndowmentStr" jdbcType="VARCHAR" />
+		<result column="PaymentUnemploymentStr" property="paymentUnemploymentStr" jdbcType="VARCHAR" />
+		<result column="ActualPayUnemploymentStr" property="actualPayUnemploymentStr" jdbcType="VARCHAR" />
+		<result column="CumuUnemploymentStr" property="cumuUnemploymentStr" jdbcType="VARCHAR" />
+		<result column="PaymentMedicalStr" property="paymentMedicalStr" jdbcType="VARCHAR" />
+		<result column="ActualPayMedicalStr" property="actualPayMedicalStr" jdbcType="VARCHAR" />
+		<result column="CumuMedicalStr" property="cumuMedicalStr" jdbcType="VARCHAR" />
+		<result column="PaymentEmpInjuryStr" property="paymentEmpInjuryStr" jdbcType="VARCHAR" />
+		<result column="ActualPayEmpInjuryStr" property="actualPayEmpInjuryStr" jdbcType="VARCHAR" />
+		<result column="CumuEmpInjuryStr" property="cumuEmpInjuryStr" jdbcType="VARCHAR" />
+		<result column="PaymentMaternityStr" property="paymentMaternityStr" jdbcType="VARCHAR" />
+		<result column="ActualPayMaternityStr" property="actualPayMaternityStr" jdbcType="VARCHAR" />
+		<result column="CumuMaternityStr" property="cumuMaternityStr" jdbcType="VARCHAR" />
+		
+		<result column="EstDate" property="estDate" jdbcType="VARCHAR" />
+		<result column="RegCap" property="regCap" jdbcType="VARCHAR" />
+		<result column="CurrencyCN" property="currencyCN" jdbcType="VARCHAR" />
+		<result column="IsIndivid" property="isIndivid" jdbcType="VARCHAR" />
+		<result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+		<result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+		<result column="SliceNOName" property="sliceNOName" jdbcType="VARCHAR" />
+		<result column="RegState" property="regState" jdbcType="VARCHAR" />
+		
+	</resultMap>
+	
+	<resultMap id="YrAssetCount" type="com.icinfo.cs.yr.dto.YrAssetCount">
+  	   <result column="assGroCount" property="assGroCount" jdbcType="DOUBLE" />
+  	   <result column="liaGroCount" property="liaGroCount" jdbcType="DOUBLE" />
+  	   <result column="totEquCount" property="totEquCount" jdbcType="DOUBLE" />
+  	   <result column="vendIncCount" property="vendIncCount" jdbcType="DOUBLE" />
+  	   <result column="maiBusIncCount" property="maiBusIncCount" jdbcType="DOUBLE" />
+  	   <result column="proGroCount" property="proGroCount" jdbcType="DOUBLE" />
+  	   <result column="netIncCount" property="netIncCount" jdbcType="DOUBLE" />
+  	   <result column="ratGroCount" property="ratGroCount" jdbcType="DOUBLE" />
+  	   <result column="empNumCount" property="empNumCount" jdbcType="DOUBLE" />
+  	   <result column="femaleEmployeCount" property="femaleEmployeCount" jdbcType="DOUBLE" />
+    </resultMap>
+
+	<select id="selectBaseInfoList" parameterType="String" resultMap="BaseResultMapDto">
+	  SELECT
+		(@i:=@i+1) as id,
+		t.EntName,
+		t.RegNO,
+		t.LeRep,
+		t.EntType,
+		t.UniCode,
+		t.CreateTime,
+		t.LeRepPhone,
+		t.Addr,
+		t.PostalCode,
+		t.Tel,
+		t.Email,
+		t. YEAR,
+		t.BusSt,
+		t.BusStatusCN,
+		t.AnType,
+		t.AnCheID,
+		t.ParInsCN,
+		t.SupEntname,
+		t.LastReportTime,
+		t.AncheDate,
+		t.isLegPay,
+		t.disOpers,
+		t.entOugthSetDis,
+		t.entSetDis,
+		CONCAT(t.year,'年度报告') AncheName,
+		(SELECT count(1) from cs_updateinfo s where t.AnCheID = s.AnCheID)
+		UPDATEINFO,
+		(SELECT GROUP_CONCAT(s.AltTable separator ',') from cs_updateinfo s where s.AnCheID  = t.AnCheID ) AltTableItem,
+		date_format(t.anCheDate,'%Y-%m-%d') AnCheDateStr,
+		case when t.EmpNumDis = '1' and IFNULL(t.EmpNum,0) > 0 then concat(t.EmpNum ,'人') else '企业选择不公示' end EmpNumStr,
+		(select count(1) from cs_websiteinfo s where t.AnCheID = s.AnCheID ) IfWebSite,
+		(select count(1) from cs_forinvestment s where t.AnCheID = s.AnCheID ) IfForInvest,
+		(select count(1) from cs_alterstockinfo s where t.AnCheID = s.AnCheID ) IfAleErstock,
+
+		case when t.ProGroIsPub = '1' then concat(t.ProGro ,'万元') else '企业选择不公示' end ProGroStr,
+		case when t.AssGroIsPub = '1' then concat(t.AssGro ,'万元') else '企业选择不公示' end AssGroStr,
+		case when t.LiaGroIsPub = '1' then concat(LiaGro ,'万元') else '企业选择不公示' end LiaGroStr,
+		case when t.VendIncIsPub = '1' then concat(t.VendInc ,'万元') else '企业选择不公示' end VendIncStr,
+		case when t.NetIncIsPub = '1' then concat(t.NetInc ,'万元') else '企业选择不公示' end NetIncStr,
+		case when t.MaiBusIncIsPub = '1' then concat(t.MaiBusInc ,'万元') else '企业选择不公示' end MaiBusIncStr,
+		case when t.TotEquIsPub = '1' then concat(t.TotEqu,'万元') else '企业选择不公示' end TotEquStr,
+		case when t.RatGroIsPub = '1' then concat(t.RatGro,'万元') else '企业选择不公示' end RatGroStr,
+		(SELECT GROUP_CONCAT(s.AltItem separator ',') from cs_updateinfo s where s.AnCheID  = t.AnCheID  
+	      and s.AltTable = 'BaseInfo') AltItem
+	  from cs_baseinfo t , (select @i:=0) ss
+	  WHERE t.priPID=#{priPID}
+	  order by t.year desc
+	</select>
+	
+	<select id="selectYrInfoListByPriPID" parameterType="String" resultMap="BaseResultMapDto">
+SELECT 
+  	    t.EntName,
+		t.RegNO,
+		t.LeRep,
+		t.EntType,
+		t.UniCode,
+		t.CreateTime,
+		t.LeRepPhone,
+		t.Addr,
+		t.PostalCode,
+		t.Tel,
+		t.Email,
+		t. YEAR,
+		t.BusSt,
+		t.BusStatusCN,
+		t.AnType,
+		t.AnCheID,
+		t.ParInsCN,
+		t.SupEntname,
+		t.SupRegNO,
+		t.LastReportTime,
+		t.AncheDate,
+		t.isLegPay,
+		t.disOpers,
+		t.entOugthSetDis,
+		t.entSetDis,
+		t.dom,
+		t.EntMainBusActivity,
+		t.EndowmentNum,
+		t.UnemploymentNum,
+		t.MedicalNum,
+		t.EmpInjuryNum,
+		t.MaternityNum,
+		CONCAT(t.year,'年度报告') AncheName,
+		(SELECT COUNT(1) FROM cs_updateinfo s WHERE t.AnCheID = s.AnCheID)
+		UPDATEINFO,
+		(SELECT GROUP_CONCAT(s.AltTable SEPARATOR ',') FROM cs_updateinfo s WHERE s.AnCheID  = t.AnCheID ) AltTableItem,
+		DATE_FORMAT(t.anCheDate,'%Y-%m-%d') AnCheDateStr,
+		CASE WHEN t.EmpNumDis = '1' AND IFNULL(t.EmpNum,0) > 0 THEN CONCAT(t.EmpNum ,'人') ELSE '企业选择不公示' END EmpNumStr,
+		CASE WHEN t.FemaleEmployeIsPub = '1' THEN CONCAT(t.FemaleEmploye ,'人') ELSE '企业选择不公示' END FemaleEmployeStr,
+		CASE WHEN t.EntControlIsPub = '1' THEN t.EntControl ELSE '企业选择不公示' END EntControlStr,
+		(SELECT COUNT(1) FROM cs_websiteinfo s WHERE t.AnCheID = s.AnCheID ) IfWebSite,
+		(SELECT COUNT(1) FROM cs_forinvestment s WHERE t.AnCheID = s.AnCheID ) IfForInvest,
+		(SELECT COUNT(1) FROM cs_alterstockinfo s WHERE t.AnCheID = s.AnCheID ) IfAleErstock,
+		(SELECT COUNT(1) FROM cs_forguaranteeinfo s WHERE t.AnCheID = s.AnCheID ) IfForguarantee,
+
+		CASE WHEN t.PaymentBaseIsPub = '1' THEN PaymentBase ELSE '企业选择不公示' END PaymentBaseStr,
+		CASE WHEN t.ActualPaymentIsPub = '1' THEN ActualPayment ELSE '企业选择不公示' END ActualPaymentStr,
+		CASE WHEN t.CumulArrearsIsPub = '1' THEN CumulArrears ELSE '企业选择不公示' END CumulArrearsStr,
+
+		CASE WHEN t.ProGroIsPub = '1' THEN CONCAT(t.ProGro ,'万元') ELSE '企业选择不公示' END ProGroStr,
+		CASE WHEN t.AssGroIsPub = '1' THEN CONCAT(t.AssGro ,'万元') ELSE '企业选择不公示' END AssGroStr,
+		CASE WHEN t.LiaGroIsPub = '1' THEN CONCAT(t.LiaGro ,'万元') ELSE '企业选择不公示' END LiaGroStr,
+		CASE WHEN t.VendIncIsPub = '1' THEN CONCAT(t.VendInc ,'万元') ELSE '企业选择不公示' END VendIncStr,
+		CASE WHEN t.NetIncIsPub = '1' THEN CONCAT(t.NetInc ,'万元') ELSE '企业选择不公示' END NetIncStr,
+		CASE WHEN t.MaiBusIncIsPub = '1' THEN CONCAT(t.MaiBusInc ,'万元') ELSE '企业选择不公示' END MaiBusIncStr,
+		CASE WHEN t.TotEquIsPub = '1' THEN CONCAT(t.TotEqu ,'万元') ELSE '企业选择不公示' END TotEquStr,
+		CASE WHEN t.RatGroIsPub = '1' THEN CONCAT(t.RatGro,'万元') ELSE '企业选择不公示' END RatGroStr,
+		(SELECT GROUP_CONCAT(s.AltItem SEPARATOR ',') FROM cs_updateinfo s WHERE s.AnCheID  = t.AnCheID
+	      AND s.AltTable = 'BaseInfo') AltItem
+FROM
+  cs_baseinfo t
+	  WHERE t.priPID=#{priPID}
+	  order by year desc
+	</select>
+	
+	<select id="selectBaseInfoByPriPIDAndYear" parameterType="Map" resultMap="BaseResultMapDto">
+	  SELECT
+		t.EntName,
+		t.RegNO,
+		t.LeRep,
+		t.EntType,
+		t.UniCode,
+		t.CreateTime,
+		t.LeRepPhone,
+		t.Addr,
+		t.PostalCode,
+		t.Tel,
+		t.Email,
+		t. YEAR,
+		t.BusSt,
+		t.BusStatusCN,
+		t.AnType,
+		t.AnCheID,
+		t.ParInsCN,
+		t.SupEntname,
+		t.SupRegNO,
+		t.LastReportTime,
+		t.AncheDate,
+		t.isLegPay,
+		t.disOpers,
+		t.entOugthSetDis,
+		t.entSetDis,
+		t.dom,
+		t.EntMainBusActivity,
+		t.EndowmentNum,
+		t.UnemploymentNum,
+		t.MedicalNum,
+		t.EmpInjuryNum,
+		t.MaternityNum,
+		
+		CONCAT(t.year,'年度报告') AncheName,
+		(SELECT COUNT(1) FROM cs_updateinfo s WHERE t.AnCheID = s.AnCheID)
+		UPDATEINFO,
+		(SELECT GROUP_CONCAT(s.AltTable SEPARATOR ',') FROM cs_updateinfo s WHERE s.AnCheID  = t.AnCheID ) AltTableItem,
+		DATE_FORMAT(t.anCheDate,'%Y-%m-%d') AnCheDateStr,
+		CASE WHEN t.EmpNumDis = '1' AND IFNULL(t.EmpNum,0) > 0 THEN CONCAT(t.EmpNum ,'人') ELSE '企业选择不公示' END EmpNumStr,
+		CASE WHEN t.FemaleEmployeIsPub = '1' THEN CONCAT(t.FemaleEmploye ,'人') ELSE '企业选择不公示' END FemaleEmployeStr,
+		CASE WHEN t.EntControlIsPub = '1' THEN t.EntControl ELSE '企业选择不公示' END EntControlStr,
+		(SELECT COUNT(1) FROM cs_websiteinfo s WHERE t.AnCheID = s.AnCheID ) IfWebSite,
+		(SELECT COUNT(1) FROM cs_forinvestment s WHERE t.AnCheID = s.AnCheID ) IfForInvest,
+		(SELECT COUNT(1) FROM cs_alterstockinfo s WHERE t.AnCheID = s.AnCheID ) IfAleErstock,
+		(SELECT COUNT(1) FROM cs_forguaranteeinfo s WHERE t.AnCheID = s.AnCheID ) IfForguarantee,
+
+		CASE WHEN t.PaymentBaseIsPub = '1' THEN PaymentBase ELSE '企业选择不公示' END PaymentBaseStr,
+		CASE WHEN t.ActualPaymentIsPub = '1' THEN ActualPayment ELSE '企业选择不公示' END ActualPaymentStr,
+		CASE WHEN t.CumulArrearsIsPub = '1' THEN CumulArrears ELSE '企业选择不公示' END CumulArrearsStr,
+		
+		CASE WHEN t.ProGroIsPub = '1' THEN CONCAT(t.ProGro ,'万元') ELSE '企业选择不公示' END ProGroStr,
+		CASE WHEN t.AssGroIsPub = '1' THEN CONCAT(t.AssGro ,'万元') ELSE '企业选择不公示' END AssGroStr,
+		CASE WHEN t.LiaGroIsPub = '1' THEN CONCAT(t.LiaGro ,'万元') ELSE '企业选择不公示' END LiaGroStr,
+		CASE WHEN t.VendIncIsPub = '1' THEN CONCAT(t.VendInc ,'万元') ELSE '企业选择不公示' END VendIncStr,
+		CASE WHEN t.NetIncIsPub = '1' THEN CONCAT(t.NetInc ,'万元') ELSE '企业选择不公示' END NetIncStr,
+		CASE WHEN t.MaiBusIncIsPub = '1' THEN CONCAT(t.MaiBusInc ,'万元') ELSE '企业选择不公示' END MaiBusIncStr,
+		CASE WHEN t.TotEquIsPub = '1' THEN CONCAT(t.TotEqu ,'万元') ELSE '企业选择不公示' END TotEquStr,
+		CASE WHEN t.RatGroIsPub = '1' THEN CONCAT(t.RatGro,'万元') ELSE '企业选择不公示' END RatGroStr,
+		
+		CASE WHEN t.PaymentBaseIsPub = '1' THEN CONCAT(t.PaymentEndowment ,'万元') ELSE '企业选择不公示' END PaymentEndowmentStr,
+		CASE WHEN t.PaymentBaseIsPub = '1' THEN CONCAT(t.PaymentEmpInjury ,'万元') ELSE '企业选择不公示' END PaymentEmpInjuryStr,
+		CASE WHEN t.PaymentBaseIsPub = '1' THEN CONCAT(t.PaymentUnemployment ,'万元') ELSE '企业选择不公示' END PaymentUnemploymentStr,
+		CASE WHEN t.PaymentBaseIsPub = '1' THEN CONCAT(t.PaymentMedical ,'万元') ELSE '企业选择不公示' END PaymentMedicalStr,
+		CASE WHEN t.PaymentBaseIsPub = '1' THEN CONCAT(t.PaymentMaternity ,'万元') ELSE '企业选择不公示' END PaymentMaternityStr,
+		
+		CASE WHEN t.ActualPaymentIsPub = '1' THEN CONCAT(t.ActualPayEndowment ,'万元') ELSE '企业选择不公示' END ActualPayEndowmentStr,
+		CASE WHEN t.ActualPaymentIsPub = '1' THEN CONCAT(t.ActualPayUnemployment ,'万元') ELSE '企业选择不公示' END ActualPayUnemploymentStr,
+		CASE WHEN t.ActualPaymentIsPub = '1' THEN CONCAT(t.ActualPayMedical ,'万元') ELSE '企业选择不公示' END ActualPayMedicalStr,
+		CASE WHEN t.ActualPaymentIsPub = '1' THEN CONCAT(t.ActualPayEmpInjury ,'万元') ELSE '企业选择不公示' END ActualPayEmpInjuryStr,
+		CASE WHEN t.ActualPaymentIsPub = '1' THEN CONCAT(t.ActualPayMaternity ,'万元') ELSE '企业选择不公示' END ActualPayMaternityStr,
+		
+		CASE WHEN t.CumulArrearsIsPub = '1' THEN CONCAT(t.CumuEndowment ,'万元') ELSE '企业选择不公示' END CumuEndowmentStr,
+		CASE WHEN t.CumulArrearsIsPub = '1' THEN CONCAT(t.CumuUnemployment ,'万元') ELSE '企业选择不公示' END CumuUnemploymentStr,
+		CASE WHEN t.CumulArrearsIsPub = '1' THEN CONCAT(t.CumuMedical ,'万元') ELSE '企业选择不公示' END CumuMedicalStr,
+		CASE WHEN t.CumulArrearsIsPub = '1' THEN CONCAT(t.CumuEmpInjury ,'万元') ELSE '企业选择不公示' END CumuEmpInjuryStr,
+		CASE WHEN t.CumulArrearsIsPub = '1' THEN CONCAT(t.CumuMaternity ,'万元') ELSE '企业选择不公示' END CumuMaternityStr,
+		
+		(SELECT GROUP_CONCAT(s.AltItem SEPARATOR ',') FROM cs_updateinfo s WHERE s.AnCheID  = t.AnCheID  
+	      AND s.AltTable = 'BaseInfo') AltItem
+	  FROM cs_baseinfo t
+	  WHERE t.priPID=#{priPID} and t.year=#{year}
+	</select>
+	
+	<select id="selectBaseInfoForbidwordInfoByAncheID" parameterType="String" resultType="String">
+	   select case when A.AuditState ='1' then '1' else '0' end ifFilter from cs_baseinfo A
+	     where A.AnCheID=#{AnCheID} 
+	</select>
+	
+	<select id="selectBaseInfoForbidwordInfoByPriPIDAndYear" parameterType="Map" resultType="String">
+	   select case when A.AuditState ='1' then '1' else '0' end ifFilter from cs_baseinfo A
+	     where A.priPID=#{priPID} and A.year=#{year} 
+	</select>
+	
+	<select id="selectEntBaseinfoAssetList" parameterType="Map" resultMap="BaseResultMapDto">
+		SELECT
+		B.UniCode,
+		B.RegNO,
+		B.EntName,
+		B.LeRep,
+		B.EstDate,
+		B.RegCap,
+		B.CurrencyCN,
+		B.IsIndivid,
+		A.YEAR,
+		A.LastReportTime,
+		A.AncheDate,
+		A.AssGro,
+		A.LiaGro,
+		A.TotEqu,
+		A.VendInc,
+		A.MaiBusInc,
+		A.ProGro,
+		A.NetInc,
+		A.RatGro,
+		A.EmpNum,
+		A.FemaleEmploye,
+		A.EntControl,
+		A.BusSt,
+		B.RegOrgName,
+		B.LocalAdmName,
+		B.SliceNOName,
+		B.RegState
+	FROM
+		cs_baseinfo A
+	LEFT JOIN cs_mid_baseinfo B
+	ON A.PriPID=B.PriPID
+	WHERE
+		<include refid="baseinfoasset_where"></include>
+	</select>
+	
+	<sql id="baseinfoasset_where">
+		A.YEAR = #{year}
+        AND B.EntTypeCatg IN (${entTypeCatg})
+		<if test="cidRegNO !=null and cidRegNO != ''">
+            AND (B.RegNO LIKE concat('%', #{cidRegNO}) OR B.UniCode LIKE concat('%', #{cidRegNO}))
+        </if>
+        <if test="leRep != null and leRep != ''">
+		  	AND	B.LeRep = #{leRep}
+		</if>
+		<if test="entType !=null and entType != ''">
+            AND B.EntType IN (${entType})
+        </if>
+        <if test="entName !=null and entName != ''">
+            AND B.EntName LIKE concat('%', #{entName},'%')
+        </if>
+        <if test="regOrg !=null and regOrg != ''">
+            AND B.RegOrg IN (${regOrg})
+        </if>
+        <if test="localAdm !=null and localAdm != ''">
+            AND B.LocalAdm IN (${localAdm})
+        </if>
+        <if test="estDateStart != null and estDateStart != ''">
+			AND	<![CDATA[ B.EstDate >= #{estDateStart} ]]>
+		</if>
+		<if test="estDateEnd != null and estDateEnd != ''">
+			AND	<![CDATA[ B.EstDate <= #{estDateEnd} ]]>
+		</if>
+		<if test="ancheDateStart != null and ancheDateStart != ''">
+			AND	<![CDATA[ A.AncheDate >= #{ancheDateStart} ]]>
+		</if>
+		<if test="ancheDateEnd != null and ancheDateEnd != ''">
+			AND	<![CDATA[ A.AncheDate <= #{ancheDateEnd} ]]>
+		</if>
+		<if test="sliceNO !=null and sliceNO != ''">
+            AND B.SliceNO IN (${sliceNO})
+        </if>
+        <if test="regState !=null and regState != ''">
+            AND B.RegState IN (${regState})
+        </if>
+        <if test="regCapStart != null and regCapStart != ''">
+			AND	<![CDATA[ B.RegCap >= #{regCapStart} ]]>
+		</if>
+		<if test="regCapEnd != null and regCapEnd != ''">
+			AND	<![CDATA[ B.RegCap <= #{regCapEnd} ]]>
+		</if>
+		<if test="dom !=null and dom != ''">
+            AND B.Dom LIKE concat('%', #{dom},'%')
+        </if>
+        <if test="isIndivid !=null and isIndivid != ''">
+            AND IFNULL(B.IsIndivid,0) = #{isIndivid}
+        </if>
+        <if test="opScope !=null and opScope != ''">
+            AND B.OpScope LIKE concat('%', #{opScope},'%')
+        </if>
+        <if test="busSt !=null and busSt != ''">
+            AND A.BusSt = #{busSt}
+        </if>
+        <if test="empNumStart != null and empNumStart != ''">
+			AND	<![CDATA[ A.EmpNum >= #{empNumStart} ]]>
+		</if>
+		<if test="empNumEnd != null and empNumEnd != ''">
+			AND	<![CDATA[ A.EmpNum <= #{empNumEnd} ]]>
+		</if>
+		<if test="industryCo !=null and industryCo != ''">
+            AND B.IndustryCo IN (${industryCo})
+        </if>
+        <if test="entControl !=null and entControl != ''">
+            AND A.EntControl = #{entControl}
+        </if>
+        <if test="assGro !=null and assGro != ''">
+            AND IFNULL(A.AssGro,0) = 0
+        </if>
+        <if test="liaGro !=null and liaGro != ''">
+            AND IFNULL(A.LiaGro,0) = 0
+        </if>
+        <if test="totEqu !=null and totEqu != ''">
+            AND IFNULL(A.TotEqu,0) = 0
+        </if>
+        <if test="vendInc !=null and vendInc != ''">
+            AND IFNULL(A.VendInc,0) = 0
+        </if>
+        <if test="maiBusInc !=null and maiBusInc != ''">
+            AND IFNULL(A.MaiBusInc,0) = 0
+        </if>
+        <if test="proGro !=null and proGro != ''">
+            AND IFNULL(A.ProGro,0) = 0
+        </if>
+        <if test="netInc !=null and netInc != ''">
+            AND IFNULL(A.NetInc,0) = 0
+        </if>
+        <if test="ratGro !=null and ratGro != ''">
+            AND IFNULL(A.RatGro,0) = 0
+        </if>
+        
+	</sql>
+	<select id="queryEntYrAssetCount" resultMap="YrAssetCount" parameterType="Map">
+	SELECT
+		SUM(B.AssGro) assGroCount,
+		SUM(B.LiaGro) liaGroCount,
+		SUM(B.TotEqu) totEquCount,
+		SUM(B.VendInc) vendIncCount,
+		SUM(B.MaiBusInc) maiBusIncCount,
+		SUM(B.ProGro) proGroCount,
+		SUM(B.NetInc) netIncCount,
+		SUM(B.RatGro) ratGroCount,
+		SUM(B.EmpNum) empNumCount,
+		SUM(B.FemaleEmploye) femaleEmployeCount FROM
+	(SELECT
+		A.AssGro,
+		A.LiaGro,
+		A.TotEqu,
+		A.VendInc,
+		A.MaiBusInc,
+		A.ProGro,
+		A.NetInc,
+		A.RatGro,
+		A.EmpNum,
+		A.FemaleEmploye
+	FROM
+		cs_baseinfo A
+	LEFT JOIN cs_mid_baseinfo B 
+	ON A.PriPID = B.PriPID
+	WHERE
+	<include refid="baseinfoasset_where"></include>
+	LIMIT #{pageNum},#{length}) B
+	</select>
+	
+</mapper>

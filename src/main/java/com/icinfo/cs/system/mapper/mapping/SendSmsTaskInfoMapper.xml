@@ -1,0 +1,814 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.system.mapper.SendSmsTaskInfoMapper" >
+  <resultMap id="SendSmsTaskInfo" type="com.icinfo.cs.system.model.SendSmsTaskInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="smsid" property="smsid" jdbcType="VARCHAR" />
+    <result column="taskid" property="taskid" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="UniSCID" property="uniSCID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="EstDate" property="estDate" jdbcType="TIMESTAMP" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="liaLeRepPhone" property="liaLeRepPhone" jdbcType="VARCHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="LiaName" property="liaName" jdbcType="VARCHAR" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="VARCHAR" />
+    <result column="EntTypeCatg" property="entTypeCatg" jdbcType="VARCHAR" />
+    <result column="SliceNo" property="sliceNo" jdbcType="VARCHAR" />
+    <result column="sendLerepTime" property="sendLerepTime" jdbcType="TIMESTAMP" />
+    <result column="isSendLerep" property="isSendLerep" jdbcType="CHAR" />
+    <result column="sendLiaTime" property="sendLiaTime" jdbcType="TIMESTAMP" />
+    <result column="isSendLia" property="isSendLia" jdbcType="CHAR" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap id="SendSmsTaskInfoDto" type="com.icinfo.cs.system.dto.SendSmsTaskInfoDto" extends="SendSmsTaskInfo">
+  	 <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+  	 <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+  	 <result column="SendObjType" property="sendObjType" jdbcType="VARCHAR" />
+  	 <result column="SendObjName" property="sendObjName" jdbcType="VARCHAR" />
+  	 <result column="SendObjTel" property="sendObjTel" jdbcType="VARCHAR" />
+  	 <result column="SendTime" property="sendTime" jdbcType="VARCHAR" />
+  	 <result column="SendStatus" property="sendStatus" jdbcType="VARCHAR" />
+  	 <result column="TaskName" property="taskName" jdbcType="VARCHAR" />
+  	 <result column="Phone" property="phone" jdbcType="VARCHAR" />
+  	 <result column="SmsType" property="smsType" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="TaskInfoCount" type="com.icinfo.cs.system.dto.TaskInfoCount">
+  	 <result column="num1" property="num1" jdbcType="INTEGER" />
+  	 <result column="num2" property="num2" jdbcType="INTEGER" />
+  	 <result column="num3" property="num3" jdbcType="INTEGER" />
+  	 <result column="num4" property="num4" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <select id="queryPageResultByUID" resultMap="SendSmsTaskInfoDto" parameterType="Map">
+	 SELECT 
+	 smsid, 
+	 taskid,
+	 RegNO,
+	 UniSCID,
+	 EntName,
+	 EntTypeCatg,
+	 EstDate,
+	 SendObjType,
+	 SendObjName,
+	 SendObjTel,
+	 RegOrg,
+	 RegOrgName,
+	 LocalAdm,
+	 LocalAdmName,
+	 SliceNo,
+	 SendTime,
+	 SendStatus,
+	 CreateTime
+	 FROM (SELECT 
+		A.smsid,
+		A.taskid,
+		A.RegNO,
+		A.UniSCID,
+		A.EntName,
+		A.EntTypeCatg,
+		A.EstDate,
+		'负责人' AS SendObjType,
+		A.LeRep SendObjName,
+		A.Tel SendObjTel,
+		A.RegOrg,
+		B.Content RegOrgName,
+		A.LocalAdm,
+		C.Content LocalAdmName,
+		A.SliceNo,
+		A.sendLerepTime SendTime,
+		A.isSendLerep SendStatus,
+		A.CreateTime
+	FROM cs_sendsms_task_info A
+	LEFT JOIN cs_code_regorg B
+	ON A.RegOrg = B.Code
+	LEFT JOIN cs_code_regunit C
+	ON A.LocalAdm = C.Code
+	WHERE  
+	<if test="smsLerep ==1">
+		  1=1
+	</if>
+	<if test="smsLerep !=1">
+		  1=0
+	</if>
+	<if test="entName !='' and entName !=null">
+		  and A.EntName LIKE concat('%', #{entName},'%')
+	</if>
+	<if test="cidRegNO !='' and cidRegNO !=null">
+		  and A.UniSCID LIKE concat('%', #{cidRegNO},'%') or A.RegNO LIKE concat('%', #{cidRegNO},'%')
+	</if>
+	<if test="smsStatus !='' and smsStatus !=null and smsStatus !=2">
+		  and A.isSendLerep=#{smsStatus}
+	</if>
+	<if test="smsStatus !='' and smsStatus !=null and smsStatus ==2">
+		  and (A.isSendLerep= '' or A.isSendLerep is null)
+	</if>
+	<if test="phone !='' and phone !=null">
+		  and A.Tel LIKE concat('%', #{phone},'%')
+	</if>
+	<if test="name !='' and name !=null">
+		  and A.LeRep LIKE concat('%', #{name},'%')
+	</if>
+	AND A.UID=#{UID}
+UNION ALL
+	 SELECT 
+		A.smsid,
+		A.taskid,
+		A.RegNO,
+		A.UniSCID,
+		A.EntName,
+		A.EntTypeCatg,
+		A.EstDate,
+		'联络员' AS SendObjType,
+		A.LiaName SendObjName,
+		A.liaLeRepPhone SendObjTel,
+		A.RegOrg,
+		B.Content RegOrgName,
+		A.LocalAdm,
+		C.Content LocalAdmName,
+		A.SliceNo,
+		A.sendLiaTime SendTime,
+		A.isSendLia SendStatus,
+		A.CreateTime
+	FROM cs_sendsms_task_info A
+	LEFT JOIN cs_code_regorg B
+	ON A.RegOrg = B.Code
+	LEFT JOIN cs_code_regunit C
+	ON A.LocalAdm = C.Code
+	WHERE 
+	<if test="smsLia ==1">
+		  1=1
+	</if>
+	<if test="smsLia !=1">
+		  1=0
+	</if>
+	<if test="entName !='' and entName !=null">
+		 and A.EntName LIKE concat('%', #{entName},'%')
+	</if>
+	<if test="cidRegNO !='' and cidRegNO !=null">
+		  and A.UniSCID LIKE concat('%', #{cidRegNO},'%') or A.RegNO LIKE concat('%', #{cidRegNO},'%')
+	</if>
+	<if test="smsStatus !='' and smsStatus !=null and smsStatus !=2">
+		  and A.isSendLia=#{smsStatus}
+	</if>
+	<if test="smsStatus !='' and smsStatus !=null and smsStatus ==2">
+		  and (A.isSendLia= '' or A.isSendLia is null)
+	</if>
+	<if test="phone !='' and phone !=null">
+		   and A.liaLeRepPhone LIKE concat('%', #{phone},'%')
+	</if>
+	<if test="name !='' and name !=null">
+		  and A.LiaName LIKE concat('%', #{name},'%')
+	</if>
+	AND A.UID=#{UID}) AS D
+	</select>
+	
+	<select id="queryPageResultByUIDAll" resultMap="SendSmsTaskInfoDto" parameterType="Map">
+	 SELECT 
+	 smsid, 
+	 taskid,
+	 RegNO,
+	 UniSCID,
+	 EntName,
+	 EntTypeCatg,
+	 EstDate,
+	 SendObjType,
+	 SendObjName,
+	 SendObjTel,
+	 RegOrg,
+	 RegOrgName,
+	 LocalAdm,
+	 LocalAdmName,
+	 SliceNo,
+	 SendTime,
+	 SendStatus,
+	 CreateTime
+	 FROM (SELECT 
+		A.smsid,
+		A.taskid,
+		A.RegNO,
+		A.UniSCID,
+		A.EntName,
+		A.EntTypeCatg,
+		A.EstDate,
+		'负责人' AS SendObjType,
+		A.LeRep SendObjName,
+		A.Tel SendObjTel,
+		A.RegOrg,
+		B.Content RegOrgName,
+		A.LocalAdm,
+		C.Content LocalAdmName,
+		A.SliceNo,
+		A.sendLerepTime SendTime,
+		A.isSendLerep SendStatus,
+		A.CreateTime
+	FROM cs_sendsms_task_info A
+	LEFT JOIN cs_code_regorg B
+	ON A.RegOrg = B.Code
+	LEFT JOIN cs_code_regunit C
+	ON A.LocalAdm = C.Code
+	WHERE  
+	<if test="smsLerep ==1">
+		  1=1
+	</if>
+	<if test="smsLerep !=1">
+		  1=0
+	</if>
+	<if test="entName !='' and entName !=null">
+		  and A.EntName LIKE concat('%', #{entName},'%')
+	</if>
+	<if test="cidRegNO !='' and cidRegNO !=null">
+		  and A.UniSCID LIKE concat('%', #{cidRegNO},'%') or A.RegNO LIKE concat('%', #{cidRegNO},'%')
+	</if>
+	<if test="smsStatus !='' and smsStatus !=null and smsStatus !=2">
+		  and A.isSendLerep=#{smsStatus}
+	</if>
+	<if test="smsStatus !='' and smsStatus !=null and smsStatus ==2">
+		  and (A.isSendLerep= '' or A.isSendLerep is null)
+	</if>
+	<if test="phone !='' and phone !=null">
+		  and A.Tel LIKE concat('%', #{phone},'%')
+	</if>
+	<if test="name !='' and name !=null">
+		  and A.LeRep LIKE concat('%', #{name},'%')
+	</if>
+	AND A.UID=#{UID}
+UNION ALL
+	 SELECT 
+		A.smsid,
+		A.taskid,
+		A.RegNO,
+		A.UniSCID,
+		A.EntName,
+		A.EntTypeCatg,
+		A.EstDate,
+		'联络员' AS SendObjType,
+		A.LiaName SendObjName,
+		A.liaLeRepPhone SendObjTel,
+		A.RegOrg,
+		B.Content RegOrgName,
+		A.LocalAdm,
+		C.Content LocalAdmName,
+		A.SliceNo,
+		A.sendLiaTime SendTime,
+		A.isSendLia SendStatus,
+		A.CreateTime
+	FROM cs_sendsms_task_info A
+	LEFT JOIN cs_code_regorg B
+	ON A.RegOrg = B.Code
+	LEFT JOIN cs_code_regunit C
+	ON A.LocalAdm = C.Code
+	WHERE 
+	<if test="smsLia ==1">
+		  1=1
+	</if>
+	<if test="smsLia !=1">
+		  1=0
+	</if>
+	<if test="entName !='' and entName !=null">
+		 and A.EntName LIKE concat('%', #{entName},'%')
+	</if>
+	<if test="cidRegNO !='' and cidRegNO !=null">
+		  and A.UniSCID LIKE concat('%', #{cidRegNO},'%') or A.RegNO LIKE concat('%', #{cidRegNO},'%')
+	</if>
+	<if test="smsStatus !='' and smsStatus !=null and smsStatus !=2">
+		  and A.isSendLia=#{smsStatus}
+	</if>
+	<if test="smsStatus !='' and smsStatus !=null and smsStatus ==2">
+		  and (A.isSendLia= '' or A.isSendLia is null)
+	</if>
+	<if test="phone !='' and phone !=null">
+		   and A.liaLeRepPhone LIKE concat('%', #{phone},'%')
+	</if>
+	<if test="name !='' and name !=null">
+		  and A.LiaName LIKE concat('%', #{name},'%')
+	</if>
+	AND A.UID=#{UID}) AS D limit 0,99999999
+	</select>
+	
+	<select id="queryPageResults" resultMap="SendSmsTaskInfoDto" parameterType="Map">
+	 SELECT
+	     D.TaskName,
+	     D.DeptId, 
+	     D.SmsType,
+	 	 D.UID,
+		 D.smsid, 
+		 D.taskid,
+		 D.RegNO,
+		 D.UniSCID,
+		 D.EntName,
+		 D.EntTypeCatg,
+		 D.EstDate,
+		 D.SendObjType,
+		 D.SendObjName,
+		 D.SendObjTel,
+		 D.RegOrg,
+		 B.Content RegOrgName,
+		 D.LocalAdm,
+		 C.Content LocalAdmName,
+		 D.SliceNo,
+		 D.SendTime,
+		 D.SendStatus,
+		 D.CreateTime
+	 FROM (SELECT 
+	 	E.TaskName,
+	    E.DeptId, 
+	    E.SmsType,
+	 	A.UID,
+		A.smsid,
+		A.taskid,
+		A.RegNO,
+		A.UniSCID,
+		A.EntName,
+		A.EntTypeCatg,
+		A.EstDate,
+		'负责人' AS SendObjType,
+		A.LeRep SendObjName,
+		A.Tel SendObjTel,
+		A.RegOrg,
+		A.LocalAdm,
+		A.SliceNo,
+		A.sendLerepTime SendTime,
+		A.isSendLerep SendStatus,
+		A.CreateTime
+	FROM cs_sendsms_task_info A, cs_sendsms_task E
+      WHERE A.UID = E.UID
+	<if test="smsLerep ==1">
+		 and 1=1
+	</if>
+	<if test="smsLerep !=1">
+		 and 1=0
+	</if>
+	and A.isSendLerep='1'
+	<if test="taskName !='' and taskName !=null">
+		  and E.TaskName LIKE concat('%', #{taskName},'%')
+	</if>
+	<if test="smsType !='' and smsType !=null">
+		  and E.SmsType=#{smsType}
+	</if>
+	<if test="dept !='' and dept !=null">
+		  and E.DeptId IN (${dept})
+	</if>
+	<if test="setName !='' and setName !=null">
+		  and E.setName=#{setName}
+	</if>
+	<if test="phone !='' and phone !=null">
+		  and A.Tel LIKE concat('%', #{phone},'%')
+	</if>
+	<if test="name !='' and name !=null">
+		  and A.LeRep LIKE concat('%', #{name},'%')
+	</if>
+	<if test="sendTimeStart !='' and sendTimeStart !=null">
+        <![CDATA[
+		and A.SendLerepTime >= #{sendTimeStart}
+		]]>
+     </if>
+     <if test="sendTimeEnd !='' and sendTimeEnd !=null">
+        <![CDATA[
+		and A.SendLerepTime <= #{sendTimeEnd}
+		]]>
+	</if>
+UNION ALL
+	 SELECT 
+	 	E.TaskName,
+	    E.DeptId, 
+	    E.SmsType,
+	 	A.UID,
+		A.smsid,
+		A.taskid,
+		A.RegNO,
+		A.UniSCID,
+		A.EntName,
+		A.EntTypeCatg,
+		A.EstDate,
+		'联络员' AS SendObjType,
+		A.LiaName SendObjName,
+		A.liaLeRepPhone SendObjTel,
+		A.RegOrg,
+		A.LocalAdm,
+		A.SliceNo,
+		A.sendLiaTime SendTime,
+		A.isSendLia SendStatus,
+		A.CreateTime
+	FROM cs_sendsms_task_info A, cs_sendsms_task E
+	WHERE A.UID = E.UID
+	<if test="smsLia ==1">
+		 and 1=1
+	</if>
+	<if test="smsLia !=1">
+		 and 1=0
+	</if>
+	and A.isSendLia='1'
+	<if test="taskName !='' and taskName !=null">
+		  and E.TaskName LIKE concat('%', #{taskName},'%')
+	</if>
+	<if test="smsType !='' and smsType !=null">
+		  and E.SmsType=#{smsType}
+	</if>
+	<if test="dept !='' and dept !=null">
+		  and E.DeptId IN (${dept})
+	</if>
+	<if test="setName !='' and setName !=null">
+		  and E.setName=#{setName}
+	</if>
+	<if test="phone !='' and phone !=null">
+		   and A.liaLeRepPhone LIKE concat('%', #{phone},'%')
+	</if>
+	<if test="name !='' and name !=null">
+		  and A.LiaName LIKE concat('%', #{name},'%')
+	</if>
+	<if test="sendTimeStart !='' and sendTimeStart !=null">
+        <![CDATA[
+		and A.SendLiaTime >= #{sendTimeStart}
+		]]>
+     </if>
+     <if test="sendTimeEnd !='' and sendTimeEnd !=null">
+        <![CDATA[
+		and A.SendLiaTime <= #{sendTimeEnd}
+		]]>
+	</if>
+	) AS D
+	LEFT JOIN cs_code_regorg B
+	ON D.RegOrg = B.Code
+	LEFT JOIN cs_code_regunit C
+	ON D.LocalAdm = C.Code
+	WHERE 1=1
+	<if test="taskid !='' and taskid !=null">
+		  and D.Taskid LIKE concat('%', #{taskid},'%')
+	</if>
+	
+	<if test="entName !='' and entName !=null">
+		 and D.EntName LIKE concat('%', #{entName},'%')
+	</if>
+	<if test="cidRegNO !='' and cidRegNO !=null">
+		  and (D.RegNO LIKE concat('%', ${cidRegNO},'%') or D.UniSCID LIKE concat('%', ${cidRegNO},'%') )
+	</if>
+	<if test="regOrg !='' and regOrg !=null">
+		  and D.RegOrg in (${regOrg})
+	</if>
+	<if test="entTypeCatg !='' and entTypeCatg !=null">
+		  and D.EntTypeCatg in (${entTypeCatg})
+	</if>
+	<if test="localAdm !='' and localAdm !=null">
+		  and D.LocalAdm in (#{localAdm})
+	</if>
+	<if test="UID !='' and UID !=null">
+		  and D.UID LIKE concat('%', #{UID},'%')
+	</if>
+	<if test="estDateStart !='' and estDateStart !=null">
+        <![CDATA[
+		and D.EstDate >= #{estDateStart}
+		]]>
+     </if>
+     <if test="estDateEnd !='' and estDateEnd !=null">
+        <![CDATA[
+		and D.EstDate <= #{estDateEnd}
+		]]>
+	</if>
+</select>
+
+<select id="queryTaskInfoCount" resultMap="TaskInfoCount" parameterType="Map">
+SELECT count( DISTINCT EntName) num1,
+	sum(isSendLerep)+sum(isSendLia) num2,
+	sum( case when A.isSendLia='1' then 1 else 0 end ) num3,
+	sum(case when A.isSendLerep='1' then 1 else 0 end ) num4
+ from cs_sendsms_task_info A 
+ where uid in(
+	select uid from cs_sendsms_task B where B.DeptId in (${dept})
+	<if test="taskid !='' and taskid !=null">
+		  and B.Taskid LIKE concat('%', #{taskid},'%')
+	</if>
+	<if test="taskName !='' and taskName !=null">
+		  and B.TaskName LIKE concat('%', #{taskName},'%')
+	</if>
+	<if test="smsType !='' and smsType !=null">
+		  and B.SmsType=#{smsType}
+	</if>
+	<if test="setName !='' and setName !=null">
+		  and B.setName=#{setName}
+	</if>
+ ) 
+ and( 
+ 	
+	 <if test="smsLia ==1 and smsLerep ==1">
+		A.isSendLerep='1' or A.isSendLia='1'
+	 </if>
+	 <if test="smsLia !=1 and smsLerep !=1">
+		A.isSendLerep='1' or A.isSendLia='1'
+	 </if>
+	 <if test="smsLia ==1 and smsLerep !=1">
+		A.isSendLia='1'
+	 </if>
+	 <if test="smsLia !=1 and smsLerep ==1">
+		A.isSendLerep='1'
+	 </if>
+	
+ )
+   <if test="phone !='' and phone !=null">
+		  and (A.Tel LIKE concat('%', #{phone},'%') OR A.liaLeRepPhone LIKE concat('%', #{phone},'%'))
+	</if>
+	<if test="name !='' and name !=null">
+		  and (A.LeRep LIKE concat('%', #{name},'%') OR A.LiaName LIKE concat('%', #{name},'%'))
+	</if>
+	<if test="sendTimeStart !='' and sendTimeStart !=null">
+        <![CDATA[
+		and (A.SendLerepTime >= #{sendTimeStart} or A.SendLiaTime >= #{sendTimeStart})
+		]]>
+     </if>
+     <if test="sendTimeEnd !='' and sendTimeEnd !=null">
+        <![CDATA[
+		and (A.SendLerepTime <= #{sendTimeEnd} or A.SendLiaTime <= #{sendTimeEnd})
+		]]>
+	</if>
+	<if test="entName !='' and entName !=null">
+		 and A.EntName LIKE concat('%', #{entName},'%')
+	</if>
+	<if test="cidRegNO !='' and cidRegNO !=null">
+		  and (A.RegNO LIKE concat('%', ${cidRegNO},'%') or A.UniSCID LIKE concat('%', ${cidRegNO},'%') )
+	</if>
+	<if test="regOrg !='' and regOrg !=null">
+		  and A.RegOrg in (${regOrg})
+	</if>
+	<if test="entTypeCatg !='' and entTypeCatg !=null">
+		  and A.EntTypeCatg in (${entTypeCatg})
+	</if>
+	<if test="localAdm !='' and localAdm !=null">
+		  and A.LocalAdm in (#{localAdm})
+	</if>
+	<if test="UID !='' and UID !=null">
+		  and A.UID LIKE concat('%', #{UID},'%')
+	</if>
+	
+	<if test="estDateStart !='' and estDateStart !=null">
+        <![CDATA[
+		and A.EstDate >= #{estDateStart}
+		]]>
+     </if>
+     <if test="estDateEnd !='' and estDateEnd !=null">
+        <![CDATA[
+		and A.EstDate <= #{estDateEnd}
+		]]>
+	</if>
+</select>
+
+<!-- <select id="queryEntCount" resultType="int" parameterType="Map">
+	 SELECT
+  		COUNT(*)
+	FROM cs_sendsms_task_info A
+  	LEFT JOIN cs_sendsms_task B
+    ON A.UID = B.UID
+	WHERE (A.isSendLerep = '1' OR A.isSendLia = '1')
+    AND B.DeptId IN (${dept})
+    <if test="phone !='' and phone !=null">
+		  and (A.Tel LIKE concat('%', #{phone},'%') OR A.liaLeRepPhone LIKE concat('%', #{phone},'%'))
+	</if>
+	<if test="name !='' and name !=null">
+		  and (A.LeRep LIKE concat('%', #{name},'%') OR A.LiaName LIKE concat('%', #{name},'%'))
+	</if>
+	<if test="sendTimeStart !='' and sendTimeStart !=null">
+        <![CDATA[
+		and (A.SendLerepTime >= #{sendTimeStart} or A.SendLiaTime >= #{sendTimeStart})
+		]]>
+     </if>
+     <if test="sendTimeEnd !='' and sendTimeEnd !=null">
+        <![CDATA[
+		and (A.SendLerepTime <= #{sendTimeEnd} or A.SendLiaTime <= #{sendTimeEnd})
+		]]>
+	</if>
+	<if test="taskid !='' and taskid !=null">
+		  and B.Taskid LIKE concat('%', #{taskid},'%')
+	</if>
+	<if test="taskName !='' and taskName !=null">
+		  and B.TaskName LIKE concat('%', #{taskName},'%')
+	</if>
+	<if test="entName !='' and entName !=null">
+		 and A.EntName LIKE concat('%', #{entName},'%')
+	</if>
+	<if test="cidRegNO !='' and cidRegNO !=null">
+		  and (A.RegNO LIKE concat('%', ${cidRegNO},'%') or A.UniSCID LIKE concat('%', ${cidRegNO},'%') )
+	</if>
+	<if test="regOrg !='' and regOrg !=null">
+		  and A.RegOrg in (${regOrg})
+	</if>
+	<if test="entTypeCatg !='' and entTypeCatg !=null">
+		  and A.EntTypeCatg in (${entTypeCatg})
+	</if>
+	<if test="localAdm !='' and localAdm !=null">
+		  and A.LocalAdm in (#{localAdm})
+	</if>
+	<if test="UID !='' and UID !=null">
+		  and A.UID LIKE concat('%', #{UID},'%')
+	</if>
+	<if test="smsType !='' and smsType !=null">
+		  and B.SmsType=#{smsType}
+	</if>
+	<if test="setName !='' and setName !=null">
+		  and B.setName=#{setName}
+	</if>
+	<if test="estDateStart !='' and estDateStart !=null">
+        <![CDATA[
+		and A.EstDate >= #{estDateStart}
+		]]>
+     </if>
+     <if test="estDateEnd !='' and estDateEnd !=null">
+        <![CDATA[
+		and A.EstDate <= #{estDateEnd}
+		]]>
+	</if>
+</select>
+ -->
+<select id="queryLerepCount" resultType="int" parameterType="Map">
+	 SELECT
+  		COUNT(*)
+	FROM cs_sendsms_task_info A
+  	LEFT JOIN cs_sendsms_task B
+    ON A.UID = B.UID
+	WHERE (A.isSendLerep = '1')
+    AND B.DeptId IN (${dept})
+    <if test="phone !='' and phone !=null">
+		  and (A.Tel LIKE concat('%', #{phone},'%') OR A.liaLeRepPhone LIKE concat('%', #{phone},'%'))
+	</if>
+	<if test="name !='' and name !=null">
+		  and (A.LeRep LIKE concat('%', #{name},'%') OR A.LiaName LIKE concat('%', #{name},'%'))
+	</if>
+	<if test="sendTimeStart !='' and sendTimeStart !=null">
+        <![CDATA[
+		and (A.SendLerepTime >= #{sendTimeStart} or A.SendLiaTime >= #{sendTimeStart})
+		]]>
+     </if>
+     <if test="sendTimeEnd !='' and sendTimeEnd !=null">
+        <![CDATA[
+		and (A.SendLerepTime <= #{sendTimeEnd} or A.SendLiaTime <= #{sendTimeEnd})
+		]]>
+	</if>
+	<if test="taskid !='' and taskid !=null">
+		  and B.Taskid LIKE concat('%', #{taskid},'%')
+	</if>
+	<if test="taskName !='' and taskName !=null">
+		  and B.TaskName LIKE concat('%', #{taskName},'%')
+	</if>
+	<if test="entName !='' and entName !=null">
+		 and A.EntName LIKE concat('%', #{entName},'%')
+	</if>
+	<if test="cidRegNO !='' and cidRegNO !=null">
+		  and (A.RegNO LIKE concat('%', ${cidRegNO},'%') or A.UniSCID LIKE concat('%', ${cidRegNO},'%') )
+	</if>
+	<if test="regOrg !='' and regOrg !=null">
+		  and A.RegOrg in (${regOrg})
+	</if>
+	<if test="entTypeCatg !='' and entTypeCatg !=null">
+		  and A.EntTypeCatg in (${entTypeCatg})
+	</if>
+	<if test="localAdm !='' and localAdm !=null">
+		  and A.LocalAdm in (#{localAdm})
+	</if>
+	<if test="UID !='' and UID !=null">
+		  and A.UID LIKE concat('%', #{UID},'%')
+	</if>
+	<if test="smsType !='' and smsType !=null">
+		  and B.SmsType=#{smsType}
+	</if>
+	<if test="setName !='' and setName !=null">
+		  and B.setName=#{setName}
+	</if>
+	<if test="estDateStart !='' and estDateStart !=null">
+        <![CDATA[
+		and A.EstDate >= #{estDateStart}
+		]]>
+     </if>
+     <if test="estDateEnd !='' and estDateEnd !=null">
+        <![CDATA[
+		and A.EstDate <= #{estDateEnd}
+		]]>
+	</if>
+</select>
+<select id="queryLiaCount" resultType="int" parameterType="Map">
+	 SELECT
+  		COUNT(*)
+	FROM cs_sendsms_task_info A
+  	LEFT JOIN cs_sendsms_task B
+    ON A.UID = B.UID
+	WHERE (A.isSendLia = '1')
+    AND B.DeptId IN (${dept})
+    <if test="phone !='' and phone !=null">
+		  and (A.Tel LIKE concat('%', #{phone},'%') OR A.liaLeRepPhone LIKE concat('%', #{phone},'%'))
+	</if>
+	<if test="name !='' and name !=null">
+		  and (A.LeRep LIKE concat('%', #{name},'%') OR A.LiaName LIKE concat('%', #{name},'%'))
+	</if>
+	<if test="sendTimeStart !='' and sendTimeStart !=null">
+        <![CDATA[
+		and (A.SendLerepTime >= #{sendTimeStart} or A.SendLiaTime >= #{sendTimeStart})
+		]]>
+     </if>
+     <if test="sendTimeEnd !='' and sendTimeEnd !=null">
+        <![CDATA[
+		and (A.SendLerepTime <= #{sendTimeEnd} or A.SendLiaTime <= #{sendTimeEnd})
+		]]>
+	</if>
+	<if test="taskid !='' and taskid !=null">
+		  and B.Taskid LIKE concat('%', #{taskid},'%')
+	</if>
+	<if test="taskName !='' and taskName !=null">
+		  and B.TaskName LIKE concat('%', #{taskName},'%')
+	</if>
+	<if test="entName !='' and entName !=null">
+		 and A.EntName LIKE concat('%', #{entName},'%')
+	</if>
+	<if test="cidRegNO !='' and cidRegNO !=null">
+		  and (A.RegNO LIKE concat('%', ${cidRegNO},'%') or A.UniSCID LIKE concat('%', ${cidRegNO},'%') )
+	</if>
+	<if test="regOrg !='' and regOrg !=null">
+		  and A.RegOrg in (${regOrg})
+	</if>
+	<if test="entTypeCatg !='' and entTypeCatg !=null">
+		  and A.EntTypeCatg in (${entTypeCatg})
+	</if>
+	<if test="localAdm !='' and localAdm !=null">
+		  and A.LocalAdm in (#{localAdm})
+	</if>
+	<if test="UID !='' and UID !=null">
+		  and A.UID LIKE concat('%', #{UID},'%')
+	</if>
+	<if test="smsType !='' and smsType !=null">
+		  and B.SmsType=#{smsType}
+	</if>
+	<if test="setName !='' and setName !=null">
+		  and B.setName=#{setName}
+	</if>
+	<if test="estDateStart !='' and estDateStart !=null">
+        <![CDATA[
+		and A.EstDate >= #{estDateStart}
+		]]>
+     </if>
+     <if test="estDateEnd !='' and estDateEnd !=null">
+        <![CDATA[
+		and A.EstDate <= #{estDateEnd}
+		]]>
+	</if>
+</select>
+	
+	<select id="doGetDistincLerepList"  resultMap="SendSmsTaskInfoDto" parameterType="java.lang.String">
+	 SELECT
+      a.Tel phone,
+      a.UID,
+      a.RegOrg
+	  FROM cs_sendsms_task_info a
+	  LEFT JOIN cs_sendsms_task b ON a.UID = b.UID
+	  where a.UID =#{uid}
+	  GROUP BY a.Tel
+	</select>
+	
+	<select id="doGetDistincLiaList"  resultMap="SendSmsTaskInfoDto" parameterType="java.lang.String">
+	 SELECT
+      a.liaLeRepPhone phone,
+      a.UID,
+      a.RegOrg
+	  FROM cs_sendsms_task_info a
+	  LEFT JOIN cs_sendsms_task b ON a.UID = b.UID
+	  where  a.UID =#{uid}
+	  GROUP BY a.liaLeRepPhone
+	</select>
+	
+	<select id="doGetDistincLerepAndLiaList"  resultMap="SendSmsTaskInfoDto" parameterType="java.lang.String">
+	  SELECT t.phone,t.UID,t.RegOrg
+		FROM(
+		  SELECT
+	      a.Tel phone,
+	      a.UID,
+	      a.RegOrg
+		  FROM cs_sendsms_task_info a
+		  LEFT JOIN cs_sendsms_task b ON a.UID = b.UID
+		  where  a.UID = #{uid} 
+	 	UNION ALL
+	      SELECT
+	      a.liaLeRepPhone phone,
+	      a.UID,
+	      a.RegOrg
+		  FROM cs_sendsms_task_info a
+		  LEFT JOIN cs_sendsms_task b ON a.UID = b.UID
+		  where a.UID = #{uid} 
+	    ) t
+	    GROUP BY t.phone
+	</select>
+	
+	<select id="doGetTaskInfoByNumAndTaskid" resultMap="SendSmsTaskInfo" parameterType="Map">
+	    SELECT t.id,t.UID,t.Tel,t.liaLeRepPhone 
+	    from 
+	    cs_sendsms_task_info t 
+	    WHERE (t.Tel = #{phoneNum}  OR t.liaLeRepPhone = #{phoneNum} ) 
+	    AND t.UID = #{uid}
+	    <if test="isSendFlag !='' and isSendFlag !=null">
+		  AND (t.isSendLerep is not null OR t.isSendLia is not null)
+	    </if> 
+	</select>
+</mapper>

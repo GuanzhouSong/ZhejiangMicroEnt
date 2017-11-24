@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.YrOtherInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.YrOtherInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="Addr" property="addr" jdbcType="VARCHAR" />
+    <result column="PostalCode" property="postalCode" jdbcType="CHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="Email" property="email" jdbcType="VARCHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="OtherID" property="otherID" jdbcType="VARCHAR" />
+    <result column="AnCheID" property="anCheID" jdbcType="VARCHAR" />
+    <result column="partyAccNetAmount" property="partyAccNetAmount" jdbcType="DECIMAL" />
+    <result column="ParInsCN" property="parInsCN" jdbcType="VARCHAR" />
+    <result column="otherInfoPatAmount" property="otherInfoPatAmount" jdbcType="DECIMAL" />
+    <result column="otherInfoIsEmail" property="otherInfoIsEmail" jdbcType="CHAR" />
+    <result column="otherInfoIsTel" property="otherInfoIsTel" jdbcType="CHAR" />
+    <result column="SupEntname" property="supEntname" jdbcType="VARCHAR" />
+    <result column="ParIns" property="parIns" jdbcType="CHAR" />
+    <result column="ParOrgW" property="parOrgW" jdbcType="CHAR" />
+    <result column="NumParM" property="numParM" jdbcType="INTEGER" />
+    <result column="ResParMSign" property="resParMSign" jdbcType="CHAR" />
+    <result column="ResParSecSign" property="resParSecSign" jdbcType="CHAR" />
+    <result column="ParSetTime" property="parSetTime" jdbcType="DATE" />
+    <result column="TaxRegNo" property="taxRegNo" jdbcType="VARCHAR" />
+    <result column="EntOrgCode" property="entOrgCode" jdbcType="VARCHAR" />
+    <result column="LiaPhone" property="liaPhone" jdbcType="VARCHAR" />
+    <result column="LiaIDNum" property="liaIDNum" jdbcType="VARCHAR" />
+    <result column="LiaIDType" property="liaIDType" jdbcType="VARCHAR" />
+    <result column="LiaName" property="liaName" jdbcType="VARCHAR" />
+    <result column="LeRepPhone" property="leRepPhone" jdbcType="VARCHAR" />
+    <result column="ThNetTraBusTur" property="thNetTraBusTur" jdbcType="DECIMAL" />
+    <result column="AdvTurTaxPaid" property="advTurTaxPaid" jdbcType="DECIMAL" />
+    <result column="ThAdvTurnover" property="thAdvTurnover" jdbcType="DECIMAL" />
+    <result column="AdvBusFlag" property="advBusFlag" jdbcType="CHAR" />
+    <result column="ThIntAnnAdvFee" property="thIntAnnAdvFee" jdbcType="DECIMAL" />
+    <result column="ThAnnAdvFee" property="thAnnAdvFee" jdbcType="DECIMAL" />
+    <result column="NewAppTraRegs" property="newAppTraRegs" jdbcType="INTEGER" />
+    <result column="LicOthTraRegs" property="licOthTraRegs" jdbcType="INTEGER" />
+    <result column="UsingTraRegs" property="usingTraRegs" jdbcType="INTEGER" />
+    <result column="AbrTraRegs" property="abrTraRegs" jdbcType="INTEGER" />
+    <result column="DomTraRegs" property="domTraRegs" jdbcType="INTEGER" />
+    <result column="SupRegNO" property="supRegNO" jdbcType="VARCHAR" />
+    <result column="CityAddressCopy" property="cityAddressCopy" jdbcType="VARCHAR" />
+    <result column="AreaAddressCopy" property="areaAddressCopy" jdbcType="VARCHAR" />
+    <result column="StreeAddressCopy" property="streeAddressCopy" jdbcType="VARCHAR" />
+    <result column="CityAddress" property="cityAddress" jdbcType="VARCHAR" />
+    <result column="AreaAddress" property="areaAddress" jdbcType="VARCHAR" />
+    <result column="StreeAddress" property="streeAddress" jdbcType="VARCHAR" />
+    <result column="DesAddress" property="desAddress" jdbcType="VARCHAR" />
+    <result column="Dom" property="dom" jdbcType="VARCHAR" />
+    <result column="WebsiteFlag" property="websiteFlag" jdbcType="CHAR" />
+
+  </resultMap>
+    <update id="updateParSetTime" parameterType="Map">
+        update cs_yr_otherinfo set ParSetTime=null  where OtherID = #{otherID} and PriPID = #{priPID}
+    </update>
+    
+    <select id="selectByYearAndPripidList" resultMap="BaseResultMap" parameterType="Map">
+	  	SELECT
+			PriPID , LeRep, LeRepPhone ,LiaName ,LiaPhone 
+		FROM 
+		 	cs_yr_otherinfo   
+	    where PriPid in 
+	    <foreach collection="priPidList" item="priPidList" index="index"  open="(" close=")" separator=",">
+	         #{priPidList}
+	    </foreach>
+	     and Year = #{year}
+    </select>
+    
+    
+</mapper>
+
+

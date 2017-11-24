@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icinfo.cs.system.mapper.SysUserAreaManageMapper">
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.system.model.SysUserAreaManage">
+    <id column="ID" jdbcType="INTEGER" property="ID" />
+    <result column="UID" jdbcType="VARCHAR" property="uid" />
+    <result column="USER_IDENTITY" jdbcType="VARCHAR" property="userIdentity" />
+    <result column="USER_STATUS" jdbcType="VARCHAR" property="userStatus" />
+    <result column="SetName" jdbcType="VARCHAR" property="setName" />
+    <result column="SetDate" jdbcType="TIMESTAMP" property="setDate" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap> 
+  
+  
+   <resultMap id="SysUserAreaManageDto" type="com.icinfo.cs.system.dto.SysUserAreaManageDto" extends="BaseResultMap">
+        <result column="USER_USERNAME" jdbcType="VARCHAR" property="username"/>
+        <result column="USER_REAL_NAME" jdbcType="VARCHAR" property="realName"/>
+        <result column="TEL_PHONE" jdbcType="VARCHAR" property="telPhone"/>
+        <result column="PHONE" jdbcType="VARCHAR" property="phone"/>
+        <result column="POST" jdbcType="VARCHAR" property="post"/>
+        <result column="DeptCode" jdbcType="VARCHAR" property="deptCode"/>
+        <result column="OrgName" jdbcType="VARCHAR" property="orgName"/>
+        <result column="jurUnit" jdbcType="VARCHAR" property="jurUnit"/>
+    </resultMap>
+  
+  <!-- 分页查询 -->
+  <select id="selectSysUserAreaManageList" parameterType="Map" resultMap="SysUserAreaManageDto">
+        SELECT
+			a.UID,
+			a.USER_IDENTITY,
+			a.SetDate,
+			a.SetName,
+			t.USER_USERNAME,
+			t.USER_REAL_NAME,
+			t.POST,
+			a.USER_STATUS,
+			t.TEL_PHONE,
+			t.PHONE,
+			d.Adcode DeptCode,
+			d.OrgName,
+			t.JUR_UNIT jurUnit
+		FROM
+			SYS_USER_AREA_MANAGE a
+		LEFT JOIN SYS_USER t ON a.USER_IDENTITY = t.UID
+		LEFT JOIN cs_sys_depart d ON t.DeptCode = d.OrgCoding
+        WHERE t.USER_TYPE = '2'
+        <if test="username !=null and username != ''">
+            AND t.USER_USERNAME = #{username}
+        </if>
+        <if test="realName !=null and realName != ''">
+            AND t.USER_REAL_NAME = #{realName}
+        </if>
+        <if test="userMangeStatus !=null and userMangeStatus != ''">
+            AND a.USER_STATUS = #{userMangeStatus}
+        </if>
+        <if test="realNameLike !=null and realNameLike != ''">
+            AND t.USER_REAL_NAME LIKE concat('%', #{realNameLike},'%')
+        </if>
+        <if test="jurUnit !=null and jurUnit != ''">
+            AND t.JUR_UNIT LIKE concat('%', #{jurUnit},'%')
+        </if>
+        <if test="userStatus !=null and userStatus != ''">
+            AND t.USER_STATUS = #{userStatus}
+        </if>
+        <if test="userSetPerson !=null and userSetPerson != ''">
+            AND t.USER_SET_PERSON = #{userSetPerson}
+        </if>
+        <if test="deptCode !=null and deptCode != ''">
+            AND t.DeptCode = #{deptCode}
+        </if>
+        <if test="checkDep !=null and checkDep != ''">
+            AND d.Adcode in (${checkDep})   
+        </if>
+        <if test="levels !=null and levels != ''">
+                <choose><!-- 省级 -->
+                <when test="levels==0">
+                 AND  LEFT(d.Adcode,8) ='33000000'  
+                </when>
+                <when test="levels==3"><!-- 市级 -->
+                <![CDATA[  AND  SUBSTR(d.Adcode,5,4) ='0000' AND  LEFT(d.Adcode,8)!='33000000' ]]>   
+                </when>
+                <otherwise><!-- 县级 -->
+                <![CDATA[  AND  LEFT(d.Adcode,8)!='33000000' AND  SUBSTR(d.Adcode,5,4) !='0000'      ]]>  
+                </otherwise>
+           		</choose>
+        </if>
+        ORDER BY a.SetDate DESC
+    </select>
+</mapper>

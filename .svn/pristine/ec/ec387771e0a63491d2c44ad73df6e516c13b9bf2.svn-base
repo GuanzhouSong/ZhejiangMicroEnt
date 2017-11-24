@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.SysForbidwordMapper">
+	<resultMap id="SysForbidword" type="com.icinfo.cs.yr.model.SysForbidword">
+		<!-- WARNING - @frameworkgenerated -->
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="BanLetter" property="banLetter" jdbcType="VARCHAR" />
+		<result column="BanType" property="banType" jdbcType="CHAR" />
+		<result column="BanFrom" property="banFrom" jdbcType="DATE" />
+		<result column="BanTo" property="banTo" jdbcType="DATE" />
+		<result column="BanExp" property="banExp" jdbcType="VARCHAR" />
+		<result column="BanLettPinY" property="banLettPinY" jdbcType="VARCHAR" />
+		<result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+		<result column="SetName" property="setName" jdbcType="VARCHAR" />
+		<result column="SetId" property="setId" jdbcType="VARCHAR" />
+		<result column="IsValid" property="isValid" jdbcType="CHAR" />
+	</resultMap>
+
+	<resultMap id="SysForbidwordDto" type="com.icinfo.cs.yr.dto.SysForbidwordDto" extends="SysForbidword">
+	</resultMap>
+
+	<select id="queryPageResult" resultMap="SysForbidwordDto" parameterType="Map">
+		SELECT 
+		  t.id,
+		  t.BanLetter,
+		  t.BanType,
+		  t.BanFrom,
+		  t.BanTo,
+		  t.BanExp,
+		  t.BanLettPinY,
+		  t.SetTime,
+		  t.SetName,
+		  t.SetId,
+		  t.IsValid 
+		FROM
+		  cs_sys_forbidword t 
+		  where 1=1
+		<if test="banLetter !='' and banLetter !=null">
+			and t.BanLetter LIKE concat('%', #{banLetter},'%')
+		</if>
+		<!-- 是否有效 -->
+		<if test="isValid !='' and isValid !=null">
+		  and t.IsValid=#{isValid}
+		</if>
+		<!-- 设置人 -->
+		<if test="setName !='' and setName !=null">
+		  and t.SetName=#{setName}
+		</if>
+		<!-- 设置时间 -->
+		<if test="setTimeStart !='' and setTimeStart !=null">
+		<![CDATA[
+		  and t.SetTime >= #{setTimeStart}
+		]]>
+		</if>
+		<if test="setTimeEnd !='' and setTimeEnd !=null">
+		<![CDATA[
+		  and t.SetTime <= #{setTimeEnd}
+		]]>
+		</if>
+		order by t.SetTime desc
+	</select>
+	
+	<select id="findSysForbidByBanLetter" resultMap="SysForbidwordDto" parameterType="java.lang.String">
+		SELECT 
+		  t.id,
+		  t.BanLetter,
+		  t.BanType,
+		  t.BanFrom,
+		  t.BanTo,
+		  t.BanExp,
+		  t.BanLettPinY,
+		  t.SetTime,
+		  t.SetName,
+		  t.SetId,
+		  t.IsValid 
+		FROM
+		  cs_sys_forbidword t 
+		  where 1=1
+		<if test="banLetter !='' and banLetter !=null">
+			and t.BanLetter =#{banLetter}
+		</if>
+	</select>
+	
+</mapper>

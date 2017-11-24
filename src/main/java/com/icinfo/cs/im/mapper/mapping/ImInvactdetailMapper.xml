@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.im.mapper.ImInvactdetailMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.im.model.ImInvactdetail" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Inv" property="inv" jdbcType="VARCHAR" />
+    <result column="InvID" property="invID" jdbcType="VARCHAR" />
+    <result column="ConDate" property="conDate" jdbcType="DATE" />
+    <result column="AcConAm" property="acConAm" jdbcType="DECIMAL" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="PaidID" property="paidID" jdbcType="VARCHAR" />
+    <result column="AcConFormCn" property="acConFormCn" jdbcType="VARCHAR" />
+    <result column="PubFlag" property="pubFlag" jdbcType="VARCHAR" />
+    <result column="PublicDate" property="publicDate" jdbcType="DATE" />
+    <result column="AcConForm" property="acConForm" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.SfcCominfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.SfcCominfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="FarArtType" property="farArtType" jdbcType="CHAR" />
+    <result column="FarArtProName" property="farArtProName" jdbcType="VARCHAR" />
+    <result column="FarArtPolFreeCe" property="farArtPolFreeCe" jdbcType="CHAR" />
+    <result column="FarArtGreenOrgCe" property="farArtGreenOrgCe" jdbcType="CHAR" />
+    <result column="FarArtOrgCe" property="farArtOrgCe" jdbcType="CHAR" />
+    <result column="FarArtGeoCe" property="farArtGeoCe" jdbcType="CHAR" />
+    <result column="FarArtMemNum" property="farArtMemNum" jdbcType="INTEGER" />
+    <result column="FarArtArea" property="farArtArea" jdbcType="DECIMAL" />
+    <result column="FarArtDriFarmerNum" property="farArtDriFarmerNum" jdbcType="INTEGER" />
+    <result column="FarArtPriProArea" property="farArtPriProArea" jdbcType="DECIMAL" />
+    <result column="FarArtOpeEquVal" property="farArtOpeEquVal" jdbcType="DECIMAL" />
+    <result column="FarArtCoopTotalInv" property="farArtCoopTotalInv" jdbcType="DECIMAL" />
+    <result column="FarArtMemInv" property="farArtMemInv" jdbcType="DECIMAL" />
+    <result column="FarArtLoanAmount" property="farArtLoanAmount" jdbcType="DECIMAL" />
+    <result column="FarArtGovGrants" property="farArtGovGrants" jdbcType="DECIMAL" />
+    <result column="FarArtMarketing" property="farArtMarketing" jdbcType="CHAR" />
+    <result column="FarArtTotalSales" property="farArtTotalSales" jdbcType="DECIMAL" />
+    <result column="FarArtSalesIncRatio" property="farArtSalesIncRatio" jdbcType="DECIMAL" />
+    <result column="FarArtTotalProfit" property="farArtTotalProfit" jdbcType="DECIMAL" />
+    <result column="FarArtTaxAmount" property="farArtTaxAmount" jdbcType="DECIMAL" />
+    <result column="FarArtGroIncTax" property="farArtGroIncTax" jdbcType="DECIMAL" />
+    <result column="FarArtSupFinancing" property="farArtSupFinancing" jdbcType="DECIMAL" />
+    <result column="FarArtTotalTaxCuts" property="farArtTotalTaxCuts" jdbcType="DECIMAL" />
+    <result column="FarArtAreNetIncome" property="farArtAreNetIncome" jdbcType="DECIMAL" />
+    <result column="FarArtInpProRatio" property="farArtInpProRatio" jdbcType="DECIMAL" />
+    <result column="FarArtSaleProRatio" property="farArtSaleProRatio" jdbcType="DECIMAL" />
+    <result column="FarArtPreSales" property="farArtPreSales" jdbcType="CHAR" />
+    <result column="FarArtDeepSales" property="farArtDeepSales" jdbcType="CHAR" />
+    <result column="FarArtLinkFarSupmarket" property="farArtLinkFarSupmarket" jdbcType="CHAR" />
+    <result column="FarArtSupBoardItem" property="farArtSupBoardItem" jdbcType="CHAR" />
+    <result column="FarArtMemMeetingItem" property="farArtMemMeetingItem" jdbcType="CHAR" />
+    <result column="FarArtAccItem" property="farArtAccItem" jdbcType="CHAR" />
+    <result column="FarArtFinDisItem" property="farArtFinDisItem" jdbcType="CHAR" />
+    <result column="FarArtOtherItem" property="farArtOtherItem" jdbcType="VARCHAR" />
+    <result column="FarArtModelCont" property="farArtModelCont" jdbcType="CHAR" />
+    <result column="FarArtSelfMadeCont" property="farArtSelfMadeCont" jdbcType="CHAR" />
+    <result column="FarArtContNum" property="farArtContNum" jdbcType="INTEGER" />
+    <result column="FarArtContAmount" property="farArtContAmount" jdbcType="DECIMAL" />
+    <result column="FarArtSignFarmerNum" property="farArtSignFarmerNum" jdbcType="INTEGER" />
+    <result column="FarArtRegMark" property="farArtRegMark" jdbcType="INTEGER" />
+    <result column="FarArtNatMarkNum" property="farArtNatMarkNum" jdbcType="CHAR" />
+    <result column="FarArtProMarkNum" property="farArtProMarkNum" jdbcType="CHAR" />
+    <result column="FarArtCityMarkNum" property="farArtCityMarkNum" jdbcType="CHAR" />
+    <result column="FarArtUseCeMark" property="farArtUseCeMark" jdbcType="CHAR" />
+    <result column="FarArtPatent" property="farArtPatent" jdbcType="CHAR" />
+    <result column="FarArtProTradeName" property="farArtProTradeName" jdbcType="CHAR" />
+    <result column="FarArtCityTradeName" property="farArtCityTradeName" jdbcType="CHAR" />
+    <result column="FarArtTecTrain" property="farArtTecTrain" jdbcType="CHAR" />
+    <result column="FarArtTeaExt" property="farArtTeaExt" jdbcType="CHAR" />
+    <result column="FarArtTeaInt" property="farArtTeaInt" jdbcType="CHAR" />
+    <result column="FarArtTrainNum" property="farArtTrainNum" jdbcType="INTEGER" />
+    <result column="FarArtMemAttNum" property="farArtMemAttNum" jdbcType="INTEGER" />
+    <result column="FarArtQuaSta" property="farArtQuaSta" jdbcType="CHAR" />
+    <result column="FarArtQuaTraSys" property="farArtQuaTraSys" jdbcType="CHAR" />
+    <result column="FarArtQuaSys" property="farArtQuaSys" jdbcType="CHAR" />
+    <result column="FarArtQuaRiskSys" property="farArtQuaRiskSys" jdbcType="CHAR" />
+    <result column="FarArtWebsite" property="farArtWebsite" jdbcType="CHAR" />
+    <result column="FarArtWebName" property="farArtWebName" jdbcType="VARCHAR" />
+    <result column="FarArtWebUrl" property="farArtWebUrl" jdbcType="VARCHAR" />
+    <result column="FarArtNetRelInfo" property="farArtNetRelInfo" jdbcType="CHAR" />
+    <result column="FarArtNetAdCost" property="farArtNetAdCost" jdbcType="DECIMAL" />
+    <result column="FarArtNetSales" property="farArtNetSales" jdbcType="CHAR" />
+    <result column="FarArtNetSalesAmount" property="farArtNetSalesAmount" jdbcType="DECIMAL" />
+    <result column="FarArtDemoCoopGrade" property="farArtDemoCoopGrade" jdbcType="CHAR" />
+    <result column="FarArtBank" property="farArtBank" jdbcType="VARCHAR" />
+    <result column="FarArtBankAccount" property="farArtBankAccount" jdbcType="VARCHAR" />
+    <result column="FarArtCreditLevel" property="farArtCreditLevel" jdbcType="VARCHAR" />
+    <result column="EntOrgCode" property="entOrgCode" jdbcType="VARCHAR" />
+    <result column="TaxRegNo" property="taxRegNo" jdbcType="VARCHAR" />
+    <result column="FarArtIsNpcMem" property="farArtIsNpcMem" jdbcType="CHAR" />
+    <result column="FarArtIsCppccMem" property="farArtIsCppccMem" jdbcType="CHAR" />
+    <result column="FarArtIsPartyRep" property="farArtIsPartyRep" jdbcType="CHAR" />
+    <result column="FarArtIsOutPartyMum" property="farArtIsOutPartyMum" jdbcType="CHAR" />
+    <result column="FarArtIsModelWorker" property="farArtIsModelWorker" jdbcType="CHAR" />
+    <result column="FarArtIsWomSetter" property="farArtIsWomSetter" jdbcType="CHAR" />
+    <result column="FarArtIsVilSec" property="farArtIsVilSec" jdbcType="CHAR" />
+    <result column="FarArtIsVilDir" property="farArtIsVilDir" jdbcType="CHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="LeRepTel" property="leRepTel" jdbcType="VARCHAR" />
+    <result column="LeRepPhone" property="leRepPhone" jdbcType="VARCHAR" />
+    <result column="Finance" property="finance" jdbcType="VARCHAR" />
+    <result column="FinanceTel" property="financeTel" jdbcType="VARCHAR" />
+    <result column="FinancePhone" property="financePhone" jdbcType="VARCHAR" />
+    <result column="LiaName" property="liaName" jdbcType="VARCHAR" />
+    <result column="LiaTel" property="liaTel" jdbcType="VARCHAR" />
+    <result column="LiaPhone" property="liaPhone" jdbcType="VARCHAR" />
+    <result column="UnitEmail" property="unitEmail" jdbcType="VARCHAR" />
+    <result column="LiaEMail" property="liaEMail" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="FarArtCreditworth" property="farArtCreditworth" jdbcType="CHAR" />
+    <result column="FarArtTruConPro" property="farArtTruConPro" jdbcType="CHAR" />
+  </resultMap>
+</mapper>

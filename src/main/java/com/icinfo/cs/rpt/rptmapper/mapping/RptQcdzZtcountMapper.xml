@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.rpt.rptmapper.RptQcdzZtcountMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.rpt.rptmodel.RptQcdzZtcount" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <result column="ZtCount" property="ztCount" jdbcType="DECIMAL" />
+    <result column="PreZtTotal" property="preZtTotal" jdbcType="DECIMAL" />
+    <result column="YearAddRoate" property="yearAddRoate" jdbcType="DECIMAL" />
+    <result column="QyCount" property="qyCount" jdbcType="DECIMAL" />
+    <result column="NzCount" property="nzCount" jdbcType="DECIMAL" />
+    <result column="GtCount" property="gtCount" jdbcType="DECIMAL" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.rpt.rptdto.RptQcdzZtcountDto" id="BaseResultDtoMap" extends="BaseResultMap">
+  </resultMap>
+ 
+ <select id="selectRptQcdzZtcount" parameterType="Map" resultMap="BaseResultDtoMap">
+    select ZtCount,PreZtTotal,YearAddRoate,QyCount,NzCount,GtCount,CreateTime from cs_rpt_qcdz_ztcount
+    order by CreateTime desc
+ </select>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+</mapper>

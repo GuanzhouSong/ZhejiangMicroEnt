@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.depsyn.mapper.CsDepsynLicenseMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.depsyn.model.CsDepsynLicense" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="LicNO" property="licNO" jdbcType="VARCHAR" />
+    <result column="LicName" property="licName" jdbcType="VARCHAR" />
+    <result column="ValFrom" property="valFrom" jdbcType="VARCHAR" />
+    <result column="ValFromState" property="valFromState" jdbcType="CHAR" />
+    <result column="ValTo" property="valTo" jdbcType="VARCHAR" />
+    <result column="ValToState" property="valToState" jdbcType="CHAR" />
+    <result column="LicAnth" property="licAnth" jdbcType="VARCHAR" />
+    <result column="RegState" property="regState" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="VARCHAR" />
+    <result column="RegNOState" property="regNOState" jdbcType="CHAR" />
+    <result column="UniScid" property="uniScid" jdbcType="VARCHAR" />
+    <result column="UniScidState" property="uniScidState" jdbcType="CHAR" />
+    <result column="InputPerID" property="inputPerID" jdbcType="VARCHAR" />
+    <result column="InputDepCode" property="inputDepCode" jdbcType="VARCHAR" />
+    <result column="InputDate" property="inputDate" jdbcType="TIMESTAMP" />
+    <result column="Year" property="year" jdbcType="CHAR" />
+    <result column="Adcode" property="adcode" jdbcType="VARCHAR" />
+    <result column="CheckState" property="checkState" jdbcType="CHAR" />
+    <result column="ProType" property="proType" jdbcType="CHAR" />
+    <result column="ErrorCode" property="errorCode" jdbcType="CHAR" />
+    <result column="ResubTime" property="resubTime" jdbcType="TIMESTAMP" />
+    <result column="FeedbackTime" property="feedbackTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <!-- 据企业名称或注册号或统一社会信用代码查询行政许可数据 -->
+  <select id="queryLicense" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+    SELECT
+    id, UID, PriPID, LicNO, LicName,
+    ValFrom, ValFromState, ValTo, ValToState, LicAnth,
+    RegState, EntName, RegNO, RegNOState, UniScid,
+    UniScidState, InputPerID, InputDepCode, InputDate, Year,
+    Adcode, CheckState
+    FROM
+    cs_depsyn_license
+    WHERE 1=1
+    <if test="deptCode != null and deptCode != ''">
+      AND InputDepCode = #{deptCode}
+    </if>
+    <if test="keyword != null and keyword != ''">
+      AND (EntName = #{keyword} OR RegNO = #{keyword} OR UniScid = #{keyword})
+    </if>
+    <if test="checkState != null and checkState != ''">
+      AND (CheckState =  #{checkState})
+    </if>
+    <if test="id != null and id != ''">
+      AND id = #{id}
+    </if>
+    ORDER BY id DESC
+  </select>
+
+</mapper>

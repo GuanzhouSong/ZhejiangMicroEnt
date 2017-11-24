@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.sccheck.mapper.PubScGroupMemberMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sccheck.model.PubScGroupMember" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Uid" property="uid" jdbcType="VARCHAR" />
+    <result column="GroupUid" property="groupUid" jdbcType="VARCHAR" />
+    <result column="AgentUid" property="agentUid" jdbcType="VARCHAR" />
+    <result column="AgentName" property="agentName" jdbcType="VARCHAR" />
+    <result column="AgentDeptName" property="agentDeptName" jdbcType="VARCHAR" />
+    <result column="ExpertFlag" property="expertFlag" jdbcType="CHAR" />
+    <result column="LeaderFlag" property="leaderFlag" jdbcType="CHAR" />
+  </resultMap>
+  
+   <resultMap type="com.icinfo.cs.sccheck.dto.PubScGroupMemberDto" id="PubScGroupMemberDto" extends="BaseResultMap">
+     <result column="AgentSex" property="agentSex" jdbcType="VARCHAR" />
+     <result column="AgentAge" property="agentAge" jdbcType="VARCHAR" />
+     <result column="DeptCatg" property="deptCatg" jdbcType="VARCHAR" />
+     <result column="agentExpertFlag" property="agentExpertFlag" jdbcType="VARCHAR" />
+     <result column="AgentState" property="agentState" jdbcType="VARCHAR" />
+     <result column="UnitName" property="unitName" jdbcType="VARCHAR" />
+     <result column="SlicenNOName" property="slicenNOName" jdbcType="VARCHAR" />
+     <result column="UnitLevel" property="unitLevel" jdbcType="VARCHAR" />
+   </resultMap>
+  
+	<select id="selectPubScGroupMemberDtoList" parameterType="Map" resultMap="PubScGroupMemberDto">
+		select 
+		  t.id,
+		  t.Uid,
+		  t.GroupUid,
+		  t.AgentUid,
+		  t.AgentName,
+		  t.AgentDeptName,
+		  t.ExpertFlag,
+		  t.LeaderFlag,
+		  a.AgentSex,
+		  a.AgentAge,
+		  a.DeptCatg,
+		  a.ExpertFlag agentExpertFlag,
+		  a.AgentState,
+		  a.UnitName,
+		  a.SlicenNOName,
+		  a.UnitLevel
+		from cs_pub_scgroup_member t 
+		LEFT JOIN cs_pub_scgroup p ON t.GroupUid = p.Uid
+		LEFT JOIN cs_pub_scagent a ON t.AgentUid = a.UID
+		<where>
+			<if test="groupType !=null and groupType !='' ">
+				and p.GroupType = #{groupType}
+			</if>
+			<if test="setUserUid !=null and setUserUid !='' ">
+				and p.SetUserUid  = #{setUserUid}
+			</if>
+			<if test="groupUid !=null and groupUid !='' ">
+				and t.uid  = #{groupUid}
+			</if>
+			<if test="isVlid !=null and isVlid !='' ">
+				and p.IsVlid = #{isVlid}
+			</if>
+			<if test="relatedUid !=null and relatedUid !='' ">
+				and t.GroupUid  = #{relatedUid}
+			</if>
+			<if test="hasDeleteFlag !=null and hasDeleteFlag !=''">
+				and (t.OptDataType  is  null or t.OptDataType = '2')
+			</if>
+		</where>
+	</select>
+	
+	<update id="updateOptDataTypeByGroupUid" parameterType="java.lang.String">
+	     update cs_pub_scgroup_member set OptDataType = null where GroupUid = #{_parameter} and OptDataType ='1'
+	</update>
+	<update id="updateOptDataTypeByUid" parameterType="java.lang.String">
+	     update cs_pub_scgroup_member set OptDataType = null where Uid = #{_parameter}
+	</update>
+	<delete id="deleteOptDataTypeByGroupUid" parameterType="java.lang.String">
+	     delete from cs_pub_scgroup_member where GroupUid = #{_parameter} and OptDataType IN ('2','3')
+	</delete>
+</mapper>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.copysend.mapper.CopySendFeedbackMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.copysend.model.CopySendFeedback" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="VARCHAR" />
+    <result column="CopyFormNo" property="copyFormNo" jdbcType="VARCHAR" />
+    <result column="AcceptDepartCode" property="acceptDepartCode" jdbcType="VARCHAR" />
+    <result column="State" property="state" jdbcType="INTEGER" />
+    <result column="Feedback" property="feedback" jdbcType="VARCHAR" />
+    <result column="FeedbackTime" property="feedbackTime" jdbcType="TIMESTAMP" />
+    <result column="FeedbackPerson" property="feedbackPerson" jdbcType="VARCHAR" />
+  </resultMap>
+
+	<resultMap id="CopySendFeedbackDto" type="com.icinfo.cs.copysend.dto.CopySendFeedbackDto" extends="BaseResultMap">
+		<result column="AcceptDepartName" property="acceptDepartName" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="selectCopySendFeedbackList" resultMap="CopySendFeedbackDto"
+		parameterType="java.lang.String">
+		SELECT
+		A.id,A.UID,CopyFormNo,AcceptDepartCode,State,Feedback,FeedbackTime,FeedbackPerson,B.OrgName
+		AcceptDepartName
+		FROM cs_copy_send_feedback A
+		LEFT JOIN cs_sys_depart B ON A.AcceptDepartCode = B.Adcode
+		WHERE CopyFormNo = #{copyFormNo}
+		ORDER BY state DESC
+	</select>
+	
+	<select id="selectCopySendFeedback" resultMap="CopySendFeedbackDto" parameterType="map">
+		SELECT
+		a.id,a.UID,CopyFormNo,AcceptDepartCode
+		FROM cs_copy_send_feedback a
+		LEFT JOIN cs_dept_dutycode_ref b ON a.AcceptDepartCode = b.AdCode
+		WHERE CopyFormNo = #{copyFormNo}
+		<if test="userType=='1'.toString()">
+		and b.DutyDeptCode = 'A058' 
+		and b.AdCode like concat('%',#{acceptDepartCode},'%')
+		</if>
+		<if test="userType=='2'.toString()">
+		and AcceptDepartCode = #{acceptDepartCode}
+		</if>
+	</select>
+</mapper>

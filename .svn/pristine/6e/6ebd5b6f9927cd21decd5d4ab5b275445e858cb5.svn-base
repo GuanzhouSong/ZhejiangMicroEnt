@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.other.mapper.PubServerModrecordMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.other.model.PubServerModrecord" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ModNO" property="modNO" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="ModUID" property="modUID" jdbcType="VARCHAR" />
+    <result column="AltItem" property="altItem" jdbcType="VARCHAR" />
+    <result column="AltTable" property="altTable" jdbcType="VARCHAR" />
+    <result column="HisNO" property="hisNO" jdbcType="VARCHAR" />
+    <result column="AltDate" property="altDate" jdbcType="DATE" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="AltBe" property="altBe" jdbcType="LONGVARCHAR" />
+    <result column="AltAf" property="altAf" jdbcType="LONGVARCHAR" />
+  </resultMap>
+</mapper>

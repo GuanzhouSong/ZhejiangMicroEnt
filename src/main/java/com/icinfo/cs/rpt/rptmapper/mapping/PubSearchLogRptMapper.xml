@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.rpt.rptmapper.PubSearchLogRptMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.rpt.rptmodel.PubSearchLogRpt" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PubSearchKey" property="pubSearchKey" jdbcType="VARCHAR" />
+    <result column="PubTime" property="pubTime" jdbcType="TIMESTAMP" />
+    <result column="PubIp" property="pubIp" jdbcType="VARCHAR" />
+    <result column="PubType" property="pubType" jdbcType="CHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="PubRemark" property="pubRemark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.rpt.rptdto.PubSearchLogRptDto" id="BaseExtResultMap" extends="BaseResultMap">
+  	<result column="Year" property="year" jdbcType="INTEGER" />
+  	<result column="Count" property="count" jdbcType="INTEGER" />
+  </resultMap>
+  
+ <select id="selectPubSearchLogRpt" resultMap="BaseExtResultMap" parameterType="Map">
+	select DATE_FORMAT(PubTime, '%Y') Year,PubTime,Count
+	from (
+	SELECT 
+  		DATE_FORMAT(PubTime, '%Y-%m-%d') PubTime,
+  		COUNT(*) Count
+	FROM
+	  zjcsdb1.cs_pub_search_log p
+	WHERE pubtype = '1' 
+	<if test="endCheckPushDate !='' and endCheckPushDate !=null">
+	<![CDATA[
+	and PubTime <= CONCAT(#{endCheckPushDate},' 23:59:59')
+	]]> 
+	</if> 
+	GROUP BY DATE_FORMAT(PubTime, '%Y-%m-%d')                                                                      
+	) t
+	order by PubTime desc
+  </select>
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.writ.mapper.DzqzMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.writ.model.Dzqz" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="QzTime" property="qzTime" jdbcType="TIMESTAMP" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="QzStatus" property="qzStatus" jdbcType="CHAR" />
+    <result column="ImageCode" property="imageCode" jdbcType="LONGVARCHAR" />
+    <result column="WritUuid" property="writUuid" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.SfcFormMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.SfcForm" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="Cominfo" property="cominfo" jdbcType="VARCHAR" />
+    <result column="Balanctsheet" property="balanctsheet" jdbcType="VARCHAR" />
+    <result column="Incstatement" property="incstatement" jdbcType="VARCHAR" />
+    <result column="Incomechange" property="incomechange" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

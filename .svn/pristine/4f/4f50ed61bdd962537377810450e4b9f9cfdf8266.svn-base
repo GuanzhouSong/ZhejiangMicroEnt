@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.sccheck.mapper.PubScdeptTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sccheck.model.PubScdeptTask" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Uid" property="uid" jdbcType="VARCHAR" />
+    <result column="TaskUid" property="taskUid" jdbcType="VARCHAR" />
+    <result column="DeptState" property="deptState" jdbcType="CHAR" />
+    <result column="CheckNum" property="checkNum" jdbcType="INTEGER" />
+    <result column="SpecialNum" property="specialNum" jdbcType="INTEGER" />
+    <result column="EntNum" property="entNum" jdbcType="INTEGER" />
+    <result column="deptCode" property="deptCode" jdbcType="VARCHAR" />
+    <result column="UnitDeptCode" property="unitDeptCode" jdbcType="VARCHAR" />
+    <result column="SetDeptName" property="setDeptName" jdbcType="VARCHAR" />
+    <result column="SetUserUid" property="setUserUid" jdbcType="VARCHAR" />
+    <result column="SetUserName" property="setUserName" jdbcType="VARCHAR" />
+    <result column="RelateUserUid" property="relateUserUid" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="MinNum" property="minNum" jdbcType="INTEGER" />
+    <result column="RandomType" property="randomType" jdbcType="CHAR" />
+    <result column="RandomDate" property="randomDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.SfcIncomechangeMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.SfcIncomechange" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="ChangeType" property="changeType" jdbcType="CHAR" />
+    <result column="ChgStockStartBal" property="chgStockStartBal" jdbcType="DECIMAL" />
+    <result column="ChgStockAdd" property="chgStockAdd" jdbcType="DECIMAL" />
+    <result column="ChgStockAddCap" property="chgStockAddCap" jdbcType="DECIMAL" />
+    <result column="ChgStockAddSur" property="chgStockAddSur" jdbcType="DECIMAL" />
+    <result column="ChgStockAddMem" property="chgStockAddMem" jdbcType="DECIMAL" />
+    <result column="ChgStockLess" property="chgStockLess" jdbcType="DECIMAL" />
+    <result column="ChgStockEndBal" property="chgStockEndBal" jdbcType="DECIMAL" />
+    <result column="ChgFundStartBal" property="chgFundStartBal" jdbcType="DECIMAL" />
+    <result column="ChgFundAdd" property="chgFundAdd" jdbcType="DECIMAL" />
+    <result column="ChgFundAddSsd" property="chgFundAddSsd" jdbcType="DECIMAL" />
+    <result column="ChgFundAddDona" property="chgFundAddDona" jdbcType="DECIMAL" />
+    <result column="ChgFundLess" property="chgFundLess" jdbcType="DECIMAL" />
+    <result column="ChgFundEndBal" property="chgFundEndBal" jdbcType="DECIMAL" />
+    <result column="ChgCapitalStartBal" property="chgCapitalStartBal" jdbcType="DECIMAL" />
+    <result column="ChgCapitalAdd" property="chgCapitalAdd" jdbcType="DECIMAL" />
+    <result column="ChgCapitalAddPre" property="chgCapitalAddPre" jdbcType="DECIMAL" />
+    <result column="ChgCapitalAddAppr" property="chgCapitalAddAppr" jdbcType="DECIMAL" />
+    <result column="ChgCapitalLess" property="chgCapitalLess" jdbcType="DECIMAL" />
+    <result column="ChgCapitalEndBal" property="chgCapitalEndBal" jdbcType="DECIMAL" />
+    <result column="ChgProfitStartBal" property="chgProfitStartBal" jdbcType="DECIMAL" />
+    <result column="ChgProfitAdd" property="chgProfitAdd" jdbcType="DECIMAL" />
+    <result column="ChgProfitAddSur" property="chgProfitAddSur" jdbcType="DECIMAL" />
+    <result column="ChgProfitLess" property="chgProfitLess" jdbcType="DECIMAL" />
+    <result column="ChgProfitEndBal" property="chgProfitEndBal" jdbcType="DECIMAL" />
+    <result column="ChgNogetStartBal" property="chgNogetStartBal" jdbcType="DECIMAL" />
+    <result column="ChgNogetAdd" property="chgNogetAdd" jdbcType="DECIMAL" />
+    <result column="ChgNogetLess" property="chgNogetLess" jdbcType="DECIMAL" />
+    <result column="ChgNogetLessVol" property="chgNogetLessVol" jdbcType="DECIMAL" />
+    <result column="ChgNogetLessSur" property="chgNogetLessSur" jdbcType="DECIMAL" />
+    <result column="ChgNogetEndBal" property="chgNogetEndBal" jdbcType="DECIMAL" />
+    <result column="ChgTotalStartBal" property="chgTotalStartBal" jdbcType="DECIMAL" />
+    <result column="ChgTotalAdd" property="chgTotalAdd" jdbcType="DECIMAL" />
+    <result column="ChgTotalLess" property="chgTotalLess" jdbcType="DECIMAL" />
+    <result column="ChgTotalEndbal" property="chgTotalEndbal" jdbcType="DECIMAL" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

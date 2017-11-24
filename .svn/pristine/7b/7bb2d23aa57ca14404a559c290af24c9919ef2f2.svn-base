@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.registinfo.mapper.RegistInfoHisMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.registinfo.model.RegistInfoHis" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="ID" property="ID" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="VARCHAR" />
+    <result column="SliceNO" property="sliceNO" jdbcType="VARCHAR" />
+    <result column="SliceMan" property="sliceMan" jdbcType="VARCHAR" />
+    <result column="SliceTel" property="sliceTel" jdbcType="VARCHAR" />
+    <result column="IndividDate" property="individDate" jdbcType="DATE" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="Linkman" property="linkman" jdbcType="VARCHAR" />
+    <result column="Linktel" property="linktel" jdbcType="VARCHAR" />
+    <result column="OpLoc" property="opLoc" jdbcType="VARCHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="VARCHAR" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="BackName" property="backName" jdbcType="VARCHAR" />
+    <result column="BackTime" property="backTime" jdbcType="TIMESTAMP" />
+    <result column="BackReason" property="backReason" jdbcType="VARCHAR" />
+    <result column="RegistState" property="registState" jdbcType="VARCHAR" />
+    <result column="ArchState" property="archState" jdbcType="CHAR" />
+    <result column="ClaimState" property="claimState" jdbcType="CHAR" />
+    <result column="ClaimDate" property="claimDate" jdbcType="TIMESTAMP" />
+    <result column="ClaimCode" property="claimCode" jdbcType="VARCHAR" />
+    <result column="ClaimName" property="claimName" jdbcType="VARCHAR" />
+    <result column="IsInvestigate" property="isInvestigate" jdbcType="CHAR" />
+    <result column="InvestigateDate" property="investigateDate" jdbcType="TIMESTAMP" />
+    <result column="InvestigateFile" property="investigateFile" jdbcType="VARCHAR" />
+    <result column="IsSameAddr" property="isSameAddr" jdbcType="CHAR" />
+    <result column="DiffAddrReason" property="diffAddrReason" jdbcType="CHAR" />
+    <result column="UnitTel" property="unitTel" jdbcType="VARCHAR" />
+    <result column="Street" property="street" jdbcType="VARCHAR" />
+    <result column="IsChangeArch" property="isChangeArch" jdbcType="CHAR" />
+    <result column="ChangeArchState" property="changeArchState" jdbcType="CHAR" />
+    <result column="WebSite" property="webSite" jdbcType="VARCHAR" />
+    <result column="WebSiteName" property="webSiteName" jdbcType="VARCHAR" />
+    <result column="UnitEmail" property="unitEmail" jdbcType="VARCHAR" />
+    <result column="RegistSource" property="registSource" jdbcType="CHAR" />
+    <result column="Finance" property="finance" jdbcType="VARCHAR" />
+    <result column="FinanceTel" property="financeTel" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="ComDate" property="comDate" jdbcType="DATE" />
+    <result column="DelegateOrg" property="delegateOrg" jdbcType="CHAR" />
+    <result column="DelegateOrgName" property="delegateOrgName" jdbcType="VARCHAR" />
+    <result column="DelegateName" property="delegateName" jdbcType="VARCHAR" />
+    
+    <result column="EntEppaPhone" jdbcType="VARCHAR" property="entEppaPhone"/>
+    <result column="LinkPhone" jdbcType="VARCHAR" property="linkPhone"/>
+    <result column="CityAddress" property="cityAddress" jdbcType="VARCHAR" />
+	<result column="AreaAddress" property="areaAddress" jdbcType="VARCHAR" />
+	<result column="StreeAddress" property="streeAddress" jdbcType="VARCHAR" />
+	<result column="DesAddress" property="desAddress" jdbcType="VARCHAR" />
+	
+	<result column="ArchDate" jdbcType="DATE" property="archDate"/>
+	<result column="ArchName" property="archName" jdbcType="VARCHAR" />
+    <result column="ModDate" property="modDate" jdbcType="TIMESTAMP" />
+    
+    <result column="ActualCityAddress" property="actualCityAddress" jdbcType="VARCHAR" />
+	<result column="ActualAreaAddress" property="actualAreaAddress" jdbcType="VARCHAR" />
+	<result column="ActualStreeAddress" property="actualStreeAddress" jdbcType="VARCHAR" />
+	<result column="ActualDesAddress" property="actualDesAddress" jdbcType="VARCHAR" />
+	<result column="ActualStreet" property="actualStreet" jdbcType="VARCHAR" />
+	<result column="ActualOpLoc" property="actualOpLoc" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

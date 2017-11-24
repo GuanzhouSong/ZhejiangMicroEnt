@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.sment.mapper.EntarchivesOperateMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sment.model.EntarchivesOperate" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="OpeStateIncome" property="opeStateIncome" jdbcType="DECIMAL" />
+    <result column="OpeStateProfi" property="opeStateProfi" jdbcType="DECIMAL" />
+    <result column="OpeStateTax" property="opeStateTax" jdbcType="DECIMAL" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

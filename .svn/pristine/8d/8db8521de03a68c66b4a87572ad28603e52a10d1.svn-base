@@ -1,0 +1,902 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.registmanage.mapper.QualificationLimitMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.registmanage.model.QualificationLimit" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="SourceId" property="sourceId" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="ClientName" property="clientName" jdbcType="VARCHAR" />
+    <result column="CertType" property="certType" jdbcType="VARCHAR" />
+    <result column="CertNO" property="certNO" jdbcType="VARCHAR" />
+    <result column="LimitType" property="limitType" jdbcType="VARCHAR" />
+    <result column="LimitDateStart" property="limitDateStart" jdbcType="DATE" />
+    <result column="LimitDateEnd" property="limitDateEnd" jdbcType="DATE" />
+    <result column="ChangePerson" property="changePerson" jdbcType="VARCHAR" />
+    <result column="ChangeTime" property="changeTime" jdbcType="TIMESTAMP" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="HouseAdd" property="houseAdd" jdbcType="VARCHAR" />
+    <result column="MobTel" property="mobTel" jdbcType="VARCHAR" />
+    <result column="Country" property="country" jdbcType="VARCHAR" />
+    <result column="LimitReason" property="limitReason" jdbcType="VARCHAR" />
+    <result column="LimitDepartName" property="limitDepartName" jdbcType="VARCHAR" />
+    <result column="LimitNO" property="limitNO" jdbcType="VARCHAR" />
+    <result column="Sex" property="sex" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR"/>
+  	<result column="RegNO" property="regNO" jdbcType="VARCHAR"/>
+  	<result column="UniCode" property="uniCode" jdbcType="VARCHAR"/>
+  	<result column="RegOrg" property="regOrg" jdbcType="VARCHAR"/>
+  	<result column="LocalAdm" property="localAdm" jdbcType="VARCHAR"/>
+  	<result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR"/>
+  	<result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR"/>
+  
+    <result column="auditState" property="auditState" jdbcType="VARCHAR" />
+    <result column="RemoveReason" property="removeReason" jdbcType="VARCHAR" />
+    <result column="RemoveReasonCN" property="removeReasonCN" jdbcType="VARCHAR" />
+    <result column="RemoveOtherReason" property="removeOtherReason" jdbcType="VARCHAR" />
+    <result column="RemoveAppLyName" property="removeAppLyName" jdbcType="VARCHAR"/>
+    <result column="RemoveAppLyDate" property="removeAppLyDate" jdbcType="TIMESTAMP" />
+  	<result column="RemoveAuditName" property="removeAuditName" jdbcType="VARCHAR"/>
+  	<result column="RemoveAuditDate" property="removeAuditDate" jdbcType="TIMESTAMP" />
+  	<result column="RemoveAuditDept" property="removeAuditDept" jdbcType="VARCHAR"/>
+  	<result column="RemoveAuditOpin" property="removeAuditOpin" jdbcType="VARCHAR"/>
+  	<result column="RemoveDept" property="removeDept" jdbcType="VARCHAR"/>  	
+  	<result column="RemoveDeptName" property="removeDeptName" jdbcType="VARCHAR"/> 
+  	<result column="RemoveDate" property="removeDate" jdbcType="TIMESTAMP" />		
+  </resultMap>
+<!--   extends="BaseResultMap" -->
+   <resultMap id="BaseResultMapDto" type="com.icinfo.cs.registmanage.dto.QualificationLimitDto" extends="BaseResultMap" >
+  		<result column="Dom" property="dom" jdbcType="VARCHAR"/>
+  		<result column="RelCount1" property="relCount1" jdbcType="INTEGER"/>
+  		<result column="RelCount2" property="relCount2" jdbcType="INTEGER"/>
+  		<result column="RelCount3" property="relCount3" jdbcType="INTEGER"/>
+  		<result column="MgrRecCount" property="mgrRecCount" jdbcType="INTEGER"/>
+   </resultMap>
+  
+    <sql id="qualifi_where">
+  	<if test="limitType != null and limitType != ''">
+	  	and	LimitType = #{limitType}
+	</if>
+	<if test="clientName != null and clientName != ''">
+	  	and	ClientName = #{clientName}
+	</if>
+	<if test="limitDateStart != null and limitDateStart != ''">
+		and	<![CDATA[ LimitDateStart >= #{limitDateStart} ]]>
+	</if>
+	<if test="limitDateEnd != null and limitDateEnd != ''">
+		and	<![CDATA[ LimitDateEnd <= #{limitDateEnd} ]]>
+	</if>
+	<if test="certType != null and certType != ''">
+	  	and CertType = #{certType}
+	</if>
+	<if test="certNO != null and certNO != ''">
+	  	and	CertNO = #{certNO}
+	</if>
+	<if test="noLimitTime != null and noLimitTime != ''">
+		and	(<![CDATA[ LimitDateEnd >= #{noLimitTime} ]]> OR LimitDateEnd IS NULL)
+	</if>
+  </sql>
+  
+  <select id="selectQualificationLimitList" parameterType="map" resultMap="BaseResultMapDto"> 
+  	SELECT 
+  		id,UID,SourceId,PriPID,ClientName,CertType,CertNO,LimitType,LimitDateStart,LimitDateEnd,ChangePerson,ChangeTime,CreateTime
+	FROM 
+		cs_qualification_limit
+	WHERE 1=1
+	<include refid="qualifi_where"></include>
+  </select>
+  
+  <select id="selectLimitPersonInfo" parameterType="map" resultMap="BaseResultMap"> 
+  	SELECT 
+  		id,UID,SourceId,PriPID,ClientName,CertType,CertNO,LimitType,LimitDateStart,LimitDateEnd,ChangePerson,ChangeTime,CreateTime
+	FROM 
+		cs_qualification_limit
+	WHERE 1=1
+	<include refid="qualifi_where"></include>
+  </select>
+  
+  <sql id="limit_where">
+  	<trim prefix="WHERE" prefixOverrides="AND | OR"> 
+  		t.CertType != '0'
+	  	<if test="limitType != null and limitType != ''">
+		  	AND t.LimitType = #{limitType}
+		</if>
+		<if test="clientName != null and clientName != ''">
+		  	AND	t.ClientName = #{clientName}
+		</if>
+		<if test="limitDateStart != null and limitDateStart != ''">
+			AND	<![CDATA[ t.LimitDateEnd >= #{limitDateStart} ]]>
+		</if>
+		<if test="limitDateEnd != null and limitDateEnd != ''">
+			AND	<![CDATA[ t.LimitDateEnd <= #{limitDateEnd} ]]>
+		</if>
+		<if test="certType != null and certType != ''">
+		  	AND t.CertType = #{certType}
+		</if>
+		<if test="certNO != null and certNO != ''">
+		  	AND	t.CertNO = #{certNO}
+		</if>
+		<if test="noLimitTimeStart != null and noLimitTimeStart != ''">
+				AND	<![CDATA[ t.LimitDateEnd < #{noLimitTimeStart} ]]>
+		</if>
+		<if test="noLimitTimeEnd != null and noLimitTimeEnd != ''">
+			<if test="freeState1 != null and freeState1 != ''">
+		  		AND (<![CDATA[ t.LimitDateEnd >= #{noLimitTimeEnd} ]]> OR  t.LimitDateEnd IS NULL)
+			</if>
+			<if test="freeState1 == null or freeState1 == ''">
+				AND	<![CDATA[ t.LimitDateEnd >= #{noLimitTimeEnd} ]]>
+			</if>
+		</if>
+		<if test="entName !=null and entName != ''">
+            AND n.EntName = #{entName}
+        </if>
+        <if test="limitNO != null and limitNO != ''">
+	  	and	t.LimitNO = #{limitNO}
+	    </if>
+		<if test="regNO !=null and regNO != ''">
+            AND (n.RegNO = #{regNO} OR n.UniCode = #{regNO})
+        </if>
+        <if test="limitTypeArr != null and limitTypeArr != ''">
+			and t.LimitType in
+			<foreach item="item" index="index" collection="limitTypeArr" open="(" separator="," close=")">
+						#{item}
+		    </foreach>
+	   </if>
+	   <if test="freeState2 != null and freeState2 != ''">
+		  	AND  t.LimitType != '1'
+		</if>
+	</trim>
+  </sql>
+  
+  <select id="selectRightLimitList" parameterType="map" resultMap="BaseResultMapDto"> 
+  	select 
+		t.UID,
+		t.ClientName,
+		t.CertType,
+		t.CertNO,
+		t.LimitType,
+		t.LimitDateStart,
+		t.LimitDateEnd,
+		t.ChangePerson,
+		t.ChangeTime,
+		t.CreateTime,
+		t.HouseAdd,
+		t.MobTel,
+		t.Country,
+		t.LimitReason,
+		t.LimitDepartName,
+		t.limitNO,
+		t.Sex, 
+		n.PriPID,
+		n.RegNO,
+		n.UniCode,
+		n.EntName
+	from cs_qualification_limit t
+	LEFT JOIN cs_mid_baseinfo n ON t.PriPID = n.PriPID
+	<include refid="limit_where"></include>
+  </select>
+  
+  <select id="selectLimitObjList" parameterType="map" resultMap="BaseResultMapDto"> 
+  	select 
+		t.UID,
+		t.ClientName,
+		t.CertType,
+		t.CertNO,
+		t.LimitType,
+		t.LimitDateStart,
+		t.LimitDateEnd,
+		t.ChangePerson,
+		t.ChangeTime,
+		t.CreateTime,
+		t.HouseAdd,
+		t.MobTel,
+		t.Country,
+		t.LimitReason,
+		t.LimitDepartName,
+		t.limitNO,
+		t.Sex, 
+		n.LocalAdmName, 
+		n.RegOrgName,
+		n.PriPID,
+		n.RegNO,
+		n.UniCode,
+		n.EntName,
+		t.AuditState,
+		t.RemoveAuditName,
+		t.RemoveAuditDate,
+		t.RemoveAuditDept,
+		(
+			select count(DISTINCT(t1.PriPID)) from cs_mid_member t1 
+			where t1.NAME = t.ClientName AND t1.CerNO = t.CertNO
+	    )
+	   relCount1,
+	   (	
+			select count(DISTINCT(t2.PriPID)) from cs_mid_lerep t2 
+			where t2.NAME = t.ClientName AND t2.CerNO = t.CertNO		
+	    )
+	   relCount2,
+	   (	
+			select count(DISTINCT(t3.PriPID)) from cs_mid_inv t3 
+			where t3.inv = t.ClientName AND t3.CerNO = t.CertNO AND	n.EntTypeCatg in (33,27)	
+	    )
+	   relCount3,
+	   (SELECT COUNT(1) FROM cs_limit_managerecord t4
+		WHERE t.uid=t4.uid) mgrRecCount
+	from cs_qualification_limit t
+	LEFT JOIN cs_mid_baseinfo n ON t.PriPID = n.PriPID
+	<include refid="limitobj_where"></include>
+  </select>
+  <sql id="limitobj_where">
+  		where 1=1
+		<if test="clientName != null and clientName != ''">
+		  	AND	t.ClientName LIKE concat('%', #{clientName},'%')
+		</if>
+		<if test="regNO !=null and regNO != ''">
+            AND (n.RegNO LIKE concat('%', #{regNO}) OR n.UniCode LIKE concat('%', #{regNO}))
+        </if>
+        <if test="regOrg !=null and regOrg != ''">
+            AND n.RegOrg IN (${regOrg})
+        </if>
+        <if test="certNO != null and certNO != ''">
+		  	AND	t.CertNO = #{certNO}
+		</if>
+		<if test="entName !=null and entName != ''">
+            AND n.EntName LIKE concat('%', #{entName},'%')
+        </if>
+        <if test="localAdm !=null and localAdm != ''">
+            AND n.LocalAdm IN (${localAdm})
+        </if>
+        <if test="noLimitTimeStart != null and noLimitTimeStart != ''">
+			AND	((<![CDATA[ t.LimitDateEnd <= #{noLimitTimeStart} ]]> AND t.LimitDateEnd is not null)
+		  	OR	t.AuditState = #{auditState})
+		</if>
+		<if test="noLimitTimeEnd != null and noLimitTimeEnd != ''">
+			AND IFNULL(t.AuditState,0) != 1
+			AND	(<![CDATA[ t.LimitDateEnd >= #{noLimitTimeEnd} ]]> OR t.LimitDateEnd is null)
+		</if>
+	  	<if test="limitType != null and limitType != ''">
+		  	AND t.LimitType in (${limitType})
+		</if>
+		<if test="certType != null and certType != ''">
+		  	AND t.CertType = #{certType}
+		</if>
+		<if test="limitDateStart != null and limitDateStart != ''">
+			AND	<![CDATA[ t.LimitDateStart >= #{limitDateStart} ]]>
+		</if>
+		<if test="limitDateEnd != null and limitDateEnd != ''">
+			AND	<![CDATA[ t.LimitDateEnd <= #{limitDateEnd} ]]>
+		</if>
+		<if test="isMgrRec != null and isMgrRec != ''">
+			<if test="isMgrRec == 1">
+	         and (
+				SELECT
+					COUNT(1)
+				FROM
+					cs_limit_managerecord t4
+				WHERE
+					t.uid = t4.uid
+			)>0
+	        </if>
+	        <if test="isMgrRec == 0">
+	         and (
+				SELECT
+					COUNT(1)
+				FROM
+					cs_limit_managerecord t4
+				WHERE
+					t.uid = t4.uid
+			)=0
+	        </if>
+        </if>
+         <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+  </sql>
+  
+  <select id="selectlimitRelEntList" parameterType="map" resultMap="BaseResultMapDto"> 
+  	select 
+		t.UID,
+		t.ClientName,
+		t.CertType,
+		t.CertNO,
+		t.LimitType,
+		t.LimitDateStart,
+		t.LimitDateEnd,
+		t.ChangePerson,
+		t.ChangeTime,
+		t.CreateTime,
+		t.HouseAdd,
+		t.MobTel,
+		t.Country,
+		t.LimitReason,
+		t.LimitDepartName,
+		t.limitNO,
+		t.Sex, 
+		n.LocalAdmName,
+		n.RegOrgName,
+		n.PriPID,
+		n.RegNO,
+		n.UniCode,
+		n.EntName,
+		n.dom,
+		(SELECT COUNT(1) FROM cs_limit_managerecord t4
+		WHERE t.uid=t4.uid) mgrRecCount
+	from cs_qualification_limit t
+	LEFT JOIN cs_mid_baseinfo n ON t.PriPID = n.PriPID
+	<include refid="limitrelent_where"></include>
+  </select>
+  <sql id="limitrelent_where">
+  		where (t.PriPID is not null AND t.PriPID !="")
+  		AND t.limitType!='1'
+		<if test="clientName != null and clientName != ''">
+		  	AND	t.ClientName LIKE concat('%', #{clientName},'%')
+		</if>
+		<if test="regNO !=null and regNO != ''">
+            AND (n.RegNO LIKE concat('%', #{regNO}) OR n.UniCode LIKE concat('%', #{regNO}))
+        </if>
+        <if test="regOrg !=null and regOrg != ''">
+            AND n.RegOrg IN (${regOrg})
+        </if>
+        <if test="certNO != null and certNO != ''">
+		  	AND	t.CertNO = #{certNO}
+		</if>
+		<if test="entName !=null and entName != ''">
+            AND n.EntName LIKE concat('%', #{entName},'%')
+        </if>
+        <if test="localAdm !=null and localAdm != ''">
+            AND n.LocalAdm IN (${localAdm})
+        </if>
+        <if test="noLimitTimeStart != null and noLimitTimeStart != ''">
+			AND	((<![CDATA[ t.LimitDateEnd <= #{noLimitTimeStart} ]]> AND t.LimitDateEnd is not null)
+		  	OR	t.AuditState = #{auditState})
+		</if>
+		<if test="noLimitTimeEnd != null and noLimitTimeEnd != ''">
+			AND	(<![CDATA[ t.LimitDateEnd >= #{noLimitTimeEnd} ]]> OR t.LimitDateEnd is null)
+		</if>
+	  	<if test="limitType != null and limitType != ''">
+		  	AND t.LimitType in (${limitType})
+		</if>
+		<if test="certType != null and certType != ''">
+		  	AND t.CertType = #{certType}
+		</if>
+		<if test="limitDateStart != null and limitDateStart != ''">
+			AND	<![CDATA[ t.LimitDateStart >= #{limitDateStart} ]]>
+		</if>
+		<if test="limitDateEnd != null and limitDateEnd != ''">
+			AND	<![CDATA[ t.LimitDateEnd <= #{limitDateEnd} ]]>
+		</if>
+		<if test="isMgrRec == 1">
+         and (
+			SELECT
+				COUNT(1)
+			FROM
+				cs_limit_managerecord t4
+			WHERE
+				t.uid = t4.uid
+		)>0
+        </if>
+        <if test="isMgrRec == 0">
+         and (
+			SELECT
+				COUNT(1)
+			FROM
+				cs_limit_managerecord t4
+			WHERE
+				t.uid = t4.uid
+		)=0
+        </if>
+        <if test="name == 1">
+         AND t.CertNO IN
+		(SELECT CerNO from cs_mid_lerep UNION ALL SELECT CerNO from cs_mid_lerep)
+        </if>
+        <if test="name == 2">
+         AND t.CertNO IN (SELECT CerNO from cs_mid_member)
+        </if>
+        
+        <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+  </sql>
+  
+  <select id="selectRightPriPIDList" parameterType="map" resultType="java.lang.String"> 
+  	select 
+		t.PriPID
+	from cs_qualification_limit t
+	where 1=1
+	<if test="certNO != null and certNO != ''">
+	  	AND	t.CertNO = #{certNO}
+	</if>
+  </select>
+  
+  <select id="selectPersonTotal" parameterType="map" resultType="Integer">
+ 	SELECT count(temp.UID) from (
+		select t.UID from cs_qualification_limit t 
+		LEFT JOIN cs_mid_baseinfo n ON t.PriPID = n.PriPID
+		<include refid="limit_where"></include>
+		GROUP BY t.CertType,t.CertNO
+	)temp
+ </select>
+ 
+ <select id="selectLimitObjCount" parameterType="map" resultType="Integer">
+ 	SELECT 
+	COUNT(DISTINCT t.CertNO)
+	FROM
+	cs_qualification_limit t
+	LEFT JOIN cs_mid_baseinfo n ON t.PriPID = n.PriPID
+	<include refid="limitobj_where"></include>
+ </select>
+ 
+ <select id="selectRelEntCount" parameterType="map" resultType="Integer">
+ 	SELECT SUM(C.count) from
+ 	(
+ 	SELECT count(DISTINCT(PriPID)) count FROM cs_mid_lerep A WHERE A.CerNO IN
+		(SELECT t.CertNO FROM cs_qualification_limit t
+			LEFT JOIN cs_mid_baseinfo n ON t.PriPID = n.PriPID
+			<include refid="limitobj_where"></include>
+		)
+	UNION ALL
+	SELECT count(DISTINCT(PriPID)) count FROM cs_mid_member B WHERE B.CerNO IN
+		(SELECT t.CertNO FROM cs_qualification_limit t
+			LEFT JOIN cs_mid_baseinfo n ON t.PriPID = n.PriPID
+			<include refid="limitobj_where"></include>
+		)
+	)C
+
+ </select>
+ 
+  <select id="selectLimitObjCountByEnt" parameterType="map" resultType="Integer">
+  	SELECT 
+	COUNT(DISTINCT t.CertNO)
+	FROM
+	cs_qualification_limit t
+	LEFT JOIN cs_mid_baseinfo n ON t.PriPID = n.PriPID
+	<include refid="limitrelent_where"></include>
+ </select>
+ 
+ <select id="selectRelEntCountByEnt" parameterType="map" resultType="Integer">
+ 	SELECT SUM(C.count) from
+ 	(
+ 	SELECT count(DISTINCT(PriPID)) count FROM cs_mid_lerep A WHERE A.CerNO IN
+		(SELECT t.CertNO FROM cs_qualification_limit t
+			LEFT JOIN cs_mid_baseinfo n ON t.PriPID = n.PriPID
+			<include refid="limitrelent_where"></include>
+		)
+	UNION ALL
+	SELECT count(DISTINCT(PriPID)) count FROM cs_mid_member B WHERE B.CerNO IN
+		(SELECT t.CertNO FROM cs_qualification_limit t
+			LEFT JOIN cs_mid_baseinfo n ON t.PriPID = n.PriPID
+			<include refid="limitrelent_where"></include>
+		)
+	)C
+	
+ </select>
+ 
+ <select id="selectEntTotal" parameterType="map" resultType="Integer">
+ 	SELECT count(temp.PriPID) from (
+		select t.PriPID from cs_qualification_limit t 
+		LEFT JOIN cs_mid_baseinfo n ON t.PriPID = n.PriPID
+		<include refid="limit_where"></include>
+		GROUP BY t.PriPID
+	)temp
+ </select>
+ 
+   <!-- 提前解除限制申请查询 -->
+    <sql id="removelimit_where">
+  		    AND t.CertType != '0'
+	  	<if test="limitType != null and limitType != ''">
+		  	AND t.LimitType = #{limitType}
+		</if>
+		<if test="uid != null and uid != ''">
+		  	AND t.uid = #{uid}
+		</if>
+		<!-- 提前限制移除标志：只有限制类别为0,4的可以 -->
+	  	<if test="removelimitflag != null and removelimitflag != ''">
+            AND t.LimitType IN ('0','4')
+		</if>
+		<!-- 提前限制移除查询标志：审核状态不为null -->
+	  	<if test="removelimitsearchflag != null and removelimitsearchflag != ''">
+            AND t.AuditState is not null
+		</if>
+		<!-- 提前限制移除申请新增标志：未解除且未申请 -->
+	  	<if test="addremoveflag != null and addremoveflag != ''">
+		   AND (t.AuditState = '2' OR t.AuditState IS NULL)
+		   <![CDATA[ AND (DATE_FORMAT(t.LimitDateEnd,'%Y-%m-%d') >= CURDATE() or LimitDateEnd is null )  ]]>
+		</if>
+		<if test="clientName != null and clientName != ''">
+		  	AND	t.ClientName like concat('%', #{clientName},'%')
+		</if>
+		<if test="limitDateStart != null and limitDateStart != ''">
+			<![CDATA[ AND DATE_FORMAT(t.LimitDateEnd,'%Y-%m-%d') >= #{limitDateStart}]]>
+		</if>
+		<if test="limitDateEnd != null and limitDateEnd != ''">
+			<![CDATA[ AND  DATE_FORMAT(t.LimitDateEnd,'%Y-%m-%d') <= #{limitDateEnd} ]]>
+		</if>
+		<if test="certType != null and certType != ''">
+		  	AND t.CertType = #{certType}
+		</if>
+		<if test="certNO != null and certNO != ''">
+		  	AND	t.CertNO = #{certNO}
+		</if>
+	    <!-- 限制解除状态  限制未解除  限制日期在当前日期之后   并且   审核状态不为已审核通过  -->
+	    <if test="freeState !=null and freeState == '1'.toString()">
+		  <![CDATA[
+		  AND (t.AuditState != '1' OR t.AuditState IS NULL)
+		  ]]>
+ <!-- 		  AND DATE_FORMAT(t.LimitDateEnd,'%Y-%m-%d') <= CURDATE() -->	  
+	    </if>
+	    <!-- 限制解除状态 限制解除     审核状态为1 已审核通过   或者   限制日期在当前日期之前 -->
+	    <if test="freeState !=null and freeState == '2'.toString()">
+          <![CDATA[
+          AND (t.AuditState = '1')
+		  ]]>
+<!-- 		  AND DATE_FORMAT(t.LimitDateEnd,'%Y-%m-%d') <= CURDATE() -->
+		</if>
+		<if test="noLimitTimeStart != null and noLimitTimeStart != ''">
+			AND	<![CDATA[ t.LimitDateEnd <= #{noLimitTimeStart} ]]>
+		</if>
+		<if test="noLimitTimeEnd != null and noLimitTimeEnd != ''">
+			AND	<![CDATA[ t.LimitDateEnd >= #{noLimitTimeEnd} ]]>
+		</if>
+		<!-- 解除日期 -->
+		<if test="removeDateStart != null and removeDateStart != ''">
+			AND	<![CDATA[ t.RemoveDate >= #{removeDateStart} ]]>
+		</if>
+		<if test="removeDateEnd != null and removeDateEnd != ''">
+			AND	<![CDATA[ t.RemoveDate <= #{removeDateEnd} ]]>
+		</if>
+		<!-- 解除申请日期 -->
+		<if test="removeAppLyDateStart != null and removeAppLyDateStart != ''">
+			AND	<![CDATA[ t.RemoveAppLyDate >= #{removeAppLyDateStart} ]]>
+		</if>
+		<if test="removeAppLyDateEnd != null and removeAppLyDateEnd != ''">
+			AND	<![CDATA[ t.RemoveAppLyDate <= #{removeAppLyDateEnd} ]]>
+		</if>
+		<!-- 解除审核日期 -->
+		<if test="removeAuditDateStart != null and removeAuditDateStart != ''">
+			AND	<![CDATA[ t.RemoveAuditDate >= #{removeAuditDateStart} ]]>
+		</if>
+		<if test="removeAuditDateEnd != null and removeAuditDateEnd != ''">
+			AND	<![CDATA[ t.RemoveAuditDate <= #{removeAuditDateEnd} ]]>
+		</if>
+		<if test="entName !=null and entName != ''">
+            AND n.EntName = #{entName}
+        </if>
+        <if test="limitNO != null and limitNO != ''">
+	  	and	t.LimitNO = #{limitNO}
+	    </if>
+		<if test="regNO !=null and regNO != ''">
+            AND (n.RegNO = #{regNO} OR n.UniCode = #{regNO})
+        </if>
+        <!-- 解除申请状态 -->
+        <if test="aduitState != null and aduitState != ''">
+	  	and	t.AuditState = #{aduitState}
+	    </if>
+	    <!-- 解除申请人 -->
+        <if test="removeAppLyName != null and removeAppLyName != ''">
+	  	and	t.RemoveAppLyName = #{removeAppLyName}
+	    </if>
+	    <!-- 解除审核人 -->
+        <if test="removeAuditName != null and removeAuditName != ''">
+	  	and	t.RemoveAuditName = #{removeAuditName}
+	    </if>
+        <!-- 解除审核部门 -->
+	    <if test="removeDept != null and removeDept != ''">
+	  	and	t.RemoveDept in (${removeDept})
+	    </if>
+	    
+        <if test="limitTypeArr != null and limitTypeArr != ''">
+			and t.LimitType in
+			<foreach item="item" index="index" collection="limitTypeArr" open="(" separator="," close=")">
+						#{item}
+		    </foreach>
+	   </if>
+	   
+  </sql>
+  
+   <select id="selectRemoveLimitList" parameterType="map" resultMap="BaseResultMapDto"> 
+  	select 
+		t.UID,
+		t.ClientName,
+		t.CertType,
+		t.CertNO,
+		t.LimitType,
+		t.LimitDateStart,
+		t.LimitDateEnd,
+		t.ChangePerson,
+		t.ChangeTime,
+		t.CreateTime,
+		t.HouseAdd,
+		t.MobTel,
+		t.Country,
+		t.LimitReason,
+		t.LimitDepartName,
+		t.limitNO,
+		t.Sex,
+		t.AuditState,
+		t.RemoveReason,
+		t.RemoveReasonCN,
+		t.RemoveOtherReason,
+		t.RemoveAppLyName,
+		t.RemoveAppLyDate,
+		t.RemoveAuditName,
+		t.RemoveAuditDate,
+		t.RemoveAuditDept,
+		t.RemoveAuditOpin,
+		t.RemoveDept,
+		t.RemoveDeptName, 
+		t.RemoveDate,
+		n.PriPID,
+		n.RegNO,
+		n.UniCode,
+		n.EntName
+	from cs_qualification_limit t
+	LEFT JOIN cs_mid_baseinfo n ON t.PriPID = n.PriPID
+	WHERE 1=1
+	<include refid="removelimit_where"></include>
+	order by t.AuditState
+  </select>
+ 
+ <!-- 查询限制对象 -->
+  <select id="selectRemoveClientNameTotal" parameterType="map" resultType="Integer">
+      SELECT COUNT(DISTINCT clientName) FROM cs_qualification_limit t LEFT JOIN cs_mid_baseinfo n ON t.PriPID = n.PriPID  where 1=1      
+	  <include refid="removelimit_where"></include>
+  </select>
+ 
+ <!-- 查询限制企业 -->
+  <select id="selectRemovePripidTotal" parameterType="map" resultType="Integer">
+    SELECT COUNT(DISTINCT t.pripid) FROM cs_qualification_limit t LEFT JOIN cs_mid_baseinfo n ON t.PriPID = n.PriPID  WHERE 1=1 	  
+    <include refid="removelimit_where"></include>
+ </select>
+
+<select id="selectLimitObjDetailList" parameterType="map" resultMap="BaseResultMapDto"> 
+  	select 
+		t.UID,
+		t.ClientName,
+		t.CertType,
+		t.CertNO,
+		t.LimitType,
+		t.LimitDateStart,
+		t.LimitDateEnd,
+		t.ChangePerson,
+		t.ChangeTime,
+		t.CreateTime,
+		t.HouseAdd,
+		t.MobTel,
+		t.Country,
+		t.LimitReason,
+		t.LimitDepartName,
+		t.limitNO,
+		t.Sex, 
+		n.LocalAdmName, 
+		n.RegOrgName,
+		n.PriPID,
+		n.RegNO,
+		n.UniCode,
+		n.EntName,
+		t.AuditState,
+		t.RemoveAuditName,
+		t.RemoveAuditDate,
+		t.RemoveAuditDept
+	from cs_qualification_limit t
+	LEFT JOIN cs_mid_baseinfo n ON t.PriPID = n.PriPID
+	<include refid="limitobj_where"></include>
+	order BY t.LimitDateEnd ASC ,IFNULL(t.AuditState,999) DESC
+  </select>
+   
+   <select id="selectlimiterRelEntList" parameterType="map" resultMap="BaseResultMapDto"> 
+   SELECT D.CerNO CertNO,D.Name ClientName FROM
+	(
+	 <if test="name == 3">
+		SELECT B.CerNO,B.Name FROM cs_mid_lerep B
+			WHERE B.PriPID IN (
+					SELECT A.PriPID FROM cs_mid_baseinfo A
+					WHERE 1 = 1
+					<include refid="limiterrelent_where"></include>
+			)
+			UNION ALL
+			SELECT C.CerNO,C.Name FROM cs_mid_member C
+			WHERE C.PriPID IN (
+					SELECT A.PriPID
+					FROM cs_mid_baseinfo A
+					WHERE 1 = 1
+					<include refid="limiterrelent_where"></include>
+		 	)
+	 </if>
+	 <if test="name == 2">
+	 	SELECT C.CerNO,C.Name FROM cs_mid_member C
+	 	WHERE C.PriPID IN (
+			SELECT A.PriPID FROM cs_mid_baseinfo A
+			WHERE 1 = 1
+			<include refid="limiterrelent_where"></include>
+		)
+	 </if>
+	 <if test="name == 1">
+	 	SELECT B.CerNO,B.Name FROM cs_mid_lerep B
+		WHERE B.PriPID IN (
+			SELECT A.PriPID FROM cs_mid_baseinfo A
+			WHERE 1 = 1
+			<include refid="limiterrelent_where"></include>
+		)
+	 </if>
+	) D
+	<include refid="limiter_where"></include>
+  </select>
+  
+  <sql id="limiterrelent_where">
+  		<if test="regNO !=null and regNO != ''">
+            AND (A.RegNO = #{regNO} OR A.UniCode=#{regNO})
+        </if>
+        <if test="entName !=null and entName != ''">
+            AND A.EntName = #{entName}
+        </if>
+        <if test="regOrg !=null and regOrg != ''">
+            AND A.RegOrg IN (${regOrg})
+        </if>
+        <if test="localAdm !=null and localAdm != ''">
+            AND A.LocalAdm IN (${localAdm})
+        </if>
+        <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+  </sql>
+  
+  <sql id="limiter_where">
+  		WHERE 1=1
+  		<if test="clientName != null and clientName != ''">
+		  	AND	D.Name = #{clientName}
+		</if>
+        <if test="certNO != null and certNO != ''">
+		  	AND	D.CertNO = #{certNO}
+		</if>
+    </sql>
+    
+    
+    <select id="limitObjNum" parameterType="map" resultType="java.lang.Integer">
+		SELECT
+			COUNT(1)
+		FROM
+			cs_qualification_limit t
+		LEFT JOIN cs_mid_baseinfo n ON t.PriPID = n.PriPID
+		WHERE
+			IFNULL(t.AuditState, 0) != 1
+		AND (
+			t.LimitDateEnd >= NOW()
+			OR t.LimitDateEnd IS NULL
+		)
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	</select>
+	
+	<select id="selectNewRevocationInfo" resultMap="BaseResultMap">
+		SELECT 
+		  PriPID
+		FROM
+		  cs_revocation_info t1
+		  WHERE NOT EXISTS 
+		  (SELECT 
+		    1 
+		  FROM
+		    cs_qualification_limit t2 
+		  WHERE t2.LimitType = '0' 
+		    AND t1.blackUID = t2.SourceId)
+	</select>
+	
+	<select id="selectNewDishonestexe" resultMap="BaseResultMap">
+		SELECT 
+		  GistCID LimitNO
+		FROM
+		  cs_mid_dishonestexe t1 
+		WHERE NOT EXISTS 
+		  (SELECT 
+		    1 
+		  FROM
+		    cs_qualification_limit t2 
+		  WHERE t2.LimitType = '1'
+		    AND t1.CardNum = t2.CertNO 
+		    AND t1.GistCID = t2.LimitNO)
+	</select>
+	
+	<delete id="deleteRevocationInfo">
+    	DELETE FROM
+		  cs_qualification_limit
+		WHERE LimitType = '0' 
+		  AND NOT EXISTS 
+		  (SELECT 
+		    1 
+		  FROM
+		    cs_revocation_info t2 
+		  WHERE SourceId = t2.blackUID)
+    </delete>
+
+    <insert id="insertRevocationInfo">
+	  	INSERT INTO cs_qualification_limit (
+		  UID,
+		  SourceId,
+		  PriPID,
+		  ClientName,
+		  CertType,
+		  CertNO,
+		  LimitType,
+		  LimitDateStart,
+		  LimitDateEnd,
+		  EntName,
+		  RegNO,
+		  LimitReason,
+		  LimitDepartName,
+		  LimitNO,
+		  CreateTime
+		)
+		SELECT 
+		  REPLACE(UUID(), '-', '')  AS UID,
+		  BlackUID,
+		  PriPID,
+		  LeRep,
+		  '10',
+		  CerNO,
+		  '0',
+		  SetDate,
+		  DeadlineTo,
+		  EntName,
+		  RegNO,
+		  LimitReason,
+		  LimitDepartName,
+		  LimitNO,
+		  NOW() 
+		FROM
+		  cs_revocation_info t1
+		  WHERE NOT EXISTS 
+		  (SELECT 
+		    1 
+		  FROM
+		    cs_qualification_limit t2 
+		  WHERE t2.LimitType = '0' 
+		    AND t1.blackUID = t2.SourceId)
+    </insert>
+    
+    <delete id="deleteDishonestexe">
+	  	DELETE FROM
+		  cs_qualification_limit 
+		WHERE LimitType = '1' 
+		  AND NOT EXISTS 
+		  (SELECT 
+		    1 
+		  FROM
+		    cs_mid_dishonestexe t2 
+		  WHERE CertNO = t2.CardNum 
+		    AND LimitNO = t2.GistCID)
+    </delete>
+    
+    <insert id="insertDishonestexe">
+	  	INSERT INTO cs_qualification_limit (
+		  UID,
+		  ClientName,
+		  CertType,
+		  CertNO,
+		  LimitType,
+		  LimitDateStart,
+		  HouseAdd,
+		  LimitDepartName,
+		  LimitNO,
+		  Sex,
+		  CreateTime
+		) 
+		SELECT 
+		  REPLACE (UUID(), '-', ''),
+		  IName,
+		  '10',
+		  CardNum,
+		  '1',
+		  PublishDate,
+		  AreaName,
+		  CourtName,
+		  GistCID,
+		  SexName,
+		  NOW() 
+		FROM
+		  cs_mid_dishonestexe t1 
+		WHERE NOT EXISTS 
+		  (SELECT 
+		    1 
+		  FROM
+		    cs_qualification_limit t2 
+		  WHERE t2.LimitType = '1'
+		    AND t1.CardNum = t2.CertNO 
+		    AND t1.GistCID = t2.LimitNO)
+    </insert>
+</mapper>

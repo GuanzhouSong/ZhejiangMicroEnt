@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.system.mapper.LogMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.system.model.Log" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNo" property="regNo" jdbcType="CHAR" />
+    <result column="LogYear" property="logYear" jdbcType="INTEGER" />
+    <result column="LogType" property="logType" jdbcType="VARCHAR" />
+    <result column="LogMsg" property="logMsg" jdbcType="VARCHAR" />
+    <result column="LogSystem" property="logSystem" jdbcType="VARCHAR" />
+    <result column="LogOperator" property="logOperator" jdbcType="VARCHAR" />
+    <result column="logOperDepart" property="logOperDepart" jdbcType="VARCHAR" />
+    <result column="LogIp" property="logIp" jdbcType="VARCHAR" />
+    <result column="LogTime" property="logTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

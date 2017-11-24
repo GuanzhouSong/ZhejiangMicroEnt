@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.es.mapper.CsPatentiInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.es.model.CsPatentiInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="PatentNO" property="patentNO" jdbcType="VARCHAR" />
+    <result column="PatentName" property="patentName" jdbcType="VARCHAR" />
+    <result column="PatentType" property="patentType" jdbcType="VARCHAR" />
+    <result column="Patenter" property="patenter" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

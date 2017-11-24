@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.system.mapper.SysDeliverInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.system.model.SysDeliverInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PostalCode" property="postalCode" jdbcType="CHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="Linkman" property="linkman" jdbcType="VARCHAR" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="DeptId" property="deptId" jdbcType="VARCHAR" />
+    <result column="DeliAddress" property="deliAddress" jdbcType="VARCHAR" />
+    <result column="DeliName" property="deliName" jdbcType="VARCHAR" />
+    <result column="DeliCode" property="deliCode" jdbcType="VARCHAR" />
+    <result column="DeliType" property="deliType" jdbcType="CHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+    <result column="SetId" property="setId" jdbcType="VARCHAR" />
+    <result column="IsValid" property="isValid" jdbcType="CHAR" />
+    <result column="Remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <!-- 查询确认送达书匹配地址 -->
+  <select id="selectDeliverInfoList" resultMap="BaseResultMap" parameterType="Map">
+  SELECT 
+  id,
+  PostalCode,
+  TEL,
+  linkman,
+  remark,
+  uid,
+  deptid,
+  DeliAddress,
+  deLIname,
+  DELICODE,
+  DELITYPE,
+  SETTIME,
+  SETNAME,
+  SETID,
+  IsValid 
+   FROM
+  cs_sys_deliverinfo 
+  where 1=1
+  <if test="deliCode!=null and deliCode !=''">
+  and DELICODE = #{deliCode,jdbcType=VARCHAR} 
+  </if>
+  <if test="deliIsValid!=null and deliIsValid !=''">
+  and IsValid = #{deliIsValid,jdbcType=VARCHAR} 
+  </if>
+  <if test="deliType!=null and deliType !=''">
+  and DELITYPE = #{deliType,jdbcType=VARCHAR} 
+  </if>  
+  <if test="deptId!=null and deptId !=''">
+  and DeptId = #{deptId,jdbcType=VARCHAR} 
+  </if>  
+  order by DELICODE 
+  </select>
+  
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.registinfo.mapper.RegistUnlicensedMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.registinfo.model.RegistUnlicensed" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="SuperName" property="superName" jdbcType="VARCHAR" />
+    <result column="SuperNo" property="superNo" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+
+
+  <select id="selectSuperItem" parameterType="com.icinfo.cs.registinfo.dto.RegistInfoDto"
+          resultMap="BaseResultMap">
+    SELECT
+    GROUP_CONCAT(SuperName)SuperName,
+    GROUP_CONCAT(SuperNO)SuperNO
+    FROM
+    cs_regist_unlicensed
+    WHERE PriPID = #{priPID}
+    GROUP BY PriPID
+  </select>
+  <select id="selectSuperItemOne" parameterType="String"
+          resultMap="BaseResultMap">
+    SELECT
+    GROUP_CONCAT(SuperName)SuperName,
+    GROUP_CONCAT(SuperNO)SuperNO
+    FROM
+    cs_regist_unlicensed
+    WHERE PriPID = #{priPID}
+    GROUP BY PriPID
+  </select>
+</mapper>

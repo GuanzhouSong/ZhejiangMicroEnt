@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.nocreditPunish.mapper.NoCreditPunishDetailMapper">
+
+	<resultMap id="NoCreditPunishDetailMap" type="com.icinfo.cs.nocreditPunish.model.NoCreditPunishDetail">
+		<!-- WARNING - @frameworkgenerated -->
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="BatchNo" property="batchNo" jdbcType="VARCHAR" />
+		<result column="PriPID" property="priPID" jdbcType="CHAR" />
+		<result column="RegNo" property="regNo" jdbcType="CHAR" />
+		<result column="EntName" property="entName" jdbcType="VARCHAR" />
+		<result column="UniCode" property="uniCode" jdbcType="VARCHAR" />
+		<result column="CerType" property="cerType" jdbcType="VARCHAR" />
+		<result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+		<result column="CardNo" property="cardNo" jdbcType="VARCHAR" />
+		<result column="LitiName" property="litiName" jdbcType="VARCHAR" />
+		<result column="Phone" property="phone" jdbcType="VARCHAR" />
+		<result column="Record" property="record" jdbcType="VARCHAR" />
+		<result column="CerTypeDesc" property="cerTypeDesc" jdbcType="VARCHAR" />
+		<result column="RecordCount" property="recordCount" jdbcType="VARCHAR" /> 
+	</resultMap>
+	
+	<select id="selectEnt" parameterType="string" resultMap="NoCreditPunishDetailMap">
+	    SELECT t.PriPID AS PriPID, RegNo, EntName, UniCode, LeRep, t1.CerNO AS CardNo, t2.Code AS CerType
+	    FROM cs_mid_baseinfo t 
+	    LEFT JOIN cs_mid_lerep t1 
+	    ON t.PriPID=t1.PriPID
+	    LEFT JOIN cs_code_certype t2
+	    ON t1.CerType=t2.Code 
+	    WHERE EntName=#{entName} or UniCode=#{entName} or RegNo=#{entName}
+	  </select>
+	  
+	  <select id="selectMan" parameterType="string" resultMap="NoCreditPunishDetailMap">
+	    SELECT t.Country, t.Name AS LitiName, t1.Code AS CerType, t.CerNO AS CardNo, t.Sex, t.Tel, t.HouseAdd, t.MobTel Phone 
+	    FROM cs_mid_person t 
+	    LEFT JOIN cs_code_certype t1
+	    ON t.CerType=t1.Code 
+	    WHERE t.CerNO=#{keyword}
+	  </select>
+	
+	<select id="detailEntExist" parameterType="string" resultMap="NoCreditPunishDetailMap">
+	    SELECT t.BatchNo FROM cs_nocredit_punishinfo t LEFT JOIN cs_nocredit_punishdetail t1 ON t.BatchNo=t1.BatchNo
+	    WHERE t1.PriPID=#{priPID} AND t.State >=1 AND t.AuditRes !='1' LIMIT 0,1
+	</select>
+	
+	<select id="detailManExist" parameterType="string" resultMap="NoCreditPunishDetailMap">
+	    SELECT t.BatchNo FROM cs_nocredit_punishinfo t LEFT JOIN cs_nocredit_punishdetail t1 ON t.BatchNo=t1.BatchNo
+	    WHERE t1.CardNo=#{cardNo} AND t.State >=1 AND t.AuditRes !='1' AND t.PunType !='ent' LIMIT 0,1
+	</select>
+	
+	<!-- 根据自然人身份号获取列表数据 -->
+	<select id="selectListByCerNO" parameterType="Map" resultMap="NoCreditPunishDetailMap">
+	   SELECT
+			t1.BatchNo,
+			t1.PriPID,
+			t1.EntName,
+			t1.UniCode,
+			t1.LeRep,
+			t1.CerType,
+			t1.CardNo,
+			t1.LitiName,
+			t1.Phone,
+			t1.Record,
+			t1.RegNO
+		FROM (select cnp.* from cs_nocredit_punishdetail cnp where cnp.CardNo = #{cerNO}) t1
+		LEFT JOIN cs_mid_baseinfo b ON t1.PriPID = b.PriPID
+		GROUP BY t1.id
+		ORDER BY t1.id DESC
+	</select>
+	
+</mapper>

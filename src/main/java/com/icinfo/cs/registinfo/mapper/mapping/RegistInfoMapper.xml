@@ -1,0 +1,822 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icinfo.cs.registinfo.mapper.RegistInfoMapper">
+    <resultMap id="BaseResultMap" type="com.icinfo.cs.registinfo.model.RegistInfo">
+        <!--
+          WARNING - @frameworkgenerated
+        -->
+        <id column="ID" jdbcType="INTEGER" property="ID"/>
+        <result column="UID" jdbcType="VARCHAR" property="UID"/>
+        <result column="PriPID" jdbcType="VARCHAR" property="priPID"/>
+        <result column="EntName" jdbcType="VARCHAR" property="entName"/>
+        <result column="UniCode" jdbcType="VARCHAR" property="uniCode"/>
+        <result column="RegNO" jdbcType="VARCHAR" property="regNO"/>
+        <result column="SliceNO" jdbcType="VARCHAR" property="sliceNO"/>
+        <result column="SliceMan" jdbcType="VARCHAR" property="sliceMan"/>
+        <result column="SliceTel" jdbcType="VARCHAR" property="sliceTel"/>
+        <result column="IndividDate" jdbcType="DATE" property="individDate"/>
+        <result column="Tel" jdbcType="VARCHAR" property="tel"/>
+        <result column="Linkman" jdbcType="VARCHAR" property="linkman"/>
+        <result column="Linktel" jdbcType="VARCHAR" property="linktel"/>
+        <result column="OpLoc" jdbcType="VARCHAR" property="opLoc"/>
+        <result column="LocalAdm" jdbcType="VARCHAR" property="localAdm"/>
+        <result column="SetName" jdbcType="VARCHAR" property="setName"/>
+        <result column="SetTime" jdbcType="TIMESTAMP" property="setTime"/>
+        <result column="BackName" jdbcType="VARCHAR" property="backName"/>
+        <result column="BackTime" jdbcType="TIMESTAMP" property="backTime"/>
+        <result column="BackReason" jdbcType="VARCHAR" property="backReason"/>
+        <result column="RegistState" jdbcType="VARCHAR" property="registState"/>
+        <result column="ArchState" jdbcType="CHAR" property="archState"/>
+        <result column="ArchDate" jdbcType="DATE" property="archDate"/>
+        <result column="ClaimState" jdbcType="CHAR" property="claimState"/>
+        <result column="ClaimDate" jdbcType="TIMESTAMP" property="claimDate"/>
+        <result column="ClaimCode" jdbcType="VARCHAR" property="claimCode"/>
+        <result column="ClaimName" jdbcType="VARCHAR" property="claimName"/>
+        <result column="IsInvestigate" jdbcType="CHAR" property="isInvestigate"/>
+        <result column="InvestigateDate" jdbcType="TIMESTAMP" property="investigateDate"/>
+        <result column="InvestigateFile" jdbcType="VARCHAR" property="investigateFile"/>
+        <result column="IsSameAddr" jdbcType="CHAR" property="isSameAddr"/>
+        <result column="DiffAddrReason" jdbcType="CHAR" property="diffAddrReason"/>
+        <result column="UnitTel" jdbcType="VARCHAR" property="unitTel"/>
+        <result column="Street" jdbcType="VARCHAR" property="street"/>
+        <result column="IsChangeArch" jdbcType="CHAR" property="isChangeArch"/>
+        <result column="ChangeArchState" jdbcType="CHAR" property="changeArchState"/>
+        <result column="WebSite" jdbcType="VARCHAR" property="webSite"/>
+        <result column="WebSiteName" property="webSiteName" jdbcType="VARCHAR" />
+        <result column="UnitEmail" jdbcType="VARCHAR" property="unitEmail"/>
+        <result column="RegistSource" jdbcType="CHAR" property="registSource"/>
+        <result column="Finance" jdbcType="VARCHAR" property="finance"/>
+        <result column="FinanceTel" jdbcType="VARCHAR" property="financeTel"/>
+        <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="DelegateOrg" jdbcType="VARCHAR" property="delegateOrg"/>
+        <result column="DelegateOrgName" jdbcType="VARCHAR" property="delegateOrgName"/>
+        <result column="DelegateName" jdbcType="VARCHAR" property="delegateName"/>
+        <result column="ComDate" jdbcType="DATE" property="comDate"/>
+        
+        <result column="EntEppaPhone" jdbcType="VARCHAR" property="entEppaPhone"/>
+        <result column="LinkPhone" jdbcType="VARCHAR" property="linkPhone"/>
+        <result column="CityAddress" property="cityAddress" jdbcType="VARCHAR" />
+		<result column="AreaAddress" property="areaAddress" jdbcType="VARCHAR" />
+		<result column="StreeAddress" property="streeAddress" jdbcType="VARCHAR" />
+		<result column="DesAddress" property="desAddress" jdbcType="VARCHAR" />
+		
+        <result column="ArchName" property="archName" jdbcType="VARCHAR" />
+        <result column="ModDate" property="modDate" jdbcType="TIMESTAMP" />
+        
+        <result column="RegistMarkType" jdbcType="CHAR" property="registMarkType"/>
+        
+        <result column="ActualCityAddress" property="actualCityAddress" jdbcType="VARCHAR" />
+		<result column="ActualAreaAddress" property="actualAreaAddress" jdbcType="VARCHAR" />
+		<result column="ActualStreeAddress" property="actualStreeAddress" jdbcType="VARCHAR" />
+		<result column="ActualDesAddress" property="actualDesAddress" jdbcType="VARCHAR" />
+		<result column="ActualStreet" property="actualStreet" jdbcType="VARCHAR" />
+		<result column="ActualOpLoc" property="actualOpLoc" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <resultMap id="BaseResultMapDto" type="com.icinfo.cs.registinfo.dto.RegistInfoDto" extends="BaseResultMap">
+        <result column="LeRep" jdbcType="VARCHAR" property="leRep"/>
+        <result column="SliceNOName" jdbcType="VARCHAR" property="sliceNOName"/>
+        <result column="LocalAdmName" jdbcType="VARCHAR" property="localAdmName"/>
+        <result column="StreetName" jdbcType="VARCHAR" property="streetName"/>
+        <result column="LocalAdm" jdbcType="VARCHAR" property="localAdm"/>
+        <result column="ApprDate" jdbcType="DATE" property="apprDate"/>
+        <result column="EntTypeCatg" jdbcType="VARCHAR" property="entTypeCatg"/>
+        <result column="Dom" jdbcType="VARCHAR" property="dom"/>
+        <result column="regOrg" jdbcType="VARCHAR" property="regOrg"/>
+        <result column="EstDate" jdbcType="VARCHAR" property="estDate"/>
+        <result column="RegOrgName" jdbcType="VARCHAR" property="regOrgName"/>
+        <result column="OpScope" jdbcType="VARCHAR" property="opScope"/>
+        <result column="AltItemName" jdbcType="VARCHAR" property="altItemName"/>
+        <result column="AltItem" jdbcType="VARCHAR" property="altItem"/>
+        <result column="RemainClaimState" jdbcType="VARCHAR" property="remainClaimState"/>
+    </resultMap>
+    <resultMap id="RegistInfoHis" type="com.icinfo.cs.registinfo.model.RegistInfoHis" extends="BaseResultMap">
+
+    </resultMap>
+
+    <resultMap id="CsWarnMark" type="com.icinfo.cs.risk.model.CsWarnMark">
+        <result column="MarkFunc" property="markFunc" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="CsWarnMarkDto" type="com.icinfo.cs.risk.dto.CsWarnMarkDto" extends="CsWarnMark">
+        <result column="MarkFuncName" property="markFuncName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="PubScinfo" type="com.icinfo.cs.drcheck.model.PubScinfo">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="TaskNO" property="taskNO" jdbcType="VARCHAR"/>
+        <result column="PriPID" property="priPID" jdbcType="VARCHAR"/>
+        <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="rptTrade" type="com.icinfo.cs.datacount.dto.RptTrade">
+        <!-- 地区/部门 -->
+        <result property="area" column="AREA"/>
+        <!-- 信息产业 -->
+        <result property="infoTrade" column="INFOTRADE"/>
+        <!-- 环保产业 -->
+        <result property="environmentTrade" column="ENVIRONMENTTRADE"/>
+        <!-- 旅游产业-->
+        <result property="travelTrade" column="TRAVELTRADE"/>
+        <!-- 金融产业 -->
+        <result property="financeTrade" column="FINANCETRADE"/>
+        <!-- 健康产业-->
+        <result property="healthTrade" column="HEALTHTRADE"/>
+        <!-- 时尚产业 -->
+        <result property="popTrade" column="POPTRADE"/>
+        <!-- 高端制造业 -->
+        <result property="highInd" column="HIGHIND"/>
+        <!-- 小计（户数） -->
+        <result property="countTrade" column="COUNTTRADE"/>
+        <!-- 信息产业 注册资本-->
+        <result property="infoTrade_" column="INFOTRADE_"/>
+        <!-- 环保产业 注册资本-->
+        <result property="environmentTrade_" column="ENVIRONMENTTRADE_"/>
+        <!-- 旅游产业注册资本-->
+        <result property="travelTrade_" column="TRAVELTRADE_"/>
+        <!-- 金融产业注册资本 -->
+        <result property="financeTrade_" column="FINANCETRADE_"/>
+        <!-- 健康产业注册资本-->
+        <result property="healthTrade_" column="HEALTHTRADE_"/>
+        <!-- 时尚产业注册资本 -->
+        <result property="popTrade_" column="POPTRADE_"/>
+        <!-- 高端制造业注册资本 -->
+        <result property="highInd_" column="HIGHIND_"/>
+        <!-- 小计（注册资本） -->
+        <result property="countTrade_" column="COUNTTRADE_"/>
+    </resultMap>
+
+    <select id="selectPubScinfos" parameterType="String" resultMap="PubScinfo">
+        SELECT
+  t.id
+FROM
+  cs_pub_scinfo t
+  LEFT JOIN cs_pub_sctask k
+    ON t.TaskNO = k.UID
+WHERE k.TaskState IN ('02', '05', '06')
+  AND t.PriPID = #{priPID}
+    </select>
+    <select id="selectByPriPid" parameterType="String" resultMap="BaseResultMapDto">
+        SELECT
+        ID,
+        UID,
+        PriPID,
+        EntName,
+        UniCode,
+        RegNO,
+        SliceNO,
+        (SELECT max(CONTENT) FROM cs_code_sliceno WHERE CODE=SliceNO)SliceNOName,
+        (SELECT max(CONTENT) FROM cs_code_street WHERE CODE=street)StreetName,
+        (SELECT max(CONTENT) FROM cs_code_regunit WHERE CODE=LocalAdm)LocalAdmName,
+        SliceMan,
+        SliceTel,
+        IndividDate,
+        Tel,
+        Linkman,
+        Linktel,
+        OpLoc,
+        LocalAdm,
+        SetName,
+        SetTime,
+        BackName,
+        BackTime,
+        BackReason,
+        RegistState,
+        ArchState,
+        ClaimState,
+        ClaimDate,
+        ClaimCode,
+        ClaimName,
+        IsInvestigate,
+        InvestigateDate,
+        InvestigateFile,
+        IsSameAddr,
+        DiffAddrReason,
+        UnitTel,
+        Street,
+        IsChangeArch,
+        ChangeArchState,
+        WebSite,
+        UnitEmail,
+        RegistSource,
+        Finance,
+        FinanceTel,
+        DelegateOrg,
+        DelegateOrgName,
+        ComDate,
+        CreateTime,
+        EntEppaPhone,
+        LinkPhone,
+        CityAddress,
+        AreaAddress,
+        StreeAddress,
+        DesAddress,
+        ArchDate,
+        ArchName,
+        ModDate,
+        RegistMarkType,
+        ActualCityAddress,
+        ActualAreaAddress,
+        ActualStreeAddress,
+        ActualDesAddress,
+        ActualStreet,
+        ActualOpLoc,
+        WebSiteName
+        FROM
+        cs_regist_info
+        WHERE PriPID=#{priPID}
+     </select>
+    <select id="selectByPripidForHis" parameterType="String" resultMap="RegistInfoHis">
+        SELECT
+        UID,
+        PriPID,
+        EntName,
+        UniCode,
+        RegNO,
+        SliceNO,
+        SliceMan,
+        SliceTel,
+        IndividDate,
+        Tel,
+        Linkman,
+        Linktel,
+        OpLoc,
+        LocalAdm,
+        SetName,
+        SetTime,
+        BackName,
+        BackTime,
+        BackReason,
+        RegistState,
+        ArchState,
+        ClaimState,
+        ClaimDate,
+        ClaimCode,
+        ClaimName,
+        IsInvestigate,
+        InvestigateDate,
+        InvestigateFile,
+        IsSameAddr,
+        DiffAddrReason,
+        UnitTel,
+        Street,
+        IsChangeArch,
+        ChangeArchState,
+        WebSite,
+        UnitEmail,
+        RegistSource,
+        Finance,
+        FinanceTel,
+        CreateTime,
+        ComDate,
+        DelegateOrg,
+        DelegateOrgName,
+        DelegateName,
+        EntEppaPhone,
+        LinkPhone,
+        CityAddress,
+        AreaAddress,
+        StreeAddress,
+        DesAddress,
+        ArchDate,
+        ArchName,
+        ModDate,
+        RegistMarkType,
+        ActualCityAddress,
+        ActualAreaAddress,
+        ActualStreeAddress,
+        ActualDesAddress,
+        ActualStreet,
+        ActualOpLoc,
+        WebSiteName
+        FROM
+        cs_regist_info
+        WHERE PriPID=#{priPID}
+    </select>
+    <!--查询变更重建档的企业数据 -cs_mid_baseinfo表、cs_mid_altitem表 户口变更重建档页面用-->
+    <select id="registInfoAgainQueryPage" parameterType="Map" resultMap="BaseResultMapDto">
+        SELECT
+        b.RegNO,
+        b.UniCode,
+        b.PriPID,
+        b.EntName,
+        b.EntType,
+        b.LeRep,
+        b.Dom,
+        b.Street,
+        b.OpScope,
+        b.ApprDate,
+        b.LocalAdmName,
+        b.SliceNO,
+        b.LocalAdm,
+        a.AltItem
+        FROM
+        cs_mid_altitem a,
+        cs_mid_baseinfo b
+        WHERE a.PriPID = b.PriPID
+        AND a.AltItem IN ('02', '04', '11', '12', '14', '24')
+        AND a.AltDate > #{altDate}
+        and b.Regstate IN (${regState})
+        <include refid="mid_for_claim_where"></include>
+        <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </select>
+
+    <!--查询待分配的建档数据 -cs_midbase_info表 -->
+    <select id="registDistributeQueryPage" parameterType="Map" resultMap="BaseResultMapDto">
+        SELECT
+        b.RegNO,
+        b.UniCode,
+        b.PriPID,
+        b.EntName,
+        b.EntType,
+        b.LeRep,
+        b.Dom,
+        r.Street,
+        b.OpScope,
+        b.ApprDate,
+        b.LocalAdmName,
+        r.SliceNO,
+        r.LocalAdm,
+        b.RegOrg,
+        r.RegistState,
+        r.BackReason,
+        r.SetName,
+        r.SetTime,
+        r.BackTime,
+        r.RegistMarkType
+        FROM
+        cs_regist_info r
+        LEFT JOIN cs_mid_baseinfo b
+        ON r.PriPID = b.PriPID
+        WHERE r.RegistState = '3'
+        and b.Regstate IN (${regState})
+        <include refid="mid_for_claim_where"></include>
+        <if test="registState !=null and registState != '' and registState !='3'.toString()">
+            AND 1=2
+        </if>
+        <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+        UNION
+        ALL
+        SELECT
+        b.RegNO,
+        b.UniCode,
+        b.PriPID,
+        b.EntName,
+        b.EntType,
+        b.LeRep,
+        b.Dom,
+        b.Street,
+        b.OpScope,
+        b.ApprDate,
+        b.LocalAdmName,
+        b.SliceNO,
+        b.LocalAdm,
+        b.RegOrg,
+        '1'RegistState,
+        '' BackReason,
+        '' SetName,
+        '' SetTime,
+        '' BackTime,
+        '' RegistMarkType
+        FROM
+        cs_mid_baseinfo b
+        WHERE(
+        b.LocalAdm IS NULL
+        or
+        b.LocalAdm = ''
+        )
+        And b.Regstate IN (${regState})
+        AND NOT EXISTS
+        (SELECT
+        1
+        FROM
+        cs_regist_info r
+        WHERE r.PriPID = b.PriPID)
+        <include refid="mid_for_claim_where"></include>
+        <if test="registState !=null and registState != '' and registState != '1'.toString()"> <!-- 不是未分配，不在这个表里面 -->
+            AND 1=2
+        </if>
+        <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+<!--         LIMIT ${numStart},${pageSize} -->
+        ORDER BY BackTime DESC
+    </select>
+    
+    
+    <!--查询待分配的建档数据 -cs_midbase_info表 -->
+    <select id="selectMidInfoNotSyn" parameterType="Map" resultMap="BaseResultMapDto">
+        SELECT
+        b.RegNO,
+        b.UniCode,
+        b.PriPID,
+        b.EntName,
+        b.EntType,
+        b.LeRep,
+        b.Dom,
+        b.Street,
+        b.OpScope,
+        b.ApprDate,
+        b.LocalAdmName,
+        b.SliceNO,
+        b.LocalAdm,
+        b.RegOrg,
+        '2' RegistState,
+        '0' ArchState,
+        '0' ClaimState,
+        '0' IsChangeArch,
+        '系统自动' SetName,
+        '' SetTime
+        FROM
+        cs_mid_baseinfo b
+        WHERE(
+        b.LocalAdm IS not NULL
+        and 
+        b.LocalAdm != ''
+        )
+        And b.Regstate IN (${regState})
+        AND NOT EXISTS
+        (SELECT
+        1
+        FROM
+        cs_regist_info r
+        WHERE r.PriPID = b.PriPID)
+    </select>
+    
+    
+    
+    <!--查询户口信息维护的表格数据 -cs_regist_info表 -->
+    <select id="registModiQueryPage" parameterType="Map" resultMap="BaseResultMapDto">
+        SELECT
+        b.Dom,
+        b.LeRep,
+        b.ApprDate,
+        r.UID,
+        r.PriPID,
+        r.EntName,
+        r.UniCode,
+        r.RegNO,
+        r.LocalAdm,
+        b.LocalAdmName,
+        r.CreateTime ,
+        r.ArchDate,
+        r.RegistMarkType
+        FROM
+        cs_regist_info r
+        LEFT JOIN cs_mid_baseinfo b
+        ON r.PriPID = b.PriPID
+        WHERE r.ArchState = '1'
+        And b.Regstate IN (${regState})
+        <!-- 为空判断 -->
+        <trim prefix="AND   (" prefixOverrides="OR|AND" suffix=")">
+            <if test="registUnlicensedBlankSql !=null and registUnlicensedBlankSql != ''">
+                ${registUnlicensedBlankSql}
+            </if>
+            <if test="registMarkBlankSql !=null and registMarkBlankSql != ''">
+                ${registMarkBlankSql}
+            </if>
+            <if test="registColumnBlankSql !=null and registColumnBlankSql != ''">
+                ${registColumnBlankSql}
+            </if>
+        </trim>
+        <!-- 管辖单位与片区商圈不匹配-->
+        <trim prefix="AND   (" prefixOverrides="OR|AND" suffix=")">
+            <if test="sliceNOLocalAdmNotMatchSql !=null and sliceNOLocalAdmNotMatchSql != ''">
+                ${sliceNOLocalAdmNotMatchSql}
+            </if>
+        </trim>
+        <include refid="mid_for_claim_where"></include>
+        <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+        ORDER BY r.CreateTime DESC
+    </select>
+
+    <select id="registClaimQueryPage_total" parameterType="Map" resultType="long">
+        SELECT
+        COUNT(1)
+        FROM
+        cs_regist_info r left join
+        cs_mid_baseinfo b
+        on r.PriPID = b.PriPID
+        WHERE 1 = 1
+        AND r.ArchState = '0'
+        AND r.RegistState = '2'
+        AND r.IsChangeArch = '0'
+        And b.Regstate IN (${regState})
+        <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+        <include refid="claim_state_where"></include>
+        <include refid="mid_for_claim_where"></include>
+    </select>
+
+    <!--查询户口认领建档的表格数据 -cs_regist_info表  -->
+    <select id="registClaimQueryPage_regist" parameterType="Map" resultMap="BaseResultMapDto">
+        SELECT
+        Dom,
+        LeRep,
+        EstDate,
+        SliceNOName,
+        StreetName,
+        UID,
+        PriPID,
+        EntName,
+        UNICODE,
+        RegNO,
+        LocalAdmName,
+        ClaimState,
+        RemainClaimState,
+        ClaimDate,
+        ClaimName,
+        SetTime,
+        Street,
+        CreateTime,
+        RegistMarkType
+        FROM
+        (
+        SELECT
+        b.Dom, b.LeRep, b.EstDate,
+        b.SliceNOName,
+        b.Street StreetName,
+        r.UID,
+        r.PriPID,
+        r.EntName,
+        r.UniCode,
+        r.RegNO,
+        b.LocalAdmName,
+        CASE
+        WHEN r.ClaimState = '0'
+        AND DATEDIFF(NOW(), SetTime) > 15
+        THEN '2'
+        ELSE r.ClaimState
+        END ClaimState,
+        CASE WHEN DATEDIFF(NOW(), SetTime)=0
+        THEN 15
+        ELSE 16-DATEDIFF(NOW(), SetTime)
+        END RemainClaimState,
+        r.ClaimDate,
+        r.ClaimName,
+        r.SetTime,
+        r.Street,
+        r.CreateTime,
+        r.RegistMarkType
+        FROM
+        cs_regist_info r
+        LEFT JOIN cs_mid_baseinfo b
+        ON r.PriPID = b.PriPID
+        WHERE 1=1
+        AND r.ArchState = '0'
+        AND r.RegistState = '2'
+        AND r.IsChangeArch = '0'
+        And b.Regstate IN (${regState})
+        <include refid="claim_state_where"></include>
+        <include refid="mid_for_claim_where"></include>
+        <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+        LIMIT ${_pnum},${_len}
+        ) xx
+        ORDER BY ClaimDate DESC,SetTime DESC
+
+    </select>
+
+    <select id="selectAllMarkType" parameterType="map" resultMap="CsWarnMarkDto">
+        SELECT
+        DISTINCT MarkFunc ,
+        CASE
+        MarkFunc
+        WHEN 'yj'
+        THEN '预警'
+        WHEN 'jg'
+        THEN '监管'
+        WHEN 'gz'
+        THEN '关注'
+        ELSE ''
+        END MarkFuncName
+        FROM
+        cs_mark
+    </select>
+
+
+    <update id="batchDistribute" parameterType="com.icinfo.cs.registinfo.model.RegistInfo">
+        UPDATE
+        cs_regist_info
+        SET
+        RegistState =#{registState} ,
+        SetTime=#{setTime},
+        SetName=#{setName},
+        SliceNo=#{sliceNo}
+        <!--LocalAdm=#{localAdm}-->
+        WHERE PriPID IN(${priPID})
+    </update>
+    <update id="batchBack" parameterType="com.icinfo.cs.registinfo.dto.RegistInfoDto">
+        UPDATE
+        cs_regist_info
+        SET
+        RegistState =#{registState} ,
+        BackTime=#{backTime},
+        BackName=#{backName},
+        BackReason=#{backReason}
+        WHERE PriPID  IN(${priPID})
+    </update>
+    <update id="batchModiRegistInfo" parameterType="com.icinfo.cs.registinfo.dto.RegistInfoDto">
+        UPDATE
+        cs_regist_info
+        SET
+        SliceNo=#{sliceNo},
+        SliceTel=#{sliceTel},
+        SliceMan=#{sliceMan}
+        WHERE PriPID  IN(${priPID})
+    </update>
+
+    <update id="batchUpdateMidBaseinfoSliceNoByPriPid" parameterType="com.icinfo.cs.registinfo.dto.RegistInfoDto">
+        UPDATE
+        cs_regist_info
+        SET
+        SliceNo=#{sliceNo},
+        SliceTel=#{sliceTel},
+        SliceMan=#{sliceMan}
+        WHERE PriPID  IN(${priPID})
+    </update>
+
+    <sql id="claim_state_where">
+        <if test="claimState !=null and claimState !=''">
+            <choose>
+                <when test="claimState == '0' or claimState == 0">
+                    AND (
+                    r.ClaimState = '0'
+                    AND
+                    DATEDIFF(NOW(), r.SetTime) &lt; 15
+                    )
+                </when>
+                <when test="claimState == '2' or claimState == 2">
+                    AND (
+                    r.ClaimState = '0'
+                    AND
+                    DATEDIFF(NOW(), r.SetTime) &gt; 15
+                    )
+                </when>
+                <otherwise>
+                    AND
+                    r.ClaimState = #{claimState}
+                </otherwise>
+            </choose>
+        </if>
+    </sql>
+    <sql id="mid_for_claim_where">
+        <if test="archDate_sta !=null and archDate_sta != ''">
+            AND r.ArchDate &gt;= #{archDate_sta}
+        </if>
+        <if test="archDate_end !=null and archDate_end != ''">
+            AND r.ArchDate &lt;= #{archDate_end}
+        </if>
+        <if test="estDate_sta !=null and estDate_sta != ''">
+            AND b.EstDate &gt;= #{estDate_sta}
+        </if>
+        <if test="estDate_end !=null and estDate_end != ''">
+            AND b.EstDate &lt;= #{estDate_end}
+        </if>
+        <if test="apprDate_sta !=null and apprDate_sta != ''">
+            AND b.ApprDate &gt;= #{apprDate_sta}
+        </if>
+        <if test="apprDate_end !=null and apprDate_end != ''">
+            AND b.ApprDate &lt;= #{apprDate_end}
+        </if>
+        <if test="entType !=null and entType != ''">
+            AND b.EntType in (${entType})
+        </if>
+        <if test="regOrg !=null and regOrg != ''">
+            AND b.RegOrg in (${regOrg})
+        </if>
+        <if test="localAdm !=null and localAdm != ''">
+            AND b.LocalAdm in (${localAdm})
+        </if>
+        <if test="sliceNO !=null and sliceNO != ''">
+            AND b.SliceNO in (${sliceNO})
+        </if>
+        <if test="street !=null and street != ''">
+            AND b.Street in (${street})
+        </if>
+        <if test="leRep !=null and leRep != ''">
+            AND b.LeRep = #{leRep}
+        </if>
+        <if test="dom !=null and dom != ''">
+            AND b.Dom like CONCAT('%', #{dom},'%')
+        </if>
+        <if test="opScope !=null and opScope != ''">
+            AND b.OpScope like CONCAT('%', #{opScope},'%')
+        </if>
+        <if test="uniCode !=null and uniCode != ''">
+            AND (b.UniCode = #{uniCode} or b.RegNO = #{uniCode} )
+        </if>
+        <if test="entName !=null and entName != ''">
+            AND b.EntName = #{entName}
+        </if>
+    </sql>
+
+    <!--七大产业统计 -->
+    <sql id="rptcheckinfo_where">
+        <!-- 成立日期  -->
+        <if test="startDate!=null and startDate !=''">
+            <![CDATA[
+				AND EstDate >= #{startDate}
+			]]>
+        </if>
+        <if test="endDate!=null and endDate !=''">
+            <![CDATA[
+				AND EstDate <= #{endDate}
+			]]>
+        </if>
+        <!--  <if test="entCatgCode!=null and entCatgCode !=''">
+              CHECK_ENT_CATG in (${entCatgCode})
+          </if>
+        -->
+        <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </sql>
+
+
+    <select id="selectRptTrade" parameterType="java.util.HashMap" resultMap="rptTrade">
+        SELECT
+        E.CONTENT area,
+        D.INFOTRADE , D.ENVIRONMENTTRADE , D.TRAVELTRADE , D.FINANCETRADE , D.HEALTHTRADE , D.POPTRADE , D.HIGHIND,
+        D.INFOTRADE_ , D.ENVIRONMENTTRADE_ , D.TRAVELTRADE_ , D.FINANCETRADE_ , D.HEALTHTRADE_ , D.POPTRADE_ ,D.HIGHIND_,
+        (D.INFOTRADE + D.ENVIRONMENTTRADE + D.TRAVELTRADE + D.FINANCETRADE + D.HEALTHTRADE + D.POPTRADE + D.HIGHIND)
+        COUNTTRADE,
+        (D.INFOTRADE_ + D.ENVIRONMENTTRADE_ + D.TRAVELTRADE_ + D.FINANCETRADE_ + D.HEALTHTRADE_ + D.POPTRADE_ +
+        D.HIGHIND_) COUNTTRADE_
+        FROM (SELECT
+        C.${statLevel},
+        SUM(CASE WHEN C.TYPE = 1 THEN C.AMOUNT ELSE 0 END) INFOTRADE,
+        SUM(CASE WHEN C.TYPE = 1 THEN C.SUMCOUNT ELSE 0 END) INFOTRADE_,
+        SUM(CASE WHEN C.TYPE = 2 THEN C.AMOUNT ELSE 0 END) ENVIRONMENTTRADE,
+        SUM(CASE WHEN C.TYPE = 2 THEN C.SUMCOUNT ELSE 0 END) ENVIRONMENTTRADE_,
+        SUM(CASE WHEN C.TYPE = 3 THEN C.AMOUNT ELSE 0 END) TRAVELTRADE,
+        SUM(CASE WHEN C.TYPE = 3 THEN C.SUMCOUNT ELSE 0 END) TRAVELTRADE_,
+        SUM(CASE WHEN C.TYPE = 4 THEN C.AMOUNT ELSE 0 END) FINANCETRADE,
+        SUM(CASE WHEN C.TYPE = 4 THEN C.SUMCOUNT ELSE 0 END) FINANCETRADE_,
+        SUM(CASE WHEN C.TYPE = 5 THEN C.AMOUNT ELSE 0 END) HEALTHTRADE,
+        SUM(CASE WHEN C.TYPE = 5 THEN C.SUMCOUNT ELSE 0 END) HEALTHTRADE_,
+        SUM(CASE WHEN C.TYPE = 6 THEN C.AMOUNT ELSE 0 END) POPTRADE,
+        SUM(CASE WHEN C.TYPE = 6 THEN C.SUMCOUNT ELSE 0 END) POPTRADE_,
+        SUM(CASE WHEN C.TYPE = 7 THEN C.AMOUNT ELSE 0 END) HIGHIND,
+        SUM(CASE WHEN C.TYPE = 7 THEN C.SUMCOUNT ELSE 0 END) HIGHIND_
+        FROM (SELECT
+        A.${statLevel},A.IndustryCo,A.AMOUNT,A.SUMCOUNT,
+        B.TYPE
+        FROM
+        (SELECT ${statLevel}, IndustryCo, COUNT(1) AMOUNT,sum(RegCap) SUMCOUNT
+        FROM cs_mid_baseinfo
+        WHERE 1=1
+        <!-- and id &lt; 10000 -->
+        <include refid="rptcheckinfo_where"/>
+        GROUP BY ${statLevel}, IndustryCo
+        ) A,cs_code_trade B
+        WHERE A.IndustryCo = B.CODE
+        ) C
+        GROUP BY C.${statLevel}
+        ) D left join
+        <if test="statLevel=='RegOrg'">
+            cs_code_regorg E
+        </if>
+        <if test="statLevel=='LocalAdm'">
+            cs_code_regunit E
+        </if>
+        on D.${statLevel} = E.CODE
+        ORDER BY D.${statLevel}
+    </select>
+    <!--七大产业统计 end -->
+    
+    <!-- 建档待分配：退回待分配及待分配 -->
+    <select id="selectAltRegistInfoCount" resultType="Integer" parameterType="Map">
+      SELECT SUM(db1) FROM 
+      (SELECT COUNT(1) db1
+		FROM cs_regist_info r LEFT JOIN cs_mid_baseinfo t ON r.PriPID = t.PriPID 
+		WHERE r.RegistState = '3' 
+		and t.Regstate IN (${regState})
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+		UNION ALL 
+		SELECT COUNT(1) db1
+		FROM cs_mid_baseinfo t 
+		WHERE( t.LocalAdm IS NULL OR t.LocalAdm = '' )
+		and t.Regstate IN (${regState})
+		AND NOT EXISTS (SELECT 1 FROM cs_regist_info r WHERE r.PriPID = t.PriPID)
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+		)C
+    </select>
+    
+    <!-- 新设户待建档 -->
+    <select id="selectNewRegistInfoCount" resultType="Integer" parameterType="Map">
+		SELECT COUNT(1) FROM cs_regist_info r 
+		LEFT JOIN cs_mid_baseinfo t ON r.PriPID = t.PriPID 
+		WHERE 1 = 1 
+		AND r.ArchState = '0' AND r.RegistState = '2' AND r.IsChangeArch = '0' 
+		AND t.Regstate IN (${regState})
+		AND r.ClaimState IN ('1','3')
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </select>
+    
+    <!-- 变更待建档 -->
+    <select id="selectModRegistInfoCount" resultType="Integer" parameterType="Map">
+     SELECT COUNT(1)
+	 FROM cs_mid_altitem a, cs_mid_baseinfo t 
+	 WHERE a.PriPID = t.PriPID 
+	 AND a.AltItem IN ('02', '04', '11', '12', '14', '24') AND a.AltDate > '2017-09-12' 
+     AND t.Regstate IN (${regState})
+     <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </select>
+    
+    
+
+
+
+</mapper>

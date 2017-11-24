@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.ext.mapper.MidInvMapper">
+	<resultMap id="MidInv" type="com.icinfo.cs.ext.model.MidInv">
+		<!-- WARNING - @frameworkgenerated -->
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="PriPID" property="priPID" jdbcType="CHAR" />
+		<result column="Dom" property="dom" jdbcType="VARCHAR" />
+		<result column="Currency" property="currency" jdbcType="CHAR" />
+		<result column="RespForm" property="respForm" jdbcType="CHAR" />
+		<result column="Inv" property="inv" jdbcType="VARCHAR" />
+		<result column="InvID" property="invID" jdbcType="VARCHAR" />
+		<result column="InvType" property="invType" jdbcType="CHAR" />
+		<result column="Country" property="country" jdbcType="CHAR" />
+		<result column="CurActConAmUSD" property="curActConAmUSD"
+			jdbcType="DECIMAL" />
+		<result column="SConForm" property="sConForm" jdbcType="CHAR" />
+		<result column="BLicType" property="bLicType" jdbcType="CHAR" />
+		<result column="BLicNO" property="bLicNO" jdbcType="VARCHAR" />
+		<result column="SubConProp" property="subConProp" jdbcType="DECIMAL" />
+		<result column="ForSubConAmUSD" property="forSubConAmUSD"
+			jdbcType="DECIMAL" />
+		<result column="SubConAm" property="subConAm" jdbcType="DECIMAL" />
+		<result column="AcConAm" property="acConAm" jdbcType="DECIMAL" />
+		<result column="PostalCode" property="postalCode" jdbcType="CHAR" />
+		<result column="CerType" property="cerType" jdbcType="CHAR" />
+		<result column="CerNO" property="cerNO" jdbcType="VARCHAR" />
+		<result column="Sex" property="sex" jdbcType="CHAR" />
+		<result column="Tel" property="tel" jdbcType="VARCHAR" />
+		<result column="NatDate" property="natDate" jdbcType="DATE" />
+		<result column="LiteDeg" property="liteDeg" jdbcType="VARCHAR" />
+		<result column="PolStand" property="polStand" jdbcType="VARCHAR" />
+		<result column="Nation" property="nation" jdbcType="CHAR" />
+		<result column="OccSt" property="occSt" jdbcType="VARCHAR" />
+		<result column="ExeAffSign" property="exeAffSign" jdbcType="CHAR" />
+		<result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="SubConForm" property="subConForm" jdbcType="VARCHAR" />
+		<result column="SubConDate" property="subConDate" jdbcType="DATE" />
+		<result column="UniSCID" property="uniSCID" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="MidInvDto" type="com.icinfo.cs.ext.dto.MidInvDto" extends="MidInv">
+		<result column="EntName" property="entName" jdbcType="VARCHAR" />
+		<result column="UniCode" property="uniCode" jdbcType="VARCHAR" />
+		<result column="RegNO" property="regNO" jdbcType="VARCHAR" />
+		<result column="EntType" property="entType" jdbcType="VARCHAR" />
+		<result column="EstDate" property="estDate" jdbcType="DATE" />
+		<result column="RegState" property="regState" jdbcType="VARCHAR" />
+		<result column="IndustryPhy" property="industryPhy" jdbcType="VARCHAR" />
+		<result column="RegCapUSD" property="regCapUSD" jdbcType="VARCHAR" />
+		<result column="CerTypeName" property="cerTypeName" jdbcType="VARCHAR" />
+		<result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+		<result column="Dom" property="dom" jdbcType="VARCHAR" />
+		<result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+		<result column="localAdmName" property="localAdmName" jdbcType="VARCHAR" />
+		<result column="RegCap" property="regCap" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="queryPageResultByPripid" resultMap="MidInvDto" parameterType="Map">
+	SELECT
+	A.id,
+	A.Inv,
+	A.InvType,
+	A.BLicType,
+	A.BLicNO,
+	A.CerType,
+    B.Content CerTypeName,
+	A.CerNO,
+	UniSCID
+    FROM
+	   cs_mid_inv A
+    LEFT JOIN cs_code_certype B
+    ON A.CerType = B.code
+    WHERE A.PriPID =#{priPID}
+	</select>
+	
+	<select id="selectMidInvCountByCerNOAndName" resultType="int" parameterType="Map">
+		SELECT 
+		  count(1)
+		FROM
+		  cs_mid_inv t
+		  LEFT JOIN cs_mid_baseinfo n
+		   ON t.PriPID = n.PriPID
+		WHERE t.CerNO=#{cerNO} and t.inv=#{name} and n.EntTypeCatg in (33,27)
+	</select>
+	
+	<select id="queryListResultByExeAffSign" resultMap="MidInvDto" parameterType="Map">
+	SELECT
+	A.priPID,
+	A.Inv
+    FROM
+	   cs_mid_inv A
+    WHERE A.ExeAffSign ='1'
+    limit 0,999999
+	</select>
+	
+	<select id="queryListResultByPripid" resultMap="MidInvDto" parameterType="Map">
+		SELECT 
+		  A.Inv
+		FROM
+		  cs_mid_inv A 
+		  where A.PriPID =#{priPID}
+	</select>
+	
+	<select id="selectMidInvInfoByCerNO" resultMap="MidInv" parameterType="java.lang.String">
+	    SELECT
+	      A.PriPID,
+		  A.CerNO,
+		  A.inv
+		FROM
+		  cs_mid_inv A 
+		where A.CerNO = #{cerNO}
+		group by A.PriPID
+	</select>
+	
+	<select id="queryPageResultByCerNO" resultMap="MidInvDto" parameterType="map" >
+		SELECT 
+		  A.id,
+		  A.PriPID,
+		  A.Currency,
+		  A.RespForm,
+		  A.Inv,
+		  A.InvID,
+		  A.InvType,
+		  A.Country,
+		  A.SConForm,
+		  A.BLicType,
+		  A.BLicNO,
+		  A.SubConProp,
+		  A.ForSubConAmUSD,
+		  A.SubConAm,
+		  A.AcConAm,
+		  A.PostalCode,
+		  A.CerType,
+		  A.CerNO,
+		  A.Sex,
+		  A.Tel,
+		  A.NatDate,
+		  A.LiteDeg,
+		  A.PolStand,
+		  A.Nation,
+		  A.OccSt,
+		  A.ExeAffSign,
+		  A.CreateTime,
+		  A.SubConForm,
+		  A.SubConDate,
+		  B.EntName,
+		  B.UniCode,
+		  B.regNO,
+		  E.Content EntType,
+		  B.EstDate,
+		  B.RegState,
+		  I.Content IndustryPhy,
+		  B.RegCap,
+		  B.LeRep,
+		  B.Dom,
+		  B.RegOrgName,
+		  B.localAdmName
+		FROM
+		  cs_mid_inv A 
+		  LEFT JOIN cs_mid_baseinfo B  ON A.PriPID = B.PriPID 
+		  LEFT JOIN cs_code_enttype E  ON B.EntType = E.Code  
+		  LEFT JOIN cs_code_industrytype I  ON B.IndustryPhy = I.Code  
+		where  
+		  A.CerNO = #{cerNO}
+		 <!-- 登记状态 -->
+		 <if test="regState !=null and regState !=''">
+		       and  B.RegState  in
+	     <foreach item="item" index="index" collection="regState" open="("
+						separator="," close=")">
+						#{item}
+		 </foreach>    
+		 </if>
+	</select>
+</mapper>

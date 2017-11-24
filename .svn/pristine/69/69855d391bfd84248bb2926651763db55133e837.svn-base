@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.other.mapper.PubOtherlicenceHisMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.other.model.PubOtherlicenceHis" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="LicID" property="licID" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="LicNameCN" property="licNameCN" jdbcType="VARCHAR" />
+    <result column="LicNO" property="licNO" jdbcType="VARCHAR" />
+    <result column="LicValFrom" property="licValFrom" jdbcType="DATE" />
+    <result column="LicValTo" property="licValTo" jdbcType="DATE" />
+    <result column="LicAnth" property="licAnth" jdbcType="VARCHAR" />
+    <result column="PubFlag" property="pubFlag" jdbcType="VARCHAR" />
+    <result column="LicType" property="licType" jdbcType="CHAR" />
+    <result column="AltDate" property="altDate" jdbcType="DATE" />
+    <result column="CanDate" property="canDate" jdbcType="DATE" />
+    <result column="RevDate" property="revDate" jdbcType="DATE" />
+    <result column="InvAlidDate" property="invAlidDate" jdbcType="DATE" />
+    <result column="InvAliDRea" property="invAliDRea" jdbcType="VARCHAR" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+    <result column="SetDate" property="setDate" jdbcType="DATE" />
+    <result column="AuditName" property="auditName" jdbcType="VARCHAR" />
+    <result column="AuditDate" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="AuditState" property="auditState" jdbcType="CHAR" />
+    <result column="AuditOpin" property="auditOpin" jdbcType="VARCHAR" />
+    <result column="LicState" property="licState" jdbcType="CHAR" />
+    <result column="HisNO" property="hisNO" jdbcType="VARCHAR" />
+    <result column="SetDeptname" property="setDeptname" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="LicScope" property="licScope" jdbcType="LONGVARCHAR" />
+    <result column="CanRea" property="canRea" jdbcType="LONGVARCHAR" />
+    <result column="RevRea" property="revRea" jdbcType="LONGVARCHAR" />
+  </resultMap>
+</mapper>

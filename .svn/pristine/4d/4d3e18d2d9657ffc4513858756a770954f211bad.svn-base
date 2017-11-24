@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--
+   Copyright© 2003-2016 浙江汇信科技有限公司, All Rights Reserved.
+  -->
+<mapper namespace="com.icinfo.cs.system.mapper.SysRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.system.model.SysRole" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="UID" property="id" jdbcType="VARCHAR" />
+    <result column="ROLE_NAME" property="name" jdbcType="VARCHAR" />
+    <result column="ROLE_DESC" property="desc" jdbcType="VARCHAR" />
+    <result column="ROLE_TYPE" property="roleType" jdbcType="VARCHAR" />
+
+  </resultMap>
+</mapper>

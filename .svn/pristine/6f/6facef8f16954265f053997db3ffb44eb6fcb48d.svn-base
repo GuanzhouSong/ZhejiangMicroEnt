@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.YrSfcLicenceInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.YrSfcLicenceInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="LicName" property="licName" jdbcType="CHAR" />
+    <result column="ValTo" property="valTo" jdbcType="DATE" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="LicNameCN" property="licNameCN" jdbcType="VARCHAR" />
+    <result column="LicID" property="licID" jdbcType="VARCHAR" />
+    <result column="AnCheID" property="anCheID" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

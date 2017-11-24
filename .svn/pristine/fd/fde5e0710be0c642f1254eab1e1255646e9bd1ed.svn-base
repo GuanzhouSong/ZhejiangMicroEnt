@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.rpt.rptmapper.RptPartyCliamInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.rpt.rptmodel.RptPartyCliamInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="CliamUid" property="cliamUid" jdbcType="CHAR" />
+    <result column="priPID" property="priPID" jdbcType="CHAR" />
+    <result column="IsBuildPartyOrg" property="isBuildPartyOrg" jdbcType="CHAR" />
+    <result column="PartyMemberNum" property="partyMemberNum" jdbcType="INTEGER" />
+    <result column="BuildOrgWay" property="buildOrgWay" jdbcType="CHAR" />
+    <result column="BuildOrgType" property="buildOrgType" jdbcType="CHAR" />
+    <result column="CerName" property="cerName" jdbcType="CHAR" />
+    <result column="CerNO" property="cerNO" jdbcType="CHAR" />
+    <result column="MemberType" property="memberType" jdbcType="CHAR" />
+    <result column="CreateOrgTime" property="createOrgTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap id="BaseResultDtoMap" type="com.icinfo.cs.rpt.rptdto.RptPartyCliamInfoDto" extends="BaseResultMap">
+     <result column="UID" property="uid" jdbcType="CHAR" />
+     <result column="EntName" property="entName" jdbcType="CHAR" />
+     <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+     <result column="RegNO" property="regNO" jdbcType="CHAR" />
+     <result column="RegOrgName" property="regOrgName" jdbcType="CHAR" />
+     <result column="LocalAdmName" property="localAdmName" jdbcType="CHAR" />
+     <result column="RegState" property="regState" jdbcType="CHAR" />
+     <result column="MemberName" property="memberName" jdbcType="CHAR" />
+     <result column="IdentityInfo" property="identityInfo" jdbcType="CHAR" />
+     <result column="AuditName" property="auditName" jdbcType="CHAR" />
+     <result column="AuditState" property="auditState" jdbcType="CHAR" />
+     <result column="MemberType" property="memberType" jdbcType="CHAR" />
+     <result column="CreateTime" property="createTime" jdbcType="CHAR" />
+     <result column="BelongMarket" property="belongMarket" jdbcType="CHAR" />
+     <result column="OrgRelationLoc" property="orgRelationLoc" jdbcType="CHAR" />
+     <result column="PartyOrgName" property="partyOrgName" jdbcType="CHAR" />
+     <result column="ModifyTime" property="modifyTime" jdbcType="CHAR" />
+  </resultMap>
+  
+  <select id="selectRptPartyCliamInfo" resultMap="BaseResultDtoMap" parameterType="Map">
+      select
+           t.CliamUid,
+	       t.priPID,
+	       a.EntName,
+	       a.UniCode,
+	       a.RegNO,
+	       a.RegOrgName,
+	       a.LocalAdmName,
+	       a.RegState,
+	       IFNULL(b.MemberName,t.CerName) MemberName,
+           IFNULL(b.IdentityInfo,t.CerNO) IdentityInfo,
+           b.UID,
+	       b.AuditName,
+	       b.AuditState,
+	       IFNULL(b.MemberType,t.MemberType) MemberType,
+	       LEFT(b.CreateTime,10) CreateTime,
+	       b.BelongMarket,
+	       b.OrgRelationLoc,
+	       b.PartyOrgName,
+	       LEFT(b.ModifyTime,10) ModifyTime
+      from
+      cs_rpt_non_public_party t 
+      left join zjcsdb1.cs_mid_baseinfo a on t.priPID = a.PriPID
+      left join zjcsdb1.cs_party_member_info b on t.priPID = b.PriPID AND t.CerNO = b.IdentityInfo
+      <where>
+         1 = 1
+         <include refid="partyMember_where"/>
+         <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+         ORDER BY IFNULL(b.AuditState,0) ASC
+         LIMIT ${numStart},${pageSize}
+      </where>
+  </select>
+  
+  <select id="selectRptpartyCliamCount" resultType="java.lang.Integer" parameterType="Map">
+       select
+         count(t.PriPID)
+      from
+      cs_rpt_non_public_party t 
+      left join zjcsdb1.cs_mid_baseinfo a on t.priPID = a.PriPID
+      left join zjcsdb1.cs_party_member_info b on t.priPID = b.PriPID AND t.CerNO = b.IdentityInfo
+      where 1=1
+      <include refid="partyMember_where"/>
+      <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+  </select>
+  
+  <sql id="partyMember_where">
+     <if test="cliamUid !=null and cliamUid !=''">
+           And t.CliamUid = #{cliamUid}
+     </if>
+     <if test="uniCodeOrRegNO !=null and uniCodeOrRegNO !=''">
+           And (a.UniCode LIKE CONCAT('%',#{uniCodeOrRegNO},'%') or a.RegNO LIKE CONCAT('%',#{uniCodeOrRegNO},'%')) 
+     </if>
+     <if test="localAdm !=null and localAdm !=''">
+           And a.LocalAdm in (${localAdm})
+     </if>
+     <if test="regOrg !=null and regOrg !=''">
+           And a.RegOrg in (${regOrg})
+     </if>
+     <if test="memberName !=null and memberName !=''">
+           And IFNULL(b.MemberName,t.CerName) LIKE CONCAT('%',#{memberName},'%')
+     </if>
+     <if test="identityInfo !=null and identityInfo !=''">
+           And IFNULL(b.IdentityInfo,t.CerNO) = #{identityInfo}
+     </if>
+     <if test="entName !=null and entName !=''">
+           And a.EntName LIKE CONCAT('%',#{entName},'%')
+     </if>
+     <if test="entCatg !=null and entCatg !=''">
+           And a.EntType IN (${entCatg})
+     </if>
+     <if test="memberType !=null and memberType !='' and memberType == 1">
+           And  IFNULL(b.MemberType,t.MemberType) = #{memberType}
+     </if>
+     <if test="memberType !=null and memberType !='' and memberType == 2">
+           And  (IFNULL(b.MemberType,t.MemberType) = #{memberType} || IFNULL(b.MemberType,t.MemberType) IS NULL)
+     </if>
+     <if test="auditState !=null and auditState !='' and auditState == 0">
+           And (b.AuditState = #{auditState} || b.AuditState IS NULL)
+     </if>
+     <if test="auditState !=null and auditState !='' and auditState == 1">
+           And b.AuditState = #{auditState}
+     </if>
+     <if test="belongMarket !=null and belongMarket !=''">
+           And b.BelongMarket LIKE CONCAT('%',#{belongMarket},'%')
+     </if>
+     <if test="partyOrgID !=null and partyOrgID !=''">
+           And b.PartyOrgID = #{partyOrgID}
+     </if>
+     <if test="orgRelationLoc !=null and orgRelationLoc !=''">
+           And b.OrgRelationLoc = #{orgRelationLoc}
+     </if>
+     <if test="auditName !=null and auditName !=''">
+           And b.AuditName = #{auditName}
+     </if>
+     <if test="createTimeStart !='' and createTimeStart !=null">
+	      <![CDATA[
+		  and DATE_FORMAT(b.CreateTime,'%Y-%m-%d') >= #{createTimeStart}
+		  ]]>
+	 </if>
+	 <if test="createTimeEnd !='' and createTimeEnd !=null">
+	      <![CDATA[
+		  and DATE_FORMAT(b.CreateTime,'%Y-%m-%d') <= #{createTimeEnd}
+		  ]]>
+	 </if>
+     <if test="modifyTimeStart !='' and modifyTimeStart !=null">
+	      <![CDATA[
+		  and DATE_FORMAT(b.ModifyTime,'%Y-%m-%d') >= #{modifyTimeStart}
+		  ]]>
+	 </if>
+	 <if test="modifyTimeEnd !='' and modifyTimeEnd !=null">
+	      <![CDATA[
+		  and DATE_FORMAT(b.ModifyTime,'%Y-%m-%d') <= #{modifyTimeEnd}
+		  ]]>
+	 </if>
+     <if test="regStates!=null and regStates!=''">
+			and RegState IN
+			<foreach item="item" index="index" collection="regStates" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+	  </if>
+  </sql>
+</mapper>

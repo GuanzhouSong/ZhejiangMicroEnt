@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.ForGuaranteeInfoHisMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.ForGuaranteeInfoHis" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="More" property="more" jdbcType="VARCHAR" />
+    <result column="Mortgagor" property="mortgagor" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="AnCheID" property="anCheID" jdbcType="VARCHAR" />
+    <result column="MoreID" property="moreID" jdbcType="VARCHAR" />
+    <result column="PriClaSecKind" property="priClaSecKind" jdbcType="VARCHAR" />
+    <result column="PriClaSecAm" property="priClaSecAm" jdbcType="DECIMAL" />
+    <result column="PefPerForm" property="pefPerForm" jdbcType="DATE" />
+    <result column="PefPerTo" property="pefPerTo" jdbcType="DATE" />
+    <result column="IsPubFlag" property="isPubFlag" jdbcType="VARCHAR" />
+    <result column="GaType" property="gaType" jdbcType="VARCHAR" />
+    <result column="GuaPeriod" property="guaPeriod" jdbcType="VARCHAR" />
+    <result column="ReportNo" property="reportNo" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

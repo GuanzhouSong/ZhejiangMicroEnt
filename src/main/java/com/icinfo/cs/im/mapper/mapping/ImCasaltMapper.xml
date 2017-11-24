@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.im.mapper.ImCasaltMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.im.model.ImCasalt" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="AltDate" property="altDate" jdbcType="DATE" />
+    <result column="CaseNO" property="caseNO" jdbcType="CHAR" />
+    <result column="PenAuth" property="penAuth" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CaseAltID" property="caseAltID" jdbcType="VARCHAR" />
+    <result column="PenAuthName" property="penAuthName" jdbcType="VARCHAR" />
+    <result column="Remark" property="remark" jdbcType="LONGVARCHAR" />
+    <result column="PenContent" property="penContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+</mapper>

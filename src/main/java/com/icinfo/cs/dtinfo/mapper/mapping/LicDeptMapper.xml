@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.dtinfo.mapper.LicDeptMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.dtinfo.model.LicDept" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ExaCode" property="exaCode" jdbcType="VARCHAR" />
+    <result column="DeptCode" property="deptCode" jdbcType="VARCHAR" />
+    <result column="DeptName" property="deptName" jdbcType="VARCHAR" /> 
+    <result column="IsValid" property="isValid" jdbcType="CHAR" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="LicDeptType" property="licDeptType" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="DutyDeptCode" property="dutyDeptCode" jdbcType="VARCHAR" /> 
+    <result column="DutyDeptName" property="dutyDeptName" jdbcType="VARCHAR" /> 
+    
+    <result column="UID" property="uid" jdbcType="VARCHAR" /> 
+    <result column="AdCode" property="adCode" jdbcType="VARCHAR" /> 
+    <result column="OrgName" property="orgName" jdbcType="VARCHAR" /> 
+    <result column="Yiedistrict" property="yiedistrict" jdbcType="VARCHAR" />
+    <result column="IsSameGov" property="isSameGov" jdbcType="VARCHAR" /> 
+    <result column="AreaName" property="areaName" jdbcType="VARCHAR" /> 
+  </resultMap>
+  
+  <resultMap id="LicDeptListResultMap" type="com.icinfo.cs.dtinfo.dto.LicDeptDto" extends="BaseResultMap">
+      <result column="ExaName" property="exaName" jdbcType="VARCHAR" /> 
+      <result column="LicDept" property="licDept" jdbcType="VARCHAR" /> 
+      <result column="DeptName" property="deptName" jdbcType="VARCHAR" /> 
+      <result column="LicZone" property="licZone" jdbcType="VARCHAR" /> 
+      <result column="LicType" property="licType" jdbcType="VARCHAR" /> 
+      <result column="AreaName" property="areaName" jdbcType="VARCHAR" /> 
+   </resultMap> 
+  <!-- 根据条件查询 -->
+  <select id="selectLicDeptListJSON" resultMap="LicDeptListResultMap" parameterType="Map">
+	   SELECT
+		  a.ExaCode,
+		  a.DeptCode,
+		  a.IsValid,
+		  a.SetName,
+		  a.SetTime,
+		  a.LicDeptType,
+		  a.CreateTime,
+		  a.DutyDeptCode,
+		  a.DutyDeptName,
+		  b.ExaName,
+		  b.LicDept,
+		  b.LicZone,
+		  b.LicType,
+		  a.DeptName,
+		  a.AreaName,
+		  a.UID,
+		  a.IsSameGov, 
+		  a.OrgName  
+        FROM
+	      cs_lic_dept a 
+       LEFT JOIN cs_code_license b ON a.ExaCode=b.ExaCode
+       where 1=1  
+       <include refid="licdept_where"></include>
+       ORDER BY a.ExaCode ASC 
+  </select>
+
+  
+  <sql id="licdept_where"> 
+       <if test="deptCode !='' and deptCode !=null">
+	    and a.deptCode  IN  (${deptCode})
+	    </if> 
+        <if test="adCode !='' and adCode !=null">
+	    and a.adCode  IN  (${adCode})
+	    </if> 
+	    <if test="yiedistrict !='' and yiedistrict !=null">
+	    and a.yiedistrict  IN  (${yiedistrict})
+	    </if>
+	    <if test="exaCode !='' and exaCode !=null">
+	    and a.ExaCode  LIKE concat('%', #{exaCode},'%')
+	    </if>
+	    <if test="exaName !='' and exaName !=null">
+	    and b.ExaName  LIKE concat('%', #{exaName},'%')
+	    </if> 
+	    <if test="isValid !='' and isValid !=null">
+	    and a.IsValid  =#{isValid}
+	    </if>
+	    <if test="licDept !='' and licDept !=null">
+	    and b.LicDept  LIKE concat('%', #{licDept},'%')
+	    </if>
+	    <if test="deptName !='' and deptName !=null">
+	    and a.DeptName  LIKE concat('%', #{deptName},'%')
+	    </if>
+	    <if test="licType !='' and licType !=null">
+	    and b.LicType  =#{licType}
+	    </if>
+	    <if test="setName !='' and setName !=null">
+	    and a.SetName  Like concat('%', #{setName},'%')
+	    </if> 
+		<if test="startSetTime !='' and startSetTime !=null">
+		<![CDATA[
+		and a.SetTime>= #{startSetTime}
+		]]>
+		</if>
+		<if test="endSetTime !='' and endSetTime !=null">
+		<![CDATA[
+		and a.SetTime <= #{endSetTime}
+		]]>
+		</if>
+		<if test="licZone !='' and licZone !=null">
+	         <if test="licZone==4 ">
+	          and b.LicZone NOT IN ('0','1','2','3') 
+	         </if>
+	         <if test="licZone!=4">
+	          and b.LicZone=#{licZone}
+	         </if>
+	    </if>
+	 
+  </sql>
+</mapper>

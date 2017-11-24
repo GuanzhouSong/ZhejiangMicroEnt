@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.sccheck.mapper.PubScWorkPlanMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sccheck.model.PubScWorkPlan" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Uid" property="uid" jdbcType="VARCHAR" />
+    <result column="PlanYear" property="planYear" jdbcType="INTEGER" />
+    <result column="PlanName" property="planName" jdbcType="VARCHAR" />
+    <result column="PlanCode" property="planCode" jdbcType="VARCHAR" />
+    <result column="PlanState" property="planState" jdbcType="CHAR" />
+    <result column="PlanType" property="planType" jdbcType="CHAR" />
+    <result column="PlanStartTime" property="planStartTime" jdbcType="TIMESTAMP" />
+    <result column="PlanEndTime" property="planEndTime" jdbcType="TIMESTAMP" />
+    <result column="PlanLeadDeptcode" property="planLeadDeptcode" jdbcType="VARCHAR" />
+    <result column="PlanLeadDeptName" property="planLeadDeptName" jdbcType="VARCHAR" />
+    <result column="PlanRange" property="planRange" jdbcType="VARCHAR" />
+    <result column="PlanRemark" property="planRemark" jdbcType="VARCHAR" />
+    <result column="SetDeptCode" property="setDeptCode" jdbcType="VARCHAR" />
+    <result column="SetDeptName" property="setDeptName" jdbcType="VARCHAR" />
+    <result column="SetUserUid" property="setUserUid" jdbcType="VARCHAR" />
+    <result column="SetUserName" property="setUserName" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="InnerCode" property="innerCode" jdbcType="VARCHAR" />
+    <result column="DutyDeptCode" property="dutyDeptCode" jdbcType="VARCHAR" />
+    <result column="DutyDeptName" property="dutyDeptName" jdbcType="VARCHAR" />
+    <result column="CrossDepartFlag" property="crossDepartFlag" jdbcType="CHAR" />
+  </resultMap>
+  
+  
+   <resultMap id="PubScWorkPlanDtoResultMap" type="com.icinfo.cs.sccheck.dto.PubScWorkPlanDto" extends="BaseResultMap">
+	    <result column="areaCode" property="areaCode" jdbcType="VARCHAR" />
+	    <result column="deptCode" property="deptCode" jdbcType="VARCHAR" />
+	    <result column="deptName" property="deptName" jdbcType="VARCHAR" />
+	    <result column="planState01" property="planState01" jdbcType="INTEGER" />
+	    <result column="planState02" property="planState02" jdbcType="INTEGER" />
+	    <result column="planState03" property="planState03" jdbcType="INTEGER" />
+	    <result column="totalWork" property="totalWork" jdbcType="INTEGER" />
+	    <result column="ownNum" property="ownNum" jdbcType="INTEGER" />
+	    <result column="crossNum" property="crossNum" jdbcType="INTEGER" />
+	    <result column="entNum" property="entNum" jdbcType="INTEGER" />
+   </resultMap>
+    
+     <!-- 分页查询 -->
+  <select id="selectPubScWorkPlanList" parameterType="Map" resultMap="PubScWorkPlanDtoResultMap">
+        SELECT
+			A.Uid,
+			A.PlanYear,
+			A.PlanName,
+			A.PlanCode,
+			A.PlanState,
+			A.PlanType,
+			A.PlanStartTime,
+			A.PlanEndTime,
+			A.PlanLeadDeptcode,
+			A.PlanLeadDeptName,
+			A.PlanRange,
+			A.PlanRemark,
+			A.SetDeptCode,
+			A.SetDeptName,
+			A.SetUserUid,
+			A.SetUserName,
+			A.SetTime,
+			A.DutyDeptName,
+			A.CrossDepartFlag,
+			B.RandomTotal entNum
+		FROM
+			cs_pub_scwork_plan A 
+		LEFT JOIN cs_pub_scplan_task B ON A.uid = B.ResourcePlanUid
+		where 1=1
+        <include refid="queryPageResultSql" />
+       <!-- 数据权限 -->
+ 	   <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+        ORDER BY A.SetTime DESC
+    </select>
+    
+  <select id="selectCountAll" parameterType="Map" resultMap="PubScWorkPlanDtoResultMap">
+       <![CDATA[ SELECT
+			count(A.id) totalWork,
+			SUM(CASE WHEN A.CrossDepartFlag = '1' THEN 1 ELSE 0 END ) ownNum,
+			SUM(CASE WHEN A.CrossDepartFlag = '2' THEN 1 ELSE 0 END ) crossNum,
+			SUM(CASE WHEN (B.TaskState = '02' OR B.TaskState = '03') AND B.RandomTotal <> 0 THEN B.RandomTotal ELSE 0 END ) entNum
+		FROM
+			cs_pub_scwork_plan A
+			LEFT JOIN cs_pub_scplan_task B ON A.uid = B.ResourcePlanUid ]]> 
+	   where 1=1
+       <include refid="queryPageResultSql" />
+ 	   <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </select>
+    
+    <sql id="queryPageResultSql">
+    	<if test="planName !=null and planName != ''">
+            AND A.PlanName  LIKE concat('%', #{planName},'%')
+        </if>
+        <if test="searchFlag !=null and searchFlag != '' and searchFlag==0  ">
+			AND A.SetDeptCode = #{deptCode}
+		</if>
+        <if test="planCode !=null and planCode != ''">
+            AND A.PlanCode  LIKE concat('%', #{planCode},'%')
+        </if>
+        <if test="planYear !=null and planYear != ''">
+            AND A.PlanYear = #{planYear}
+        </if>
+        <if test="planStartTime !=null and planStartTime != ''">
+          <![CDATA[ AND  LEFT(A.PlanStartTime,10) >= #{planStartTime}  ]]>  
+        </if>
+        <if test="planEndTime !=null and planEndTime != ''">
+            <![CDATA[ AND  LEFT(A.PlanEndTime,10) <= #{planEndTime}  ]]> 
+        </if>
+        <if test="setStartTime !=null and setStartTime != ''">
+          <![CDATA[ AND  LEFT(A.SetTime,10) >= #{setStartTime}  ]]>  
+        </if>
+        <if test="setEndTime !=null and setEndTime != ''">
+            <![CDATA[ AND  LEFT(A.SetTime,10) <= #{setEndTime}  ]]> 
+        </if>
+        <if test="planLeadDeptName !=null and planLeadDeptName != ''">
+            AND  A.PlanLeadDeptName LIKE concat('%', #{planLeadDeptName},'%')
+        </if>
+        <if test="planLeadDeptcode !=null and planLeadDeptcode != ''">
+            AND  A.PlanLeadDeptcode IN (${planLeadDeptcode})
+        </if>
+        <if test="setDeptCode !=null and setDeptCode != ''">
+            AND  A.SetDeptCode IN (${setDeptCode})
+        </if>
+        <if test="planType !=null and planType != ''">
+            AND A.PlanType = #{planType}
+        </if>
+        <if test="crossDepartFlag !=null and crossDepartFlag != ''">
+            AND A.CrossDepartFlag = #{crossDepartFlag}
+        </if>
+        <if test="planState !=null and planState != ''">
+            AND A.PlanState = #{planState}
+        </if>
+        <if test="pubPlanStates !=null and pubPlanStates != ''">
+            AND A.PlanState IN 
+            <foreach item="item" index="index" collection="pubPlanStates" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+        </if>
+        <if test="setUserName !=null and setUserName != ''">
+            AND A.SetUserName  LIKE concat('%', #{setUserName},'%')
+        </if> 
+        <if test="setDeptName !=null and setDeptName != ''">
+            AND A.SetDeptName  LIKE concat('%', #{setDeptName},'%')
+        </if> 
+        <if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+			<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+				separator="OR" close=")">
+				A.DutyDeptCode like concat('%',#{item},'%')
+			</foreach>
+		</if>
+    </sql>
+    
+    <select id="selectMaxInnerCode" resultType="java.lang.String" parameterType="java.lang.String">
+	 SELECT
+	 	Max(InnerCode)
+		from cs_pub_scwork_plan
+		where  InnerCode like concat(#{innerCodeLike},'%')
+	</select>
+</mapper>

@@ -1,0 +1,2104 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>培育库历史档案</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link href="resources/css/jquery-ui-themes.css" type="text/css" rel="stylesheet"/>
+    <link href="resources/css/axure_rp_page.css" type="text/css" rel="stylesheet"/>
+    <link href="data/styles.css" type="text/css" rel="stylesheet"/>
+    <link href="files/培育库历史档案_1/styles.css" type="text/css" rel="stylesheet"/>
+    <script src="resources/scripts/jquery-1.7.1.min.js"></script>
+    <script src="resources/scripts/jquery-ui-1.8.10.custom.min.js"></script>
+    <script src="resources/scripts/axure/axQuery.js"></script>
+    <script src="resources/scripts/axure/globals.js"></script>
+    <script src="resources/scripts/axutils.js"></script>
+    <script src="resources/scripts/axure/annotation.js"></script>
+    <script src="resources/scripts/axure/axQuery.std.js"></script>
+    <script src="resources/scripts/axure/doc.js"></script>
+    <script src="data/document.js"></script>
+    <script src="resources/scripts/messagecenter.js"></script>
+    <script src="resources/scripts/axure/events.js"></script>
+    <script src="resources/scripts/axure/recording.js"></script>
+    <script src="resources/scripts/axure/action.js"></script>
+    <script src="resources/scripts/axure/expr.js"></script>
+    <script src="resources/scripts/axure/geometry.js"></script>
+    <script src="resources/scripts/axure/flyout.js"></script>
+    <script src="resources/scripts/axure/ie.js"></script>
+    <script src="resources/scripts/axure/model.js"></script>
+    <script src="resources/scripts/axure/repeater.js"></script>
+    <script src="resources/scripts/axure/sto.js"></script>
+    <script src="resources/scripts/axure/utils.temp.js"></script>
+    <script src="resources/scripts/axure/variables.js"></script>
+    <script src="resources/scripts/axure/drag.js"></script>
+    <script src="resources/scripts/axure/move.js"></script>
+    <script src="resources/scripts/axure/visibility.js"></script>
+    <script src="resources/scripts/axure/style.js"></script>
+    <script src="resources/scripts/axure/adaptive.js"></script>
+    <script src="resources/scripts/axure/tree.js"></script>
+    <script src="resources/scripts/axure/init.temp.js"></script>
+    <script src="files/培育库历史档案_1/data.js"></script>
+    <script src="resources/scripts/axure/legacy.js"></script>
+    <script src="resources/scripts/axure/viewer.js"></script>
+    <script src="resources/scripts/axure/math.js"></script>
+    <script type="text/javascript">
+      $axure.utils.getTransparentGifPath = function() { return 'resources/images/transparent.gif'; };
+      $axure.utils.getOtherPath = function() { return 'resources/Other.html'; };
+      $axure.utils.getReloadPath = function() { return 'resources/reload.html'; };
+    </script>
+  </head>
+  <body>
+    <div id="base" class="">
+
+      <!-- Unnamed (页面框架) -->
+
+      <!-- Unnamed (矩形) -->
+      <div id="u8791" class="ax_default box_1">
+        <div id="u8791_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u8792" class="text" style="display:none; visibility: hidden">
+          <p><span></span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (矩形) -->
+      <div id="u8793" class="ax_default box_1">
+        <div id="u8793_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u8794" class="text" style="display:none; visibility: hidden">
+          <p><span></span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (矩形) -->
+      <div id="u8795" class="ax_default box_1">
+        <div id="u8795_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u8796" class="text" style="display:none; visibility: hidden">
+          <p><span></span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (树状菜单) -->
+      <div id="u8797" class="ax_default tree_node treeroot">
+        <div id="u8797_children" class="u8797_children">
+
+          <!-- Unnamed (树节点) -->
+          <div id="u8798" class="ax_default tree_node treenode">
+
+            <!-- Unnamed (图片) -->
+            <div id="u8799" class="ax_default image">
+              <img id="u8799_img" class="img " src="images/首页/u9_selected.png"/>
+              <!-- Unnamed () -->
+              <div id="u8800" class="text" style="display:none; visibility: hidden">
+                <p><span></span></p>
+              </div>
+            </div>
+            <!-- Unnamed (矩形) -->
+            <div id="u8801" class="" selectiongroup="u8790u8797_tree_group">
+              <div id="u8801_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u8802" class="text">
+                <p><span>信息查询</span></p>
+              </div>
+            </div>
+            <div id="u8798_children" class="u8798_children">
+
+              <!-- Unnamed (树节点) -->
+              <div id="u8803" class="ax_default tree_node treenode">
+                <!-- Unnamed (矩形) -->
+                <div id="u8804" class="" selectiongroup="u8790u8797_tree_group">
+                  <div id="u8804_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u8805" class="text">
+                    <p><span>小微企业信息查询</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Unnamed (树节点) -->
+          <div id="u8806" class="ax_default tree_node treenode">
+
+            <!-- Unnamed (图片) -->
+            <div id="u8807" class="ax_default image">
+              <img id="u8807_img" class="img " src="images/首页/u9_selected.png"/>
+              <!-- Unnamed () -->
+              <div id="u8808" class="text" style="display:none; visibility: hidden">
+                <p><span></span></p>
+              </div>
+            </div>
+            <!-- Unnamed (矩形) -->
+            <div id="u8809" class="" selectiongroup="u8790u8797_tree_group">
+              <div id="u8809_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u8810" class="text">
+                <p><span>统计功能</span></p>
+              </div>
+            </div>
+            <div id="u8806_children" class="u8806_children">
+
+              <!-- Unnamed (树节点) -->
+              <div id="u8811" class="ax_default tree_node treenode">
+
+                <!-- Unnamed (图片) -->
+                <div id="u8812" class="ax_default image">
+                  <img id="u8812_img" class="img " src="images/首页/u9_selected.png"/>
+                  <!-- Unnamed () -->
+                  <div id="u8813" class="text" style="display:none; visibility: hidden">
+                    <p><span></span></p>
+                  </div>
+                </div>
+                <!-- Unnamed (矩形) -->
+                <div id="u8814" class="" selectiongroup="u8790u8797_tree_group">
+                  <div id="u8814_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u8815" class="text">
+                    <p><span>登记信息统计</span></p>
+                  </div>
+                </div>
+                <div id="u8811_children" class="u8811_children">
+
+                  <!-- Unnamed (树节点) -->
+                  <div id="u8816" class="ax_default tree_node treenode">
+                    <!-- Unnamed (矩形) -->
+                    <div id="u8817" class="" selectiongroup="u8790u8797_tree_group">
+                      <div id="u8817_div" class=""></div>
+                      <!-- Unnamed () -->
+                      <div id="u8818" class="text">
+                        <p><span>普通统计</span></p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (树节点) -->
+                  <div id="u8819" class="ax_default tree_node treenode">
+                    <!-- Unnamed (矩形) -->
+                    <div id="u8820" class="" selectiongroup="u8790u8797_tree_group">
+                      <div id="u8820_div" class=""></div>
+                      <!-- Unnamed () -->
+                      <div id="u8821" class="text">
+                        <p><span>八大重点产业统计</span></p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (树节点) -->
+                  <div id="u8822" class="ax_default tree_node treenode">
+                    <!-- Unnamed (矩形) -->
+                    <div id="u8823" class="" selectiongroup="u8790u8797_tree_group">
+                      <div id="u8823_div" class=""></div>
+                      <!-- Unnamed () -->
+                      <div id="u8824" class="text">
+                        <p><span>特殊行业分类统计</span></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Unnamed (树节点) -->
+              <div id="u8825" class="ax_default tree_node treenode">
+
+                <!-- Unnamed (图片) -->
+                <div id="u8826" class="ax_default image">
+                  <img id="u8826_img" class="img " src="images/首页/u9_selected.png"/>
+                  <!-- Unnamed () -->
+                  <div id="u8827" class="text" style="display:none; visibility: hidden">
+                    <p><span></span></p>
+                  </div>
+                </div>
+                <!-- Unnamed (矩形) -->
+                <div id="u8828" class="" selectiongroup="u8790u8797_tree_group">
+                  <div id="u8828_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u8829" class="text">
+                    <p><span>年报数据统计</span></p>
+                  </div>
+                </div>
+                <div id="u8825_children" class="u8825_children">
+
+                  <!-- Unnamed (树节点) -->
+                  <div id="u8830" class="ax_default tree_node treenode">
+                    <!-- Unnamed (矩形) -->
+                    <div id="u8831" class="" selectiongroup="u8790u8797_tree_group">
+                      <div id="u8831_div" class=""></div>
+                      <!-- Unnamed () -->
+                      <div id="u8832" class="text">
+                        <p><span>普通统计</span></p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (树节点) -->
+                  <div id="u8833" class="ax_default tree_node treenode">
+                    <!-- Unnamed (矩形) -->
+                    <div id="u8834" class="" selectiongroup="u8790u8797_tree_group">
+                      <div id="u8834_div" class=""></div>
+                      <!-- Unnamed () -->
+                      <div id="u8835" class="text">
+                        <p><span>八大重点产业统计</span></p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (树节点) -->
+                  <div id="u8836" class="ax_default tree_node treenode">
+                    <!-- Unnamed (矩形) -->
+                    <div id="u8837" class="" selectiongroup="u8790u8797_tree_group">
+                      <div id="u8837_div" class=""></div>
+                      <!-- Unnamed () -->
+                      <div id="u8838" class="text">
+                        <p><span>特殊行业分类统计</span></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Unnamed (树节点) -->
+              <div id="u8839" class="ax_default tree_node treenode">
+
+                <!-- Unnamed (图片) -->
+                <div id="u8840" class="ax_default image">
+                  <img id="u8840_img" class="img " src="images/首页/u9_selected.png"/>
+                  <!-- Unnamed () -->
+                  <div id="u8841" class="text" style="display:none; visibility: hidden">
+                    <p><span></span></p>
+                  </div>
+                </div>
+                <!-- Unnamed (矩形) -->
+                <div id="u8842" class="" selectiongroup="u8790u8797_tree_group">
+                  <div id="u8842_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u8843" class="text">
+                    <p><span>发展动态统计</span></p>
+                  </div>
+                </div>
+                <div id="u8839_children" class="u8839_children">
+
+                  <!-- Unnamed (树节点) -->
+                  <div id="u8844" class="ax_default tree_node treenode">
+                    <!-- Unnamed (矩形) -->
+                    <div id="u8845" class="" selectiongroup="u8790u8797_tree_group">
+                      <div id="u8845_div" class=""></div>
+                      <!-- Unnamed () -->
+                      <div id="u8846" class="text">
+                        <p><span>普通统计</span></p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (树节点) -->
+                  <div id="u8847" class="ax_default tree_node treenode">
+                    <!-- Unnamed (矩形) -->
+                    <div id="u8848" class="" selectiongroup="u8790u8797_tree_group">
+                      <div id="u8848_div" class=""></div>
+                      <!-- Unnamed () -->
+                      <div id="u8849" class="text">
+                        <p><span>八大重点产业统计</span></p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (树节点) -->
+                  <div id="u8850" class="ax_default tree_node treenode">
+                    <!-- Unnamed (矩形) -->
+                    <div id="u8851" class="" selectiongroup="u8790u8797_tree_group">
+                      <div id="u8851_div" class=""></div>
+                      <!-- Unnamed () -->
+                      <div id="u8852" class="text">
+                        <p><span>特殊行业分类统计</span></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Unnamed (树节点) -->
+          <div id="u8853" class="ax_default tree_node treenode">
+
+            <!-- Unnamed (图片) -->
+            <div id="u8854" class="ax_default image">
+              <img id="u8854_img" class="img " src="images/首页/u9_selected.png"/>
+              <!-- Unnamed () -->
+              <div id="u8855" class="text" style="display:none; visibility: hidden">
+                <p><span></span></p>
+              </div>
+            </div>
+            <!-- Unnamed (矩形) -->
+            <div id="u8856" class="" selectiongroup="u8790u8797_tree_group">
+              <div id="u8856_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u8857" class="text">
+                <p><span>小微企业培育库</span></p>
+              </div>
+            </div>
+            <div id="u8853_children" class="u8853_children">
+
+              <!-- Unnamed (树节点) -->
+              <div id="u8858" class="ax_default tree_node treenode">
+                <!-- Unnamed (矩形) -->
+                <div id="u8859" class="" selectiongroup="u8790u8797_tree_group">
+                  <div id="u8859_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u8860" class="text">
+                    <p><span>添加企业入库</span></p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Unnamed (树节点) -->
+              <div id="u8861" class="ax_default tree_node treenode">
+                <!-- Unnamed (矩形) -->
+                <div id="u8862" class="" selectiongroup="u8790u8797_tree_group">
+                  <div id="u8862_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u8863" class="text">
+                    <p><span>库内企业管理</span></p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Unnamed (树节点) -->
+              <div id="u8864" class="ax_default tree_node treenode">
+                <!-- Unnamed (矩形) -->
+                <div id="u8865" class="" selectiongroup="u8790u8797_tree_group">
+                  <div id="u8865_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u8866" class="text">
+                    <p><span>培育档案查看</span></p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Unnamed (树节点) -->
+              <div id="u8867" class="ax_default tree_node treenode">
+                <!-- Unnamed (矩形) -->
+                <div id="u8868" class="" selectiongroup="u8790u8797_tree_group">
+                  <div id="u8868_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u8869" class="text">
+                    <p><span>历史企业档案</span></p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Unnamed (树节点) -->
+              <div id="u8870" class="ax_default tree_node treenode">
+                <!-- Unnamed (矩形) -->
+                <div id="u8871" class="" selectiongroup="u8790u8797_tree_group">
+                  <div id="u8871_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u8872" class="text">
+                    <p><span>培育动态统计</span></p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Unnamed (树节点) -->
+              <div id="u8873" class="ax_default tree_node treenode">
+                <!-- Unnamed (矩形) -->
+                <div id="u8874" class="" selectiongroup="u8790u8797_tree_group">
+                  <div id="u8874_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u8875" class="text">
+                    <p><span>跟踪监测预警</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Unnamed (树节点) -->
+          <div id="u8876" class="ax_default tree_node treenode">
+
+            <!-- Unnamed (图片) -->
+            <div id="u8877" class="ax_default image">
+              <img id="u8877_img" class="img " src="images/首页/u9_selected.png"/>
+              <!-- Unnamed () -->
+              <div id="u8878" class="text" style="display:none; visibility: hidden">
+                <p><span></span></p>
+              </div>
+            </div>
+            <!-- Unnamed (矩形) -->
+            <div id="u8879" class="" selectiongroup="u8790u8797_tree_group">
+              <div id="u8879_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u8880" class="text">
+                <p><span>成长指数样本库</span></p>
+              </div>
+            </div>
+            <div id="u8876_children" class="u8876_children">
+
+              <!-- Unnamed (树节点) -->
+              <div id="u8881" class="ax_default tree_node treenode">
+                <!-- Unnamed (矩形) -->
+                <div id="u8882" class="" selectiongroup="u8790u8797_tree_group">
+                  <div id="u8882_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u8883" class="text">
+                    <p><span>样本库</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Unnamed (树节点) -->
+          <div id="u8884" class="ax_default tree_node treenode">
+
+            <!-- Unnamed (图片) -->
+            <div id="u8885" class="ax_default image">
+              <img id="u8885_img" class="img " src="images/首页/u9_selected.png"/>
+              <!-- Unnamed () -->
+              <div id="u8886" class="text" style="display:none; visibility: hidden">
+                <p><span></span></p>
+              </div>
+            </div>
+            <!-- Unnamed (矩形) -->
+            <div id="u8887" class="" selectiongroup="u8790u8797_tree_group">
+              <div id="u8887_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u8888" class="text">
+                <p><span>系统管理</span></p>
+              </div>
+            </div>
+            <div id="u8884_children" class="u8884_children">
+
+              <!-- Unnamed (树节点) -->
+              <div id="u8889" class="ax_default tree_node treenode">
+                <!-- Unnamed (矩形) -->
+                <div id="u8890" class="" selectiongroup="u8790u8797_tree_group">
+                  <div id="u8890_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u8891" class="text">
+                    <p><span>操作权限管理</span></p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Unnamed (树节点) -->
+              <div id="u8892" class="ax_default tree_node treenode">
+                <!-- Unnamed (矩形) -->
+                <div id="u8893" class="" selectiongroup="u8790u8797_tree_group">
+                  <div id="u8893_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u8894" class="text">
+                    <p><span>日志记录</span></p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Unnamed (树节点) -->
+              <div id="u8895" class="ax_default tree_node treenode">
+                <!-- Unnamed (矩形) -->
+                <div id="u8896" class="" selectiongroup="u8790u8797_tree_group">
+                  <div id="u8896_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u8897" class="text">
+                    <p><span>通知公告</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unnamed (矩形) -->
+      <div id="u8898" class="ax_default _二级标题">
+        <div id="u8898_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u8899" class="text">
+          <p><span>小微企业运行监测系统</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (占位符) -->
+      <div id="u8900" class="ax_default placeholder">
+        <img id="u8900_img" class="img " src="images/首页/u110.png"/>
+        <!-- Unnamed () -->
+        <div id="u8901" class="text">
+          <p><span>国徽logo</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (矩形) -->
+      <div id="u8902" class="ax_default label">
+        <div id="u8902_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u8903" class="text">
+          <p><span>您好，管理员</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (矩形) -->
+      <div id="u8904" class="ax_default label">
+        <div id="u8904_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u8905" class="text">
+          <p><span style="text-decoration:underline;">修改密码</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (矩形) -->
+      <div id="u8906" class="ax_default label">
+        <div id="u8906_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u8907" class="text">
+          <p><span style="text-decoration:underline;">退出</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (图片) -->
+      <div id="u8908" class="ax_default image ax_default_hidden" style="display:none; visibility: hidden">
+        <img id="u8908_img" class="img " src="images/首页/u118.png"/>
+        <!-- Unnamed () -->
+        <div id="u8909" class="text" style="display:none; visibility: hidden">
+          <p><span></span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (水平线) -->
+      <div id="u8910" class="ax_default line">
+        <img id="u8910_img" class="img " src="images/首页/u120.png"/>
+        <!-- Unnamed () -->
+        <div id="u8911" class="text" style="display:none; visibility: hidden">
+          <p><span></span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (矩形) -->
+      <div id="u8912" class="ax_default box_1">
+        <div id="u8912_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u8913" class="text">
+          <p><span>首页</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (图片) -->
+      <div id="u8914" class="ax_default image">
+        <img id="u8914_img" class="img " src="images/首页/u124.png"/>
+        <!-- Unnamed () -->
+        <div id="u8915" class="text" style="display:none; visibility: hidden">
+          <p><span></span></p>
+        </div>
+      </div>
+
+      <!-- 企业基本信息修改 (组合) -->
+      <div id="u8916" class="ax_default ax_default_hidden" data-label="企业基本信息修改" style="display:none; visibility: hidden" data-width="0" data-height="0">
+
+        <!-- Unnamed (气泡) -->
+        <div id="u8917" class="ax_default box_1">
+          <img id="u8917_img" class="img " src="images/单家企业添加培育档案/u5456.png"/>
+          <!-- Unnamed () -->
+          <div id="u8918" class="text" style="display:none; visibility: hidden">
+            <p><span></span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (矩形) -->
+        <div id="u8919" class="ax_default label">
+          <div id="u8919_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u8920" class="text">
+            <p><span>企业基本信息</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (组合) -->
+        <div id="u8921" class="ax_default" data-width="0" data-height="0">
+
+          <!-- Unnamed (组合) -->
+          <div id="u8922" class="ax_default" data-width="0" data-height="0">
+
+            <!-- Unnamed (矩形) -->
+            <div id="u8923" class="ax_default primary_button">
+              <div id="u8923_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u8924" class="text">
+                <p><span>确定修改</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u8925" class="ax_default primary_button">
+              <div id="u8925_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u8926" class="text">
+                <p><span>取消</span></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Unnamed (组合) -->
+          <div id="u8927" class="ax_default" data-width="0" data-height="0">
+
+            <!-- Unnamed (矩形) -->
+            <div id="u8928" class="ax_default box_1">
+              <div id="u8928_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u8929" class="text">
+                <p><span>企业名称</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u8930" class="ax_default box_1">
+              <div id="u8930_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u8931" class="text">
+                <p><span>浙江某某企业（只读）</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u8932" class="ax_default box_1">
+              <div id="u8932_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u8933" class="text">
+                <p><span>所属行业</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u8934" class="ax_default box_1">
+              <div id="u8934_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u8935" class="text">
+                <p><span>制造业（只读）</span></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Unnamed (组合) -->
+          <div id="u8936" class="ax_default" data-width="0" data-height="0">
+
+            <!-- Unnamed (矩形) -->
+            <div id="u8937" class="ax_default box_1">
+              <div id="u8937_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u8938" class="text">
+                <p><span>企业地址</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u8939" class="ax_default box_1">
+              <div id="u8939_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u8940" class="text">
+                <p><span>（可修改）</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u8941" class="ax_default box_1">
+              <div id="u8941_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u8942" class="text">
+                <p><span>邮编</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u8943" class="ax_default box_1">
+              <div id="u8943_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u8944" class="text">
+                <p><span>（可修改）</span></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Unnamed (组合) -->
+          <div id="u8945" class="ax_default" data-width="0" data-height="0">
+
+            <!-- Unnamed (矩形) -->
+            <div id="u8946" class="ax_default box_1">
+              <div id="u8946_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u8947" class="text">
+                <p><span>企业负责人</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u8948" class="ax_default box_1">
+              <div id="u8948_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u8949" class="text">
+                <p><span>（可修改）</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u8950" class="ax_default box_1">
+              <div id="u8950_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u8951" class="text">
+                <p><span>联系电话</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u8952" class="ax_default box_1">
+              <div id="u8952_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u8953" class="text">
+                <p><span>（可修改）</span></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Unnamed (组合) -->
+          <div id="u8954" class="ax_default" data-width="0" data-height="0">
+
+            <!-- Unnamed (矩形) -->
+            <div id="u8955" class="ax_default box_1">
+              <div id="u8955_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u8956" class="text">
+                <p><span>企业联络人</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u8957" class="ax_default box_1">
+              <div id="u8957_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u8958" class="text">
+                <p><span>（可修改）</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u8959" class="ax_default box_1">
+              <div id="u8959_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u8960" class="text">
+                <p><span>联系电话</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u8961" class="ax_default box_1">
+              <div id="u8961_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u8962" class="text">
+                <p><span>（可修改）</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 企业类型选项 (矩形) -->
+      <div id="u8963" class="ax_default box_1" data-label="企业类型选项">
+        <div id="u8963_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u8964" class="text" style="display:none; visibility: hidden">
+          <p><span></span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (组合) -->
+      <div id="u8965" class="ax_default" data-width="0" data-height="0">
+      </div>
+
+      <!-- Unnamed (组合) -->
+      <div id="u8966" class="ax_default" data-width="960" data-height="91">
+
+        <!-- Unnamed (矩形) -->
+        <div id="u8967" class="ax_default box_11">
+          <div id="u8967_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u8968" class="text">
+            <p><span>信息；环保</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (矩形) -->
+        <div id="u8969" class="ax_default box_11">
+          <div id="u8969_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u8970" class="text">
+            <p><span>产业类型</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (矩形) -->
+        <div id="u8971" class="ax_default box_11">
+          <div id="u8971_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u8972" class="text">
+            <p><span>企业类型</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (矩形) -->
+        <div id="u8973" class="ax_default box_11">
+          <div id="u8973_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u8974" class="text">
+            <p><span>区域类型</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (组合) -->
+        <div id="u8975" class="ax_default" data-width="706" data-height="46">
+
+          <!-- Unnamed (矩形) -->
+          <div id="u8976" class="ax_default box_11">
+            <div id="u8976_div" class=""></div>
+            <!-- Unnamed () -->
+            <div id="u8977" class="text">
+              <p><span>特色小镇（云栖小镇）；众创空间（xxxx1；xxxx2）</span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Unnamed (矩形) -->
+        <div id="u8978" class="ax_default box_11">
+          <div id="u8978_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u8979" class="text">
+            <p><span>初创型</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (矩形) -->
+        <div id="u8980" class="ax_default box_11">
+          <div id="u8980_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u8981" class="text">
+            <p><span>培育库类型</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unnamed (组合) -->
+      <div id="u8982" class="ax_default" data-width="960" data-height="148">
+
+        <!-- Unnamed (矩形) -->
+        <div id="u8983" class="ax_default box_11">
+          <div id="u8983_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u8984" class="text">
+            <p><span>企业名称</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (矩形) -->
+        <div id="u8985" class="ax_default box_11">
+          <div id="u8985_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u8986" class="text">
+            <p><span>浙江省某某企业</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (矩形) -->
+        <div id="u8987" class="ax_default box_11">
+          <div id="u8987_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u8988" class="text">
+            <p><span>所属行业</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (矩形) -->
+        <div id="u8989" class="ax_default box_11">
+          <div id="u8989_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u8990" class="text">
+            <p><span>建筑业</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (矩形) -->
+        <div id="u8991" class="ax_default box_11">
+          <div id="u8991_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u8992" class="text">
+            <p><span>成立日期</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (矩形) -->
+        <div id="u8993" class="ax_default box_11">
+          <div id="u8993_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u8994" class="text">
+            <p><span>2017-01-01</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (矩形) -->
+        <div id="u8995" class="ax_default box_11">
+          <div id="u8995_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u8996" class="text">
+            <p><span>企业地址</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (矩形) -->
+        <div id="u8997" class="ax_default box_11">
+          <div id="u8997_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u8998" class="text">
+            <p><span>杭州市西湖区某某路11号</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (矩形) -->
+        <div id="u8999" class="ax_default box_11">
+          <div id="u8999_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u9000" class="text">
+            <p><span>邮编</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (矩形) -->
+        <div id="u9001" class="ax_default box_11">
+          <div id="u9001_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u9002" class="text">
+            <p><span>310000</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (矩形) -->
+        <div id="u9003" class="ax_default box_11">
+          <div id="u9003_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u9004" class="text">
+            <p><span>企业负责人</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (矩形) -->
+        <div id="u9005" class="ax_default box_11">
+          <div id="u9005_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u9006" class="text" style="display:none; visibility: hidden">
+            <p><span></span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (矩形) -->
+        <div id="u9007" class="ax_default box_11">
+          <div id="u9007_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u9008" class="text">
+            <p><span>联系电话</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (矩形) -->
+        <div id="u9009" class="ax_default box_11">
+          <div id="u9009_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u9010" class="text" style="display:none; visibility: hidden">
+            <p><span></span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (矩形) -->
+        <div id="u9011" class="ax_default box_11">
+          <div id="u9011_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u9012" class="text">
+            <p><span>企业联络人</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (矩形) -->
+        <div id="u9013" class="ax_default box_11">
+          <div id="u9013_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u9014" class="text" style="display:none; visibility: hidden">
+            <p><span></span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (矩形) -->
+        <div id="u9015" class="ax_default box_11">
+          <div id="u9015_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u9016" class="text">
+            <p><span>联系电话</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (矩形) -->
+        <div id="u9017" class="ax_default box_11">
+          <div id="u9017_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u9018" class="text" style="display:none; visibility: hidden">
+            <p><span></span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unnamed (组合) -->
+      <div id="u9019" class="ax_default" data-width="960" data-height="56">
+
+        <!-- Unnamed (矩形) -->
+        <div id="u9020" class="ax_default box_11">
+          <div id="u9020_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u9021" class="text">
+            <p><span>创业人群</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (矩形) -->
+        <div id="u9022" class="ax_default box_11">
+          <div id="u9022_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u9023" class="text">
+            <p><span>高校、科研院所科技人员；海外高层次人才</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unnamed (矩形) -->
+      <div id="u9024" class="ax_default _二级标题">
+        <div id="u9024_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u9025" class="text">
+          <p><span>小微企业成长培育档案</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (矩形) -->
+      <div id="u9026" class="ax_default box_1">
+        <div id="u9026_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u9027" class="text">
+          <p><span>打印</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (矩形) -->
+      <div id="u9028" class="ax_default box_1">
+        <div id="u9028_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u9029" class="text">
+          <p><span>返回</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (矩形) -->
+      <div id="u9030" class="ax_default box_1">
+        <div id="u9030_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u9031" class="text">
+          <p><span>修正培育档案信息</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (矩形) -->
+      <div id="u9032" class="ax_default label">
+        <div id="u9032_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u9033" class="text">
+          <p><span>修改记录</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (组合) -->
+      <div id="u9034" class="ax_default" data-width="961" data-height="126">
+
+        <!-- Unnamed (组合) -->
+        <div id="u9035" class="ax_default" data-width="961" data-height="126">
+
+          <!-- Unnamed (矩形) -->
+          <div id="u9036" class="ax_default _形状">
+            <div id="u9036_div" class=""></div>
+            <!-- Unnamed () -->
+            <div id="u9037" class="text" style="display:none; visibility: hidden">
+              <p><span></span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (矩形) -->
+          <div id="u9038" class="ax_default _文本段落">
+            <div id="u9038_div" class=""></div>
+            <!-- Unnamed () -->
+            <div id="u9039" class="text">
+              <p><span>西湖局</span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (矩形) -->
+          <div id="u9040" class="ax_default _文本段落">
+            <div id="u9040_div" class=""></div>
+            <!-- Unnamed () -->
+            <div id="u9041" class="text">
+              <p><span>湖滨工商所</span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (矩形) -->
+          <div id="u9042" class="ax_default _文本段落">
+            <div id="u9042_div" class=""></div>
+            <!-- Unnamed () -->
+            <div id="u9043" class="text">
+              <p><span>西溪所</span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (矩形) -->
+          <div id="u9044" class="ax_default _文本段落">
+            <div id="u9044_div" class=""></div>
+            <!-- Unnamed () -->
+            <div id="u9045" class="text">
+              <p><span>张三</span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (矩形) -->
+          <div id="u9046" class="ax_default _文本段落">
+            <div id="u9046_div" class=""></div>
+            <!-- Unnamed () -->
+            <div id="u9047" class="text">
+              <p><span>张三</span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (矩形) -->
+          <div id="u9048" class="ax_default _文本段落">
+            <div id="u9048_div" class=""></div>
+            <!-- Unnamed () -->
+            <div id="u9049" class="text">
+              <p><span>张三</span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (水平线) -->
+          <div id="u9050" class="ax_default _水平线">
+            <img id="u9050_img" class="img " src="images/培育库成长档案/u7433.png"/>
+            <!-- Unnamed () -->
+            <div id="u9051" class="text" style="display:none; visibility: hidden">
+              <p><span></span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (水平线) -->
+          <div id="u9052" class="ax_default _水平线">
+            <img id="u9052_img" class="img " src="images/培育库成长档案/u7433.png"/>
+            <!-- Unnamed () -->
+            <div id="u9053" class="text" style="display:none; visibility: hidden">
+              <p><span></span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (水平线) -->
+          <div id="u9054" class="ax_default _水平线">
+            <img id="u9054_img" class="img " src="images/培育库成长档案/u7433.png"/>
+            <!-- Unnamed () -->
+            <div id="u9055" class="text" style="display:none; visibility: hidden">
+              <p><span></span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (矩形) -->
+          <div id="u9056" class="ax_default _文本段落">
+            <div id="u9056_div" class=""></div>
+            <!-- Unnamed () -->
+            <div id="u9057" class="text">
+              <p><span>2017/4/27&nbsp; </span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (矩形) -->
+          <div id="u9058" class="ax_default _文本段落">
+            <div id="u9058_div" class=""></div>
+            <!-- Unnamed () -->
+            <div id="u9059" class="text">
+              <p><span>2016/9/27&nbsp; &nbsp; </span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (矩形) -->
+          <div id="u9060" class="ax_default _文本段落">
+            <div id="u9060_div" class=""></div>
+            <!-- Unnamed () -->
+            <div id="u9061" class="text">
+              <p><span>2016/9/27&nbsp; </span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (列表框) -->
+          <div id="u9062" class="ax_default _列表框">
+            <select id="u9062_input" size="2">
+              <option value=" ">&nbsp;</option>
+              <option value=" ">&nbsp;</option>
+              <option value=" ">&nbsp;</option>
+              <option value=" ">&nbsp;</option>
+              <option value=" ">&nbsp;</option>
+              <option value=" ">&nbsp;</option>
+              <option value=" ">&nbsp;</option>
+              <option value=" ">&nbsp;</option>
+              <option value=" ">&nbsp;</option>
+              <option value=" ">&nbsp;</option>
+              <option value=" ">&nbsp;</option>
+              <option value=" ">&nbsp;</option>
+              <option value=" ">&nbsp;</option>
+              <option value=" ">&nbsp;</option>
+            </select>
+          </div>
+
+          <!-- Unnamed (矩形) -->
+          <div id="u9063" class="ax_default _形状">
+            <div id="u9063_div" class=""></div>
+            <!-- Unnamed () -->
+            <div id="u9064" class="text" style="display:none; visibility: hidden">
+              <p><span></span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (矩形) -->
+          <div id="u9065" class="ax_default _文本段落">
+            <div id="u9065_div" class=""></div>
+            <!-- Unnamed () -->
+            <div id="u9066" class="text">
+              <p><span>因企业规模壮大，实现小升规；</span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (矩形) -->
+          <div id="u9067" class="ax_default _文本段落">
+            <div id="u9067_div" class=""></div>
+            <!-- Unnamed () -->
+            <div id="u9068" class="text">
+              <p><span>因企业发展，调整培育库类型；</span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (矩形) -->
+          <div id="u9069" class="ax_default _文本段落">
+            <div id="u9069_div" class=""></div>
+            <!-- Unnamed () -->
+            <div id="u9070" class="text">
+              <p><span>因企业发展，调整培育库类型；</span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (形状) -->
+          <div id="u9071" class="ax_default icon">
+            <img id="u9071_img" class="img " src="images/培育库成长档案/u7454.png"/>
+            <!-- Unnamed () -->
+            <div id="u9072" class="text" style="display:none; visibility: hidden">
+              <p><span></span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (形状) -->
+          <div id="u9073" class="ax_default icon">
+            <img id="u9073_img" class="img " src="images/培育库成长档案/u7454.png"/>
+            <!-- Unnamed () -->
+            <div id="u9074" class="text" style="display:none; visibility: hidden">
+              <p><span></span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Unnamed (图片) -->
+        <div id="u9075" class="ax_default image">
+          <img id="u9075_img" class="img " src="images/培育库历史档案_1/u9075.png"/>
+          <!-- Unnamed () -->
+          <div id="u9076" class="text" style="display:none; visibility: hidden">
+            <p><span></span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unnamed (矩形) -->
+      <div id="u9077" class="ax_default box_2">
+        <div id="u9077_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u9078" class="text" style="display:none; visibility: hidden">
+          <p><span></span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (矩形) -->
+      <div id="u9079" class="ax_default box_2">
+        <div id="u9079_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u9080" class="text" style="display:none; visibility: hidden">
+          <p><span></span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (矩形) -->
+      <div id="u9081" class="ax_default box_2">
+        <div id="u9081_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u9082" class="text" style="display:none; visibility: hidden">
+          <p><span></span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (组合) -->
+      <div id="u9083" class="ax_default" data-width="0" data-height="0">
+      </div>
+
+      <!-- 年份帮扶信息 (动态面板) -->
+      <div id="u9084" class="ax_default" data-label="年份帮扶信息">
+        <div id="u9084_state0" class="panel_state" data-label="2017年">
+          <div id="u9084_state0_content" class="panel_state_content">
+
+            <!-- Unnamed (组合) -->
+            <div id="u9085" class="ax_default" data-width="960" data-height="57">
+
+              <!-- Unnamed (矩形) -->
+              <div id="u9086" class="ax_default box_11">
+                <div id="u9086_div" class=""></div>
+                <!-- Unnamed () -->
+                <div id="u9087" class="text">
+                  <p><span>经营状况</span></p><p><span>（2016年度）</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (组合) -->
+              <div id="u9088" class="ax_default" data-width="840" data-height="57">
+
+                <!-- Unnamed (矩形) -->
+                <div id="u9089" class="ax_default box_11">
+                  <div id="u9089_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u9090" class="text">
+                    <p><span>营业总收入</span><span style="text-decoration:underline;">2345</span><span>万元，利润总额</span><span style="text-decoration:underline;">32</span><span>万元，纳税总额</span><span style="text-decoration:underline;">12</span><span>万元。</span></p>
+                  </div>
+                </div>
+
+                <!-- Unnamed (矩形) -->
+                <div id="u9091" class="ax_default box_11">
+                  <div id="u9091_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u9092" class="text">
+                    <p><span>备注：</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Unnamed (组合) -->
+            <div id="u9093" class="ax_default" data-width="960" data-height="88">
+
+              <!-- Unnamed (矩形) -->
+              <div id="u9094" class="ax_default box_11">
+                <div id="u9094_div" class=""></div>
+                <!-- Unnamed () -->
+                <div id="u9095" class="text">
+                  <p><span>需求及帮扶记录</span></p><p><span>（2017年度）</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (组合) -->
+              <div id="u9096" class="ax_default" data-width="840" data-height="57">
+
+                <!-- Unnamed (组合) -->
+                <div id="u9097" class="ax_default" data-width="840" data-height="57">
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u9098" class="ax_default box_11">
+                    <div id="u9098_div" class=""></div>
+                    <!-- Unnamed () -->
+                    <div id="u9099" class="text" style="display:none; visibility: hidden">
+                      <p><span></span></p>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u9100" class="ax_default box_11">
+                    <div id="u9100_div" class=""></div>
+                    <!-- Unnamed () -->
+                    <div id="u9101" class="text" style="display:none; visibility: hidden">
+                      <p><span></span></p>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u9102" class="ax_default box_11">
+                    <div id="u9102_div" class=""></div>
+                    <!-- Unnamed () -->
+                    <div id="u9103" class="text" style="display:none; visibility: hidden">
+                      <p><span></span></p>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u9104" class="ax_default box_11">
+                    <div id="u9104_div" class=""></div>
+                    <!-- Unnamed () -->
+                    <div id="u9105" class="text" style="display:none; visibility: hidden">
+                      <p><span></span></p>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u9106" class="ax_default box_11">
+                    <div id="u9106_div" class=""></div>
+                    <!-- Unnamed () -->
+                    <div id="u9107" class="text" style="display:none; visibility: hidden">
+                      <p><span></span></p>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u9108" class="ax_default box_11">
+                    <div id="u9108_div" class=""></div>
+                    <!-- Unnamed () -->
+                    <div id="u9109" class="text" style="display:none; visibility: hidden">
+                      <p><span></span></p>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u9110" class="ax_default box_11">
+                    <div id="u9110_div" class=""></div>
+                    <!-- Unnamed () -->
+                    <div id="u9111" class="text" style="display:none; visibility: hidden">
+                      <p><span></span></p>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u9112" class="ax_default box_11">
+                    <div id="u9112_div" class=""></div>
+                    <!-- Unnamed () -->
+                    <div id="u9113" class="text" style="display:none; visibility: hidden">
+                      <p><span></span></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Unnamed (组合) -->
+              <div id="u9114" class="ax_default" data-width="840" data-height="32">
+
+                <!-- Unnamed (矩形) -->
+                <div id="u9115" class="ax_default box_11">
+                  <div id="u9115_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u9116" class="text">
+                    <p><span>需求大类</span></p>
+                  </div>
+                </div>
+
+                <!-- Unnamed (矩形) -->
+                <div id="u9117" class="ax_default box_11">
+                  <div id="u9117_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u9118" class="text">
+                    <p><span>需求内容</span></p>
+                  </div>
+                </div>
+
+                <!-- Unnamed (矩形) -->
+                <div id="u9119" class="ax_default box_11">
+                  <div id="u9119_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u9120" class="text">
+                    <p><span>帮扶时间</span></p>
+                  </div>
+                </div>
+
+                <!-- Unnamed (矩形) -->
+                <div id="u9121" class="ax_default box_11">
+                  <div id="u9121_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u9122" class="text">
+                    <p><span>服务内容</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Unnamed (水平线) -->
+            <div id="u9123" class="compound ax_default line" WidgetHeight="1" WidgetWidth="134" CompoundMode="true">
+              <img id="u9123_img" class="singleImg img " src="images/移除培育库/u7039.png"/>
+              <div id="u9123p000" class="ax_vector_shape" WidgetTopLeftX="-0.485507246376812" WidgetTopLeftY="0" WidgetTopRightX="0.485507246376812" WidgetTopRightY="0" WidgetBottomLeftX="-0.485507246376812" WidgetBottomLeftY="0.25" WidgetBottomRightX="0.485507246376812" WidgetBottomRightY="0.25">
+                <img id="u9123p000_img" class="img " src="images/移除培育库/u7039p000.png"/>
+              </div>
+              <div id="u9123p001" class="ax_vector_shape" WidgetTopLeftX="-0.1" WidgetTopLeftY="0" WidgetTopRightX="6.6" WidgetTopRightY="0" WidgetBottomLeftX="-0.1" WidgetBottomLeftY="0.05" WidgetBottomRightX="6.6" WidgetBottomRightY="0.05">
+                <img id="u9123p001_img" class="img " src="images/移除培育库/u7039p001.png"/>
+              </div>
+              <div id="u9123p002" class="ax_vector_shape" WidgetTopLeftX="-6.55" WidgetTopLeftY="0" WidgetTopRightX="0.15" WidgetTopRightY="0" WidgetBottomLeftX="-6.55" WidgetBottomLeftY="0.05" WidgetBottomRightX="0.15" WidgetBottomRightY="0.05">
+                <img id="u9123p002_img" class="img " src="images/移除培育库/u7039p002.png"/>
+              </div>
+              <!-- Unnamed () -->
+              <div id="u9124" class="text" style="display:none; visibility: hidden">
+                <p><span></span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (水平线) -->
+            <div id="u9125" class="compound ax_default line" WidgetHeight="1" WidgetWidth="134" CompoundMode="true">
+              <img id="u9125_img" class="singleImg img " src="images/移除培育库/u7041.png"/>
+              <div id="u9125p000" class="ax_vector_shape" WidgetTopLeftX="-0.492647058823529" WidgetTopLeftY="0" WidgetTopRightX="0.492647058823529" WidgetTopRightY="0" WidgetBottomLeftX="-0.492647058823529" WidgetBottomLeftY="0.25" WidgetBottomRightX="0.492647058823529" WidgetBottomRightY="0.25">
+                <img id="u9125p000_img" class="img " src="images/移除培育库/u7041p000.png"/>
+              </div>
+              <div id="u9125p001" class="ax_vector_shape" WidgetTopLeftX="-6.55" WidgetTopLeftY="0" WidgetTopRightX="0.15" WidgetTopRightY="0" WidgetBottomLeftX="-6.55" WidgetBottomLeftY="0.05" WidgetBottomRightX="0.15" WidgetBottomRightY="0.05">
+                <img id="u9125p001_img" class="img " src="images/移除培育库/u7041p001.png"/>
+              </div>
+              <!-- Unnamed () -->
+              <div id="u9126" class="text" style="display:none; visibility: hidden">
+                <p><span></span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u9127" class="ax_default label">
+              <div id="u9127_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u9128" class="text">
+                <p><span>2017年度</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u9129" class="ax_default label">
+              <div id="u9129_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u9130" class="text">
+                <p><span>2016年度</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u9131" class="ax_default label">
+              <div id="u9131_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u9132" class="text">
+                <p><span>2015年度</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (水平线) -->
+            <div id="u9133" class="compound ax_default line" WidgetHeight="1" WidgetWidth="660" CompoundMode="true">
+              <img id="u9133_img" class="singleImg img " src="images/移除培育库/u7049.png"/>
+              <div id="u9133p000" class="ax_vector_shape" WidgetTopLeftX="-0.496987951807229" WidgetTopLeftY="0" WidgetTopRightX="0.496987951807229" WidgetTopRightY="0" WidgetBottomLeftX="-0.496987951807229" WidgetBottomLeftY="0.25" WidgetBottomRightX="0.496987951807229" WidgetBottomRightY="0.25">
+                <img id="u9133p000_img" class="img " src="images/移除培育库/u7049p000.png"/>
+              </div>
+              <div id="u9133p001" class="ax_vector_shape" WidgetTopLeftX="-32.8" WidgetTopLeftY="0" WidgetTopRightX="0.2" WidgetTopRightY="0" WidgetBottomLeftX="-32.8" WidgetBottomLeftY="0.05" WidgetBottomRightX="0.2" WidgetBottomRightY="0.05">
+                <img id="u9133p001_img" class="img " src="images/移除培育库/u7049p001.png"/>
+              </div>
+              <!-- Unnamed () -->
+              <div id="u9134" class="text" style="display:none; visibility: hidden">
+                <p><span></span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="u9084_state1" class="panel_state" data-label="2016年" style="display:none; visibility: hidden;">
+          <div id="u9084_state1_content" class="panel_state_content">
+
+            <!-- Unnamed (组合) -->
+            <div id="u9135" class="ax_default" data-width="960" data-height="57">
+
+              <!-- Unnamed (矩形) -->
+              <div id="u9136" class="ax_default box_11">
+                <div id="u9136_div" class=""></div>
+                <!-- Unnamed () -->
+                <div id="u9137" class="text">
+                  <p><span>经营状况</span></p><p><span>（2015年度）</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (组合) -->
+              <div id="u9138" class="ax_default" data-width="840" data-height="57">
+
+                <!-- Unnamed (矩形) -->
+                <div id="u9139" class="ax_default box_11">
+                  <div id="u9139_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u9140" class="text">
+                    <p><span>营业总收入</span><span style="text-decoration:underline;">2345</span><span>万元，利润总额</span><span style="text-decoration:underline;">32</span><span>万元，纳税总额</span><span style="text-decoration:underline;">12</span><span>万元。</span></p>
+                  </div>
+                </div>
+
+                <!-- Unnamed (矩形) -->
+                <div id="u9141" class="ax_default box_11">
+                  <div id="u9141_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u9142" class="text">
+                    <p><span>备注：</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Unnamed (组合) -->
+            <div id="u9143" class="ax_default" data-width="960" data-height="88">
+
+              <!-- Unnamed (矩形) -->
+              <div id="u9144" class="ax_default box_11">
+                <div id="u9144_div" class=""></div>
+                <!-- Unnamed () -->
+                <div id="u9145" class="text">
+                  <p><span>需求及帮扶记录</span></p><p><span>（2016年度）</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (组合) -->
+              <div id="u9146" class="ax_default" data-width="840" data-height="57">
+
+                <!-- Unnamed (组合) -->
+                <div id="u9147" class="ax_default" data-width="840" data-height="57">
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u9148" class="ax_default box_11">
+                    <div id="u9148_div" class=""></div>
+                    <!-- Unnamed () -->
+                    <div id="u9149" class="text" style="display:none; visibility: hidden">
+                      <p><span></span></p>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u9150" class="ax_default box_11">
+                    <div id="u9150_div" class=""></div>
+                    <!-- Unnamed () -->
+                    <div id="u9151" class="text" style="display:none; visibility: hidden">
+                      <p><span></span></p>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u9152" class="ax_default box_11">
+                    <div id="u9152_div" class=""></div>
+                    <!-- Unnamed () -->
+                    <div id="u9153" class="text" style="display:none; visibility: hidden">
+                      <p><span></span></p>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u9154" class="ax_default box_11">
+                    <div id="u9154_div" class=""></div>
+                    <!-- Unnamed () -->
+                    <div id="u9155" class="text" style="display:none; visibility: hidden">
+                      <p><span></span></p>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u9156" class="ax_default box_11">
+                    <div id="u9156_div" class=""></div>
+                    <!-- Unnamed () -->
+                    <div id="u9157" class="text" style="display:none; visibility: hidden">
+                      <p><span></span></p>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u9158" class="ax_default box_11">
+                    <div id="u9158_div" class=""></div>
+                    <!-- Unnamed () -->
+                    <div id="u9159" class="text" style="display:none; visibility: hidden">
+                      <p><span></span></p>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u9160" class="ax_default box_11">
+                    <div id="u9160_div" class=""></div>
+                    <!-- Unnamed () -->
+                    <div id="u9161" class="text" style="display:none; visibility: hidden">
+                      <p><span></span></p>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u9162" class="ax_default box_11">
+                    <div id="u9162_div" class=""></div>
+                    <!-- Unnamed () -->
+                    <div id="u9163" class="text" style="display:none; visibility: hidden">
+                      <p><span></span></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Unnamed (组合) -->
+              <div id="u9164" class="ax_default" data-width="840" data-height="32">
+
+                <!-- Unnamed (矩形) -->
+                <div id="u9165" class="ax_default box_11">
+                  <div id="u9165_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u9166" class="text">
+                    <p><span>需求大类</span></p>
+                  </div>
+                </div>
+
+                <!-- Unnamed (矩形) -->
+                <div id="u9167" class="ax_default box_11">
+                  <div id="u9167_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u9168" class="text">
+                    <p><span>需求内容</span></p>
+                  </div>
+                </div>
+
+                <!-- Unnamed (矩形) -->
+                <div id="u9169" class="ax_default box_11">
+                  <div id="u9169_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u9170" class="text">
+                    <p><span>帮扶时间</span></p>
+                  </div>
+                </div>
+
+                <!-- Unnamed (矩形) -->
+                <div id="u9171" class="ax_default box_11">
+                  <div id="u9171_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u9172" class="text">
+                    <p><span>服务内容</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Unnamed (水平线) -->
+            <div id="u9173" class="compound ax_default line" WidgetHeight="1" WidgetWidth="134" CompoundMode="true">
+              <img id="u9173_img" class="singleImg img " src="images/移除培育库/u7039.png"/>
+              <div id="u9173p000" class="ax_vector_shape" WidgetTopLeftX="-0.485507246376812" WidgetTopLeftY="0" WidgetTopRightX="0.485507246376812" WidgetTopRightY="0" WidgetBottomLeftX="-0.485507246376812" WidgetBottomLeftY="0.25" WidgetBottomRightX="0.485507246376812" WidgetBottomRightY="0.25">
+                <img id="u9173p000_img" class="img " src="images/移除培育库/u7039p000.png"/>
+              </div>
+              <div id="u9173p001" class="ax_vector_shape" WidgetTopLeftX="-0.1" WidgetTopLeftY="0" WidgetTopRightX="6.6" WidgetTopRightY="0" WidgetBottomLeftX="-0.1" WidgetBottomLeftY="0.05" WidgetBottomRightX="6.6" WidgetBottomRightY="0.05">
+                <img id="u9173p001_img" class="img " src="images/移除培育库/u7039p001.png"/>
+              </div>
+              <div id="u9173p002" class="ax_vector_shape" WidgetTopLeftX="-6.55" WidgetTopLeftY="0" WidgetTopRightX="0.15" WidgetTopRightY="0" WidgetBottomLeftX="-6.55" WidgetBottomLeftY="0.05" WidgetBottomRightX="0.15" WidgetBottomRightY="0.05">
+                <img id="u9173p002_img" class="img " src="images/移除培育库/u7039p002.png"/>
+              </div>
+              <!-- Unnamed () -->
+              <div id="u9174" class="text" style="display:none; visibility: hidden">
+                <p><span></span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (水平线) -->
+            <div id="u9175" class="compound ax_default line" WidgetHeight="1" WidgetWidth="134" CompoundMode="true">
+              <img id="u9175_img" class="singleImg img " src="images/移除培育库/u7041.png"/>
+              <div id="u9175p000" class="ax_vector_shape" WidgetTopLeftX="-0.492647058823529" WidgetTopLeftY="0" WidgetTopRightX="0.492647058823529" WidgetTopRightY="0" WidgetBottomLeftX="-0.492647058823529" WidgetBottomLeftY="0.25" WidgetBottomRightX="0.492647058823529" WidgetBottomRightY="0.25">
+                <img id="u9175p000_img" class="img " src="images/移除培育库/u7041p000.png"/>
+              </div>
+              <div id="u9175p001" class="ax_vector_shape" WidgetTopLeftX="-6.55" WidgetTopLeftY="0" WidgetTopRightX="0.15" WidgetTopRightY="0" WidgetBottomLeftX="-6.55" WidgetBottomLeftY="0.05" WidgetBottomRightX="0.15" WidgetBottomRightY="0.05">
+                <img id="u9175p001_img" class="img " src="images/移除培育库/u7041p001.png"/>
+              </div>
+              <!-- Unnamed () -->
+              <div id="u9176" class="text" style="display:none; visibility: hidden">
+                <p><span></span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u9177" class="ax_default label">
+              <div id="u9177_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u9178" class="text">
+                <p><span>2017年度</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u9179" class="ax_default label">
+              <div id="u9179_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u9180" class="text">
+                <p><span>2016年度</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u9181" class="ax_default label">
+              <div id="u9181_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u9182" class="text">
+                <p><span>2015年度</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (水平线) -->
+            <div id="u9183" class="compound ax_default line" WidgetHeight="1" WidgetWidth="660" CompoundMode="true">
+              <img id="u9183_img" class="singleImg img " src="images/移除培育库/u7049.png"/>
+              <div id="u9183p000" class="ax_vector_shape" WidgetTopLeftX="-0.496987951807229" WidgetTopLeftY="0" WidgetTopRightX="0.496987951807229" WidgetTopRightY="0" WidgetBottomLeftX="-0.496987951807229" WidgetBottomLeftY="0.25" WidgetBottomRightX="0.496987951807229" WidgetBottomRightY="0.25">
+                <img id="u9183p000_img" class="img " src="images/移除培育库/u7049p000.png"/>
+              </div>
+              <div id="u9183p001" class="ax_vector_shape" WidgetTopLeftX="-32.8" WidgetTopLeftY="0" WidgetTopRightX="0.2" WidgetTopRightY="0" WidgetBottomLeftX="-32.8" WidgetBottomLeftY="0.05" WidgetBottomRightX="0.2" WidgetBottomRightY="0.05">
+                <img id="u9183p001_img" class="img " src="images/移除培育库/u7049p001.png"/>
+              </div>
+              <!-- Unnamed () -->
+              <div id="u9184" class="text" style="display:none; visibility: hidden">
+                <p><span></span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="u9084_state2" class="panel_state" data-label="2015年" style="display:none; visibility: hidden;">
+          <div id="u9084_state2_content" class="panel_state_content">
+
+            <!-- Unnamed (组合) -->
+            <div id="u9185" class="ax_default" data-width="960" data-height="57">
+
+              <!-- Unnamed (矩形) -->
+              <div id="u9186" class="ax_default box_11">
+                <div id="u9186_div" class=""></div>
+                <!-- Unnamed () -->
+                <div id="u9187" class="text">
+                  <p><span>经营状况</span></p><p><span>（2014年度）</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (组合) -->
+              <div id="u9188" class="ax_default" data-width="840" data-height="57">
+
+                <!-- Unnamed (矩形) -->
+                <div id="u9189" class="ax_default box_11">
+                  <div id="u9189_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u9190" class="text">
+                    <p><span>营业总收入</span><span style="text-decoration:underline;">2345</span><span>万元，利润总额</span><span style="text-decoration:underline;">32</span><span>万元，纳税总额</span><span style="text-decoration:underline;">12</span><span>万元。</span></p>
+                  </div>
+                </div>
+
+                <!-- Unnamed (矩形) -->
+                <div id="u9191" class="ax_default box_11">
+                  <div id="u9191_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u9192" class="text">
+                    <p><span>备注：</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Unnamed (组合) -->
+            <div id="u9193" class="ax_default" data-width="960" data-height="88">
+
+              <!-- Unnamed (矩形) -->
+              <div id="u9194" class="ax_default box_11">
+                <div id="u9194_div" class=""></div>
+                <!-- Unnamed () -->
+                <div id="u9195" class="text">
+                  <p><span>需求及帮扶记录</span></p><p><span>（2015年度）</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (组合) -->
+              <div id="u9196" class="ax_default" data-width="840" data-height="57">
+
+                <!-- Unnamed (组合) -->
+                <div id="u9197" class="ax_default" data-width="840" data-height="57">
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u9198" class="ax_default box_11">
+                    <div id="u9198_div" class=""></div>
+                    <!-- Unnamed () -->
+                    <div id="u9199" class="text" style="display:none; visibility: hidden">
+                      <p><span></span></p>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u9200" class="ax_default box_11">
+                    <div id="u9200_div" class=""></div>
+                    <!-- Unnamed () -->
+                    <div id="u9201" class="text" style="display:none; visibility: hidden">
+                      <p><span></span></p>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u9202" class="ax_default box_11">
+                    <div id="u9202_div" class=""></div>
+                    <!-- Unnamed () -->
+                    <div id="u9203" class="text" style="display:none; visibility: hidden">
+                      <p><span></span></p>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u9204" class="ax_default box_11">
+                    <div id="u9204_div" class=""></div>
+                    <!-- Unnamed () -->
+                    <div id="u9205" class="text" style="display:none; visibility: hidden">
+                      <p><span></span></p>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u9206" class="ax_default box_11">
+                    <div id="u9206_div" class=""></div>
+                    <!-- Unnamed () -->
+                    <div id="u9207" class="text" style="display:none; visibility: hidden">
+                      <p><span></span></p>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u9208" class="ax_default box_11">
+                    <div id="u9208_div" class=""></div>
+                    <!-- Unnamed () -->
+                    <div id="u9209" class="text" style="display:none; visibility: hidden">
+                      <p><span></span></p>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u9210" class="ax_default box_11">
+                    <div id="u9210_div" class=""></div>
+                    <!-- Unnamed () -->
+                    <div id="u9211" class="text" style="display:none; visibility: hidden">
+                      <p><span></span></p>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u9212" class="ax_default box_11">
+                    <div id="u9212_div" class=""></div>
+                    <!-- Unnamed () -->
+                    <div id="u9213" class="text" style="display:none; visibility: hidden">
+                      <p><span></span></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Unnamed (组合) -->
+              <div id="u9214" class="ax_default" data-width="840" data-height="32">
+
+                <!-- Unnamed (矩形) -->
+                <div id="u9215" class="ax_default box_11">
+                  <div id="u9215_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u9216" class="text">
+                    <p><span>需求大类</span></p>
+                  </div>
+                </div>
+
+                <!-- Unnamed (矩形) -->
+                <div id="u9217" class="ax_default box_11">
+                  <div id="u9217_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u9218" class="text">
+                    <p><span>需求内容</span></p>
+                  </div>
+                </div>
+
+                <!-- Unnamed (矩形) -->
+                <div id="u9219" class="ax_default box_11">
+                  <div id="u9219_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u9220" class="text">
+                    <p><span>帮扶时间</span></p>
+                  </div>
+                </div>
+
+                <!-- Unnamed (矩形) -->
+                <div id="u9221" class="ax_default box_11">
+                  <div id="u9221_div" class=""></div>
+                  <!-- Unnamed () -->
+                  <div id="u9222" class="text">
+                    <p><span>服务内容</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Unnamed (水平线) -->
+            <div id="u9223" class="compound ax_default line" WidgetHeight="1" WidgetWidth="134" CompoundMode="true">
+              <img id="u9223_img" class="singleImg img " src="images/移除培育库/u7039.png"/>
+              <div id="u9223p000" class="ax_vector_shape" WidgetTopLeftX="-0.485507246376812" WidgetTopLeftY="0" WidgetTopRightX="0.485507246376812" WidgetTopRightY="0" WidgetBottomLeftX="-0.485507246376812" WidgetBottomLeftY="0.25" WidgetBottomRightX="0.485507246376812" WidgetBottomRightY="0.25">
+                <img id="u9223p000_img" class="img " src="images/移除培育库/u7039p000.png"/>
+              </div>
+              <div id="u9223p001" class="ax_vector_shape" WidgetTopLeftX="-0.1" WidgetTopLeftY="0" WidgetTopRightX="6.6" WidgetTopRightY="0" WidgetBottomLeftX="-0.1" WidgetBottomLeftY="0.05" WidgetBottomRightX="6.6" WidgetBottomRightY="0.05">
+                <img id="u9223p001_img" class="img " src="images/移除培育库/u7039p001.png"/>
+              </div>
+              <div id="u9223p002" class="ax_vector_shape" WidgetTopLeftX="-6.55" WidgetTopLeftY="0" WidgetTopRightX="0.15" WidgetTopRightY="0" WidgetBottomLeftX="-6.55" WidgetBottomLeftY="0.05" WidgetBottomRightX="0.15" WidgetBottomRightY="0.05">
+                <img id="u9223p002_img" class="img " src="images/移除培育库/u7039p002.png"/>
+              </div>
+              <!-- Unnamed () -->
+              <div id="u9224" class="text" style="display:none; visibility: hidden">
+                <p><span></span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (水平线) -->
+            <div id="u9225" class="compound ax_default line" WidgetHeight="1" WidgetWidth="134" CompoundMode="true">
+              <img id="u9225_img" class="singleImg img " src="images/移除培育库/u7041.png"/>
+              <div id="u9225p000" class="ax_vector_shape" WidgetTopLeftX="-0.492647058823529" WidgetTopLeftY="0" WidgetTopRightX="0.492647058823529" WidgetTopRightY="0" WidgetBottomLeftX="-0.492647058823529" WidgetBottomLeftY="0.25" WidgetBottomRightX="0.492647058823529" WidgetBottomRightY="0.25">
+                <img id="u9225p000_img" class="img " src="images/移除培育库/u7041p000.png"/>
+              </div>
+              <div id="u9225p001" class="ax_vector_shape" WidgetTopLeftX="-6.55" WidgetTopLeftY="0" WidgetTopRightX="0.15" WidgetTopRightY="0" WidgetBottomLeftX="-6.55" WidgetBottomLeftY="0.05" WidgetBottomRightX="0.15" WidgetBottomRightY="0.05">
+                <img id="u9225p001_img" class="img " src="images/移除培育库/u7041p001.png"/>
+              </div>
+              <!-- Unnamed () -->
+              <div id="u9226" class="text" style="display:none; visibility: hidden">
+                <p><span></span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u9227" class="ax_default label">
+              <div id="u9227_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u9228" class="text">
+                <p><span>2017年度</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u9229" class="ax_default label">
+              <div id="u9229_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u9230" class="text">
+                <p><span>2016年度</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u9231" class="ax_default label">
+              <div id="u9231_div" class=""></div>
+              <!-- Unnamed () -->
+              <div id="u9232" class="text">
+                <p><span>2015年度</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (水平线) -->
+            <div id="u9233" class="compound ax_default line" WidgetHeight="1" WidgetWidth="660" CompoundMode="true">
+              <img id="u9233_img" class="singleImg img " src="images/移除培育库/u7049.png"/>
+              <div id="u9233p000" class="ax_vector_shape" WidgetTopLeftX="-0.496987951807229" WidgetTopLeftY="0" WidgetTopRightX="0.496987951807229" WidgetTopRightY="0" WidgetBottomLeftX="-0.496987951807229" WidgetBottomLeftY="0.25" WidgetBottomRightX="0.496987951807229" WidgetBottomRightY="0.25">
+                <img id="u9233p000_img" class="img " src="images/移除培育库/u7049p000.png"/>
+              </div>
+              <div id="u9233p001" class="ax_vector_shape" WidgetTopLeftX="-32.8" WidgetTopLeftY="0" WidgetTopRightX="0.2" WidgetTopRightY="0" WidgetBottomLeftX="-32.8" WidgetBottomLeftY="0.05" WidgetBottomRightX="0.2" WidgetBottomRightY="0.05">
+                <img id="u9233p001_img" class="img " src="images/移除培育库/u7049p001.png"/>
+              </div>
+              <!-- Unnamed () -->
+              <div id="u9234" class="text" style="display:none; visibility: hidden">
+                <p><span></span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

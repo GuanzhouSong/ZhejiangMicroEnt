@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.sment.mapper.EntarchivesHelpMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sment.model.EntarchivesHelp" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="HelpTypeCode" property="helpTypeCode" jdbcType="VARCHAR" />
+    <result column="HelpTypeName" property="helpTypeName" jdbcType="VARCHAR" />
+    <result column="HelpText" property="helpText" jdbcType="VARCHAR" />
+    <result column="HelpTime" property="helpTime" jdbcType="TIMESTAMP" />
+    <result column="HelpContent" property="helpContent" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

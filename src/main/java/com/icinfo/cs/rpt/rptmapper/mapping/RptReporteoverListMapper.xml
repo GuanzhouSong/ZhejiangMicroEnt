@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.rpt.rptmapper.RptReporteoverListMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.rpt.rptmodel.RptReporteoverList" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="year" property="year" jdbcType="INTEGER" />
+    <result column="EntTypeCatg" property="entTypeCatg" jdbcType="VARCHAR" />
+    <result column="EntType" property="entType" jdbcType="CHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="LiaName" property="liaName" jdbcType="VARCHAR" />
+    <result column="LiaTel" property="liaTel" jdbcType="VARCHAR" />
+    <result column="Dom" property="dom" jdbcType="VARCHAR" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="CHAR" />
+    <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+    <result column="ReportState" property="reportState" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.rpt.rptdto.RptReporteoverListDto" id="BaseResultDtoMap">
+  
+  </resultMap>
+  
+  <select id="selectRptReporteoverList" resultMap="BaseResultDtoMap" parameterType="Map">
+	SELECT a.PriPID,a.year,a.ReportState,a.EntTypeCatg,a.EntType,a.UniCode,a.RegNO,a.EntName,a.LeRep,a.Tel,b.LiaName LiaName,
+	b.Tel LiaTel,a.Dom,a.RegOrg,a.RegOrgName,a.LocalAdm,a.LocalAdmName FROM cs_rpt_reporteover_list a LEFT JOIN zjcsdb1.cs_pub_eppassword b
+	on a.PriPID = b.PriPID where 1=1
+    <if test="keyword !=null and keyword !=''">
+	 and (a.regno like CONCAT('%',#{keyword},'%') or a.UniCode like CONCAT('%',#{keyword},'%') or a.EntName like CONCAT('%',#{keyword},'%'))
+	</if>  
+	<if test="entTypeCatg !=null and entTypeCatg !=''">
+    <if test="entTypeCatg == '1'.toString()"><!-- 企业 -->
+     AND a.EntTypeCatg not in ('16','17','50')
+    </if>
+    <if test="entTypeCatg == '2'.toString()"><!-- 农专社 -->
+     AND a.EntTypeCatg in ('16','17')
+    </if>
+    <if test="entTypeCatg == '3'.toString()"><!-- 个体户 -->
+     AND a.EntTypeCatg = '50'
+     </if>
+     </if>
+	<if test="selectCode !=null and selectCode !=''">
+    <if test="selectCode == '1'.toString()"><!-- 本市 -->
+     AND left(RegOrg,4) = left(#{deptCode},4)
+    </if>
+    <if test="selectCode == '2'.toString()"><!-- 本局 -->
+     and RegOrg = left(#{deptCode},6)
+    </if>
+    <if test="selectCode == '3'.toString()"><!-- 本所 -->
+      and IFNULL(localAdm,CONCAT(RegOrg,00)) = left(#{deptCode},8)
+     </if>
+     </if>
+     <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	limit #{numStart},#{pageSize}
+  </select>
+  
+	<select id="selectRptReporteoverCount" resultType="Integer" parameterType="Map">
+	    SELECT count(0) FROM cs_rpt_reporteover_list a where 1=1
+		<if test="keyword !=null and keyword !=''">
+		 and (a.regno like CONCAT('%',#{keyword},'%') or a.UniCode like CONCAT('%',#{keyword},'%') or a.EntName like CONCAT('%',#{keyword},'%'))
+		</if>  
+		<if test="entTypeCatg !=null and entTypeCatg !=''">
+	    <if test="entTypeCatg == '1'.toString()"><!-- 企业 -->
+	     AND a.EntTypeCatg not in ('16','17','50')
+	    </if>
+	    <if test="entTypeCatg == '2'.toString()"><!-- 农专社 -->
+	     AND a.EntTypeCatg in ('16','17')
+	    </if>
+	    <if test="entTypeCatg == '3'.toString()"><!-- 个体户 -->
+	     AND a.EntTypeCatg = '50'
+	     </if>
+	     </if>
+		<if test="selectCode !=null and selectCode !=''">
+	    <if test="selectCode == '1'.toString()"><!-- 本市 -->
+	     AND left(RegOrg,4) = left(#{deptCode},4)
+	    </if>
+	    <if test="selectCode == '2'.toString()"><!-- 本局 -->
+	     and RegOrg = left(#{deptCode},6)
+	    </if>
+	    <if test="selectCode == '3'.toString()"><!-- 本所 -->
+	      and IFNULL(localAdm,CONCAT(RegOrg,00)) = left(#{deptCode},8)
+	     </if>
+	     </if>
+	     <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	  </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</mapper>

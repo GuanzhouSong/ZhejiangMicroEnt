@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.sccheck.mapper.PubSccheckItemMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sccheck.model.PubSccheckItem" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Uid" property="uid" jdbcType="VARCHAR" />
+    <result column="TaskUid" property="taskUid" jdbcType="VARCHAR" />
+    <result column="CheckType" property="checkType" jdbcType="VARCHAR" />
+    <result column="CheckTypeName" property="checkTypeName" jdbcType="VARCHAR" />
+    <result column="CheckCode" property="checkCode" jdbcType="VARCHAR" />
+    <result column="CheckName" property="checkName" jdbcType="VARCHAR" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

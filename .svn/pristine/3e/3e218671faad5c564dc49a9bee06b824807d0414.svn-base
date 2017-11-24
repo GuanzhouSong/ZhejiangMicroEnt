@@ -1,0 +1,5 @@
+云平台部署说明：
+
+1 pom.xml 改成云端数据库pom配置，并注释掉本地的配置
+2 web.xml 放开session复制的配置 ， 并将spring文件的开始目录改成对应目录（测试云test  正式云prd）
+3 spring-mvc.xml 配置改成prd 修改默认跳转地址

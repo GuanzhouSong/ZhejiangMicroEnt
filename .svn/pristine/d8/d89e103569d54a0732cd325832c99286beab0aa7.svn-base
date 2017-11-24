@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.FoodstorageBackMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.FoodstorageBack" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="BackName" property="backName" jdbcType="VARCHAR" />
+    <result column="BackReason" property="backReason" jdbcType="VARCHAR" />
+    <result column="BackTime" property="backTime" jdbcType="TIMESTAMP" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapDto" type="com.icinfo.cs.yr.dto.FoodstorageBackDto" extends="BaseResultMap">
+       <result column="EntName" property="entName" jdbcType="VARCHAR" />
+       <result column="RegNO" property="regNO" jdbcType="VARCHAR" />
+       <result column="UniCode" property="uniSCID" jdbcType="VARCHAR" />
+       <result column="RegORgDesc" property="regORgDesc" jdbcType="VARCHAR" />
+       <result column="LocalAdmDesc" property="localAdmDesc" jdbcType="VARCHAR" />
+   </resultMap>
+   
+  <!-- 食品仓储退回列表查询（工商端）-->
+  <select id="selectFoodstorageBackDtoList" resultMap="BaseResultMapDto" parameterType="Map"> 
+	SELECT c.PriPID,c.Year,c.BackName,c.BackReason,c.BackTime,a.EntName,a.RegNO,a.UniCode ,
+			b.Content RegORgDesc,d.Content LocalAdmDesc
+	FROM cs_foodstorage_back c
+		INNER JOIN cs_mid_baseinfo a ON c.PriPID = a.PriPID
+		LEFT JOIN cs_code_regorg b ON a.RegOrg = b.Code
+		LEFT JOIN cs_code_regunit d ON a.LocalAdm = d.Code
+	<trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="regNo != null and regNo != ''">
+			(a.RegNO = #{regNo,jdbcType=VARCHAR}
+			or a.UniCode = #{regNo,jdbcType=VARCHAR})
+		</if>
+		<if test="entName != null and entName != ''">
+			and a.EntName like concat('%', #{entName},'%')
+		</if>
+		<if test="uniSCID != null and uniSCID != ''">
+			
+		</if>
+		<if test="regOrg != null and regOrg != ''">
+			and a.RegOrg = #{regOrg,jdbcType=VARCHAR}
+		</if>
+		<if test="localAdm != null and localAdm != ''">
+			and a.LocalAdm = #{localAdm,jdbcType=VARCHAR}
+		</if>
+		<if test="backName != null and backName != ''">
+			and c.BackName = #{backName,jdbcType=VARCHAR}
+		</if>
+		<if test="backTimeStart != null and backTimeStart != ''">
+			and c.BackTime &gt;= #{backTimeStart,jdbcType=DATE}
+		</if>
+		<if test="backTimeEnd != null and backTimeEnd != ''">
+			and c.BackTime &lt;= #{backTimeEnd,jdbcType=DATE}
+		</if>
+	</trim>
+  </select>
+</mapper>

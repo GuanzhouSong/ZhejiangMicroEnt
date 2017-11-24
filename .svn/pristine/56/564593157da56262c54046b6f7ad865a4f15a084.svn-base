@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.PubExcludeEntMapper" >
+  <resultMap id="PubExcludeEnt" type="com.icinfo.cs.yr.model.PubExcludeEnt" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="ExcDept" property="excDept" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+    <result column="SetId" property="setId" jdbcType="VARCHAR" />
+    <result column="IsValid" property="isValid" jdbcType="CHAR" />
+    <result column="ExcRea" property="excRea" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <resultMap id="PubExcludeEntDto" type="com.icinfo.cs.yr.dto.PubExcludeEntDto" extends="PubExcludeEnt">
+    <result property="uniCode" column="UniCode"/>
+  	<result property="entName" column="EntName"/>
+  	<result property="leRep" column="LeRep"/>
+  	<result property="estDate" column="EstDate"/>
+  	<result property="regState" column="RegState"/>
+    <result property="regOrg" column="RegOrg"/>
+    <result property="regOrgName" column="RegOrgName"/>
+  	<result property="localAdm" column="LocalAdm"/>
+  	<result property="localAdmName" column="LocalAdmName"/>
+  </resultMap>
+  
+  <!-- 查询当前未列入限制公示名单的企业列表 -->
+	<select id="selectNotPubExcludeEntResult" resultMap="PubExcludeEntDto" parameterType="Map">
+	SELECT 
+	  A.PriPID,
+	  A.UniCode,
+	  A.EntName,
+	  A.LeRep,
+	  A.EstDate,
+	  A.RegState,
+	  A.RegOrg,
+	  A.RegOrgName,
+	  A.LocalAdm,
+	  A.LocalAdmName
+	FROM
+	  cs_mid_baseinfo A 
+	WHERE A.RegState IN (${regStateM}) 
+	  AND A.EntTypeCatg NOT IN ('16', '17', '50') 
+	    <!-- 统一代码/注册号 -->
+		<if test="uniCode !='' and uniCode !=null">
+		  and A.UniCode LIKE concat('%', #{uniCode},'%')
+		</if>
+		<!-- 企业名称 -->
+		<if test="entName !='' and entName !=null">
+		  and A.EntName LIKE concat('%', #{entName},'%')
+		</if>
+	  AND NOT EXISTS 
+	  (SELECT 
+	    B.PriPID 
+	  FROM
+	    cs_pub_excludeent B 
+	  WHERE B.PriPID = A.PriPID)
+	  
+	</select>
+	 <!-- 查询限制公示名单的企业列表 -->
+	<select id="selectPubExcludeEntResult" resultMap="PubExcludeEntDto" parameterType="Map">
+		 SELECT 
+		  A.id,
+		  B.UniCode,
+		  B.EntName,
+		  B.LeRep,
+		  B.EstDate,
+		  B.RegState,
+		  B.RegOrg,
+		  B.RegOrgName,
+		  B.LocalAdm,
+		  B.LocalAdmName,
+		  A.PriPID,
+		  A.ExcRea,
+		  A.ExcDept,
+		  A.IsValid,
+		  A.SetName,
+		  A.SetTime 
+		FROM
+		  cs_pub_excludeent A 
+		  LEFT JOIN cs_mid_baseinfo B 
+		    ON A.PriPID = B.PriPID 
+		WHERE B.RegState IN (${regStateM}) 
+		  AND B.EntTypeCatg NOT IN ('16', '17', '50')
+		  
+		<!-- 统一代码/注册号 -->
+		<if test="uniCode !='' and uniCode !=null">
+		  and B.UniCode LIKE concat('%', #{uniCode},'%')
+		</if>
+		<!-- 企业名称 -->
+		<if test="entName !='' and entName !=null">
+		  and B.EntName LIKE concat('%', #{entName},'%')
+		</if>
+		<!-- 是否有效 -->
+		<if test="isValid !='' and isValid !=null">
+		  and A.IsValid=#{isValid}
+		</if>
+		<!-- 设置人 -->
+		<if test="setName !='' and setName !=null">
+		  and A.SetName LIKE concat('%', #{setName},'%')
+		</if>
+		<!-- 法定代表人 -->
+		<if test="leRep !='' and leRep !=null">
+		  and B.LeRep LIKE concat('%', #{leRep},'%')
+		</if>
+		<!-- 登记机关 -->
+		<if test="regOrg !='' and regOrg !=null">
+		  and B.RegOrg IN (#{regOrg})
+		</if>
+		<!-- 设置时间 -->
+		<if test="setTimeStart !='' and setTimeStart !=null">
+		<![CDATA[
+		  and A.SetTime >= #{setTimeStart}
+		]]>
+		</if>
+		<if test="setTimeEnd !='' and setTimeEnd !=null">
+		<![CDATA[
+		  and A.SetTime <= #{setTimeEnd}
+		]]>
+		</if>
+		<!-- 登记状态 -->
+		 <if test="regState !=null and regState !=''">
+		       and  B.RegState  in
+	     <foreach item="item" index="index" collection="regState" open="("
+						separator="," close=")">
+						#{item}
+		 </foreach>    
+		 </if>
+    </select>
+</mapper>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.sment.mapper.EntarchivesHisMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sment.model.EntarchivesHis" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="CHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntPrincipal" property="entPrincipal" jdbcType="VARCHAR" />
+    <result column="EntPrincipalTel" property="entPrincipalTel" jdbcType="VARCHAR" />
+    <result column="EntContact" property="entContact" jdbcType="VARCHAR" />
+    <result column="EntContactTel" property="entContactTel" jdbcType="VARCHAR" />
+    <result column="CultivationTypeCode" property="cultivationTypeCode" jdbcType="VARCHAR" />
+    <result column="CultivationTypeName" property="cultivationTypeName" jdbcType="VARCHAR" />
+    <result column="IndustryType" property="industryType" jdbcType="VARCHAR" />
+    <result column="IndustryName" property="industryName" jdbcType="VARCHAR" />
+    <result column="Tsxz" property="tsxz" jdbcType="VARCHAR" />
+    <result column="Zckj" property="zckj" jdbcType="VARCHAR" />
+    <result column="Kjfhy" property="kjfhy" jdbcType="VARCHAR" />
+    <result column="Kjdsy" property="kjdsy" jdbcType="VARCHAR" />
+    <result column="Xwqyy" property="xwqyy" jdbcType="VARCHAR" />
+    <result column="Qt" property="qt" jdbcType="VARCHAR" />
+    <result column="EntCrowdCode" property="entCrowdCode" jdbcType="VARCHAR" />
+    <result column="EntCrowdName" property="entCrowdName" jdbcType="VARCHAR" />
+    <result column="EntCrowdText" property="entCrowdText" jdbcType="VARCHAR" />
+    <result column="HelpState" property="helpState" jdbcType="CHAR" />
+    <result column="HelpNum" property="helpNum" jdbcType="INTEGER" />
+    <result column="SetDeptCode" property="setDeptCode" jdbcType="VARCHAR" />
+    <result column="RemoveTypeCode" property="removeTypeCode" jdbcType="VARCHAR" />
+    <result column="RemoveTypeName" property="removeTypeName" jdbcType="VARCHAR" />
+    <result column="RemoveTime" property="removeTime" jdbcType="TIMESTAMP" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UpdateTime" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.sment.dto.EntarchivesHisDto" id="BaseResultDtoMap" extends="BaseResultMap">
+     <result column="RegNO" property="regNO" jdbcType="VARCHAR" />
+     <result column="EntName" property="entName" jdbcType="VARCHAR" />
+     <result column="IndustryCoName" property="industryCoName" jdbcType="VARCHAR" />
+     <result column="EstDate" property="estDate" jdbcType="TIMESTAMP" />
+     <result column="EntTypeName" property="entTypeName" jdbcType="VARCHAR" />
+     <result column="RegCap" property="regCap" jdbcType="VARCHAR" />
+     <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+     <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+     <result column="EmpNum" property="empNum" jdbcType="VARCHAR" />
+     <result column="VendInc" property="vendInc" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectEntarchivesHisList" parameterType="Map" resultMap="BaseResultDtoMap">
+  	  SELECT
+		sb.PriPID,
+		sb.EntName,
+		sb.RegNO,
+		sb.Dom,
+		sb.LeRep,
+		sb.RegCap,
+		sb.EntType,
+		sb.EstDate,
+		sb.IndustryCo,
+		sb.RegOrg,
+		sb.IndustryPhy,
+		sb.RegState,
+		sb.RegCapUSD,
+		sb.UniCode,
+		sb.OpFrom,
+		sb.OpTo,
+		sb.Currency,
+		sb.Tel,
+		sb.Email,
+		sb.ApprDate,
+		sb.AltDate,
+		sb.CurrencyCn,
+		sb.OpForm,
+		sb.OpScope,
+		sb.EntTypeCatg,
+		sb.RegOrgName,
+		sb.LocalAdm,
+		sb.LocalAdmName,
+		sb.SliceNO,
+		sb.SliceNOName,
+		sb.SmentReason,
+		sb.IsSment,
+		sb.SmentRemReason,
+		cya.EmpNum,
+		cya.VendInc,
+		cci.Content IndustryCoName,
+		cce.Content EntTypeName,
+		sbe.RemoveTime,
+		sbe.RemoveTypeCode
+		FROM
+			sm_baseinfo sb
+    INNER JOIN sm_bus_entarchives_his sbe ON sbe.PriPID = sb.PriPID
+		LEFT JOIN sm_bus_entarchives_help sbeh ON sbeh.PriPID = sbe.PriPID
+		LEFT JOIN cs_yr_asset cya ON sb.PriPID = cya.PriPID
+		LEFT JOIN cs_code_industry cci ON cci.code = sb.IndustryCo 
+ 		LEFT JOIN cs_code_enttype cce ON cce.code = sb.EntType
+		WHERE 1=1
+		<if test="removeTypeCode !=null and removeTypeCode != ''">
+				AND	sbe.RemoveTypeCode = #{removeTypeCode}
+  		</if>
+		<if test="cultivationTypeCode !=null and cultivationTypeCode != ''">
+				AND	sbe.CultivationTypeCode = #{cultivationTypeCode}
+  		</if>	
+		<if test="areaTypeCode !=null and areaTypeCode != ''">
+			AND (sbe.Tsxz REGEXP ('${areaTypeCode}') or Zckj REGEXP
+			('${areaTypeCode}') or Kjfhy REGEXP ('${areaTypeCode}') or Kjdsy REGEXP
+			('${areaTypeCode}') or Xwqyy REGEXP('${areaTypeCode}') or Qt REGEXP ('${areaTypeCode}'))
+		</if>	
+		<if test="industryType !=null and industryType != ''">
+			AND IndustryType = #{industryType}
+  		</if>	
+		<if test="entCrowdCode !=null and entCrowdCode != ''">
+			AND EntCrowdCode = #{entCrowdCode}
+  		</if>	
+  		<if test="helpTypeCode !=null and helpTypeCode != ''">
+			AND HelpTypeCode = #{helpTypeCode}
+  		</if>
+  		<if test="helpState !=null and helpState != ''">
+			AND HelpState = #{helpState}
+  		</if>	
+  		
+  		<if test="cidRegNO !=null and cidRegNO != ''">
+			<![CDATA[AND (instr(sb.UniCode, #{cidRegNO}) > 0 OR instr(sb.RegNO, #{cidRegNO}) >0)]]>
+  		</if>
+		<if test="entName !=null and entName != ''">
+			<![CDATA[AND instr(sb.EntName, #{entName}) > 0]]>
+  		</if>
+  		<if test="industryCo !=null and industryCo != ''">
+			<![CDATA[AND sb.IndustryCo in (${industryCo})]]>
+  		</if>
+		<if test="entType !=null and entType != ''">
+			<![CDATA[AND sb.EntType in (${entType})]]>
+  		</if>
+		<if test="regOrg !=null and regOrg != ''">
+			AND sb.RegOrg in (${regOrg}) 
+  		</if>
+		<if test="estDateStart !=null and estDateStart != '' ">
+  			<![CDATA[AND sb.EstDate >= #{estDateStart}	]]>
+  		</if>
+  		<if test="estDateEnd !=null and estDateEnd != '' ">
+  			<![CDATA[AND sb.EstDate <= #{estDateEnd}	]]>
+  		</if>
+		<if test="regCapStart !=null and regCapStart != '' ">
+  			<![CDATA[AND sb.RegCap >= ${regCapStart}	]]>
+  		</if>
+  		<if test="regCapEnd !=null and regCapEnd != '' ">
+  			<![CDATA[AND sb.RegCap <= ${regCapEnd}	]]>
+  		</if>
+  		<if test="localAdm !=null and localAdm != '' ">
+  			AND sb.LocalAdm  in (${localAdm})  
+  		</if>
+		<if test="empNumStart !=null and empNumStart != '' ">
+  			<![CDATA[AND cya.EmpNum >= ${empNumStart}	]]>
+  		</if>
+  		<if test="empNumEnd !=null and empNumEnd != '' ">
+  			<![CDATA[AND cya.EmpNum <= ${empNumEnd}	]]>
+  		</if>
+  		<if test="vendIncStart !=null and vendIncStart != '' ">
+  			<![CDATA[AND cya.VendInc >= ${vendIncStart}	]]>
+  		</if>
+  		<if test="vendIncEnd !=null and vendIncEnd != '' ">
+  			<![CDATA[AND cya.VendInc <= ${vendIncEnd}	]]>
+  		</if>
+  	 <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>	
+ 	 GROUP BY sb.id
+  </select>
+</mapper>

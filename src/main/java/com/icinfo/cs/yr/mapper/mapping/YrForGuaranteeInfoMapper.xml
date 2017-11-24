@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.YrForGuaranteeInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.YrForGuaranteeInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="More" property="more" jdbcType="VARCHAR" />
+    <result column="Mortgagor" property="mortgagor" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="AnCheID" property="anCheID" jdbcType="VARCHAR" />
+    <result column="GaRange" property="gaRange" jdbcType="VARCHAR" />
+    <result column="MoreID" property="moreID" jdbcType="VARCHAR" />
+    <result column="PriClaSecKind" property="priClaSecKind" jdbcType="VARCHAR" />
+    <result column="PriClaSecAm" property="priClaSecAm" jdbcType="DECIMAL" />
+    <result column="PefPerForm" property="pefPerForm" jdbcType="DATE" />
+    <result column="PefPerTo" property="pefPerTo" jdbcType="DATE" />
+    <result column="IsPubFlag" property="isPubFlag" jdbcType="VARCHAR" />
+    <result column="GaType" property="gaType" jdbcType="VARCHAR" />
+    <result column="GuaPeriod" property="guaPeriod" jdbcType="VARCHAR" /> 
+  </resultMap>
+
+    <!-- 根据年度和主体主体代码查询 主债额 合计 -->
+    <select id="sumMoeny" parameterType="Map"   resultType="java.math.BigDecimal">
+        select sum(PriClaSecAm) as  priClaSecAm  from cs_yr_forguaranteeinfo a
+        where a.Year = #{year} and  a.PriPID =#{priPID}
+    </select>
+
+  <!--根据自然人身份证号获取 个人对外提供担保信息 -->
+  <select id="selectListByCerNO" parameterType="Map" resultMap="BaseResultMap">
+			SELECT
+				cyf.id,
+			      cyf.PriPID,
+			     cyf.Year,
+			      cyf.More,
+			      cyf.Mortgagor,
+			      cyf.CreateTime,
+			      cyf.AnCheID,
+			      cyf.GaRange,
+			      cyf.MoreID,
+			      cyf.PriClaSecKind,
+			      cyf.PriClaSecAm,
+			      cyf.PefPerForm,
+			      cyf.PefPerTo,
+			      cyf.IsPubFlag,
+			      cyf.GaType,
+			      cyf.GuaPeriod
+			FROM
+				cs_yr_forguaranteeinfo cyf
+			WHERE
+				cyf.PriPID IN (
+					SELECT
+						cmb.PriPID
+					FROM
+						cs_mid_baseinfo cmb
+					WHERE
+						cmb.CerNO IN (
+							SELECT
+								cmi.CerNO
+							FROM
+								cs_mid_inv cmi
+							WHERE
+								cmi.CerNO = #{cerNO}
+						)
+					AND cmb.EntType IN ('9500', '4510')
+				)
+			GROUP BY
+				cyf.id
+			ORDER BY
+				cyf.id DESC
+  </select>
+
+  <!--单表多条件查询 -->
+  <select id="search_queryPage" parameterType="Map" resultMap="BaseResultMap">
+      SELECT
+      id,
+      PriPID,
+      Year,
+      More,
+      Mortgagor,
+      CreateTime,
+      AnCheID,
+      GaRange,
+      MoreID,
+      PriClaSecKind,
+      PriClaSecAm,
+      PefPerForm,
+      PefPerTo,
+      IsPubFlag,
+      GaType,
+      GuaPeriod
+    FROM cs_yr_forguaranteeinfo
+    <trim prefix="WHERE" prefixOverrides="AND | OR">
+      <if test="priPID!=null and  priPID!= ''">
+        PriPID = #{priPID}
+      </if>
+
+      <if test="year!=null and year != ''">
+        AND Year = #{year}
+      </if>
+      order by CreateTime desc
+    </trim>
+
+  </select>
+
+
+
+</mapper>

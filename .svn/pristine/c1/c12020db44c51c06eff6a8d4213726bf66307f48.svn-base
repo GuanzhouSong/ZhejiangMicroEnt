@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.rpt.rptmapper.RptQcdzYearCountMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.rpt.rptmodel.RptQcdzYearCount" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="year" property="year" jdbcType="INTEGER" />
+    <result column="Allcount" property="allcount" jdbcType="INTEGER" />
+    <result column="newcount" property="newcount" jdbcType="INTEGER" />
+    <result column="cancount" property="cancount" jdbcType="INTEGER" />
+    <result column="addcount" property="addcount" jdbcType="INTEGER" />
+    <result column="addrate" property="addrate" jdbcType="DECIMAL" />
+    <result column="isshow" property="isshow" jdbcType="VARCHAR" />
+    <result column="update_time" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.rpt.rptdto.RptQcdzYearCountDto" id="BaseResultDtoMap" extends="BaseResultMap">
+  </resultMap>
+  
+  <select id="selectRptQcdzYearCountList" resultMap="BaseResultDtoMap" parameterType="Map">
+  SELECT t.year,t.Allcount,t.newcount,t.cancount,t.addcount,t.addrate,t.isshow,t.update_time FROM cs_rpt_qcdz_yearcount t order by year DESC 
+  <if test="length != null and length != ''">
+    LIMIT 0,${length}
+  </if>
+  </select>
+  
+</mapper>

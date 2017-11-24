@@ -1,0 +1,41 @@
+body { font-size:12px }
+  .tbl { }
+  .tbl-title-week {
+      display:inline-block;
+      width: 40px;
+      height:25px;
+      line-height:25px;
+      font-weight:bold;
+      border-bottom:1px #999 solid;
+  }
+  .tbl-title {
+      background: url(../img/reg/server/workday/topnav_line.gif) right center;
+      display:inline-block;
+      width:100%;
+      height:30px;
+      line-height:30px;
+      font-weight:bold;
+      color:#FFF;
+      font-size:16px
+  }
+  .t1 {
+      border:1px #333 solid;
+      margin:10px;
+      float: left;
+      height:220px;
+      background: url(../img/reg/server/workday/leftMenuBg1.gif) repeat-x 0 -280px;
+  }
+  .dayLabel {
+      text-align: center;
+      display: inline-block;
+      width: 40px;
+      height:25px;
+      line-height:25px;
+      color:#333; 
+      background: url(../img/reg/server/workday/listBg.gif) repeat-x;
+      border-bottom:1px #CCC solid
+  } 
+  .dayLabel:hover { color:#fff;  background: url(../img/reg/server/workday/menubox.gif) repeat-x;
+  }
+  .dayLabel-checked {  background: url(../img/reg/server/workday/topnav_line.gif);
+  }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icinfo.cs.yr.mapper.YrBaseInfoMapper"> 
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.YrBaseInfo">
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="PriPID" jdbcType="CHAR" property="priPID" />
+    <result column="EntName" jdbcType="VARCHAR" property="entName" />
+    <result column="RegNO" jdbcType="CHAR" property="regNO" />
+    <result column="EntType" jdbcType="CHAR" property="entType" />
+    <result column="UniCode" jdbcType="CHAR" property="uniCode" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="AnType" jdbcType="VARCHAR" property="anType" />
+    <result column="AnCheID" jdbcType="VARCHAR" property="anCheID" /> 
+  </resultMap>
+</mapper>

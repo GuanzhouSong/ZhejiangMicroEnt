@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icinfo.cs.yr.mapper.PubOtherPunishAlterMapper">
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.PubOtherPunishAlter">
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="CaseNO" jdbcType="VARCHAR" property="caseNO" />
+    <result column="PriPID" jdbcType="CHAR" property="priPID" />
+    <result column="Year" jdbcType="INTEGER" property="year" />
+    <result column="AltDate" jdbcType="DATE" property="altDate" />
+    <result column="JudAuth" jdbcType="VARCHAR" property="judAuth" />
+    <result column="HisNO" jdbcType="VARCHAR" property="hisNO" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="contents" jdbcType="LONGVARCHAR" property="contents" />
+    <result column="Remark" jdbcType="LONGVARCHAR" property="remark" />
+  </resultMap>
+</mapper>

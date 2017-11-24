@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.specialrec.mapper.SpecialRecTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.specialrec.model.SpecialRecTask" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Uid" property="uid" jdbcType="VARCHAR" />
+    <result column="TaskName" property="taskName" jdbcType="VARCHAR" />
+    <result column="TaskCode" property="taskCode" jdbcType="VARCHAR" />
+    <result column="TaskType" property="taskType" jdbcType="CHAR" />
+    <result column="TaskStartTime" property="taskStartTime" jdbcType="DATE" />
+    <result column="TaskEndTime" property="taskEndTime" jdbcType="DATE" />
+    <result column="TaskState" property="taskState" jdbcType="CHAR" />
+    <result column="DutyDeptCode" property="dutyDeptCode" jdbcType="VARCHAR" />
+    <result column="DutyDeptName" property="dutyDeptName" jdbcType="VARCHAR" />
+    <result column="OrgDeptCode" property="orgDeptCode" jdbcType="VARCHAR" />
+    <result column="OrgDeptName" property="orgDeptName" jdbcType="VARCHAR" />
+    <result column="PartiDeptCode" property="partiDeptCode" jdbcType="VARCHAR" />
+    <result column="PartiDeptName" property="partiDeptName" jdbcType="VARCHAR" />
+    <result column="SetUserName" property="setUserName" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="TaskContent" property="taskContent" jdbcType="LONGVARCHAR" />
+    <result column="CheckEntTotal" property="checkEntTotal" jdbcType="INTEGER" />
+    <result column="CompletedTotal" property="completedTotal" jdbcType="INTEGER" />
+    <result column="SeqYear" property="seqYear" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.specialrec.dto.SpecialRecTaskDto" id="BaseResultMapDto" extends="BaseResultMap">
+     <result column="totalall" property="totalall" jdbcType="VARCHAR" />
+     <result column="dzxgs" property="dzxgs" jdbcType="VARCHAR" />
+     <result column="zxzgs" property="zxzgs" jdbcType="VARCHAR" />
+     <result column="ywcgs" property="ywcgs" jdbcType="VARCHAR" />
+     <result column="xjcgs" property="xjcgs" jdbcType="VARCHAR" />
+     <result column="yjcgs" property="yjcgs" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectSpecialrecTaskList" resultMap="BaseResultMapDto" parameterType="Map">
+    SELECT
+     	id,
+		Uid,
+		TaskName,
+		TaskCode,
+		TaskType,
+		TaskStartTime,
+		TaskEndTime,
+		TaskState,
+		TaskContent,
+		CheckEntTotal,
+		CompletedTotal,
+		DutyDeptCode,
+		DutyDeptName,
+		OrgDeptCode,
+		OrgDeptName,
+		PartiDeptCode,
+		PartiDeptName,
+		SetUserName,
+		SetTime
+     FROM
+     cs_special_rec_task 
+     where 1=1
+     <include refid="queryPageResultSql" />
+     <!-- 数据权限 -->
+ 	 <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+ 	 ORDER BY TaskState ASC
+  </select>
+  
+  <select id="selectSpecialRecTaskInfoForCount" resultMap="BaseResultMapDto" parameterType="Map">
+		SELECT
+			 COUNT(0) totalall,
+			 SUM(CASE WHEN TaskState='01' THEN 1 ELSE 0 END ) dzxgs,
+			 SUM(CASE WHEN TaskState='02' THEN 1 ELSE 0 END ) zxzgs,
+			 SUM(CASE WHEN TaskState='03' THEN 1 ELSE 0 END ) ywcgs,
+		     SUM(CheckEntTotal) xjcgs,
+			 SUM(CompletedTotal) yjcgs
+		FROM
+			cs_special_rec_task
+		WHERE
+			1 = 1
+		 <include refid="queryPageResultSql" />
+		 <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+  </select>
+  
+  <sql id="queryPageResultSql">
+     <if test="taskName !=null and taskName !=''">
+        AND TaskName LIKE CONCAT('%',#{taskName},'%') 
+     </if>
+      <if test="taskCode !=null and taskCode !=''">
+        AND TaskCode LIKE CONCAT('%',#{taskCode},'%') 
+     </if>
+      <if test="taskType !=null and taskType !=''">
+        AND TaskType = #{taskType}
+     </if>
+     <if test="taskState !=null and taskState !=''">
+        AND TaskState = #{taskState}
+     </if>
+     <if test="setUserName !=null and setUserName !=''">
+        AND SetUserName = #{setUserName}
+     </if>
+      <if test="orgDeptName !=null and orgDeptName !=''">
+        AND OrgDeptName LIKE CONCAT('%',#{orgDeptName},'%') 
+     </if>
+      <if test="partiDeptName !=null and partiDeptName !=''">
+        AND PartiDeptName LIKE CONCAT('%',#{partiDeptName},'%') 
+     </if>
+     
+        <if test="setStartTime !=null and setStartTime != ''">
+	    <![CDATA[
+			AND DATE_FORMAT(SetTime,'%Y-%m-%d') >= #{setStartTime}
+		]]>
+	    </if>
+	    <if test="setEndTime !=null and setEndTime != ''">
+	    <![CDATA[
+			AND DATE_FORMAT(SetTime,'%Y-%m-%d') <= #{setEndTime}
+		]]>
+	    </if>
+	    <if test="taskStartTime !=null and taskStartTime != ''">
+	    <![CDATA[
+			AND DATE_FORMAT(TaskEndTime,'%Y-%m-%d') >= #{taskStartTime}
+		]]>
+	    </if>
+	    <if test="taskEndTime !=null and taskEndTime != ''">
+	    <![CDATA[
+			AND DATE_FORMAT(TaskEndTime,'%Y-%m-%d') <= #{taskEndTime}
+		]]>
+	    </if>
+	    <if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+			<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+				separator="OR" close=")">
+				DutyDeptCode like concat('%',#{item},'%')
+			</foreach>
+		</if>
+  </sql>
+  
+  <select id="selectDocNumBydeptShortName" parameterType="Map"  resultType="Integer"> 
+	   SELECT 
+		  IFNULL(
+		MAX(
+			IFNULL(
+				REPLACE (
+					SUBSTR(
+						TaskCode,
+						INSTR(TaskCode, '〕') + 1
+					),
+					'号',
+					''
+				)+0,
+				0
+			)
+		),
+		0
+	) + 1
+		FROM
+		  cs_special_rec_task a  
+ 		WHERE 
+		  a.SeqYear = #{seqYear} 
+		 AND LEFT(a.TaskCode,INSTR(a.TaskCode, '专') - 1) =#{deptShortName}  
+  </select>
+</mapper>

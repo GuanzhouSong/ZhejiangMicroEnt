@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.rpt.rptmapper.RptEntIminfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.rpt.rptmodel.RptEntIminfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="areacode" property="areacode" jdbcType="VARCHAR" />
+    <result column="regorg" property="regorg" jdbcType="VARCHAR" />
+    <result column="localadm" property="localadm" jdbcType="VARCHAR" />
+    <result column="entTypeCatg" property="entTypeCatg" jdbcType="VARCHAR" />
+    <result column="2013isreport" property="2013isreport" jdbcType="INTEGER" />
+    <result column="2014isreport" property="2014isreport" jdbcType="INTEGER" />
+    <result column="2015isreport" property="2015isreport" jdbcType="INTEGER" />
+    <result column="2016isreport" property="2016isreport" jdbcType="INTEGER" />
+    <result column="2017isreport" property="2017isreport" jdbcType="INTEGER" />
+    <result column="imAllH" property="imAllH" jdbcType="INTEGER" />
+    <result column="investmentH" property="investmentH" jdbcType="INTEGER" />
+    <result column="investmentT" property="investmentT" jdbcType="INTEGER" />
+    <result column="invsraltH" property="invsraltH" jdbcType="INTEGER" />
+    <result column="invsraltT" property="invsraltT" jdbcType="INTEGER" />
+    <result column="permitH" property="permitH" jdbcType="INTEGER" />
+    <result column="permitT" property="permitT" jdbcType="INTEGER" />
+    <result column="ippldgH" property="ippldgH" jdbcType="INTEGER" />
+    <result column="ippldgT" property="ippldgT" jdbcType="INTEGER" />
+    <result column="caseH" property="caseH" jdbcType="INTEGER" />
+    <result column="caseT" property="caseT" jdbcType="INTEGER" />
+    <result column="escAllH" property="escAllH" jdbcType="INTEGER" />
+    <result column="escingH" property="escingH" jdbcType="INTEGER" />
+    <result column="escendH" property="escendH" jdbcType="INTEGER" />
+    <result column="monthCode" property="monthCode" jdbcType="VARCHAR" />
+    <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="ismonth" property="ismonth" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.rpt.rptdto.RptEntIminfoDto" id="BaseResultMapDto" extends="BaseResultMap">
+  	<result column="regOrgName" property="regOrgName" jdbcType="VARCHAR" />
+  	<result column="localAdmName" property="localAdmName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="count_where"> 
+  		where 1=1
+		<if test="entCatgCode !=null and entCatgCode == 1 ">
+			<if test="nei==null and wai==null">
+	    		and  A.entTypeCatg not in ('16','17','50')
+			</if>
+			<if test="nei!=null and wai!=null">
+	    		and  A.entTypeCatg not in ('16','17','50')
+			</if>
+			<if test="nei!=null and wai==null">
+	    		and  A.entTypeCatg in (${nei})
+			</if>
+			<if test="nei==null and wai!=null">
+	    		and  A.entTypeCatg in (${wai})
+			</if>
+	    </if>
+	    <if test="entCatgCode !=null and entCatgCode == 2 ">
+	    	and  A.entTypeCatg in ('16','17')
+	    </if>
+	    <if test="entCatgCode !=null and entCatgCode == 3 ">
+	    	and  A.entTypeCatg = 50
+	    </if>
+	    <if test="statArea !='' and statArea !=null">
+	   	    and  A.areaCode  IN  (${statArea}) 
+	    </if>
+	    
+	    <if test="startCheckPushDate !='' and startCheckPushDate !=null">
+			<![CDATA[
+			and A.monthCode >= left(#{startCheckPushDate},6) 
+			]]> 
+			</if>
+			<if test="endCheckPushDate !='' and endCheckPushDate !=null">
+			<![CDATA[
+			and A.monthCode <= left(#{endCheckPushDate},6) 
+			]]> 
+		</if>  
+  </sql>
+  
+  <select id="selectRptEntIminfoCount" resultMap="BaseResultMapDto" parameterType="Map">
+  	SELECT
+		A.areacode,
+		A.regorg,
+		B.Content regOrgName,
+		A.localadm,
+		C.Content localAdmName,
+		A.entTypeCatg,
+		SUM(A.${year}isreport) isreport${year},
+		SUM(A.imAllH) imAllH,
+		SUM(A.investmentH) investmentH,
+		SUM(A.investmentT) investmentT,
+		SUM(A.invsraltH) invsraltH,
+		SUM(A.invsraltT) invsraltT,
+		SUM(A.permitH) permitH,
+		SUM(A.permitT) permitT,
+		SUM(A.ippldgH) ippldgH,
+		SUM(A.ippldgT) ippldgT,
+		SUM(A.caseH) caseH,
+		SUM(A.caseT) caseT,
+		SUM(A.escAllH) escAllH,
+		SUM(A.escingH) escingH,
+		SUM(A.escendH) escendH,
+		A.monthCode
+	FROM
+		cs_rpt_ent_iminfo A
+		LEFT JOIN cs_code_regorg B ON A.regorg = B.code
+		LEFT JOIN cs_code_regunit C ON A.localadm = C.code
+  	<include refid="count_where"/>
+	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'area' ">
+		group by areacode
+	</if>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'regorg' ">
+		group by regorg
+	</if>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'localadm' ">
+		group by localadm
+	</if>
+ </select>
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.system.mapper.CSMapper" >
+  <sql id="defaultByOrgCode">
+
+    <if test="checkDepKey !=null and checkDepKey !='' and checkDepLikeVal !=null and checkDepLikeVal !=''">
+      AND (
+      ${checkDepKey} like #{checkDepLikeVal}
+      <if test="localAdmAlias !=null and localAdmAlias !='' and localAdmLikeVal !=null and localAdmLikeVal !=''">
+        OR ${localAdmAlias} like #{localAdmLikeVal}
+      </if>
+      )
+    </if>
+
+    <!-- 操作权限 -->
+    <if test="checkDepKey !=null and checkDepKey !='' and checkDepEqVal !=null and checkDepEqVal !=''">
+      AND (
+        ${checkDepKey} = #{checkDepEqVal}
+      <!-- 登记机关为市局，但是checkDep为市局，但是管辖单位却为市局下的分局或者所，分局或所也想要看到checkDep为市局的企业 -->
+      <if test="localAdmAlias !=null and localAdmAlias !='' and localAdmLikeVal !=null and localAdmLikeVal !=''">
+        OR ${localAdmAlias} like #{localAdmLikeVal}
+      </if>
+      )
+    </if>
+
+    <if test="regStateKey !=null and regStateKey !='' and regStateInValue !=null and regStateInValue !=''">
+      AND ${regStateKey} in (${regStateInValue})
+    </if>
+  </sql>
+</mapper>

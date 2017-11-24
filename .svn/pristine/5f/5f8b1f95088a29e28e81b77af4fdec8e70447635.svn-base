@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.copysend.mapper.CopySendIllegalMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.copysend.model.CopySendIllegal" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="CopyFormNo" property="copyFormNo" jdbcType="VARCHAR" />
+    <result column="ClientName" property="clientName" jdbcType="VARCHAR" />
+    <result column="CertType" property="certType" jdbcType="VARCHAR" />
+    <result column="CertNo" property="certNo" jdbcType="VARCHAR" />
+    <result column="Address" property="address" jdbcType="VARCHAR" />
+    <result column="ClientTel" property="clientTel" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

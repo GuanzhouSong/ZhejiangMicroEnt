@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.sccheck.mapper.DailyInspectResultMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sccheck.model.DailyInspectResult" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="AuditState" property="auditState" jdbcType="CHAR" />
+    <result column="DisposeState" property="disposeState" jdbcType="CHAR" />
+    <result column="TaskSource" property="taskSource" jdbcType="CHAR" />
+    <result column="CheckDate" property="checkDate" jdbcType="TIMESTAMP" />
+    <result column="CheckResult" property="checkResult" jdbcType="VARCHAR" />
+    <result column="CheckDeptPerson" property="checkDeptPerson" jdbcType="VARCHAR" />
+    <result column="CheckDeptCode" property="checkDeptCode" jdbcType="VARCHAR" />
+    <result column="CheckDeptName" property="checkDeptName" jdbcType="VARCHAR" />
+    <result column="EnterUserName" property="enterUserName" jdbcType="VARCHAR" />
+    <result column="EnterDate" property="enterDate" jdbcType="TIMESTAMP" />
+    <result column="CheckObjType" property="checkObjType" jdbcType="CHAR" />
+    
+    <result column="state" property="state" jdbcType="CHAR" />
+    <result column="cidRegNO" property="cidRegNO" jdbcType="VARCHAR" />
+    <result column="dom" property="dom" jdbcType="VARCHAR" />
+    <result column="lerep" property="lerep" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="liaName" property="liaName" jdbcType="VARCHAR" />
+    <result column="liaTel" property="liaTel" jdbcType="VARCHAR" />
+    <result column="complainter" property="complainter" jdbcType="VARCHAR" />
+    <result column="complainterTel" property="complainterTel" jdbcType="VARCHAR" />
+    <result column="complaintType" property="complaintType" jdbcType="CHAR" />
+    <result column="complaintDate" property="complaintDate" jdbcType="TIMESTAMP" />
+    <result column="complaintContent" property="complaintContent" jdbcType="VARCHAR" />
+    <result column="checkObj" property="checkObj" jdbcType="VARCHAR" />
+    <result column="checkType" property="checkType" jdbcType="VARCHAR" />
+    <result column="disposeMss" property="disposeMss" jdbcType="VARCHAR" />
+    <result column="checkOrgCode" property="checkOrgCode" jdbcType="VARCHAR" />
+    <result column="checkOrgName" property="checkOrgName" jdbcType="VARCHAR" />
+    <result column="disposeFinishDate" property="disposeFinishDate" jdbcType="TIMESTAMP" />
+    
+    <result column="AlterUserName" property="alterUserName" jdbcType="VARCHAR" />
+    <result column="AlterDate" property="alterDate" jdbcType="TIMESTAMP" />
+    <result column="AlterContent" property="alterContent" jdbcType="VARCHAR" />
+    <result column="DisposeFinishMss" property="disposeFinishMss" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  
+  <resultMap id="DailyInspectResultDto" type="com.icinfo.cs.sccheck.dto.DailyInspectResultDto" extends="BaseResultMap">
+  	<result column="SliceNOName" property="sliceNOName" jdbcType="VARCHAR" />
+  	<result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+    <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="DailyInspectResultCount" type="com.icinfo.cs.sccheck.dto.DailyInspectResultCount">
+  	 <result column="notInputNum" property="notInputNum" jdbcType="INTEGER" />
+  	 <result column="alreadyInputNum" property="alreadyInputNum" jdbcType="INTEGER" />
+  	 <result column="notOverNum" property="notOverNum" jdbcType="INTEGER" />
+  	 <result column="alreadyOverNum" property="alreadyOverNum" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <select id="selectDailyInspectResultList" resultMap="DailyInspectResultDto" parameterType="Map">
+  	SELECT
+		A.id,
+		A.uid,
+		A.PriPID,
+		A.AuditState,
+		A.DisposeState,
+		A.TaskSource,
+		A.CheckDate,
+		A.CheckResult,
+		A.CheckDeptPerson,
+		A.CheckDeptCode,
+		A.CheckDeptName,
+		A.EnterUserName,
+		A.EnterDate,
+		A.CheckObjType,
+		A.CheckObj,
+		A.CidRegNO,
+		A.State,
+		B.RegOrgName,
+		B.LocalAdmName,
+		B.SliceNOName,
+		A.AlterUserName,
+		A.AlterDate
+	FROM
+		cs_daily_inspect_result A
+	LEFT JOIN cs_mid_baseinfo B ON A.PriPID = B.PriPID
+	WHERE A.AuditState='2'
+		<include refid="queryPageSearchResultSql" />
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+		ORDER BY A.EnterDate desc
+  </select>
+  <select id="selectDailyInspectResult" resultMap="DailyInspectResultDto" parameterType="Map">
+  	SELECT
+		A.id,
+		A.uid,
+		A.PriPID,
+		A.AuditState,
+		A.DisposeState,
+		A.TaskSource,
+		A.CheckDate,
+		A.CheckResult,
+		A.CheckDeptPerson,
+		A.CheckDeptCode,
+		A.CheckDeptName,
+		A.EnterUserName,
+		A.EnterDate,
+		A.CheckObjType,
+		A.CheckObj,
+		A.CidRegNO,
+		A.State,
+		B.RegOrgName,
+		B.LocalAdmName,
+		B.SliceNOName
+	FROM
+		cs_daily_inspect_result A
+	LEFT JOIN cs_mid_baseinfo B ON A.PriPID = B.PriPID
+	WHERE 1=1
+		<include refid="queryPageSearchResultSql" />
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+		ORDER BY A.AuditState,A.EnterDate desc
+  </select>
+  
+  <select id="selectDailyInspectResultCount" resultMap="DailyInspectResultCount" parameterType="Map">
+		SELECT 
+		sum( case when A.auditState='1' then 1 else 0 end ) notInputNum,
+		sum( case when A.auditState='2' then 1 else 0 end ) alreadyInputNum,
+		sum( case when A.disposeState='1' then 1 else 0 end ) notOverNum,
+		sum( case when A.disposeState='2' then 1 else 0 end ) alreadyOverNum
+		FROM cs_daily_inspect_result A
+		LEFT JOIN cs_mid_baseinfo B ON A.PriPID = B.PriPID
+		WHERE 1=1
+		<include refid="queryPageSearchResultSql" />
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+  </select>
+  
+  <select id="selectDailyInspectResultQueryCount" resultMap="DailyInspectResultCount" parameterType="Map">
+		SELECT 
+		sum( case when A.auditState='2' then 1 else 0 end ) alreadyInputNum,
+		sum( case when A.disposeState='1' then 1 else 0 end ) notOverNum,
+		sum( case when A.disposeState='2' then 1 else 0 end ) alreadyOverNum
+		FROM cs_daily_inspect_result A
+		LEFT JOIN cs_mid_baseinfo B ON A.PriPID = B.PriPID
+		WHERE A.AuditState='2'
+		<include refid="queryPageSearchResultSql" />
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+  </select>
+	
+  <sql id="queryPageSearchResultSql">
+		<if test="checkObj !='' and checkObj !=null">
+		    and A.CheckObj LIKE concat('%', #{checkObj},'%')
+		</if>
+		<if test="cidRegNO !='' and cidRegNO !=null">
+			and A.CidRegNO LIKE concat('%', #{cidRegNO},'%')
+		</if>
+		<if test="regOrg !='' and regOrg !=null">
+		    and B.RegOrg in (${regOrg})
+		</if>
+		<if test="taskSource !='' and taskSource !=null">
+		    and A.taskSource in (${taskSource})
+		</if>
+		<if test="checkDateStart !='' and checkDateStart !=null">
+		<![CDATA[
+		   and A.CheckDate >= #{checkDateStart}
+		]]>
+		</if>
+		<if test="checkDateEnd !='' and checkDateEnd !=null">
+		<![CDATA[
+		   and A.CheckDate <= #{checkDateEnd}
+		]]>
+		</if>
+		<if test="localAdm !='' and localAdm !=null">
+		    and B.LocalAdm in (${localAdm})
+		</if>
+		<if test="auditState !='' and auditState !=null">
+		    and A.AuditState = (${auditState})
+		</if>
+		<if test="disposeState !='' and disposeState !=null">
+		    and A.DisposeState = #{disposeState}
+		</if>
+		<if test="checkDeptName !='' and checkDeptName !=null">
+		    and A.CheckDeptName LIKE concat('%', #{checkDeptName},'%')
+		</if>
+		<if test="checkResults != null and checkResults != ''">
+			and 
+			<foreach item="item" index="index" collection="checkResults"
+				open="(" separator="OR" close=")">
+				A.CheckResult like concat('%',#{item},'%')
+			</foreach> 
+		</if>
+		<if test="enterDateStart !='' and enterDateStart !=null">
+		<![CDATA[
+		   and A.EnterDate >= #{enterDateStart}
+		]]>
+		</if>
+		<if test="enterDateEnd !='' and enterDateEnd !=null">
+		<![CDATA[
+		   and A.EnterDate <= #{enterDateEnd}
+		]]>
+		</if>
+		<if test="sliceNO !='' and sliceNO !=null">
+		    and B.SliceNO in (${sliceNO})
+		</if>
+		<if test="checkDeptPersons !='' and checkDeptPersons !=null">
+		    and 
+			<foreach item="item" index="index" collection="checkDeptPersons"
+				open="(" separator="OR" close=")">
+				A.CheckDeptPerson like concat('%',#{item},'%')
+			</foreach>
+		</if>
+		<if test="enterUserName !='' and enterUserName !=null">
+		    and A.EnterUserName = #{enterUserName}
+		</if>
+		<if test="alterUserName !='' and alterUserName !=null">
+		    and A.AlterUserName = #{alterUserName}
+		</if>
+		<if test="alterDateStart !='' and alterDateStart !=null">
+		<![CDATA[
+		   and A.AlterDate >= #{alterDateStart}
+		]]>
+		</if>
+		<if test="alterDateEnd !='' and alterDateEnd !=null">
+		<![CDATA[
+		   and A.AlterDate <= #{alterDateEnd}
+		]]>
+		</if>
+  </sql>
+  
+</mapper>

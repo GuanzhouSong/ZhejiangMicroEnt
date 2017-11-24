@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.IndividQueMainMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.IndividQueMain" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="QmID" property="qmID" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="QuePolicyAll" property="quePolicyAll" jdbcType="CHAR" />
+    <result column="QuePolicyPart" property="quePolicyPart" jdbcType="CHAR" />
+    <result column="QuePolicySoc" property="quePolicySoc" jdbcType="CHAR" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="MobTel" property="mobTel" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="AuditState" property="auditState" jdbcType="CHAR" />
+    <result column="AuditName" property="auditName" jdbcType="VARCHAR" />
+    <result column="AuditDate" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="QueFaith" property="queFaith" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+   <resultMap id="BaseResultMapDto" type="com.icinfo.cs.yr.dto.IndividQueMainDto" extends="BaseResultMap">
+       <result column="RegOrg" property="regOrg" jdbcType="VARCHAR" />
+       <result column="regOrgName" property="regOrgName" jdbcType="VARCHAR" />
+       <result column="localAdmName" property="localAdmName" jdbcType="VARCHAR" />
+       <result column="checkDepDesc" property="checkDepDesc" jdbcType="VARCHAR"/>
+       <result column="sliceNOName" property="sliceNOName" jdbcType="VARCHAR"/>
+       <result column="RegNO" property="regNO" jdbcType="VARCHAR"/>
+       <result column="EntName" property="entName" jdbcType="VARCHAR"/>
+       <result column="LeRep" property="leRep" jdbcType="VARCHAR"/>
+       <result column="telNum" property="telNum" jdbcType="VARCHAR"/>
+       <result column="Dom" property="dom" jdbcType="VARCHAR"/>
+       
+       <result column="QuePolicyAllTotal" property="quePolicyAllTotal" jdbcType="INTEGER"/>
+       <result column="QuePolicyPartTotal" property="quePolicyPartTotal" jdbcType="INTEGER"/>
+       <result column="QuePolicySocTotal" property="quePolicySocTotal" jdbcType="INTEGER"/>
+       <result column="HasQueFaith" property="hasQueFaith" jdbcType="INTEGER"/>
+       <result column="NoQueFaith" property="noQueFaith" jdbcType="INTEGER"/>
+       <result column="NotSure" property="notSure" jdbcType="INTEGER"/>
+       <result column="Count" property="count" jdbcType="INTEGER"/>
+       <result column="TaxpayerTypeCommTotal" property="taxpayerTypeCommTotal" jdbcType="INTEGER"/>
+       <result column="TaxpayerTypeSmallscaleTotal" property="taxpayerTypeSmallscaleTotal" jdbcType="INTEGER"/>
+       
+   </resultMap>
+  
+  <select id="selectQueMainCount" resultMap="BaseResultMapDto" parameterType="Map">
+     SELECT
+     	COUNT(A.PriPID) count,
+		SUM(A.QuePolicyAll) quePolicyAllTotal,
+		SUM(A.QuePolicyPart) quePolicyPartTotal,
+		SUM(A.QuePolicySoc) quePolicySocTotal,
+		SUM(CASE WHEN A.QueFaith='1' THEN 1 ELSE 0 END) AS hasQueFaith,
+		SUM(CASE WHEN A.QueFaith='2' THEN 1 ELSE 0 END) AS noQueFaith,
+		SUM(CASE WHEN A.QueFaith='3' THEN 1 ELSE 0 END) AS notSure
+	FROM
+		cs_individ_quemain A
+	LEFT JOIN cs_mid_baseinfo B
+	ON A.PriPID=B.PriPID
+		where 1=1
+		<include refid="sql_where" />
+  </select>
+  <select id="selectSurQuantity" resultMap="BaseResultMapDto" parameterType="Map">
+     SELECT
+		B.RegOrg,
+		B.RegOrgName,
+    	COUNT(A.PriPID) count,
+		SUM(CASE WHEN C.TaxpayerType='1' THEN 1 ELSE 0 END) AS taxpayerTypeCommTotal,
+		SUM(CASE WHEN C.TaxpayerType='2' THEN 1 ELSE 0 END) AS taxpayerTypeSmallscaleTotal,
+		SUM(CASE WHEN A.QueFaith='1' THEN 1 ELSE 0 END) AS hasQueFaith,
+		SUM(CASE WHEN A.QueFaith='2' THEN 1 ELSE 0 END) AS noQueFaith,
+		SUM(CASE WHEN A.QueFaith='3' THEN 1 ELSE 0 END) AS notSure,
+		SUM(A.QuePolicyAll) quePolicyAllTotal,
+		SUM(A.QuePolicyPart) quePolicyPartTotal,
+		SUM(A.QuePolicySoc) quePolicySocTotal		
+	FROM
+		cs_individ_quemain A
+	LEFT JOIN cs_mid_baseinfo B
+	ON A.PriPID=B.PriPID
+	LEFT JOIN (SELECT QmID,TaxpayerType FROM cs_individ_questionnaire WHERE QueFlag='2') C
+	ON A.QmID=C.QmID
+	WHERE 1=1	
+	<include refid="sql_where" />
+	GROUP BY B.RegOrg
+  </select>
+  
+  <sql id="sql_where">
+  		<if test="regOrg != null and regOrg != ''">
+			AND B.RegOrg IN(${regOrg}) 
+		</if>
+       <if test="year != null and year != ''">
+			AND A.year = #{year}
+		</if>
+		<if test="setDateStart !='' and setDateStart !=null">
+            <![CDATA[
+		and A.SetTime >= #{setDateStart}
+		]]>
+        </if>
+        <if test="setDateEnd !='' and setDateEnd !=null">
+            <![CDATA[
+		and A.SetTime <= #{setDateEnd}
+		]]>
+        </if>
+   </sql>
+   
+  <select id="selectQueMainInfo" resultMap="BaseResultMapDto" parameterType="Map">
+     select 
+     QmID,a.PriPID,Year,QuePolicyAll,QuePolicyPart,QuePolicySoc,SetName,a.Tel,MobTel,SetTime,AuditState,AuditName,AuditDate,QueFaith,a.CreateTime,
+     b.RegNO,b.EntName,b.LeRep,b.Tel TelNum,b.Dom,b.RegOrgName regOrgName,b.LocalAdmName localAdmName,b.SliceNOName sliceNOName,b.CheckDepName checkDepDesc
+     FROM 
+     cs_individ_quemain a
+	 LEFT JOIN cs_mid_baseinfo b ON a.PriPID = b.PriPID
+	 where
+	 1=1
+	 <if test="regNO !='' and regNO !=null">
+	 and b.RegNO = #{regNO}
+	 </if>
+	 <if test="entName !='' and entName !=null">
+	 and b.EntName LIKE concat('%', #{entName},'%')
+	 </if> 
+	 <if test="leRep !='' and leRep !=null">
+	 and b.LeRep = #{leRep}
+	 </if> 
+	 <if test="year !='' and year !=null">
+	 and Year =#{year}
+	</if>
+	<if test="regOrg !='' and regOrg !=null">
+    and b.RegOrg  IN  (${regOrg})
+    </if>
+    <if test="localAdm !='' and localAdm !=null">
+    and b.LocalAdm  IN (${localAdm})
+    </if>
+    <if test="checkDep !='' and checkDep !=null">
+    and b.CheckDep  IN (${checkDep})
+    </if>
+    <if test="sliceNO !='' and sliceNO !=null">
+    and b.SliceNO  IN (${sliceNO})
+    </if>
+	<if test="auditName !='' and auditName !=null">
+	 and AuditName =#{auditName}
+	</if>
+	<if test="auditState !='' and auditState !=null">
+	 and AuditState =#{auditState}
+	</if>
+    <if test="setTimeStart !='' and setTimeStart !=null">
+	<![CDATA[
+	and DATE_FORMAT(SetTime,'%Y-%m-%d') >= #{setTimeStart}
+	]]>
+	</if>
+	<if test="setTimeEnd !='' and setTimeEnd !=null">
+	<![CDATA[
+	and DATE_FORMAT(SetTime,'%Y-%m-%d') <= #{setTimeEnd}
+	]]>
+	</if>
+	<if test="auditDateStart !='' and auditDateStart !=null">
+	<![CDATA[
+	and DATE_FORMAT(AuditDate,'%Y-%m-%d') >= #{auditDateStart}
+	]]>
+	</if>
+	<if test="auditDateEnd !='' and auditDateEnd !=null">
+	<![CDATA[
+	and DATE_FORMAT(AuditDate,'%Y-%m-%d') <= #{auditDateEnd}
+	]]>
+	</if>
+  </select>
+</mapper>

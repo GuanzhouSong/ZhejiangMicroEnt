@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.specialrec.mapper.SpecialRecResultMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.specialrec.model.SpecialRecResult" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Uid" property="uid" jdbcType="VARCHAR" />
+    <result column="TaskUid" property="taskUid" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="CheckState" property="checkState" jdbcType="CHAR" />
+    <result column="CheckDeptCode" property="checkDeptCode" jdbcType="VARCHAR" />
+    <result column="CheckDeptName" property="checkDeptName" jdbcType="VARCHAR" />
+    <result column="CheckDeptPerson" property="checkDeptPerson" jdbcType="VARCHAR" />
+    <result column="CheckResult" property="checkResult" jdbcType="VARCHAR" />
+    <result column="CheckDate" property="checkDate" jdbcType="TIMESTAMP" />
+    <result column="CheckType" property="checkType" jdbcType="CHAR" />
+    <result column="DisposeMss" property="disposeMss" jdbcType="VARCHAR" />
+    <result column="DisposeState" property="disposeState" jdbcType="CHAR" />
+    <result column="DisposeFinishMss" property="disposeFinishMss" jdbcType="VARCHAR" />
+    <result column="DisposeFinishDate" property="disposeFinishDate" jdbcType="TIMESTAMP" />
+    <result column="EnterUserName" property="enterUserName" jdbcType="VARCHAR" />
+    <result column="EnterDate" property="enterDate" jdbcType="TIMESTAMP" />
+    <result column="SetDeptCode" property="setDeptCode" jdbcType="VARCHAR" />
+    <result column="SetDeptName" property="setDeptName" jdbcType="VARCHAR" />
+    <result column="ModifyDate" property="modifyDate" jdbcType="VARCHAR" />
+    <result column="ModifyContent" property="modifyContent" jdbcType="VARCHAR" />
+    <result column="ModifyName" property="modifyName" jdbcType="TIMESTAMP" />
+    <result column="AssignName" property="assignName" jdbcType="VARCHAR" />
+    <result column="AssignDate" property="assignDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.specialrec.dto.SpecialRecResultDto" id="BaseResultMapDto" extends="BaseResultMap">
+      <result column="TaskCode" property="taskCode" jdbcType="VARCHAR" />
+      <result column="TaskName" property="taskName" jdbcType="VARCHAR" />
+      <result column="TaskType" property="taskType" jdbcType="VARCHAR" />
+      <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+      <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+      <result column="SliceNOName" property="sliceNOName" jdbcType="VARCHAR" />
+      <result column="Dom" property="dom" jdbcType="VARCHAR" />
+      <result column="OrgDeptName" property="orgDeptName" jdbcType="VARCHAR" />
+      
+      <result column="dlrgs" property="dlrgs" jdbcType="VARCHAR" />
+      <result column="ylrgs" property="ylrgs" jdbcType="VARCHAR" />
+      <result column="wwjgs" property="wwjgs" jdbcType="VARCHAR" />
+      <result column="ywjgs" property="ywjgs" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectSpecialRecResultInfo" parameterType="Map" resultMap="BaseResultMapDto">
+     SELECT
+        a.id,
+		a.Uid,
+		a.TaskUid,
+		a.PriPID,
+		a.EntName,
+		a.RegNO,
+		a.UniCode,
+		a.CheckState,
+		a.CheckDeptCode,
+		a.CheckDeptName,
+		a.CheckDeptPerson,
+		a.CheckResult,
+		a.CheckDate,
+		a.CheckType,
+		a.DisposeMss,
+		a.DisposeState,
+		a.DisposeFinishMss,
+		a.DisposeFinishDate,
+		a.EnterUserName,
+		a.EnterDate,
+		a.SetDeptCode,
+		a.SetDeptName,
+		a.ModifyDate,
+		a.ModifyName,
+		a.ModifyContent,
+		a.AssignName,
+		a.AssignDate,
+		b.TaskCode,
+		b.TaskName,
+		b.TaskType,
+		b.OrgDeptName,
+		c.RegOrgName,
+		c.LocalAdmName,
+		c.SliceNOName,
+		c.Dom
+      FROM
+       cs_special_rec_result a
+     LEFT JOIN cs_special_rec_task b ON a.TaskUid = b.Uid
+     LEFT JOIN cs_mid_baseinfo c on a.PriPID = c.PriPID
+     WHERE 1=1
+     <include refid="result_where"></include>
+     <if test="searchlist == 1 or alterlist == 1">
+     	And a.CheckState = '1' 
+     </if>
+ 	 ORDER BY 
+ 	<choose>
+ 	  <when test="searchlist !='' and searchlist !=null">
+ 	     a.EnterDate Desc	
+ 	  </when>
+ 	  <when test="alterlist !='' and alterlist !=null">
+ 	     a.ModifyDate Desc
+ 	  </when>
+ 	  <otherwise>
+ 	     a.CheckState ASC
+ 	  </otherwise>
+ 	</choose>
+  </select>
+  
+  <select id="selectSpecialRecResultDtoForCount"  parameterType="Map" resultMap="BaseResultMapDto">
+       SELECT
+	     SUM(CASE WHEN a.CheckState='0' THEN 1 ELSE 0 END ) dlrgs,
+	     SUM(CASE WHEN a.CheckState='1' THEN 1 ELSE 0 END ) ylrgs,
+	     SUM(CASE WHEN a.DisposeState='1'THEN 1 ELSE 0 END ) wwjgs,
+		 SUM(CASE WHEN a.DisposeState='2' THEN 1 ELSE 0 END ) ywjgs
+	FROM
+		cs_special_rec_result a
+	LEFT JOIN cs_special_rec_task b ON a.TaskUid = b.Uid
+	LEFT JOIN cs_mid_baseinfo c ON a.PriPID = c.PriPID
+	WHERE
+		1 = 1
+	<include refid="result_where"></include>
+  </select>
+  
+  <sql id="result_where">
+     <if test="deptCode !='' and deptCode !=null">
+        AND a.SetDeptCode = #{deptCode}
+     </if>
+  	 <if test="resultUid !='' and resultUid !=null">
+        AND a.Uid = #{resultUid}
+     </if>
+     <if test="entName !='' and entName !=null">
+        AND a.EntName LIKE CONCAT('%',#{entName},'%')
+     </if>
+     <if test="taskName !='' and taskName !=null">
+        AND b.TaskName LIKE CONCAT('%',#{taskName},'%')
+     </if>
+     <if test="cidRegNO !='' and cidRegNO !=null">
+        AND (a.RegNO = #{cidRegNO} or a.UniCode = #{cidRegNO})
+     </if>
+     <if test="taskType !='' and taskType !=null">
+        AND b.TaskType = #{taskType}
+     </if>
+     <if test="checkState !='' and checkState !=null">
+        AND a.CheckState = #{checkState}
+     </if>
+      <if test="disposeState !='' and disposeState !=null">
+        AND a.DisposeState = #{disposeState}
+     </if>
+      <if test="taskCode !='' and taskCode !=null">
+        AND b.TaskCode = #{taskCode}
+     </if>
+      <if test="enterUserName !='' and enterUserName !=null">
+        AND a.EnterUserName = #{enterUserName}
+     </if>
+      <if test="modifyName !='' and modifyName !=null">
+        AND a.ModifyName = #{modifyName}
+     </if>
+      <if test="checkDeptPerson !='' and checkDeptPerson !=null">
+        AND a.CheckDeptPerson = #{checkDeptPerson}
+     </if>
+      <if test="checkDeptName !='' and checkDeptName !=null">
+        AND a.CheckDeptName LIKE CONCAT('%',#{checkDeptName},'%')
+     </if>
+      <if test="assignName !='' and assignName !=null">
+        AND a.AssignName = #{assignName}
+     </if>
+     <if test="checkDateStart !=null and checkDateStart != ''">
+	    <![CDATA[
+			AND DATE_FORMAT(a.CheckDate,'%Y-%m-%d') >= #{checkDateStart}
+		]]>
+	 </if>
+     <if test="checkDateEnd !=null and checkDateEnd != ''">
+	    <![CDATA[
+			AND DATE_FORMAT(a.CheckDate,'%Y-%m-%d') <= #{checkDateEnd}
+		]]>
+	 </if>
+     <if test="enterStartDate !=null and enterStartDate != ''">
+	    <![CDATA[
+			AND DATE_FORMAT(a.EnterDate,'%Y-%m-%d') >= #{enterStartDate}
+		]]>
+	 </if>
+     <if test="enterEndDate !=null and enterEndDate != ''">
+	    <![CDATA[
+			AND DATE_FORMAT(a.EnterDate,'%Y-%m-%d') <= #{enterEndDate}
+		]]>
+	 </if>
+     <if test="modifyDateStart !=null and modifyDateStart != ''">
+	    <![CDATA[
+			AND DATE_FORMAT(a.ModifyDate,'%Y-%m-%d') >= #{modifyDateStart}
+		]]>
+	 </if>
+     <if test="modifyDateEnd !=null and modifyDateEnd != ''">
+	    <![CDATA[
+			AND DATE_FORMAT(a.ModifyDate,'%Y-%m-%d') <= #{modifyDateEnd}
+		]]>
+	 </if>
+	 <if test="assignDateStart !=null and assignDateStart != ''">
+	    <![CDATA[
+			AND DATE_FORMAT(a.AssignDate,'%Y-%m-%d') >= #{assignDateStart}
+		]]>
+	 </if>
+     <if test="assignDateEnd !=null and assignDateEnd != ''">
+	    <![CDATA[
+			AND DATE_FORMAT(a.AssignDate,'%Y-%m-%d') <= #{assignDateEnd}
+		]]>
+	 </if>
+	 <if test="regOrg !='' and regOrg !=null">
+     AND c.RegOrg  IN  (${regOrg})
+     </if>
+     <if test="localAdm !='' and localAdm !=null">
+     AND c.LocalAdm  IN (${localAdm})
+     </if>
+     <if test="sliceNO !='' and sliceNO !=null">
+	 AND c.SliceNO  IN  (${sliceNO})
+     </if>
+     <if test="dom !='' and dom !=null">
+	 AND c.Dom LIKE CONCAT('%',#{dom},'%')
+     </if>
+     <if test="orgDeptCode !='' and orgDeptCode !=null">
+	 AND b.OrgDeptCode  = #{orgDeptCode}
+     </if>
+     <if test="orgDeptName !='' and orgDeptName !=null">
+	 AND b.OrgDeptName  = #{orgDeptName}
+     </if>
+     <if test="seqYear !='' and seqYear !=null">
+	 AND b.SeqYear  = #{seqYear}
+     </if>
+     <if test="checkDeptCodes !='' and checkDeptCodes !=null">
+	 AND a.SetDeptCode  IN  (${checkDeptCodes})
+     </if>
+     <if test="checkResults != null and checkResults != ''">
+		and 
+		<foreach item="item" index="index" collection="checkResults"
+			open="(" separator="AND" close=")">
+			a.CheckResult like concat('%',#{item},'%')
+		</foreach> 
+	 </if>
+  </sql>
+</mapper>

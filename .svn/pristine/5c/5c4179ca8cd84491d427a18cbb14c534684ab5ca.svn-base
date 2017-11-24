@@ -1,0 +1,1885 @@
+@charset "utf-8";
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+    content: '';
+    content: none;
+}
+
+/*div:before,div:after{display:block;content:'';} 暂时注释掉*/
+.clearfix {
+    *zoom: 1
+}
+
+.clearfix:after {
+    content: ".";
+    clear: both;
+    height: 0;
+    display: block;
+    visibility: hidden;
+}
+
+/* 清除样式兼容代码 */
+.clearfix {
+    display: inline-table;
+}
+
+/* Hides from IE-mac \*/
+* html .clearfix {
+    height: 1%;
+}
+
+.clearfix {
+    display: block;
+}
+
+/* End hide from IE-mac */
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    outline: none;
+}
+
+i, b, em {
+    font-size: 12px;
+    font-weight: 400;
+    font-style: normal;
+}
+
+ul, ol, dl, li, form {
+    margin: 0;
+    padding: 0;
+}
+
+a, a img {
+    text-decoration: none;
+    border: none;
+}
+
+a:link {
+    cursor: pointer;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active, a:visited {
+}
+
+a:focus, input[type=button], input[type=submit] {
+    outline: none;
+}
+
+input[type="submit"], input[type="reset"], input[type="button"], button {
+    -webkit-appearance: none;
+}
+
+input, button, select, textarea {
+    outline: none
+}
+
+textarea {
+    resize: none
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0; /*table-layout:fixed; */
+}
+
+@charset "utf-8";
+body {
+    font-size: 12px;
+    line-height: 2;
+    font-family: "Simsun", "Microsoft YaHei", Verdana, Arial, Helvetica;
+    background: white url(/img/pub/smallent/body_bg.png) 0 0 repeat-x;
+}
+
+/*-------header-------*/
+.header {
+    width: 1200px;
+    height: 114px;
+    margin: 0 auto;
+    background: url(/img/pub/smallent/header_bg.png) 50% 0 no-repeat;
+}
+
+.logo {
+    display: block;
+    width: 338px;
+    height: 114px;
+    background: url(/img/pub/smallent/logo.png) 0 0 no-repeat;
+    margin-left: 15px;
+    float: left;
+}
+
+.logo_text {
+    float: left;
+    font: bold 36px/38px 'Microsoft YaHei';
+    color: #1056a7;
+    margin-top: 29px;
+    text-shadow: 0 3px 4px #99F;
+    letter-spacing: 0px;
+}
+
+/*-------nav-------*/
+.nav {
+    width: 1200px;
+    height: 46px;
+    margin: 0 auto;
+    background: #1261bc;
+    border-top: 1px solid #0c3f7a;
+    border-bottom: 2px solid #0c4a92;
+    border-radius: 0 0 5px 5px;
+}
+
+.nav_list {
+    list-style: none;
+}
+
+.nav_list li {
+    display: inline-block;
+    height: 40px;
+    float: left;
+    background: url(/img/pub/smallent/bg_sprites.png) 100% -370px no-repeat;
+}
+
+.nav_list li.last {
+    background: none;
+}
+
+.nav_list li a {
+    display: block;
+    width: 240px;
+    height: 40px;
+    padding: 3px 0;
+    text-align: center;
+}
+
+.nav_list li a:hover span {
+    color: #dde8f6;
+}
+
+.nav_list li.default a {
+    background: url(/img/pub/smallent/bg_sprites.png) 0 -322px repeat-x;
+}
+
+.nav_list li a span {
+    font: 14px/40px 'Simsun';
+    color: #fff;
+}
+
+i.i_n1, i.i_n2, i.i_n3, i.i_n4, i.i_n5 {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    position: relative;
+    top: 6px;
+    background: url(/img/pub/smallent/icon_sprites.png) no-repeat;
+}
+
+i.i_n1 {
+    background-position: 0 -12px;
+}
+
+i.i_n2 {
+    background-position: 0 -56px;
+}
+
+i.i_n3 {
+    background-position: 0 -101px;
+}
+
+i.i_n4 {
+    background-position: 0 -146px;
+}
+
+i.i_n5 {
+    background-position: 0 -191px;
+}
+
+/*-------mainbody-------*/
+.mainbody {
+    width: 1180px;
+    height: auto;
+    margin: 0 auto;
+    background: #f1f1f1;
+    padding: 12px 10px;
+    border-radius: 5px 5px 0 0;
+}
+
+/*-------footer-------*/
+.footer {
+    width: 1200px;
+    height: 55px;
+    background: #1465c1;
+    margin: 0 auto;
+    padding-top: 11px;
+}
+
+.footer p {
+    font: 14px/24px 'Simsun';
+    color: #fff;
+    text-align: center;
+}
+
+@charset "utf-8";
+/*-----index-----*/
+.mb_left {
+    width: 932px;
+    height: auto;
+    float: left;
+}
+
+.search_box {
+    height: 50px;
+}
+
+select.search_sel, input.search_input {
+    font: 16px/39px 'Microsoft YaHei';
+    color: #808080;
+    padding: 3px 8px;
+    border: 1px solid #176dcf;
+    border-top: 2px solid #176dcf;
+    border-radius: 2px;
+    float: left;
+}
+
+select.search_sel:focus, input.search_input:focus, input.search_input:hover {
+    color: #000;
+    border: 1px solid #1164c3;
+    border-top: 2px solid #1164c3;
+}
+
+select.search_sel {
+    width: 190px;
+    height: 48px;
+}
+
+input.search_input {
+    width: 591px;
+    height: 39px;
+    margin: 0 5px;
+}
+
+input.search_btn {
+    width: 131px;
+    height: 47px;
+    font: 18px/45px 'Microsoft YaHei';
+    color: #fff;
+    padding-left: 12px;
+    text-align: center;
+    border: 1px solid #f7ae00;
+    border-top: 1px solid #a17100;
+    border-radius: 2px;
+    background: #f7ae00 url(/img/pub/smallent/icon_sprites.png) -4px -287px no-repeat;
+    cursor: pointer;
+}
+
+input.search_btn:hover, input.search_btn:focus {
+    background: #ff9900 url(/img/pub/smallent/icon_sprites.png) -4px -287px no-repeat;
+}
+
+.mbl_news {
+    height: 300px;
+    padding-top: 10px;
+}
+
+.news_slide {
+    width: 49.5%;
+    height: 299px;
+    float: left;
+}
+
+/*--banner--*/
+.flexslider {
+    position: relative;
+    width: 100%;
+    height: 299px;
+    overflow: hidden;
+    margin: 0;
+    zoom: 1;
+}
+
+.flexslider .slides li {
+    width: 100%;
+    height: 100%;
+}
+
+.flexslider .slides a img {
+    display: block;
+    width: 100%;
+    height: 299px;
+}
+
+.flexslider .slides .slides_text {
+    display: block;
+    width: 96%;
+    height: 50px;
+    background: #1465c1;
+    font: 14px/40px 'Simsun';
+    color: #fff;
+    padding: 0 2%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.flex-direction-nav a {
+    width: 70px;
+    height: 70px;
+    line-height: 99em;
+    overflow: hidden;
+    margin: -35px 0 0;
+    display: block;
+    background: url(/img/pub/smallent/ad_ctr.png) no-repeat;
+    position: absolute;
+    top: 40%;
+    z-index: 10;
+    cursor: pointer;
+    border-radius: 35px;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+.flex-direction-nav .flex-next {
+    background-position: 0 -70px;
+    right: 0;
+}
+
+.flex-direction-nav .flex-prev {
+    left: 0;
+}
+
+.flexslider:hover .flex-next {
+    opacity: 0.8;
+    filter: alpha(opacity=25);
+}
+
+.flexslider:hover .flex-prev {
+    opacity: 0.8;
+    filter: alpha(opacity=25);
+}
+
+.flexslider:hover .flex-next:hover, .flexslider:hover .flex-prev:hover {
+    opacity: 1;
+    filter: alpha(opacity=50);
+}
+
+.flex-control-nav {
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    text-align: center;
+}
+
+.flex-control-nav li {
+    display: inline-block;
+    margin: 0 2px;
+    zoom: 1;
+    *display: inline;
+}
+
+.flex-control-paging li a {
+    width: 24px;
+    height: 4px;
+    display: block;
+    background: #fff;
+    opacity: 0.25;
+    filter: alpha(opacity=25);
+    overflow: hidden;
+    text-indent: -99em;
+    cursor: pointer;
+    -webkit-transition: all .4s ease;
+    transition: all .4s ease;
+}
+
+.flex-control-paging li a.flex-active, .flex-control-paging li.active a {
+    background: #f6ab00;
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
+.news_dynamic {
+    width: 49.5%;
+    height: 299px;
+    float: right;
+}
+
+.dynamic_title, .public_title {
+    display: block;
+    height: 41px;
+    background: url(/img/pub/smallent/bg_sprites.png) 0 -420px repeat-x;
+    position: relative;
+    z-index: 20;
+}
+
+.dynamic_title a, .public_title span {
+    display: block;
+    height: 53px;
+    font: 18px/48px 'Microsoft YaHei';
+    color: #fff;
+    text-align: center;
+    overflow: hidden;
+    float: left;
+    cursor: pointer;
+    margin: -4px 0 0 5px;
+}
+
+.dynamic_title a {
+    width: 140px;
+}
+
+.dynamic_title a.default {
+    background: url(/img/pub/smallent/icon_sprites.png) -30px 0 no-repeat;
+}
+
+.layer {
+    display: none;
+}
+
+.default {
+    display: block;
+}
+
+.dynamic_con, .public_con {
+    clear: both;
+    background: #fff;
+    border: 1px solid #cecece;
+    padding-top: 12px;
+    position: relative;
+    top: -8px;
+    z-index: 10;
+}
+
+.dynamic_con {
+    height: 244px;
+}
+
+.con_list {
+    display: block;
+    padding: 0 12px;
+}
+
+.con_list li {
+    display: block;
+    height: 32px;
+    padding-left: 10px;
+    background: url(/img/pub/smallent/bg_sprites.png) 0 -515px no-repeat;
+    color: #717171;
+}
+
+.con_list li a {
+    display: block;
+    width: 70%;
+    font: 14px/32px 'Simsun';
+    color: #717171;
+    float: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.con_list li a:hover {
+    text-decoration: underline;
+    color: #1465c1;
+}
+
+.con_list li span {
+    display: block;
+    width: 80px;
+    font: 14px/32px 'arial';
+    float: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.mbl_public {
+    clear: both;
+    height: auto;
+    margin-top: 10px;
+}
+
+.public_title span {
+    width: 190px;
+    background: url(/img/pub/smallent/icon_sprites.png) -29px -149px no-repeat;
+}
+
+.public_con {
+    height: auto;
+    padding: 0 10px 0 10px;
+}
+
+.con_tent {
+    min-height: 136px;
+    height: auto;
+    padding-bottom: 5px;
+}
+
+.con_title {
+    display: block;
+    height: 41px;
+    background: url(/img/pub/smallent/bg_sprites.png) 0 -470px repeat-x;
+    border-bottom: 4px solid #1465c1;
+    position: relative;
+}
+
+.con_title span {
+    display: block;
+    width: 138px;
+    height: 37px;
+    font: 18px/30px 'Microsoft YaHei';
+    color: #898989;
+    text-align: center;
+    float: left;
+    position: relative;
+    bottom: -8px;
+}
+
+.con_title span.default {
+    color: #f49800;
+    background: url(/img/pub/smallent/icon_sprites.png) -30px -53px repeat-x;
+}
+
+.con_text {
+    height: auto;
+    padding-top: 5px;
+}
+
+.law, .council, .con_lf, .con_rt {
+    width: 49.5%;
+}
+
+.law, .council {
+    height: 250px;
+}
+
+.con_lf, .con_rt {
+    height: 215px;
+}
+
+.law, .con_lf {
+    float: left;
+}
+
+.council, .con_rt {
+    float: right;
+}
+
+.department {
+    clear: both;
+    width: 100%;
+    height: 265px;
+}
+
+.department .con_text {
+    padding-top: 10px;
+}
+
+.mb_right {
+    width: 241px;
+    height: auto;
+    float: right;
+}
+
+a.mbr_link {
+    display: block;
+    width: 241px;
+    height: 100px;
+    margin-bottom: 8px;
+}
+
+.mbr_con {
+    height: auto;
+    margin-bottom: 8px;
+}
+
+.mbr_title {
+    display: block;
+    height: 41px;
+    background: url(/img/pub/smallent/bg_sprites.png) 0 -420px repeat-x;
+}
+
+.mbr_title span {
+    display: block;
+    height: 41px;
+    font: 18px/41px 'Microsoft YaHei';
+    color: #fff;
+    text-align: center;
+    background: url(/img/pub/smallent/bg_sprites.png) 50% -551px no-repeat;
+}
+
+.mbr_tent {
+    height: 290px;
+    border: 1px solid #cecece;
+    border-top: none;
+    padding: 10px;
+}
+
+.keyword {
+    background: #fff;
+    overflow: hidden;
+}
+
+.keyword a {
+    display: inline-block;
+    width: auto;
+    height: 24px;
+    font: 14px/24px 'Simsun';
+    color: #fff;
+    margin: 4.4px 2px;
+    padding: 0 10px;
+    background-color: #5c9feb;
+    max-width: 197px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    float: left;
+}
+
+.keyword a:hover {
+    color: #e4effb;
+}
+
+.place {
+    background: #edf5ff url(/img/pub/smallent/map.jpg) 50% 40% no-repeat;
+}
+
+.placedfj {
+    background: #edf5ff url(../..//img/pub/smallent/jlink_hand2.jpg) 50% 40% no-repeat;
+}
+
+.place_list li {
+    float: left;
+    margin: 7px 2px;
+}
+
+.place_list li a {
+    display: block;
+    width: 50px;
+    height: 20px;
+    font: 14px/20px 'Simsun';
+    color: #1668c5;
+    text-align: center;
+    background: #f9fcff;
+    box-shadow: 0px 1px 3px #c0d9f6;
+}
+
+.place_list li a:hover {
+    color: #f9fcff;
+    background: #1668c5;
+}
+
+.tit_switch {
+    width: 700px;
+    height: 34px;
+    padding: 0 21px;
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+}
+
+i.i_lf, i.i_rt {
+    display: inline-block;
+    width: 21px;
+    height: 21px;
+    overflow: hidden;
+    text-indent: -999px;
+    background: url(/img/pub/smallent/icon_sprites.png) no-repeat;
+    position: absolute;
+    top: 6px;
+    cursor: pointer;
+}
+
+i.i_lf {
+    background-position: -35px -102px;
+    left: 0;
+}
+
+i.i_rt {
+    background-position: -65px -102px;
+    right: 0;
+}
+
+.tit {
+    height: 30px;
+    padding-top: 2px;
+    overflow: hidden;
+    box-shadow: inset 0 0 10px #edf5ff
+}
+
+.tit_con {
+    display: block;
+    width: auto;
+    height: 30px;
+}
+
+.tit_con a {
+    display: inline;
+    font: 12px/30px 'Simsun';
+    color: #717171;
+}
+
+.tit_con a em, .tit_con a b {
+    margin: 0 5px;
+    color: #717171;
+}
+
+.tit_con a:hover em {
+    color: #f49800;
+}
+
+.tit_con a.default em {
+    color: #f49800;
+    font-weight: 700;
+}
+
+.mb_center {
+    clear: both;
+    height: auto;
+}
+
+.support {
+    height: 347px;
+    padding-top: 7px;
+    position: relative;
+}
+
+.depart_title {
+    display: block;
+    width: 99.7%;
+    height: 41px;
+    background: url(/img/pub/smallent/bg_sprites.png) 0 -470px repeat-x;
+    border-bottom: 4px solid #1465c1;
+    margin: 0 auto;
+    position: relative;
+}
+
+.depart_title a {
+    display: block;
+    width: 138px;
+    height: 37px;
+    font: 17px/30px 'Microsoft YaHei';
+    color: #898989;
+    text-align: center;
+    float: left;
+    position: relative;
+    bottom: -8px;
+}
+
+.depart_title a:hover {
+    color: #f49800;
+}
+
+.depart_title a.default {
+    color: #f49800;
+    background: url(/img/pub/smallent/icon_sprites.png) -30px -53px repeat-x;
+}
+
+i.i_dlf, i.i_drt {
+    display: inline-block;
+    width: 30px;
+    height: 36px;
+    overflow: hidden;
+    text-indent: -999px;
+    background: url(/img/pub/smallent/icon_sprites.png) no-repeat;
+    position: absolute;
+    top: 50%;
+    cursor: pointer;
+    border: 1px dotted #fff;
+}
+
+i.i_dlf {
+    background-position: -225px -4px;
+    left: -10px;
+}
+
+i.i_drt {
+    background-position: -265px -4px;
+    right: -10px;
+}
+
+.depart_tent {
+    height: auto;
+    padding: 15px 20px 0 20px;
+}
+
+.part_list li {
+    display: block;
+    width: 31.3%;
+    height: 85px;
+    float: left;
+    background: #f1f2f7;
+    border-radius: 5px;
+    margin: 0 5px 10px 5px;
+    padding-right: 1.1%;
+}
+
+.part_list li a {
+    display: block;
+    font: 14px/20px 'Simsun';
+    color: #818e9d;
+    padding-top: 14px;
+}
+
+.part_list li a:hover {
+    color: #1260b8;
+}
+
+.part_list li i {
+    display: block;
+    width: 94px;
+    height: 68px;
+    padding: 16px 0 0 30px;
+    background: url(/img/pub/smallent/bg_sprites.png) no-repeat;
+    float: left;
+    margin-right: 10px;
+}
+
+.part_list li i.i_p1 {
+    background-position: 0 0;
+}
+
+.part_list li i.i_p2 {
+    background-position: 0 -106px;
+}
+
+.part_list li i.i_p3 {
+    background-position: 0 -211px;
+}
+
+.part_list li i.i_p4 {
+    background-position: 0 -106px;
+}
+
+.part_list li i.i_p5 {
+    background-position: 0 -211px;
+}
+
+.part_list li i.i_p6 {
+    background-position: 0 0;
+}
+
+.part_list li i.i_p7 {
+    background-position: 0 -211px;
+}
+
+.part_list li i.i_p8 {
+    background-position: 0 0;
+}
+
+.part_list li i.i_p9 {
+    background-position: 0 -106px;
+}
+
+b.i_r1, b.i_r2, b.i_r3, b.i_r4, b.i_r5, b.i_r6, b.i_r7, b.i_r8, b.i_r9 {
+    display: block;
+    width: 61px;
+    height: 61px;
+    overflow: hidden;
+    background: url(/img/pub/smallent/icon_sprites.png) no-repeat;
+}
+
+b.i_r1 {
+    background-position: -234px -69px;
+}
+
+b.i_r2 {
+    background-position: -234px -147px;
+}
+
+b.i_r3 {
+    background-position: -233px -222px;
+}
+
+b.i_r4 {
+    background-position: -234px -301px;
+}
+
+b.i_r5 {
+    background-position: -233px -373px;
+}
+
+b.i_r6 {
+    background-position: -234px -451px;
+}
+
+b.i_r7 {
+    background-position: -232px -534px;
+}
+
+b.i_r8 {
+    background-position: -231px -612px;
+}
+
+b.i_r9 {
+    background-position: -233px -685px;
+}
+
+.info_con {
+    clear: both;
+    background: #fff;
+    border: 1px solid #cecece;
+    height: auto;
+    padding: 4px 10px;
+    position: relative;
+}
+
+.info_c1, .info_c2, .info_c3 {
+    height: 258px;
+}
+
+.info_c1 {
+    width: 38%;
+    float: left;
+}
+
+.info_c2 {
+    width: 30%;
+    float: left;
+    margin: 0 11px;
+}
+
+.info_c3 {
+    width: 30%;
+    float: right;
+}
+
+.info_c1 .con_title span.default {
+    width: 220px;
+    background: none;
+}
+
+.info_c2 .con_title span.default, .info_c3 .con_title span.default {
+    width: 120px;
+    background: none;
+}
+
+a.more {
+    font: 14px/2 'Simsun';
+    color: #1465c1;
+    float: right;
+    margin: 12px 10px 0 0;
+}
+
+a.more:hover {
+    color: #f49800;
+    text-decoration: underline;
+}
+
+.info_c2 .con_text {
+    padding-top: 0;
+}
+
+a.info_b1, a.info_b2 {
+    display: block;
+    width: 100%;
+    height: 98px;
+    margin: 5px 0;
+}
+
+a.info_b1 {
+    background: #e8ce6d;
+}
+
+a.info_b2 {
+    background: #a8c5e7;
+}
+
+a.info_b1 em, a.info_b2 em {
+    font: 32px/98px 'Microsoft YaHei';
+    color: #fff;
+    text-shadow: 1px 1px 40px gray;
+    float: right;
+    margin-right: 65px;
+}
+
+a.info_b1:hover em, a.info_b2:hover em {
+    color: #e3e7fc;
+}
+
+i.i_i1, i.i_i2 {
+    display: inline-block;
+    width: 98px;
+    height: 98px;
+    background: url(/img/pub/smallent/icon_sprites.png) no-repeat;
+    float: left;
+    margin-left: 30px;
+}
+
+i.i_i1 {
+    background-position: -108px -212px;
+}
+
+i.i_i2 {
+    background-position: -108px -330px;
+}
+
+.info_c3 .con_text, a.link {
+    font: 14px/3 'Simsun';
+    color: #717171;
+}
+
+.info_c3 .con_text {
+    padding: 12px;
+}
+
+a.link {
+    margin: 5px 7px 3px 3px;
+}
+
+a.link:hover {
+    color: #125fb7;
+    text-decoration: underline;
+}
+
+/*---inner---*/
+.bread_crumbs {
+    display: block;
+    font: 12px/16px 'Simsun';
+    color: #717171;
+    padding: 0 10px;
+    margin-bottom: 10px;
+}
+
+.bread_crumbs a {
+    color: #717171;
+}
+
+.bread_crumbs a:hover {
+    color: #0075fb;
+}
+
+/*--left--*/
+.main_left {
+    width: 234px;
+    height: auto;
+    float: left;
+}
+
+.pic_lft {
+    display: block;
+    width: 234px;
+    height: 80px;
+}
+
+.left_nav, .lfnav_list {
+    list-style: none;
+}
+
+.left_nav {
+    display: block;
+    border-bottom: 1px solid #196fd3;
+}
+
+.left_nav dt {
+    display: block;
+    height: 43px;
+}
+
+.left_nav dt a {
+    display: block;
+    height: 32px;
+    overflow: hidden;
+    font: bold 15px/32px 'Simsun';
+    padding: 6px 5px 4px;
+    background: url(/img/pub/smallent/bg_sprites.png) 0 -668px repeat-x;
+    border-top: 1px solid #196fd2;
+    border-bottom: 1px dashed #4885ca;
+}
+
+.left_nav dt a span {
+    color: #fff;
+    float: left;
+    text-shadow: 0 1px 5px gray;
+}
+
+i.i_l1, i.i_l2, i.i_l3, i.i_l4, i.i_l5 {
+    display: inline-block;
+    width: 21px;
+    height: 21px;
+    overflow: hidden;
+    background: url(/img/pub/smallent/icon_sprites.png) no-repeat;
+    float: left;
+    margin: 6px 7px 0 0;
+}
+
+i.i_l1 {
+    background-position: 0px -237px;
+}
+
+i.i_l2 {
+    background-position: -1px -57px;
+}
+
+i.i_l3 {
+    background-position: 0px -103px;
+}
+
+i.i_l4 {
+    background-position: 0px -148px;
+}
+
+i.i_l5 {
+    background-position: -1px -193px;
+}
+
+.left_nav dt a.default {
+    background: #eee url(/img/pub/smallent/bg_sprites.png) 0 -614px repeat-x;
+    border: 1px solid #d68300;
+}
+
+.left_nav dt a:hover span, .left_nav dt a.default span {
+    text-shadow: 0 1px 1px gray;
+}
+
+.left_nav dd {
+    display: none;
+    height: auto;
+    background: #1764bc;
+    position: relative;
+}
+
+.left_nav dd.default {
+    display: block;
+}
+
+.lfnav_list li {
+    height: 40px;
+}
+
+.lfnav_list li a {
+    display: block;
+    height: 30px;
+    font: 14px/30px 'Simsun';
+    color: #fff;
+    padding: 5px 0 5px 50px;
+}
+
+.lfnav_list li a:hover {
+    color: #fad533;
+}
+
+.lfnav_list li a.default {
+    background: url(/img/pub/smallent/bg_sprites.png) 0 -722px repeat-x;
+    color: #fff;
+}
+
+.main_lf {
+    width: 144px;
+    height: auto;
+    float: left;
+    background: #2475d3;
+}
+
+.mlf_title {
+    display: block;
+    width: 144px;
+    height: 58px;
+    overflow: hidden;
+    font: 18px/42px 'Microsoft YaHei';
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 1px 3px #acacac;
+    background: url(/img/pub/smallent/icon_sprites.png) 0 -504px no-repeat;
+}
+
+.mlf_list {
+    display: block;
+    height: auto;
+    padding-bottom: 10px;
+}
+
+.mlf_list li {
+    text-align: center;
+}
+
+.mlf_list li a {
+    font: 14px/30px 'Simsun';
+    color: #fff;
+}
+
+.mlf_list li a:hover, .mlf_list li a.default {
+    color: #f9c800;
+}
+
+/*--right--*/
+.main_right {
+    padding-left: 244px;
+    height: auto;
+    vertical-align: top;
+}
+
+.mr_box {
+    height: auto;
+    background: #fff;
+    padding-bottom: 5px;
+}
+
+.mr_box .con_list li {
+    background: url(/img/pub/smallent/bg_sprites.png) 8px -511px no-repeat;
+    border-bottom: 1px dashed #e0e0e0;
+    padding: 5px 0 5px 20px;
+}
+
+.mr_box .con_list li.last {
+    border-bottom: 1px dashed white;
+}
+
+.main_rt {
+    padding-left: 154px;
+    height: auto;
+    vertical-align: top;
+}
+
+/*--main_con↓--*/
+.main_con {
+    height: auto;
+    vertical-align: top;
+}
+
+.mr_search {
+    height: 36px;
+    padding: 10px;
+}
+
+.mr_search input.search_input {
+    width: 850px;
+    height: 28px;
+    line-height: 28px;
+    font-size: 15px;
+    background: #f1f1f1;
+    margin: 0 10px 0 1px;
+    padding: 3px 10px;
+}
+
+.micro input.search_input {
+    width: 800px;
+}
+
+.mr_search input.input_yzm, .micro input.input_yzm {
+    background: #f1f1f1;
+    width: 160px;
+}
+
+.mr_search input.search_btn {
+    width: 112px;
+    height: 37px;
+    line-height: 28px;
+    font-size: 16px;
+    background: #f7ae00 url(/img/pub/smallent/icon_sprites.png) -2px -293px no-repeat;
+    margin-left: 10px;
+    padding-left: 10px;
+}
+
+.mr_search input.search_btn:hover, .mr_search input.search_btn:focus {
+    background: #ff9900 url(/img/pub/smallent/icon_sprites.png) -2px -293px no-repeat;
+}
+
+.micro select.search_sel {
+    height: 37px;
+    line-height: 28px;
+    font-size: 15px;
+    background: #f1f1f1;
+    margin-right: 10px;
+}
+
+.img_yzm {
+    width: 86px;
+    height: 34px;
+    border: 1px solid #176dcf;
+    border-top: 2px solid #176dcf;
+    float: left;
+}
+
+.mr_result {
+    height: auto;
+    padding: 0 10px 10px 10px;
+}
+
+.mr_list {
+    width: 100%;
+    height: auto;
+}
+
+.mr_list th {
+    height: 56px;
+    font: bold 16px/22px 'Simsun';
+    color: #717171;
+    text-align: center;
+    vertical-align: middle;
+    background: url(/img/pub/smallent/th_bg.png) 0 0 repeat-x;
+    border-top: 4px solid #1465c1;
+}
+
+.mr_list td {
+    height: 36px;
+    font: 14px/36px 'Simsun';
+    color: #717171;
+    text-align: left;
+    padding: 5px;
+    border-bottom: 1px dashed #e0e0e0;
+}
+
+.mr_list td.td_cc {
+    text-align: center;
+    line-height: 18px;
+}
+
+.mr_list td.td_1 {
+    width: 230px;
+    line-height: 18px;
+}
+
+.mr_list td.td_2 {
+    width: 300px;
+    line-height: 18px;
+}
+
+.mr_list td.td_1 a, .mr_list td.td_2 span {
+    color: #717171;
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.mr_list td.td_1 a {
+    width: 100%;
+}
+
+.mr_list td.td_1 a:hover {
+    color: #2475d3;
+}
+
+.mr_list td.td_2 span {
+    width: 300px;
+}
+
+.paging, .paging a {
+    font: 12px/28px 'Simsun';
+    color: #717171;
+}
+
+.paging {
+    margin-top: 10px;
+}
+
+.paging a:hover {
+    color: #1571b8;
+}
+
+input.text_paging, input.btn_paging {
+    width: 45px;
+    height: 26px;
+    font: 12px/26px 'Simsun';
+    color: #717171;
+    border: 1px solid #cecece;
+    border-radius: 2px;
+    padding: 0 5px;
+}
+
+input.btn_paging {
+    height: 28px;
+    color: white;
+    background: url(/img/pub/smallent/icon_sprites.png) 0 -724px no-repeat;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.mrb_tent {
+    height: auto;
+    background: #fff;
+    padding: 8px;
+    margin-bottom: 15px;
+}
+
+.mrb_title {
+    display: block;
+    height: 42px;
+    background: url(/img/pub/smallent/bg_sprites.png) 0 -420px repeat-x;
+    border-bottom: 4px solid #f7af34;
+}
+
+.mrb_title span {
+    display: block;
+    width: 190px;
+    height: 53px;
+    font: 18px/48px 'Microsoft YaHei';
+    color: #fff;
+    text-align: center;
+    overflow: hidden;
+    background: url(/img/pub/smallent/icon_sprites.png) -29px -149px no-repeat;
+    cursor: pointer;
+    margin: 0 auto;
+    position: relative;
+    top: -4px;
+}
+
+.mrb_info {
+    width: 100%;
+    height: auto;
+}
+
+.mrb_info td, .policy_list dt, .policy_list dd {
+    height: 36px;
+    font: 12px/36px 'Simsun';
+    color: #717171;
+    text-align: left;
+    padding: 5px 10px;
+    border: 1px dashed #e8e8e8;
+}
+
+.mrb_info td.mf_lf, .policy_list dt {
+    background: url(/img/pub/smallent/th_bg.png) 0 0 repeat-x;
+    color: #0e60be;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.policy_list {
+    display: block;
+    height: auto;
+}
+
+.policy_list dt span, .policy_list dt span em {
+    font-style: normal;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.policy_list dt span {
+    display: block;
+    width: 400px;
+    margin-right: 10px;
+    float: left;
+}
+
+.policy_list dd {
+    min-height: 36px;
+    height: auto;
+    line-height: 20px;
+    margin-top: -1px;
+}
+
+input.btn_more {
+    width: 100%;
+    height: 42px;
+    font: 15px/36px 'Simsun';
+    color: #fff;
+    padding: 3px 0;
+    text-align: center;
+    background: url(/img/pub/smallent/bg_sprites.png) 0 -668px repeat-x;
+    border: 1px solid #115eb6;
+    cursor: pointer;
+}
+
+input.btn_more:hover, input.btn_more:focus {
+    color: #dde8f6;
+    text-decoration: underline;
+}
+
+#support {
+    width: 925px;
+    bottom: 3px;
+}
+
+#support i.i_lf, #support i.i_rt {
+    background: url(/img/pub/smallent/icon_switch.png) no-repeat;
+}
+
+#support i.i_lf {
+    background-position: 0 50%;
+}
+
+#support i.i_rt {
+    background-position: -30px 50%;
+}
+
+#support .tit {
+    box-shadow: none;
+}
+
+#support .tit_con a em, #support .tit_con a b {
+    color: #fff;
+}
+
+#support .tit_con a.default em {
+    color: #f9ca00;
+}
+
+#part i.i_lf {
+    top: 12px;
+    left: -3px;
+    z-index: 100;
+}
+
+#part i.i_rt {
+    top: 12px;
+    right: -3px;
+    z-index: 100;
+}
+
+#part .tit {
+    width: 98%;
+    height: 45px;
+    padding-top: 0;
+    margin: 0 auto;
+    box-shadow: none;
+    position: relative;
+    z-index: 99;
+}
+
+#part .tit_con {
+    height: 45px;
+}
+
+.select {
+    width: 174px;
+    height: 28px;
+    font: 15px/28px 'Simsun';
+    color: #808080;
+    background: #f1f1f1;
+    border: 1px solid #176dcf;
+    border-top: 2px solid #176dcf;
+    border-radius: 2px;
+    padding: 3px 8px;
+    margin-right: 10px;
+    position: relative;
+    float: left;
+}
+
+.select span {
+    display: block;
+    width: 160px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+i.i_trg, i.i_sel {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+    background: url(/img/pub/smallent/icon_trg.png) no-repeat;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+i.i_trg {
+    background-position: 50% -37px;
+}
+
+i.i_sel {
+    background-position: 50% 0;
+}
+
+.select_list {
+    display: none;
+    width: 170px;
+    height: auto;
+    background: #f1f1f1;
+    border: 1px solid #176dcf;
+    padding: 10px 10px 5px 10px;
+    position: absolute;
+    top: 34px;
+    left: -1px;
+}
+
+.select_list a {
+    display: inline-block;
+    width: 45px;
+    height: 22px;
+    font: 14px/22px 'Simsun';
+    color: #1668c5;
+    text-align: center;
+    float: left;
+    margin: 0 5px 5px 5px;
+}
+
+.select_list a:hover, .select_list a.default {
+    background: #1063c2;
+    color: #fff;
+}
+
+/* 翻页 */
+.notice-pagination-box {
+    padding-top: 15px;
+    text-align: center;
+}
+
+.notice-pagination-box .pagination {
+    display: inline-block;
+    margin-right: 0;
+}
+
+.notice-pagination-box .pagination a, .notice-pagination-box .pagination span {
+    padding: 6px 9px;
+}
+
+.pagination-box {
+    padding: 24px 0;
+}
+
+.pagination {
+    text-align: center;
+}
+
+.pagination a {
+    text-decoration: none;
+    border: 1px solid #AAE;
+    color: #15B;
+}
+
+.pagination a, .pagination span {
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 0 2px;
+    border: 1px solid #ddd;
+    line-height: 1.42857143;
+    color: #0066cb;
+    font-size: 12px;
+}
+
+.pagination .current {
+    background: #347ab8;
+    color: #fff;
+    border: 1px solid #347ab8;
+    z-index: 999;
+}
+
+.pagination .current.prev, .pagination .current.next {
+    color: #333;
+    border-color: #ddd;
+    background: #fff;
+    padding: 6px 12px;
+
+}
+
+.pagination a:hover {
+    color: #fff;
+    background-color: #347ab8;
+    border: 1px solid #347ab8;
+}
+
+.current.prev, .current.next {
+    cursor: not-allowed;
+}
+
+.pagination .icon-triangle-left,
+.pagination .current.prev:hover .icon-triangle-left {
+    display: inline-block;
+    margin-right: 3px;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-right: 5px solid #0066cb;
+    border-bottom: 5px solid transparent;
+}
+
+.pagination .icon-triangle-right,
+.pagination .current.next:hover .icon-triangle-right {
+    display: inline-block;
+    margin-left: 3px;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-left: 5px solid #0066cb;
+    border-bottom: 5px solid transparent;
+}
+
+.pagination a:hover .icon-triangle-left {
+    border-top: 5px solid transparent;
+    border-right: 5px solid #fff;
+    border-bottom: 5px solid transparent;
+}
+
+.pagination a:hover .icon-triangle-right {
+    border-top: 5px solid transparent;
+    border-left: 5px solid #fff;
+    border-bottom: 5px solid transparent;
+}
+
+.pagination .prev,
+.pagination .prev + a,
+.pagination .next {
+    border-left: 1px solid #ddd;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+/*select*/
+
+.select {
+    width: 174px;
+    height: 28px;
+    font: 15px/28px 'Simsun';
+    color: #808080;
+    background: #f1f1f1;
+    border: 1px solid #176dcf;
+    border-top: 2px solid #176dcf;
+    border-radius: 2px;
+    padding: 3px 8px;
+    margin-right: 10px;
+    position: relative;
+    float: left;
+}
+
+.select span {
+    display: block;
+    width: 160px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+i.i_trg, i.i_sel {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+    background: url(/img/pub/smallent/icon_trg.png) no-repeat;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+i.i_trg {
+    background-position: 50% -37px;
+}
+
+i.i_sel {
+    background-position: 50% 0;
+}
+
+.select_list {
+    display: none;
+    width: 210px;
+    height: auto;
+    background: #f1f1f1;
+    border: 1px solid #176dcf;
+    padding: 10px 10px 5px 10px;
+    position: absolute;
+    top: 34px;
+    left: -1px;
+}
+
+.select_list a {
+    display: inline-block;
+    width: 60px;
+    height: 22px;
+    font: 14px/22px 'Simsun';
+    color: #1668c5;
+    text-align: center;
+    float: left;
+    margin: 0 5px 5px 5px;
+}
+
+.select_list a:hover, .select_list a.default {
+    background: #1063c2;
+    color: #fff;
+}
+
+/*mlf*/
+
+.mlf_title {
+    display: block;
+    width: 234px;
+    height: 58px;
+    overflow: hidden;
+    font: 18px/42px 'Microsoft YaHei';
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 1px 3px #acacac;
+    background: #1764bc url(/img/pub/smallent/mlf_tbg.png) 50% 100% no-repeat;
+}
+
+.mlf_area {
+    display: block;
+    min-height: 600px;
+    height: auto;
+    background: #1764bc;
+    padding: 10px;
+    border-bottom: 1px solid #196fd3;
+    box-sizing: border-box;
+    width: 234px;
+}
+
+.mlf_area td {
+    font: 14px/2 'Simsun';
+    color: #fff;
+    vertical-align: top;
+    padding: 20px 5px 10px 20px;
+}
+
+.mlf_area td.td_lf {
+    width: 65px;
+    font-weight: bold;
+    text-align: right;
+    padding-top: 0;
+}
+
+.mlf_area td a {
+    font: 14px/2 'Simsun';
+    color: #fff;
+    text-decoration: none;
+}
+
+.mlf_area td a:hover, .mlf_area td a.default {
+    color: #fad533;
+}
+
+.mlf_area td a.default {
+    display: inline;
+    text-decoration: underline;
+}
+
+.mr_search input.search_input {
+    width: 480px;
+}
+
+.mr_search input.input_yzm {
+    width: 160px;
+}
+.selectCode.cur {
+    color: yellow;
+    font-weight: bold;
+}
+
+#select_option{
+    width:175px;
+    height: 29px;
+    font-size: 14px;
+    background: #f1f1f1;
+    border: 0px;
+}

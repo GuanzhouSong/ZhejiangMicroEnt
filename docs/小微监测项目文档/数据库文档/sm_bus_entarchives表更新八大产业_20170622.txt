@@ -1,0 +1,11 @@
+UPDATE sm_bus_entarchives
+SET IndustryType = REPLACE (IndustryType, 4, 3);
+
+UPDATE sm_bus_entarchives
+SET IndustryType = REPLACE (IndustryType, 6, 4);
+
+UPDATE sm_bus_entarchives
+SET IndustryType = REPLACE (IndustryType, 3, 5);
+
+UPDATE sm_bus_entarchives
+SET IndustryType = REPLACE (IndustryType, 5, 6);

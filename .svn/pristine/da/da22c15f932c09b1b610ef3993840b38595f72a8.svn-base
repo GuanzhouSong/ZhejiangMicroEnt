@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Copyright© 2003-2016 浙江汇信科技有限公司, All Rights Reserved.
+  -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="cacheTemplate" class="com.icinfo.framework.gscloud.redis.GsCloudCacheTemplate">
+        <property name="gsjMemRequest">
+            <bean class="com.icinfo.framework.gscloud.redis.CMemRequestFactory">
+                <property name="serverUrl" value="${spring.gscloud.server.write.url}"/>
+                <property name="user" value="${spring.gscloud.username}"/>
+                <property name="password" value="${spring.gscloud.password}"/>
+                <property name="appName" value="${spring.gscloud.appname}"/>
+            </bean>
+        </property>
+    </bean>
+</beans>

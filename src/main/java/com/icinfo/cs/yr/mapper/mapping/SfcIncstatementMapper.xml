@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.SfcIncstatementMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.SfcIncstatement" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="BalanceType" property="balanceType" jdbcType="CHAR" />
+    <result column="BusInc" property="busInc" jdbcType="DECIMAL" />
+    <result column="AnnDisInc" property="annDisInc" jdbcType="DECIMAL" />
+    <result column="BusSpend" property="busSpend" jdbcType="DECIMAL" />
+    <result column="ManageFees" property="manageFees" jdbcType="DECIMAL" />
+    <result column="BusEarn" property="busEarn" jdbcType="DECIMAL" />
+    <result column="OtherInc" property="otherInc" jdbcType="DECIMAL" />
+    <result column="OtherSpend" property="otherSpend" jdbcType="DECIMAL" />
+    <result column="ThisSurplus" property="thisSurplus" jdbcType="DECIMAL" />
+    <result column="ThatSurplus" property="thatSurplus" jdbcType="DECIMAL" />
+    <result column="UndistSurplusBegin" property="undistSurplusBegin" jdbcType="DECIMAL" />
+    <result column="OtherTrans" property="otherTrans" jdbcType="DECIMAL" />
+    <result column="DistSurplus" property="distSurplus" jdbcType="DECIMAL" />
+    <result column="ExtSurAccuFund" property="extSurAccuFund" jdbcType="DECIMAL" />
+    <result column="ReturnSurplusPay" property="returnSurplusPay" jdbcType="DECIMAL" />
+    <result column="RemainSurplusPay" property="remainSurplusPay" jdbcType="DECIMAL" />
+    <result column="UndistSurplusEnd" property="undistSurplusEnd" jdbcType="DECIMAL" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

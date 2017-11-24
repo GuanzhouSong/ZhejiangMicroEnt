@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.YrAssetMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.YrAsset" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="EmpNum" property="empNum" jdbcType="INTEGER" />
+    <result column="ProGro" property="proGro" jdbcType="DECIMAL" />
+    <result column="RatGro" property="ratGro" jdbcType="DECIMAL" />
+    <result column="VendIncIsPub" property="vendIncIsPub" jdbcType="VARCHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="AssGro" property="assGro" jdbcType="DECIMAL" />
+    <result column="LiaGro" property="liaGro" jdbcType="DECIMAL" />
+    <result column="VendInc" property="vendInc" jdbcType="DECIMAL" />
+    <result column="NetInc" property="netInc" jdbcType="DECIMAL" />
+    <result column="BusSt" property="busSt" jdbcType="CHAR" />
+    <result column="MaiBusInc" property="maiBusInc" jdbcType="DECIMAL" />
+    <result column="TotEqu" property="totEqu" jdbcType="DECIMAL" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="EntBelong" property="entBelong" jdbcType="CHAR" />
+    <result column="SocFee" property="socFee" jdbcType="DECIMAL" />
+    <result column="RentFee" property="rentFee" jdbcType="DECIMAL" />
+    <result column="SalaryFee" property="salaryFee" jdbcType="DECIMAL" />
+    <result column="WaterFee" property="waterFee" jdbcType="DECIMAL" />
+    <result column="EntSetDis" property="entSetDis" jdbcType="DECIMAL" />
+    <result column="EntOugthSetDis" property="entOugthSetDis" jdbcType="DECIMAL" />
+    <result column="IsLegRep" property="isLegRep" jdbcType="VARCHAR" />
+    <result column="IsLegPay" property="isLegPay" jdbcType="CHAR" />
+    <result column="IsMinDis" property="isMinDis" jdbcType="CHAR" />
+    <result column="MinLandTax" property="minLandTax" jdbcType="DECIMAL" />
+    <result column="MinNationTax" property="minNationTax" jdbcType="DECIMAL" />
+    <result column="otherTax" property="otherTax" jdbcType="DECIMAL" />
+    <result column="WaterTax" property="waterTax" jdbcType="DECIMAL" />
+    <result column="LanUseTax" property="lanUseTax" jdbcType="DECIMAL" />
+    <result column="HouseTax" property="houseTax" jdbcType="DECIMAL" />
+    <result column="TechTax" property="techTax" jdbcType="DECIMAL" />
+    <result column="PersonTax" property="personTax" jdbcType="DECIMAL" />
+    <result column="DutyTax" property="dutyTax" jdbcType="DECIMAL" />
+    <result column="EntTax" property="entTax" jdbcType="DECIMAL" />
+    <result column="LandTax" property="landTax" jdbcType="DECIMAL" />
+    <result column="ExpenseTax" property="expenseTax" jdbcType="DECIMAL" />
+    <result column="FloTax" property="floTax" jdbcType="DECIMAL" />
+    <result column="MngTax" property="mngTax" jdbcType="DECIMAL" />
+    <result column="CityTax" property="cityTax" jdbcType="DECIMAL" />
+    <result column="AddTax" property="addTax" jdbcType="DECIMAL" />
+    <result column="PayLoan" property="payLoan" jdbcType="DECIMAL" />
+    <result column="EndLoan" property="endLoan" jdbcType="DECIMAL" />
+    <result column="ComLoan" property="comLoan" jdbcType="DECIMAL" />
+    <result column="FinOrgLoan" property="finOrgLoan" jdbcType="DECIMAL" />
+    <result column="IntelGro" property="intelGro" jdbcType="DECIMAL" />
+    <result column="ExpGro" property="expGro" jdbcType="DECIMAL" />
+    <result column="NoBusRea" property="noBusRea" jdbcType="VARCHAR" />
+    <result column="BusStatusCN" property="busStatusCN" jdbcType="VARCHAR" />
+    <result column="EmpNumDis" property="empNumDis" jdbcType="VARCHAR" />
+    <result column="AssetID" property="assetID" jdbcType="VARCHAR" />
+    <result column="AnCheID" property="anCheID" jdbcType="VARCHAR" />
+    <result column="AssGroIsPub" property="assGroIsPub" jdbcType="VARCHAR" />
+    <result column="LiaGroIsPub" property="liaGroIsPub" jdbcType="VARCHAR" />
+    <result column="MaiBusIncIsPub" property="maiBusIncIsPub" jdbcType="VARCHAR" />
+    <result column="RatGroIsPub" property="ratGroIsPub" jdbcType="VARCHAR" />
+    <result column="NetIncIsPub" property="netIncIsPub" jdbcType="VARCHAR" />
+    <result column="ProGroIsPub" property="proGroIsPub" jdbcType="VARCHAR" />
+    <result column="TotEquIsPub" property="totEquIsPub" jdbcType="VARCHAR" />
+    <result column="DisEmps" property="disEmps" jdbcType="INTEGER" />
+    <result column="DisOpers" property="disOpers" jdbcType="INTEGER" />
+    <result column="ExSoldEmps" property="exSoldEmps" jdbcType="INTEGER" />
+    <result column="ExSoldOpers" property="exSoldOpers" jdbcType="INTEGER" />
+    <result column="UniGradEmps" property="uniGradEmps" jdbcType="INTEGER" />
+    <result column="UniGradOpers" property="uniGradOpers" jdbcType="INTEGER" />
+    <result column="UnemEmps" property="unemEmps" jdbcType="INTEGER" />
+    <result column="UnemOpers" property="unemOpers" jdbcType="INTEGER" />
+    <result column="TotCurrLiab" property="totCurrLiab" jdbcType="DECIMAL" />
+    <result column="OthPay" property="othPay" jdbcType="DECIMAL" />
+    <result column="TotCurrAssets" property="totCurrAssets" jdbcType="DECIMAL" />
+    <result column="AccPay" property="accPay" jdbcType="DECIMAL" />
+    <result column="Inventory" property="inventory" jdbcType="DECIMAL" />
+    <result column="IntAssets" property="intAssets" jdbcType="DECIMAL" />
+    <result column="OthAccRec" property="othAccRec" jdbcType="DECIMAL" />
+    <result column="FixAssets" property="fixAssets" jdbcType="DECIMAL" />
+    <result column="AccRec" property="accRec" jdbcType="DECIMAL" />
+    <result column="LongInvest" property="longInvest" jdbcType="DECIMAL" />
+    <result column="MoneFunds" property="moneFunds" jdbcType="DECIMAL" />
+    <result column="RecCap" property="recCap" jdbcType="DECIMAL" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+
+    <result column="EntMainBusActivity" property="entMainBusActivity" jdbcType="VARCHAR" />
+    <result column="EntControl" property="entControl" jdbcType="VARCHAR" />
+    <result column="EntControlIsPub" property="entControlIsPub" jdbcType="CHAR" />
+    <result column="FemaleEmploye" property="femaleEmploye" jdbcType="INTEGER" />
+    <result column="FemaleEmployeIsPub" property="femaleEmployeIsPub" jdbcType="CHAR" />
+  </resultMap>
+
+  <update id="updateValuesByEntBelong"  parameterType="java.lang.String">
+     update cs_yr_asset set
+                            maiBusInc=null,
+                            netInc=null,
+                            ratGro=null,
+                            addTax=null,
+                            cityTax=null,
+                            mngTax=null,
+                            floTax=null,
+                            expenseTax=null,
+                            landTax=null,
+                            entTax=null,
+                            dutyTax=null,
+                            personTax=null,
+                            techTax=null,
+                            houseTax=null,
+                            waterTax=null,
+                            lanUseTax=null,
+                            otherTax=null
+     where AssetID = #{assetID} and PriPID = #{priPID}
+  </update>
+
+
+</mapper>
+
+

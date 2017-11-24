@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.ForinvestMentHisMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.ForinvestMentHis" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="AnCheID" property="anCheID" jdbcType="VARCHAR" />
+    <result column="OUTINVID" property="OUTINVID" jdbcType="VARCHAR" />
+    <result column="ReportNo" property="reportNo" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

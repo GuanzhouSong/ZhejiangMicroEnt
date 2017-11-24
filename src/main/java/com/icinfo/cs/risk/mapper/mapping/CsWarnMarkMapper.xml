@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.risk.mapper.CsWarnMarkMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.risk.model.CsWarnMark" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="MarkNo" property="markNo" jdbcType="VARCHAR" />
+    <result column="MarkSetYear" property="markSetYear" jdbcType="VARCHAR" />
+    <result column="MarkType" property="markType" jdbcType="VARCHAR" />
+    <result column="MarkClass" property="markClass" jdbcType="VARCHAR" />
+    <result column="MarkName" property="markName" jdbcType="VARCHAR" />
+    <result column="MarkContent" property="markContent" jdbcType="VARCHAR" />
+    <result column="MarkStartDate" property="markStartDate" jdbcType="TIMESTAMP" />
+    <result column="MarkEndDate" property="markEndDate" jdbcType="TIMESTAMP" />
+    <result column="MarkState" property="markState" jdbcType="VARCHAR" />
+    <result column="MarkUseArea" property="markUseArea" jdbcType="VARCHAR" />
+    <result column="MarkAppointWay" property="markAppointWay" jdbcType="VARCHAR" />
+    <result column="MarkAppointDept" property="markAppointDept" jdbcType="VARCHAR" />
+    <result column="MarkAppointDeptCode" property="markAppointDeptCode" jdbcType="VARCHAR" />
+    <result column="SetDeptContact" property="setDeptContact" jdbcType="VARCHAR" />
+    <result column="MarkSetDept" property="markSetDept" jdbcType="VARCHAR" />
+    <result column="MarkSetDeptCode" property="markSetDeptCode" jdbcType="VARCHAR" />
+    <result column="MarkSetDate" property="markSetDate" jdbcType="TIMESTAMP" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="Fax" property="fax" jdbcType="VARCHAR" />
+    <result column="Email" property="email" jdbcType="VARCHAR" />
+    <result column="SetId" property="setId" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="VARCHAR" />
+    <result column="MarkFunc" property="markFunc" jdbcType="VARCHAR" />
+  </resultMap>
+    <select id="selectWarnMarkList" resultMap="BaseResultMap" parameterType="Map" >
+    select 
+       id,UID,MarkNo,MarkSetYear,MarkType,MarkClass,MarkName,MarkContent,
+       MarkStartDate,MarkEndDate,MarkState,MarkUseArea,MarkAppointWay,MarkAppointDept,MarkAppointDeptCode,SetDeptContact,MarkSetDept,
+       MarkSetDeptCode,MarkSetDate,Tel,Fax,Email,SetId,CreateTime,MarkFunc
+    from
+        cs_mark
+   <trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="setId != null and setId != ''">
+			and SetId = #{setId}
+		</if>
+		<if test="markNo != null and markNo != ''">
+			and MarkNo = #{markNo}
+		</if>
+		<if test="markSetDeptCode != null and markSetDeptCode != ''">
+			and MarkSetDeptCode = #{markSetDeptCode}
+		</if>
+		<if test="markNameDesc != null and markNameDesc != ''">
+			and MarkName like concat('%',#{markNameDesc},'%')
+		</if>
+		<if test="markName != null and markName != ''">
+			and MarkName = #{markName}
+		</if>
+		<if test="markStartDate != null and markStartDate != ''">
+			and  <![CDATA[ MarkStartDate >= #{markStartDate} ]]>
+		</if>
+		<if test="markEndDate != null and markEndDate != ''">
+			and  <![CDATA[ MarkEndDate  <= #{markEndDate} ]]>
+		</if>
+		
+		<if test="dateForInvalidStart != null and dateForInvalidStart != ''">
+			and   (MarkStartDate = #{dateForInvalidStart} or MarkEndDate  = #{dateForInvalidEnd})
+		</if>
+		
+		<if test="markClass != null and markClass != ''">
+			and MarkClass = #{markClass}
+		</if>
+		<if test="markType != null and markType != ''">
+			and MarkType = #{markType}
+		</if>
+		<if test="markAppointWay != null and markAppointWay != ''">
+			and MarkAppointWay = #{markAppointWay}
+		</if>
+		<if test="markState != null and markState != ''">
+			<if test="markState == 1 ">
+				and <![CDATA[(MarkState = '1' and (DATE_FORMAT(NOW(), '%Y-%m-%d') >= MarkStartDate and DATE_FORMAT(NOW(), '%Y-%m-%d') <= MarkEndDate))]]>
+			</if>
+			<if test="markState == 0 ">
+				and <![CDATA[(MarkState = '0' or (DATE_FORMAT(NOW(), '%Y-%m-%d') < MarkStartDate) or (DATE_FORMAT(NOW(), '%Y-%m-%d') > MarkEndDate))]]>
+			</if>
+		</if>
+		<if test="markUseArea != null and markUseArea != ''">
+			and MarkUseArea = #{markUseArea}
+		</if>
+		<if test="markSetYear != null and markSetYear != ''">
+			and MarkSetYear = #{markSetYear}
+		</if>
+		
+		<if test="userType != null and userType != ''">
+			<if test="userType == 2 ">
+				and MarkNo IN (SELECT DISTINCT WarnNo FROM cs_warn_dept WHERE DeptCode = #{markAppointDeptCode} OR DeptCode IS NULL)
+			</if>
+			<if test="userType == 1 ">
+				and MarkNo IN(
+				    SELECT 
+                         w.WarnNo WarnNo
+                    FROM
+                         cs_warn_dept w 
+                    LEFT JOIN cs_dept_dutycode_ref r 
+                    ON w.DeptCode = r.AdCode 
+                    WHERE DutyDeptCode = 'A058' 
+                    AND w.DeptCode LIKE concat(#{markAppointDeptCode},'%')
+                    UNION ALL
+                    SELECT 
+                         WarnNo
+                    FROM
+                        cs_warn_dept
+                    WHERE DeptCode=#{markAppointDeptCode}
+				   )
+			</if>
+		</if>
+		<if test="markFunc != null and markFunc != ''">
+			and  MarkFunc = #{markFunc}
+		</if>
+		<if test="uid != null and uid != ''">
+			and  UID = #{uid}
+		</if>
+	</trim>
+  </select>
+  
+  <resultMap id="YearResultMap" type="com.icinfo.cs.risk.model.CsWarnMark" >
+     <result column="MarkSetYear" property="markSetYear" jdbcType="VARCHAR" />
+  </resultMap>
+    <select id="selectCsWarnMarkSetYear" resultMap="YearResultMap">
+    SELECT DISTINCT 
+           MarkSetYear 
+    FROM
+          cs_mark 
+    WHERE MarkSetYear IS NOT NULL 
+  </select>
+  
+</mapper>

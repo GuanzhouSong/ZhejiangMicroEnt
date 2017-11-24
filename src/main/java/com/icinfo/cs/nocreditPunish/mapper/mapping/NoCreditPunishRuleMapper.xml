@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.nocreditPunish.mapper.NoCreditPunishRuleMapper">
+
+	<resultMap id="NoCreditPunishRuleMap" type="com.icinfo.cs.nocreditPunish.model.NoCreditPunishRule">
+		<!-- WARNING - @frameworkgenerated -->
+		<id column="Uid" jdbcType="VARCHAR" property="id" />
+		<result column="CreateTime" property="createTime" jdbcType="DATE" />
+		<result column="PunField" property="punField" jdbcType="VARCHAR" />
+		<result column="LimitTime" property="limitTime" jdbcType="VARCHAR" />
+		<result column="LegBasis" property="legBasis" jdbcType="VARCHAR" />
+		<result column="PunCause" property="punCause" jdbcType="VARCHAR" />
+		<result column="PunRule" property="punRule" jdbcType="VARCHAR" />
+		<result column="PunMea" property="punMea" jdbcType="VARCHAR" />
+		<result column="PunReqDept" property="punReqDept" jdbcType="VARCHAR" />
+		<result column="PunExeDept" property="punExeDept" jdbcType="VARCHAR" />
+		<result column="PunReqDeptCode" property="punReqDeptCode" jdbcType="VARCHAR" />
+		<result column="PunExeDeptCode" property="punExeDeptCode" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.registmanage.mapper.LimitManageRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.registmanage.model.LimitManageRecord" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Item" property="item" jdbcType="VARCHAR" />
+    <result column="LimitNO" property="limitNO" jdbcType="VARCHAR" />
+    <result column="ClientName" property="clientName" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="Operator" property="operator" jdbcType="VARCHAR" />
+    <result column="Department" property="department" jdbcType="VARCHAR" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    
+    <result column="RemoveLiaName" property="removeLiaName" jdbcType="VARCHAR" />
+    <result column="RemoveLiaTel" property="removeLiaTel" jdbcType="VARCHAR" />
+    <result column="RemoveUid" property="removeUid" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="BaseResultMapDto" type="com.icinfo.cs.registmanage.dto.LimitManageRecordDto" extends="BaseResultMap" >
+   </resultMap>
+   
+   <select id="qryLimitObjManageRecordList" parameterType="map" resultMap="BaseResultMapDto"> 
+   		select id,Item,LimitNO,ClientName,CreateTime,Operator,Department from cs_limit_managerecord
+   		where UID=#{uid}
+  </select>
+  
+   <!-- 获取当前限制对象下的解除证明文号的最大值 -->
+   <select id="selectLimitNo" parameterType="Map"  resultType="java.lang.Integer">
+    SELECT IFNULL(MAX(IFNULL(SUBSTRING(LimitNO,10)+0,0)),0)+1 LimitNO FROM cs_limit_managerecord 
+    WHERE uid = #{uid} AND Item = #{item}
+   </select>
+
+</mapper>

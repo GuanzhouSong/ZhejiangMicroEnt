@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.YrSubcapitalMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.YrSubcapital" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="Inv" property="inv" jdbcType="VARCHAR" />
+    <result column="InvID" property="invID" jdbcType="VARCHAR" />
+    <result column="AcConDate" property="acConDate" jdbcType="DATE" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="ConFormCN" property="conFormCN" jdbcType="VARCHAR" />
+    <result column="AcConFormCn" property="acConFormCn" jdbcType="VARCHAR" />
+    <result column="AnCheID" property="anCheID" jdbcType="VARCHAR" />
+    <result column="LIACCONAM" property="liacconam" jdbcType="DECIMAL" />
+    <result column="LISUBCONAM" property="lisubconam" jdbcType="DECIMAL" />
+    <result column="InvRegNO" property="invRegNO" jdbcType="VARCHAR" />
+    <result column="AcConForm" property="acConForm" jdbcType="VARCHAR" />
+    <result column="SubConForm" property="subConForm" jdbcType="VARCHAR" />
+    <result column="SubConDate" property="subConDate" jdbcType="DATE" /> 
+  </resultMap>
+
+  <!-- 根据年度和主体主体代码查询认缴出资额总和 -->
+    <select id="rj_sumMoeny" parameterType="Map"   resultType="java.math.BigDecimal">
+          select sum(LISUBCONAM) as  lisubconam  from cs_yr_subcapital a
+          where a.Year = #{year} and  a.PriPID =#{priPID}
+    </select>
+
+  <!-- 根据年度和主体主体代码查询实缴出资额总和 -->
+  <select id="sj_sumMoeny" parameterType="Map"   resultType="java.math.BigDecimal">
+    select sum(LIACCONAM) as  liacconam  from cs_yr_subcapital a
+    where a.Year = #{year} and  a.PriPID =#{priPID}
+  </select>
+
+  <!--根据年度和主体代码以及关键字和排序查询-->
+  <select id="doGetYrSubcapitalList" parameterType="Map" resultMap="BaseResultMap">
+      SELECT
+      id,
+      PriPID,
+      Inv,
+      InvID,
+      AcConDate,
+      Year,
+      CreateTime,
+      ConFormCN,
+      AcConFormCn,
+      AnCheID,
+      LIACCONAM,
+      LISUBCONAM,
+      InvRegNO,
+      AcConForm,
+      SubConForm,
+      SubConDate
+      FROM  cs_yr_subcapital
+    <trim prefix="WHERE" prefixOverrides="AND | OR">
+
+      <if test="keyValue!=null and  keyValue!= ''">
+        ( Inv LIKE concat('%', #{keyValue},'%') OR  InvRegNO = #{keyValue} ) AND
+      </if>
+      PriPID = #{priPID}  AND Year = #{year} order by
+      <if test="orderStr!=null and orderStr != ''">
+          #{orderStr}
+      </if>
+      <if test="orderStr==null or orderStr == ''">
+        CreateTime desc
+      </if>
+    </trim>
+
+  </select>
+    <!-- 根据invId 和 pripid 设置字段值为空 -->
+    <update id="updateByLiacconam" parameterType="Map">
+        update cs_yr_subcapital set AcConForm='',AcConFormCn='',AcConDate=''  where InvID=#{invID}  and PriPID = #{priPID}
+    </update>
+
+
+
+
+  <!--单表多条件查询 -->
+<!--  <select id="search_queryPage" parameterType="Map" resultMap="BaseResultMap">
+      SELECT
+      PriPID,
+      Inv,
+      InvID,
+      AcConDate,
+      Year,
+      CreateTime,
+      ConFormCN,
+      AcConFormCn,
+      AnCheID,
+      LIACCONAM,
+      LISUBCONAM,
+      InvRegNO,
+      AcConForm,
+      SubConForm,
+      SubConDate
+      FROM cs_yr_subcapital
+    <trim prefix="WHERE" prefixOverrides="AND | OR">
+
+        <if test="priPID!=null and  priPID!= ''">
+          PriPID = #{priPID}
+        </if>
+
+        <if test="year!=null and year != ''">
+           AND Year = #{year}
+        </if>
+        order by
+        <if test="orderStr!=null and orderStr != ''">
+            ${orderStr},
+        </if>
+        CreateTime desc
+    </trim>
+
+
+  </select>-->
+
+    <!-- <if test="PriPID!=null and  PriPID!= ''">
+        COURSE_NAME LIKE concat('%', #{courseName},'%')
+      </if>
+      <if test="description!=null and description != ''">
+        AND DESCRIPTION = #{description}
+      </if>
+
+      <if test="createTime!=null and createTime!=''">
+        <![CDATA[   AND CREATE_TIME >=  DATE_FORMAT(#{createTime}, '%Y-%m-%d')   ]]>
+      </if>
+
+      <if test="updateTime!=null and updateTime!=''">
+        <![CDATA[  AND  UPDATE_TIME <= DATE_FORMAT(#{updateTime}, '%Y-%m-%d')    ]]>
+      </if>-->
+
+
+<select id="queryPageResultByPripid" resultMap="BaseResultMap" parameterType="Map">
+	SELECT id,PriPID,Inv,InvID,AcConDate,YEAR,ConFormCN,AcConFormCn,
+	LIACCONAM,LISUBCONAM,InvRegNO,AcConForm,SubConForm,SubConDate
+	FROM cs_yr_subcapital
+    WHERE PriPID =#{priPID}
+</select>
+
+</mapper>

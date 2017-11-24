@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.base.mapper.CommonDicMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.base.model.CommonDic" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="DicColumn" property="dicColumn" jdbcType="VARCHAR" />
+    <result column="DicValue" property="dicValue" jdbcType="VARCHAR" />
+    <result column="DicExlain" property="dicExlain" jdbcType="VARCHAR" />
+    <result column="DicTable" property="dicTable" jdbcType="VARCHAR" />
+    <result column="DicOrder" property="dicOrder" jdbcType="INTEGER" />
+    <result column="DicRemark" property="dicRemark" jdbcType="VARCHAR" />
+    <result column="DicFlag" property="dicFlag" jdbcType="VARCHAR" />
+    <result column="DicPid" property="dicPid" jdbcType="INTEGER" />
+    <result column="DicSetter" property="dicSetter" jdbcType="VARCHAR" />
+    <result column="DicSetDate" property="dicSetDate" jdbcType="DATE" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.es.mapper.LimitwordMapper" >
+  <resultMap id="Limitword" type="com.icinfo.cs.es.model.Limitword" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Limitword" property="limitword" jdbcType="VARCHAR" />
+    <result column="LimitFlag" property="limitFlag" jdbcType="CHAR" />
+  </resultMap>
+  <resultMap id="LimitwordDto" type="com.icinfo.cs.es.dto.LimitwordDto" extends="Limitword">
+  </resultMap>
+	
+	<select id="queryListResult" resultMap="LimitwordDto" parameterType="Map">
+		SELECT 
+		  id,
+		  Limitword,
+		  LimitFlag
+		FROM
+		  cs_pub_limitword A 
+		WHERE
+		 1=1
+		<if test="limitword !='' and limitword !=null">
+			and A.Limitword =#{limitword}
+		</if>
+		<if test="limitFlag !='' and limitFlag !=null">
+			and A.LimitFlag =#{limitFlag}
+		</if>
+	</select>
+</mapper>

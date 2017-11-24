@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.sccheck.mapper.SccheckKeyMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sccheck.model.SccheckKey" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Uid" property="uid" jdbcType="VARCHAR" />
+    <result column="CheckContent" property="checkContent" jdbcType="VARCHAR" />
+    <result column="CheckMethod" property="checkMethod" jdbcType="VARCHAR" />
+    <result column="IsCheck" property="isCheck" jdbcType="CHAR" />
+    <result column="Problem" property="problem" jdbcType="VARCHAR" />
+    <result column="TaskUid" property="taskUid" jdbcType="VARCHAR" />
+    <result column="ResultUid" property="resultUid" jdbcType="VARCHAR" />
+    <result column="CheckCode" property="checkCode" jdbcType="VARCHAR" />
+    <result column="YesText" property="yesText" jdbcType="VARCHAR" />
+    <result column="NoText" property="noText" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

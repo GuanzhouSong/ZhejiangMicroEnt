@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.party.mapper.PartyActivityJoinResultMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.party.model.PartyActivityJoinResult" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="ActivityUID" property="activityUID" jdbcType="VARCHAR" />
+    <result column="JoinerId" property="joinerId" jdbcType="VARCHAR" />
+    <result column="Joiner" property="joiner" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

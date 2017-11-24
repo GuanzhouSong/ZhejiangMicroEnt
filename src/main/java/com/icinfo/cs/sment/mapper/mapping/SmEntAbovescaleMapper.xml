@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.sment.mapper.SmEntAbovescaleMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sment.model.SmEntAbovescale" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="Organizecode" property="organizecode" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="FormType" property="formType" jdbcType="CHAR" />
+    <result column="FormTypeCn" property="formTypeCn" jdbcType="VARCHAR" />
+    <result column="year" property="year" jdbcType="INTEGER" />
+    <result column="ImBatchNum" property="imBatchNum" jdbcType="VARCHAR" />
+    <result column="Pripid" property="pripid" jdbcType="CHAR" />
+    <result column="MatchEntName" property="matchEntName" jdbcType="VARCHAR" />
+    <result column="MatchUniCode" property="matchUniCode" jdbcType="CHAR" />
+    <result column="MatchRegNO" property="matchRegNO" jdbcType="CHAR" />
+    <result column="IsMatch" property="isMatch" jdbcType="CHAR" />
+    <result column="ImportName" property="importName" jdbcType="VARCHAR" />
+    <result column="ImportTime" property="importTime" jdbcType="TIMESTAMP" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="AboveType" property="aboveType" jdbcType="CHAR" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.sment.dto.SmEntAbovescaleDto" id="BaseResultMapDto" extends="BaseResultMap">
+    <result column="AboveType1" property="aboveType1" jdbcType="DECIMAL" />
+    <result column="AboveType2" property="aboveType2" jdbcType="DECIMAL" />
+    <result column="AboveType3" property="aboveType3" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  
+   <!-- 查询表中最大批次号  -->
+   <select id="selectImBatchNum" parameterType="Map"  resultType="java.lang.Integer">
+        SELECT IFNULL(MAX(IFNULL(SUBSTRING('2016-001',6),0)),0)+1 ImBatchNum FROM sm_ent_abovescale
+   </select>
+   
+   <sql id="serach-where">
+      <if test="entName != null and entName != ''">
+      and t.EntName like concat('%', #{entName},'%')
+      </if>  
+      <if test="uniCode != null and uniCode != ''">
+      and t.UniCode like concat('%', #{uniCode},'%')
+      </if>  
+      <if test="imBatchNum != null and imBatchNum != ''">
+      and t.ImBatchNum like concat('%', #{imBatchNum},'%')
+      </if>     
+      <if test="year != null and year != ''">
+      and t.year = #{imBatchNum}
+      </if>     
+      <if test="isMatch != null and isMatch != ''">
+      and t.isMatch = #{isMatch}
+      </if>
+      <if test="matchEntName != null and matchEntName != ''">
+      and t.MatchEntName like concat('%', #{matchEntName},'%')
+      </if>  
+      <if test="matchRegNO != null and matchRegNO != ''">
+      and (t.MatchRegNO like concat('%', #{matchRegNO},'%') or t.MatchUniCode like concat('%', #{matchRegNO},'%'))
+      </if>       
+      <if test="importName != null and importName != ''">
+      and t.ImportName like concat('%', #{importName},'%')
+      </if> 
+   </sql>
+   
+   <!-- 查询归上企业列表  -->
+   <select id="selectSmEntAbovescale" parameterType="Map"  resultMap="BaseResultMapDto">
+      SELECT t.UID,t.Organizecode,t.EntName,t.UniCode,t.FormType,t.FormTypeCn,t.ImBatchNum,t.ImportName,t.ImportTime,
+      t.IsMatch,t.MatchEntName,t.MatchRegNO,t.MatchUniCode,t.Pripid,t.CreateTime,t.year,t.AboveType 
+      FROM sm_ent_abovescale t 
+      where 1=1
+      <include refid="serach-where"></include>
+      order by t.CreateTime desc
+   </select>
+   
+   <!-- 限上规上企业成长轨迹 -->
+   <select id="smEntAbovescaleCount" parameterType="Map" resultMap="BaseResultMapDto">
+   SELECT b.year Year,
+	ROUND(SUM(CASE WHEN t.AboveType = '1' THEN IFNULL(b.${type},0) ELSE 0 END ),0) AboveType1,
+	ROUND(SUM(CASE WHEN t.AboveType = '2' THEN IFNULL(b.${type},0) ELSE 0 END ),0) AboveType2,
+	ROUND(SUM(CASE WHEN t.AboveType = '3' THEN IFNULL(b.${type},0) ELSE 0 END ),0) AboveType3
+	FROM cs_baseinfo b LEFT JOIN
+	sm_ent_abovescale t ON b.pripid = t.pripid 
+   WHERE t.pripid IS NOT NULL AND t.IsMatch = '1' GROUP BY b.year 
+   </select>
+   
+   <!-- 限上、归上企业总数 -->
+   <select id="smEntAbovescaleTotal" resultType="java.lang.Integer" parameterType="Map">
+     SELECT COUNT(0) FROM sm_ent_abovescale t
+   </select>
+   
+   <!-- 动产抵押企业户数  -->
+   <select id="mortRegInfoTotal" resultType="java.lang.Integer" parameterType="Map">
+     SELECT COUNT(0) FROM cs_mort_reg_info t
+   </select>
+   <!-- 国家局商标总数  -->
+   <select id="tmDetailInfoTotal" resultType="java.lang.Integer" parameterType="Map">
+     SELECT COUNT(0) FROM cs_tm_detail_info t
+   </select>
+     
+</mapper>

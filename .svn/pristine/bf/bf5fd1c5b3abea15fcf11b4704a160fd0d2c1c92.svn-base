@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.other.mapper.PubJusticeInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.other.model.PubJusticeInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="JusticeType" property="justiceType" jdbcType="CHAR" />
+    <result column="ExecutionCourt" property="executionCourt" jdbcType="VARCHAR" />
+    <result column="ExeRulNum" property="exeRulNum" jdbcType="VARCHAR" />
+    <result column="BotRefNum" property="botRefNum" jdbcType="VARCHAR" />
+    <result column="ExecuteNo" property="executeNo" jdbcType="VARCHAR" />
+    <result column="ExecuteItem" property="executeItem" jdbcType="CHAR" />
+    <result column="Inv" property="inv" jdbcType="VARCHAR" />
+    <result column="CerType" property="cerType" jdbcType="VARCHAR" />
+    <result column="CerNO" property="cerNO" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="UniSCID" property="uniSCID" jdbcType="VARCHAR" />
+    <result column="FroAm" property="froAm" jdbcType="DECIMAL" />
+    <result column="FroAuth" property="froAuth" jdbcType="VARCHAR" />
+    <result column="FrozDeadline" property="frozDeadline" jdbcType="VARCHAR" />
+    <result column="FroFrom" property="froFrom" jdbcType="DATE" />
+    <result column="FroTo" property="froTo" jdbcType="DATE" />
+    <result column="ThawDate" property="thawDate" jdbcType="DATE" />
+    <result column="LoseEffDate" property="loseEffDate" jdbcType="DATE" />
+    <result column="LoseEffRes" property="loseEffRes" jdbcType="CHAR" />
+    <result column="PublicDate" property="publicDate" jdbcType="DATE" />
+    <result column="FrozState" property="frozState" jdbcType="CHAR" />
+    <result column="AssInv" property="assInv" jdbcType="VARCHAR" />
+    <result column="AssCerType" property="assCerType" jdbcType="VARCHAR" />
+    <result column="AssCerNO" property="assCerNO" jdbcType="VARCHAR" />
+    <result column="ExecuteDate" property="executeDate" jdbcType="DATE" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+    <result column="SetDate" property="setDate" jdbcType="DATE" />
+    <result column="AuditName" property="auditName" jdbcType="VARCHAR" />
+    <result column="AuditDate" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="AuditOpin" property="auditOpin" jdbcType="VARCHAR" />
+    <result column="AuditState" property="auditState" jdbcType="CHAR" />
+    <result column="JusticeConNO" property="justiceConNO" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    
+    <result column="AssInvType" property="assInvType" jdbcType="VARCHAR" />
+    <result column="AssBLicType" property="assBLicType" jdbcType="VARCHAR" />
+    <result column="AssBLicNO" property="assBLicNO" jdbcType="VARCHAR" />
+    <result column="InvType" property="invType" jdbcType="VARCHAR" />
+    <result column="BLicType" property="bLicType" jdbcType="CHAR" />
+    <result column="BLicNO" property="bLicNO" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.other.dto.PubJusticeInfoDto" id="BaseResultDtoMap" extends="BaseResultMap">
+    <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+    <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+    <result column="SliceNOName" property="sliceNOName" jdbcType="VARCHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="VARCHAR" />
+    <result column="regNO" property="regNO" jdbcType="VARCHAR" />
+    <result column="DeptCode" property="deptCode" jdbcType="VARCHAR"/>
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.other.dto.PubJusticeInfoDto" id="BaseResultSearchDtoMap" extends="BaseResultMap">
+    <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+    <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+    <result column="SliceNOName" property="sliceNOName" jdbcType="VARCHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="VARCHAR" />
+    <result column="regNO" property="regNO" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectPubJusticeInfoForApply" resultMap="BaseResultDtoMap" parameterType="Map">
+     select 
+     a.id,a.UID,a.PriPID,UniSCID,a.DeptCode,JusticeType,ExecutionCourt,ExeRulNum,BotRefNum,ExecuteNo,ExecuteItem,Inv,CerType,a.CerNO,
+     a.EntName,FroAm,FroAuth,FrozDeadline,FroFrom,FroTo,ThawDate,LoseEffDate,LoseEffRes,PublicDate,FrozState,
+     AssInv,AssCerType,AssCerNO,ExecuteDate,SetName,SetDate,AuditName,AuditDate,AuditOpin,AuditState,JusticeConNO,
+     AssInvType,AssBLicType,AssBLicNO,InvType,BLicType,BLicNO,
+     CASE 
+     WHEN b.UniCode is null
+     THEN a.UniSCID ELSE b.RegNO END AS regNO,
+     b.RegOrgName,b.LocalAdmName,b.SliceNOName,b.UniCode
+	 FROM cs_pub_justiceinfo a
+	 LEFT JOIN cs_mid_baseinfo b ON a.PriPID = b.PriPID
+	 where 1 = 1
+	 <include refid="justiceInfo_where" />
+      <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	 order by a.SetDate DESC
+  </select>
+  
+  <select id="selectPubJusticeInfoForSearch" resultMap="BaseResultSearchDtoMap" parameterType="Map">
+     select 
+     a.id,a.UID,a.PriPID,UniSCID,a.DeptCode,JusticeType,ExecutionCourt,ExeRulNum,BotRefNum,ExecuteNo,ExecuteItem,Inv,CerType,a.CerNO,
+     a.EntName,FroAm,FroAuth,FrozDeadline,FroFrom,FroTo,ThawDate,LoseEffDate,LoseEffRes,PublicDate,FrozState,
+     AssInv,AssCerType,AssCerNO,ExecuteDate,SetName,SetDate,AuditName,AuditDate,AuditOpin,AuditState,JusticeConNO,
+     AssInvType,AssBLicType,AssBLicNO,InvType,BLicType,BLicNO,
+     CASE 
+     WHEN b.UniCode is null
+     THEN a.UniSCID ELSE b.RegNO END AS regNO,
+     b.RegOrgName,b.LocalAdmName,b.SliceNOName,b.UniCode
+	 FROM cs_pub_justiceinfo a
+	 LEFT JOIN cs_mid_baseinfo b ON a.PriPID = b.PriPID
+	 where 1 = 1
+	 and a.AuditState = '1'
+	 <include refid="justiceInfo_where" />
+      <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	 order by AuditDate DESC
+  </select>
+  
+  <select id="selectPubJusticeInfoForInclude" resultMap="BaseResultDtoMap" parameterType="Map">
+     select 
+     id,UID,PriPID,UniSCID,DeptCode,JusticeType,ExecutionCourt,ExeRulNum,BotRefNum,ExecuteNo,ExecuteItem,Inv,CerType,CerNO,
+     EntName,FroAm,FroAuth,FrozDeadline,FroFrom,FroTo,ThawDate,LoseEffDate,LoseEffRes,PublicDate,FrozState,
+     AssInv,AssCerType,AssCerNO,ExecuteDate,SetName,SetDate,AuditName,AuditDate,AuditOpin,AuditState,JusticeConNO,
+     AssInvType,AssBLicType,AssBLicNO,InvType,BLicType,BLicNO
+     FROM cs_pub_justiceinfo
+     where 1 = 1
+     <if test="priPID != '' and priPID != null">
+     and PriPID = #{priPID}
+     </if>
+     <if test="justiceType != '' and justiceType != null">
+     and JusticeType = #{justiceType}
+     </if>
+     <if test="auditState != '' and auditState != null">
+     and AuditState = #{auditState}
+     </if>
+     <if test="frozState != '' and frozState != null">
+     and FrozState = #{frozState}
+     </if>
+     <if test="flag != '' and flag != null">
+     and UID NOT IN (SELECT JusticeConNO FROM cs_pub_justiceinfo where PriPID = #{priPID,jdbcType=VARCHAR} AND FrozState IN (2,3) AND AuditState = '1')
+     </if>
+     order by AuditDate,UID desc
+  </select>
+  
+  <select id="selectTotalAllForSearch" resultType="java.lang.Integer" parameterType="Map">
+     SELECT
+		 COUNT(distinct a.PriPID) total
+	FROM
+		cs_pub_justiceinfo a
+	LEFT JOIN cs_mid_baseinfo b ON a.PriPID = b.PriPID
+	WHERE
+		a.AuditState = '1'
+  <include refid="justiceInfo_where" />
+  <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+  </select>
+  
+  <select id="selectTotalAmountForSearch" resultType="java.lang.Integer" parameterType="Map">
+     SELECT
+		 COUNT(a.UID)  amount
+	FROM
+		cs_pub_justiceinfo a
+	LEFT JOIN cs_mid_baseinfo b ON a.PriPID = b.PriPID
+	WHERE
+		a.AuditState = '1'
+  <include refid="justiceInfo_where" />
+  <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+  </select>
+  
+  <select id="selectTotalOneForSearch" resultType="java.lang.Integer" parameterType="Map">
+     SELECT
+		COUNT(*) oneCount
+	FROM
+		cs_pub_justiceinfo a
+	LEFT JOIN cs_mid_baseinfo b ON a.PriPID = b.PriPID
+	WHERE
+		a.AuditState = '1'
+	AND a.JusticeType = '1'
+  <include refid="justiceInfo_where" />
+  <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+  </select>
+  
+  <select id="selectTotalTwoForSearch" resultType="java.lang.Integer" parameterType="Map">
+     SELECT
+		COUNT(*) twoCount
+	FROM
+		cs_pub_justiceinfo a
+	LEFT JOIN cs_mid_baseinfo b ON a.PriPID = b.PriPID
+	WHERE
+		a.AuditState = '1'
+	AND a.JusticeType = '2'
+  <include refid="justiceInfo_where" />
+  <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+  </select>
+   
+   <!--公告公示查询 -->
+   <select id="selectJusticeInfoForBulletin" resultMap="BaseResultDtoMap" parameterType="Map">
+     select 
+     id,UID,PriPID,UniSCID,JusticeType,ExecutionCourt,ExeRulNum,BotRefNum,ExecuteNo,ExecuteItem,Inv,CerType,CerNO,
+     EntName,FroAm,FroAuth,FrozDeadline,FroFrom,FroTo,ThawDate,LoseEffDate,LoseEffRes,PublicDate,FrozState,
+     AssInv,AssCerType,AssCerNO,ExecuteDate,SetName,SetDate,AuditName,AuditDate,AuditOpin,AuditState,JusticeConNO,
+     AssInvType,AssBLicType,AssBLicNO,InvType,BLicType,BLicNO
+     FROM cs_pub_justiceinfo
+     where 1 = 1
+    and AuditState = '1'
+    <if test="state != '' and state != null and state =='justice-froz'">
+    and JusticeType = '1'
+    </if>
+    <if test="state != '' and state != null and state =='justice-alter'">
+    and JusticeType = '2'
+    </if>
+   </select>
+  
+  <select id="selectPubJusticeInfoListByCerNO" parameterType="map" resultMap="BaseResultDtoMap">
+  	SELECT id,UID,PriPID,JusticeType,ExecutionCourt,ExeRulNum,BotRefNum,ExecuteNo,ExecuteItem,Inv,CerType,CerNO,EntName,UniSCID,FroAm,FroAuth,FrozDeadline,FroFrom,FroTo,ThawDate,LoseEffDate,LoseEffRes,PublicDate,FrozState,AssInv,AssCerType,AssCerNO,ExecuteDate,SetName,SetDate,AuditName,AuditDate,AuditOpin,AuditState,JusticeConNO,CreateTime,AssInvType,AssBLicType,AssBLicNO,InvType,BLicType,BLicNO 
+		FROM cs_pub_justiceinfo 
+		WHERE CerNO = #{cerNO}
+  </select>
+  
+  <select id="selectJusticeinfoListForBulletin" resultMap="BaseResultMap" parameterType="java.lang.String">
+      SELECT
+	  a.UID,
+	  a.PriPID,
+	  a.AuditDate,
+	  a.EntName,
+	  a.JusticeType,
+	  b.Deptname  AuditName
+	FROM
+		cs_pub_justiceinfo a
+	LEFT JOIN cs_department b ON b.DeptCode = a.DeptCode
+	WHERE
+	AuditState = '1' 
+     <if test="_parameter !='' and _parameter != null">
+      and <![CDATA[ a.update_time >= #{_parameter}]]>
+     </if> 
+  </select>
+  
+  <sql id="justiceInfo_where">
+    <if test="regNO != '' and regNO != null">
+    and (b.RegNO LIKE concat('%', #{regNO},'%') or b.UniCode LIKE concat('%', #{regNO},'%'))
+    </if>
+    <if test="entName != '' and entName != null">
+    and a.EntName LIKE concat('%', #{entName},'%')
+    </if>
+    <if test="regOrg !='' and regOrg !=null">
+    and b.RegOrg  IN  (${regOrg})
+    </if>
+    <if test="localAdm !='' and localAdm !=null">
+    and b.LocalAdm  IN (${localAdm})
+    </if>
+    <if test="sliceNO !='' and sliceNO !=null">
+    and b.SliceNO  IN (${sliceNO})
+    </if>
+    <if test="cerNO != '' and cerNO != null">
+    and a.CerNO LIKE concat('%', #{cerNO},'%')
+    </if>
+    <if test="setName != '' and setName != null">
+    and SetName = #{setName}
+    </if>
+    <if test="justiceType != '' and justiceType != null">
+    and JusticeType = #{justiceType}
+    </if>
+    <if test="assInv != '' and assInv != null">
+    and AssInv = #{assInv}
+    </if>
+     <if test="frozState != '' and frozState != null">
+    and FrozState = #{frozState}
+    </if>
+    <if test="auditName != '' and auditName != null">
+    and AuditName = #{auditName}
+    </if>
+    <if test="justiceType != '' and justiceType != null">
+    and JusticeType = #{justiceType}
+    </if>
+    <if test="inv != '' and inv != null">
+    and Inv = #{inv}
+    </if>
+    <if test="executionCourt != '' and executionCourt != null">
+    and ExecutionCourt LIKE concat('%', #{executionCourt},'%')
+    </if>
+    <if test="executeItem != '' and executeItem != null">
+    and ExecuteItem = #{executeItem}
+    </if>
+    <if test="auditState != '' and auditState != null">
+    and AuditState = #{auditState}
+    </if>
+    <if test="setDateStart !='' and setDateStart !=null">
+    <![CDATA[
+	and SetDate >= #{setDateStart}
+	]]>
+    </if>
+     <if test="setDateEnd !='' and setDateEnd !=null">
+    <![CDATA[
+	and SetDate <= #{setDateEnd}
+	]]>
+    </if>
+    <if test="auditDateStart !='' and auditDateStart !=null">
+    <![CDATA[
+	and DATE_FORMAT(AuditDate,'%Y-%m-%d') >= #{auditDateStart}
+	]]>
+    </if>
+     <if test="auditDateEnd !='' and auditDateEnd !=null">
+    <![CDATA[
+	and DATE_FORMAT(AuditDate,'%Y-%m-%d') <= #{auditDateEnd}
+	]]>
+    </if>
+    <if test="publicDateStart !='' and publicDateStart !=null">
+    <![CDATA[
+	and PublicDate >= #{publicDateStart}
+	]]>
+    </if>
+     <if test="publicDateEnd !='' and publicDateEnd !=null">
+    <![CDATA[
+	and PublicDate <= #{publicDateEnd}
+	]]>
+    </if>
+  </sql>
+  
+  <select id="selectFrozenStateInfo" parameterType="java.lang.String" resultMap="BaseResultMap">
+ 	 SELECT
+ 	    a.UID,
+		a.PriPID,
+		a.EntName,
+		a.FrozState
+	FROM
+		cs_pub_justiceinfo a
+	WHERE
+	a.JusticeConNO IN (
+		SELECT
+			t.UID
+		FROM
+			cs_pub_justiceinfo t
+		WHERE
+			t.FrozState = '1' AND t.PriPID = #{_parameter} AND t.AuditState ='1'
+	)
+  </select>
+</mapper>

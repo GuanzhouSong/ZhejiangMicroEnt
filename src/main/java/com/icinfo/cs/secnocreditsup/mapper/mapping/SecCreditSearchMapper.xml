@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.secnocreditsup.mapper.SecCreditSearchMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.secnocreditsup.dto.SecNoCreditSearchDto" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="UniSCID" property="uniSCID" jdbcType="CHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="AddSecState" property="addSecState" jdbcType="VARCHAR" />
+    <result column="SecDishonestyType" property="secDishonestyType" jdbcType="VARCHAR" />
+    <result column="AddSecCause" property="addSecCause" jdbcType="VARCHAR" />
+    <result column="AddSecNo" property="addSecNo" jdbcType="VARCHAR" />
+    <result column="AddSecOrg" property="addSecOrg" jdbcType="VARCHAR" />
+    <result column="PublicState" property="publicState" jdbcType="VARCHAR" />
+    <result column="RegState" property="regState" jdbcType="VARCHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="VARCHAR" />
+    <result column="SourceId" property="sourceId" jdbcType="VARCHAR" />
+    <result column="EstDate" property="estDate" jdbcType="VARCHAR" />
+    <result column="SpeCause" property="speCause" jdbcType="VARCHAR" />
+    <result column="SpeCauseCN" property="speCauseCN" jdbcType="VARCHAR" />
+    <result column="AddSecDate" property="addSecDate" jdbcType="DATE" />
+    
+  </resultMap>
+  <select id="selectSecCreditSearchList" resultMap="BaseResultMap" parameterType="Map" >
+     select 
+          UID,PriPID,EntName,RegNO,UniSCID,LeRep,'未移出' AddSecState,AddSecDate,SecDishonestyType,AddSecCause,
+          AddSecNo,AddSecOrg,PublicState,RegState,r.Content LocalAdm,SourceId,EstDate,SpeCauseCN
+     from 
+          cs_exp_serious_crime_list a
+     left join
+          cs_code_regunit r
+     on a.LocalAdm = r.Code
+     WHERE  BusinessStatus = '4'
+      <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+     <include refid="sql_where" />
+  </select>
+  
+  <sql id="sql_where">
+    <if test="uid != null and uid != ''">
+        and UID = #{uid}
+    </if> 
+    <if test="priPID != null and priPID !=''">
+        and PriPID =#{priPID}
+    </if>
+    <if test="entName != null and entName !=''">
+        and EntName like concat('%',#{entName},'%') 
+    </if>
+    <if test="regNO !=null and regNO !=''">
+        and (RegNO = #{regNO} or UniSCID = #{regNO})
+    </if>
+    <if test="leRep != null and leRep != ''">
+         and LeRep = #{leRep}
+    </if>
+    <if test="secDishonestyType != null and secDishonestyType != ''">
+        and SecDishonestyType = #{secDishonestyType}
+    </if>
+    <if test="localAdm != null and localAdm != ''">
+        and LocalAdm in (${localAdm})
+    </if>
+     <if test="speCause != null and speCause != ''">
+        and SpeCause = #{speCause}
+    </if>
+  	<if test="addSecDateStart != null and addSecDateStart != ''">
+		 and	<![CDATA[ AddSecDate >= #{addSecDateStart} ]]>
+  	</if>
+  	<if test="addSecDateEnd != null and addSecDateEnd != ''">
+		 and	<![CDATA[ AddSecDate <= #{addSecDateEnd} ]]>
+  	</if>
+  	<!-- 登记状态 -->
+	 <if test="regState !=null and regState !=''">
+	       and  RegState  in
+     <foreach item="item" index="index" collection="regState" open="("
+					separator="," close=")">
+					#{item}
+	 </foreach>    
+	 </if>
+<!--   	<if test="addSecState != null and addSecState != ''"> -->
+<!-- 		 and	AddSecState = #{addSecState} -->
+<!--   	</if> -->
+  	<if test="publicState != null and publicState != ''">
+		 and	PublicState = #{publicState}
+  	</if>
+  </sql>
+</mapper>

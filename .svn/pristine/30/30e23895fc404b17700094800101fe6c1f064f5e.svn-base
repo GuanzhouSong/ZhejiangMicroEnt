@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.system.mapper.EntAssignLogMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.system.model.EntAssignLog" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="ID" property="ID" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="AssignUserId" property="assignUserId" jdbcType="VARCHAR" />
+    <result column="AssignUserName" property="assignUserName" jdbcType="VARCHAR" />
+    <result column="AssignDeptId" property="assignDeptId" jdbcType="VARCHAR" />
+    <result column="AssignDeptName" property="assignDeptName" jdbcType="VARCHAR" />
+    <result column="IsCancleAssign" property="isCancleAssign" jdbcType="CHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

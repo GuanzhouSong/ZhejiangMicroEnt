@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.SfcBalanctsheetMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.SfcBalanctsheet" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="BalanceType" property="balanceType" jdbcType="CHAR" />
+    <result column="MoneFunds" property="moneFunds" jdbcType="DECIMAL" />
+    <result column="AccRec" property="accRec" jdbcType="DECIMAL" />
+    <result column="Inventory" property="inventory" jdbcType="DECIMAL" />
+    <result column="TotCurrAssets" property="totCurrAssets" jdbcType="DECIMAL" />
+    <result column="ForInvestAssets" property="forInvestAssets" jdbcType="DECIMAL" />
+    <result column="LiveStockAssets" property="liveStockAssets" jdbcType="DECIMAL" />
+    <result column="TreeAssets" property="treeAssets" jdbcType="DECIMAL" />
+    <result column="ArgAssetsAmount" property="argAssetsAmount" jdbcType="DECIMAL" />
+    <result column="FixAssetsOri" property="fixAssetsOri" jdbcType="DECIMAL" />
+    <result column="AccDepreciation" property="accDepreciation" jdbcType="DECIMAL" />
+    <result column="FixAssetsWorth" property="fixAssetsWorth" jdbcType="DECIMAL" />
+    <result column="FixAssetsClean" property="fixAssetsClean" jdbcType="DECIMAL" />
+    <result column="ProConstr" property="proConstr" jdbcType="DECIMAL" />
+    <result column="FixAssetsAmount" property="fixAssetsAmount" jdbcType="DECIMAL" />
+    <result column="IntAssets" property="intAssets" jdbcType="DECIMAL" />
+    <result column="LongAssetsAmount" property="longAssetsAmount" jdbcType="DECIMAL" />
+    <result column="AssGro" property="assGro" jdbcType="DECIMAL" />
+    <result column="ShortBorrowing" property="shortBorrowing" jdbcType="DECIMAL" />
+    <result column="AccPay" property="accPay" jdbcType="DECIMAL" />
+    <result column="WagePay" property="wagePay" jdbcType="DECIMAL" />
+    <result column="ReturnSurplusPay" property="returnSurplusPay" jdbcType="DECIMAL" />
+    <result column="RemainSurplusPay" property="remainSurplusPay" jdbcType="DECIMAL" />
+    <result column="TotCurrLiab" property="totCurrLiab" jdbcType="DECIMAL" />
+    <result column="LongBorrowing" property="longBorrowing" jdbcType="DECIMAL" />
+    <result column="SpecificPay" property="specificPay" jdbcType="DECIMAL" />
+    <result column="LTermLiaAm" property="LTermLiaAm" jdbcType="DECIMAL" />
+    <result column="LiaGro" property="liaGro" jdbcType="DECIMAL" />
+    <result column="CapitalAmount" property="capitalAmount" jdbcType="DECIMAL" />
+    <result column="SpecificFund" property="specificFund" jdbcType="DECIMAL" />
+    <result column="CapAccuFund" property="capAccuFund" jdbcType="DECIMAL" />
+    <result column="SurAccuFund" property="surAccuFund" jdbcType="DECIMAL" />
+    <result column="UndistSurplus" property="undistSurplus" jdbcType="DECIMAL" />
+    <result column="TotEqu" property="totEqu" jdbcType="DECIMAL" />
+    <result column="TotLiaEqu" property="totLiaEqu" jdbcType="DECIMAL" />
+    <result column="ApprAccRec" property="apprAccRec" jdbcType="DECIMAL" />
+    <result column="ApprInventory" property="apprInventory" jdbcType="DECIMAL" />
+    <result column="ApprForInvestAssets" property="apprForInvestAssets" jdbcType="DECIMAL" />
+    <result column="ApprArgAssets" property="apprArgAssets" jdbcType="DECIMAL" />
+    <result column="ApprFixAssets" property="apprFixAssets" jdbcType="DECIMAL" />
+    <result column="ApprProConstr" property="apprProConstr" jdbcType="DECIMAL" />
+    <result column="ApprIntAssets" property="apprIntAssets" jdbcType="DECIMAL" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

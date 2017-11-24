@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.simpleesc.mapper.ErEscAppinfoMapper" >
+  <resultMap id="ErEscAppinfo" type="com.icinfo.cs.simpleesc.model.ErEscAppinfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="UniSCID" property="uniSCID" jdbcType="CHAR" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="VARCHAR" />
+    <result column="AppDate" property="appDate" jdbcType="DATE" />
+    <result column="NoticeFrom" property="noticeFrom" jdbcType="DATE" />
+    <result column="NoticeTo" property="noticeTo" jdbcType="DATE" />
+    <result column="EndDate" property="endDate" jdbcType="DATE" />
+    <result column="Commitment" property="commitment" jdbcType="VARCHAR" />
+    <result column="CancelDate" property="cancelDate" jdbcType="DATE" />
+    <result column="SimplecanRea" property="simplecanRea" jdbcType="CHAR" />
+    <result column="ApprDate" property="apprDate" jdbcType="TIMESTAMP" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap id="ErEscAppinfoDto" type="com.icinfo.cs.simpleesc.dto.ErEscAppinfoDto" extends="ErEscAppinfo">
+  	<result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="ErEscAppinfoPageResult" type="com.icinfo.cs.simpleesc.dto.ErEscAppinfoDto" extends="ErEscAppinfoDto">
+  	<result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+  	<result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+  	<result column="SimplecanReaName" property="simplecanReaName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="queryResultByPriPID" resultMap="ErEscAppinfoDto" parameterType="Map">
+		SELECT
+		A.PriPID,
+		A.EntName,
+		A.UniSCID,
+		A.RegNO,
+		A.RegOrg,
+		A.LocalAdm,
+		A.Commitment,
+		B.Content RegOrgName,
+		A.NoticeFrom,
+		A.NoticeTo,
+		A.SimplecanRea,
+		A.CancelDate
+		FROM
+		er_esc_appinfo A
+		LEFT JOIN cs_code_regorg B
+		ON A.RegOrg=B.Code
+		LEFT JOIN er_esc_scrinfo C
+		ON A.PriPID=C.PriPID
+		where A.PriPID =#{priPID}
+		AND (A.SimplecanRea is not null or A.SimplecanRea!="")
+	</select>
+	
+	<select id="selectEscAppInfoForBulletin" resultMap="ErEscAppinfo" parameterType="java.lang.String">
+	    SELECT
+		t.id,
+		t.PriPID,
+		t.EntName,
+		t.AppDate,
+	    t.RegOrg
+		FROM
+		  er_esc_appinfo t
+		WHERE
+		  t.SimplecanRea = '4'
+	    <if test="_parameter !='' and _parameter != null">
+		and  <![CDATA[ t.update_time >= #{_parameter}]]>
+		</if>
+	</select>
+	
+	
+	<select id="selectErEscAppinfoPageResult" resultMap="ErEscAppinfoPageResult" parameterType="Map">
+		SELECT
+			A.PriPID,
+			A.EntName,
+			A.UniSCID,
+			A.RegNO,
+			A.RegOrg,
+			A.LocalAdm,
+			A.Commitment,
+			A.NoticeFrom,
+			A.NoticeTo,
+			A.AppDate,
+			A.CancelDate,
+			A.ApprDate,
+			(
+				SELECT
+					C.Content
+				FROM
+					cs_code_scanrea C
+				WHERE
+					A.SimplecanRea = C. CODE
+			) SimplecanReaName,
+			B.RegOrgName RegOrgName,
+			B.LocalAdmName
+		FROM
+			er_esc_appinfo A ,cs_mid_baseinfo B 
+		where A.PriPID = B.PriPID and  B.RegState IN ('K', 'A', 'B', 'Q', 'X')
+		AND  (A.SimplecanRea ='4' or A.SimplecanRea is null)
+		<!-- 数据权限 -->
+    	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/> 
+		<if test="uniSCIDAndReg !='' and uniSCIDAndReg !=null">
+		   and ( A.uniSCID  LIKE concat('%', #{uniSCIDAndReg},'%') OR A.regNO  LIKE concat('%', #{uniSCIDAndReg},'%')) 
+	    </if> 
+	    <if test="entName !='' and entName !=null">
+			    and A.EntName  LIKE concat('%', #{entName},'%')
+	    </if>
+	    <if test="regOrg !='' and regOrg !=null">
+			    and B.RegOrg  IN  (${regOrg})
+	    </if>
+		<if test="localAdm !='' and localAdm !=null">
+			    and B.LocalAdm IN  (${localAdm})
+		</if>
+		<if test="entType !='' and entType !=null">
+			    and B.EntType IN  (${entType})
+		</if> 
+		<!-- 如果是商务部部门 只查询外资 -->
+		<if test="entTypeCatg !='' and entTypeCatg !=null">
+			    and B.EntTypeCatg IN  (${entTypeCatg})
+		</if>
+		<if test="dom !='' and dom !=null">
+			    and B.Dom  LIKE concat('%', #{dom},'%')
+	    </if> 
+		<if test="startAppDate !='' and startAppDate !=null"> 
+			<![CDATA[
+			and A.AppDate >= #{startAppDate}
+			]]>  
+		</if>
+		<if test="endAppDate !='' and endAppDate !=null"> 
+			<![CDATA[
+			and A.AppDate <= #{endAppDate}
+			]]>  
+		</if>
+		
+		<if test="noticeFrom !='' and noticeFrom !=null"> 
+			<![CDATA[
+			and A.NoticeFrom >= #{noticeFrom}
+			]]>  
+		</if> 
+		<if test="noticeTo !='' and noticeTo !=null"> 
+			<![CDATA[
+			and A.NoticeTo <= #{noticeTo}
+			]]>  
+		</if>
+	</select> 
+  
+</mapper>

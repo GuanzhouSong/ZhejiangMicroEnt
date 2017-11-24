@@ -1,0 +1,847 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.drcheck.mapper.pubScSpecialLibraryMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.drcheck.model.pubScSpecialLibrary" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="EntType" property="entType" jdbcType="CHAR" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="CHAR" />
+    <result column="RegState" property="regState" jdbcType="CHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+    <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+    <result column="SliceNO" property="sliceNO" jdbcType="VARCHAR" />
+    <result column="SliceNOName" property="sliceNOName" jdbcType="VARCHAR" />
+    <result column="SpecialCode" property="specialCode" jdbcType="VARCHAR" />
+    <result column="SpecialName" property="specialName" jdbcType="VARCHAR" />
+    <result column="SpecialLicFlag" property="specialLicFlag" jdbcType="CHAR" />
+    <result column="LicName" property="licName" jdbcType="VARCHAR" />
+    <result column="LicNO" property="licNO" jdbcType="VARCHAR" />
+    <result column="LicApprDate" property="licApprDate" jdbcType="TIMESTAMP" />
+    <result column="LicSaveEndDate" property="licSaveEndDate" jdbcType="TIMESTAMP" />
+    <result column="LicSendDept" property="licSendDept" jdbcType="VARCHAR" />
+    <result column="SuperviseFlag" property="superviseFlag" jdbcType="CHAR" />
+    <result column="RightFlag" property="rightFlag" jdbcType="VARCHAR" />
+    <result column="LeadFlag" property="leadFlag" jdbcType="VARCHAR" />
+    <result column="SetUserUid" property="setUserUid" jdbcType="VARCHAR" />
+    <result column="SetUserName" property="setUserName" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="SetDeptcode" property="setDeptcode" jdbcType="VARCHAR" />
+    <result column="SetDeptName" property="setDeptName" jdbcType="VARCHAR" />
+    <result column="ScPtype" property="scPtype" jdbcType="VARCHAR" />
+    <result column="IsScVlid" property="isScVlid" jdbcType="CHAR" />
+    <result column="MarkName" property="markName" jdbcType="VARCHAR" />
+    <result column="MarkCode" property="markCode" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <resultMap id="treeMap" type="java.util.HashMap">
+  	<result property="id" column="id" javaType="java.lang.String" jdbcType="VARCHAR"/>
+  	<result property="name" column="name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+  	<result property="pId" column="pId" javaType="java.lang.String" jdbcType="VARCHAR"/>
+  	<result property="nocheck" column="nocheck" javaType="java.lang.String" jdbcType="VARCHAR"/>
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.drcheck.dto.pubScSpecialLibraryDto" id="PubScSpecialLibraryDto" extends="BaseResultMap">
+		<result column="areaName" property="areaName" jdbcType="VARCHAR" />
+		<result column="deptName" property="deptName" jdbcType="VARCHAR" />
+		<result column="A01" property="countA01" jdbcType="INTEGER" />
+		<result column="A02" property="countA02" jdbcType="INTEGER" />
+		<result column="A03" property="countA03" jdbcType="INTEGER" />
+		<result column="A04" property="countA04" jdbcType="INTEGER" />
+		<result column="A05" property="countA05" jdbcType="INTEGER" />
+		<result column="A06" property="countA06" jdbcType="INTEGER" />
+		<result column="B01" property="countB01" jdbcType="INTEGER" />
+		<result column="B02" property="countB02" jdbcType="INTEGER" />
+		<result column="B03" property="countB03" jdbcType="INTEGER" />
+		<result column="B04" property="countB04" jdbcType="INTEGER" />
+		<result column="B05" property="countB05" jdbcType="INTEGER" />
+		<result column="B06" property="countB06" jdbcType="INTEGER" />
+		<result column="B07" property="countB07" jdbcType="INTEGER" />
+		<result column="B08" property="countB08" jdbcType="INTEGER" />
+		<result column="B09" property="countB09" jdbcType="INTEGER" />
+		<result column="C01" property="countC01" jdbcType="INTEGER" />
+		<result column="C02" property="countC02" jdbcType="INTEGER" />
+		<result column="C03" property="countC03" jdbcType="INTEGER" />
+		<result column="C04" property="countC04" jdbcType="INTEGER" />
+		<result column="C05" property="countC05" jdbcType="INTEGER" />
+		<result column="C06" property="countC06" jdbcType="INTEGER" />
+		<result column="C07" property="countC07" jdbcType="INTEGER" />
+		<result column="C08" property="countC08" jdbcType="INTEGER" />
+		<result column="C09" property="countC09" jdbcType="INTEGER" />
+		<result column="C10" property="countC10" jdbcType="INTEGER" />
+		<result column="C11" property="countC11" jdbcType="INTEGER" />
+		<result column="C12" property="countC12" jdbcType="INTEGER" />
+		
+		<result column="count" property="count" jdbcType="VARCHAR" />
+		<result column="totalType" property="totalType" jdbcType="VARCHAR" />
+		<result column="CheckItemCode" property="checkItemCode" jdbcType="VARCHAR" />
+		<result column="CheckItemName" property="checkItemName" jdbcType="VARCHAR" />
+		<result column="specialNum" property="specialNum" jdbcType="INTEGER" />
+		<result column="EstDate" property="estDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+  
+  <select id="selectScSpecialLibraryInfo" resultMap="BaseResultMap" parameterType="Map">
+    SELECT
+     id,UID,PriPID,EntName,RegNO,EntType,RegOrg,LocalAdm,RegState,UniCode,RegOrgName,LocalAdmName,SliceNO,
+     SliceNOName,SpecialCode,SpecialName,SpecialLicFlag,LicName,LicNO,LicApprDate,LicSaveEndDate,LicSendDept,
+     SuperviseFlag,RightFlag,LeadFlag,SetUserUid,SetUserName,SetTime,SetDeptcode,SetDeptName,IsScVlid,MarkName,MarkCode
+    FROM
+    cs_pub_scspecial_library
+    <where>
+      <include refid="ScSpecialLibrary_where"/>
+      <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </where>
+    Order by SetTime Desc
+  </select>
+  
+  <!--   专项检查对象名录库录入列表 查询 -->
+  <select id="selectScSpecialLibraryList" resultMap="BaseResultMap" parameterType="Map">
+    SELECT
+     t.id,t.UID,t.PriPID,t.EntName,t.RegNO,t.EntType,t.RegOrg,t.LocalAdm,t.RegState,t.UniCode,t.RegOrgName,t.LocalAdmName,t.SliceNO,
+     t.SliceNOName,t.SpecialCode,t.SpecialName,t.SpecialLicFlag,t.LicName,t.LicNO,t.LicApprDate,t.LicSaveEndDate,t.LicSendDept,
+     t.SuperviseFlag,t.RightFlag,t.LeadFlag,t.SetUserUid,t.SetUserName,t.SetTime,t.SetDeptcode,t.SetDeptName,t.IsScVlid,t.MarkName,t.MarkCode
+    FROM
+    cs_pub_scspecial_library t
+    left join cs_mid_baseinfo m on t.PriPID = m.PriPID
+    <where>
+      <include refid="ScSpecialLibraryList_where"/>
+      <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </where>
+    Order by t.SetTime Desc
+  </select>
+  
+  <!--   专项检查对象名录库录入列表 统计 -->
+    <select id="selectScSpecialOptInitTotal" resultMap="PubScSpecialLibraryDto" parameterType="Map">
+   SELECT
+	COUNT(DISTINCT t.PriPID) count,1 totalType
+	FROM
+		cs_pub_scspecial_library t
+		 left join cs_mid_baseinfo m on t.PriPID = m.PriPID
+	  <where>
+      <include refid="ScSpecialLibraryList_where"/>
+      <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+      </where>
+	UNION ALL
+	SELECT
+	  COUNT(DISTINCT t.MarkCode) count,2 totalType
+	FROM
+		cs_pub_scspecial_library t
+		 left join cs_mid_baseinfo m on t.PriPID = m.PriPID
+	  <where>
+      <include refid="ScSpecialLibraryList_where"/>
+      <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+      </where>
+	UNION ALL
+	SELECT
+	  COUNT(DISTINCT t.LicNO) count,3 totalType
+	FROM
+		cs_pub_scspecial_library t
+		 left join cs_mid_baseinfo m on t.PriPID = m.PriPID
+	 <where>
+	  t.LicNO != '无' and t.LicNO is not null
+      <include refid="ScSpecialLibraryList_where"/>
+      <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </where>
+  </select>
+  <sql id="ScSpecialLibraryList_where">
+     <if test="entName !='' and entName !=null">
+    And t.EntName LIKE concat('%', #{entName},'%')
+    </if>
+     <if test="regOrSCID !='' and regOrSCID !=null">
+    And (t.UniCode LIKE concat('%', #{regOrSCID},'%') Or t.RegNO LIKE concat('%', #{regOrSCID},'%'))
+    </if>
+   <if test="regOrg !='' and regOrg !=null">
+     And t.RegOrg IN (${regOrg})
+     </if>
+     <if test="localAdm !='' and localAdm !=null">
+     And t.LocalAdm IN (${localAdm})
+     </if>
+    <if test="sliceNO !='' and sliceNO !=null">
+    And t.SliceNO IN (${sliceNO})
+    </if>
+    <if test="entCatg !='' and entCatg !=null">
+    And t.EntType IN (${entCatg})
+    </if>
+    <if test="specialLicFlag !='' and specialLicFlag !=null">
+    And t.SpecialLicFlag = #{specialLicFlag}
+    </if>
+    <if test="superviseFlag !='' and superviseFlag !=null">
+    And t.SuperviseFlag = #{superviseFlag}
+    </if>
+<!--<if test="licName !='' and licName !=null">
+    And  licName LIKE concat('%', #{licName},'%')
+    </if> -->
+    <if test="licNO !='' and licNO !=null">
+    And t.LicNO = #{licNO}
+    </if>
+    <if test="setUserName !='' and setUserName !=null">
+    And t.SetUserName = #{setUserName}
+    </if>
+    <if test="isScVlid !='' and isScVlid !=null">
+    And t.IsScVlid = #{isScVlid}
+    </if>
+    <if test="licSendDept !='' and licSendDept !=null">
+    And t.LicSendDept LIKE concat('%', #{licSendDept},'%')
+    </if>
+    <if test="setUserUid !='' and setUserUid !=null">
+    And t.SetUserUid = #{setUserUid}
+    </if>
+    <if test="licSaveEndDateStart !='' and licSaveEndDateStart !=null">
+      <![CDATA[
+	  and DATE_FORMAT(t.LicSaveEndDate,'%Y-%m-%d') >= #{licSaveEndDateStart}
+	  ]]>
+     </if>
+      <if test="licSaveEndDateEnd !='' and licSaveEndDateEnd !=null">
+      <![CDATA[
+	  and DATE_FORMAT(t.LicSaveEndDate,'%Y-%m-%d') <= #{licSaveEndDateEnd}
+	  ]]>
+     </if>
+    <if test="setTimeStart !='' and setTimeStart !=null">
+      <![CDATA[
+	  and DATE_FORMAT(t.SetTime,'%Y-%m-%d') >= #{setTimeStart}
+	  ]]>
+     </if>
+      <if test="setTimeEnd !='' and setTimeEnd !=null">
+      <![CDATA[
+	  and DATE_FORMAT(t.SetTime,'%Y-%m-%d') <= #{setTimeEnd}
+	  ]]>
+     </if>
+     
+     <if test="regStates!=null and regStates!=''">
+				and t.RegState IN
+				<foreach item="item" index="index" collection="regStates" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			
+     <if test="specialCodes!=null and specialCodes!=''">
+				and t.SpecialCode IN
+				<foreach item="item" index="index" collection="specialCodes" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			
+     <if test="markCodes!=null and markCodes!=''">
+				and t.markCode IN
+				<foreach item="item" index="index" collection="markCodes" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+     
+     <if test="rightFlags!=null and rightFlags!=''">
+				and
+				<foreach item="item" index="index" collection="rightFlags" open="("
+					separator="and" close=")">
+					t.RightFlag LIKE concat('%', #{item},'%')
+				</foreach>
+			</if>
+			
+     <if test="leadFlags!=null and leadFlags!=''">
+				and
+				<foreach item="item" index="index" collection="leadFlags" open="("
+					separator="and" close=")">
+					t.LeadFlag LIKE concat('%', #{item},'%')
+				</foreach>
+			</if>
+			
+     <if test="licNames!=null and licNames!=''">
+				and
+				<foreach item="item" index="index" collection="licNames" open="("
+					separator="or" close=")">
+					t.LicName  = #{item}
+				</foreach>
+			</if>
+  </sql>
+  
+  <select id="selectScSpecialInitTotal" resultMap="PubScSpecialLibraryDto" parameterType="Map">
+   SELECT
+	COUNT(DISTINCT t.PriPID) count,1 totalType
+	FROM
+		cs_pub_scspecial_library t
+	  <where>
+      <include refid="ScSpecialLibrary_where"/>
+      <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+      </where>
+	UNION ALL
+	SELECT
+	  COUNT(DISTINCT t.MarkCode) count,2 totalType
+	FROM
+		cs_pub_scspecial_library t
+	  <where>
+      <include refid="ScSpecialLibrary_where"/>
+      <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+      </where>
+	UNION ALL
+	SELECT
+	  COUNT(DISTINCT t.LicNO) count,3 totalType
+	FROM
+		cs_pub_scspecial_library t
+	 <where>
+	  t.LicNO != '无'
+      <include refid="ScSpecialLibrary_where"/>
+      <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </where>
+  </select>
+  
+<!--   专项库导入待抽检库 -->
+  <select id="selectScSpecialList" resultMap="BaseResultMap" parameterType="Map">
+    SELECT
+     id,UID,PriPID,EntName,RegNO,EntType,RegOrg,LocalAdm,RegState,UniCode,RegOrgName,LocalAdmName,SliceNO,
+     SliceNOName,SpecialCode,SpecialName,SpecialLicFlag,LicName,LicNO,LicApprDate,LicSaveEndDate,LicSendDept,
+     SuperviseFlag,RightFlag,LeadFlag,SetUserUid,SetUserName,SetTime,SetDeptcode,SetDeptName,IsScVlid,MarkName,MarkCode
+    FROM
+    cs_pub_scspecial_library
+    <where>
+      <include refid="ScSpecialLibraryForAdd_where"/>
+      <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </where>
+    Order by SetTime Desc
+  </select>
+<!--   专项库导入待抽检库统计 -->
+  <select id="selectScSpecialCount" resultType="java.lang.Integer" parameterType="Map">
+    SELECT
+     count(0)
+    FROM
+    cs_pub_scspecial_library
+    <where>
+      <include refid="ScSpecialLibraryForAdd_where"/>
+      <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </where>
+    Order by SetTime Desc
+  </select>
+  
+  <select id="selectSpLibraryByName" resultType="java.lang.String" parameterType="java.lang.String">
+     SELECT 
+     Code FROM cs_code_scinspect where Content = #{Content}
+  </select>
+  
+  <select id="selectSpLibraryByCode" resultType="java.lang.String" parameterType="java.lang.String">
+     SELECT 
+     Content FROM cs_code_scinspect where Code = #{Content}
+  </select>
+  
+  <select id="selectScSpecialTreeMap" resultMap="treeMap" parameterType="java.lang.String">
+     SELECT 	
+	  t.id,
+		t.NAME,
+		t.pId,
+		t.nocheck
+	 FROM (
+	  SELECT a.`Code` id,a.Content NAME,a.SupCode pId,'' nocheck FROM cs_code_scinspect a
+	   UNION
+	  SELECT 'A' id,'工商类' NAME,'0' pId,
+	  CASE WHEN #{isCheck} ='false' THEN 'true' ELSE '' END AS nocheck
+	  FROM cs_code_scinspect a
+	   UNION
+	  SELECT 'B' id,'食药类' NAME,'1' pId,
+	  CASE WHEN #{isCheck} ='false' THEN 'true' ELSE '' END AS nocheck
+	  FROM cs_code_scinspect a
+	   UNION
+	  SELECT 'C' id,'质监类' NAME,'2' pId,
+	  CASE WHEN #{isCheck} ='false' THEN 'true' ELSE '' END AS nocheck 
+	  FROM cs_code_scinspect a
+	) t
+  </select>
+  
+  <select id="selectMarkTreeMap" resultMap="treeMap">
+ 	SELECT 	
+	  t.id,
+		t.NAME,
+		t.pId
+	 FROM (
+	  SELECT a.IDCode id,a.IDName NAME,SUBSTR(a.IDCode,1,1) pId 
+	  FROM cs_regist_mark a 
+      WHERE LENGTH(a.IDCode) = 6 AND SUBSTR(a.IDCode,1,1) IN ('A','B','C')
+	    UNION
+	  SELECT 'A' id,'工商行政管理' NAME,'0' pId FROM cs_regist_mark a
+	    UNION
+	  SELECT 'B' id,'食品药品管理' NAME,'1' pId FROM cs_regist_mark a
+	    UNION
+	  SELECT 'C' id,'质量技术监督' NAME,'2' pId FROM cs_regist_mark a
+	) t
+  </select>
+  
+  <sql id="ScSpecialLibraryForAdd_where">
+  		<if test="entCatg !='' and entCatg !=null">
+	    And EntType IN (${entCatg})
+	    </if>
+	  	<if test="regOrg !='' and regOrg !=null">
+	     And RegOrg IN (${regOrg})
+	     </if>
+	     <if test="localAdm !='' and localAdm !=null">
+	     And LocalAdm IN (${localAdm})
+	     </if>
+	     <if test="specialCodes!=null and specialCodes!=''">
+			and SpecialCode IN
+			<foreach item="item" index="index" collection="specialCodes" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+				
+	     <if test="markCodes!=null and markCodes!=''">
+			and markCode IN
+			<foreach item="item" index="index" collection="markCodes" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		 <if test="licNames!=null and licNames!=''">
+			and
+			<foreach item="item" index="index" collection="licNames" open="("
+				separator="or" close=")">
+				LicName  = #{item}
+			</foreach>
+		</if>
+  </sql>
+  <sql id="ScSpecialLibrary_where">
+     <if test="entName !='' and entName !=null">
+    And EntName LIKE concat('%', #{entName},'%')
+    </if>
+     <if test="regOrSCID !='' and regOrSCID !=null">
+    And (UniCode LIKE concat('%', #{regOrSCID},'%') Or RegNO LIKE concat('%', #{regOrSCID},'%'))
+    </if>
+   <if test="regOrg !='' and regOrg !=null">
+     And RegOrg IN (${regOrg})
+     </if>
+     <if test="localAdm !='' and localAdm !=null">
+     And LocalAdm IN (${localAdm})
+     </if>
+    <if test="sliceNO !='' and sliceNO !=null">
+    And SliceNO IN (${sliceNO})
+    </if>
+    <if test="entCatg !='' and entCatg !=null">
+    And EntType IN (${entCatg})
+    </if>
+    <if test="specialLicFlag !='' and specialLicFlag !=null">
+    And SpecialLicFlag = #{specialLicFlag}
+    </if>
+    <if test="superviseFlag !='' and superviseFlag !=null">
+    And SuperviseFlag = #{superviseFlag}
+    </if>
+<!--<if test="licName !='' and licName !=null">
+    And  licName LIKE concat('%', #{licName},'%')
+    </if> -->
+    <if test="licNO !='' and licNO !=null">
+    And LicNO = #{licNO}
+    </if>
+    <if test="setUserName !='' and setUserName !=null">
+    And SetUserName = #{setUserName}
+    </if>
+    <if test="isScVlid !='' and isScVlid !=null">
+    And IsScVlid = #{isScVlid}
+    </if>
+    <if test="licSendDept !='' and licSendDept !=null">
+    And LicSendDept LIKE concat('%', #{licSendDept},'%')
+    </if>
+    <if test="setUserUid !='' and setUserUid !=null">
+    And SetUserUid = #{setUserUid}
+    </if>
+    <if test="licSaveEndDateStart !='' and licSaveEndDateStart !=null">
+      <![CDATA[
+	  and DATE_FORMAT(LicSaveEndDate,'%Y-%m-%d') >= #{licSaveEndDateStart}
+	  ]]>
+     </if>
+      <if test="licSaveEndDateEnd !='' and licSaveEndDateEnd !=null">
+      <![CDATA[
+	  and DATE_FORMAT(LicSaveEndDate,'%Y-%m-%d') <= #{licSaveEndDateEnd}
+	  ]]>
+     </if>
+    <if test="setTimeStart !='' and setTimeStart !=null">
+      <![CDATA[
+	  and DATE_FORMAT(SetTime,'%Y-%m-%d') >= #{setTimeStart}
+	  ]]>
+     </if>
+      <if test="setTimeEnd !='' and setTimeEnd !=null">
+      <![CDATA[
+	  and DATE_FORMAT(SetTime,'%Y-%m-%d') <= #{setTimeEnd}
+	  ]]>
+     </if>
+     
+     <if test="regStates!=null and regStates!=''">
+				and RegState IN
+				<foreach item="item" index="index" collection="regStates" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			
+     <if test="specialCodes!=null and specialCodes!=''">
+				and SpecialCode IN
+				<foreach item="item" index="index" collection="specialCodes" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			
+     <if test="markCodes!=null and markCodes!=''">
+				and markCode IN
+				<foreach item="item" index="index" collection="markCodes" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+     
+     <if test="rightFlags!=null and rightFlags!=''">
+				and
+				<foreach item="item" index="index" collection="rightFlags" open="("
+					separator="and" close=")">
+					RightFlag LIKE concat('%', #{item},'%')
+				</foreach>
+			</if>
+			
+     <if test="leadFlags!=null and leadFlags!=''">
+				and
+				<foreach item="item" index="index" collection="leadFlags" open="("
+					separator="and" close=")">
+					LeadFlag LIKE concat('%', #{item},'%')
+				</foreach>
+			</if>
+			
+     <if test="licNames!=null and licNames!=''">
+				and
+				<foreach item="item" index="index" collection="licNames" open="("
+					separator="or" close=")">
+					LicName  = #{item}
+				</foreach>
+			</if>
+  </sql>
+  
+  <sql id="ScSpecialLibrarycount_where">
+  		<if test="statArea !='' and statArea !=null">
+	    and  LEFT(IFNULL(t.RegOrg,t.localAdm),4)  IN  (${statArea}) 
+	    </if>
+  		<if test="entTypes != null and entTypes != ''">
+			and t.EntType in (${entTypes}) 
+		</if>
+		<if test="setTimeStart !='' and setTimeStart !=null">
+	      <![CDATA[
+		  and DATE_FORMAT(t.SetTime,'%Y-%m-%d') >= #{setTimeStart}
+		  ]]>
+	     </if>
+	     <if test="setTimeEnd !='' and setTimeEnd !=null">
+	      <![CDATA[
+		  and DATE_FORMAT(t.SetTime,'%Y-%m-%d') <= #{setTimeEnd}
+		  ]]>
+	     </if>
+		 <if test="startCheckPushDate !='' and startCheckPushDate !=null">
+			<![CDATA[
+			and DATE_FORMAT(t.setTime,'%Y%m') >= left(#{startCheckPushDate},6) 
+			]]> 
+		 </if>
+		<if test="endCheckPushDate !='' and endCheckPushDate !=null">
+		<![CDATA[
+		   and DATE_FORMAT(t.setTime,'%Y%m') <= left(#{endCheckPushDate},6) 
+		]]> 
+		</if>
+  </sql>
+  
+  <select id="selectScSpecialLibraryCountByArea" resultMap="PubScSpecialLibraryDto" parameterType="Map">
+	<if test="statLevel != null and statLevel != '' and  statLevel != 'area'">
+	SELECT D.areaName,D.regOrg,
+	D.A01,D.A02,D.A03,D.A04,D.A05,D.A06,
+	D.B01,D.B02,D.B03,D.B04,D.B05,D.B06,D.B07,D.B08,D.B09,
+	D.C01,D.C02,D.C03,D.C04,D.C05,D.C06,D.C07,D.C08,D.C09,D.C10,D.C11,D.C12,
+	b.content deptName
+	FROM
+	(
+	</if>
+	SELECT LEFT(IFNULL(t.RegOrg,t.localAdm),4) areaName,
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'area' ">
+	LEFT(IFNULL(t.RegOrg,t.localAdm),4) deptName,
+	</if>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'regOrg' ">
+	IFNULL(t.regOrg,LEFT(t.localAdm,6)) regOrg,
+	</if>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'localAdm' ">
+	t.localAdm regOrg,
+	</if>
+	SUM(CASE WHEN t.specialcode = 'A01' THEN 1 ELSE 0 END ) A01,
+	SUM(CASE WHEN t.specialcode = 'A02' THEN 1 ELSE 0 END ) A02,
+	SUM(CASE WHEN t.specialcode = 'A03' THEN 1 ELSE 0 END ) A03,
+	SUM(CASE WHEN t.specialcode = 'A04' THEN 1 ELSE 0 END ) A04,
+	SUM(CASE WHEN t.specialcode = 'A05' THEN 1 ELSE 0 END ) A05,
+	SUM(CASE WHEN t.specialcode = 'A06' THEN 1 ELSE 0 END ) A06,
+	SUM(CASE WHEN t.specialcode = 'B01' THEN 1 ELSE 0 END ) B01,
+	SUM(CASE WHEN t.specialcode = 'B02' THEN 1 ELSE 0 END ) B02,
+	SUM(CASE WHEN t.specialcode = 'B03' THEN 1 ELSE 0 END ) B03,
+	SUM(CASE WHEN t.specialcode = 'B04' THEN 1 ELSE 0 END ) B04,
+	SUM(CASE WHEN t.specialcode = 'B05' THEN 1 ELSE 0 END ) B05,
+	SUM(CASE WHEN t.specialcode = 'B06' THEN 1 ELSE 0 END ) B06,
+	SUM(CASE WHEN t.specialcode = 'B07' THEN 1 ELSE 0 END ) B07,
+	SUM(CASE WHEN t.specialcode = 'B08' THEN 1 ELSE 0 END ) B08,
+	SUM(CASE WHEN t.specialcode = 'B09' THEN 1 ELSE 0 END ) B09,
+	SUM(CASE WHEN t.specialcode = 'C01' THEN 1 ELSE 0 END ) C01,
+	SUM(CASE WHEN t.specialcode = 'C02' THEN 1 ELSE 0 END ) C02,
+	SUM(CASE WHEN t.specialcode = 'C03' THEN 1 ELSE 0 END ) C03,
+	SUM(CASE WHEN t.specialcode = 'C04' THEN 1 ELSE 0 END ) C04,
+	SUM(CASE WHEN t.specialcode = 'C05' THEN 1 ELSE 0 END ) C05,
+	SUM(CASE WHEN t.specialcode = 'C06' THEN 1 ELSE 0 END ) C06,
+	SUM(CASE WHEN t.specialcode = 'C07' THEN 1 ELSE 0 END ) C07,
+	SUM(CASE WHEN t.specialcode = 'C08' THEN 1 ELSE 0 END ) C08,
+	SUM(CASE WHEN t.specialcode = 'C09' THEN 1 ELSE 0 END ) C09,
+	SUM(CASE WHEN t.specialcode = 'C10' THEN 1 ELSE 0 END ) C10,
+	SUM(CASE WHEN t.specialcode = 'C11' THEN 1 ELSE 0 END ) C11,
+	SUM(CASE WHEN t.specialcode = 'C12' THEN 1 ELSE 0 END ) C12
+	FROM cs_pub_scspecial_library t 
+	WHERE t.IsScVlid = '1' and t.RegOrg is not NUll and t.localAdm is not null
+	and t.RegOrg !='' and t.localAdm !=''
+	<include refid="ScSpecialLibrarycount_where"/>
+	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	GROUP BY LEFT(IFNULL(t.RegOrg,t.localAdm),4)
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'regOrg' ">
+	,IFNULL(t.regOrg,LEFT(t.localAdm,6))
+	) D
+	LEFT JOIN 
+	cs_code_regorg b
+	on b.code = D.regOrg
+	</if>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'localAdm' ">
+    ,t.localAdm
+    ) D
+	LEFT JOIN 
+	cs_code_regunit b
+	on b.code = D.regOrg
+	</if>
+	
+  </select>
+  
+   <select id="selectCountBySpecial" resultMap="PubScSpecialLibraryDto" parameterType="Map">
+	SELECT
+		t.SpecialCode,
+		t.SpecialName,
+		n.DoublyStoSecCode CheckItemCode,
+		n.DoublyStoSecName CheckItemName,
+		count(t.PriPID) specialNum
+	FROM
+		cs_pub_scspecial_library t
+		LEFT JOIN cs_regist_mark n 
+	ON t.MarkCode = n.IDCode
+	LEFT JOIN cs_mid_baseinfo b ON t.PriPID = b.PriPID
+	WHERE t.IsScVlid = '1'
+	AND n.DoublyStoState = '1' AND n.AuditState = '2'
+	and b.RegState IN (${regState})
+	<if test="checkItemCodes != null and checkItemCodes != ''">
+		and n.DoublyStoSecCode IN
+		<foreach item="item" index="index" collection="checkItemCodes" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</if>
+	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	GROUP BY n.DoublyStoSecCode,t.SpecialCode
+	order by n.DoublyStoSecCode,t.SpecialCode
+  </select>
+  
+  <select id="selectScSpecialLibraryCountByRegOrg" resultMap="PubScSpecialLibraryDto" parameterType="Map">
+  	SELECT 
+  	CASE WHEN left(t.RegOrg,4) = '3300' THEN '省局'
+            WHEN left(t.RegOrg,4) = '3301' THEN '杭州'
+            WHEN left(t.RegOrg,4) = '3302' THEN '宁波'
+            WHEN left(t.RegOrg,4) = '3303' THEN '温州'
+            WHEN left(t.RegOrg,4) = '3304' THEN '嘉兴'
+            WHEN left(t.RegOrg,4) = '3305' THEN '湖州'
+            WHEN left(t.RegOrg,4) = '3306' THEN '绍兴'
+            WHEN left(t.RegOrg,4) = '3307' THEN '金华'
+            WHEN left(t.RegOrg,4) = '3308' THEN '衢州'
+            WHEN left(t.RegOrg,4) = '3309' THEN '舟山'
+            WHEN left(t.RegOrg,4) = '3310' THEN '台州'
+            WHEN left(t.RegOrg,4) = '3325' THEN '丽水'
+	END areaName,
+  	t.RegOrgName deptName,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'A01' AND y1.RegOrg = t.RegOrg) A01,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'A02' AND y1.RegOrg = t.RegOrg) A02,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'A03' AND y1.RegOrg = t.RegOrg) A03,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'A04' AND y1.RegOrg = t.RegOrg) A04,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'A05' AND y1.RegOrg = t.RegOrg) A05,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'A06' AND y1.RegOrg = t.RegOrg) A06,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'B01' AND y1.RegOrg = t.RegOrg) B01,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'B02' AND y1.RegOrg = t.RegOrg) B02,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'B03' AND y1.RegOrg = t.RegOrg) B03,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'B04' AND y1.RegOrg = t.RegOrg) B04,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'B05' AND y1.RegOrg = t.RegOrg) B05,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'B06' AND y1.RegOrg = t.RegOrg) B06,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'B07' AND y1.RegOrg = t.RegOrg) B07,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'B08' AND y1.RegOrg = t.RegOrg) B08,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'B09' AND y1.RegOrg = t.RegOrg) B09,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'C01' AND y1.RegOrg = t.RegOrg) C01,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'C02' AND y1.RegOrg = t.RegOrg) C02,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'C03' AND y1.RegOrg = t.RegOrg) C03,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'C04' AND y1.RegOrg = t.RegOrg) C04,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'C05' AND y1.RegOrg = t.RegOrg) C05,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'C06' AND y1.RegOrg = t.RegOrg) C06,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'C07' AND y1.RegOrg = t.RegOrg) C07,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'C08' AND y1.RegOrg = t.RegOrg) C08,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'C09' AND y1.RegOrg = t.RegOrg) C09,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'C10' AND y1.RegOrg = t.RegOrg) C10,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'C11' AND y1.RegOrg = t.RegOrg) C11,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'C12' AND y1.RegOrg = t.RegOrg) C12
+	FROM cs_pub_scspecial_library t 
+	<where>
+      <include refid="ScSpecialLibrarycount_where"/>
+    </where>
+	GROUP BY t.RegOrg ORDER BY t.RegOrg
+  </select>
+  
+  <select id="selectScSpecialLibraryCountByLocaladm" resultMap="PubScSpecialLibraryDto" parameterType="Map">
+  	SELECT
+  	CASE WHEN left(t.LocalAdm,4) = '3300' THEN '省局'
+            WHEN left(t.LocalAdm,4) = '3301' THEN '杭州'
+            WHEN left(t.LocalAdm,4) = '3302' THEN '宁波'
+            WHEN left(t.LocalAdm,4) = '3303' THEN '温州'
+            WHEN left(t.LocalAdm,4) = '3304' THEN '嘉兴'
+            WHEN left(t.LocalAdm,4) = '3305' THEN '湖州'
+            WHEN left(t.LocalAdm,4) = '3306' THEN '绍兴'
+            WHEN left(t.LocalAdm,4) = '3307' THEN '金华'
+            WHEN left(t.LocalAdm,4) = '3308' THEN '衢州'
+            WHEN left(t.LocalAdm,4) = '3309' THEN '舟山'
+            WHEN left(t.LocalAdm,4) = '3310' THEN '台州'
+            WHEN left(t.LocalAdm,4) = '3325' THEN '丽水'
+            ELSE t.PriPID
+	END areaName, 
+  	t.LocalAdmName deptName,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'A01' AND y1.LocalAdm = t.LocalAdm) A01,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'A02' AND y1.LocalAdm = t.LocalAdm) A02,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'A03' AND y1.LocalAdm = t.LocalAdm) A03,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'A04' AND y1.LocalAdm = t.LocalAdm) A04,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'A05' AND y1.LocalAdm = t.LocalAdm) A05,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'A06' AND y1.LocalAdm = t.LocalAdm) A06,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'B01' AND y1.LocalAdm = t.LocalAdm) B01,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'B02' AND y1.LocalAdm = t.LocalAdm) B02,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'B03' AND y1.LocalAdm = t.LocalAdm) B03,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'B04' AND y1.LocalAdm = t.LocalAdm) B04,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'B05' AND y1.LocalAdm = t.LocalAdm) B05,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'B06' AND y1.LocalAdm = t.LocalAdm) B06,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'B07' AND y1.LocalAdm = t.LocalAdm) B07,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'B08' AND y1.LocalAdm = t.LocalAdm) B08,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'B09' AND y1.LocalAdm = t.LocalAdm) B09,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'C01' AND y1.LocalAdm = t.LocalAdm) C01,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'C02' AND y1.LocalAdm = t.LocalAdm) C02,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'C03' AND y1.LocalAdm = t.LocalAdm) C03,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'C04' AND y1.LocalAdm = t.LocalAdm) C04,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'C05' AND y1.LocalAdm = t.LocalAdm) C05,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'C06' AND y1.LocalAdm = t.LocalAdm) C06,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'C07' AND y1.LocalAdm = t.LocalAdm) C07,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'C08' AND y1.LocalAdm = t.LocalAdm) C08,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'C09' AND y1.LocalAdm = t.LocalAdm) C09,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'C10' AND y1.LocalAdm = t.LocalAdm) C10,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'C11' AND y1.LocalAdm = t.LocalAdm) C11,
+	(SELECT COUNT(y1.pripid) FROM cs_pub_scspecial_library y1 WHERE y1.specialcode = 'C12' AND y1.LocalAdm = t.LocalAdm) C12
+	FROM cs_pub_scspecial_library t 
+	<where>
+		<![CDATA[
+		t.LocalAdm is not null and t.LocalAdm <> ''
+		]]>
+      <include refid="ScSpecialLibrarycount_where"/>
+    </where>
+	GROUP BY t.LocalAdm ORDER BY t.LocalAdm
+  </select>
+  
+  <!-- 查询抽中企业的企业类型-->
+  <select id="selectCheckCodeList" resultType="java.lang.String" parameterType="java.lang.String"> 
+	SELECT
+		n.DoublyStoSecCode
+	FROM
+		cs_pub_scspecial_library t
+		LEFT JOIN cs_regist_mark n 
+	ON t.MarkCode = n.IDCode
+	WHERE t.PriPID = #{priPID}
+	AND IsScVlid = '1'
+	AND t.MarkCode IS NOT NULL
+	GROUP BY n.DoublyStoSecCode
+  </select>
+  
+  <!-- 查询抽中企业的专项库标签-->
+  <select id="selectPubScSpecialLibrary" resultMap="PubScSpecialLibraryDto" parameterType="java.lang.String"> 
+	SELECT
+		n.DoublyStoSecCode CheckItemCode,
+		n.DoublyStoSecName CheckItemName,
+		t.SpecialCode,
+		t.SpecialName,
+		t.SetUserUid
+	FROM
+		cs_pub_scspecial_library t
+		LEFT JOIN cs_regist_mark n 
+	ON t.MarkCode = n.IDCode
+	WHERE t.PriPID = #{priPID}
+	AND IsScVlid = '1'
+	AND n.DoublyStoState = '1' AND n.AuditState = '2'
+	<if test="checkItemCodes != null and checkItemCodes != ''">
+		and n.DoublyStoSecCode IN
+		<foreach item="item" index="index" collection="checkItemCodes" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</if>
+  </select>
+  
+  <select id="selectPubScSpeForRandom" resultMap="PubScSpecialLibraryDto" parameterType="Map"> 
+  	SELECT
+		b.EntName,t.PriPID,b.RegNO,b.UniCode,b.RegState,b.RegOrg,b.RegOrgName,b.EntType,b.LocalAdm
+		,b.LocalAdmName,b.EstDate,n.DoublyStoSecCode,n.DoublyStoSecName,t.SpecialCode,t.SpecialName,t.SetUserUid
+	FROM
+		cs_pub_scspecial_library t
+	LEFT JOIN cs_regist_mark n ON t.MarkCode = n.IDCode
+	LEFT JOIN cs_mid_baseinfo b ON t.PriPID = b.PriPID
+	WHERE 
+	IsScVlid = '1'
+	AND n.DoublyStoState = '1' AND n.AuditState = '2'
+	and b.RegState IN (${regState})
+	<if test="checkCode != null and checkCode != ''">
+		and n.DoublyStoSecCode = #{checkCode}
+	</if>
+	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	order by t.RegOrg,t.LocalAdm,n.DoublyStoSecCode,t.SpecialCode
+	limit #{limit},1
+  </select>
+  
+  <select id="selectPubScSpeListForRandom" resultMap="PubScSpecialLibraryDto" parameterType="Map"> 
+  	SELECT
+		b.EntName,t.PriPID,b.RegNO,b.UniCode,b.RegState,b.RegOrg,b.RegOrgName,b.EntType,b.LocalAdm
+		,b.LocalAdmName,b.EstDate,n.DoublyStoSecCode,n.DoublyStoSecName,t.SpecialCode,t.SpecialName,t.SetUserUid
+	FROM
+		cs_pub_scspecial_library t
+	LEFT JOIN cs_regist_mark n ON t.MarkCode = n.IDCode
+	LEFT JOIN cs_mid_baseinfo b ON t.PriPID = b.PriPID
+	WHERE 
+	t.IsScVlid = '1'
+	AND n.DoublyStoState = '1' AND n.AuditState = '2'
+	and b.RegState IN (${regState})
+	<if test="checkCode != null and checkCode != ''">
+		and n.DoublyStoSecCode = #{checkCode}
+	</if>
+	<if test="specialCode != null and specialCode != ''">
+		and t.SpecialCode = #{specialCode}
+	</if>
+	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	order by t.RegOrg,t.LocalAdm,t.SpecialCode
+	limit #{limit},#{step}
+  </select>
+  
+  <select id="selectListBySpecial" resultMap="PubScSpecialLibraryDto" parameterType="Map">
+	SELECT
+		b.EntName,t.PriPID,b.RegNO,b.UniCode,b.RegState,b.RegOrg,b.RegOrgName,b.EntType,b.LocalAdm
+		,b.LocalAdmName,b.EstDate,n.DoublyStoSecCode,n.DoublyStoSecName,t.SpecialCode,t.SpecialName,t.SetUserUid
+	FROM
+		cs_pub_scspecial_library t
+		LEFT JOIN cs_regist_mark n 
+	ON t.MarkCode = n.IDCode
+	LEFT JOIN cs_mid_baseinfo b ON t.PriPID = b.PriPID
+	WHERE IsScVlid = '1'
+	and b.RegState IN (${regState})
+	<if test="checkCode != null and checkCode != ''">
+		and n.DoublyStoSecCode = #{checkCode}
+	</if>
+	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+  </select>
+</mapper>

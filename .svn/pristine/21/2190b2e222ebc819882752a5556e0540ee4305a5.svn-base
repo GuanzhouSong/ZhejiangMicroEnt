@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.sccheck.mapper.PubScentMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sccheck.model.PubScent" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Uid" property="uid" jdbcType="VARCHAR" />
+    <result column="TaskUid" property="taskUid" jdbcType="VARCHAR" />
+    <result column="DeptTaskUid" property="deptTaskUid" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="RegState" property="regState" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="EntTypeCatg" property="entTypeCatg" jdbcType="CHAR" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="CHAR" />
+    <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+    <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="EstDate" property="estDate" jdbcType="TIMESTAMP" />    
+    <result column="SpecialCode" property="specialCode" jdbcType="VARCHAR" />
+    <result column="SpecialName" property="specialName" jdbcType="VARCHAR" />
+    <result column="RelateUserUid" property="relateUserUid" jdbcType="VARCHAR" />
+    <result column="LastCheckTime" property="lastCheckTime" jdbcType="TIMESTAMP" />
+    <result column="AdjustUserUid" property="adjustUserUid" jdbcType="VARCHAR" />
+    <result column="AdjustUserName" property="adjustUserName" jdbcType="VARCHAR" />
+    <result column="AdjustTime" property="adjustTime" jdbcType="TIMESTAMP" />
+    <result column="DrSpeaialUid" property="drSpeaialUid" jdbcType="VARCHAR" />
+    <result column="CheckDeptCode" property="checkDeptCode" jdbcType="VARCHAR" />
+    <result column="CheckDeptName" property="checkDeptName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <resultMap id="BaseResultMapDto" type="com.icinfo.cs.sccheck.dto.PubScentDto" extends="BaseResultMap">
+	    <id column="specialNum" property="specialNum" jdbcType="INTEGER" />
+	    <id column="TaskCode" property="taskCode" jdbcType="VARCHAR" />
+	    <id column="TaskName" property="taskName" jdbcType="VARCHAR" />
+	    <id column="checkDeptName" property="checkDeptName" jdbcType="VARCHAR" />
+	    <id column="TaskLeadDeptName" property="taskLeadDeptName" jdbcType="VARCHAR" />
+	    <id column="AuditState" property="auditState" jdbcType="VARCHAR" />
+	    <id column="CheckDeptName" property="checkDeptName" jdbcType="VARCHAR" />
+	    <id column="CheckDeptPerson" property="checkDeptPerson" jdbcType="VARCHAR" />
+	    <id column="CheckResult" property="checkResult" jdbcType="VARCHAR" />
+	    <id column="AuditUserName" property="auditUserName" jdbcType="VARCHAR" />
+	    <id column="DisposeState" property="disposeState" jdbcType="VARCHAR" />
+	    <id column="CheckDate" property="checkDate" jdbcType="TIMESTAMP" />
+	    <id column="writeNum" property="writeNum" jdbcType="INTEGER" />
+	    <id column="auditNum" property="auditNum" jdbcType="INTEGER" />
+	    <id column="backNum" property="backNum" jdbcType="INTEGER" />
+	    <id column="publicNum" property="publicNum" jdbcType="INTEGER" />
+	    <id column="unDisposeNum" property="unDisposeNum" jdbcType="INTEGER" />
+	    <id column="totalNum" property="totalNum" jdbcType="INTEGER" />
+	    <id column="agentNames" property="agentNames" jdbcType="VARCHAR" />
+	    <id column="entTypeCatgName" property="entTypeCatgName" jdbcType="VARCHAR" />
+	    <id column="LeRep" property="leRep" jdbcType="VARCHAR" />
+	    <id column="LiaName" property="liaName" jdbcType="VARCHAR" />
+	    <id column="Tel" property="tel" jdbcType="VARCHAR" />
+	    <id column="Dom" property="dom" jdbcType="VARCHAR" />
+   </resultMap>
+   
+  <!-- 查询当前任务下已抽取企业列表 -->
+  <select id="selectPubScentDtoList" resultMap="BaseResultMapDto" parameterType="Map"> 
+	SELECT
+		t.id,t.Uid,t.TaskUid,t.DeptTaskUid,o.PriPID,o.EntName,o.RegNO,o.EntTypeCatg,o.RegOrg,o.LocalAdm,o.UniCode,o.RegOrgName,o.LocalAdmName,
+		t.SpecialCode,t.SpecialName,o.EstDate,t.LastCheckTime,t.RelateUserUid,t.SetTime
+	FROM
+		cs_pub_scent t
+		LEFT JOIN cs_mid_baseinfo o ON t.PriPID = o.PriPID
+	<trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="deptTaskUid != null and deptTaskUid != ''">
+			and t.DeptTaskUid = #{deptTaskUid}
+			group by t.PriPID
+		</if>
+		<if test="pubTaskUid != null and pubTaskUid != ''">
+			and t.TaskUid = #{pubTaskUid} 
+			group by t.PriPID
+			ORDER BY o.RegOrg,o.LocalAdm
+			LIMIT ${numStart},${pageSize}
+		</if>
+	</trim>
+  </select>
+  
+  <select id="selectPubScentAllList" resultMap="BaseResultMapDto" parameterType="java.lang.String"> 
+	SELECT
+		EntName,GROUP_CONCAT(b.AgentName) agentNames
+	FROM
+		cs_pub_scent t
+	LEFT JOIN cs_pub_scent_agent a ON t.Uid = a.ScentUid
+	LEFT JOIN cs_pub_scagent b ON a.AgentUid = b.UID
+	WHERE t.DeptTaskUid = #{deptTaskUid}
+	GROUP BY t.Uid ORDER BY t.RegOrg,t.LocalAdm
+  </select>
+  
+    <select id="selectPubScentPageList" resultMap="BaseResultMapDto" parameterType="java.lang.String"> 
+	SELECT
+		EntName,GROUP_CONCAT(b.AgentName) agentNames
+	FROM
+		cs_pub_scent t
+	LEFT JOIN cs_pub_scent_agent a ON t.Uid = a.ScentUid
+	LEFT JOIN cs_pub_scagent b ON a.AgentUid = b.UID
+	WHERE t.DeptTaskUid = #{deptTaskUid}
+	GROUP BY t.Uid
+  </select>
+  
+  <select id="selectPubScentDtoTotal" resultType="Integer" parameterType="Map"> 
+      SELECT
+        COUNT(0)
+       FROM
+		cs_pub_scent
+	  <where>
+	     <if test="pubTaskUid != null and pubTaskUid != ''">
+			TaskUid = #{pubTaskUid} 
+		</if>
+	     <if test="deptTaskUid != null and deptTaskUid != ''">
+			DeptTaskUid = #{deptTaskUid} 
+		</if>
+	  </where>
+  </select>
+  
+  <!-- 查询当前任务下已抽取企业登记机关范围-->
+  <select id="selectRegOrgsInSpecial" resultType="java.lang.String" parameterType="Map"> 
+	SELECT
+		RegOrg
+	FROM
+		cs_pub_scent
+	<trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="taskUid != null and taskUid != ''">
+			and TaskUid = #{taskUid}
+		</if>
+		<if test="specialCode != null and specialCode != ''">
+			and SpecialCode = #{specialCode}
+		</if>
+	</trim>
+	GROUP BY RegOrg
+  </select>
+  
+  <!-- 查询抽中企业的企业类型-->
+  <select id="selectEntTypeCatg" resultType="java.lang.String" parameterType="java.lang.String"> 
+	SELECT
+		EntTypeCatg
+	FROM
+		cs_pub_scent
+	where TaskUid = #{taskUid} and EntTypeCatg is not null
+	GROUP BY EntTypeCatg
+  </select>
+  
+  <!-- 查询当前任务下已抽取企业uid-->
+  <select id="selectUidsNotInSpecial" resultMap="BaseResultMapDto" parameterType="Map"> 
+	SELECT
+		RelateUserUid,count(PriPid) specialNum
+	FROM
+		cs_pub_scent
+	<trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="taskUid != null and taskUid != ''">
+			and TaskUid = #{taskUid}
+		</if>
+		<if test="specialCodes != null and specialCodes != ''">
+			and SpecialCode NOT in
+				<foreach item="item" index="index" collection="specialCodes"
+					open="(" separator="," close=")">
+					#{item}
+				</foreach>
+		</if>
+	</trim>
+	GROUP BY RelateUserUid
+  </select>
+  
+  <select id="selectPubSentDtoListBytaskUId" resultMap="BaseResultMapDto" parameterType="java.lang.String"> 
+		SELECT
+			left(RegOrg,4) RegOrg,count(PriPid) specialNum
+		FROM
+			cs_pub_scent
+		where TaskUid = #{taskuid}
+		GROUP BY left(RegOrg,4)
+  </select>
+  
+  <select id="selectBytaskUIdAndRegOrg" resultMap="BaseResultMapDto" parameterType="java.lang.String"> 
+		SELECT
+			RegOrg,count(PriPid) specialNum
+		FROM
+			cs_pub_scent
+		where TaskUid = #{taskuid}
+		GROUP BY RegOrg
+  </select>
+  
+  <select id="selectRegOrgNumInSpecial" resultMap="BaseResultMapDto" parameterType="Map"> 
+		SELECT
+			RegOrg,count(PriPid) specialNum
+		FROM
+			cs_pub_scent
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="taskUid != null and taskUid != ''">
+			and TaskUid = #{taskUid}
+		</if>
+		<if test="specialCode != null and specialCode != ''">
+			and SpecialCode = #{specialCode}
+		</if>
+	</trim>
+		GROUP BY RegOrg
+  </select>
+  
+  <select id="selectCheckNumInSpecial" resultMap="BaseResultMapDto" parameterType="Map"> 
+		SELECT
+			CheckDeptCode,count(PriPid) specialNum
+		FROM
+			cs_pub_scent
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="taskUid != null and taskUid != ''">
+			and TaskUid = #{taskUid}
+		</if>
+		<if test="specialCode != null and specialCode != ''">
+			and SpecialCode = #{specialCode}
+		</if>
+	</trim>
+		GROUP BY CheckDeptCode
+  </select>
+  
+  <select id="selectPubSentListBytaskUId" resultMap="BaseResultMap" parameterType="java.lang.String"> 
+	  SELECT
+			EntName,PriPID
+		FROM
+			cs_pub_scent
+		where TaskUid = #{taskuid}
+		limit 0,100
+  </select>
+  
+  <select id="selectRandomEntList" resultMap="BaseResultMapDto" parameterType="Map"> 
+	  SELECT 
+	  	o.PriPID,o.EntName,o.RegNO,o.unicode,o.RegOrgName,o.LocalAdmName,
+		s.AuditState,s.CheckDeptName,s.CheckDeptPerson,s.CheckResult,s.AuditUserName,s.DisposeState,s.CheckDate
+	FROM cs_pub_scent t 
+		LEFT JOIN cs_pub_scent_result s ON t.TaskUid = s.MainTaskUid and t.PriPID = s.PriPID and t.Uid = s.ScentUid
+		LEFT JOIN cs_mid_baseinfo o ON t.PriPID = o.PriPID
+	WHERE t.TaskUid = #{taskUid}
+	group by t.PriPID
+  </select>
+  
+  <select id="selectAppointEntList" resultMap="BaseResultMapDto" parameterType="Map"> 
+	  SELECT 
+	  	o.EntName,o.RegNO,o.unicode,o.EntTypeCatg,p.TaskCode,p.TaskName,
+	  	o.RegOrgName,o.LocalAdmName,k.deptCode,k.UnitDeptCode,
+	  	<if test="crossType !='' and crossType !=null and crossType == 'N'.toString()">
+	  	u.Content checkDeptName,
+	  	</if>
+	  	<if test="crossType !='' and crossType !=null and crossType == 'Y'.toString()">
+	  	u.OrgName checkDeptName,
+	  	</if>
+	  	t.AdjustUserName,t.AdjustTime,p.TaskLeadDeptName,t.uid,g.Content entTypeCatgName,o.LeRep,d.LiaName,d.Tel,o.Dom
+	FROM cs_pub_scent t 
+		LEFT JOIN pub_scdept_task k ON t.DeptTaskUid = k.Uid
+		LEFT JOIN cs_pub_scplan_task p ON t.TaskUid = p.Uid
+		LEFT JOIN cs_pub_scent_result s ON t.DeptTaskUid = s.TaskUid and t.PriPID = s.PriPID and t.Uid = s.ScentUid
+		<if test="crossType !='' and crossType !=null and crossType == 'N'.toString()">
+		LEFT JOIN cs_code_regunit u ON k.UnitDeptCode = u.Code
+		</if>
+		<if test="crossType !='' and crossType !=null and crossType == 'Y'.toString()">
+		LEFT JOIN cs_dept_dutycode_ref u ON k.UnitDeptCode = u.AdCode
+		</if>
+		LEFT JOIN cs_mid_baseinfo o ON t.PriPID = o.PriPID
+		LEFT JOIN cs_pub_eppassword d ON  t.PriPID = d.PriPID
+		LEFT JOIN cs_code_enttype g ON o.EntType = g.Code
+	WHERE 
+		t.DeptTaskUid IS NOT NULL
+		AND k.DeptState in ('1','2')
+		AND p.TaskState = '02'
+		AND (s.AuditState = '1' OR s.AuditState is null)
+		<if test="regNO !='' and regNO !=null">
+			and (o.Unicode LIKE concat('%', #{regNO},'%') or o.RegNO LIKE concat('%', #{regNO},'%'))
+		</if>
+		<if test="taskCode != null and taskCode != ''">
+			and p.TaskCode  LIKE concat('%', #{taskCode},'%')
+		</if>
+		<if test="taskName != null and taskName != ''">
+			and p.TaskName  LIKE concat('%', #{taskName},'%')
+		</if>
+		<if test="entName != null and entName != ''">
+			and (o.EntName  LIKE concat('%', #{entName},'%') OR t.EntName  LIKE concat('%', #{entName},'%'))
+		</if>
+		<if test="taskLeadDeptName != null and taskLeadDeptName != ''">
+			and p.TaskLeadDeptName  LIKE concat('%', #{taskLeadDeptName},'%')
+		</if>
+		<if test="checkDeptName != null and checkDeptName != ''">
+			and u.Content  LIKE concat('%', #{checkDeptName},'%')
+		</if>
+		<if test="adjustUserName != null and adjustUserName != ''">
+			and t.AdjustUserName = #{adjustUserName}
+		</if>
+		<if test="adjustTimeStart !='' and adjustTimeStart !=null">
+			<![CDATA[
+			   and DATE_FORMAT(t.AdjustTime,'%Y-%m-%d') >= #{adjustTimeStart}
+			]]>
+		</if>
+		<if test="adjustTimeEnd !='' and adjustTimeEnd !=null">
+			<![CDATA[
+			   and DATE_FORMAT(t.AdjustTime,'%Y-%m-%d') <= #{adjustTimeEnd}
+			]]>
+		</if>
+		<if test="taskYear !='' and taskYear !=null">
+		   and DATE_FORMAT(p.SetTime,'%Y') = #{taskYear}
+		</if>
+		<if test="regOrg !='' and regOrg !=null">
+		    and o.RegOrg in (${regOrg})
+		</if>
+		<if test="localAdm !='' and localAdm !=null">
+		    and o.LocalAdm in (${localAdm})
+		</if>
+		<if test="entTypeCatg !='' and entTypeCatg !=null">
+		    and o.EntTypeCatg in (${entTypeCatg})
+		</if>
+		<if test="dom !='' and dom !=null">
+		    and o.Dom LIKE concat('%', #{dom},'%')
+		</if>
+	    <if test="unitDeptCodeArr !=null and unitDeptCodeArr != ''">
+	           AND k.UnitDeptCode in 
+	            <foreach item="item" index="index" collection="unitDeptCodeArr" open="("
+	                     separator="," close=")">
+	                #{item}
+	            </foreach>
+	    </if>
+		<if test="unitDeptCode !='' and unitDeptCode !=null">
+		    and k.UnitDeptCode = #{unitDeptCode}
+		</if>
+		<if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+			<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+				separator="OR" close=")">
+				p.DutyDeptCode like concat('%',#{item},'%')
+			</foreach>
+		</if>
+<!-- 		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/> -->
+		GROUP BY t.DeptTaskUid,t.Uid order by p.SetTime Desc
+  </select>
+  
+   <select id="selectEntCountByTaskUid" resultMap="BaseResultMapDto" parameterType="java.lang.String"> 
+	  SELECT 
+			SUM(CASE WHEN s.AuditState = '1' OR s.AuditState IS NULL THEN 1 ELSE 0 END ) writeNum,
+			SUM(CASE WHEN s.AuditState = '2' THEN 1 ELSE 0 END ) auditNum,
+			SUM(CASE WHEN s.AuditState = '4' THEN 1 ELSE 0 END ) backNum,
+			SUM(CASE WHEN s.AuditState = '5' THEN 1 ELSE 0 END ) publicNum,
+			SUM(CASE WHEN s.disposeState = '1' and s.AuditState = '5' THEN 1 ELSE 0 END ) unDisposeNum,
+			SUM(1) totalNum
+	FROM cs_pub_scent t 
+	LEFT JOIN cs_pub_scent_result s ON t.TaskUid = s.MainTaskUid and t.PriPID = s.PriPID and t.Uid = s.ScentUid
+	WHERE t.TaskUid = #{taskUid}
+  </select>
+  
+  <!-- 微信抽查检查接口 -->
+  <select id="selectSccheckeEntList" resultMap="BaseResultMapDto" parameterType="Map"> 
+	SELECT
+		t.uid regOrg,
+		a.EntName,
+	 	a.unicode,
+	 	a.RegNO,
+		m.RandomDate EstDate,
+		m.TaskName,
+   		m.TaskCode,
+		t.CheckDate,
+		t.CheckDeptName,
+		t.CheckResult,
+		t.AdmissionFlag LocalAdm,
+		a.Uid,
+		t.AuditState
+	FROM
+		cs_pub_scent a
+	LEFT JOIN pub_scdept_task k ON a.DeptTaskUid = k.Uid
+	LEFT JOIN cs_pub_scplan_task m ON a.TaskUid = m.Uid
+	LEFT JOIN cs_pub_scent_result t ON a.Uid = t.ScentUid
+	AND a.TaskUid = t.MainTaskUid
+	AND a.PriPID = t.PriPID
+	<if test="tel !='' and tel !=null">
+	LEFT JOIN cs_pub_eppassword c ON a.PriPID=c.PriPID
+	</if>
+	WHERE
+	a.TaskUid  IN (
+				SELECT
+					e.TaskCode
+				FROM
+					cs_pub_scplan_task_mapping e
+				WHERE
+		e.taskType in ('1','0') 
+	) 
+	<if test="uid !='' and uid !=null">
+		and a.Uid =#{uid}
+	</if>
+	<if test="keyword !='' and keyword !=null">
+		and  (a.EntName  like  concat('%', #{keyword},'%') or a.unicode  =   #{keyword} or a.RegNO  = #{keyword})   
+	</if>		
+	<if test="tel !='' and tel !=null">
+		AND c.Tel=#{tel}
+	</if>
+	LIMIT ${numStart},${pageSize} 
+  </select> 
+  
+  <!-- 获取总条数 -->
+  <select id="selectSccheckeEntCount" resultType="Integer"  parameterType="Map"> 
+	SELECT
+		COUNT(0)
+	FROM
+		cs_pub_scent a
+	LEFT JOIN pub_scdept_task k ON a.DeptTaskUid = k.Uid
+	LEFT JOIN cs_pub_scplan_task m ON a.TaskUid = m.Uid
+	LEFT JOIN cs_pub_scent_result t ON a.Uid = t.ScentUid
+	AND a.TaskUid = t.MainTaskUid
+	AND a.PriPID = t.PriPID
+	<if test="tel !='' and tel !=null">
+	LEFT JOIN cs_pub_eppassword c ON a.PriPID=c.PriPID
+	</if>
+	WHERE
+	a.TaskUid  IN (
+				SELECT
+					e.TaskCode
+				FROM
+					cs_pub_scplan_task_mapping e
+				WHERE
+		e.taskType in ('1','0') 
+	)
+	<if test="uid !='' and uid !=null">
+	AND a.Uid =#{uid}
+	</if>
+	<if test="keyword !='' and keyword !=null">
+	AND  (a.EntName  like  concat('%', #{keyword},'%') or a.unicode  =   #{keyword} or a.RegNO  = #{keyword})  
+	</if>		
+	<if test="tel !='' and tel !=null">
+	AND c.Tel=#{tel} 
+	</if>
+  </select> 
+  
+   <!-- 微信消息推送接口 -->
+  <select id="selectSccheckeMsgEntList" resultMap="BaseResultMapDto" parameterType="Map"> 
+		SELECT
+			<if test="isView!=0">
+			substring_index(
+				GROUP_CONCAT(DISTINCT a.PriPID),
+				',',
+				9000
+				) RegOrgName,
+				COUNT(DISTINCT a.PriPID) totalNum,
+			</if>  
+			a.EntName,
+			a.unicode,
+			a.RegNO,
+			m.RandomDate EstDate, 
+			c.Tel TaskCode,
+			m.TaskName
+			FROM
+				cs_pub_scent a
+			LEFT JOIN pub_scdept_task k ON a.DeptTaskUid = k.Uid
+			LEFT JOIN cs_pub_scplan_task m ON a.TaskUid = m.Uid
+			LEFT JOIN cs_pub_scent_result t ON a.Uid = t.ScentUid
+			AND a.TaskUid = t.MainTaskUid
+			AND a.PriPID = t.PriPID
+			LEFT JOIN cs_pub_eppassword c ON a.PriPID=c.PriPID
+			WHERE
+			<![CDATA[
+			a.TaskUid IN (
+				SELECT
+					e.TaskCode
+				FROM
+					cs_pub_scplan_task_mapping e
+				WHERE
+					e.taskType = '1'
+			)
+			AND (t.CheckDate is null  or t.CheckDate ='' )
+			AND c.id IS NOT NULL
+			 ]]>
+			<if test="tel !='' and tel !=null">
+			AND c.Tel=#{tel} 
+			</if> 
+			<if test="isView!=0">
+				GROUP BY
+					Tel
+			</if>
+		LIMIT ${numStart},${pageSize} 
+  </select> 
+  
+  
+   <!-- 微信消息推送接口获取总条数 -->
+  <select id="selectSccheckeMsgCount" resultType="Integer"  parameterType="Map"> 
+		   SELECT COUNT(0) from ( 
+		   	 SELECT
+				a.Uid
+				FROM
+					cs_pub_scent a
+				LEFT JOIN pub_scdept_task k ON a.DeptTaskUid = k.Uid
+				LEFT JOIN cs_pub_scplan_task m ON a.TaskUid = m.Uid
+				LEFT JOIN cs_pub_scent_result t ON a.Uid = t.ScentUid
+				AND a.TaskUid = t.MainTaskUid
+				AND a.PriPID = t.PriPID
+				LEFT JOIN cs_pub_eppassword c ON a.PriPID=c.PriPID
+				WHERE
+				<![CDATA[
+				a.TaskUid IN (
+						SELECT
+							e.TaskCode
+						FROM
+							cs_pub_scplan_task_mapping e
+						WHERE
+							e.taskType = '1'
+				)
+				AND (t.CheckDate is null  or t.CheckDate ='' )
+				AND c.id IS NOT NULL
+				 ]]>
+				<if test="tel !='' and tel !=null">
+				AND c.Tel=#{tel} 
+				</if>
+			GROUP BY
+			Tel
+			)s
+  </select> 
+</mapper>

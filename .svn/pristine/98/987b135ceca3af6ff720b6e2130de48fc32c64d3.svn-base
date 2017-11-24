@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.ModApplicationMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.ModApplication" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="UniCode" property="unicode" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="ModReason" property="modReason" jdbcType="VARCHAR" />
+    <result column="ModResult" property="modResult" jdbcType="VARCHAR" />
+    <result column="ModDescription" property="modDescription" jdbcType="VARCHAR" />
+    <result column="ModSubmitDate" property="modSubmitDate" jdbcType="TIMESTAMP" />
+    <result column="AudName" property="audName" jdbcType="VARCHAR" />
+    <result column="AudDate" property="audDate" jdbcType="DATE" />
+    <result column="ModResubmit" property="modResubmit" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapDto" type="com.icinfo.cs.yr.dto.ModApplicationDto" extends="BaseResultMap">
+       <result column="RegOrg" property="regOrg" jdbcType="VARCHAR" />
+       <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+       <result column="LocalAdm" property="localAdm" jdbcType="VARCHAR" />
+       <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+       <result column="CheckDep" property="checkDep" jdbcType="VARCHAR" />
+       <result column="CheckDepName" property="checkDepName" jdbcType="VARCHAR" />
+       <result column="RegNO" property="regNo" jdbcType="VARCHAR" />
+       <result column="ReportState" property="reportState" jdbcType="VARCHAR" />
+       <result column="EntType" property="entType" jdbcType="VARCHAR" />
+       <result column="EntTypeCatg" property="entTypeCatg" jdbcType="VARCHAR" />
+   </resultMap>
+  
+  <!-- 年度修改申请 -->
+  <select id="selectModApplicationApplyList" resultMap="BaseResultMapDto" parameterType="Map"> 
+	  SELECT 
+	  m.id,
+	  m.PriPID,
+	  m.CreateTime,
+	  m.UID,
+	  c.UniCode,
+	  c.EntName,
+	  m.Year,
+	  m.ModReason,
+	  m.ModResult,
+	  m.ModDescription,
+	  m.ModSubmitDate,
+	  m.AudName,
+	  m.AudDate,
+	  m.ModResubmit,
+	  b.ReportState,
+	  c.RegNO,
+	  c.RegOrg,
+	  c.LocalAdm,
+	  c.CheckDep,
+	  c.RegOrgName,
+	  c.LocalAdmName,
+	  c.CheckDepName
+	  FROM
+	  cs_mod_application m 
+	  INNER JOIN cs_yr_reg_check b 
+	    ON m.PriPID = b.PriPID 
+	    AND b.Year = m.Year 
+	  INNER JOIN cs_mid_baseinfo c 
+	  ON m.PriPID = c.PriPID
+	<trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="regNo != null and regNo != ''">
+			(c.RegNO = #{regNo,jdbcType=VARCHAR} OR c.Unicode = #{regNo,jdbcType=VARCHAR})
+		</if>
+		<if test="entName != null and entName != ''">
+			and c.EntName like concat('%', #{entName},'%')
+		</if>
+		<if test="audName != null and audName != ''">
+			and m.AudName = #{audName,jdbcType=VARCHAR}
+		</if>
+		<if test="year != null and year != ''">
+			and m.Year = #{year,jdbcType=VARCHAR}
+		</if>
+		<if test="modResult != null and modResult != ''">
+			and m.ModResult = #{modResult,jdbcType=VARCHAR}
+		</if>
+		<if test="regOrg !='' and regOrg !=null">
+	        and c.RegOrg  IN  (${regOrg})
+	    </if>
+	    <if test="localAdm !='' and localAdm !=null">
+   		    and c.LocalAdm  IN (${localAdm})
+	    </if>
+	    <if test="checkDep !='' and checkDep !=null">
+	       and c.CheckDep  IN (${checkDep})
+	    </if>
+		<if test="modSubmitDateStart != null and modSubmitDateStart != ''">
+			and m.ModSubmitDate &gt;= #{modSubmitDateStart,jdbcType=DATE}
+		</if>
+		<if test="modSubmitDateEnd != null and modSubmitDateEnd != ''">
+			and m.ModSubmitDate &lt;= #{modSubmitDateEnd,jdbcType=DATE}
+		</if>
+		<if test="audDateStart != null and audDateStart != ''">
+			and m.AudDate &gt;= #{audDateStart,jdbcType=DATE}
+		</if>
+		<if test="audDateEnd != null and audDateEnd != ''">
+			and m.AudDate &lt;= #{audDateEnd,jdbcType=DATE}
+		</if>
+		<if test="modResult0 != null and modResult0 != ''">
+			And m.ModResult  = '0' AND m.ModResubmit = '0' AND b.ReportState in ('10','11')
+		</if>
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	</trim>
+  </select>
+  
+  <!-- 年度修改申请 -->
+  <select id="selectModApplicationApplyById" resultMap="BaseResultMapDto" parameterType="Map"> 
+	 SELECT 
+	  m.id,
+	  m.PriPID,
+	  m.CreateTime,
+	  m.UID,
+	  c.UniCode,
+	  c.EntName,
+	  m.Year,
+	  m.ModReason,
+	  m.ModResult,
+	  m.ModDescription,
+	  m.ModSubmitDate,
+	  m.AudName,
+	  m.AudDate,
+	  m.ModResubmit,
+	  b.ReportState,
+	  c.RegNO,
+	  c.RegOrg,
+	  c.LocalAdm,
+	  c.CheckDep,
+	  c.RegOrgName,
+	  c.LocalAdmName,
+	  c.CheckDepName
+	  FROM
+	  cs_mod_application m 
+	  INNER JOIN cs_yr_reg_check b 
+	    ON m.PriPID = b.PriPID 
+	    AND b.Year = m.Year 
+	  INNER JOIN cs_mid_baseinfo c 
+	  ON m.PriPID = c.PriPID
+	where m.id = #{id,jdbcType=INTEGER} and m.ModResubmit  = '0' AND m.ModResult = '0' AND b.ReportState in ('10','11')
+  </select>
+  
+  <!-- 年度修改申请记录 -->
+  <select id="selectModApplicationApplyHisList" resultMap="BaseResultMap" parameterType="Map"> 
+	SELECT m.PriPID,m.CreateTime,m.UID,m.Unicode,m.EntName,m.Year,m.ModReason,
+           m.ModResult,m.ModDescription,m.ModSubmitDate,m.AudName,m.AudDate,m.ModResubmit
+	FROM   cs_mod_application m
+	<trim prefix="WHERE" prefixOverrides="AND | OR">
+		m.ModResubmit = '1'
+		<if test="priPID != null and priPID != ''">
+			and m.PriPID = #{priPID,jdbcType=VARCHAR} 
+		</if>
+	</trim>
+  </select>
+  
+    <!-- 年报修改申请待审核条数 -->
+    <select id="selectModApplicationCount" resultType="Integer" parameterType="Map"> 
+	SELECT COUNT(0) FROM cs_mod_application m INNER JOIN cs_yr_reg_check b 
+	    ON m.PriPID = b.PriPID 
+	    AND b.Year = m.Year 
+	  INNER JOIN cs_mid_baseinfo t 
+	  ON m.PriPID = t.PriPID
+	  WHERE m.ModResubmit = '0' AND m.ModResult = '0' AND b.ReportState IN ('10', '11')
+    <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </select>
+  
+</mapper>

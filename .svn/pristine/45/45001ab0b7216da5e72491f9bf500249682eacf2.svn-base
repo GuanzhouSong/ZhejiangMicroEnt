@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.sment.mapper.EntarchivesMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sment.model.Entarchives" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="CHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntPrincipal" property="entPrincipal" jdbcType="VARCHAR" />
+    <result column="EntPrincipalTel" property="entPrincipalTel" jdbcType="VARCHAR" />
+    <result column="EntContact" property="entContact" jdbcType="VARCHAR" />
+    <result column="EntContactTel" property="entContactTel" jdbcType="VARCHAR" />
+    <result column="CultivationTypeCode" property="cultivationTypeCode" jdbcType="VARCHAR" />
+    <result column="CultivationTypeName" property="cultivationTypeName" jdbcType="VARCHAR" />
+    <result column="IndustryType" property="industryType" jdbcType="VARCHAR" />
+    <result column="IndustryName" property="industryName" jdbcType="VARCHAR" />
+    <result column="Tsxz" property="tsxz" jdbcType="VARCHAR" />
+    <result column="Zckj" property="zckj" jdbcType="VARCHAR" />
+    <result column="Kjfhy" property="kjfhy" jdbcType="VARCHAR" />
+    <result column="Kjdsy" property="kjdsy" jdbcType="VARCHAR" />
+    <result column="Xwqyy" property="xwqyy" jdbcType="VARCHAR" />
+    <result column="Qt" property="qt" jdbcType="VARCHAR" />
+    <result column="EntCrowdCode" property="entCrowdCode" jdbcType="VARCHAR" />
+    <result column="EntCrowdName" property="entCrowdName" jdbcType="VARCHAR" />
+    <result column="EntCrowdText" property="entCrowdText" jdbcType="VARCHAR" />
+    <result column="HelpState" property="helpState" jdbcType="VARCHAR" />
+    <result column="HelpNum" property="helpNum" jdbcType="VARCHAR" />
+    <result column="SetDeptCode" property="setDeptCode" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UpdateTime" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.sment.dto.EntarchivesDto" id="BaseResultDtoMap" extends="BaseResultMap">
+    <result column="CultivationTypeCode1" property="cultivationTypeCode1" jdbcType="INTEGER" />
+    <result column="CultivationTypeCode2" property="cultivationTypeCode2" jdbcType="INTEGER" />
+    <result column="CultivationTypeCode3" property="cultivationTypeCode3" jdbcType="INTEGER" />
+    <result column="TsxzCount" property="tsxzCount" jdbcType="INTEGER" />
+    <result column="ZckjCount" property="zckjCount" jdbcType="INTEGER" />
+    <result column="KjfhyCount" property="kjfhyCount" jdbcType="INTEGER" />
+    <result column="KjdsyCount" property="kjdsyCount" jdbcType="INTEGER" />
+    <result column="QtCount" property="qtCount" jdbcType="INTEGER" />
+    <result column="WxzCount" property="wxzCount" jdbcType="INTEGER" />
+    <result column="XwqyyCount" property="xwqyyCount" jdbcType="INTEGER" />
+    <result column="industryType1" property="industryType1" jdbcType="INTEGER" />
+    <result column="industryType2" property="industryType2" jdbcType="INTEGER" />
+    <result column="industryType3" property="industryType3" jdbcType="INTEGER" />
+    <result column="industryType4" property="industryType4" jdbcType="INTEGER" />
+    <result column="industryType5" property="industryType5" jdbcType="INTEGER" />
+    <result column="industryType6" property="industryType6" jdbcType="INTEGER" />
+    <result column="industryType7" property="industryType7" jdbcType="INTEGER" />
+    <result column="industryType8" property="industryType8" jdbcType="INTEGER" />
+    <result column="industryType9" property="industryType9" jdbcType="INTEGER" />
+    <result column="entCrowdCode1" property="entCrowdCode1" jdbcType="INTEGER" />
+    <result column="entCrowdCode2" property="entCrowdCode2" jdbcType="INTEGER" />
+    <result column="entCrowdCode3" property="entCrowdCode3" jdbcType="INTEGER" />
+    <result column="entCrowdCode4" property="entCrowdCode4" jdbcType="INTEGER" />
+    <result column="entCrowdCode5" property="entCrowdCode5" jdbcType="INTEGER" />
+    <result column="entCrowdCode6" property="entCrowdCode6" jdbcType="INTEGER" />
+    <result column="entCrowdCode7" property="entCrowdCode7" jdbcType="INTEGER" />
+    <result column="entCrowdCode8" property="entCrowdCode8" jdbcType="INTEGER" />
+    <result column="YEAR" property="year" jdbcType="VARCHAR" />
+    <result column="VendInc" property="vendInc" jdbcType="DECIMAL" />
+    <result column="ProGro" property="proGro" jdbcType="DECIMAL" />
+    <result column="RatGro" property="ratGro" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  	<!-- 统计入库企业违法违规数量-->
+	<select id="countWfwgBySetDeptCode" resultType="Long" parameterType="String">
+	     SELECT
+			count(0)
+		FROM
+			(
+				SELECT
+					sbe.PriPID
+				FROM
+					sm_bus_entarchives sbe
+				INNER JOIN cs_pub_otherpunish cpo ON sbe.PriPID = cpo.PriPID
+				where sbe.setDeptCode like '${_parameter}%'
+				UNION
+					SELECT
+						sbe.PriPID
+					FROM
+						sm_bus_entarchives sbe
+					INNER JOIN cs_mid_caseinfo cmc ON cmc.PriPID = sbe.PriPID
+					where sbe.setDeptCode like '${_parameter}%'
+			) t
+	</select>
+
+    <!-- 统计入库企业经营异常数量-->
+	<select id="countJyycBySetDeptCode" resultType="Long" parameterType="String">
+	     SELECT
+			COUNT(DISTINCT(cpo.pripid))
+		FROM
+			cs_pub_opanomaly cpo,
+			sm_bus_entarchives sbe
+		WHERE
+			cpo.PriPID = sbe.PriPID
+		AND	sbe.setDeptCode like '${_parameter}%'
+		AND cpo.AuditState = '1'
+		AND cpo.BusExcList NOT IN (
+			SELECT
+				H.BusExcList
+			FROM
+				cs_pub_opadetail H
+			WHERE
+				H.AuditState = '1'
+		)
+	</select>
+	
+	 <!-- 统计入库企业上规升级数量-->
+	<select id="countSgsjBySetDeptCode" resultType="Long" parameterType="String">
+	     SELECT
+			count(DISTINCT sbe.PriPID )
+		FROM
+			sm_bus_entarchives sbe
+		INNER JOIN sm_baseinfo sb ON sb.PriPID = sbe.PriPID
+		AND sb.IsSment = '0'
+		INNER JOIN cs_yr_asset cya ON sb.PriPID = cya.PriPID
+		AND cya. YEAR = (DATE_FORMAT(NOW(), '%Y') + 0 ) -1 
+		INNER JOIN cs_yr_asset cya2 ON cya2.PriPID = cya.PriPID
+		AND cya2. YEAR = (DATE_FORMAT(NOW(), '%Y') + 0 ) -2 
+		WHERE
+			<![CDATA[cya.VendInc > cya2.VendInc]]>
+		AND	sbe.setDeptCode like '${_parameter}%'
+	</select>
+	
+	<!-- 统计入库企业经营下降20%数量 -->
+	<select id="countJyxjBySetDeptCode" resultType="Long" parameterType="String">
+	    SELECT
+		count(DISTINCT sbe.PriPID)
+		FROM
+			sm_bus_entarchives sbe
+		INNER JOIN cs_yr_asset cya ON sbe.PriPID = cya.PriPID
+		AND cya. YEAR = (DATE_FORMAT(NOW(), '%Y') + 0 ) -1 
+		INNER JOIN cs_yr_asset cya2 ON cya2.PriPID = cya.PriPID
+		AND cya2. YEAR = (DATE_FORMAT(NOW(), '%Y') + 0 ) -2 
+		WHERE
+			sbe.setDeptCode LIKE '${_parameter}%'
+			
+		AND (
+			<![CDATA[
+				(cya.VendInc - cya2.VendInc) / cya2.VendInc < - 0.20
+				OR (cya.ProGro - cya2.ProGro) / cya2.ProGro < - 0.20
+				OR (cya.RatGro - cya2.RatGro) / cya2.RatGro < - 0.20
+			]]>
+		)
+	</select>
+	
+	<!-- 统计培育库企业企业类型 -->
+	<select id="cultivationTypeScount" resultMap="BaseResultDtoMap" parameterType="Map" >
+	   SELECT SUM(CASE WHEN CultivationTypeCode = '1' THEN 1 ELSE 0 END ) CultivationTypeCode1,
+		SUM(CASE WHEN CultivationTypeCode = '2' THEN 1 ELSE 0 END ) CultivationTypeCode2,
+		SUM(CASE WHEN CultivationTypeCode = '3' THEN 1 ELSE 0 END ) CultivationTypeCode3
+	   FROM sm_bus_entarchives t
+	</select>
+	<!-- 统计培育库企业区域分类 -->
+	<select id="qyflCount" resultMap="BaseResultDtoMap" parameterType="Map" >
+	   SELECT SUM(CASE WHEN (Tsxz IS NOT NULL AND Tsxz !='' )THEN 1 ELSE 0 END) TsxzCount,
+		SUM(CASE WHEN (Zckj IS NOT NULL AND Zckj !='') THEN 1 ELSE 0 END) ZckjCount,
+		SUM(CASE WHEN (Kjfhy IS NOT NULL AND Kjfhy !='' )THEN 1 ELSE 0 END) KjfhyCount,
+		SUM(CASE WHEN (Kjdsy IS NOT NULL AND Kjdsy !='') THEN 1 ELSE 0 END) KjdsyCount,
+		SUM(CASE WHEN (Xwqyy IS NOT NULL AND Xwqyy !='') THEN 1 ELSE 0 END) XwqyyCount,
+		SUM(CASE WHEN (Qt IS NOT NULL AND Qt !='') THEN 1 ELSE 0 END) QtCount,
+		SUM(CASE WHEN (Tsxz !='' OR Zckj !='' OR Kjfhy !='' OR Kjdsy !='' OR Qt !='' ) THEN 0 ELSE 1 END) WxzCount 
+		FROM sm_bus_entarchives t
+	</select>
+	<!-- 统计培育库企业八大产业 -->
+	<select id="industryTypeCount" resultMap="BaseResultDtoMap" parameterType="Map" >
+		select 
+		sum(case when (FIND_IN_SET('1',IndustryType) >0) then 1 else 0 end) industryType1,
+		SUM(CASE WHEN (FIND_IN_SET('2',IndustryType) >0) THEN 1 ELSE 0 END) industryType2,
+		SUM(CASE WHEN (FIND_IN_SET('3',IndustryType) >0) THEN 1 ELSE 0 END) industryType3,
+		SUM(CASE WHEN (FIND_IN_SET('4',IndustryType) >0) THEN 1 ELSE 0 END) industryType4,
+		SUM(CASE WHEN (FIND_IN_SET('5',IndustryType) >0) THEN 1 ELSE 0 END) industryType5,
+		SUM(CASE WHEN (FIND_IN_SET('6',IndustryType) >0) THEN 1 ELSE 0 END) industryType6,
+		SUM(CASE WHEN (FIND_IN_SET('7',IndustryType) >0) THEN 1 ELSE 0 END) industryType7,
+		SUM(CASE WHEN (FIND_IN_SET('8',IndustryType) >0) THEN 1 ELSE 0 END) industryType8,
+		sum(case when t.IndustryType is null then 1 else 0 END) industryType9
+		from 
+		sm_bus_entarchives  t
+	</select>
+	<!-- 统计培育库企业创业人群 -->
+	<select id="entCrowdCodeCount" resultMap="BaseResultDtoMap" parameterType="Map" >
+		SELECT 
+		SUM(CASE WHEN (FIND_IN_SET('1',EntCrowdCode) >0) THEN 1 ELSE 0 END) entCrowdCode1,
+		SUM(CASE WHEN (FIND_IN_SET('2',EntCrowdCode) >0) THEN 1 ELSE 0 END) entCrowdCode2,
+		SUM(CASE WHEN (FIND_IN_SET('3',EntCrowdCode) >0) THEN 1 ELSE 0 END) entCrowdCode3,
+		SUM(CASE WHEN (FIND_IN_SET('5',EntCrowdCode) >0) THEN 1 ELSE 0 END) entCrowdCode4,
+		SUM(CASE WHEN (FIND_IN_SET('6',EntCrowdCode) >0) THEN 1 ELSE 0 END) entCrowdCode5,
+		SUM(CASE WHEN (FIND_IN_SET('7',EntCrowdCode) >0) THEN 1 ELSE 0 END) entCrowdCode6,
+		SUM(CASE WHEN (FIND_IN_SET('4',EntCrowdCode) >0) THEN 1 ELSE 0 END) entCrowdCode7,
+		SUM(CASE WHEN t.EntCrowdCode IS NULL THEN 1 ELSE 0 END) entCrowdCode8
+		FROM 
+		sm_bus_entarchives  t
+	</select>
+	
+	<!-- 培育库成长轨迹（营业总收入） -->
+	<select id="vendIncCount" resultMap="BaseResultDtoMap" parameterType="Map">
+		SELECT YEAR,ROUND(SUM(IFNULL(b.VendInc,0)),0) VendInc,ROUND(SUM(IFNULL(b.ProGro,0)),0) ProGro,ROUND(SUM(IFNULL(b.RatGro,0)),0) RatGro FROM sm_bus_entarchives t
+		LEFT JOIN 
+		cs_baseinfo b ON 
+		t.pripid = b.PriPID
+		WHERE YEAR IS NOT NULL
+		GROUP BY YEAR
+	</select>
+	
+</mapper>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.registmanage.mapper.InvManagerMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.registmanage.model.InvManager" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="Uid" property="uid" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="IsInvStages" property="isInvStages" jdbcType="CHAR" />
+    <result column="InvPlace" property="invPlace" jdbcType="CHAR" />
+    <result column="InvExpire" property="invExpire" jdbcType="CHAR" />
+    <result column="LastTermInvDate" property="lastTermInvDate" jdbcType="TIMESTAMP" />
+    <result column="EndTermInvDate" property="endTermInvDate" jdbcType="TIMESTAMP" />
+    <result column="IsSim" property="isSim" jdbcType="CHAR" />
+    <result column="PaidPubTotal" property="paidPubTotal" jdbcType="DECIMAL" />
+    <result column="SetDate" property="setDate" jdbcType="TIMESTAMP"/>
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapDto" type="com.icinfo.cs.registmanage.dto.InvManagerDto" extends="BaseResultMap" >
+  	  <result column="EntName" property="entName" jdbcType="VARCHAR" />
+  	  <result column="UniCode" property="uniCode" jdbcType="VARCHAR" />
+  	  <result column="RegNO" property="regNO" jdbcType="VARCHAR" />
+  	  <result column="EstDate" property="estDate" jdbcType="DATE"/>
+  	  <result column="RegCap" property="regCap" jdbcType="VARCHAR"/>
+  	  <result column="CurrencyCn" property="currencyCn" jdbcType="VARCHAR" />
+  	  <result column="EntTypeCatg" property="entTypeCatg" jdbcType="VARCHAR" />
+  	  <result column="EntTypeCatgName" property="entTypeCatgName" jdbcType="VARCHAR" />
+  	  <result column="EntTypeName" property="entTypeName" jdbcType="VARCHAR" />
+  	  <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+  	  <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+  	  <result column="Tel" property="tel" jdbcType="VARCHAR" />
+  	  <result column="LiaName" property="liaName" jdbcType="VARCHAR" />
+  	  <result column="LiaTel" property="liaTel" jdbcType="VARCHAR" />
+  	  <result column="Dom" property="dom" jdbcType="VARCHAR" />
+  	  <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="InvManagerCount" type="com.icinfo.cs.registmanage.dto.InvManagerCount">
+  	 <result column="entNum" property="entNum" jdbcType="INTEGER" />
+  	 <result column="zeroInvNum" property="zeroInvNum" jdbcType="INTEGER" />
+  	 <result column="partInvNum" property="partInvNum" jdbcType="INTEGER" />
+  	 <result column="allInvNum" property="allInvNum" jdbcType="INTEGER" />
+  	 <result column="partInvExpireNum" property="partInvExpireNum" jdbcType="INTEGER" />
+  	 <result column="alreadyExpireNum" property="alreadyExpireNum" jdbcType="INTEGER" />
+  </resultMap>
+   
+   <select id="selectLicenceInvalidMgrJSON" parameterType="map" resultMap="BaseResultMapDto"> 
+   		SELECT 
+		   A.id,
+		   A.Uid,
+		   A.PriPID,
+		   A.IsInvStages,
+		   A.InvPlace,
+		   A.InvExpire,
+		   A.LastTermInvDate,
+		   A.EndTermInvDate,
+		   A.IsSim,
+		   A.PaidPubTotal,
+		   B.EntName,
+		   B.UniCode,
+		   B.RegNO,
+		   B.EstDate,
+		   B.RegCap,
+		   B.CurrencyCn,
+		   B.EntType,
+		   B.EntTypeCatg,
+		   B.LeRep,
+		   B.RegOrgName,
+		   B.LocalAdmName,
+		   B.Tel,
+		   C.LiaName,
+		   C.Tel liaTel,
+		   B.Dom,
+		   A.SetName,
+		   A.SetDate,
+		   E.Content entTypeCatgName,
+		   D.Content entTypeName
+		FROM cs_inv_manager A
+		LEFT JOIN cs_mid_baseinfo B ON A.PriPID=B.PriPID
+		LEFT JOIN cs_pub_eppassword C ON A.PriPID=C.PriPID
+		LEFT JOIN cs_code_enttype D ON B.EntType = D.Code 
+		LEFT JOIN cs_code_entcatg E ON B.EntTypeCatg = E.Code 
+		WHERE B.EntTypeCatg NOT IN (16,17,50)
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+		<include refid="invManager"/>
+  </select>
+  
+  <select id="selectInvManagerCount" resultMap="InvManagerCount" parameterType="Map">
+		SELECT 
+		   COUNT(DISTINCT A.PriPID) entNum,
+		   SUM(CASE WHEN A.InvPlace = '1' THEN 1 ELSE 0 END) zeroInvNum,
+		   SUM(CASE WHEN A.InvPlace = '2' THEN 1 ELSE 0 END) partInvNum,
+		   SUM(CASE WHEN A.InvPlace = '3' THEN 1 ELSE 0 END) allInvNum,
+		   <![CDATA[ SUM(CASE WHEN A.LastTermInvDate >=NOW() AND A.LastTermInvDate <=DATE_SUB(CURDATE(),INTERVAL -30 DAY) THEN 1 ELSE 0 END) partInvExpireNum ]]>,
+		   <![CDATA[ SUM(CASE WHEN A.LastTermInvDate <=NOW() THEN 1 ELSE 0 END) alreadyExpireNum ]]>
+		FROM cs_inv_manager A
+		LEFT JOIN cs_mid_baseinfo B ON A.PriPID = B.PriPID
+		WHERE B.EntTypeCatg NOT IN (16,17,50)
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+		<include refid="invManager"/>
+  </select>
+  
+  <sql id="invManager">
+		<if test="priPID !='' and priPID !=null">
+		    and A.PriPID =#{priPID}
+		</if>
+		<if test="cidRegNO !='' and cidRegNO !=null">
+			and (B.RegNO  LIKE concat('%', #{cidRegNO},'%') or B.Unicode  LIKE concat('%', #{cidRegNO},'%') ) 
+		</if> 
+		<if test="regOrg !='' and regOrg !=null">
+		    and B.RegOrg in (${regOrg})
+		</if>
+		<if test="isInvStages !='' and isInvStages !=null">
+		    and A.IsInvStages =#{isInvStages}
+		</if>
+		<if test="entName !='' and entName !=null">
+		    and B.EntName LIKE concat('%', #{entName},'%')
+		</if>
+		<if test="localAdm !='' and localAdm !=null">
+		    and B.LocalAdm in (${localAdm})
+		</if>
+		<if test="invPlace !='' and invPlace !=null">
+		    and A.InvPlace in (${invPlace})
+		</if>
+		<if test="invExpire !='' and invExpire !=null">
+			<if test="invExpire ==1">
+				and A.LastTermInvDate >=NOW()
+			</if>
+			<if test="invExpire ==2">
+				<![CDATA[and A.LastTermInvDate >=NOW() AND A.LastTermInvDate <=DATE_SUB(CURDATE(),INTERVAL -30 DAY)]]>
+			</if>
+			<if test="invExpire ==3">
+				and <![CDATA[A.LastTermInvDate <=NOW()]]>
+			</if>
+		</if>
+		<if test="entType !='' and entType !=null">
+		    and B.EntType in (${entType})
+		</if>
+		<if test="regCapStart !='' and regCapStart !=null">
+		    and B.RegCap >= ${regCapStart}
+		</if>
+		<if test="regCapEnd !='' and regCapEnd !=null">
+		    <![CDATA[ and B.RegCap <= ${regCapEnd} ]]>
+		</if>
+		<if test="estDateStart !='' and estDateStart !=null">
+			<![CDATA[
+			   and B.EstDate >= #{estDateStart}
+			]]>
+		</if>
+		<if test="estDateEnd !='' and estDateEnd !=null">
+			<![CDATA[
+			   and B.EstDate <= #{estDateEnd}
+			]]>
+		</if>
+		<if test="dom !='' and dom !=null">
+		    and B.Dom LIKE concat('%', #{dom},'%')
+		</if>
+		<if test="setName !='' and setName !=null">
+		    and A.SetName=#{setName}
+		</if>
+		<if test="lastTermInvDateStart !='' and lastTermInvDateStart !=null">
+			<![CDATA[
+			   and A.LastTermInvDate >= #{lastTermInvDateStart}
+			]]>
+		</if>
+		<if test="lastTermInvDateEnd !='' and lastTermInvDateEnd !=null">
+			<![CDATA[
+			   and A.LastTermInvDate <= #{lastTermInvDateEnd}
+			]]>
+		</if>
+		<if test="currencyCN !='' and currencyCN !=null">
+		    and B.CurrencyCN=#{currencyCN}
+		</if>
+		<if test="isSim !='' and isSim !=null">
+		    and A.IsSim=#{isSim}
+		</if>
+		<if test="endTermInvDateStart !='' and endTermInvDateStart !=null">
+			<![CDATA[
+			   and A.EndTermInvDate >= #{endTermInvDateStart}
+			]]>
+		</if>
+		<if test="endTermInvDateEnd !='' and endTermInvDateEnd !=null">
+			<![CDATA[
+			   and A.EndTermInvDate <= #{endTermInvDateEnd}
+			]]>
+		</if>
+	</sql>
+  
+</mapper>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.system.mapper.SysUserCheckRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.system.model.SysUserCheckRecord" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <result column="UID" property="id" jdbcType="VARCHAR" />
+    <result column="USER_USERNAME" property="userUsername" jdbcType="VARCHAR" />
+    <result column="USER_PASSWORD" property="userPassword" jdbcType="VARCHAR" />
+    <result column="OrgCode" property="orgcode" jdbcType="VARCHAR" />
+    <result column="AdCode" property="adcode" jdbcType="VARCHAR" />
+    <result column="DEPT_FULL_NAME" property="deptFullName" jdbcType="VARCHAR" />
+    <result column="DEPT_SHORT_NAME" property="deptShortName" jdbcType="VARCHAR" />
+    <result column="DEPT_ADDRESS" property="deptAddress" jdbcType="VARCHAR" />
+    <result column="DUTY_CODES" property="dutyCodes" jdbcType="VARCHAR" />
+    <result column="DUTY_CODE_NAMES" property="dutyCodeNames" jdbcType="VARCHAR" />
+    <result column="LIC_ITEM_NAMES" property="licItemNames" jdbcType="VARCHAR" />
+    <result column="DUTY_CODE_NAMES_OLD" property="dutyCodeNamesOld" jdbcType="VARCHAR" />
+    <result column="LIC_ITEM_NAMES_OLD" property="licItemNamesOld" jdbcType="VARCHAR" />
+    <result column="LIC_ITEMS" property="licItems" jdbcType="VARCHAR" />
+    <result column="USER_REAL_NAME" property="userRealName" jdbcType="VARCHAR" />
+    <result column="USER_SEX" property="userSex" jdbcType="CHAR" />
+    <result column="DEPT_NAME" property="deptName" jdbcType="VARCHAR" />
+    <result column="POST" property="post" jdbcType="VARCHAR" />
+    <result column="USER_EMAIL" property="userEmail" jdbcType="VARCHAR" />
+    <result column="TEL_PHONE" property="telPhone" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="USER_TYPE" property="userType" jdbcType="CHAR" />
+    <result column="CHECK_CODE" property="checkCode" jdbcType="VARCHAR" />
+    <result column="IS_BIND" property="isBind" jdbcType="CHAR" />
+    <result column="USER_CREATE_TIME" property="userCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

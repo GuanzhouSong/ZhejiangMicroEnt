@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--
+   Copyright© 2003-2016 浙江汇信科技有限公司, All Rights Reserved.
+  -->
+<mapper namespace="com.icinfo.cs.system.mapper.SysUserPermisionMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.system.model.SysUserPermision" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="UID" property="id" jdbcType="VARCHAR" />
+    <result column="UP_USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="UP_RESOURCE_ID" property="resourceId" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

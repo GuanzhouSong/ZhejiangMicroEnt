@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.depsyn.mapper.DepSynSearchKeyMapper" >
+
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.depsyn.model.DepSynSearchKey" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="Params" property="params" jdbcType="VARCHAR" />
+    <result column="UserId" property="userId" jdbcType="VARCHAR" />
+    <result column="UpdateTime" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+    <select id="selectParams" resultMap="BaseResultMap" parameterType="map">
+		SELECT UID, Params, UserId 
+			FROM cs_depsyn_search_key
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+	    	<if test="uid != null and uid != ''">
+	    	 	UID=#{uid} 
+	    	</if>
+	    	<if test="params != null and params != ''">
+	    	 	Params=#{params} 
+	    	</if>
+			<if test="userId != null and userId != ''">
+				AND UserId=#{userId}
+			</if>
+		</trim>
+		ORDER BY UpdateTime DESC
+		LIMIT 0,5
+	</select>
+	
+	<select id="paramsExist" resultMap="BaseResultMap" parameterType="map">
+		SELECT UID FROM cs_depsyn_search_key WHERE UserId=#{userId} AND Params=#{params} LIMIT 0,1
+	</select>
+  
+</mapper>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.ai12315.mapper.Ai12315RegInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.ai12315.model.Ai12315RegInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="CONT_ID" property="contId" jdbcType="VARCHAR" />
+    <result column="REGINO" property="regiNo" jdbcType="VARCHAR" />
+    <result column="INFOORI" property="infoOri" jdbcType="VARCHAR" />
+    <result column="INCFORM" property="incForm" jdbcType="VARCHAR" />
+    <result column="REGDEP" property="regDep" jdbcType="VARCHAR" />
+    <result column="ACCREGPER" property="accregPer" jdbcType="VARCHAR" />
+    <result column="RegTime" property="regTime" jdbcType="TIMESTAMP" />
+    <result column="INFOTYPE" property="infoType" jdbcType="VARCHAR" />
+    <result column="KEYWORD" property="keyWord" jdbcType="VARCHAR" />
+    <result column="CONLRANGE" property="conlRange" jdbcType="VARCHAR" />
+    <result column="APPLBASQUE" property="applBasque" jdbcType="VARCHAR" />
+    <result column="ACCSCE" property="accsce" jdbcType="VARCHAR" />
+    <result column="ACCTIME" property="accTime" jdbcType="TIMESTAMP" />
+    <result column="CONTROVERSYTIME" property="conTroverSytime" jdbcType="TIMESTAMP" />
+    <result column="CONSUMETIME" property="consumeTime" jdbcType="TIMESTAMP" />
+    <result column="ISRECONCILE" property="isreconcile" jdbcType="VARCHAR" />
+    <result column="REPORTBASQUE" property="reportBasque" jdbcType="VARCHAR" />
+    <result column="ISNEEDANSWER" property="isNeedAnswer" jdbcType="VARCHAR" /> 
+    <result column="BRIST" property="brist" jdbcType="LONGVARCHAR" />
+    <result column="IDIQUE" property="idique" jdbcType="LONGVARCHAR" />
+    <result column="APPLIDIQUE" property="applidique" jdbcType="LONGVARCHAR" />
+    <result column="REPORTIDIQUE" property="reportidique" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+   <resultMap id="BaseResultMapDto" type="com.icinfo.cs.ai12315.dto.Ai12315RegInfoDto" extends="BaseResultMap">
+       
+   </resultMap> 
+  
+  <!-- 根据主体身份代码查询 -->
+  <select id="selectAi12315RegInfoDtoListByPriPID" resultMap="BaseResultMapDto" parameterType="Map">
+	 SELECT
+		A.CONT_ID,
+		A.REGINO,
+		A.INFOORI,
+		A.INCFORM,
+		A.REGDEP,
+		A.ACCREGPER,
+		A.RegTime,
+		A.INFOTYPE,
+		A.KEYWORD,
+		A.CONLRANGE,
+		A.BRIST,
+		A.IDIQUE,
+		A.APPLBASQUE,
+		A.APPLIDIQUE,
+		A.ACCSCE,
+		A.ACCTIME,
+		A.CONTROVERSYTIME,
+		A.CONSUMETIME,
+		A.ISNEEDANSWER,
+		A.ISRECONCILE,
+		A.REPORTBASQUE,
+		A.REPORTIDIQUE
+	FROM
+		cs_ai_12315_reg_info A
+	LEFT JOIN cs_ai_12315_invopt_info B ON A.CONT_ID = B.CONT_ID
+	WHERE
+		B.PRIPID = #{priPID}
+  </select>
+</mapper>

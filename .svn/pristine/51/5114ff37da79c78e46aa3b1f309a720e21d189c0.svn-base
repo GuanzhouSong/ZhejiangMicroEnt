@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.base.mapper.CodeAddressMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.base.model.CodeAddress" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="code" property="code" jdbcType="VARCHAR" />
+    <result column="addressName" property="addressName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectCountyListByCityCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+      select code,addressName
+       from
+      cs_code_address
+      <where>
+        <![CDATA[
+			 code LIKE CONCAT(#{cityCode},'%','000000') and code <>  CONCAT(#{cityCode},'00000000')
+		]]>
+      </where>
+  </select>
+  
+  <select id="selectCountyListByCountyCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+      select code,addressName
+       from
+      cs_code_address
+      <where>
+        <![CDATA[
+			 code LIKE CONCAT(#{cityCode},'%','000') and code <>  CONCAT(#{cityCode},'000000')
+		]]>
+      </where>
+  </select>
+  
+  
+</mapper>

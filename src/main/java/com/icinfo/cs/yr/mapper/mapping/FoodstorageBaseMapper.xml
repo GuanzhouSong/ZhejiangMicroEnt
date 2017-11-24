@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.FoodstorageBaseMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.FoodstorageBase" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="FsScope" property="fsScope" jdbcType="VARCHAR" />
+    <result column="ProAmount" property="proAmount" jdbcType="INTEGER" />
+    <result column="DisAmount" property="disAmount" jdbcType="INTEGER" />
+    <result column="WareAmount" property="wareAmount" jdbcType="INTEGER" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="MobTel" property="mobTel" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="SubmitState" property="submitState" jdbcType="CHAR" />
+  </resultMap>
+  
+   <resultMap id="BaseResultMapDto" type="com.icinfo.cs.yr.dto.FoodstorageBaseDto" extends="BaseResultMap">
+   		<result column="RegNO" property="regNO" jdbcType="VARCHAR" />
+   		<result column="EntName" property="entName" jdbcType="VARCHAR" />
+   		<result column="EntType" property="entType" jdbcType="VARCHAR" />
+   		<result column="OpScope" property="opScope" jdbcType="VARCHAR" />
+   		<result column="ProLoc" property="proLoc" jdbcType="VARCHAR" />
+   		<result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+   		<result column="UniCode" property="uniSCID" jdbcType="VARCHAR" />
+   		<result column="EstDate" property="estDate" jdbcType="TIMESTAMP" />
+   		<result column="RegOrgDesc" property="regOrgDesc" jdbcType="VARCHAR" />
+   		<result column="LocalAdmDesc" property="localAdmDesc" jdbcType="VARCHAR" />
+   		<result column="IndustryCoDesc" property="industryCoDesc" jdbcType="VARCHAR" />
+   		<result column="EntTypeDesc" property="entTypeDesc" jdbcType="VARCHAR" />
+   		<result column="SliceNoDesc" property="sliceNoDesc" jdbcType="VARCHAR" />
+   		<result column="Tel" property="tel" jdbcType="VARCHAR" />
+   		<result column="EntTypeCatg" property="entTypeCatg" jdbcType="VARCHAR" />
+   		<result column="checkDepDesc" property="checkDepDesc" jdbcType="VARCHAR" />
+   </resultMap>
+   
+   <!-- 食品存储统计 -->
+   <resultMap id="foodstorageCountResultMap" type="com.icinfo.cs.yr.dto.FoodstorageCountDto" extends="BaseResultMap">
+   		<!-- 部门 -->
+		<result property="area" column="AREA" jdbcType="VARCHAR"/>
+		<!-- 应申报企业（户） -->
+		<result property="fsDeclareAmount" column="FS_DECLARE_AMOUNT" jdbcType="VARCHAR"/>
+		<!-- 已申报企业（户） -->
+		<result property="fsDeclaredAmount" column="FS_DECLARED_AMOUNT" jdbcType="VARCHAR"/>
+		<!-- 申报率（%） --> 
+		<result property="fsDeclarePerCent" column="FS_DECLARE_PERCENT" jdbcType="VARCHAR"/>
+		<!-- 涉及食品仓储企业（户） -->
+		<result property="fsStorageAmount" column="FS_STORAGE_AMOUNT" jdbcType="VARCHAR"/>
+		<!-- 食品生产企业（户） -->
+		<result property="fsProductAmount" column="FS_PRODUCT_AMOUNT" jdbcType="VARCHAR"/>
+		<!-- 食品经营企业（户） -->
+		<result property="fsRunAmount" column="FS_RUN_AMOUNT" jdbcType="VARCHAR"/>
+		<!-- 食品仓储服务企业（户） -->
+		<result property="fsServiceAmount" column="FS_SERVICE_AMOUNT" jdbcType="VARCHAR"/>
+		<!--食用农产品企业（户） -->
+		<result property="farmerProductAmount" column="FARMER_PRODUCT_AMOUNT" jdbcType="VARCHAR"/>
+		<!-- 食品生产许可证（个） -->
+		<result property="fproductLicence" column="FPRODUCT_LICENCE" jdbcType="VARCHAR"/>
+		<!-- 食品流通许可证（个） -->
+		<result property="fdistributionLicense" column="FDISTRIBUTION_LICENSE" jdbcType="VARCHAR"/>
+		<!-- 仓库总数（个） -->
+		<result property="warehouseAmount" column="WAREHOUSE_AMOUNT" jdbcType="VARCHAR"/>
+		<!-- 食品生产企业仓库（个） -->
+		<result property="fproductWarehouse" column="FPRODUCT_WAREHOUSE" jdbcType="VARCHAR"/>
+		<!-- 食品经营企业仓库（个） -->
+		<result property="frunWarehouse" column="FRUN_WAREHOUSE" jdbcType="VARCHAR"/>
+		<!--食品仓储服务企业仓库（个）  -->
+		<result property="fserviceWarehouse" column="FSERVICE_WAREHOUSE" jdbcType="VARCHAR"/>
+   </resultMap>
+  
+   <!-- 获取食品仓储信息查询列表list数据（工商端） -->
+  <select id="selectFoodstorageBaseDtoList" resultMap="BaseResultMapDto" parameterType="Map"> 
+	SELECT 
+		b.id,b.PriPID,b.Year,b.FsScope,b.ProAmount,b.DisAmount,b.WareAmount,b.SetName,b.Tel,b.MobTel,b.SetTime,b.CreateTime,b.SubmitState,
+	    c.RegNO,c.EntName,c.EntType,c.OpScope,c.ProLoc,c.LeRep,c.UniCode,c.EstDate,c.Tel,
+		c.RegOrgName RegOrgDesc,c.LocalAdmName LocalAdmDesc,f.Content IndustryCoDesc,
+g.Content EntTypeDesc,c.SliceNOName SliceNoDesc,c.CheckDepName checkDepDesc
+	FROM cs_foodstorage_base b 
+	  INNER JOIN cs_mid_baseinfo c ON b.PriPID = c.PriPID
+	  LEFT JOIN cs_code_industry f ON c.IndustryCo = f.Code
+	  LEFT JOIN cs_code_enttype g ON c.EntType = g.Code
+    <trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="regNo != null and regNo != ''">
+			(c.RegNO = #{regNo,jdbcType=VARCHAR}
+			or c.UniCode = #{regNo,jdbcType=VARCHAR})
+		</if>
+		<if test="year != null and year != ''">
+			and b.Year = #{year,jdbcType=VARCHAR}
+		</if>
+		<if test="entName != null and entName != ''">
+			and c.EntName like concat('%', #{entName},'%')
+		</if>
+		<if test="leRep != null and leRep != ''">
+			and c.LeRep = #{leRep,jdbcType=VARCHAR}
+		</if>
+		<if test="regOrg !='' and regOrg !=null">
+	    	and c.RegOrg  IN  (${regOrg})
+	    </if>
+	    <if test="localAdm !='' and localAdm !=null">
+	    	and c.LocalAdm  IN (${localAdm})
+	    </if>
+	    <if test="entTypeCode !='' and entTypeCode !=null">
+	    	and c.EntType  IN (${entTypeCode})
+	    </if>
+	    <if test="sliceNO !='' and sliceNO !=null">
+	    	and c.SliceNO  IN (${sliceNO})
+  		</if>
+  		<if test="industryCo !='' and industryCo !=null">
+	    	and c.IndustryCo  IN (${industryCo})
+	    </if>
+	    <if test="checkDep !='' and checkDep !=null">
+	    	and c.CheckDep  IN (${checkDep})
+	    </if>
+		<if test="submitState != null and submitState != ''">
+			and b.SubmitState = #{submitState,jdbcType=VARCHAR}
+		</if>
+		<if test="estDateStart != null and estDateStart != ''">
+			and c.EstDate &gt;= #{estDateStart,jdbcType=DATE}
+		</if>
+		<if test="estDateEnd != null and estDateEnd != ''">
+			and c.EstDate &lt;= #{estDateEnd,jdbcType=DATE}
+		</if>
+		<if test="setTimeStart != null and setTimeStart != ''">
+			and LEFT (b.SetTime, 10) &gt;= #{setTimeStart,jdbcType=DATE}
+		</if>
+		<if test="setTimeEnd != null and setTimeEnd != ''">
+			and LEFT (b.SetTime, 10) &lt;= #{setTimeEnd,jdbcType=DATE}
+		</if>
+		<if test="fsScopeParam != null and fsScopeParam != ''">
+			and ( b.FsScope like concat('%', #{fsScopeParam},'%')
+				<if test='fsScopeParam == "4"'>
+					OR b.FsScope is null OR b.FsScope = ''
+				</if>
+			)
+		</if>
+		<if test="fsScopeList != null and fsScopeList !=''">
+			and (
+			 <trim suffixOverrides="AND | OR">
+			<foreach item="item" index="index" collection="fsScopeList">  
+			  b.FsScope like concat('%', #{item},'%') AND
+			 </foreach>
+			 </trim>
+			 )
+		 </if>
+	</trim>
+  </select>
+  
+  <!-- 获取食品仓储退回列表list数据（工商端） -->
+  <select id="selectFoodstorageBaseBackDtoList" resultMap="BaseResultMapDto" parameterType="Map"> 
+	SELECT 
+		b.id,b.PriPID,b.Year,b.SetName,b.Tel,b.MobTel,b.SetTime,b.SubmitState,
+	    c.RegNO,c.EntName,c.UniCode,c.RegOrgName RegOrgDesc,c.LocalAdmName LocalAdmDesc
+	FROM cs_foodstorage_base b 
+	  INNER JOIN cs_mid_baseinfo c ON b.PriPID = c.PriPID
+    <trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="regNo != null and regNo != ''">
+			(c.RegNO = #{regNo,jdbcType=VARCHAR}
+			 or c.UniCode = #{regNo,jdbcType=VARCHAR}
+			)
+		</if>
+		<if test="year != null and year != ''">
+			and b.Year = #{year,jdbcType=VARCHAR}
+		</if>
+		<if test="entName != null and entName != ''">
+			and c.EntName like concat('%', #{entName},'%')
+		</if>
+		<if test="submitState != null and submitState != ''">
+			and b.SubmitState = #{submitState,jdbcType=VARCHAR}
+		</if>
+	</trim>
+  </select>
+  
+  <!-- 获取食品仓储退回列表list数据（工商端） -->
+  <select id="selecFoodstorageBaseDtoById" resultMap="BaseResultMapDto" parameterType="Map"> 
+	SELECT 
+		b.id,b.PriPID,b.Year,b.SetName,b.Tel,b.MobTel,b.SetTime,b.SubmitState,
+	    c.RegNO,c.EntName,c.UniCode,c.EntTypeCatg
+	FROM cs_foodstorage_base b 
+	  INNER JOIN cs_mid_baseinfo c ON b.PriPID = c.PriPID
+    where b.id = #{id,jdbcType=INTEGER}
+  </select>
+  
+   <!-- 获取食品仓储信息查询详细信息（工商端）-->
+  <select id="selectFoodstorageBaseById" resultMap="BaseResultMap" parameterType="Map"> 
+	SELECT 
+		b.id,b.PriPID,b.Year,b.FsScope,b.ProAmount,b.DisAmount,b.WareAmount,b.SetName,b.Tel,b.MobTel,b.SetTime,b.CreateTime,b.SubmitState
+	FROM cs_foodstorage_base b 
+	  where b.id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 食品仓储统计 -->
+  <select id="foodstorageCount" resultMap="foodstorageCountResultMap" parameterType="Map"> 
+		SELECT
+		S.RegOrg,
+		S.FS_DECLARE_AMOUNT,
+		S.FS_DECLARED_AMOUNT,
+		S.FS_STORAGE_AMOUNT,
+		S.FS_PRODUCT_AMOUNT, 
+		S.FARMER_PRODUCT_AMOUNT,
+		S.FS_RUN_AMOUNT,
+		S.FS_SERVICE_AMOUNT,
+		S.FPRODUCT_LICENCE,
+		S.FDISTRIBUTION_LICENSE,
+		S.WAREHOUSE_AMOUNT,
+		round(
+			IFNULL(
+				 (S.FS_DECLARED_AMOUNT / S.FS_DECLARE_AMOUNT) * 100,
+				0
+			),
+			2
+		) FS_DECLARE_PERCENT,
+		S.AREA
+	FROM
+		(
+			SELECT 
+				D.RegOrg,
+				COUNT(
+					DISTINCT D.FS_DECLARE_AMOUNT
+				)-1 FS_DECLARE_AMOUNT,
+				COUNT(
+					DISTINCT D.FARMER_PRODUCT_AMOUNT
+				)-1 FARMER_PRODUCT_AMOUNT,
+				COUNT(
+					DISTINCT D.FS_DECLARED_AMOUNT
+				)-1 FS_DECLARED_AMOUNT,
+				COUNT(
+					DISTINCT D.FS_STORAGE_AMOUNT
+				)-1 FS_STORAGE_AMOUNT,
+				COUNT(
+					DISTINCT D.FS_PRODUCT_AMOUNT
+				)-1 FS_PRODUCT_AMOUNT,
+				COUNT(DISTINCT D.FS_RUN_AMOUNT)-1 FS_RUN_AMOUNT,
+				COUNT(
+					DISTINCT D.FS_SERVICE_AMOUNT
+				)-1 FS_SERVICE_AMOUNT,
+				SUM(D.FPRODUCT_LICENCE) FPRODUCT_LICENCE,
+				SUM(D.FDISTRIBUTION_LICENSE) FDISTRIBUTION_LICENSE,
+				SUM(D.WAREHOUSE_AMOUNT) WAREHOUSE_AMOUNT
+				<if test="statLevel != null and statLevel != '' and  statLevel == 'regOrg' ">
+				,(
+					SELECT
+						E.Content
+					FROM
+						cs_code_regorg E
+					WHERE
+						D.RegOrg = E. CODE
+				 ) AREA
+				</if>
+				<if test="statLevel != null and statLevel != '' and  statLevel == 'localAdm' ">
+				,(
+					SELECT
+						E.Content
+					FROM
+						cs_code_regunit E
+					WHERE
+						D.RegOrg = E.CODE
+				 ) AREA
+				</if>
+			FROM
+				(
+					SELECT
+						<if test="statLevel != null and statLevel != '' and  statLevel == 'regOrg' ">
+						A.RegOrg,  
+						</if>
+						<if test="statLevel != null and statLevel != '' and  statLevel == 'localAdm' ">
+						A.LocalAdm RegOrg,  
+						</if>
+						B.PriPID FS_DECLARE_AMOUNT,
+						0 FS_DECLARED_AMOUNT,
+						0 FS_STORAGE_AMOUNT,
+						0 FS_PRODUCT_AMOUNT,
+						0 FARMER_PRODUCT_AMOUNT,
+						0 FS_RUN_AMOUNT,
+						0 FS_SERVICE_AMOUNT,
+						0 FPRODUCT_LICENCE,
+						0 FDISTRIBUTION_LICENSE,
+						0 WAREHOUSE_AMOUNT,
+						A.id FID
+					FROM
+						cs_foodmrak_hz B
+					LEFT JOIN cs_mid_baseinfo A ON A.PriPID = B.PriPID
+					WHERE
+					 A.RegState IN (${regState})
+					UNION ALL
+						SELECT
+							<if test="statLevel != null and statLevel != '' and  statLevel == 'regOrg' ">
+							A.RegOrg,  
+							</if>
+							<if test="statLevel != null and statLevel != '' and  statLevel == 'localAdm' ">
+							A.LocalAdm RegOrg,  
+							</if>
+							0 FS_DECLARE_AMOUNT,
+							food.PriPID FS_DECLARED_AMOUNT,
+							0 FS_STORAGE_AMOUNT,
+							0 FS_PRODUCT_AMOUNT,
+							0 FARMER_PRODUCT_AMOUNT,
+							0 FS_RUN_AMOUNT,
+							0 FS_SERVICE_AMOUNT,
+							0 FPRODUCT_LICENCE,
+							0 FDISTRIBUTION_LICENSE,
+							0 WAREHOUSE_AMOUNT,
+							A.id FID
+						FROM
+							cs_foodstorage_base food
+						LEFT JOIN cs_mid_baseinfo A ON A.PriPID = food.PriPID
+						WHERE
+							A.RegState IN (${regState})
+						AND food.SubmitState = '2'
+						<include refid="count_where"/> 
+						UNION ALL
+							SELECT
+								<if test="statLevel != null and statLevel != '' and  statLevel == 'regOrg' ">
+								A.RegOrg,  
+								</if>
+								<if test="statLevel != null and statLevel != '' and  statLevel == 'localAdm' ">
+								A.LocalAdm RegOrg,  
+								</if>
+								0 FS_DECLARE_AMOUNT,
+								0 FS_DECLARED_AMOUNT,
+								food.PriPID FS_STORAGE_AMOUNT,
+								0 FS_PRODUCT_AMOUNT,
+								0 FARMER_PRODUCT_AMOUNT,
+								0 FS_RUN_AMOUNT,
+								0 FS_SERVICE_AMOUNT,
+								0 FPRODUCT_LICENCE,
+								0 FDISTRIBUTION_LICENSE,
+								0 WAREHOUSE_AMOUNT,
+								A.id FID
+							FROM
+								cs_foodstorage_base food
+							LEFT JOIN cs_mid_baseinfo A ON A.PriPID = food.PriPID
+							WHERE
+								A.RegState IN (${regState})
+							AND food.SubmitState = '2'
+							AND food.FsScope IS NOT NULL
+							AND (
+								locate('1', food.FsScope) > 0
+								OR locate('2', food.FsScope) > 0
+								OR locate('3', food.FsScope) > 0
+								OR locate('5', food.FsScope) > 0
+							)
+							<include refid="count_where"/> 
+							UNION ALL
+								SELECT
+									<if test="statLevel != null and statLevel != '' and  statLevel == 'regOrg' ">
+									A.RegOrg,  
+									</if>
+									<if test="statLevel != null and statLevel != '' and  statLevel == 'localAdm' ">
+									A.LocalAdm RegOrg,  
+									</if>
+									0 FS_DECLARE_AMOUNT,
+									0 FS_DECLARED_AMOUNT,
+									food.PriPID FS_STORAGE_AMOUNT,
+									0 FS_PRODUCT_AMOUNT,
+									0 FARMER_PRODUCT_AMOUNT,
+									0 FS_RUN_AMOUNT,
+									0 FS_SERVICE_AMOUNT,
+									0 FPRODUCT_LICENCE,
+									0 FDISTRIBUTION_LICENSE,
+									0 WAREHOUSE_AMOUNT,
+									A.id FID
+								FROM
+									cs_foodstorage_base food
+								LEFT JOIN cs_mid_baseinfo A ON A.PriPID = food.PriPID
+								WHERE
+									A.RegState IN (${regState})
+								AND food.SubmitState = '2'
+								AND food.FsScope IS NOT NULL
+								AND (
+									locate('1', food.FsScope) > 0
+									OR locate('2', food.FsScope) > 0
+									OR locate('3', food.FsScope) > 0
+								)
+								<include refid="count_where"/> 
+								UNION ALL
+									SELECT
+										<if test="statLevel != null and statLevel != '' and  statLevel == 'regOrg' ">
+										A.RegOrg,  
+										</if>
+										<if test="statLevel != null and statLevel != '' and  statLevel == 'localAdm' ">
+										A.LocalAdm RegOrg,  
+										</if>
+										0 FS_DECLARE_AMOUNT,
+										0 FS_DECLARED_AMOUNT,
+										0 FS_STORAGE_AMOUNT,
+										food.PriPID FS_PRODUCT_AMOUNT,
+										0 FARMER_PRODUCT_AMOUNT,
+										0 FS_RUN_AMOUNT,
+										0 FS_SERVICE_AMOUNT,
+										0 FPRODUCT_LICENCE,
+										0 FDISTRIBUTION_LICENSE,
+										0 WAREHOUSE_AMOUNT,
+										A.id FID
+									FROM
+										cs_foodstorage_base food
+									LEFT JOIN cs_mid_baseinfo A ON A.PriPID = food.PriPID
+									WHERE
+										A.RegState IN (${regState})
+									AND food.SubmitState = '2'
+									AND food.FsScope IS NOT NULL
+									AND locate('1', food.FsScope) > 0
+									<include refid="count_where"/> 
+									UNION ALL
+									SELECT
+										<if test="statLevel != null and statLevel != '' and  statLevel == 'regOrg' ">
+										A.RegOrg,  
+										</if>
+										<if test="statLevel != null and statLevel != '' and  statLevel == 'localAdm' ">
+										A.LocalAdm RegOrg,  
+										</if>
+										0 FS_DECLARE_AMOUNT,
+										0 FS_DECLARED_AMOUNT,
+										0 FS_STORAGE_AMOUNT,
+										0 FS_PRODUCT_AMOUNT,
+										food.PriPID FARMER_PRODUCT_AMOUNT,
+										0 FS_RUN_AMOUNT,
+										0 FS_SERVICE_AMOUNT,
+										0 FPRODUCT_LICENCE,
+										0 FDISTRIBUTION_LICENSE,
+										0 WAREHOUSE_AMOUNT,
+										A.id FID
+									FROM
+										cs_foodstorage_base food
+									LEFT JOIN cs_mid_baseinfo A ON A.PriPID = food.PriPID
+									WHERE
+										A.RegState IN (${regState})
+									AND food.SubmitState = '2'
+									AND food.FsScope IS NOT NULL
+									AND locate('5', food.FsScope) > 0
+									<include refid="count_where"/>
+									UNION ALL
+										SELECT
+											<if test="statLevel != null and statLevel != '' and  statLevel == 'regOrg' ">
+											A.RegOrg,  
+											</if>
+											<if test="statLevel != null and statLevel != '' and  statLevel == 'localAdm' ">
+											A.LocalAdm RegOrg,  
+											</if>
+											0 FS_DECLARE_AMOUNT,
+											0 FS_DECLARED_AMOUNT,
+											0 FS_STORAGE_AMOUNT,
+											0 FS_PRODUCT_AMOUNT,
+											0 FARMER_PRODUCT_AMOUNT,
+											food.PriPID FS_RUN_AMOUNT,
+											0 FS_SERVICE_AMOUNT,
+											0 FPRODUCT_LICENCE,
+											0 FDISTRIBUTION_LICENSE,
+											0 WAREHOUSE_AMOUNT,
+											A.id FID
+										FROM
+											cs_foodstorage_base food
+										LEFT JOIN cs_mid_baseinfo A ON A.PriPID = food.PriPID
+										WHERE
+											A.RegState IN (${regState})
+										AND food.SubmitState = '2'
+										AND food.FsScope IS NOT NULL
+										AND locate('2', food.FsScope) > 0
+										<include refid="count_where"/> 
+										UNION ALL
+											SELECT
+												<if test="statLevel != null and statLevel != '' and  statLevel == 'regOrg' ">
+												A.RegOrg,  
+												</if>
+												<if test="statLevel != null and statLevel != '' and  statLevel == 'localAdm' ">
+												A.LocalAdm RegOrg,  
+												</if>
+												0 FS_DECLARE_AMOUNT,
+												0 FS_DECLARED_AMOUNT,
+												0 FS_STORAGE_AMOUNT,
+												0 FS_PRODUCT_AMOUNT,
+												0 FARMER_PRODUCT_AMOUNT,
+												0 FS_RUN_AMOUNT,
+												food.PriPID FS_SERVICE_AMOUNT,
+												0 FPRODUCT_LICENCE,
+												0 FDISTRIBUTION_LICENSE,
+												0 WAREHOUSE_AMOUNT,
+												A.id FID
+											FROM
+												cs_foodstorage_base food
+											LEFT JOIN cs_mid_baseinfo A ON A.PriPID = food.PriPID
+											WHERE
+												A.RegState IN (${regState})
+											AND food.SubmitState = '2'
+											AND food.FsScope IS NOT NULL
+											AND locate('3', food.FsScope) > 0
+											<include refid="count_where"/> 
+											UNION ALL
+												SELECT
+													<if test="statLevel != null and statLevel != '' and  statLevel == 'regOrg' ">
+													A.RegOrg,  
+													</if>
+													<if test="statLevel != null and statLevel != '' and  statLevel == 'localAdm' ">
+													A.LocalAdm RegOrg,  
+													</if>
+													0 FS_DECLARE_AMOUNT,
+													0 FS_DECLARED_AMOUNT,
+													0 FS_STORAGE_AMOUNT,
+													0 FS_PRODUCT_AMOUNT,
+													0 FARMER_PRODUCT_AMOUNT,
+													0 FS_RUN_AMOUNT,
+													0 FS_SERVICE_AMOUNT,
+													food.ProAmount FPRODUCT_LICENCE,
+													food.DisAmount FDISTRIBUTION_LICENSE,
+													food.WareAmount WAREHOUSE_AMOUNT,
+													A.id FID
+												FROM
+													cs_foodstorage_base food
+												LEFT JOIN cs_mid_baseinfo A ON A.PriPID = food.PriPID
+												WHERE
+													A.RegState IN (${regState})
+												AND food.SubmitState = '2'
+												<include refid="count_where"/> 
+				) D
+			WHERE
+				D.FID IS NOT NULL
+			GROUP BY
+				D.RegOrg
+		) S
+  </select>
+  
+  <select id="doJudgeIsFoodStorageEnt" resultMap="BaseResultMapDto" parameterType="java.lang.String">
+      SELECT pripid FROM cs_foodmrak_hz  WHERE pripid = #{_parameter}
+  </select> 
+  
+   <sql id="count_where"> 
+		<if test="startCheckPushDate !=null and startCheckPushDate != '' ">
+	    <![CDATA[ and   left(food.SetTime,10) >=#{startCheckPushDate}  ]]> 
+	    </if>
+	    <if test="endCheckPushDate !=null and endCheckPushDate != '' ">
+	    <![CDATA[ and   left(food.SetTime,10) <=#{endCheckPushDate}  ]]> 
+	    </if> 
+  </sql>
+</mapper>

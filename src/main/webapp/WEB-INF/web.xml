@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Copyright© 2003-2016 浙江汇信科技有限公司, All Rights Reserved.
+  -->
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                        http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
+    <display-name>frameworkdemo</display-name>
+
+    <listener>
+        <listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>
+    </listener>
+    <context-param>
+        <param-name>logbackConfigLocation</param-name>
+        <param-value>classpath:logback.xml</param-value>
+    </context-param>
+
+    <!-- XSS 跨站脚本攻击 -->
+    <context-param>
+        <param-name>defaultHtmlEscape</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+    <!-- Spring配置文件开始 -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:entry/dev/spring-entry.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <!-- Spring配置文件结束 -->
+
+    <!-- session 复制配置开始 -->
+    
+   <!--  <filter>
+        <filter-name>springSessionRepositoryFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSessionRepositoryFilter</filter-name>
+        <url-pattern>/client/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>springSessionRepositoryFilter</filter-name>
+        <url-pattern>/entinfo/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>springSessionRepositoryFilter</filter-name>
+        <url-pattern>/syn/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>springSessionRepositoryFilter</filter-name>
+        <url-pattern>/reg/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>springSessionRepositoryFilter</filter-name>
+        <url-pattern>/entinfo/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>springSessionRepositoryFilter</filter-name>
+        <url-pattern>/pub/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>springSessionRepositoryFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>springSessionRepositoryFilter</filter-name>
+        <url-pattern>/common/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>springSessionRepositoryFilter</filter-name>
+        <url-pattern>/pc-geetest/*</url-pattern>
+    </filter-mapping> 
+     <filter-mapping>
+        <filter-name>springSessionRepositoryFilter</filter-name>
+        <url-pattern>/cscaptcha</url-pattern>
+    </filter-mapping> -->
+    
+   
+    <!-- session 复制配置结束 -->
+
+    <!-- shiro config start -->
+    <filter>
+        <filter-name>shiroFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <init-param>
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/client/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/entinfo/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/syn/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/sment/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/reg/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/entinfo/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/pub/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/depsyn/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/commom/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/common/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/captcha</url-pattern>
+    </filter-mapping>
+     <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/cscaptcha</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+    	<filter-name>shiroFilter</filter-name>
+    	<url-pattern>/UserAuth.do</url-pattern>
+    </filter-mapping>
+    <!-- shiro config end-->
+
+	 <!-- 自建系统登录过滤器 -->
+	<filter>
+	    <filter-name>LoginFilter</filter-name>
+	    <filter-class>com.insigma.odin.framework.ucenter.filter.LoginFilter</filter-class>
+		<init-param>  
+			<!-- 登陆方式，7为首页面集成方式（我们选择7）,1为菜单树集成方式-->
+            <param-name>logintype</param-name>  
+            <param-value>7</param-value>  
+        </init-param>
+		<init-param>  
+			<!-- 首页面集成方式跳转的首页面url,若logintype为7， 
+			则需要改成自建系统登陆成功后跳转的首页面url
+			-->
+            <param-name>forwardurl</param-name>
+              <!-- 警示系统 开始-->    
+           	  <!--  <param-value>/reg</param-value>  -->
+              <!-- 警示系统 结束-->  
+              
+              <!-- 小微系统 开始-->   
+              <param-value>/sment/login/sment_index</param-value> 
+              <!-- 小微系统 结束-->   
+        </init-param>
+        <init-param>  
+			<!-- 登陆接口实现类,classpath为接口实现类的路径，
+			可以自己修改类路径，并重写该类-->
+            <param-name>classpath</param-name>
+            <!-- 警示系统 开始-->  
+            <!-- <param-value>com.icinfo.cs.system.service.impl.DpInterfaceUnifiedUserImpl</param-value>  -->
+            <!-- 警示系统  结束--> 
+            
+            <!-- 小微系统 开始-->  
+            <param-value>com.icinfo.cs.sment.service.impl.SmentDpInterfaceUnifiedUserImpl</param-value> 
+            <!-- 小微系统  结束-->  
+        </init-param>
+        <init-param>  
+			<!-- 是否开启调试模式，调试模式下会打印关键参数，用于调试-->
+            <param-name>testflag</param-name>  
+            <param-value>true</param-value>  
+        </init-param>
+	</filter>
+	<filter-mapping>
+	    <filter-name>LoginFilter</filter-name>
+	    <url-pattern>/UserAuth.do</url-pattern>  
+	</filter-mapping>
+
+    <!-- 设置servlet编码开始 -->
+    <filter>
+        <filter-name>Set Character Encoding</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <async-supported>true</async-supported>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>Set Character Encoding</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <!-- 设置servlet编码结束 -->
+
+    <!-- XSS攻击防护配置 start -->
+    <filter>
+        <filter-name>SafeRequestFilter</filter-name>
+        <filter-class>com.icinfo.framework.core.web.filter.SafeRequestFilter</filter-class>
+        <init-param>
+            <param-name>enableXSSProtection</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>SafeRequestFilter</filter-name>
+        <url-pattern>/client/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>SafeRequestFilter</filter-name>
+        <url-pattern>/entinfo/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>SafeRequestFilter</filter-name>
+        <url-pattern>/syn/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>SafeRequestFilter</filter-name>
+        <url-pattern>/sment/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>SafeRequestFilter</filter-name>
+        <url-pattern>/reg/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/depsyn/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>SafeRequestFilter</filter-name>
+        <url-pattern>/entinfo/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>SafeRequestFilter</filter-name>
+        <url-pattern>/pub/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>SafeRequestFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>SafeRequestFilter</filter-name>
+        <url-pattern>/common/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+    	<filter-name>SafeRequestFilter</filter-name>
+    	<url-pattern>/UserAuth.do</url-pattern>
+    </filter-mapping>
+    <!-- XSS攻击防护配置 end -->
+	
+
+    <servlet>
+        <servlet-name>spring</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring-mvc.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+        <async-supported>true</async-supported>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>spring</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <!--<servlet>-->
+        <!--<servlet-name>DruidStatView</servlet-name>-->
+        <!--<servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>DruidStatView</servlet-name>-->
+        <!--<url-pattern>/admin/druid/*</url-pattern>-->
+    <!--</servlet-mapping>-->
+    
+    <!-- 极验验证码 -->
+    <servlet>
+	    <description></description>
+	    <display-name>StartCaptchaServlet</display-name>
+	    <servlet-name>StartCaptchaServlet</servlet-name>
+	    <servlet-class>com.icinfo.cs.geetest.StartCaptchaServlet</servlet-class>
+	</servlet>
+	<servlet>
+	    <description></description>
+	    <display-name>VerifyLoginServlet</display-name>
+	    <servlet-name>VerifyLoginServlet</servlet-name>
+	    <servlet-class>com.icinfo.cs.geetest.VerifyLoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>VerifyLoginServlet</servlet-name>
+	    <url-pattern>/pc-geetest/validate</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+	    <servlet-name>StartCaptchaServlet</servlet-name>
+	    <url-pattern>/pc-geetest/register</url-pattern>
+	</servlet-mapping>
+
+    <!-- 系统404页面 -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/views/page/404.jsp</location>
+    </error-page>
+    <error-page>  
+	    <error-code>500</error-code>  
+	    <location>/WEB-INF/views/page/error.jsp</location>  
+	</error-page> 
+
+    <!-- 系统异常页面 -->
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/WEB-INF/views/page/error.jsp</location>
+    </error-page>
+    
+    <!-- 单点登录 -->
+    <listener>
+        <listener-class>com.icinfo.zjaicsso.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
+    </listener>
+    
+    <filter>
+        <filter-name>Single Sign Out Filter</filter-name>
+        <filter-class>
+            com.icinfo.zjaicsso.cas.client.session.SingleSignOutFilter
+        </filter-class>
+        <init-param>
+            <param-name>casServerUrlPrefix</param-name>
+			<!-- 单点登录服务器地址 -->
+            <param-value>http://118.178.118.56</param-value>
+        </init-param>
+    </filter>
+
+    <filter>
+        <filter-name>Authentication Filter</filter-name>
+        <filter-class>com.icinfo.zjaicsso.cas.client.authentication.AuthenticationFilter</filter-class>
+        <init-param>
+            <param-name>casServerLoginUrl</param-name>
+			<!-- 单点登录登录URL -->
+            <param-value>http://118.178.118.56/login</param-value>
+        </init-param>
+        <init-param>
+            <param-name>serverName</param-name>
+            <param-value>http://118.178.33.191</param-value>
+        </init-param>
+    </filter>
+
+    <filter>
+        <filter-name>Validation Filter</filter-name>
+        <filter-class>com.icinfo.zjaicsso.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter</filter-class>
+        <init-param>
+            <param-name>casServerUrlPrefix</param-name>
+			<!-- 单点登录服务器地址-->
+            <param-value>http://118.178.118.56</param-value>
+        </init-param>
+        <init-param>
+            <param-name>serverName</param-name>
+            <param-value>http://118.178.33.191</param-value>
+        </init-param>
+        <init-param>
+            <param-name>redirectAfterValidation</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter>
+        <filter-name>HttpServletRequest Wrapper Filter</filter-name>
+        <filter-class>com.icinfo.zjaicsso.cas.client.util.HttpServletRequestWrapperFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>Single Sign Out Filter</filter-name>
+        <url-pattern>/reg/client/login/casall/*</url-pattern>
+    </filter-mapping>
+    <!--需要拦截的方法-->
+    <filter-mapping>
+        <filter-name>Authentication Filter</filter-name>
+        <url-pattern>/reg/client/login/casall/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>Validation Filter</filter-name>
+        <url-pattern>/reg/client/login/casall/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>HttpServletRequest Wrapper Filter</filter-name>
+        <url-pattern>/reg/client/login/casall/*</url-pattern>
+    </filter-mapping>
+    
+</web-app>

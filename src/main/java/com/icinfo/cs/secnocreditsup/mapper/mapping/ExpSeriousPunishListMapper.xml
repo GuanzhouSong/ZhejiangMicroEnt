@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.secnocreditsup.mapper.ExpSeriousPunishListMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.secnocreditsup.model.ExpSeriousCrimeList" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="SourceId" property="sourceId" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="UniSCID" property="uniSCID" jdbcType="CHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="CerType" property="cerType" jdbcType="CHAR" />
+    <result column="CerNO" property="cerNO" jdbcType="VARCHAR" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="CHAR" />
+    <result column="BusinessType" property="businessType" jdbcType="VARCHAR" />
+    <result column="BusinessStatus" property="businessStatus" jdbcType="VARCHAR" />
+    <result column="SpeCauseCN" property="speCauseCN" jdbcType="VARCHAR" />
+    <result column="SpeCause" property="speCause" jdbcType="VARCHAR" />
+    <result column="AbnTime" property="abnTime" jdbcType="TIMESTAMP" />
+    <result column="DecOrg" property="decOrg" jdbcType="VARCHAR" />
+    <result column="DecorgCN" property="decorgCN" jdbcType="VARCHAR" />
+    <result column="PenDecNo" property="penDecNo" jdbcType="VARCHAR" />
+    <result column="ExpExpiredDate" property="expExpiredDate" jdbcType="DATE" />
+    <result column="ExpExpiredBeforeDate" property="expExpiredBeforeDate" jdbcType="DATE" />
+    <result column="AddSecTerm" property="addSecTerm" jdbcType="DATE" />
+    <result column="AddSecDate" property="addSecDate" jdbcType="DATE" />
+    <result column="AddSecNo" property="addSecNo" jdbcType="VARCHAR" />
+    <result column="SecDishonestyType" property="secDishonestyType" jdbcType="VARCHAR" />
+    <result column="SecExpiredDelay" property="secExpiredDelay" jdbcType="INTEGER" />
+    <result column="FirstDept" property="firstDept" jdbcType="VARCHAR" />
+    <result column="FirstName" property="firstName" jdbcType="VARCHAR" />
+    <result column="Firstdate" property="firstdate" jdbcType="TIMESTAMP" />
+    <result column="FirstCheck" property="firstCheck" jdbcType="VARCHAR" />
+    <result column="FirstOpin" property="firstOpin" jdbcType="VARCHAR" />
+    <result column="AuditDept" property="auditDept" jdbcType="VARCHAR" />
+    <result column="AuditName" property="auditName" jdbcType="VARCHAR" />
+    <result column="AuditDate" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="AuditCheck" property="auditCheck" jdbcType="VARCHAR" />
+    <result column="AuditOpin" property="auditOpin" jdbcType="VARCHAR" />
+    <result column="ApplyMan" property="applyMan" jdbcType="VARCHAR" />
+    <result column="AddSecOrgCode" property="addSecOrgCode" jdbcType="VARCHAR" />
+    <result column="AddSecOrg" property="addSecOrg" jdbcType="VARCHAR" />
+    <result column="ApplyDate" property="applyDate" jdbcType="DATE" />
+    <result column="PublicState" property="publicState" jdbcType="VARCHAR" />
+    <result column="NoticeIssueState" property="noticeIssueState" jdbcType="VARCHAR" />
+    <result column="NoticeIssueDate" property="noticeIssueDate" jdbcType="DATE" />
+    <result column="SecPublicDate" property="secPublicDate" jdbcType="DATE" />
+    <result column="RegState" property="regState" jdbcType="CHAR" />
+    <result column="SecExpiredDate" property="secExpiredDate" jdbcType="DATE" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="AddSecCause" property="addSecCause" jdbcType="VARCHAR" />
+    <result column="AddSecExplain" property="addSecExplain" jdbcType="VARCHAR" />
+    <result column="AddSecType" property="addSecType" jdbcType="VARCHAR" />
+    
+  </resultMap>
+
+  <resultMap id="ExpSeriousCrimeListDto" type="com.icinfo.cs.secnocreditsup.dto.ExpSeriousCrimeListDto"  extends="BaseResultMap">
+	  <result column="CaseID" property="caseID" jdbcType="VARCHAR" />
+	  <result column="CaseNO" property="caseNo" jdbcType="VARCHAR" />
+  	<result column="PenAuthName" property="srcOrg" jdbcType="VARCHAR" />
+  	<result column="DecDate" property="decDate" jdbcType="DATE" />
+  	<result column="PenType" property="penType" jdbcType="VARCHAR" />
+  	
+  </resultMap>
+  
+  <!-- 全部数据 -->
+  <select id="getExpSecInApplyAllList" parameterType="map" resultMap="ExpSeriousCrimeListDto">
+  		SELECT 'uid' uid, a.caseNo, a.PriPID, a.RegNO, m.UniCode AS UniSCID, a.UnitName AS EntName, a.LeRep, '0' BusinessStatus, DATE_ADD(MAX(a.AuditDate), INTERVAL 10 DAY) AS AddSecTerm, '-' AddSecCause
+  			FROM cs_mid_caseinfo a 
+  			JOIN cs_mid_baseinfo m
+  			ON a.PriPID=m.PriPID and a.issec='1' 
+  			WHERE NOT EXISTS (
+				SELECT PriPID FROM cs_exp_serious_crime_list b
+				WHERE a.PriPID = b.PriPID
+				AND b.AddSecType='1'
+			)
+			<include refid="where_src"></include>
+			GROUP BY a.PriPID
+		UNION ALL
+	  		SELECT b.UID uid, b.PriPID, b.UniSCID, b.RegNO, b.EntName, b.LeRep, b.BusinessType, b.BusinessStatus, b.AddSecTerm, b.AddSecCause
+  			FROM cs_exp_serious_crime_list b
+ 			WHERE b.AddSecType='1'
+ 			<include refid="apply_where"></include>
+ 			<include refid="exp_where"></include>
+  </select>
+  
+  <!-- 待列入总数带条件(分页用） -->
+  <select id="applySrcTotalParm" resultType="Integer" parameterType="map" >
+	  select COUNT(1)from (
+  		SELECT COUNT(1) FROM cs_mid_caseinfo a
+  			JOIN cs_mid_baseinfo m
+  			ON a.PriPID=m.PriPID AND m.EntTypeCatg != '50' AND m.EntTypeCatg IS NOT NULL
+  			WHERE NOT EXISTS (
+				SELECT PriPID FROM cs_exp_serious_crime_list b
+				WHERE a.PriPID = b.PriPID
+				AND b.AddSecType='1'
+			)
+	  AND a.AuditDate &gt; STR_TO_DATE('2016-04-01 00:00:00','%Y-%m-%d %H:%i:%s')
+	  <include refid="where_src"></include>
+	  GROUP BY a.PriPID HAVING COUNT(a.id) &gt;= 3)T
+  </select>
+  
+  <!-- 已列入总数带条件(分页用） -->
+  <select id="applyTotalParm" resultType="Integer" parameterType="map" >
+  		SELECT COUNT(DISTINCT b.PriPID) FROM cs_exp_serious_crime_list b
+ 		WHERE b.AddSecType='1'
+		<include refid="apply_where"></include>
+ 		<include refid="exp_where"></include>
+  </select>
+  
+  <!-- 待列入数据-->
+  <select id="getExpSecInApplySrcList" parameterType="map" resultMap="ExpSeriousCrimeListDto">
+  		SELECT 'uid' uid,a.id CaseID,a.caseNo, a.PriPID, a.RegNO, m.UniCode AS UniSCID, m.EntName, m.LeRep, '0' BusinessStatus, DATE_ADD(MAX(a.AuditDate), INTERVAL 10 DAY) AS AddSecTerm, '-' AddSecCause,'-' SecDishonestyType
+  			FROM cs_mid_caseinfo a 
+  			JOIN cs_mid_baseinfo m
+  			ON a.PriPID=m.PriPID AND m.EntTypeCatg != '50' AND m.EntTypeCatg IS NOT NULL
+  			WHERE NOT EXISTS (
+				SELECT PriPID FROM cs_exp_serious_crime_list b
+				WHERE a.PriPID = b.PriPID
+				AND b.AddSecType='1'
+			)
+	  AND a.AuditDate &gt; STR_TO_DATE('2016-04-01 00:00:00','%Y-%m-%d %H:%i:%s')
+			<include refid="where_src"></include>
+	  GROUP BY a.PriPID HAVING COUNT(a.id) &gt;= 3
+  </select>
+  
+  <!-- 待列入总数 -->
+  <select id="applySrcTotal" resultType="Integer" parameterType="Map">
+select COUNT(1)from (
+  		SELECT 1 FROM cs_mid_caseinfo a JOIN cs_mid_baseinfo m
+  			ON a.PriPID=m.PriPID AND m.EntTypeCatg != '50' AND m.EntTypeCatg IS NOT NULL
+  			WHERE NOT EXISTS (
+				SELECT PriPID FROM cs_exp_serious_crime_list b
+				WHERE a.PriPID = b.PriPID
+				AND b.AddSecType='1'
+			)
+			AND a.AuditDate &gt; STR_TO_DATE('2016-04-01 00:00:00','%Y-%m-%d %H:%i:%s')
+			AND RegState IN (${regState})
+			GROUP BY a.PriPID HAVING COUNT(a.id) &gt;= 3)T
+  </select>
+  
+  <!-- 已列入数据 -->
+  <select id="getExpSecInApplyList" parameterType="map" resultMap="ExpSeriousCrimeListDto">
+  		SELECT b.UID uid, b.PriPID, b.UniSCID, b.RegNO, b.EntName, b.LeRep, b.BusinessType, b.BusinessStatus, b.AddSecTerm, b.AddSecCause,b.SecDishonestyType
+  			FROM cs_exp_serious_crime_list b
+ 		WHERE b.AddSecType='1'
+ 		<include refid="apply_where"></include>
+ 		<include refid="exp_where"></include>
+  </select>
+  
+  <!-- 列入待初审总数 -->
+  <select id="applyFirstTotal" resultType="Integer">
+  	SELECT COUNT(1) FROM cs_exp_serious_crime_list b
+  	WHERE b.AddSecType='1' AND b.BusinessStatus='1' AND b.BusinessType='2'
+  </select>
+  
+  <!-- 待初审总数 -->
+  <select id="firstTotal" resultType="Integer">
+  	SELECT COUNT(1) FROM cs_exp_serious_crime_list b
+  	WHERE b.AddSecType='1' AND b.BusinessStatus='1'
+  </select>
+  
+  <!-- 初审不通过总数 -->
+  <select id="firstNotTotal" resultType="Integer">
+  	SELECT COUNT(1) FROM cs_exp_serious_crime_list b
+  	WHERE b.AddSecType='1' AND b.BusinessStatus='2'
+  </select>
+  
+  <!-- 列入待审核总数 -->
+  <select id="applyAuditTotal" resultType="Integer">
+  	SELECT COUNT(1) FROM cs_exp_serious_crime_list b
+  	WHERE b.AddSecType='1' AND b.BusinessStatus='3' AND b.BusinessType='2'
+  </select>
+  
+  <!-- 待审核总数 -->
+  <select id="auditTotal" resultType="Integer">
+  	SELECT COUNT(1) FROM cs_exp_serious_crime_list b
+  	WHERE b.AddSecType='1' AND b.BusinessStatus='3'
+  </select>
+  
+  <!-- 审核通过总数 -->
+  <select id="passTotal" resultType="Integer">
+  	SELECT COUNT(1) FROM cs_exp_serious_crime_list b
+  	WHERE b.AddSecType='1' AND b.BusinessStatus='4'
+  </select>
+  
+  <!-- 审核不通过总数 -->
+  <select id="auditNotTotal" resultType="Integer">
+  	SELECT COUNT(1) FROM cs_exp_serious_crime_list b
+  	WHERE b.AddSecType='1' AND b.BusinessStatus='5'
+  </select>
+  
+  <!-- 逾期列入总数 -->
+  <select id="applyExpirTotal" resultType="Integer">
+  	SELECT COUNT(1) FROM cs_exp_serious_crime_list b
+  	WHERE b.AddSecType='1' AND b.BusinessStatus='4' AND b.BusinessType='2'
+  	AND b.AddSecTerm &lt;=b.AddSecDate
+  </select>
+  
+  <!-- 获取行政处罚记录 -->
+  <select id="getSrcCase" parameterType="map" resultMap="ExpSeriousCrimeListDto">
+  		SELECT id,PenDecNo,PenType, AuditDate AS addSecTerm, PenDecIssDate AS decDate, PenAuth AS DecorgCN
+  			FROM cs_mid_caseinfo t
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="caseID != null and caseID != ''">
+	    	 t.id=#{caseID}
+	    	</if>
+	    	<if test="priPID != null and priPID != ''">
+	    	 AND t.PriPID=#{priPID}
+	    	</if>
+			<if test="datelimit != null">
+				AND t.AuditDate &gt;= #{datelimit}
+			</if>
+		</trim>
+		ORDER BY decDate DESC
+  </select>
+  
+  <!-- 列入sql -->
+  <sql id="apply_where">
+ 	 <if test="firstreview != null and firstreview != ''">
+		 and	(BusinessStatus = '1'
+		 or		BusinessStatus = '2'
+		 or		BusinessStatus = '3')
+  	</if>
+  	<if test="addSecCause != null and addSecCause != ''">
+		 and	b.AddSecCause = #{addSecCause}
+  	</if>
+  	<if test="addSecDateBegin != null and addSecDateBegin != ''">
+		 and	<![CDATA[ b.AddSecDate >= #{addSecDateBegin} ]]>
+  	</if>
+  	<if test="addSecDateEnd != null and addSecDateEnd != ''">
+		 and	<![CDATA[ b.AddSecDate <= #{addSecDateEnd} ]]>
+  	</if>
+  	<if test="addSecNo != null and addSecNo != ''">
+		 and	b.AddSecNo = #{addSecNo}
+  	</if>
+	  <if test="publicState != null and publicState != ''">
+		  and	b.PublicState = #{publicState}
+	  </if>
+  </sql>
+  
+  <!-- 源表部分sql -->
+  <sql id="where_src">
+  	<if test="regNO != null and regNO != ''">
+		 and (a.RegNO = #{regNO} or m.UniCode = #{regNO}) 
+  	</if>
+  	<if test="entName != null and entName != ''">
+		 and	a.UnitName like concat('', #{entName},'%') 
+  	</if>
+  	<if test="leRep != null and leRep != ''">
+		 and	a.LeRep = #{leRep}
+  	</if>
+  	<!-- 登记状态 -->
+	 <if test="regState !=null and regState !=''">
+	       and  RegState  in
+     <foreach item="item" index="index" collection="regState" open="("
+					separator="," close=")">
+					#{item}
+	 </foreach>    
+	 </if>
+  	<if test="localAdm != null and localAdm != ''">
+		 and	m.LocalAdm in (${localAdm})
+  	</if>
+  </sql>
+  
+  <!-- 列入表公共部分sql -->
+  <sql id="exp_where">
+  	<if test="regNO != null and regNO != ''">
+		 and (b.RegNO = #{regNO} or b.UniSCID = #{regNO})
+  	</if>
+  	<if test="entName != null and entName != ''">
+		 and	b.EntName like concat('', #{entName},'%') 
+  	</if>
+  	<if test="leRep != null and leRep != ''">
+		 and	b.LeRep = #{leRep}
+  	</if>
+  	<!-- 登记状态 -->
+	 <if test="regState !=null and regState !=''">
+	       and  RegState  in
+     <foreach item="item" index="index" collection="regState" open="("
+					separator="," close=")">
+					#{item}
+	 </foreach>    
+	 </if>
+  	<if test="businessStatus != null and businessStatus != ''">
+		 and	b.BusinessStatus = #{businessStatus}
+  	</if>
+  	<if test="audit != null and audit != ''">
+		 and	<![CDATA[ b.BusinessStatus !='0' and b.BusinessStatus !='1' and b.BusinessStatus !='2' ]]>
+  	</if>
+  	<if test="applyDateBegin != null and applyDateBegin != ''">
+		 and	<![CDATA[ b.ApplyDate >= #{applyDateBegin} ]]>
+  	</if>
+  	<if test="applyDateEnd != null and applyDateEnd != ''">
+		 and	<![CDATA[ b.ApplyDate <= #{applyDateEnd} ]]>
+  	</if>
+  	<if test="firstdateBegin != null and firstdateBegin != ''">
+		 and	<![CDATA[ b.Firstdate >= STR_TO_DATE(CONCAT(#{firstdateBegin},' 00:00:00'),'%Y-%m-%d %H:%i:%s') ]]>
+  	</if>
+  	<if test="firstdateEnd != null and firstdateEnd != ''">
+		 and	<![CDATA[ b.Firstdate <= STR_TO_DATE(CONCAT(#{firstdateEnd},' 23:59:59'),'%Y-%m-%d %H:%i:%s') ]]>
+  	</if>
+  	<if test="auditDateBegin != null and auditDateBegin != ''">
+		 and	<![CDATA[ b.AuditDate >= STR_TO_DATE(CONCAT(#{auditDateBegin},' 00:00:00'),'%Y-%m-%d %H:%i:%s') ]]>
+  	</if>
+  	<if test="auditDateEnd != null and auditDateEnd != ''">
+		 and	<![CDATA[ b.AuditDate <= STR_TO_DATE(CONCAT(#{auditDateEnd},' 23:59:59'),'%Y-%m-%d %H:%i:%s') ]]>
+  	</if>
+  	<if test="addSecTermBegin != null and addSecTermBegin != ''">
+		 and	<![CDATA[ b.AddSecTerm >= #{addSecTermBegin} ]]>
+  	</if>
+  	<if test="addSecTermEnd != null and addSecTermEnd != ''">
+		 and	<![CDATA[ b.AddSecTerm <= #{addSecTermEnd} ]]>
+  	</if>
+  	<if test="addSecNo != null and addSecNo != ''">
+		 and	b.AddSecNo = #{addSecNo}
+  	</if>
+  	<if test="localAdm != null and localAdm != ''">
+		 and	b.LocalAdm in (${localAdm})
+  	</if>
+  	<if test="firstName != null and firstName != ''">
+		 and	b.FirstName = #{firstName}
+  	</if>
+  	<if test="applyMan != null and applyMan != ''">
+		 and	b.ApplyMan = #{applyMan}
+  	</if>
+  	<if test="auditName != null and auditName != ''">
+		 and	b.AuditName = #{auditName}
+  	</if>
+  	<if test="addSecOrg != null and addSecOrg != ''">
+		 and	b.AddSecOrg = #{addSecOrg}
+  	</if>
+  	<if test="applyExp != null and applyExp != '' and applyExp ==&quot;0&quot;">
+		 and	b.AddSecDate &lt;= b.AddSecTerm
+  	</if>
+  	<if test="applyExp != null and applyExp != '' and applyExp ==&quot;1&quot;">
+		 and	b.AddSecDate &gt; b.AddSecTerm
+  	</if>
+  	  	<if test="applyDateBegin != null and applyDateBegin != ''">
+		 and	<![CDATA[ b.AuditDate >= STR_TO_DATE(CONCAT(#{applyDateBegin},' 00:00:00'),'%Y-%m-%d %H:%i:%s') ]]>
+  	</if>
+  	<if test="applyDateEnd != null and applyDateEnd != ''">
+		 and	<![CDATA[ b.AuditDate <= STR_TO_DATE(CONCAT(#{applyDateEnd},' 23:59:59'),'%Y-%m-%d %H:%i:%s') ]]>
+  	</if>
+  	<if test="secDishonestyType != null and secDishonestyType != ''">
+		 and	b.SecDishonestyType = #{secDishonestyType}
+  	</if>
+  </sql>
+  
+  <update id="UpdateSomeMsg" parameterType="String">
+  	UPDATE cs_exp_serious_crime_list SET FirstDept = null,FirstDeptName=null,FirstName = null,FirstCheck = null,FirstDate = null,FirstOpin = null,AuditDept = null,AuditDeptName = null,AuditName=null,AuditDate=null,AuditCheck=null,AuditOpin=null WHERE SourceId = #{sourceId}
+  </update>
+</mapper>

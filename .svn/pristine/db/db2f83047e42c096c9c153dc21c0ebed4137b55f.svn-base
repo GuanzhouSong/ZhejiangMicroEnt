@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.SfcHonorMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.SfcHonor" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="FarArtHonorName" property="farArtHonorName" jdbcType="VARCHAR" />
+    <result column="FarArtHonorIssAut" property="farArtHonorIssAut" jdbcType="VARCHAR" />
+    <result column="ValFrom" property="valFrom" jdbcType="DATE" />
+    <result column="ValTo" property="valTo" jdbcType="DATE" />
+    <result column="CreateTime" property="createTime" jdbcType="DATE" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.rpt.rptmapper.RptQcdzMapMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.rpt.rptmodel.RptQcdzMap" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="regorg" property="regorg" jdbcType="VARCHAR" />
+    <result column="xsNum" property="xsNum" jdbcType="BIGINT" />
+    <result column="update_time" property="update_time" jdbcType="TIMESTAMP" />
+    <result column="zxNum" property="zxNum" jdbcType="BIGINT" />
+    <result column="addNum" property="addNum" jdbcType="BIGINT" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.rpt.rptdto.RptQcdzMapDto" id="BaseResultDtoMap" extends="BaseResultMap">
+  </resultMap>
+  
+  <select id="selectRptQcdzMapList" resultMap="BaseResultDtoMap" parameterType="Map">
+    SELECT content,sum(xsNum) xsNum,SUM(zxNum) zxNum FROM cs_rpt_qcdz_map WHERE 1=1
+    <if test="operateType !=null and operateType != ''">
+    and ${operateType} > 0 
+    </if>
+    <if test="totalType != null and totalType != ''">
+    and (xsNum >0 or zxNum > 0) 
+    </if>
+    GROUP BY content ORDER BY regorg
+    <if test="operateType !=null and operateType != '' and operateType =='xsNum'">
+     desc
+    </if>
+  </select>
+  
+  
+</mapper>

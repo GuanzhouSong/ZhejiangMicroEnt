@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.rpt.rptmapper.RptSmNormalMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.rpt.rptmodel.RptSmNormal" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <result column="areaTime" property="areaTime" jdbcType="VARCHAR" />
+    <result column="industryCode" property="industryCode" jdbcType="VARCHAR" />
+    <result column="industryCo" property="industryCo" jdbcType="CHAR" />
+    <result column="entyTypeCatg" property="entyTypeCatg" jdbcType="VARCHAR" />
+    <result column="entyType" property="entyType" jdbcType="VARCHAR" />
+    <result column="regOrgCode" property="regOrgCode" jdbcType="CHAR" />
+    <result column="localAdmCode" property="localAdmCode" jdbcType="VARCHAR" />
+    <result column="regCapArea" property="regCapArea" jdbcType="VARCHAR" />
+    <result column="empNumArea" property="empNumArea" jdbcType="VARCHAR" />
+    <result column="vendIncArea" property="vendIncArea" jdbcType="VARCHAR" />
+    <result column="zcCount" property="zcCount" jdbcType="DECIMAL" />
+    <result column="xsCount" property="xsCount" jdbcType="DECIMAL" />
+    <result column="zcSmCount" property="zcSmCount" jdbcType="DECIMAL" />
+    <result column="xsSmCount" property="xsSmCount" jdbcType="DECIMAL" />
+    <result column="zcRegCap" property="zcRegCap" jdbcType="DECIMAL" />
+    <result column="xsRegCap" property="xsRegCap" jdbcType="DECIMAL" />
+    <result column="xsAvgRegCap" property="xsAvgRegCap" jdbcType="DECIMAL" />
+    <result column="xsLeRepnl" property="xsLeRepnl" jdbcType="DECIMAL" />
+    <result column="xsEightCount" property="xsEightCount" jdbcType="DECIMAL" />
+    <result column="xsNineCount" property="xsNineCount" jdbcType="DECIMAL" />
+    <result column="xssfCount" property="xssfCount" jdbcType="DECIMAL" />
+    <result column="smInvCount" property="smInvCount" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  
+  <resultMap type="com.icinfo.cs.rpt.rptdto.RptSmNormalDto" id="BaseExtResultMap" extends="BaseResultMap">
+    <result column="industryCodeName" property="industryCodeName" jdbcType="VARCHAR" />
+    <result column="industryCoName" property="industryCoName" jdbcType="VARCHAR" />
+    <result column="entyTypeCatgName" property="entyTypeCatgName" jdbcType="VARCHAR" />
+    <result column="entyTypeName" property="entyTypeName" jdbcType="VARCHAR" />
+    <result column="regorgName" property="regorgName" jdbcType="VARCHAR" />
+    <result column="localAdmName" property="localAdmName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectRptSmNormalCount" resultMap="BaseExtResultMap" parameterType="Map">
+    select areaTime,
+	D.industryCode  industryCodeName,
+	e.Content industryCoName,
+	g.Content entyTypeCatgName,
+	g.Content entyTypeName,
+	h.Content regorgName,
+	j.Content localAdmName,
+	D.zcCount,
+	D.xsCount,
+	D.zcSmCount,
+	D.xsSmCount,
+	D.xsRegCap,
+	D.xsAvgRegCap,
+	D.xsLeRepnl,
+	D.xsEightCount,
+	D.xsNineCount,
+	D.xssfCount,
+	D.smInvCount
+	FROM
+	(SELECT
+		'2017-01-01--2017-05-05' areaTime,
+		industryCode,
+		industryCo,
+		entyTypeCatg,
+		entyType,
+		regOrgCode,
+		localAdmCode,
+		zcCount,
+		xsCount,
+		zcSmCount,
+		xsSmCount,
+		xsRegCap,
+		xsAvgRegCap,
+		xsLeRepnl,
+		xsEightCount,
+		xsNineCount,
+		xssfCount,
+		smInvCount
+	FROM
+		cs_rpt_sm_normal t
+	WHERE
+	<![CDATA[
+	areaTime > '2017-01-01'
+	and areaTime < '2017-05-05'
+	 ]]>
+	GROUP BY areaTime,
+		industryCo,
+		entyTypeCatg,
+		entyType,
+		regOrgCode,
+		localAdmCode
+	) D 
+	left join 
+	cs_code_industry e
+	on D.industryCo = e.code
+	LEFT JOIN
+	cs_code_enttype g
+	ON D.entyType = g.code
+	LEFT JOIN
+	cs_code_regorg h
+	on D.regOrgCode = h.code
+	LEFT JOIN 
+	cs_code_regunit j
+	on D.localAdmCode = j.code
+  </select>
+  
+  
+</mapper>
+
+
+

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.sccheck.mapper.PubScentResultMaterialMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sccheck.model.PubScentResultMaterial" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="CheckDateFrom" property="checkDateFrom" jdbcType="TIMESTAMP" />
+    <result column="CheckDateTo" property="checkDateTo" jdbcType="TIMESTAMP" />
+    <result column="ResultUid" property="resultUid" jdbcType="VARCHAR" />
+    <result column="uid" property="uid" jdbcType="VARCHAR" />
+    <result column="Material" property="material" jdbcType="LONGVARCHAR" />
+    <result column="FillDate" property="fillDate" jdbcType="TIMESTAMP" />
+    <result column="ContactName" property="contactName" jdbcType="VARCHAR" />
+    <result column="ContactTel" property="contactTel" jdbcType="VARCHAR" />
+    <result column="DepartMent" property="departMent" jdbcType="VARCHAR" />
+    <result column="MainTaskUid" property="mainTaskUid" jdbcType="VARCHAR" />
+    <result column="TaskUid" property="taskUid" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

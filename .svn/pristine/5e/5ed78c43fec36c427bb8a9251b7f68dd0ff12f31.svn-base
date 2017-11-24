@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.registinfo.mapper.UlFindMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.registinfo.model.UlFind" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="FindWay" property="findWay" jdbcType="VARCHAR" />
+    <result column="FindDate" property="findDate" jdbcType="TIMESTAMP" />
+    <result column="FindName" property="findName" jdbcType="VARCHAR" />
+    <result column="Remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <!-- 查询无证发现记录，无证无照建档页面用 -->
+  <select id="findInfoQueryPage" parameterType="Map" resultMap="BaseResultMap">
+    SELECT
+    id,
+    PriPID,
+    Remark,
+    CreateTime,
+    UID,
+    FindWay,
+    FindDate,
+    FindName
+    FROM
+    cs_ul_find
+    WHERE UID=#{uid}
+  </select>
+
+</mapper>

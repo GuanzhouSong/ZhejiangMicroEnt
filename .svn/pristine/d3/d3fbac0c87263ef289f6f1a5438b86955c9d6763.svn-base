@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.registinfo.mapper.RegistMarkHisMapper">
+	<resultMap id="BaseResultMap" type="com.icinfo.cs.registinfo.model.RegistMarkHis">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="PriPID" property="priPID" jdbcType="CHAR" />
+		<result column="SetDeptCode" property="setDeptCode" jdbcType="VARCHAR" />
+		<result column="IDName" property="IDName" jdbcType="VARCHAR" />
+		<result column="IDCode" property="IDCode" jdbcType="VARCHAR" />
+		<result column="IDType" property="IDType" jdbcType="VARCHAR" />
+		<result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+		<result column="SetName" property="setName" jdbcType="VARCHAR" />
+		<result column="SetId" property="setId" jdbcType="VARCHAR" />
+		<result column="SetDeptname" property="setDeptname" jdbcType="VARCHAR" />
+		<result column="IDDesc" property="IDDesc" jdbcType="VARCHAR" />
+		<result column="IDStateCode" property="IDStateCode" jdbcType="VARCHAR" />
+		<result column="AuditorId" property="auditorId" jdbcType="VARCHAR" />
+		<result column="AuditorName" property="auditorName" jdbcType="VARCHAR" />
+		<result column="AuditorDesc" property="auditorDesc" jdbcType="VARCHAR" />
+		<result column="AuditState" property="auditState" jdbcType="VARCHAR" />
+		<result column="MarkUuid" property="markUuid" jdbcType="VARCHAR" /> 
+		<result column="AuditTime" property="auditTime" jdbcType="TIMESTAMP" />
+		<result column="ApplicationScopeCode" property="applicationScopeCode"
+			jdbcType="VARCHAR" />
+		<result column="ApplicationScopeName" property="applicationScopeName"
+			jdbcType="VARCHAR" />
+		<result column="AuditDeptId" property="auditDeptId" jdbcType="VARCHAR" />
+		<result column="AuditDeptName" property="auditDeptName"
+			jdbcType="VARCHAR" />
+		<result column="UpdateTime" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap> 
+	
+	<!-- 根据编号查询历史信息 -->
+	<select id="selectRegistMarkHisListByIdCode" parameterType="com.icinfo.cs.registinfo.dto.RegistInfoDto" resultMap="BaseResultMap">
+		SELECT 
+		 MarkUuid,
+		 SetDeptCode,
+		 IDName,
+		 IDCode,
+		 SetTime,
+		 SetName,
+		 SetId,
+		 SetDeptname,
+		 IDType,
+		 IDDesc,
+		 IDStateCode,
+		 AuditorId,
+		 AuditorName,
+		 AuditorDesc,
+		 AuditState,
+		 AuditTime,
+		 ApplicationScopeCode,
+		 ApplicationScopeName,
+		 AuditDeptId,
+		 AuditDeptName,
+		 DATE_FORMAT(UpdateTime,'%Y-%m-%d') UpdateTime,
+		 DATE_FORMAT(CreateTime,'%Y-%m-%d') createTime
+		   FROM cs_regist_mark_his 
+		 WHERE  
+			  IDCode= #{IDCode} 
+			  order by UpdateTime desc
+	</select>
+	
+	<!-- 根据code删除对应记录 -->
+	<delete id="deleteByIDCode" parameterType="String">
+		delete from cs_regist_mark_his  WHERE IDCode= #{_parameter} 
+	</delete>
+</mapper>

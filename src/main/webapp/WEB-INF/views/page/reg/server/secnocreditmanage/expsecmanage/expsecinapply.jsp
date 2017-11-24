@@ -1,0 +1,325 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta charset="utf-8">
+    <title>异常类严违名单列入申请</title>
+    <link rel="stylesheet" href="/css/vendor/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="/css/reg.server.css">
+</head>
+<body class="pd10">
+<div class="form-box pd14-mr">
+    <form id="searchForm" class="searchForm">
+        <div class="form-list">
+            <div class="form-item clearfix">
+                <div class="col-4">
+                    <label class="item-name col-5">
+                        <span class="long-label">统一信用代码/注册号：</span>
+                    </label>
+                    <div class="col-6">
+                        <div class="ipt-box col-12">
+                            <input type="text" class="ipt-txt clearall" name="regNO">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label class="item-name col-5">企业名称：</label>
+                    <div class="col-7">
+                        <div class="ipt-box col-12">
+                            <input type="text" class="ipt-txt clearall" name="entName">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label class="item-name col-5">业务状态：</label>
+                    <div class="col-7">
+                        <div class="ipt-box col-12">
+                            <select name="businessStatus" class="clearall">
+                                <option value="">全部</option>
+                                <option value="0">待列入</option>
+                                <option value="1">待初审</option>
+                                <option value="2">初审不通过</option>
+                                <option value="3">待审核</option>
+                                <option value="4">审核通过</option>
+                                <option value="5">审核不通过</option>
+<!--                                 <option value="6">待移出</option> -->
+<!--                                 <option value="7">待延期</option> -->
+<!--                                 <option value="8">异常将届满</option> -->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-item clearfix">
+                <div class="col-4">
+                    <label class="item-name col-5">申请日期：</label>
+                    <div class="col-6">
+                        <div class="col-12">
+                            <div class="ipt-box col-575">
+                                <input type="text" class="ipt-txt laydate-icon clearall" readonly="readonly" onclick="laydate()"
+                                       name="applyDateStart" value="">
+                            </div>
+                            <span class="item-line col-05">-</span>
+                            <div class="ipt-box col-575">
+                                <input type="text" class="ipt-txt laydate-icon clearall" readonly="readonly" onclick="laydate()"
+                                       name="applyDateEnd" value="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label class="item-name col-5">列入异常日期：</label>
+                    <div class="col-7">
+                        <div class="ipt-box col-575">
+                            <input type="text" class="ipt-txt laydate-icon clearall" readonly="readonly" onclick="laydate()"
+                                   name="abnTimeStart" value="">
+                        </div>
+                        <span class="item-line col-05">-</span>
+                        <div class="ipt-box col-575">
+                            <input type="text" class="ipt-txt laydate-icon clearall" readonly="readonly" onclick="laydate()"
+                                   name="abnTimeEnd" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label class="item-name col-5">
+                        <span class="long-label">法定代表人/负责人：</span>
+                    </label>
+                    <div class="col-7">
+                        <div class="ipt-box col-12">
+                            <input type="text" class="ipt-txt clearall" name="leRep">
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="form-item clearfix">
+                <div class="col-4">
+                    <label class="item-name col-5">异常届满日期：</label>
+                    <div class="col-6">
+                        <div class="ipt-box col-575">
+                            <input type="text" class="ipt-txt laydate-icon clearall" readonly="readonly" onclick="laydate()"
+                                   name="expExpiredDateStart" value="">
+                        </div>
+                        <span class="item-line col-05">-</span>
+                        <div class="ipt-box col-575">
+                            <input type="text" class="ipt-txt laydate-icon clearall" readonly="readonly" onclick="laydate()"
+                                   name="expExpiredDateEnd" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label class="item-name col-5">初审日期：</label>
+                    <div class="col-7">
+                        <div class="ipt-box col-575">
+                            <input type="text" class="ipt-txt laydate-icon clearall" readonly="readonly" onclick="laydate()"
+                                   name="firstdateStart" value="">
+                        </div>
+                        <span class="item-line col-05">-</span>
+                        <div class="ipt-box col-575">
+                            <input type="text" class="ipt-txt laydate-icon clearall" readonly="readonly" onclick="laydate()"
+                                   name="firstdateEnd" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label class="item-name col-5">列入异常原因：</label>
+                    <div class="col-7">
+                        <div class="ipt-box col-12">
+                            <input type="hidden" class="ipt-txt clearall" name="speCause" id="speCause" value=""/>
+                            <input type="text" readonly="readonly" class="ipt-txt text-over clearall" id="SpeCauseCN" value="" placeholder="请选择列入异常原因"/>
+	                            <span class="add-icon" id="chosespeCause">
+	                                <i></i>
+	                            </span>
+                        </div>
+                    </div>
+                </div>
+               <!--  <div class="col-4">
+                    <label class="item-name col-5">公示状态：</label>
+                    <div class="col-7">
+                        <div class="ipt-box col-12">
+                            <select name="publicState" class="clearall">
+                                <option value="">全部</option>
+                                <option value="0">未认领</option>
+                                <option value="1">已认领</option>
+                            </select>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+            <div class="form-item clearfix">
+                <div class="col-4">
+                    <label class="item-name col-5">列入严违日期：</label>
+                    <div class="col-6">
+                        <div class="ipt-box col-575">
+                            <input type="text" class="ipt-txt laydate-icon clearall" readonly="readonly" onclick="laydate()"
+                                   name="addSecDateStart" value="">
+                        </div>
+                        <span class="item-line col-05">-</span>
+                        <div class="ipt-box col-575">
+                            <input type="text" class="ipt-txt laydate-icon clearall" readonly="readonly" onclick="laydate()"
+                                   name="addSecDateEnd" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label class="item-name col-5">审核日期：</label>
+                    <div class="col-7">
+                        <div class="ipt-box col-575">
+                            <input type="text" class="ipt-txt laydate-icon clearall" readonly="readonly" onclick="laydate()"
+                                   name="auditDateStart" value="">
+                        </div>
+                        <span class="item-line col-05">-</span>
+                        <div class="ipt-box col-575">
+                            <input type="text" class="ipt-txt laydate-icon clearall" readonly="readonly" onclick="laydate()"
+                                   name="auditDateEnd" value="">
+                        </div>
+                    </div>
+                </div>
+				<div class="col-4">
+                    <label class="item-name col-5">登记状态：</label>
+                    <div class="col-7">
+                        <div class="ipt-box col-12">
+                            <select name="regState" id="regState" class="clearall">
+                                <option value="">全部</option>
+                                <c:forEach var="regState" items="${regStateEnumMap}">
+                                	<option value='${regState.value.code}'>${regState.value.name}</option>
+                            	</c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-item clearfix">
+                <div class="col-4">
+                    <label class="item-name col-5">列入严违文号：</label>
+                    <div class="col-6">
+                        <div class="ipt-box col-12">
+                            <input type="text" name="addSecNo" class="ipt-txt clearall">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label class="item-name col-5">列入严违期限：</label>
+                    <div class="col-7">
+                        <div class="ipt-box col-575">
+                            <input type="text" class="ipt-txt laydate-icon clearall" readonly="readonly" onclick="laydate()"
+                                   name="addSecTermStart" value="">
+                        </div>
+                        <span class="item-line col-05">-</span>
+                        <div class="ipt-box col-575"> 
+                            <input type="text" class="ipt-txt laydate-icon clearall" readonly="readonly" onclick="laydate()"
+                                   name="addSecTermEnd" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label class="item-name col-5">初审人：</label>
+                    <div class="col-7">
+                        <div class="ipt-box col-12">
+                            <input type="text" name="firstName" class="ipt-txt clearall">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-item clearfix">
+                <div class="col-4">
+                    <label class="item-name col-5">逾期列入：</label>
+                    <div class="col-6">
+                        <div class="ipt-box col-12">
+                            <select name="claimState" class="clearall">
+                                <option value="">全部</option>
+                                <option value="0">是</option>
+                                <option value="1">否</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label class="item-name col-5">经办人：</label>
+                    <div class="col-7">
+                        <div class="ipt-box col-12">
+                            <input type="text" name="applyMan" class="ipt-txt clearall">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label class="item-name col-5">审核人：</label>
+                    <div class="col-7">
+                        <div class="ipt-box col-12">
+                            <input type="text" name="auditName" class="ipt-txt clearall">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-item clearfix">
+                <div class="col-4">
+                    <label class="item-name col-5">企业管理部门：</label>
+                    <div class="col-6">
+                        <div class="ipt-box col-12">
+                            <input type="hidden" class="ipt-txt clearall" name="localAdm" id="localAdm" value=""/>
+                            <input type="text" class="ipt-txt clearall" readonly="readonly" id="localAdmName" value="" placeholder="请选择企业管理部门"/>
+	                            <span class="add-icon" id="choseregUnit">
+	                                <i></i>
+	                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-item">
+                <div class="btn-box center mt10">
+                    <input type="button" id="search" value="查 询" class="btn mr20">
+                    <input type="button" id="reset" value="重 置" class="btn">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="light-info mt5">
+    <span class="light">提示：此处查询范围仅限被列入经营异常名录届满3年的企业。“异常届满”指企业列入经营异常名录满3年，“列入严违期限”指企业列入异常届满之日起第10个自然日。</span>
+</div>
+<div class="clearfix mb5 mt5">
+<!--     <p class="fl"> -->
+<!--         <input type="checkbox">全选 -->
+<!--         <input type="checkbox">整表全选 -->
+<!--         <input type="button" class="btn btn-sm ml10" value="批列入严违申请"> -->
+<!--     </p> -->
+    <span class="light-yellow fr mt5">查询结果：待列入<span id="dlrNum"></span>条，待初审<span id="dcsNum"></span>条，待审核<span id="dshNum"></span>条，逾期列入<span id="yqlrNum"></span>条</span>
+</div>
+
+<div class="table-out">
+    <div class="iframe-wrap">
+        <table id="qua-table" border="0" cellspacing="0" cellpadding="0" class="table-row mt30"
+               style="white-space: nowrap;width: 100%;">
+            <thead>
+            <tr>
+                <th width="5%">序号</th>
+                <th>操作</th>
+                <th>统一代码/注册号</th>
+                <th>企业名称</th>
+                <th>法定代表人/负责人</th>
+                <th>业务状态</th>
+                <th>列入异常原因</th>
+                <th>列入异常日期</th>
+                <th>异常届满日期</th>
+                <th>列入严违期限</th>
+                <th>列入严违日期</th>
+                <th>列入严违原因</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+<script id="tpl" type="text/x-handlebars-template">
+    {{#each func}}
+    <button type="button" class="{{this.class}}">{{this.text}}</button>
+    {{/each}}
+</script>
+<script src="/js/lib/require.js"></script>
+<script src="/js/config.js"></script>
+<script src="/js/reg/server/secnocreditmanage/expsecmanage/expsecinapply.js"></script>
+</body>
+</html>

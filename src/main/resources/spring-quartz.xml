@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Copyright© 2003-2016 浙江汇信科技有限公司, All Rights Reserved.
+  -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd"
+       default-lazy-init="true">
+
+<!-- 	<import resource="classpath:quartz-configuration/spring-smentbaseinfo-quartz.xml"/> -->
+    <import resource="classpath:quartz-configuration/spring-esmanage-quartz.xml"/>
+    <import resource="classpath:quartz-configuration/spring-pubbaseinfo-quartz.xml"/>
+    <import resource="classpath:quartz-configuration/spring-pubbulletin-quartz.xml"/>
+    <import resource="classpath:quartz-configuration/spring-sendsmstask-quartz.xml"/>
+    <import resource="classpath:quartz-configuration/spring-pubdtinfo-quartz.xml"/>
+    <import resource="classpath:quartz-configuration/spring-pubdzdtinfo-quartz.xml"/>            
+    <import resource="classpath:quartz-configuration/spring-pubscinfo-quartz.xml"/>
+    <import resource="classpath:quartz-configuration/spring-pubpbopanomalyout-quartz.xml"/>
+    <import resource="classpath:quartz-configuration/spring-pubopanomalydxautoout-quartz.xml"/> 
+    <import resource="classpath:quartz-configuration/spring-pubopanomalyisindivid-quartz.xml"/>
+    <import resource="classpath:quartz-configuration/spring-registinfo-quartz.xml"/>
+    <!-- <import resource="classpath:quartz-configuration/spring-message-quartz.xml"/> -->
+    <import resource="classpath:quartz-configuration/spring-pubpbopanomalynoreport-quartz.xml"/> 
+    <import resource="classpath:quartz-configuration/spring-message-opanomaly-quartz.xml"/>
+    <!-- <import resource="classpath:quartz-configuration/spring-message-iminfo-quartz.xml"/> -->
+<!--     <import resource="classpath:quartz-configuration/spring-message-sccheck-quartz.xml"/> -->
+    <import resource="classpath:quartz-configuration/spring-qcdzztcount-quartz.xml"/>
+    <import resource="classpath:quartz-configuration/spring-qualificationlimit-quartz.xml"/>
+    <import resource="classpath:quartz-configuration/spring-reportcheck-quartz.xml"/>
+    <import resource="classpath:quartz-configuration/spring-pubotherlicencegov-quartz.xml"/>
+
+</beans>

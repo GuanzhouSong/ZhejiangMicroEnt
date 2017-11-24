@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icinfo.cs.sccheck.mapper.PubScentConditionMapper">
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sccheck.model.PubScentCondition">
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="Uid" jdbcType="VARCHAR" property="uid" />
+    <result column="TaskUid" jdbcType="VARCHAR" property="taskUid" />
+    <result column="CheckCode" jdbcType="VARCHAR" property="checkCode" />
+    <result column="CheckName" jdbcType="VARCHAR" property="checkName" />
+    <result column="SpecialCode" jdbcType="VARCHAR" property="specialCode" />
+    <result column="SpecialName" jdbcType="VARCHAR" property="specialName" />
+    <result column="SpecialNum" jdbcType="INTEGER" property="specialNum" />
+    <result column="RandomNum" jdbcType="INTEGER" property="randomNum" />
+    <result column="SetDeptCode" jdbcType="VARCHAR" property="setDeptCode" />
+    <result column="SetDeptName" jdbcType="VARCHAR" property="setDeptName" />
+    <result column="SetUserUid" jdbcType="VARCHAR" property="setUserUid" />
+    <result column="SetUserName" jdbcType="VARCHAR" property="setUserName" />
+    <result column="SetTime" jdbcType="TIMESTAMP" property="setTime" />
+    <result column="CheckType" jdbcType="VARCHAR" property="checkType" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapDto" type="com.icinfo.cs.sccheck.dto.PubScentConditionDto" extends="BaseResultMap">
+  </resultMap>
+  
+   <!-- 查询待抽检库列表 -->
+  <select id="selectPubScentConditionDtoList" resultMap="BaseResultMapDto" parameterType="Map"> 
+	SELECT
+		id,Uid,TaskUid,CheckCode,CheckName,SpecialCode,SpecialName,SpecialNum,RandomNum,CheckType
+	FROM
+		cs_pub_scent_condition
+	<trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="taskUid != null and taskUid != ''">
+			and TaskUid = #{taskUid}
+		</if>
+		<if test="randomType != null and randomType != ''">
+			and CheckType = #{randomType}
+		</if>
+	</trim>
+  </select>
+</mapper>

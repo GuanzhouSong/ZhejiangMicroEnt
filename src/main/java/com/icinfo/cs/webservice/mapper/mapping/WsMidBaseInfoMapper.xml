@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.webservice.mapper.WsMidBaseInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.webservice.model.WsMidBaseInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="Dom" property="dom" jdbcType="VARCHAR" />
+    <result column="DomDistrict" property="domDistrict" jdbcType="CHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="RegCap" property="regCap" jdbcType="DECIMAL" />
+    <result column="EntType" property="entType" jdbcType="CHAR" />
+    <result column="EstDate" property="estDate" jdbcType="DATE" />
+    <result column="IndustryCo" property="industryCo" jdbcType="CHAR" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="CHAR" />
+    <result column="LocalRegOrgCode" property="localRegOrgCode" jdbcType="CHAR" />
+    <result column="LocalRegOrgCodeName" property="localRegOrgCodeName" jdbcType="VARCHAR" />
+    <result column="IndustryPhy" property="industryPhy" jdbcType="CHAR" />
+    <result column="RegState" property="regState" jdbcType="CHAR" />
+    <result column="RegCapUSD" property="regCapUSD" jdbcType="DECIMAL" />
+    <result column="RecCapUSD" property="recCapUSD" jdbcType="DECIMAL" />
+    <result column="RecCapRMB" property="recCapRMB" jdbcType="DECIMAL" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="PostalCode" property="postalCode" jdbcType="CHAR" />
+    <result column="OpFrom" property="opFrom" jdbcType="DATE" />
+    <result column="OpTo" property="opTo" jdbcType="DATE" />
+    <result column="EmpNum" property="empNum" jdbcType="INTEGER" />
+    <result column="Country" property="country" jdbcType="CHAR" />
+    <result column="Currency" property="currency" jdbcType="CHAR" />
+    <result column="Town" property="town" jdbcType="BIT" />
+    <result column="Street" property="street" jdbcType="VARCHAR" />
+    <result column="CerNO" property="cerNO" jdbcType="VARCHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="Email" property="email" jdbcType="VARCHAR" />
+    <result column="ApprDate" property="apprDate" jdbcType="DATE" />
+    <result column="AltDate" property="altDate" jdbcType="DATE" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="IsIndivid" property="isIndivid" jdbcType="VARCHAR" />
+    <result column="IndividDate" property="individDate" jdbcType="DATE" />
+    <result column="ImpDate" property="impDate" jdbcType="TIMESTAMP" />
+    <result column="CheckDep" property="checkDep" jdbcType="VARCHAR" />
+    <result column="Yiedistrict" property="yiedistrict" jdbcType="VARCHAR" />
+    <result column="CurrencyCn" property="currencyCn" jdbcType="VARCHAR" />
+    <result column="EntTypeCatg" property="entTypeCatg" jdbcType="VARCHAR" />
+    <result column="DelegateOrg" property="delegateOrg" jdbcType="VARCHAR" />
+    <result column="DelegateOrgName" property="delegateOrgName" jdbcType="VARCHAR" />
+    <result column="Area" property="area" jdbcType="CHAR" />
+    <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+    <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+    <result column="SliceNO" property="sliceNO" jdbcType="VARCHAR" />
+    <result column="SliceNOName" property="sliceNOName" jdbcType="VARCHAR" />
+    <result column="CheckDepName" property="checkDepName" jdbcType="VARCHAR" />
+    <result column="CompFormName" property="compFormName" jdbcType="VARCHAR" />
+    <result column="CompForm" property="compForm" jdbcType="CHAR" />
+    <result column="HzApprCode" property="hzApprCode" jdbcType="VARCHAR" />
+    <result column="HzApprName" property="hzApprName" jdbcType="VARCHAR" />
+    <result column="update_time" property="update_time" jdbcType="TIMESTAMP" />
+    <result column="ProLoc" property="proLoc" jdbcType="LONGVARCHAR" />
+    <result column="OpForm" property="opForm" jdbcType="LONGVARCHAR" />
+    <result column="OpScope" property="opScope" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <select id="selectWsMidBaseInfoByContion" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+    id,
+    PriPID,
+    EntName,
+    RegNO,
+    Dom,
+    DomDistrict,
+    LeRep,
+    RegCap,
+    EntType,
+    EstDate,
+    IndustryCo,
+    RegOrg,
+    LocalAdm,
+    LocalRegOrgCode,
+    LocalRegOrgCodeName,
+    IndustryPhy,
+    RegState,
+    RegCapUSD,
+    RecCapUSD,
+    RecCapRMB,
+    UNICODE,
+    PostalCode,
+    OpFrom,
+    OpTo,
+    EmpNum,
+    Country,
+    Currency,
+    Town,
+    Street,
+    CerNO,
+    Tel,
+    Email,
+    ApprDate,
+    AltDate,
+    CreateTime,
+    UID,
+    IsIndivid,
+    IndividDate,
+    ImpDate,
+    CheckDep,
+    Yiedistrict,
+    CurrencyCn,
+    EntTypeCatg,
+    DelegateOrg,
+    DelegateOrgName,
+    AREA,
+    RegOrgName,
+    LocalAdmName,
+    SliceNO,
+    SliceNOName,
+    CheckDepName,
+    CompFormName,
+    CompForm,
+    HzApprCode,
+    HzApprName,
+    update_time,
+    ProLoc,
+    OpForm,
+    OpScope
+    FROM
+    cs_mid_baseinfo
+    WHERE UPDATE_TIME BETWEEN STR_TO_DATE(#{startdate},'%Y%m%d%H%i%s') AND STR_TO_DATE(#{enddate},'%Y%m%d%H%i%s')
+    AND id BETWEEN #{startNum} AND #{endNum}
+  </select>
+
+  <select id="selectWsMidBaseInfoCountByContion" resultType="Integer" parameterType="map">
+    SELECT
+      count(*)
+    FROM
+    cs_mid_baseinfo
+    WHERE UPDATE_TIME BETWEEN STR_TO_DATE(#{startdate},'%Y%m%d%H%i%s') AND STR_TO_DATE(#{enddate},'%Y%m%d%H%i%s')
+  </select>
+  
+  <select id="selectWsMidBaseInfoMaxIdByContion" resultType="Integer" parameterType="map">
+    SELECT
+     	MAX(id)
+    FROM
+    	cs_mid_baseinfo
+    WHERE UPDATE_TIME BETWEEN STR_TO_DATE(#{startdate},'%Y%m%d%H%i%s') AND STR_TO_DATE(#{enddate},'%Y%m%d%H%i%s')
+  </select>
+  
+  <select id="selectWsMidBaseInfoMinIdByContion" resultType="Integer" parameterType="map">
+    SELECT
+     	MIN(id)
+    FROM
+    	cs_mid_baseinfo
+    WHERE UPDATE_TIME BETWEEN STR_TO_DATE(#{startdate},'%Y%m%d%H%i%s') AND STR_TO_DATE(#{enddate},'%Y%m%d%H%i%s')
+  </select>
+  
+  <select id="selectWsMidBaseInfoListByDatag" resultMap="BaseResultMap" parameterType="String">
+   SELECT
+    id,
+    PriPID,
+    EntName,
+    RegNO,
+    Dom,
+    DomDistrict,
+    LeRep,
+    RegCap,
+    EntType,
+    EstDate,
+    IndustryCo,
+    RegOrg,
+    LocalAdm,
+    LocalRegOrgCode,
+    LocalRegOrgCodeName,
+    IndustryPhy,
+    RegState,
+    RegCapUSD,
+    RecCapUSD,
+    RecCapRMB,
+    UNICODE,
+    PostalCode,
+    OpFrom,
+    OpTo,
+    EmpNum,
+    Country,
+    Currency,
+    Town,
+    Street,
+    CerNO,
+    Tel,
+    Email,
+    ApprDate,
+    AltDate,
+    CreateTime,
+    UID,
+    IsIndivid,
+    IndividDate,
+    ImpDate,
+    CheckDep,
+    Yiedistrict,
+    CurrencyCn,
+    EntTypeCatg,
+    DelegateOrg,
+    DelegateOrgName,
+    AREA,
+    RegOrgName,
+    LocalAdmName,
+    SliceNO,
+    SliceNOName,
+    CheckDepName,
+    CompFormName,
+    CompForm,
+    HzApprCode,
+    HzApprName,
+    update_time,
+    ProLoc,
+    OpForm,
+    OpScope
+    FROM
+    cs_mid_baseinfo
+    WHERE PriPID = #{str} or EntName = #{str}
+    limit 1
+  </select>
+  
+  
+</mapper>

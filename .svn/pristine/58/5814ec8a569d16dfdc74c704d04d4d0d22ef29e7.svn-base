@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.drcheck.mapper.PubDeptScitemMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.drcheck.model.PubDeptScitem" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="TaskNO" property="taskNO" jdbcType="VARCHAR" />
+    <result column="deptCode" property="deptCode" jdbcType="VARCHAR" />
+    <result column="scType" property="scType" jdbcType="VARCHAR" />
+    <result column="scName" property="scName" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <select id="selectToTreeMap" parameterType="string" resultType="java.util.HashMap">
+   SELECT uid id,scName name,"" content FROM cs_pub_dept_scitem WHERE deptCode=#{deptCode}
+  </select>
+  
+  <!--批量导入  未进行设置编码-->
+    <insert id="insertBatch"  parameterType="java.util.List">
+        INSERT INTO cs_pub_dept_scitem
+        (UID,TaskNO,deptCode,scType,scName,CreatTime)
+        values
+        <foreach collection="list" item="item" index="index" separator="," >
+           ((SELECT REPLACE(UUID(), '-', '')),#{item.taskNO},#{item.deptCode},#{item.scType},#{item.scName},#{item.creatTime})
+        </foreach>
+    </insert>
+  
+  
+</mapper>

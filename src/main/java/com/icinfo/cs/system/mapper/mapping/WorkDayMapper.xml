@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icinfo.cs.system.mapper.WorkDayMapper">
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.system.model.WorkDay">
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="IsHoliday" jdbcType="CHAR" property="isHoliday" />
+    <result column="Calendar" jdbcType="DATE" property="calendar" />
+    <result column="Remark" jdbcType="LONGVARCHAR" property="remark" />
+  </resultMap>
+  
+  <select id="selectWorkDayListInfo" resultMap="BaseResultMap" parameterType="Map">
+    select
+    id,IsHoliday,Calendar,Remark
+    from
+    cs_sys_holiday
+    WHERE 
+    1=1
+    <if test="year !=null and year !=''">
+     <![CDATA[ 
+     AND Calendar >= DATE(CONCAT((#{year}), '-01-01')) 
+     ]]> 
+     <![CDATA[ 
+     AND Calendar <= DATE(CONCAT((#{year}), '-12-31')) 
+     ]]> 
+    </if>
+    <if test="isHoliday !=null and isHoliday !=''">
+    and IsHoliday = #{isHoliday};
+    </if>
+  </select>
+  
+  <update id="updateWorkDays" parameterType="com.icinfo.cs.system.model.WorkDay">
+    update cs_sys_holiday  
+    SET 
+    IsHoliday = #{isHoliday}
+    WHERE
+    Calendar = DATE(#{calendar})
+  </update>
+  
+  <!-- 查询天数之后的日期 -->
+  <select id="getNWorkDaylaterWorkDay" resultMap="BaseResultMap" parameterType="Map">
+	<![CDATA[
+	   SELECT 
+        id,IsHoliday,Calendar,Remark 
+      FROM
+        cs_sys_holiday 
+      WHERE 
+      Calendar > DATE(#{workday})
+        AND isHoliday = '0' 
+      ORDER BY CALENDAR ASC LIMIT #{days},1 
+		  ]]>
+    </select>
+    
+    
+    
+    <select id="getNWorkDaypriorWorkDay" resultMap="BaseResultMap" parameterType="Map">
+    <![CDATA[
+      SELECT 
+        id,IsHoliday,Calendar,Remark 
+      FROM
+        cs_sys_holiday 
+      WHERE 
+      Calendar < DATE(#{workday})
+        AND isHoliday = '0' 
+      ORDER BY CALENDAR DESC LIMIT #{days},1 
+		]]>
+    </select>
+</mapper>

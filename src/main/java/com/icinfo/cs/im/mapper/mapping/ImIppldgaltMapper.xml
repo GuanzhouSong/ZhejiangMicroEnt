@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.im.mapper.ImIppldgaltMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.im.model.ImIppldgalt" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="AltDate" property="altDate" jdbcType="DATE" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="PleAltID" property="pleAltID" jdbcType="VARCHAR" />
+    <result column="PleID" property="pleID" jdbcType="VARCHAR" />
+    <result column="update_time" property="update_time" jdbcType="TIMESTAMP" />
+    <result column="delflag" property="delflag" jdbcType="BIT" />
+    <result column="AltAfContent" property="altAfContent" jdbcType="LONGVARCHAR" />
+    <result column="AltBeContent" property="altBeContent" jdbcType="LONGVARCHAR" />
+    <result column="AltItemContent" property="altItemContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+</mapper>

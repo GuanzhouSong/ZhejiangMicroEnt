@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.system.mapper.EmailTaskInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.system.model.EmailTaskInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="TaskUid" property="taskUid" jdbcType="VARCHAR" />
+    <result column="Uid" property="uid" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="VARCHAR" />
+    <result column="UniSCID" property="uniSCID" jdbcType="CHAR" />
+    <result column="EntTypeCatg" property="entTypeCatg" jdbcType="VARCHAR" />
+    <result column="EstDate" property="estDate" jdbcType="DATE"/>
+    <result column="Email" property="email" jdbcType="VARCHAR" />
+    <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+    <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+    <result column="SliceNoName" property="sliceNoName" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="BaseResultDtoMap" type="com.icinfo.cs.system.dto.EmailTaskInfoDto" extends="BaseResultMap">
+ 	 <result column="EntTypeCatgName" property="entTypeCatgName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <select id="queryPageResultByUid" resultMap="BaseResultDtoMap" parameterType="Map">
+   		SELECT A.id,A.TaskUid,A.Uid,A.EntName,A.RegNO,A.UniSCID,A.EntTypeCatg,
+   		A.EstDate,A.Email,A.RegOrgName,A.LocalAdmName,B.Content entTypeCatgName
+   		FROM cs_email_task_info A
+   		LEFT JOIN cs_code_entcatg B ON A.EntTypeCatg=B.Code
+   		WHERE TaskUid=#{uid}
+   		<if test="entName !='' and entName !=null">
+		  and EntName LIKE concat('%', #{entName},'%')
+		</if>
+		<if test="cidRegNO !='' and cidRegNO !=null">
+		  and UniSCID LIKE concat('%', #{cidRegNO},'%') or RegNO LIKE concat('%', #{cidRegNO},'%')
+		</if>
+		<if test="email !='' and email !=null">
+		  and Email LIKE concat('%', #{email},'%')
+		</if>
+   </select>
+</mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.creditprove.mapper.CreditProvePrintHisMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.creditprove.model.CreditProvePrintHis" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="ProveNo" property="proveNo" jdbcType="VARCHAR" />
+    <result column="PrintNo" property="printNo" jdbcType="VARCHAR" />
+    <result column="PrintTime" property="printTime" jdbcType="TIMESTAMP" />
+    <result column="PrintName" property="printName" jdbcType="VARCHAR" />
+    <result column="PrintDeptName" property="printDeptName" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  
+  <!-- 根据查证单编号查询 -->
+  <select id="selectCreditProvePrintHisJSON" resultMap="BaseResultMap" parameterType="Map">
+      SELECT
+			UID,
+			id,
+			ProveNo,
+			PrintNo,
+			PrintTime,
+			PrintName,
+			PrintDeptName
+		FROM
+			cs_credit_prove_print
+		where   
+	  		ProveNo  = #{proveNo}
+	  		order by PrintTime desc 
+  </select>
+  
+  <!-- 根据类型获取单号 -->
+  <select id="selectCreditProvePrintNoByProveNo" parameterType="Map"   resultType="Integer">
+     select MAX(RIGHT(PrintNo, 4)) from cs_credit_prove_print where 
+     ProveNo = #{proveNo}
+  </select> 
+</mapper>

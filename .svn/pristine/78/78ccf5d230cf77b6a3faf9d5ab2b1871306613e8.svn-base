@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.drcheck.mapper.PubScitemMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.drcheck.model.PubScitem" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ScType" property="scType" jdbcType="CHAR" />
+    <result column="ItemCode" property="itemCode" jdbcType="VARCHAR" />
+    <result column="ItemName" property="itemName" jdbcType="VARCHAR" />
+    <result column="ItemContent" property="itemContent" jdbcType="VARCHAR" />
+    <result column="SetUserId" property="setUserId" jdbcType="VARCHAR" />
+    <result column="SetUserName" property="setUserName" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="SetDeptCode" property="setDeptCode" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <select id="selectToTreeMap" resultType="java.util.HashMap">
+  SELECT ItemCode id,ItemName name,"" pId FROM cs_pub_scitem 
+  </select>
+  
+  
+</mapper>

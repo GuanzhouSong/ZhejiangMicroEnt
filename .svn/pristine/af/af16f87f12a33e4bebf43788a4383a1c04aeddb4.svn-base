@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.base.mapper.CodeRegStateMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.base.model.CodeRegState" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="RegState" property="regState" jdbcType="VARCHAR" />
+    <result column="CsState" property="csState" jdbcType="VARCHAR" />
+    <result column="CsStateDesc" property="csStateDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseExtResultMap" type="com.icinfo.cs.base.model.CodeRegState" extends="BaseResultMap" >
+    <result column="RegStateDesc" property="regStateDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectRegStateParamList" resultMap="BaseResultMap" parameterType="Map">
+	  SELECT 
+		  CsState,
+	  	  GROUP_CONCAT(RegState) RegState,
+	  	  CsStateDesc
+	  FROM
+	  	cs_code_regstate 
+	  GROUP BY CsState 
+  </select>
+</mapper>

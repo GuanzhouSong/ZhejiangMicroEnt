@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.creditprove.mapper.CreditProveListMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.creditprove.model.CreditProveList" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="UniSCID" property="uniSCID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="CerNO" property="cerNO" jdbcType="VARCHAR" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="ProveType" property="proveType" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  
+  <resultMap id="BaseResultMapDto" type="com.icinfo.cs.creditprove.dto.CreditProveListDto" extends="BaseResultMap">
+  	<result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+  	<result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+  	<result column="RegState" property="regState" jdbcType="VARCHAR" /> 
+  	<result column="LeRep" property="leRep" jdbcType="VARCHAR" /> 
+  </resultMap>
+  
+  
+  <!-- 行政处罚 -->
+  <resultMap id="PubOtherpunishResultMap" type="com.icinfo.cs.yr.dto.PubOtherpunishDto" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="CaseNO" property="caseNO" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="PenDecNo" property="penDecNo" jdbcType="VARCHAR" />
+    <result column="PenType" property="penType" jdbcType="VARCHAR" />
+    <result column="PenAm" property="penAm" jdbcType="DECIMAL" />
+    <result column="ForfAm" property="forfAm" jdbcType="DECIMAL" />
+    <result column="PenDecIssDate" property="penDecIssDate" jdbcType="DATE" />
+    <result column="JudAuth" property="judAuth" jdbcType="VARCHAR" />
+    <result column="PubFlag" property="pubFlag" jdbcType="VARCHAR" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+    <result column="SetDate" property="setDate" jdbcType="DATE" />
+    <result column="AuditName" property="auditName" jdbcType="VARCHAR" />
+    <result column="AuditDate" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="AuditState" property="auditState" jdbcType="CHAR" />
+    <result column="AuditOpin" property="auditOpin" jdbcType="VARCHAR" />
+    <result column="SetDeptname" property="setDeptname" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="IllegActType" property="illegActType" jdbcType="LONGVARCHAR" />
+    <result column="PenContent" property="penContent" jdbcType="LONGVARCHAR" />
+	<result column="PunDecDoc" jdbcType="VARCHAR" property="punDecDoc" />
+  </resultMap>
+  
+  <!--经营异常 -->
+  <resultMap id="OpanomalyResultMap" type="com.icinfo.cs.opanomaly.model.PubOpanoMaly" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="UniSCID" property="uniSCID" jdbcType="CHAR" />
+    <result column="SpeCauseCN" property="speCauseCN" jdbcType="VARCHAR" />
+    <result column="AbnTime" property="abnTime" jdbcType="TIMESTAMP" />
+    <result column="DecorgCN" property="decorgCN" jdbcType="VARCHAR" />
+    <result column="PenDecNo" property="penDecNo" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <!-- 严重违法失信 -->
+   <resultMap id="ExpSeriousCrimeResultMap" type="com.icinfo.cs.secnocreditsup.model.ExpSeriousCrimeList" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="SourceId" property="sourceId" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="UniSCID" property="uniSCID" jdbcType="CHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="CerType" property="cerType" jdbcType="CHAR" />
+    <result column="CerNO" property="cerNO" jdbcType="VARCHAR" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="DeptName" property="deptName" jdbcType="VARCHAR" />
+    <result column="DeptUpName" property="deptUpName" jdbcType="VARCHAR" />
+    <result column="DeptSameCourt" property="deptSameCourt" jdbcType="VARCHAR" />
+    <result column="DeptSameGov" property="deptSameGov" jdbcType="VARCHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="CHAR" />
+    <result column="BusinessType" property="businessType" jdbcType="VARCHAR" />
+    <result column="BusinessStatus" property="businessStatus" jdbcType="VARCHAR" />
+    <result column="SpeCauseCN" property="speCauseCN" jdbcType="VARCHAR" />
+    <result column="SpeCause" property="speCause" jdbcType="VARCHAR" />
+    <result column="AbnTime" property="abnTime" jdbcType="TIMESTAMP" />
+    <result column="DecOrg" property="decOrg" jdbcType="VARCHAR" />
+    <result column="DecorgCN" property="decorgCN" jdbcType="VARCHAR" />
+    <result column="PenDecNo" property="penDecNo" jdbcType="VARCHAR" />
+    <result column="ExpExpiredDate" property="expExpiredDate" jdbcType="DATE" />
+    <result column="ExpExpiredBeforeDate" property="expExpiredBeforeDate" jdbcType="DATE" />
+    <result column="AddSecTerm" property="addSecTerm" jdbcType="DATE" />
+    <result column="AddSecDate" property="addSecDate" jdbcType="DATE" />
+    <result column="AddSecNo" property="addSecNo" jdbcType="VARCHAR" />
+    <result column="SecDishonestyType" property="secDishonestyType" jdbcType="VARCHAR" />
+    <result column="SecExpiredDelay" property="secExpiredDelay" jdbcType="INTEGER" />
+    <result column="FirstDept" property="firstDept" jdbcType="VARCHAR" />
+    <result column="FirstName" property="firstName" jdbcType="VARCHAR" />
+    <result column="Firstdate" property="firstdate" jdbcType="TIMESTAMP" />
+    <result column="FirstCheck" property="firstCheck" jdbcType="VARCHAR" />
+    <result column="FirstOpin" property="firstOpin" jdbcType="VARCHAR" />
+    <result column="AuditDept" property="auditDept" jdbcType="VARCHAR" />
+    <result column="AuditName" property="auditName" jdbcType="VARCHAR" />
+    <result column="AuditDate" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="AuditCheck" property="auditCheck" jdbcType="VARCHAR" />
+    <result column="AuditOpin" property="auditOpin" jdbcType="VARCHAR" />
+    <result column="ApplyMan" property="applyMan" jdbcType="VARCHAR" />
+    <result column="AddSecOrgCode" property="addSecOrgCode" jdbcType="VARCHAR" />
+    <result column="AddSecOrg" property="addSecOrg" jdbcType="VARCHAR" />
+    <result column="ApplyDate" property="applyDate" jdbcType="DATE" />
+    <result column="PublicState" property="publicState" jdbcType="VARCHAR" />
+    <result column="NoticeIssueState" property="noticeIssueState" jdbcType="VARCHAR" />
+    <result column="NoticeIssueDate" property="noticeIssueDate" jdbcType="DATE" />
+    <result column="SecPublicDate" property="secPublicDate" jdbcType="DATE" />
+    <result column="RegState" property="regState" jdbcType="CHAR" />
+    <result column="SecExpiredDate" property="secExpiredDate" jdbcType="DATE" />
+    <result column="EstDate" property="estDate" jdbcType="DATE" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="AddSecCause" property="addSecCause" jdbcType="VARCHAR" />
+    <result column="AddSecExplain" property="addSecExplain" jdbcType="VARCHAR" />
+    <result column="AddSecType" property="addSecType" jdbcType="VARCHAR" />
+    <result column="AddSecBasedNum" property="addSecBasedNum" jdbcType="INTEGER" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="AddSecCountNo" property="addSecCountNo" jdbcType="INTEGER" />
+    <result column="FirstDeptName" property="firstDeptName" jdbcType="VARCHAR" />
+    <result column="AuditDeptName" property="auditDeptName" jdbcType="VARCHAR" />
+    <result column="ApplyDept" property="applyDept" jdbcType="VARCHAR" />
+    <result column="ApplyCheck" property="applyCheck" jdbcType="VARCHAR" />
+    <result column="ApplyDeptName" property="applyDeptName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <resultMap id="QualificationLimitResultMap" type="com.icinfo.cs.registmanage.model.QualificationLimit" >
+    <result column="RegNO" property="regNO" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="ClientName" property="clientName" jdbcType="VARCHAR" />
+    <result column="LimitReason" property="limitReason" jdbcType="VARCHAR" />
+    <result column="LimitDateStart" property="limitDateStart" jdbcType="DATE" />
+    <result column="LimitDateEnd" property="limitDateEnd" jdbcType="DATE" />
+    
+    <result column="LimitNO" property="limitNO" jdbcType="VARCHAR" />
+    <result column="CertNO" property="certNO" jdbcType="VARCHAR" />
+    <result column="LimitDepartName" property="limitDepartName" jdbcType="VARCHAR" /> 
+  </resultMap>
+  
+  <!-- 工商行政处罚 -->
+  <select id="selectMidCaseInfoByPripids" resultMap="PubOtherpunishResultMap" parameterType="Map">
+      SELECT
+			PriPID,
+			CaseNO,
+			PenDecNo,
+			IllegActType,
+			PenContent,
+			PenDecIssDate,
+			PenAuth JudAuth,
+			AuditDate,
+			RegNO,
+			UnitName EntName
+		FROM
+			cs_mid_caseinfo
+		where  
+	      <![CDATA[
+	  			PenDecIssDate >= #{proveStartDate}
+	  			and PenDecIssDate <= #{proveEntDate}
+	  			and PriPID in (${pripids})
+	       ]]>
+  </select>
+  
+  <!-- 查询其他部门行政处罚 -->
+  <select id="selectPubOtherpunishByPripids" resultMap="PubOtherpunishResultMap" parameterType="Map">
+       SELECT
+			PriPID,
+		    CaseNO,
+		    PenDecNo,
+			IllegActType,
+			PenContent,
+			penDecIssDate,
+			JudAuth,
+			AuditDate ,
+			RegNO,
+			EntName
+		FROM
+			cs_pub_otherpunish 
+		where   PubFlag = '1' and
+	      <![CDATA[
+	  			PenDecIssDate >= #{proveStartDate}
+	  			and PenDecIssDate <= #{proveEntDate}
+	  			and PriPID in (${pripids})
+	       ]]>
+  </select>
+  
+   <!-- 经营异常名录 列入未移出 -->
+   <select id="selectOpanomalyByPripids" resultMap="OpanomalyResultMap" parameterType="Map">
+     SELECT
+		A.PriPID,A.UniSCID,A.EntName,A.PenDecNo,A.SpeCauseCN,A.DecorgCN,A.AbnTime,A.RegNO
+		FROM
+			cs_pub_opanomaly A
+		WHERE
+		A.AuditState = '1'
+		AND  (A.RevokeFlag IS NULL OR A.RevokeFlag ='')
+		AND NOT EXISTS (
+			SELECT
+				1
+			FROM
+				cs_pub_opadetail C
+			WHERE
+				A.BusExcList = C.BusExcList
+			AND IsMove = '1'
+			AND C.AuditState = '1'
+		)   
+		<if test="proveStartDate !='' and proveStartDate !=null">
+	   			<![CDATA[ AND A.AbnTime >= #{proveStartDate} ]]>
+	    </if>
+	    <if test="proveEntDate !='' and proveEntDate !=null">
+	   			<![CDATA[ AND A.AbnTime <= #{proveStartDate} ]]>
+	    </if>
+	  	AND A.PriPID in (${pripids})
+	       
+  </select>
+  
+   <!-- 严重违法 -->
+   <select id="selectExpSeriousCrimeByPripids" resultMap="ExpSeriousCrimeResultMap" parameterType="Map">
+      SELECT
+		A.PriPID,
+		A.RegNO,
+		A.UniSCID,
+		A.EntName,
+		A.PenDecNo,
+		A.AddSecCause,
+		A.AddSecOrg,
+		A.AddSecDate
+	FROM
+	cs_exp_serious_crime_list A   where 
+     <![CDATA[
+ 			  A.AddSecDate >= #{proveStartDate}
+ 			AND A.AddSecDate <= #{proveEntDate}
+ 			AND A.PriPID in (${pripids})
+      ]]>
+  </select>
+  
+  <!-- 任职资格限制 -->
+  <select id="selectQualificationLimitByPripids" resultMap="QualificationLimitResultMap" parameterType="Map">
+	 SELECT
+		H.PriPID,
+		H.RegNO,
+		H.UniCode,
+		H.EntName,
+		H.ClientName,
+		H.LimitReason,
+		H.LimitDateEnd,
+		H.LimitNO,
+		H.LimitDepartName,
+		H.CertNO
+		FROM
+		cs_qualification_limit H
+	WHERE  
+     <![CDATA[
+		     (
+		   		(
+		          H.LimitDateEnd IS NULL
+			      OR H.LimitDateEnd = ''
+		          )or (
+		           H.LimitDateStart >= #{proveStartDate}
+				  AND H.LimitDateEnd <= #{proveEntDate}
+		          )
+		     )
+ 			AND H.PriPID in (${pripids})
+      ]]>
+  </select>
+  
+  
+  <!-- 失信被执行人黑名单 -->
+  <select id="selectQualificationLimitTypePripids" resultMap="QualificationLimitResultMap" parameterType="Map">
+	 SELECT
+		H.PriPID,
+		H.RegNO,
+		H.UniCode,
+		H.EntName,
+		H.ClientName,
+		H.LimitReason,
+		H.LimitNO,
+		H.LimitDepartName,
+		H.LimitDateStart,
+		H.CertNO
+		FROM
+		cs_qualification_limit H
+	WHERE  
+     <![CDATA[
+		     (
+		   		(
+		          H.LimitDateEnd IS NULL
+			      OR H.LimitDateEnd = ''
+		          )or (
+		           H.LimitDateStart >= #{proveStartDate}
+				  AND H.LimitDateEnd <= #{proveEntDate}
+		          )
+		     )
+ 			AND H.PriPID in (${pripids})
+ 			
+ 			AND H.LimitType='1'
+      ]]>
+  </select>
+  
+  <!-- 根据身份证号查询关联的企业 不重复企业-->
+  <select id="selectProPidListBycertNO" resultMap="BaseResultMapDto" parameterType="Map">
+	  SELECT
+		A.CerNO,
+		A. NAME,
+		A.PriPID
+	FROM
+		cs_mid_lerep A
+	WHERE
+		A.CerNO in  (${certNO})
+	UNION
+	    SELECT
+			A.CerNO,
+			A.Inv NAME,
+			A.PriPID
+		FROM
+			cs_mid_inv A
+		WHERE
+			A.CerNO in  (${certNO})
+		UNION
+		SELECT
+			A.CerNO,
+			A. NAME,
+			A.PriPID
+		FROM
+			cs_mid_member A
+		WHERE
+			A.CerNO in  (${certNO})
+  
+  </select>
+  
+   <!-- 根据身份证号查询关联 任职关系 -->
+  <select id="selectMidInvDivTableBycerNOs" resultMap="BaseResultMapDto" parameterType="Map">
+	  SELECT
+		D.CerNO,
+		D. NAME,
+		D.PriPID,
+		D.RegNO,
+		D.UniCode UniSCID,
+		D.EntName,
+		GROUP_CONCAT(D.PositionName) RegOrgName
+	FROM
+		(
+			SELECT
+				A.CerNO,
+				A. NAME,
+				A.PriPID,
+				'法定代表人' PositionName,
+				RegNO,
+				UniCode,
+				EntName
+			FROM
+				cs_mid_lerep A
+			LEFT JOIN cs_mid_baseinfo C ON A.PriPID = C.PriPID
+			WHERE
+				A.CerNO in  (${certNO})
+			UNION ALL
+				SELECT
+					A.CerNO,
+					A.Inv,
+					A.PriPID,
+					'股东' PositionName,
+					RegNO,
+					UniCode,
+					EntName
+				FROM
+					cs_mid_inv A
+				LEFT JOIN cs_mid_baseinfo C ON A.PriPID = C.PriPID
+				WHERE
+					A.CerNO in  (${certNO})
+				UNION ALL
+					SELECT
+						A.CerNO,
+						A. NAME,
+						A.PriPID,
+						B.Content PositionName,
+						RegNO,
+						UniCode,
+						EntName
+					FROM
+						cs_mid_member A
+					LEFT JOIN cs_code_position B ON A.position = B. CODE
+					LEFT JOIN cs_mid_baseinfo C ON A.PriPID = C.PriPID
+					WHERE
+						A.CerNO in  (${certNO})
+			) D
+		GROUP BY
+			D.PriPID
+  </select>
+ 
+  
+  <!-- 分页查询企业名单 -->
+  <select id="selectCreditProveEntListJSON" resultMap="BaseResultMapDto" parameterType="Map">
+   SELECT
+		A.UID,
+		A.EntName,
+		A.PriPID,
+		A.RegNO,
+		A.UniSCID,
+		A.CerNO,
+		A.NAME Name,
+		B.RegOrgName,
+		B.LocalAdmName,
+		B.RegState,
+		B.LeRep
+	FROM
+		cs_credit_prove_list A
+	LEFT JOIN cs_mid_baseinfo B ON A.PriPID = B.PriPID
+	where A.ProveType=#{proveType}
+	<choose><!-- 自然人 -->
+	   <when test="proveType=='2' or proveType==2 ">
+	    <if test="cerNO !='' and cerNO !=null">
+			and A.CerNO LIKE concat('%', #{cerNO},'%')
+		</if>
+		<if test="tname !='' and tname !=null">
+		    and A.NAME LIKE concat('%', #{tname},'%')
+		</if>
+	   </when>
+	   <when test="proveType==1  and searchTypeStr!='' and searchTypeStr!=null "> 
+	        <if test="uniCode_regNO !='' and uniCode_regNO !=null">
+			AND (A.regNO = #{uniCode_regNO} or A.uniSCID=#{uniCode_regNO})
+			</if>
+	        <if test="entName !='' and entName !=null">
+			AND A.EntName = #{entName}
+			</if>
+	        <include refid="proveList_where"></include> 
+        <!-- 分支机构 -->
+        <if test="searchType1 !='' and searchType1 !=null and searchType1==1"> 
+		   UNION
+			SELECT
+				A.UID,
+				A.EntName,
+				A.PriPID,
+				A.RegNO,
+				A.UniSCID,
+				A.CerNO,
+				A. NAME NAME,
+				B.RegOrgName,
+				B.LocalAdmName,
+				B.RegState,
+				B.LeRep
+			FROM
+				cs_credit_prove_list A
+			LEFT JOIN cs_mid_baseinfo B ON A.PriPID = B.PriPID 
+		    WHERE 
+		      A.EntName IN (
+				SELECT
+					S.EntName
+				FROM
+					cs_mid_branch S
+				WHERE
+					S.PriPID IN (
+						SELECT
+							T.PriPID
+						FROM
+							cs_credit_prove_list T
+						WHERE
+							T.ProveType = #{proveType} 
+							<if test="uniCode_regNO !='' and uniCode_regNO !=null">
+							AND  (T.regNO = #{uniCode_regNO} or T.uniSCID=#{uniCode_regNO})  
+							</if>
+							<if test="entName !='' and entName !=null">
+							AND T.EntName = #{entName}
+							</if>
+					)
+			) 
+			<include refid="proveList_where"></include> 
+		</if>
+	
+		<!-- 高管 -->
+        <if test="searchType2 !='' and searchType2 !=null and searchType2==2">
+		    
+		</if>
+		
+		<!-- 企业投资人 -->
+        <if test="searchType3 !='' and searchType3 !=null and searchType3==3">
+			UNION
+			SELECT
+				A.UID,
+				A.EntName,
+				A.PriPID,
+				A.RegNO,
+				A.UniSCID,
+				A.CerNO,
+				A. NAME NAME,
+				B.RegOrgName,
+				B.LocalAdmName,
+				B.RegState,
+				B.LeRep
+			FROM
+				cs_credit_prove_list A
+			LEFT JOIN cs_mid_baseinfo B ON A.PriPID = B.PriPID 
+		    WHERE 
+		      A.EntName IN (
+				SELECT
+					S.Inv
+				FROM
+					cs_mid_inv S
+				WHERE
+					S.PriPID IN (
+						SELECT
+							T.PriPID
+						FROM
+							cs_credit_prove_list T
+						WHERE
+							T.ProveType = #{proveType}
+							<if test="uniCode_regNO !='' and uniCode_regNO !=null">
+							AND  (T.regNO = #{uniCode_regNO} or T.uniSCID=#{uniCode_regNO})  
+							</if>
+							<if test="entName !='' and entName !=null">
+							AND T.EntName = #{entName}
+							</if>
+					)
+			)
+			<include refid="proveList_where"></include>
+		</if>
+		
+		<!-- 对外投资 -->
+        <if test="searchType4 !='' and searchType4 !=null and searchType4==4">
+			UNION
+			SELECT
+				A.UID,
+				A.EntName,
+				A.PriPID,
+				A.RegNO,
+				A.UniSCID,
+				A.CerNO,
+				A. NAME NAME,
+				B.RegOrgName,
+				B.LocalAdmName,
+				B.RegState,
+				B.LeRep
+			FROM
+				cs_credit_prove_list A
+			LEFT JOIN cs_mid_baseinfo B ON A.PriPID = B.PriPID 
+		    WHERE 
+		      A.EntName IN (
+				SELECT
+					S.EntName
+				FROM
+					cs_yr_forinvestment S
+				WHERE
+					S.PriPID IN (
+						SELECT
+							T.PriPID
+						FROM
+							cs_credit_prove_list T
+						WHERE
+							T.ProveType = #{proveType} 
+							<if test="uniCode_regNO !='' and uniCode_regNO !=null">
+							AND  (T.regNO = #{uniCode_regNO} or T.uniSCID=#{uniCode_regNO})  
+							</if>
+							<if test="entName !='' and entName !=null">
+							AND T.EntName = #{entName}
+							</if>
+					)
+			)
+			<include refid="proveList_where"></include>
+		</if>
+	
+	   </when>
+	   <otherwise>
+	    <include refid="proveList_where"></include>
+		<if test="uniCode_regNO !='' and uniCode_regNO !=null"> 
+			and (A.uniSCID like  concat('%', #{uniCode_regNO},'%')   OR  A.regNO like  concat('%', #{uniCode_regNO},'%') ) 
+		</if>
+		<if test="uniCode_regNO4 !='' and uniCode_regNO4 !=null">
+			and (  RIGHT(A.uniSCID,4) = #{uniCode_regNO4}  OR RIGHT(A.regNO,4) = #{uniCode_regNO4}) 
+		</if>
+	   </otherwise>
+	</choose>
+  </select>
+  
+  
+	<sql id="proveList_where"> 
+	    <if test="leRep !='' and leRep !=null">
+			and B.LeRep LIKE concat('%', #{leRep},'%')
+		</if>
+		<if test="entName !='' and entName !=null and (searchTypeStr =='' or searchTypeStr ==null)">
+			and A.EntName LIKE concat('%', #{entName},'%')
+		</if>
+		<if test="regState !='' and regState !=null">
+			and B.RegState in (${regState}) 
+		</if>
+      </sql>
+</mapper>

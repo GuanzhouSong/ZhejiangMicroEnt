@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.YrSfcWebsiteInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.YrSfcWebsiteInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="WebSite" property="webSite" jdbcType="VARCHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="WebType" property="webType" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="AnCheID" property="anCheID" jdbcType="VARCHAR" />
+    <result column="WEBID" property="WEBID" jdbcType="VARCHAR" />
+    <result column="WebSitName" property="webSitName" jdbcType="VARCHAR" />
+    <result column="WebPlatFormType" property="webPlatFormType" jdbcType="VARCHAR" />
+    <result column="WebGoodsType" property="webGoodsType" jdbcType="VARCHAR" />
+    <result column="ECommerceType" property="eCommerceType" jdbcType="VARCHAR" />
+    <result column="IcpBackNO" property="icpBackNO" jdbcType="VARCHAR" />
+    <result column="WeChatPublicNO" property="weChatPublicNO" jdbcType="VARCHAR" />
+    <result column="AppNames" property="appNames" jdbcType="VARCHAR" />
+    <result column="BelongPlatFormName" property="belongPlatFormName" jdbcType="VARCHAR" />
+    <result column="SendAddress" property="sendAddress" jdbcType="VARCHAR" />
+    <result column="BackAddress" property="backAddress" jdbcType="VARCHAR" />
+    <result column="WebSmallType" property="webSmallType" jdbcType="CHAR" />
+  </resultMap>
+</mapper>

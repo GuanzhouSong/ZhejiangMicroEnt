@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.AlterStockInfoHisMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.AlterStockInfoHis" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Inv" property="inv" jdbcType="VARCHAR" />
+    <result column="AltDate" property="altDate" jdbcType="DATE" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="InvAltID" property="invAltID" jdbcType="VARCHAR" />
+    <result column="AnCheID" property="anCheID" jdbcType="VARCHAR" />
+    <result column="BeTransAmPr" property="beTransAmPr" jdbcType="DECIMAL" />
+    <result column="AfTransAmPr" property="afTransAmPr" jdbcType="DECIMAL" />
+    <result column="ReportNo" property="reportNo" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

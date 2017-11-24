@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.rpt.rptmapper.YrAmountIniRptMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.rpt.rptmodel.YrAmountIniRpt" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <result column="areaCode" property="areaCode" jdbcType="VARCHAR" />
+    <result column="regOrgCode" property="regOrgCode" jdbcType="CHAR" />
+    <result column="localAdmCode" property="localAdmCode" jdbcType="VARCHAR" />
+    <result column="entCatgCode" property="entCatgCode" jdbcType="VARCHAR" />
+    <result column="yrAmountIniSure" property="yrAmountIniSure" jdbcType="BIGINT" />
+    <result column="YEAR" property="YEAR" jdbcType="INTEGER" />
+  </resultMap>
+</mapper>

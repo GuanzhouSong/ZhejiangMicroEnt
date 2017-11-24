@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.specialrec.mapper.SpecialRecEntMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.specialrec.model.SpecialRecEnt" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Uid" property="uid" jdbcType="VARCHAR" />
+    <result column="TaskUid" property="taskUid" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="EntTypeCatg" property="entTypeCatg" jdbcType="VARCHAR" />
+    <result column="RegState" property="regState" jdbcType="CHAR" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="CHAR" />
+    <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+    <result column="SliceNO" property="sliceNO" jdbcType="VARCHAR" />
+    <result column="SliceNOName" property="sliceNOName" jdbcType="VARCHAR" />
+    <result column="Dom" property="dom" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.specialrec.dto.SpecialRecEntDto" id="BaseResultDtoMap" extends="BaseResultMap">
+  </resultMap>
+  
+  <select id="selectSpecialRecEntInfoList" parameterType="Map" resultMap="BaseResultDtoMap">
+      SELECT
+        id,
+		Uid,
+		TaskUid,
+		PriPID,
+		RegNO,
+		UniCode,
+		EntName,
+		EntTypeCatg,
+		RegState,
+		Dom,
+		RegOrg,
+		RegOrgName,
+		LocalAdm,
+		LocalAdmName,
+		SliceNO
+     FROM
+       cs_special_rec_ent
+     WHERE
+       TaskUid = #{taskUid}
+       <if test="unicodeOrReg !=null and unicodeOrReg !=''">
+         And (UniCode = #{unicodeOrReg} or RegNO = #{unicodeOrReg})
+       </if>
+       <if test="entName !=null and entName !=''">
+         And EntName LIKE CONCAT('%',#{entName},'%')
+       </if>
+  </select>
+</mapper>

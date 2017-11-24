@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.inforece.mapper.PubDtInfoForReceMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.dtinfo.model.PubDtInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="UniSCID" property="uniSCID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="EstDate" property="estDate" jdbcType="DATE" />
+    <result column="RegCap" property="regCap" jdbcType="DECIMAL" />
+    <result column="Dom" property="dom" jdbcType="VARCHAR" />
+    <result column="OpTo" property="opTo" jdbcType="DATE" />
+    <result column="ApprDate" property="apprDate" jdbcType="DATE" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="CHAR" />
+    <result column="DomDistrict" property="domDistrict" jdbcType="CHAR" />
+    <result column="Street" property="street" jdbcType="VARCHAR" />
+    <result column="ExaCode" property="exaCode" jdbcType="VARCHAR" />
+    <result column="ExaName" property="exaName" jdbcType="VARCHAR" />
+    <result column="RegState" property="regState" jdbcType="CHAR" />
+    <result column="CheckDep" property="checkDep" jdbcType="VARCHAR" />
+    <result column="EntTypeCatg" property="entTypeCatg" jdbcType="VARCHAR" />
+    <result column="EntType" property="entType" jdbcType="CHAR" />
+    <result column="Area" property="area" jdbcType="CHAR" />
+    <result column="CheckRegType" property="checkRegType" jdbcType="CHAR" />
+    <result column="CheckPushType" property="checkPushType" jdbcType="CHAR" />
+    <result column="CheckPushDate" property="checkPushDate" jdbcType="TIMESTAMP" />
+    <result column="CheckDeptType" property="checkDeptType" jdbcType="CHAR" />
+    <result column="AcceptUser" property="acceptUser" jdbcType="VARCHAR" />
+    <result column="AcceptName" property="acceptName" jdbcType="VARCHAR" />
+    <result column="AcceptDate" property="acceptDate" jdbcType="TIMESTAMP" />
+    <result column="ReassignAccount" property="reassignAccount" jdbcType="VARCHAR" />
+    <result column="ReassignName" property="reassignName" jdbcType="VARCHAR" />
+    <result column="ReassignDate" property="reassignDate" jdbcType="TIMESTAMP" />
+    <result column="ReassignType" property="reassignType" jdbcType="CHAR" />
+    <result column="ReassignRemark" property="reassignRemark" jdbcType="VARCHAR" />
+    <result column="ReassignDeptName" property="reassignDeptName" jdbcType="VARCHAR" />
+    <result column="ReassignCode" property="reassignCode" jdbcType="CHAR" />
+    <result column="ClaimCode" property="claimCode" jdbcType="VARCHAR" />
+    <result column="ClaimName" property="claimName" jdbcType="VARCHAR" />
+    <result column="ClaimDate" property="claimDate" jdbcType="TIMESTAMP" />
+    <result column="ReceiveState" property="receiveState" jdbcType="CHAR" />
+    <result column="ClaimState" property="claimState" jdbcType="CHAR" />
+    <result column="IsIndivid" property="isIndivid" jdbcType="CHAR" />
+    <result column="IndustryCo" property="industryCo" jdbcType="CHAR" />
+    <result column="checkStopState" property="checkStopState" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="OpFrom" property="opFrom" jdbcType="DATE" />
+    <result column="OpScope" property="opScope" jdbcType="LONGVARCHAR" />
+    <result column="CheckDepName" property="checkDepName" jdbcType="VARCHAR" />
+    <result column="DutyDeptCode" property="dutyDeptCode" jdbcType="VARCHAR" />
+    <result column="DutyDeptName" property="dutyDeptName" jdbcType="VARCHAR" /> 
+  </resultMap>
+  <sql id="pubdtinfo_where"> 
+	   <if test="uid !='' and uid !=null">
+	    and a.UID  =  #{uid}
+	    </if>
+	    <if test="priPID !='' and priPID !=null">
+	     and a.PriPID =#{priPID}
+	    </if>
+	    <if test="regNODesc !='' and regNODesc !=null">
+	    and (a.RegNO  LIKE concat('%', #{regNODesc},'%') or a.UniSCID  LIKE concat('%', #{regNODesc},'%'))
+	    </if>
+	    <if test="regNO !='' and regNO !=null">
+	    and a.RegNO  LIKE concat('%', #{regNO},'%')
+	    </if>
+	     <if test="uniSCID !='' and uniSCID !=null">
+	    and a.UniSCID  LIKE concat('%', #{uniSCID},'%')
+	    </if>
+	    <if test="entName !='' and entName !=null">
+	    and a.EntName  LIKE concat('%', #{entName},'%')
+	    </if>
+  </sql>
+  
+   <resultMap type="com.icinfo.cs.dtinfo.dto.PubDtInfoDto" id="BaseResultExtentMap" extends="BaseResultMap">
+    <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+    <result column="DomDistrictName" property="domDistrictName" jdbcType="VARCHAR" />
+    <result column="IndustryName" property="industryName" jdbcType="VARCHAR" />
+    <result column="EntCatgName" property="entCatgName" jdbcType="VARCHAR" />
+    <result column="DownState" property="downState" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectPubDtinfoListSearch" resultMap="BaseResultExtentMap" parameterType="Map" >
+    SELECT a.id,UID,a.PriPID,UniSCID,EntName,RegNO,LeRep,Tel,EstDate,RegCap,Dom,OpTo,ApprDate,RegOrg,LocalAdm,DomDistrict,Street,
+    ExaCode,ExaName,RegState,CheckDep,EntTypeCatg,EntType,AREA,CheckRegType,CheckPushType,CheckPushDate,CheckDeptType,
+    AcceptUser,AcceptName,AcceptDate,ReassignAccount,ReassignName,ReassignDate,ReassignType,ReassignRemark,ReassignDeptName,
+    ReassignCode,ClaimCode,ClaimName,ClaimDate,ReceiveState,ClaimState,IsIndivid,IndustryCo,checkStopState,a.CreateTime,OpFrom,OpScope,
+	a. CheckDepName, B.CONTENT RegOrgName, C.CONTENT DomDistrictName ,S.DownState FROM cs_pub_dtinfo a 
+	LEFT JOIN cs_code_regorg B ON a.RegOrg=B.CODE LEFT JOIN cs_code_regunit C ON a.DomDistrict=C.CODE 
+	LEFT JOIN (SELECT RelateId,'1' DownState FROM cs_info_rece_stat WHERE Type='1'
+	<if test="adcode !=null and adcode != ''">
+	     and Adcode = #{adcode}
+	</if> 
+	) S 
+    ON a.id = S.RelateId 
+	where 1=1
+	<include refid="pubdtinfo_where"></include>
+  </select>
+  
+  <select id="selectDownList" resultMap="BaseResultExtentMap" parameterType="com.icinfo.cs.dtinfo.dto.PubDtInfoDto" >
+  SELECT a.id,a.UID,a.PriPID 
+  FROM cs_pub_dtinfo a,cs_info_rece_stat S
+  where 
+     a.id = S.RelateId 
+   AND     S.Type='1'
+  <if test="adcode !=null and adcode != ''">
+	     and S.Adcode = #{adcode}
+  </if> 
+  <include refid="pubdtinfo_where"></include>
+  </select>
+</mapper>

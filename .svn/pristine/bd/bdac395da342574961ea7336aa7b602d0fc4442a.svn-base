@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.WebsiteinfoSearchMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.WebsiteinfoSearch" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="WebSite" property="webSite" jdbcType="VARCHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="WebType" property="webType" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="AnCheID" property="anCheID" jdbcType="VARCHAR" />
+    <result column="WEBID" property="WEBID" jdbcType="VARCHAR" />
+    <result column="WebSitName" property="webSitName" jdbcType="VARCHAR" />
+    <result column="WebPlatFormType" property="webPlatFormType" jdbcType="VARCHAR" />
+    <result column="WebGoodsType" property="webGoodsType" jdbcType="VARCHAR" />
+    <result column="ECommerceType" property="ecommerceType" jdbcType="VARCHAR" />
+    <result column="IcpBackNO" property="icpBackNO" jdbcType="VARCHAR" />
+    <result column="WeChatPublicNO" property="weChatPublicNO" jdbcType="VARCHAR" />
+    <result column="AppNames" property="appNames" jdbcType="VARCHAR" />
+    <result column="BelongPlatFormName" property="belongPlatFormName" jdbcType="VARCHAR" />
+    <result column="SendAddress" property="sendAddress" jdbcType="VARCHAR" />
+    <result column="BackAddress" property="backAddress" jdbcType="VARCHAR" />
+    <result column="WebSmallType" property="webSmallType" jdbcType="CHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseExtResultMap" type="com.icinfo.cs.yr.dto.WebsiteinfoSearchDto" extends="BaseResultMap" >
+    <result column="UniCode" property="uniCode" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="VARCHAR" />
+    <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+    <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="LeRepPhone" property="leRepPhone" jdbcType="VARCHAR" />
+    <result column="LiaName" property="liaName" jdbcType="VARCHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="Dom" property="dom" jdbcType="VARCHAR" />
+    <result column="RegState" property="regState" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="WebsiteinfoTotalResultMap" type="com.icinfo.cs.yr.dto.WebsiteinfoSearchDto" >
+    <result column="EntTotal" property="entTotal" jdbcType="INTEGER" />
+    <result column="WebTotal" property="webTotal" jdbcType="INTEGER" />
+    <result column="WebType" property="webType" jdbcType="CHAR" />
+  </resultMap>
+  
+    <sql id="web_sql">
+    SELECT 
+		PriPID, WebSite, YEAR, WebType, CreateTime, AnCheID, WEBID, WebSitName, WebPlatFormType, WebGoodsType, ECommerceType, IcpBackNO,
+	  WeChatPublicNO, AppNames,  BelongPlatFormName, SendAddress, BackAddress, WebSmallType 
+	  FROM cs_yr_websiteinfo 
+		UNION
+		SELECT sfcb.PriPID, WebSite, sfcb.YEAR, WebType, sfcw.CreateTime, sfcb.AnCheID, WEBID, WebSitName, WebPlatFormType, WebGoodsType, ECommerceType,
+	  IcpBackNO, WeChatPublicNO, AppNames, BelongPlatFormName, SendAddress, BackAddress, WebSmallType 
+	  FROM cs_yr_sfc_websiteinfo sfcw JOIN cs_yr_sfc_baseinfo sfcb ON sfcw.AnCheID = sfcb.AnCheID
+		UNION
+		SELECT pbb.PriPID, WebSite, pbb.YEAR, WebType, pbw.CreateTime, pbb.AnCheID, WEBID, WebSitName, WebPlatFormType, WebGoodsType,
+	  ECommerceType, IcpBackNO, WeChatPublicNO, AppNames, BelongPlatFormName, SendAddress, BackAddress,  WebSmallType 
+	  FROM cs_yr_pb_websiteinfo pbw JOIN cs_yr_pb_baseinfo pbb ON pbw.AnCheID = pbb.AnCheID
+    </sql>
+  
+  <!-- 查询网站信息 -->
+    <select id="selectWebsiteinfoSearchList" resultMap="BaseExtResultMap" parameterType="Map">
+	SELECT 
+	  t2.PriPID,
+	  t1.WebSite,
+	  t1.Year,
+	  t1.WebType,
+	  t1.CreateTime,
+	  t1.AnCheID,
+	  t1.WEBID,
+	  t1.WebSitName,
+	  t1.WebPlatFormType,
+	  t1.WebGoodsType,
+	  t1.ECommerceType,
+	  t1.IcpBackNO,
+	  t1.WeChatPublicNO,
+	  t1.AppNames,
+	  t1.BelongPlatFormName,
+	  t1.SendAddress,
+	  t1.BackAddress,
+	  t1.WebSmallType,
+	  t2.UniCode,
+	  t2.RegNO,
+	  t2.EntName,
+	  t2.LeRep,
+	  t2.Dom,
+	  t2.RegOrgName,
+	  t2.LocalAdmName,
+	  t2.RegState,
+	  CASE WHEN t3.LeRepPhone IS NOT NULL THEN t3.LeRepPhone ELSE t2.Tel END LeRepPhone,
+	  t3.LiaName,
+	  t3.Tel
+	FROM
+		(
+		<include refid="web_sql" />
+		) t1 
+	  JOIN cs_mid_baseinfo t2 
+	    ON t1.pripid = t2.pripid 
+	  LEFT JOIN cs_pub_eppassword t3 
+	    ON t2.pripid = t3.pripid 
+	WHERE 1 = 1 
+	 <include refid="where_sql" />
+  </select>
+  
+  <sql id="where_sql">
+  	<!-- 年报主体 -->
+	 <if test="entTypeCatg !=null and entTypeCatg !=''">
+	       and  t2.EntTypeCatg  in
+     <foreach item="item" index="index" collection="entTypeCatg" open="("
+					separator="," close=")">
+					#{item}
+	 </foreach>    
+	 </if>
+	 <!-- 统一信用代码/注册号 -->
+	 <if test="regno !=null and regno !=''">
+	       and ( t2.RegNO like CONCAT('%', #{regno}) or t2.UNICODE like CONCAT('%', #{regno}) )
+	 </if>
+	 <!-- 法定代表人/负责人 -->
+	 <if test="leRep !=null and leRep !=''">
+	       and t2.LeRep like CONCAT('%', #{leRep},'%')
+	 </if>
+	 <!-- 类型 -->
+	 <if test="webType !=null and webType !=''">
+	             and  t1.WebType  in
+     <foreach item="item" index="index" collection="webType" open="("
+					separator="," close=")">
+					#{item}
+	 </foreach>
+	 </if>
+	 <!-- 企业名称 -->
+	 <if test="entName !=null and entName !=''">
+	       and t2.EntName like CONCAT('%', #{entName},'%')          
+	 </if>
+	 <!-- 登记机关 -->
+	 <if test="regOrg !=null and regOrg !=''">
+	       and  t2.regOrg in
+     <foreach item="item" index="index" collection="regOrg" open="("
+					separator="," close=")">
+					#{item}
+	 </foreach>  
+	 </if>
+	 <!-- 网站类型 -->
+	 <if test="webSmallType !=null and webSmallType !=''">
+	       and  t1.webSmallType = #{webSmallType}
+	 </if>
+	 <!-- 年报年度 -->
+	 <if test="yrYear !=null and yrYear !=''">
+	       and  t1.year = #{yrYear}
+	 </if>
+	 <!-- 管辖单位 -->
+	 <if test="regUnit !=null and regUnit !=''">
+	       and  t2.LocalAdm in
+     <foreach item="item" index="index" collection="regUnit" open="("
+					separator="," close=")">
+					#{item}
+	 </foreach>   
+	 </if>
+	 <!-- 网站网店名称 -->
+	 <if test="webSitName !=null and webSitName !=''">
+	       and t1.webSitName like CONCAT('%', #{webSitName},'%') 
+	 </if>
+	 <!-- 网址（域名） -->
+	 <if test="webSite !=null and webSite !=''">
+	       and t1.webSite like CONCAT('%', #{webSite},'%')
+	 </if>
+	 <!-- 登记状态 -->
+	 <if test="regState !=null and regState !=''">
+	       and  t2.RegState  in
+     <foreach item="item" index="index" collection="regState" open="("
+					separator="," close=")">
+					#{item}
+	 </foreach>    
+	 </if>
+	 <!-- 网店所属平台 -->
+	 <if test="belongPlatFormName !=null and belongPlatFormName !=''">
+	       and t1.belongPlatFormName = #{belongPlatFormName}
+	 </if>
+	 <!-- ICP备案号 -->
+	 <if test="icpBackNO !=null and icpBackNO !=''">
+	       and t1.icpBackNO like CONCAT('%', #{icpBackNO},'%')
+	 </if>
+	 <!-- 行业 -->
+	 <if test="industryCo !=null and industryCo !=''">
+	       and  t2.industryCo  in
+     <foreach item="item" index="index" collection="industryCo" open="("
+					separator="," close=")">
+					#{item}
+	 </foreach>    
+	 </if>
+	 <!-- 微信公众号 -->
+	 <if test="weChatPublicNO !=null and weChatPublicNO !=''">
+	       and t1.weChatPublicNO like CONCAT('%', #{weChatPublicNO},'%')
+	 </if>
+	 <!-- 手机APP服务 -->
+	 <if test="appNames !=null and appNames !=''">
+	       and t1.appNames like CONCAT('%', #{appNames},'%')
+	 </if>
+	 <!-- 企业类型 -->
+	 <if test="entType !=null and entType !=''">
+	       and  t2.EntType  in
+     <foreach item="item" index="index" collection="entType" open="("
+					separator="," close=")">
+					#{item}
+	 </foreach>    
+	 </if>
+	 <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+  </sql>
+  
+  
+	<select id="selectWebsiteinfoTotal" parameterType="Map" resultMap="WebsiteinfoTotalResultMap">
+		SELECT 
+		  COUNT(DISTINCT t1.PriPID) EntTotal,
+		  0 WebTotal,
+		  8 WebType
+		FROM
+		  (<include refid="web_sql" />) t1 
+		  JOIN cs_mid_baseinfo t2 
+		    ON t1.pripid = t2.pripid
+		WHERE 1 = 1
+		  <include refid="where_sql" />    
+		  
+		union
+		
+		SELECT 
+		  0 EntTotal,
+		  COUNT(WebType) WebTotal,
+		  WebType 
+		FROM
+		  (SELECT 
+		    t1.PriPID,
+		    t1.WebType 
+		  FROM
+		    (<include refid="web_sql" />) t1 
+		    JOIN cs_mid_baseinfo t2 
+		      ON t1.pripid = t2.pripid 
+		  WHERE 1 = 1
+		  <include refid="where_sql" />) t 
+		GROUP BY WebType
+	</select>
+	
+	<select id="selectWebsiteinfoList" resultMap="BaseResultMap" parameterType="Map">
+		<if test="systemType == 1 ">
+		SELECT 
+			PriPID, WebSite, YEAR, WebType, CreateTime, AnCheID, WEBID, WebSitName, WebPlatFormType, WebGoodsType, ECommerceType, IcpBackNO,
+		    WeChatPublicNO, AppNames,  BelongPlatFormName, SendAddress, BackAddress, WebSmallType 
+		FROM cs_yr_websiteinfo t
+		</if>
+		<if test="systemType == 2 ">
+		SELECT t.PriPID, WebSite, t.YEAR, WebType, pbw.CreateTime, t.AnCheID, WEBID, WebSitName, WebPlatFormType, WebGoodsType,
+		  ECommerceType, IcpBackNO, WeChatPublicNO, AppNames, BelongPlatFormName, SendAddress, BackAddress,  WebSmallType 
+		  FROM cs_yr_pb_websiteinfo pbw JOIN cs_yr_pb_baseinfo t ON pbw.AnCheID = t.AnCheID 
+		</if>
+		<if test="systemType == 3 ">
+		SELECT t.PriPID, WebSite, t.YEAR, WebType, sfcw.CreateTime, t.AnCheID, WEBID, WebSitName, WebPlatFormType, WebGoodsType, ECommerceType,
+		  IcpBackNO, WeChatPublicNO, AppNames, BelongPlatFormName, SendAddress, BackAddress, WebSmallType 
+		  FROM cs_yr_sfc_websiteinfo sfcw JOIN cs_yr_sfc_baseinfo t ON sfcw.AnCheID = t.AnCheID
+		</if>
+		where t.PriPID = #{priPID} and t.year = #{year}
+  </select>
+</mapper>

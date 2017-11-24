@@ -1,0 +1,775 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.favorable.mapper.FavorAbleInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.favorable.model.FavorAbleInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="UniSCID" property="uniSCID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="VARCHAR" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="SetDept" property="setDept" jdbcType="VARCHAR" />
+    <result column="AuditName" property="auditName" jdbcType="VARCHAR" />
+    <result column="AuditDate" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="AuditDept" property="auditDept" jdbcType="VARCHAR" />
+    <result column="AuditOpin" property="auditOpin" jdbcType="VARCHAR" />
+    <result column="RegDate" property="regDate" jdbcType="DATE" />
+    <result column="RegDeptCn" property="regDeptCn" jdbcType="VARCHAR" />
+    <result column="RegDept" property="regDept" jdbcType="VARCHAR" />
+    <result column="RegDocNo" property="regDocNo" jdbcType="VARCHAR" />
+    <result column="RegFrom" property="regFrom" jdbcType="DATE" />
+    <result column="RegTo" property="regTo" jdbcType="DATE" />
+    <result column="RegType" property="regType" jdbcType="CHAR" />
+    <result column="RegYear" property="regYear" jdbcType="INTEGER" />
+    <result column="LicZone" property="licZone" jdbcType="VARCHAR" />
+    <result column="FavType" property="favType" jdbcType="CHAR" />
+    <result column="AuditState" property="auditState" jdbcType="CHAR" />
+    <result column="EfftStatus" property="efftStatus" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="Remark" property="remark" jdbcType="LONGVARCHAR" />
+    
+    <result column="FavName" property="favName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.favorable.dto.FavorAbleInfoDto" id="BaseResultDtoMap" extends="BaseResultMap">
+    <result column="regOrgName" property="regOrgName" jdbcType="VARCHAR" />
+    <result column="localAdmName" property="localAdmName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <!-- 企业良好信息查询 -->
+   <resultMap id="FavorAbleInfoSearchDto" type="com.icinfo.cs.favorable.dto.FavorAbleInfoDto" extends="BaseResultMap">
+  	<result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+  	<result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+  	<result column="RegState" property="regState" jdbcType="VARCHAR" /> 
+  	
+  	<result column="opanomaly" property="opanomaly" jdbcType="VARCHAR" /> 
+  	<result column="expSeriousCrime" property="expSeriousCrime" jdbcType="VARCHAR" /> 
+  	<result column="punish" property="punish" jdbcType="VARCHAR" /> 
+  	<result column="justiceinfo" property="justiceinfo" jdbcType="VARCHAR" /> 
+  	<result column="qualificationLimit" property="qualificationLimit" jdbcType="VARCHAR" /> 
+  </resultMap>
+  
+  
+   <select id="selectCaseInfoBypriPIDAndEfftStatus" resultMap="BaseResultMap" parameterType="Map">
+	   SELECT
+		X.PriPID,
+		X.RegDate,
+		X.RegDeptCn,
+		X.RegType,
+		X.UID,
+		X.FavType,
+		X.regDocNo
+	FROM
+		(
+			SELECT
+				E.PriPID,
+				E.AbnTime RegDate,
+				'1' RegDeptCn,
+				'列入经营异常' RegType,
+				E.BusExcList UID,
+				'0' FavType,
+				E.PenDecNo regDocNo
+			FROM
+				cs_pub_opanomaly E
+			WHERE
+				E.PriPID = #{priPID}
+			AND E.AuditState = '1'
+			AND E.revokeFlag IS NULL
+			AND NOT EXISTS (
+				SELECT
+					1
+				FROM
+					cs_pub_opadetail F
+				WHERE
+					F.PriPID = E.PriPID
+				AND F.IsMove = '1'
+				AND F.AuditState = '1'
+			)
+			ORDER BY
+				E.AbnTime DESC
+		) X
+	UNION ALL
+		SELECT
+			Y.PriPID,
+			Y.RegDate,
+			Y.RegDeptCn,
+			Y.RegType,
+			Y.UID,
+			Y.FavType,
+			Y.regDocNo
+		FROM
+			(
+				SELECT
+					L.PriPID,
+					L.AddSecDate RegDate,
+					'1' RegDeptCn,
+					'列入严重违法' RegType,
+					L.UID UID,
+					'1' FavType,
+					L.PenDecNo regDocNo
+				FROM
+					cs_exp_serious_crime_list L
+				WHERE
+					L.PriPID = #{priPID}
+				AND L.BusinessStatus = '4'
+				ORDER BY
+					L.AddSecDate DESC
+			) Y
+		UNION ALL
+			SELECT
+				V.PriPID,
+				V.RegDate,
+				V.RegDeptCn,
+				V.RegType,
+				V.UID,
+				V.FavType,
+				V.regDocNo
+			FROM
+				(
+					SELECT
+						G.PriPID,
+						G.FroFrom RegDate,
+						'2' RegDeptCn,
+						'司法协助' RegType,
+						G.UID UID,
+						'2' FavType,
+						G.ExecuteNo regDocNo
+					FROM
+						cs_pub_justiceinfo G
+					WHERE
+						G.PriPID = #{priPID}
+					AND G.AuditState = '1'
+					AND G.FrozState = '1'
+					ORDER BY
+						G.FroFrom DESC
+				) V
+			UNION ALL
+				SELECT
+					N.PriPID,
+					N.RegDate,
+					N.RegDeptCn,
+					N.RegType,
+					N.UID,
+					N.FavType,
+					N.regDocNo
+				FROM
+					(
+						SELECT
+							H.PriPID,
+							H.LimitDateStart RegDate,
+							'1' RegDeptCn,
+							'任职资格限制' RegType,
+							H.UID UID,
+							'3' FavType,
+							H.LimitType regDocNo
+						FROM
+							cs_qualification_limit H
+						WHERE
+							H.PriPID =#{priPID}
+						AND  (
+							H.LimitDateEnd IS NULL
+							OR H.LimitDateEnd = ''
+						)
+						ORDER BY
+							H.LimitDateStart DESC
+					) N
+				UNION ALL
+					SELECT
+						M.PriPID,
+						M.RegDate,
+						M.RegDeptCn,
+						M.RegType,
+						M.UID,
+						M.FavType,
+						M.regDocNo
+					FROM
+						(
+							SELECT
+								K.PriPID,
+								K.PenDecIssDate RegDate,
+								'1' RegDeptCn,
+								'行政处罚' RegType,
+								K.CaseNO UID,
+								'4' FavType,
+								K.PenDecNo regDocNo
+							FROM
+								cs_mid_caseinfo K
+							WHERE
+								 K.PriPID = #{priPID} 
+							ORDER BY
+								K.PenDecIssDate DESC
+						) M
+					UNION ALL
+						SELECT
+							Q.PriPID,
+							Q.RegDate,
+							Q.RegDeptCn,
+							Q.RegType,
+							Q.UID,
+							Q.FavType,
+							Q.regDocNo
+						FROM
+							(
+								SELECT
+									J.PriPID,
+									J.PenDecIssDate RegDate,
+									'3' RegDeptCn,
+									'行政处罚' RegType,
+									J.CaseNO UID,
+									'5' FavType,
+									J.PenDecNo regDocNo
+								FROM
+									cs_pub_otherpunish J
+								WHERE
+									J.AuditState = '1'
+								 AND J.PriPID = #{priPID}
+								ORDER BY
+									J.PenDecIssDate DESC
+							) Q
+						UNION ALL
+							SELECT
+								R.PriPID,
+								R.RegDate,
+								R.RegDeptCn,
+								R.RegType,
+								R.UID,
+								R.FavType,
+								R.regDocNo
+							FROM
+								(
+									SELECT
+										Z.PriPID,
+										Z.PenDecIssDate RegDate,
+										'4' RegDeptCn,
+										'行政处罚' RegType,
+										Z.CaseNO UID,
+										'6' FavType,
+										Z.PenDecNo regDocNo
+									FROM
+										cs_im_case Z
+									WHERE
+										Z.PubFlag = '1'
+									AND Z.PriPID = #{priPID} 
+									ORDER BY
+										Z.PenDecIssDate DESC
+								) R
+  </select>
+  
+  <!-- 根据主体身份代码或状态获取良好信息 -->
+  <select id="selectFavorAbleInfoBypriPIDAndEfftStatus" resultMap="BaseResultMap" parameterType="Map">
+   SELECT  
+    id,
+    UID,
+    UniSCID,
+    EntName,
+    RegNO, 
+    RegOrg,
+    LocalAdm, 
+    SetName,
+    SetTime, 
+    SetDept, 
+    AuditName,
+    AuditDate, 
+    AuditDept, 
+    AuditOpin, 
+    RegDate, 
+    RegDeptCn, 
+    RegDept,
+    RegDocNo, 
+    RegFrom, 
+    RegTo, 
+    RegType, 
+    RegYear, 
+    LicZone, 
+    FavType,
+    AuditState, 
+    EfftStatus, 
+    CreateTime, 
+    PriPID,
+    FavName,
+    Remark from  cs_favorable_info  where AuditState ='1' 
+    <if test="efftStatus !='' and efftStatus !=null">
+		AND EfftStatus =  #{efftStatus}
+	</if>
+	 and  PriPID = #{priPID}
+	order by RegDate desc 
+  </select>
+  <!-- 企业良好信息查询 -->
+   <select id="selectFavorAbleInfoList" resultMap="FavorAbleInfoSearchDto" parameterType="Map">
+		SELECT
+		T.UID,
+		T.PriPID,
+		T.UniSCID,
+		T.RegNO,
+		T.EntName,
+		T.RegType,
+		T.RegYear,
+		T.FavType,
+		T.LicZone,
+		T.RegDeptCn,
+		T.RegState,
+		T.RegDate,
+		T.RegFrom,
+		T.RegDocNo,
+		T.RegTo,
+		T.RegOrgName RegOrgName,
+		T.LocalAdmName LocalAdmName,
+		T.opanomaly,
+		T.expSeriousCrime,
+		T.punish,
+		T.justiceinfo,
+		T.qualificationLimit,
+		T.FavName
+	FROM
+		(
+			SELECT
+				A.UID,
+				A.PriPID,
+				A.UniSCID,
+				A.RegNO,
+				A.EntName,
+				A.RegType,
+				A.RegYear,
+				A.FavType,
+				A.LicZone,
+				A.RegDeptCn,
+				B.RegState,
+				A.RegDate,
+				A.RegFrom,
+				A.RegDocNo,
+				A.RegTo,
+				A.FavName,
+				B.RegOrgName RegOrgName,
+				B.LocalAdmName LocalAdmName,
+				(
+					SELECT
+						1
+					FROM
+						cs_pub_opanomaly E
+					WHERE
+						E.PriPID = A.PriPID
+					<if  test="infaustlKind !='' and infaustlKind !=null and infaustlKind==1" >
+					<if test="startInfaustlDate !='' and startInfaustlDate !=null"> 
+						<![CDATA[
+							AND E.AbnTime >=  #{startInfaustlDate}
+							]]>  
+					</if>
+					<if test="endInfaustlDate !='' and endInfaustlDate !=null"> 
+						<![CDATA[
+						AND E.AbnTime <=  #{endInfaustlDate}
+						]]>  
+					</if>
+					</if>
+					AND E.AuditState = '1'
+					AND E.revokeFlag IS NULL
+					AND NOT EXISTS (
+						SELECT
+							1
+						FROM
+							cs_pub_opadetail F
+						WHERE
+							F.PriPID = E.PriPID
+						AND F.PriPID = A.pripid
+						AND F.IsMove = '1'
+						AND F.AuditState = '1'
+					) 
+					LIMIT 1
+				) 'opanomaly',
+				(
+					SELECT
+						1
+					FROM
+						cs_exp_serious_crime_list L
+					WHERE
+						A.PriPID = L.PriPID
+						<if  test="infaustlKind !='' and infaustlKind !=null and infaustlKind==1" >
+						<if test="startInfaustlDate !='' and startInfaustlDate !=null"> 
+						<![CDATA[
+						AND L.AddSecDate >=  #{startInfaustlDate}
+						]]>  
+						</if>
+						<if test="endInfaustlDate !='' and endInfaustlDate !=null"> 
+						<![CDATA[
+						AND L.AddSecDate <=  #{endInfaustlDate}
+						]]>  
+						</if>
+						</if>
+					AND L.BusinessStatus = '4'
+					LIMIT 1
+				) 'expSeriousCrime',
+				(
+					(
+						SELECT
+							1
+						FROM
+							cs_pub_otherpunish J
+						WHERE
+							A.PriPID = J.PriPID
+						<if  test="infaustlKind !='' and infaustlKind !=null and infaustlKind==1" >
+						<if test="startInfaustlDate !='' and startInfaustlDate !=null"> 
+						<![CDATA[
+						AND J.PenDecIssDate >=  #{startInfaustlDate}
+						]]>  
+						</if>
+						<if test="endInfaustlDate !='' and endInfaustlDate !=null"> 
+						<![CDATA[
+						AND J.PenDecIssDate <=  #{endInfaustlDate}
+						]]>  
+						</if>
+						</if>
+						AND J.AuditState = '1'
+						LIMIT 1
+					)
+					OR (
+						SELECT
+							1
+						FROM
+							cs_mid_caseinfo K
+						WHERE
+							A.PriPID = K.PriPID
+							<if  test="infaustlKind !='' and infaustlKind !=null and infaustlKind==1" >
+							<if test="startInfaustlDate !='' and startInfaustlDate !=null"> 
+										<![CDATA[
+										AND K.PenDecIssDate >=  #{startInfaustlDate}
+										]]>  
+										</if>
+										<if test="endInfaustlDate !='' and endInfaustlDate !=null"> 
+										<![CDATA[
+										AND K.PenDecIssDate <=  #{endInfaustlDate}
+										]]>  
+							</if>
+							</if>
+							LIMIT 1
+					)or 
+					(
+					  SELECT
+							1
+						FROM
+							cs_im_case Z
+						WHERE
+							A.PriPID = Z.PriPID
+					    <if  test="infaustlKind !='' and infaustlKind !=null and infaustlKind==1" >
+							<if test="startInfaustlDate !='' and startInfaustlDate !=null"> 
+								<![CDATA[
+								AND Z.PenDecIssDate >=  #{startInfaustlDate}
+								]]>  
+								</if>
+								<if test="endInfaustlDate !='' and endInfaustlDate !=null"> 
+								<![CDATA[
+								AND Z.PenDecIssDate <=  #{endInfaustlDate}
+								]]>  
+							</if>
+						</if>
+						AND Z.PubFlag='1' 
+						LIMIT 1
+					)
+				) 'punish',
+				(
+					SELECT
+						1
+					FROM
+						cs_pub_justiceinfo G
+					WHERE
+						G.PriPID = A.PriPID
+						<if  test="infaustlKind !='' and infaustlKind !=null and infaustlKind==1" >
+						<if test="startInfaustlDate !='' and startInfaustlDate !=null"> 
+							<![CDATA[
+							AND G.FroFrom >=  #{startInfaustlDate}
+							]]>  
+							</if>
+							<if test="endInfaustlDate !='' and endInfaustlDate !=null"> 
+							<![CDATA[
+							AND G.FroFrom <=  #{endInfaustlDate}
+							]]>  
+						</if>
+						</if>
+					AND G.AuditState = '1'
+					AND G.FrozState = '1'
+					LIMIT 1
+				) 'justiceinfo',
+				(
+					SELECT
+						1
+					FROM
+						cs_qualification_limit H
+					WHERE
+						A.PriPID = H.PriPID
+					AND (
+						H.LimitDateEnd IS NULL
+						OR H.LimitDateEnd = ''
+					)
+					<if  test="infaustlKind !='' and infaustlKind !=null and infaustlKind==1" >
+					<if test="startInfaustlDate !='' and startInfaustlDate !=null"> 
+						<![CDATA[
+						AND H.LimitDateStart >=  #{startInfaustlDate}
+						]]>  
+						</if>
+						<if test="endInfaustlDate !='' and endInfaustlDate !=null"> 
+						<![CDATA[
+						AND H.LimitDateStart <=  #{endInfaustlDate}
+						]]>  
+					</if>
+					</if>
+					LIMIT 1
+				) 'qualificationLimit' 
+		FROM
+			cs_favorable_info A
+		LEFT JOIN cs_mid_baseinfo B ON A.PriPID = B.PriPID
+		WHERE
+		B.EntTypeCatg NOT IN ('16','17','50')
+		and A.AuditState ='1'
+		<choose><!-- 未选择查询条件下查询结果默认显示本部门登记或管辖的在册企业信息 -->
+		   <when test="isChoose =='0' or isChoose ==0">
+		     and   B.RegState IN (${regState})
+		     and  ( B.RegOrg=#{regOrg} or B.LocalAdm LIKE #{localAdm}) )T
+		   </when>
+		   <otherwise> 
+			    <if test="uniCode_regNO !='' and uniCode_regNO !=null">
+			        and ( A.uniSCID  LIKE concat('%', #{uniCode_regNO},'%') OR A.regNO  LIKE concat('%', #{uniCode_regNO},'%')) 
+			    </if>
+			    <!-- 根据统一代码和注册号后四位查询 -->
+			    <if test="uniCode_regNO_4 !='' and uniCode_regNO_4 !=null">
+			        and ( RIGHT(A.uniSCID,4)= #{uniCode_regNO_4} OR  RIGHT(A.regNO,4)= #{uniCode_regNO_4}) 
+			    </if>  
+			    <if test="efftStatus !='' and efftStatus !=null">
+				    and A.EfftStatus = #{efftStatus}
+			    </if>
+			    <if test="priPID !='' and priPID !=null">
+				    and A.PriPID = #{priPID}
+			    </if>
+			    
+			    <if test="entName !='' and entName !=null">
+				    and A.EntName  LIKE concat('%', #{entName},'%')
+			    </if>
+			    <if test="regOrg !='' and regOrg !=null">
+				    and B.RegOrg  IN  (${regOrg})
+			    </if>
+				<if test="localAdm !='' and localAdm !=null">
+					 and B.LocalAdm IN  (${localAdm})
+				</if> 
+				<if test="regFrom !='' and regFrom !=null"> 
+					<![CDATA[
+					and A.RegFrom >= #{regFrom}
+					]]>  
+				</if>
+				<if test="regTo !='' and regTo !=null"> 
+					<![CDATA[
+					and A.RegTo <= #{regTo}
+					]]>  
+				</if>
+				<if test="startRegDate !='' and startRegDate !=null"> 
+					<![CDATA[
+					and A.RegDate >= #{startRegDate}
+					]]>  
+				</if> 
+				<if test="endRegDate !='' and endRegDate !=null"> 
+					<![CDATA[
+					and A.RegDate <= #{endRegDate}
+					]]>  
+				</if>
+				<if test="regYear !='' and regYear !=null">
+					and A.RegYear = #{regYear}
+				</if>
+				<if test="regDocNo !='' and regDocNo !=null">
+					    and A.RegDocNo  LIKE concat('%', #{regDocNo},'%')
+			    </if>
+			    <if test="favType !='' and favType !=null">
+					    and A.FavType IN  (${favType})
+				</if> 
+				<if test="licZone !='' and licZone !=null">
+					    and A.LicZone IN  (${licZone})
+				</if>
+				<if test="regDeptCn !='' and regDeptCn !=null">
+		 			and A.RegDeptCn  LIKE concat('%', #{regDeptCn},'%')
+				</if>
+				<if test="regState !='' and regState !=null">
+					    and B.RegState IN  (${regState})
+				</if> 
+				)T     
+				<where>
+				<if  test="infaustlKind !='' and infaustlKind !=null and infaustlKind==1" > 
+				    <!-- 异常名录 -->
+				    <if test="infaustlType0 !='' and infaustlType0 !=null and infaustlType0==0">
+				        OR    T.opanomaly is not   null    
+				    </if>
+				    <!-- 行政处罚 -->
+				    <if test="infaustlType1 !='' and infaustlType1 !=null and infaustlType1==1"> 
+				        OR  T.expSeriousCrime is not null
+				    </if>
+				    <!-- 行政处罚 -->
+				    <if test="infaustlType2 !='' and infaustlType2 !=null and infaustlType2==2"> 
+				        OR  T.punish is not null
+				    </if>
+				    <!-- 司法协助 -->
+				    <if test="infaustlType3 !='' and infaustlType3 !=null and infaustlType3==3">
+				        OR  T.justiceinfo  is not  null 
+				    </if>
+				    <!-- 任职资格限制 -->
+				    <if test="infaustlType4 !='' and infaustlType4 !=null and infaustlType4==4"> 
+			       	    OR T.qualificationLimit  is not  null 
+				    </if> 
+				</if> 
+				<if test="infaustlKind !='' and infaustlKind !=null and infaustlKind==0">
+				    <!-- 异常名录 -->
+				        T.opanomaly is  null 
+				        AND T.expSeriousCrime is  null
+				        AND T.punish is  null
+				        AND T.justiceinfo is  null 
+				        AND T.qualificationLimit  is null 
+				</if>
+				</where> 
+		   </otherwise>
+		</choose> 
+	</select> 
+  
+    <select id="selectFavorableInputInfo" resultMap="BaseResultDtoMap" parameterType="Map">
+      select 
+	      t.UID,t.UniSCID,t.EntName,t.RegNO,t.RegOrg,t.LocalAdm,SetName,SetTime,SetDept,AuditName,
+	      AuditDate,AuditDept,AuditOpin,RegDate,RegDeptCn,RegDept,RegDocNo,RegFrom,RegTo,
+	      RegType,RegYear,LicZone,FavType,AuditState,EfftStatus,t.CreateTime,t.PriPID,Remark,
+	      a.regOrgName,
+	      a.localAdmName,
+	      t.FavName
+      from
+      cs_favorable_info t   
+      LEFT JOIN cs_mid_baseinfo a ON t.PriPID = a.PriPID
+      <where>
+        <include refid="favorable_where" />
+        <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+      </where>
+      ORDER BY FIELD(AuditState,0,2,1),t.CreateTime DESC
+  </select>
+  
+  <sql id="favorable_where">
+     <if test="regOrSCID !='' and regOrSCID !=null">
+     and (t.UniSCID LIKE concat('%', #{regOrSCID},'%') Or t.RegNO LIKE concat('%', #{regOrSCID},'%'))
+     </if>
+     <if test="entName !='' and entName !=null">
+     and t.EntName  LIKE concat('%', #{entName},'%')
+     </if>
+      <if test="regOrg !='' and regOrg !=null">
+     and t.RegOrg IN (${regOrg})
+     </if>
+      <if test="favType !='' and favType !=null">
+     and FavType IN  (${favType})
+     </if>
+      <if test="regDocNo !='' and regDocNo !=null">
+     and RegDocNo LIKE concat('%', #{regDocNo},'%')
+     </if>
+      <if test="localAdm !='' and localAdm !=null">
+     and t.LocalAdm IN (${localAdm})
+     </if>
+      <if test="auditState !='' and auditState !=null">
+     and AuditState = #{auditState}
+     </if>
+      <if test="regYear !='' and regYear !=null">
+     and RegYear = #{regYear}
+     </if>
+      <if test="regDept !='' and regDept !=null">
+     and RegDeptCn LIKE concat('%', #{regDept},'%')
+     </if>
+      <if test="setName !='' and setName !=null">
+     and SetName = #{setName}
+     </if>
+      <if test="setDateStart !='' and setDateStart !=null">
+      <![CDATA[
+	  and DATE_FORMAT(SetTime,'%Y-%m-%d') >= #{setDateStart}
+	  ]]>
+     </if>
+      <if test="setDateEnd !='' and setDateEnd !=null">
+      <![CDATA[
+	  and DATE_FORMAT(SetTime,'%Y-%m-%d') <= #{setDateEnd}
+	  ]]>
+     </if>
+     <if test="setDept !='' and setDept !=null">
+     and SetDept LIKE concat('%', #{setDept},'%')
+     </if>
+     <if test="auditName !='' and auditName !=null">
+     and AuditName = #{auditName}
+     </if>
+     <if test="auditDateStart !='' and auditDateStart !=null">
+       <![CDATA[
+	  and DATE_FORMAT(AuditDate,'%Y-%m-%d') >= #{auditDateStart}
+	  ]]>
+     </if>
+     <if test="auditDateEnd !='' and auditDateEnd !=null">
+       <![CDATA[
+	  and DATE_FORMAT(AuditDate,'%Y-%m-%d') <= #{auditDateEnd}
+	  ]]>
+     </if>
+  </sql>
+  
+  <!-- 根据身份号获取列表信息 -->
+  <select id="selectListByCerNO" resultMap="BaseResultMap" parameterType="Map">
+		SELECT
+			cfi.id,
+		    cfi.UID,
+		    cfi.UniSCID,
+		    cfi.EntName,
+		    cfi.RegNO, 
+		    cfi.RegOrg,
+		    cfi.LocalAdm, 
+		    cfi.SetName,
+		    cfi.SetTime, 
+		    cfi.SetDept, 
+		    cfi.AuditName,
+		    cfi.AuditDate, 
+		    cfi.AuditDept, 
+		    cfi.AuditOpin, 
+		    cfi.RegDate, 
+		    cfi.RegDeptCn, 
+		    cfi.RegDept,
+		    cfi.RegDocNo, 
+		    cfi.RegFrom, 
+		    cfi.RegTo, 
+		    cfi.RegType, 
+		    cfi.RegYear, 
+		    cfi.LicZone, 
+		    cfi.FavType,
+		    cfi.AuditState, 
+		    cfi.EfftStatus, 
+		    cfi.CreateTime, 
+		    cfi.PriPID,
+		    cfi.Remark,
+		    cfi.FavName
+		FROM
+			cs_favorable_info cfi
+		WHERE
+			cfi.PriPID IN (
+				SELECT
+					cmb.PriPID
+				FROM
+					cs_mid_baseinfo cmb
+				WHERE
+					cmb.CerNO IN (
+			
+					SELECT
+							cmi.CerNO
+						FROM
+							cs_mid_inv cmi
+						WHERE
+							cmi.CerNO = #{cerNO}
+					)
+			)
+		ORDER BY cfi.id DESC
+  </select>
+  <select id="selectFavorAbleInfoForBulletin" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT 
+			id,UID,PriPID,UniSCID,EntName,RegNO,RegOrg,LocalAdm,SetName,SetTime,SetDept,AuditName,AuditDate,
+			AuditDept,AuditOpin,Remark,RegDate,RegDeptCn,RegDept,RegDocNo,RegFrom,RegTo,RegType,RegYear,LicZone,
+			FavType,AuditState,EfftStatus,FavName,CreateTime,update_time
+		FROM 
+			cs_favorable_info
+		where EfftStatus = '1' AND AuditState='1'
+		and RegTo>=now()
+  and <![CDATA[ update_time >= #{_parameter}]]>
+  limit 0,99999
+  </select>
+</mapper>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.rpt.rptmapper.OpanoMalyRptMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.rpt.rptmodel.OpanoMalyRpt" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <result column="areaCode" property="areaCode" jdbcType="VARCHAR" />
+    <result column="regOrgCode" property="regOrgCode" jdbcType="CHAR" />
+    <result column="localAdmCode" property="localAdmCode" jdbcType="VARCHAR" />
+    <result column="entCatgCode" property="entCatgCode" jdbcType="VARCHAR" />
+    <result column="monthCode" property="monthCode" jdbcType="VARCHAR" />
+    <result column="inReasonNum" property="inReasonNum" jdbcType="DECIMAL" />
+    <result column="inReason" property="inReason" jdbcType="BIGINT" />
+    <result column="inReasonNum1" property="inReasonNum1" jdbcType="DECIMAL" />
+    <result column="inReason1" property="inReason1" jdbcType="BIGINT" />
+    <result column="inReasonNum2" property="inReasonNum2" jdbcType="DECIMAL" />
+    <result column="inReason2" property="inReason2" jdbcType="BIGINT" />
+    <result column="inReasonNum3" property="inReasonNum3" jdbcType="DECIMAL" />
+    <result column="inReason3" property="inReason3" jdbcType="BIGINT" />
+    <result column="inReasonNum4" property="inReasonNum4" jdbcType="DECIMAL" />
+    <result column="inReason4" property="inReason4" jdbcType="BIGINT" />
+    <result column="isMoveAllNum" property="isMoveAllNum" jdbcType="DECIMAL" />
+    <result column="isMoveAll" property="isMoveAll" jdbcType="BIGINT" />
+    <result column="isMoveNum" property="isMoveNum" jdbcType="DECIMAL" />
+    <result column="isMove" property="isMove" jdbcType="BIGINT" />
+    <result column="isRevokeNum" property="isRevokeNum" jdbcType="DECIMAL" />
+    <result column="isRevoke" property="isRevoke" jdbcType="BIGINT" />
+    <result column="outReasonNum" property="outReasonNum" jdbcType="DECIMAL" />
+    <result column="outReason" property="outReason" jdbcType="BIGINT" />
+    <result column="outReasonNum1" property="outReasonNum1" jdbcType="DECIMAL" />
+    <result column="outReason1" property="outReason1" jdbcType="BIGINT" />
+    <result column="outReasonNum2" property="outReasonNum2" jdbcType="DECIMAL" />
+    <result column="outReason2" property="outReason2" jdbcType="BIGINT" />
+    <result column="outReasonNum3" property="outReasonNum3" jdbcType="DECIMAL" />
+    <result column="outReason3" property="outReason3" jdbcType="BIGINT" />
+    <result column="outReasonNum4" property="outReasonNum4" jdbcType="DECIMAL" />
+    <result column="outReason4" property="outReason4" jdbcType="BIGINT" />
+    <result column="outReasonNum5" property="outReasonNum5" jdbcType="DECIMAL" />
+    <result column="outReason5" property="outReason5" jdbcType="BIGINT" />
+    <result column="outReasonNum6" property="outReasonNum6" jdbcType="DECIMAL" />
+    <result column="outReason6" property="outReason6" jdbcType="BIGINT" />
+    <result column="outReasonNum7" property="outReasonNum7" jdbcType="DECIMAL" />
+    <result column="outReason7" property="outReason7" jdbcType="BIGINT" />
+    <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.rpt.rptdto.OpanoMalyRptDto" id="BaseExtResultMap" extends="BaseResultMap">
+    <result column="areaName" property="areaName" jdbcType="VARCHAR" />
+    <result column="regOrgName" property="regOrgName" jdbcType="VARCHAR" /> 
+    <result column="inReasonCoutNum" property="inReasonCoutNum" jdbcType="DECIMAL" /> 
+  </resultMap>
+  
+  
+  <select id="selectOpanoMalyrpt" resultMap="BaseExtResultMap" parameterType="Map">
+	SELECT
+	B.areaCode,
+	B.localAdmCode ,
+	B.regOrgCode, 
+	<choose>
+	 <when test="statLevel != null and statLevel != '' and  statLevel == 'area' ">
+	    B.areaCode regOrgName,
+	 </when> 
+	 <otherwise>
+	    C.Content regOrgName,
+	 </otherwise> 
+	</choose> 
+	B.inReason,
+	B.inReasonNum,
+	B.isRevoke,
+	B.isRevokeNum,
+	B.isMove isMove,
+	B.isMoveNum,
+	B.isMoveAll,
+	B.isMoveAllNum,
+	B.inReason1,
+ 	B.inReasonNum1,
+	B.inReason2,
+	B.inReasonNum2,
+	B.inReasonCoutNum,
+	B.inReason3,
+	B.inReasonNum3,
+	B.inReason4,
+	B.inReasonNum4,
+	B.outReason1,
+	B.outReasonNum1,
+	B.outReason2,
+	B.outReasonNum2,
+	B.outReason3,
+	B.outReasonNum3,
+	B.outReason4,
+	B.outReasonNum4,
+	B.outReason5,
+	B.outReasonNum5,
+	B.outReason6,
+	B.outReasonNum6,
+	B.outReason7,
+	B.outReasonNum7
+	FROM (
+	 SELECT
+	A.areaCode,
+	A.localAdmCode,
+	A.regOrgCode, 
+	sum(A.inReason) inReason,
+	sum(A.inReasonNum) inReasonNum,
+	sum(A.isRevoke) isRevoke, 
+	sum(A.isRevokeNum) isRevokeNum,
+	sum(A.isMove) isMove,
+	sum(A.isMoveNum) isMoveNum,
+	sum(A.isMoveAll) isMoveAll, 
+ 	sum(A.isMoveAllNum) isMoveAllNum,
+	sum(A.inReason1) inReason1,
+	sum(A.inReasonNum1) inReasonNum1, 
+	sum(A.inReasonNum)-sum(A.isRevokeNum) inReasonCoutNum,
+	sum(A.inReason2) inReason2,
+	sum(A.inReasonNum2) inReasonNum2, 
+	sum(A.inReason3) inReason3,
+	sum(A.inReasonNum3) inReasonNum3,
+	sum(A.inReason4) inReason4, 
+	sum(A.inReasonNum4) inReasonNum4,
+	sum(A.outReason1) outReason1,
+	sum(A.outReasonNum1) outReasonNum1, 
+	sum(A.outReason2) outReason2,
+	sum(A.outReasonNum2) outReasonNum2,
+	sum(A.outReason3) outReason3, 
+	sum(A.outReasonNum3) outReasonNum3,
+	sum(A.outReason4) outReason4,
+	sum(A.outReasonNum4) outReasonNum4, 
+	sum(A.outReason5) outReason5,
+	sum(A.outReasonNum5) outReasonNum5,
+	sum(A.outReason6) outReason6, 
+	sum(A.outReasonNum6) outReasonNum6,
+	sum(A.outReason7) outReason7,
+	sum(A.outReasonNum7) outReasonNum7 
+    FROM
+	cs_rpt_opanomaly A  
+	WHERE 
+	1=1 
+	<if test="startCheckPushDate !='' and startCheckPushDate !=null">
+	<![CDATA[
+	and monthCode >= left(#{startCheckPushDate},6) 
+	]]> 
+	</if>
+	<if test="endCheckPushDate !='' and endCheckPushDate !=null">
+	<![CDATA[
+	and monthCode <= left(#{endCheckPushDate},6) 
+	]]> 
+	</if> 
+	<include refid="count_where"/>
+	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	GROUP BY A.${statLevel}Code 
+	) B 
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'regOrg' ">
+	   LEFT JOIN cs_code_regorg C ON B.regOrgCode=C.Code
+	</if>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'localAdm' ">
+	   LEFT JOIN cs_code_regunit C ON B.localAdmCode=C.Code
+	</if>
+  </select>
+  
+  
+  <sql id="count_where"> 
+		<if test="entCatgCode !=null and entCatgCode == 1 ">
+	    and  A.entCatgCode not in ('16','17','50')
+	    </if>
+	    <if test="entCatgCode !=null and entCatgCode == 2 ">
+	    and  A.entCatgCode in ('16','17')
+	    </if>
+	    <if test="entCatgCode !=null and entCatgCode == 3 ">
+	    and  A.entCatgCode = '50'
+	    </if>
+	    <if test="statArea !='' and statArea !=null">
+	    and  A.areaCode  IN  (${statArea}) 
+	    </if>
+  </sql>
+</mapper>

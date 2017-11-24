@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.risk.mapper.CsEntWarnMapper" >
+  
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.risk.model.CsEntWarn" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="CheckState" property="checkState" jdbcType="VARCHAR" />
+    <result column="EntWarnState" property="entWarnState" jdbcType="VARCHAR" />
+    <result column="BatchNo" property="batchNo" jdbcType="VARCHAR" />
+    <result column="ImportPeople" property="importPeople" jdbcType="VARCHAR" />
+    <result column="ImportDate" property="importDate" jdbcType="TIMESTAMP" />
+    <result column="CheckPeople" property="checkPeople" jdbcType="VARCHAR" />
+    <result column="CheckDate" property="checkDate" jdbcType="TIMESTAMP" />
+    <result column="MarkNo" property="markNo" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="ImportSetId" property="importSetId" jdbcType="VARCHAR" />
+    <result column="DeptCode" property="deptCode" jdbcType="VARCHAR" />
+    <result column="Dom" property="dom" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapDto" type="com.icinfo.cs.risk.dto.CsEntWarnDto" extends="BaseResultMap">
+     <result column="IndustryCo" property="industryCo" jdbcType="VARCHAR" />
+    <result column="CheckView" property="checkView" jdbcType="VARCHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="VARCHAR" />
+    <result column="Uniscid" property="uniscid" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="VARCHAR" />
+    <result column="RegOrg" property="regOrg" jdbcType="VARCHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="EntType" property="entType" jdbcType="VARCHAR" />
+    <result column="MarkName" property="markName" jdbcType="VARCHAR" />
+    <result column="MarkType" property="markType" jdbcType="VARCHAR" />
+    <result column="MarkState" property="markState" jdbcType="VARCHAR" />
+    <result column="MarkContent" property="markContent" jdbcType="VARCHAR" />
+    <result column="MarkClass" property="markClass" jdbcType="VARCHAR" />
+    <result column="MarkAppointWay" property="markAppointWay" jdbcType="VARCHAR" />
+    <result column="MarkAppointDept" property="markAppointDept" jdbcType="VARCHAR" />
+    <result column="MarkStartDate" property="markStartDate" jdbcType="TIMESTAMP" />
+    <result column="MarkEndDate" property="markEndDate" jdbcType="TIMESTAMP" />
+    <result column="MarkSetYear" property="markSetYear" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <select id="selectEntWarnList" resultMap="BaseResultMapDto" parameterType="Map" >
+     SELECT 
+       a.id id,a.UID UID,a.PriPID PriPID,a.CheckState CheckState,a.EntWarnState EntWarnState,
+       a.BatchNo BatchNo,m.UniCode Uniscid,m.RegNO RegNO,m.LeRep LeRep,m.EntName EntName,e.Content EntType,
+       b.MarkName MarkName,b.MarkState MarkState,b.MarkType MarkType,
+       b.MarkContent MarkContent,b.MarkClass MarkClass,b.MarkAppointWay MarkAppointWay,
+       b.MarkAppointDept MarkAppointDept,b.MarkStartDate MarkStartDate,
+       b.MarkEndDate MarkEndDate,b.MarkSetYear MarkSetYear,a.DeptCode DeptCode,
+       a.ImportPeople ImportPeople,a.ImportDate ImportDate,a.CheckPeople CheckPeople,
+       a.CheckDate CheckDate,a.MarkNo MarkNo,a.CreateTime CreateTime,a.ImportSetId ImportSetId,
+       u.Content LocalAdm,r.Content RegOrg,m.Dom Dom,s.Content IndustryCo,a.CheckView CheckView
+    FROM
+         cs_ent_warn a
+     LEFT JOIN cs_mid_baseinfo m ON m.PripID = a.PriPID
+	 LEFT JOIN cs_mark    b     ON  a.MarkNo = b.MarkNo
+	 LEFT JOIN cs_code_regorg r ON r.Code = m.RegOrg
+	 LEFT JOIN cs_code_regunit u ON u.Code = m.LocalAdm
+	 LEFT JOIN cs_code_industry s ON s.Code = m.IndustryCo
+	 LEFT JOIN cs_code_enttype e ON e.Code = m.EntType
+    WHERE 1=1
+		<include refid="sql_where" />
+	    <if test="deptCode != null and deptCode != ''">
+			and  b.MarkNo IN (SELECT DISTINCT WarnNo FROM cs_warn_dept WHERE DeptCode = #{deptCode} OR DeptCode IS NULL)
+		</if>
+  </select>
+  
+  <select id="selectEntWarnCheckList" resultMap="BaseResultMapDto" parameterType="Map" >
+	SELECT
+       '' id,'' UID,'' PriPID,e.CheckState CheckState,'' EntWarnState,
+       e.BatchNo BatchNo,'' Uniscid,'' RegNO,'' LeRep,'' EntName,'' EntType,b.MarkName MarkName,b.MarkState MarkState,
+       b.MarkContent MarkContent,b.MarkClass MarkClass,b.MarkAppointWay MarkAppointWay,
+       b.MarkAppointDept MarkAppointDept,b.MarkStartDate MarkStartDate,
+       b.MarkEndDate MarkEndDate,b.MarkSetYear MarkSetYear,b.MarkType MarkType,
+       e.ImportPeople ImportPeople,e.ImportDate ImportDate,e.CheckPeople CheckPeople,
+       e.CheckDate CheckDate,e.MarkNo MarkNo,e.CreateTime CreateTime,e.ImportSetId ImportSetId,
+       '' LocalAdm,'' RegOrg,'' Dom,'' IndustryCo,e.CheckView CheckView
+	FROM
+        (SELECT 
+              MIN(id) id,batchNo,PriPID,MarkNo
+          FROM
+              cs_ent_warn 
+         WHERE 
+              CheckState != '3'
+        <if test="importPeople != null and importPeople != ''">
+			and (ImportPeople = #{importPeople} or CheckPeople = #{importPeople})
+	   </if>
+	   <if test="deptCode != null and deptCode != ''">
+			and DeptCode = #{deptCode}
+		</if>
+		<if test="priPID != null and priPID != ''">
+			and PriPID = #{priPID}
+		</if>
+		<if test="batchNo != null and batchNo != ''">
+			and BatchNo = #{batchNo}
+	    </if>
+	    <if test="checkState != null and checkState != ''">
+			and CheckState = #{checkState}
+	    </if>
+         GROUP BY BatchNo
+          ) a
+     LEFT JOIN cs_mid_baseinfo m ON m.PripID = a.PriPID
+	 LEFT JOIN cs_mark    b     ON  a.MarkNo = b.MarkNo
+	 LEFT JOIN cs_ent_warn e
+     ON a.id =e.id 
+	WHERE 1=1
+	   	<if test="regNO != null and regNO != ''">
+			and (m.RegNO = #{regNO} or m.UniCode = #{regNO})
+	    </if>
+	    <if test="entWarnState != null and entWarnState != ''">
+			<if test="entWarnState == 1 ">
+				and <![CDATA[(e.EntWarnState = '1' and (DATE_FORMAT(NOW(), '%Y-%m-%d') >= b.MarkStartDate and DATE_FORMAT(NOW(), '%Y-%m-%d') <= b.MarkEndDate) and b.MarkState='1')]]>
+			</if>
+			<if test="entWarnState == 0 ">
+				and <![CDATA[(e.EntWarnState = '0' or (DATE_FORMAT(NOW(), '%Y-%m-%d') < b.MarkStartDate) or (DATE_FORMAT(NOW(), '%Y-%m-%d') > b.MarkEndDate) or b.MarkState = '0')]]>
+			</if>
+		</if>
+	    <if test="localAdm !=null and localAdm != ''">
+	 	and m.LocalAdm in (${localAdm}) 
+	    </if>
+	    <if test="regOrg !=null and regOrg != ''">
+	 	 and m.RegOrg in (${regOrg})
+	    </if>
+	    <if test="markClass != null and markClass != ''">
+			and b.MarkClass = #{markClass} 
+	    </if>
+	    <if test="entName != null and entName != ''">
+			and m.EntName like concat('%',#{entName},'%') 
+	    </if>
+	    <if test="markName != null and markName != ''">
+			and b.MarkName like concat('%',#{markName} ,'%') 
+	    </if>
+	    <if test="markStartDate != null and markStartDate != ''">
+			and  b.MarkStartDate  &gt;= #{markStartDate} 
+	    </if>
+	    <if test="markEndDate != null and markEndDate != ''">
+			and   b.MarkEndDate  &lt;= #{markEndDate} 
+		</if>
+  </select>
+  
+    <select id="selectEntWarnListForView" resultMap="BaseResultMapDto" parameterType="Map">
+	  SELECT 
+       a.id id,a.UID UID,a.PriPID PriPID,a.CheckState CheckState,a.EntWarnState EntWarnState,
+       a.BatchNo BatchNo,m.UniCode Uniscid,m.RegNO RegNO,m.LeRep LeRep,m.EntName EntName,e.Content EntType,
+       b.MarkName MarkName,b.MarkState MarkState,b.MarkType MarkType,
+       b.MarkContent MarkContent,b.MarkClass MarkClass,b.MarkAppointWay MarkAppointWay,
+       b.MarkAppointDept MarkAppointDept,b.MarkStartDate MarkStartDate,
+       b.MarkEndDate MarkEndDate,b.MarkSetYear MarkSetYear,
+       a.ImportPeople ImportPeople,a.ImportDate ImportDate,a.CheckPeople CheckPeople,
+       a.CheckDate CheckDate,a.MarkNo MarkNo,a.CreateTime CreateTime,a.ImportSetId ImportSetId,
+       m.LocalAdm LocalAdm,m.RegOrg RegOrg,m.Dom Dom,s.Content IndustryCo,a.CheckView CheckView
+	 FROM
+         cs_ent_warn a
+     LEFT JOIN cs_mid_baseinfo m ON m.PripID = a.PriPID
+	 LEFT JOIN cs_mark    b     ON  a.MarkNo = b.MarkNo
+	 LEFT JOIN cs_code_regorg r ON r.Code = m.RegOrg
+	 LEFT JOIN cs_code_regunit u ON u.Code = m.LocalAdm
+	 LEFT JOIN cs_code_industry s ON s.Code = m.IndustryCo
+	 LEFT JOIN cs_code_enttype e ON e.Code = m.EntType
+	 WHERE 1=1
+	 <include refid="sql_where" />
+	 and a.MarkNo IN 
+	(   SELECT
+			DISTINCT MarkNo 
+		FROM 
+			cs_mark 
+		WHERE 
+			MarkFunc = 'yj' AND MarkSetDeptCode = #{markSetDeptCode}
+	)
+	 
+  </select>
+  <sql id="sql_where">
+       <if test="deptCode != null and deptCode != ''">
+			and a.DeptCode = #{deptCode}
+		</if>
+		<if test="priPID != null and priPID != ''">
+			and a.PriPID = #{priPID}
+		</if>
+		<if test="batchNo != null and batchNo != ''">
+			and a.BatchNo = #{batchNo}
+	    </if>
+	    <if test="regNO != null and regNO != ''">
+			and (m.RegNO = #{regNO} or m.UniCode = #{regNO})
+	    </if>
+	    <if test="entName != null and entName != ''">
+			and m.EntName like concat('%',#{entName},'%') 
+	    </if>
+	    <if test="markNo != null and markNo != ''">
+			and b.MarkNo = #{markNo} 
+	    </if>
+	    <if test="markName != null and markName != ''">
+			and b.MarkName like concat('%',#{markName},'%')  
+	    </if>
+	    <if test="markStartDate != null and markStartDate != ''">
+			and  b.MarkStartDate  &gt;= #{markStartDate} 
+	    </if>
+	    <if test="markEndDate != null and markEndDate != ''">
+			and   b.MarkEndDate  &lt;= #{markEndDate} 
+		</if>
+		<if test="entWarnState != null and entWarnState != ''">
+			<if test="entWarnState == 1 ">
+				and <![CDATA[(a.EntWarnState = '1' and (DATE_FORMAT(NOW(), '%Y-%m-%d') >= b.MarkStartDate and DATE_FORMAT(NOW(), '%Y-%m-%d') <= b.MarkEndDate) and b.MarkState='1')]]>
+			</if>
+			<if test="entWarnState == 0 ">
+				and <![CDATA[(a.EntWarnState = '0' or (DATE_FORMAT(NOW(), '%Y-%m-%d') < b.MarkStartDate) or (DATE_FORMAT(NOW(), '%Y-%m-%d') > b.MarkEndDate) or b.MarkState='0')]]>
+			</if>
+		</if>
+	    <if test="markClass != null and markClass != ''">
+			and b.MarkClass = #{markClass} 
+	    </if>
+	    <if test="checkState != null and checkState != ''">
+			and a.CheckState = #{checkState}
+	    </if>
+	    <if test="localAdm !=null and localAdm != ''">
+	 	and m.LocalAdm in (${localAdm}) 
+	    </if>
+	    <if test="regOrg !=null and regOrg != ''">
+	 	 and m.RegOrg in (${regOrg})
+	    </if>
+	    <if test="importPeople != null and importPeople != ''">
+			and (a.ImportPeople = #{importPeople} or a.CheckPeople = #{importPeople})
+	    </if>
+   </sql>
+   
+   <select id="selectCsEntWarnMarks" resultMap="BaseResultMapDto" parameterType="Map" >
+    SELECT
+		b.MarkName	
+	FROM
+		cs_ent_warn a
+	LEFT JOIN cs_mark b ON a.MarkNo = b.MarkNo
+	WHERE
+		a.CheckState='1'
+	AND a.EntWarnState='1'
+	AND b.MarkState='1'
+	AND a.PriPID=#{priPID}
+  	</select>
+</mapper>

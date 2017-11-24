@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.base.mapper.CodeChgTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.base.model.CodeChgType" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="entTypeCatgs" property="entTypeCatgs" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  
+   <select id="selectCodeChgTypeListByAltItem" resultMap="BaseResultMap" parameterType="string">
+      SELECT Code,Content,entTypeCatgs FROM cs_code_chgtype
+      where Code=#{altItem}
+  </select>
+</mapper>

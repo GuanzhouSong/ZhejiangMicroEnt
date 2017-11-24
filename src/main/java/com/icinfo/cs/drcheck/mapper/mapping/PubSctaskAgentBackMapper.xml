@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.drcheck.mapper.PubSctaskAgentBackMapper">
+	<resultMap id="BaseResultMap"
+		type="com.icinfo.cs.drcheck.model.PubSctaskAgentBack">
+		<!-- WARNING - @frameworkgenerated -->
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="TaskNO" property="taskNO" jdbcType="VARCHAR" />
+		<result column="AgentId" property="agentId" jdbcType="VARCHAR" />
+		<result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<resultMap id="BaseResultMapDto"
+		type="com.icinfo.cs.drcheck.dto.PubSctaskAgentBackDto" extends="BaseResultMap">
+		<result column="AgentName" property="agentName" jdbcType="VARCHAR" />
+		<result column="AgentNO" property="agentNO" jdbcType="VARCHAR" />
+		<result column="DeptCatg" property="deptCatg" jdbcType="VARCHAR" />
+		<result column="UnitCode" property="unitCode" jdbcType="VARCHAR" />
+		<result column="UnitLevel" property="unitLevel" jdbcType="VARCHAR" />
+		<result column="AgentArea" property="agentArea" jdbcType="VARCHAR" />
+		<result column="agentRange" property="agentRange" jdbcType="VARCHAR" />
+		<result column="deptCodeDesc" property="deptCodeDesc" jdbcType="VARCHAR" />
+		<result column="EmployeeNO" property="employeeNO" jdbcType="VARCHAR" />
+		<result column="StudyLevel" property="studyLevel" jdbcType="VARCHAR" />
+		<result column="Professionals" property="professionals" jdbcType="VARCHAR" />
+		<result column="StationTerm" property="stationTerm" jdbcType="VARCHAR" />
+		<result column="WorkTime" property="workTime" jdbcType="TIMESTAMP" />
+		<result column="SlicenNO" property="slicenNO" jdbcType="VARCHAR" />
+		
+		<result column="sliceName" property="sliceName" jdbcType="VARCHAR" />
+		<result column="unitName" property="unitName" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!--批量导入 未进行设置编码 -->
+	<insert id="insertBatch" parameterType="java.util.List">
+		INSERT INTO cs_pub_sctask_agent_back
+		(TaskNO,AgentId,CreateTime)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.taskNO},#{item.agentId},#{item.createTime})
+		</foreach>
+	</insert>
+
+	<select id="selectPubSctaskAgentBackDtoList" resultMap="BaseResultMapDto" parameterType="Map">
+		select b.id,b.AgentId,b.TaskNO,a.AgentName,a.EmployeeNO,a.StudyLevel,a.Professionals,a.StationTerm,a.WorkTime,a.SlicenNO
+		,a.AgentNO,a.DeptCatg,a.UnitCode,a.UnitLevel,a.AgentArea,a.AgentRange,t.OrgName deptCodeDesc,
+		c.content sliceName,
+		d.content unitName
+		from cs_pub_sctask_agent_back b
+		LEFT JOIN cs_pub_scagent a ON b.AgentId = a.UID
+		LEFT JOIN cs_sys_depart t ON a.DeptCode = t.OrgCoding
+		LEFT JOIN cs_code_regunit c ON c.Code = a.SlicenNO
+		LEFT JOIN cs_code_regorg d ON d.Code = a.UnitCode
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="taskNO != null and taskNO != ''">
+				b.TaskNO = #{taskNO,jdbcType=VARCHAR} 
+			</if>
+		</trim>
+	</select>
+</mapper>

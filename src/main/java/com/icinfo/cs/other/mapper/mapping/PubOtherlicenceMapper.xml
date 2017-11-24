@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.other.mapper.PubOtherlicenceMapper">
+	<resultMap id="BaseResultMap" type="com.icinfo.cs.other.model.PubOtherlicence">
+		<!-- WARNING - @frameworkgenerated -->
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="LicID" property="licID" jdbcType="VARCHAR" />
+		<result column="PriPID" property="priPID" jdbcType="CHAR" />
+		<result column="RegNO" property="regNO" jdbcType="CHAR" />
+		<result column="EntName" property="entName" jdbcType="VARCHAR" />
+		<result column="LicNameCN" property="licNameCN" jdbcType="VARCHAR" />
+		<result column="LicNO" property="licNO" jdbcType="VARCHAR" />
+		<result column="LicValFrom" property="licValFrom" jdbcType="DATE" />
+		<result column="LicValTo" property="licValTo" jdbcType="DATE" />
+		<result column="LicAnth" property="licAnth" jdbcType="VARCHAR" />
+		<result column="PubFlag" property="pubFlag" jdbcType="VARCHAR" />
+		<result column="LicType" property="licType" jdbcType="CHAR" />
+		<result column="AltDate" property="altDate" jdbcType="DATE" />
+		<result column="CanDate" property="canDate" jdbcType="DATE" />
+		<result column="RevDate" property="revDate" jdbcType="DATE" />
+		<result column="InvAlidDate" property="invAlidDate" jdbcType="DATE" />
+		<result column="InvAliDRea" property="invAliDRea" jdbcType="VARCHAR" />
+		<result column="SetName" property="setName" jdbcType="VARCHAR" />
+		<result column="SetDate" property="setDate" jdbcType="DATE" />
+		<result column="AuditName" property="auditName" jdbcType="VARCHAR" />
+		<result column="AuditDate" property="auditDate" jdbcType="TIMESTAMP" />
+		<result column="AuditState" property="auditState" jdbcType="CHAR" />
+		<result column="AuditOpin" property="auditOpin" jdbcType="VARCHAR" />
+		<result column="LicState" property="licState" jdbcType="CHAR" />
+		<result column="SetDeptname" property="setDeptname" jdbcType="VARCHAR" />
+		<result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="LicScope" property="licScope" jdbcType="LONGVARCHAR" />
+		<result column="CanRea" property="canRea" jdbcType="LONGVARCHAR" />
+		<result column="RevRea" property="revRea" jdbcType="LONGVARCHAR" />
+		<result column="update_time" property="updateTime" jdbcType="DATE"/>
+	</resultMap>
+	<resultMap id="PubOtherlicenceDto" type="com.icinfo.cs.other.dto.PubOtherlicenceDto"
+		extends="BaseResultMap">
+		<result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+		<result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+		<result column="SliceNOName" property="sliceNOName" jdbcType="VARCHAR" />
+	    <result column="source" property="source" jdbcType="VARCHAR" />
+	    <result column="licResource" property="licResource" jdbcType="VARCHAR" />
+	    
+	    <result column="Dom" property="dom" jdbcType="VARCHAR" />
+	    <result column="EntTypeCatg" property="entTypeCatg" jdbcType="VARCHAR" />
+	    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+	    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+	    <result column="Unicode" property="unicode" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="LicenceInvalidCount" type="com.icinfo.cs.other.dto.LicenceInvalidCount">
+  	 <result column="entNum" property="entNum" jdbcType="INTEGER" />
+  	 <result column="licenceNum" property="licenceNum" jdbcType="INTEGER" />
+  </resultMap>
+	
+<!-- 	<resultMap id="PubOtherlicenceAlterResultMap" type="com.icinfo.cs.other.model.PubServerModrecord" > -->
+<!-- 	    <result column="AltItem" property="altItem" jdbcType="VARCHAR" /> -->
+<!-- 	    <result column="AltDate" property="altDate" jdbcType="DATE" /> -->
+<!-- 	    <result column="AltBe" property="altBe" jdbcType="LONGVARCHAR" /> -->
+<!-- 	    <result column="AltAf" property="altAf" jdbcType="LONGVARCHAR" /> -->
+<!--   	</resultMap> -->
+	
+	<resultMap type="com.icinfo.cs.other.dto.PubOtherlicenceDto" id="LicenceForPubResultMap" extends="BaseResultMap">
+<!-- 	    <collection column="LicID" property="pubOtherlicenceModList" ofType="PubServerModrecord" select="selectPubOtherlicenceAlterByLicID" > -->
+<!-- 	    </collection> -->
+  	</resultMap>
+  
+<sql id="pubOtherLicence_other">
+<if test="priPID!=null and priPID!=''">
+				and a.priPID=#{priPID}
+			</if>
+			<if test="regNO!=null and regNO!=''">
+				and a.regNO=#{regNO}
+			</if> 
+			<if test="licNO!=null and licNO!=''">
+				and a.licNO=#{licNO}
+			</if>  
+			
+			<if test="pubFlag!=null and pubFlag!=''">
+				and a.pubFlag=#{pubFlag}
+			</if>
+			
+			<if test="licState!=null and licState!=''">
+				and a.licState=#{licState}
+			</if>
+			<if test="licStateType!=null and licStateType!=''">
+			 and a.licState!=1
+			</if>
+			
+			
+			<if test="auditState!=null and auditState!=''">
+				and a.auditState=#{auditState}
+			</if>
+			<if test="leRep!=null and leRep!=''">
+			and b.leRep LIke concat('%',#{leRep},'%')
+			</if>
+			
+			
+			<if test="licScope!=null and licScope!=''">
+				and a.licScope LIKE concat('%',#{licScope},'%')
+			</if>
+			<if test="licNameCN!=null and licNameCN!=''"> 
+				and a.licNameCN LIKE concat('%',#{licNameCN},'%')
+			</if>
+			<if test="auditName!=null and auditName!=''">
+				and a.auditName LIKE concat('%',#{auditName},'%')
+			</if>
+			<if test="setName!=null and setName!=''">
+				and a.setName LIKE concat('%',#{setName},'%')
+			</if>
+			<if test="entName!=null and entName!=''">
+				and a.entName LIKE concat('%',#{entName},'%')
+			</if>
+			<if test="licAnth!=null and licAnth!=''">
+				and a.licAnth LIKE concat('%',#{licAnth},'%')
+			</if>
+			<if test="licValFromStart!=null and licValFromStart!=''">
+      <![CDATA[   and a.licValFrom >=  DATE_FORMAT(#{licValFromStart}, '%Y-%m-%d')   ]]>
+			</if>
+			<if test="licValFromEnd!=null and licValFromEnd!=''">
+      <![CDATA[   and a.licValFrom <=  DATE_FORMAT(#{licValFromEnd}, '%Y-%m-%d')   ]]>
+			</if>
+			<if test="licValToStart!=null and licValToStart!=''">
+       <![CDATA[  and  a.licValTo >= DATE_FORMAT(#{licValToStart}, '%Y-%m-%d')    ]]>
+			</if>
+			
+			<if test="licValToEnd!=null and licValToEnd!=''">
+       <![CDATA[  and  a.licValTo <= DATE_FORMAT(#{licValToEnd}, '%Y-%m-%d')    ]]>
+			</if>
+			
+			<if test="setDateStart!=null and setDateStart!=''">
+      <![CDATA[   and a.setDate >=  DATE_FORMAT(#{setDateStart}, '%Y-%m-%d')   ]]>
+			</if>
+			<if test="setDateEnd!=null and setDateEnd!=''">
+       <![CDATA[  and  a.setDate <= DATE_FORMAT(#{setDateEnd}, '%Y-%m-%d')    ]]>
+			</if>  
+			
+			<if test="auditDateStart!=null and auditDateStart!=''">
+      <![CDATA[   and a.auditDate >=  DATE_FORMAT(#{auditDateStart}, '%Y-%m-%d')   ]]>
+			</if>
+			<if test="auditDateEnd!=null and auditDateEnd!=''">
+       <![CDATA[  and  a.auditDate <= DATE_FORMAT(#{auditDateEnd}, '%Y-%m-%d')    ]]>
+			</if>  
+
+			<if test="items!=null and items!=''">
+				and b.regOrg in
+				<foreach item="item" index="index" collection="items" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			
+			<if test="localAdms!=null and localAdms!=''">
+			and b.localAdm in
+		<foreach item="item" index="index" collection="localAdms" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			
+			</if>
+		 
+			<if test="entTypes!=null and entTypes!=''">
+			 and b.entType in
+			<foreach item="item" index="index" collection="entTypes" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			
+			</if>
+			
+			<if test="sliceNOS!=null and sliceNOS!=''">
+			 and b.sliceNO in
+			<foreach item="item" index="index" collection="sliceNOS" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			
+			</if> 
+			
+
+</sql>
+<sql id="pubImPrimit_other">
+ <if test="priPID!=null and priPID!=''">
+				and c.priPID=#{priPID}
+			</if>
+			<if test="regNO!=null and regNO!=''">
+				and c.regNO=#{regNO}
+			</if> 
+			<if test="licNO!=null and licNO!=''">
+				and c.licNO=#{licNO}
+			</if>  
+			
+			<if test="pubFlag!=null and pubFlag!=''">
+				and c.pubFlag=#{pubFlag}
+			</if>
+			
+			<if test="leRep!=null and leRep!=''">
+			and b.leRep LIke concat('%',#{leRep},'%')
+			</if>
+			
+			<!-- <if test="licState!=null and licState!=''">
+				and c.licState=#{licState}
+			</if> -->
+			
+			<!-- <if test="auditState!=null and auditState!=''">
+				and c.auditState=#{auditState}
+			</if> -->
+			
+			<if test="licScope!=null and licScope!=''">
+				and c.LicItem LIKE concat('%',#{licScope},'%')
+			</if>
+			<if test="licNameCN!=null and licNameCN!=''"> 
+				and c.licNameCN LIKE concat('%',#{licNameCN},'%')
+			</if>
+			<!-- <if test="auditName!=null and auditName!=''">
+				and c.auditName LIKE concat('%',#{auditName},'%')
+			</if>
+			<if test="setName!=null and setName!=''">
+				and c.setName LIKE concat('%',#{setName},'%')
+			</if> -->
+			<if test="entName!=null and entName!=''">
+				and c.entName LIKE concat('%',#{entName},'%')
+			</if>
+			<if test="licAnth!=null and licAnth!=''">
+				and c.licAnth LIKE concat('%',#{licAnth},'%')
+			</if>
+			<if test="licValFromStart!=null and licValFromStart!=''">
+      <![CDATA[   and c.valFrom >=  DATE_FORMAT(#{licValFromStart}, '%Y-%m-%d')   ]]>
+			</if>
+			<if test="licValFromEnd!=null and licValFromEnd!=''">
+      <![CDATA[   and c.valFrom <=  DATE_FORMAT(#{licValFromEnd}, '%Y-%m-%d')   ]]>
+			</if>
+			<if test="licValToStart!=null and licValToStart!=''">
+       <![CDATA[  and  c.valTo >= DATE_FORMAT(#{licValToStart}, '%Y-%m-%d')    ]]>
+			</if>
+			
+			<if test="licValToEnd!=null and licValToEnd!=''">
+       <![CDATA[  and  c.valTo <= DATE_FORMAT(#{licValToEnd}, '%Y-%m-%d')    ]]>
+			</if>
+			
+			
+			
+			<!-- <if test="setDateStart!=null and setDateStart!=''">
+      <![CDATA[   and c.setDate >=  DATE_FORMAT(#{setDateStart}, '%Y-%m-%d')   ]]>
+			</if>
+			<if test="setDateEnd!=null and setDateEnd!=''">
+       <![CDATA[  and  c.setDate <= DATE_FORMAT(#{setDateEnd}, '%Y-%m-%d')    ]]>
+			</if>  
+			
+			<if test="auditDateStart!=null and auditDateStart!=''">
+      <![CDATA[   and c.auditDate >=  DATE_FORMAT(#{auditDateStart}, '%Y-%m-%d')   ]]>
+			</if>
+			<if test="auditDateEnd!=null and auditDateEnd!=''">
+       <![CDATA[  and  c.auditDate <= DATE_FORMAT(#{auditDateEnd}, '%Y-%m-%d')    ]]>
+			</if>  
+ -->
+			<if test="items!=null and items!=''">
+				and b.regOrg in
+				<foreach item="item" index="index" collection="items" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			
+			<if test="localAdms!=null and localAdms!=''">
+			and b.localAdm in
+		<foreach item="item" index="index" collection="localAdms" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			
+			</if>
+		 
+			<if test="entTypes!=null and entTypes!=''">
+			 and b.entType in
+			<foreach item="item" index="index" collection="entTypes" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			
+			</if>
+			
+			<if test="sliceNOS!=null and sliceNOS!=''">
+			 and b.sliceNO in
+			<foreach item="item" index="index" collection="sliceNOS" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			
+			</if> 
+			  
+
+
+</sql>
+
+
+	<select id="selectPubOtherlicenceByCation" parameterType="Map"
+		resultMap="PubOtherlicenceDto">
+		SELECT
+		a.LicID,a.PriPID,a.RegNO,a.EntName,a.LicNameCN,a.LicNO,a.LicValFrom,a.LicValTo,a.LicAnth,a.PubFlag,a.LicType,a.AltDate,
+		a.CanDate,a.RevDate,a.InvAlidDate,a.InvAliDRea,a.SetName,a.SetDate,a.AuditName,a.AuditDate,a.AuditState,a.AuditOpin,a.LicState,
+		a.SetDeptname,a.CreateTime,a.LicScope,a.CanRea,a.RevRea ,  CONCAT(a.pubFlag,'部门公示') source,b.RegOrgName,b.SliceNOName,b.localAdmName
+		FROM
+		cs_pub_otherlicence a LEFT JOIN cs_mid_baseinfo b ON
+		a.PriPID=b.PriPID where 1=1
+		 <include refid="pubOtherLicence_other"/>
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+
+	</select>
+	 
+	 <select id="selectImPrimitByCation" parameterType="Map"
+		resultMap="PubOtherlicenceDto">
+		select  
+		t.LicID, t.PriPID,t.RegNO,t.EntName,t.LicNameCN,t.LicNO,t.licScope,t.LicValFrom,t.LicValTo,t.LicAnth,t.PubFlag,t.LicType,t.LicState, 
+		t.CanDate,t.RevDate,t.InvAlidDate,t.InvAliDRea,  t.source , t.RegOrgName ,t.LocalAdm,t.licResource from (
+	    SELECT a.LicID, a.PriPID,a.RegNO,a.EntName,a.LicNameCN,a.LicNO,a.licScope,a.LicValFrom,a.LicValTo,a.LicAnth,a.PubFlag,a.LicType,a.LicState,
+		a.CanDate,a.RevDate,a.InvAlidDate,a.InvAliDRea, CONCAT(a.pubFlag,'部门公示') source,b.RegOrgName,b.CheckDep,b.LocalAdm,'0' licResource
+		FROM cs_pub_otherlicence a 
+		LEFT JOIN cs_mid_baseinfo b ON
+		a.PriPID=b.PriPID  
+		where 1=1 and a.pubFlag='1'
+		<include refid="pubOtherLicence_other"/>
+		 UNION ALL 
+		 SELECT c.LicID, c.PriPID,c.RegNO,c.EntName,c.LicNameCN,c.LicNO,c.licItem licScope,c.ValFrom licValFrom,c.ValTo licValTo,c.LicAnth,c.PubFlag,c.PubType licType,'' LicState, 
+		c.CanDate,c.RevDate,c.InvAlidDate,c.InvAliDRea,CONCAT(c.pubFlag,'企业公示') source,b.RegOrgName ,b.CheckDep,b.LocalAdm,'1' licResource
+		FROM cs_im_permit c 
+		LEFT JOIN cs_mid_baseinfo b ON c.PriPID=b.PriPID
+        where 
+        1=1 and c.pubFlag='1' 
+        <include refid="pubImPrimit_other"></include>
+	    ) t
+	    where 1=1
+	    <if test="licResouce!=null and licResouce!=''">
+	       and t.licResource = #{licResouce}
+	    </if> 
+	 <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	</select>   
+	
+	 <select id="selectCountOtherLicence" parameterType="Map"  resultType="Integer">
+	 select count(1) 
+	 FROM cs_pub_otherlicence a LEFT  JOIN cs_mid_baseinfo b ON
+		a.PriPID=b.PriPID   where 1=1 and a.pubFlag='1'
+	     <include refid="pubOtherLicence_other"/>
+	     <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	 </select>
+	<select id="selectCountPermit" parameterType="Map" resultType="Integer">
+	 select count(1) 
+	  FROM cs_im_permit c LEFT   JOIN cs_mid_baseinfo b ON c.PriPID=b.PriPID
+        where 1=1 and c.pubFlag='1' 
+	  <include refid="pubImPrimit_other"></include>
+	  	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	</select>
+	 <select id="selectCountOtherLicenceDistinct"  parameterType="Map" resultType="Integer">
+	 select count(DISTINCT  a.PriPID) 
+	 FROM cs_pub_otherlicence a LEFT  JOIN cs_mid_baseinfo b ON
+		a.PriPID=b.PriPID   where 1=1 and a.pubFlag='1'
+	     <include refid="pubOtherLicence_other"/>
+	     	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	 </select>
+	<select id="selectCountPermitDistinct" parameterType="Map" resultType="Integer">
+	 select count(DISTINCT c.PriPID)
+	  FROM cs_im_permit c LEFT   JOIN cs_mid_baseinfo b ON c.PriPID=b.PriPID
+        where 1=1 and c.pubFlag='1' 
+	  <include refid="pubImPrimit_other"></include>
+	  	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	</select>
+	
+	
+	<!-- 获取行政许可信息列表数据（公示） -->
+  <select id="selectPubOtherlicenceForPub" resultMap="LicenceForPubResultMap" parameterType="Map">
+  	select 
+  		id,LicID,PriPID,LicNameCN,LicNO,LicValFrom,LicValTo,LicAnth,PubFlag,LicScope,LicState
+    from cs_pub_otherlicence
+    where PriPID = #{priPID,jdbcType=VARCHAR} and PubFlag = '1' and LicState = '1'
+  </select>
+  
+  <!-- 获取行政许可信息变更列表数据（公示） -->
+<!--   <select id="selectPubOtherlicenceAlterByLicID" parameterType="String" resultMap="PubOtherlicenceAlterResultMap"> -->
+<!--   	select AltItem,AltBe,AltAf,AltDate -->
+<!--   	from cs_pub_server_modrecord -->
+<!--   	where ModUID = #{licID,jdbcType=VARCHAR} and AltTable = 'cs_pub_otherlicence' -->
+<!--   </select> -->
+
+	<select id="selectOtherlicencesList" parameterType="map" resultMap="BaseResultMap">
+		SELECT PriPID,GROUP_CONCAT(licnameCN) licNameCN  FROM cs_pub_otherlicence
+		WHERE PriPID IS NOT NULL AND PriPID != ''
+		<if test="updateTime !=null and updateTime != ''">
+			AND <![CDATA[ update_time >= #{updateTime}]]>
+		</if> 
+		GROUP BY PRIPID
+	</select>
+	
+	<select id="selectOtherlicenceListByPriPID" parameterType="map" resultMap="PubOtherlicenceDto">
+		SELECT PriPID,LicValTo FROM cs_pub_otherlicence
+		WHERE PriPID=#{priPID}
+		order by LicValTo desc
+	</select>
+	
+	<select id="foodExpireNum" parameterType="map" resultType="java.lang.Integer">
+	SELECT COUNT(1) FROM cs_pub_otherlicence A
+	LEFT JOIN cs_mid_baseinfo B ON A.PriPID=B.PriPID
+	WHERE A.LicState='1'
+	AND (A.LicScope LIKE CONCAT('%', '食品','%') OR A.LicNameCN LIKE CONCAT('%', '食品','%'))
+	AND <![CDATA[ A.LicValTo<NOW() ]]>
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	</select>
+	
+	<select id="drugsExpireNum" parameterType="map" resultType="java.lang.Integer">
+	SELECT COUNT(1) FROM cs_pub_otherlicence A
+	LEFT JOIN cs_mid_baseinfo B ON A.PriPID=B.PriPID
+	WHERE A.LicState='1'
+	AND (A.LicScope LIKE CONCAT('%', '药品','%') OR A.LicNameCN LIKE CONCAT('%', '药品','%'))
+	AND <![CDATA[ A.LicValTo<NOW() ]]>
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	</select>
+	
+	
+	<select id="selectLicenceInvalidMgrJSON" resultMap="PubOtherlicenceDto" parameterType="Map">
+		SELECT 
+			A.PriPID,
+			B.RegNO,
+			B.Unicode,
+			A.EntName,
+			A.LicNameCN,
+			A.LicNO,
+			A.LicValFrom,
+			A.LicValTo,
+			A.LicAnth,
+			A.LicType,
+			A.SetName,
+			A.SetDate,
+			A.LicState,
+			A.SetDeptname,
+			B.EntTypeCatg,
+			B.RegOrgName,
+			B.LocalAdmName,
+			B.LeRep,
+			B.Tel,
+			B.Dom
+		FROM cs_pub_otherlicence A
+		LEFT JOIN cs_mid_baseinfo B ON A.PriPID=B.PriPID
+		WHERE 1=1
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+		<include refid="pubOtherLicence_invalid"/>
+	</select>
+	
+	<sql id="pubOtherLicence_invalid">
+		<if test="priPID !='' and priPID !=null">
+		    and A.PriPID =#{priPID}
+		</if>
+		<if test="licNameCN !='' and licNameCN !=null">
+		    and A.LicNameCN LIKE concat('%', #{licNameCN},'%')
+		</if>
+		<if test="cidRegNO !='' and cidRegNO !=null">
+			and (B.RegNO  LIKE concat('%', #{cidRegNO},'%') or B.Unicode  LIKE concat('%', #{cidRegNO},'%') ) 
+		</if> 
+		<if test="regOrg !='' and regOrg !=null">
+		    and B.RegOrg in (${regOrg})
+		</if>
+		<if test="entName !='' and entName !=null">
+		    and A.EntName LIKE concat('%', #{entName},'%')
+		</if>
+		<if test="localAdm !='' and localAdm !=null">
+		    and B.LocalAdm in (${localAdm})
+		</if>
+		<if test="expire !='' and expire !=null">
+		    <if test="expire ==1">
+		    	AND (<![CDATA[ A.LicValTo >= now() ]]> OR  A.LicValTo IS NULL)
+		    </if>
+		    <if test="expire ==2">
+		    	AND <![CDATA[ A.LicValTo <= DATE_SUB(CURDATE(),INTERVAL -30 DAY) ]]> 
+		    	AND <![CDATA[ A.LicValTo >= now()]]>
+		    </if>
+		    <if test="expire ==3">
+		    	AND <![CDATA[ A.LicValTo <= now()]]>
+		    </if>
+		</if>
+		<if test="licState !='' and licState !=null">
+		    and A.LicState = #{licState}
+		</if>
+		<if test="licNO !='' and licNO !=null">
+		    and A.LicNO = #{licNO}
+		</if>
+		<if test="licValFrom !='' and licValFrom !=null">
+			<![CDATA[
+			   and A.LicValTo >= #{licValFrom}
+		]]>
+		</if>
+			<if test="licValTo !='' and licValTo !=null">
+			<![CDATA[
+			   and A.LicValTo <= #{licValTo}
+			]]>
+		</if>
+		<if test="dom !='' and dom !=null">
+			and B.Dom LIKE concat('%', #{dom},'%')
+		</if> 
+		<if test="licType !='' and licType !=null">
+		    and A.LicType in (${licType})
+		</if>
+		<if test="regState !='' and regState !=null">
+		    and B.RegState in (${regState})
+		</if>
+		<if test="setDateStart !='' and setDateStart !=null">
+			<![CDATA[
+			   and A.SetDate >= #{setDateStart}
+			]]>
+		</if>
+		<if test="setDateEnd !='' and setDateEnd !=null">
+			<![CDATA[
+			   and A.SetDate <= #{setDateEnd}
+			]]>
+		</if>
+		<if test="entTypeCatg !='' and entTypeCatg !=null">
+		    and B.EntTypeCatg in (${entTypeCatg})
+		</if>
+		<if test="setName !='' and setName !=null">
+		    and A.SetName=#{setName}
+		</if>
+		<if test="licAnth!=null and licAnth!=''">
+			and A.licAnth LIKE concat('%',#{licAnth},'%')
+		</if>
+	</sql>
+	
+	<select id="selectLicenceInvalidCount" resultMap="LicenceInvalidCount" parameterType="Map">
+		SELECT 
+		  COUNT(DISTINCT A.PriPID) entNum,
+		  COUNT(DISTINCT A.LicNO) licenceNum
+		FROM cs_pub_otherlicence A
+		LEFT JOIN cs_mid_baseinfo B ON A.PriPID = B.PriPID
+		WHERE 1=1
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+		<include refid="pubOtherLicence_invalid"/>
+  </select>
+</mapper>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.rpt.rptmapper.RptAnnounceMentInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.rpt.rptmodel.RptAnnounceMentInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <result column="areaCode" property="areaCode" jdbcType="VARCHAR" />
+    <result column="regOrgCode" property="regOrgCode" jdbcType="CHAR" />
+    <result column="localAdmCode" property="localAdmCode" jdbcType="VARCHAR" />
+    <result column="pubType" property="pubType" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+  </resultMap>
+  
+  
+   <select id="selectRptAnnounceMentInfo" resultMap="BaseResultMap" parameterType="Map">
+    <if test="statLevel != null and statLevel != '' and  statLevel == 'announcementinfo' ">
+            SELECT IFNULL(sum(num),0)  num  from  cs_rpt_announcement_info   where 1=1
+            <if test="pubtype !=null and pubtype ==1 ">
+			AND   PubType in ('1','2','3')
+			</if>
+			<if test="pubtype !=null and pubtype ==2 ">
+			AND   PubType in ('4','5')
+			</if>
+			<if test="pubtype !=null and pubtype ==3 ">
+			AND   PubType in ('6','7','17','18')
+			</if>
+			<if test="pubtype !=null and pubtype ==4 ">
+			AND   PubType in ('8')
+			</if>
+			<if test="pubtype !=null and pubtype ==5 ">
+			AND    PubType in ('9','10')
+			</if>
+			<if test="pubtype !=null and pubtype ==6 ">
+			AND   PubType in ('12')
+			</if>
+			<if test="pubtype !=null and pubtype ==7 ">
+			AND   PubType in ('13','14','15')
+			</if>
+			<if test="pubtype !=null and pubtype ==8 ">
+			AND   PubType in ('16')
+			</if>
+			<if test="areaCode !=null and areaCode ==33 ">
+			<!-- AND  LEFT(areaCode,2)='33' -->
+			</if>
+			<if test="areaCode !=33 and areaCode !=null and areaCode !='' ">
+			AND areaCode = #{areaCode} 
+        	</if>
+    </if>
+     <if test="statLevel != null and statLevel != '' and  statLevel == 'announcementinfobytype' ">
+            SELECT IFNULL(sum(num),0)  num  from  cs_rpt_announcement_info   where 
+            PubType=#{pubtype}
+			<if test="areaCode !=null and areaCode ==33 ">
+			<!-- AND  LEFT(areaCode,2)='33' -->
+			</if>
+			<if test="areaCode !=33 and areaCode !=null and areaCode !=''  and pubtype !=6  and pubtype !=7 ">
+			AND areaCode = #{areaCode} 
+        	</if>
+    </if>
+  </select>
+</mapper>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.depsyn.mapper.CsDepsynPunishMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.depsyn.model.CsDepsynPunish" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="PenDecNo" property="penDecNo" jdbcType="VARCHAR" />
+    <result column="CerIssDate" property="cerIssDate" jdbcType="VARCHAR" />
+    <result column="CerIssDateState" property="cerIssDateState" jdbcType="CHAR" />
+    <result column="IllegActType" property="illegActType" jdbcType="VARCHAR" />
+    <result column="PenType" property="penType" jdbcType="VARCHAR" />
+    <result column="PenAuth" property="penAuth" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="VARCHAR" />
+    <result column="RegNOState" property="regNOState" jdbcType="CHAR" />
+    <result column="UniScid" property="uniScid" jdbcType="VARCHAR" />
+    <result column="UniScidState" property="uniScidState" jdbcType="CHAR" />
+    <result column="CheckState" property="checkState" jdbcType="VARCHAR" />
+    <result column="InputPerID" property="inputPerID" jdbcType="VARCHAR" />
+    <result column="InputDepCode" property="inputDepCode" jdbcType="VARCHAR" />
+    <result column="InputDate" property="inputDate" jdbcType="TIMESTAMP" />
+    <result column="Year" property="year" jdbcType="VARCHAR" />
+    <result column="Adcode" property="adcode" jdbcType="VARCHAR" />
+    <result column="ProType" property="proType" jdbcType="VARCHAR" />
+    <result column="ErrorCode" property="errorCode" jdbcType="VARCHAR" />
+    <result column="ResubTime" property="resubTime" jdbcType="TIMESTAMP" />
+    <result column="FeedbackTime" property="feedbackTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <!-- 据企业名称或注册号或统一社会信用代码查询行政处罚数据 -->
+  <select id="queryPunish" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+    SELECT
+      id, UID, PriPID, PenDecNo, CerIssDate,
+      CerIssDateState, IllegActType, PenType, PenAuth, EntName,
+      RegNO, RegNOState, UniScid, UniScidState, CheckState,
+      InputPerID, InputDepCode, InputDate, Year, Adcode
+    FROM
+      cs_depsyn_punish
+    WHERE 1=1
+    <if test="deptCode != null and deptCode != ''">
+     AND InputDepCode = #{deptCode}
+    </if>
+    <if test="keyword != null and keyword != ''">
+      AND (EntName = #{keyword} OR RegNO = #{keyword} OR UniScid = #{keyword})
+    </if>
+    <if test="resubTimeStart != null and resubTimeStart != ''">
+    <![CDATA[AND ResubTime >= #{resubTimeStart}]]>
+    </if>
+    <if test="resubTimeEnd != null and resubTimeEnd != ''">
+    <![CDATA[AND ResubTime <= #{resubTimeEnd}]]>
+    </if>
+    <if test="id != null and id != ''">
+      AND id=#{id}
+    </if>
+    <if test="checkState != null and checkState != ''">
+      AND CheckState=#{checkState}
+    </if>
+    ORDER BY id DESC
+  </select>
+
+</mapper>

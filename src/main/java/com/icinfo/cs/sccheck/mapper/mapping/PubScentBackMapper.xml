@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.sccheck.mapper.PubScentBackMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sccheck.model.PubScentBack" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Uid" property="uid" jdbcType="VARCHAR" />
+    <result column="TaskUid" property="taskUid" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="EntTypeCatg" property="entTypeCatg" jdbcType="CHAR" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="CHAR" />
+    <result column="RegState" property="regState" jdbcType="CHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+    <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+    <result column="SliceNO" property="sliceNO" jdbcType="VARCHAR" />
+    <result column="SliceNOName" property="sliceNOName" jdbcType="VARCHAR" />
+    <result column="SpecialCode" property="specialCode" jdbcType="VARCHAR" />
+    <result column="SpecialName" property="specialName" jdbcType="VARCHAR" />
+    <result column="EstDate" property="estDate" jdbcType="TIMESTAMP" />
+    <result column="MarkCode" property="markCode" jdbcType="VARCHAR" />
+    <result column="MarkName" property="markName" jdbcType="VARCHAR" />
+    <result column="CheckCode" property="checkCode" jdbcType="VARCHAR" />
+    <result column="CheckName" property="checkName" jdbcType="VARCHAR" />
+    <result column="LastCheckTime" property="lastCheckTime" jdbcType="TIMESTAMP" />
+    <result column="RelateUserUid" property="relateUserUid" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="DrSpeaialUid" property="drSpeaialUid" jdbcType="VARCHAR" />
+    <result column="CheckDeptCode" property="checkDeptCode" jdbcType="VARCHAR" />
+    <result column="CheckDeptName" property="checkDeptName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapDto" type="com.icinfo.cs.sccheck.dto.PubScentBackDto" extends="BaseResultMap">
+  		<id column="specialNum" property="specialNum" jdbcType="INTEGER" />
+  </resultMap>
+  
+   <!-- 查询待抽检库列表 -->
+  <select id="selectPubScentBackDtoList" resultMap="BaseResultMapDto" parameterType="Map"> 
+	SELECT
+		id,Uid,TaskUid,PriPID,EntName,RegNO,EntTypeCatg,RegOrg,LocalAdm,RegState,UniCode,RegOrgName,LocalAdmName,SliceNO
+		,SliceNOName,SpecialCode,SpecialName,EstDate,MarkCode,MarkName,LastCheckTime,RelateUserUid,SetTime,DrSpeaialUid,CheckDeptCode,CheckDeptName
+	FROM
+		cs_pub_scent_back
+	<trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="taskUid != null and taskUid != ''">
+			and TaskUid = #{taskUid}
+		</if>
+		<if test="entName != null and entName != ''">
+			and EntName like concat('%', #{entName},'%')
+		</if>
+		<if test="regNO != null and regNO != ''">
+			and (RegNO like #{regNO} OR UniCode = #{regNO})
+		</if>
+	</trim>
+  </select>
+   <!-- 统计本次抽查任务专项库数量 -->
+  <select id="selectSpecialTypes" resultMap="BaseResultMapDto" parameterType="java.lang.String"> 
+	SELECT
+		SpecialCode,SpecialName,CheckCode,CheckName,count(PriPID) specialNum
+	FROM
+		cs_pub_scent_back 
+	where TaskUid = #{taskUid}
+	GROUP BY SpecialCode
+	order by SpecialCode
+  </select>
+  
+  <select id="selectPubScentBackForRandom" resultMap="BaseResultMap" parameterType="Map"> 
+  	SELECT id,Uid,TaskUid,PriPID,EntName,RegNO,EntTypeCatg,RegOrg,LocalAdm,RegState,UniCode,RegOrgName,LocalAdmName,SliceNO
+		,SliceNOName,SpecialCode,SpecialName,EstDate,MarkCode,MarkName,LastCheckTime,RelateUserUid,SetTime,DrSpeaialUid,CheckDeptCode,CheckDeptName
+	FROM
+		cs_pub_scent_back
+	<trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="taskUid != null and taskUid != ''">
+			and TaskUid = #{taskUid,jdbcType=VARCHAR}
+		</if>
+		<if test="specialCode != null and specialCode != ''">
+			and SpecialCode = #{specialCode,jdbcType=VARCHAR}
+		</if>
+	</trim>
+	order by RegOrg,LocalAdm
+	limit #{limit},1
+  </select>
+  
+  <select id="selectPubScentBackListForRandom" resultMap="BaseResultMap" parameterType="Map"> 
+  	SELECT id,Uid,TaskUid,PriPID,EntName,RegNO,EntTypeCatg,RegOrg,LocalAdm,RegState,UniCode,RegOrgName,LocalAdmName,SliceNO
+		,SliceNOName,SpecialCode,SpecialName,EstDate,MarkCode,MarkName,LastCheckTime,RelateUserUid,SetTime,DrSpeaialUid,CheckDeptCode,CheckDeptName
+	FROM
+		cs_pub_scent_back
+	<trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="taskUid != null and taskUid != ''">
+			and TaskUid = #{taskUid,jdbcType=VARCHAR}
+		</if>
+		<if test="specialCode != null and specialCode != ''">
+			and SpecialCode = #{specialCode,jdbcType=VARCHAR}
+		</if>
+	</trim>
+	order by RegOrg,LocalAdm
+	limit #{limit},#{step}
+  </select>
+</mapper>

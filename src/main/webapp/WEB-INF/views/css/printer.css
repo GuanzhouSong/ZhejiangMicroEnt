@@ -1,0 +1,134 @@
+/*css reset*/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption, option {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-weight: inherit;
+    font-style: inherit;
+    font-family: inherit;
+    vertical-align: baseline;
+}
+
+body {
+    font-family: "Microsoft Yahei", Arial, "宋体";
+    font-size: 12px;
+}
+
+ol, ul {
+    list-style: none
+}
+
+table {
+    border-collapse: collapse;
+}
+
+caption, th, td {
+    font-weight: normal
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+    content: ''
+}
+
+blockquote, q {
+    quotes: "" ""
+}
+
+input {
+    vertical-align: middle;
+    outline: none;
+    padding: 0;
+}
+
+textarea {
+    outline: none;
+}
+
+img {
+    border: none 0;
+    vertical-align: middle;
+    outline: none;
+}
+
+strong {
+    font-weight: bold;
+}
+
+.state-msg em.bdnone {
+    border-right: none;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+/* 清除浮动*/
+.clearfix:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    font-size: 0;
+    line-height: 0;
+}
+
+*.clearfix {
+    zoom: 1;
+}
+
+.col-4 {
+    float: left;
+    width: 33.33333333%;
+}
+
+.col-6 {
+    float: left;
+    width: 50%;
+}
+
+.col-8 {
+    float: left;
+    width: 66.66666667%;
+}
+
+.mod-print {
+    margin: 0 auto;
+    width: 700px;
+    font-size: 14px;
+    line-height: 24px;
+}
+.mod-print .mod-print-hd {
+    text-align: center;
+    margin: 20px 0 20px 0;
+}
+.mod-print .mod-print-hd h1 {
+    font-size: 28px;
+}
+.table-print td{
+    border: 1px solid #000;
+    padding: 5px 5px;
+    text-align: center;
+    line-height: 20px;
+    height: 40px;
+}
+.table-print td.col-l {
+    text-align: left;
+}
+.table-print.table-print2 td{
+    border-top: 0;
+    height: 190px;
+}
+.right-top 
+{
+    width: 40px;
+    height:40px;
+    position: fixed;
+    z-index: 999;
+    left:95%;
+    top: 40px;
+}
+@MEDIA print  {
+	.Noprint{display:none;}    
+}

@@ -1,0 +1,183 @@
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_001','青创迭代创空间','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_002','浙江大学e-works创业实验室','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_003','贝壳社','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_004','创业定制','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_005','恒创客','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_006','云咖啡','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_007','楼友会','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_008','六和桥','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_009','福云创咖','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_010','西湖创客汇','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_011','创业蜂房','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_012','腾讯创业基地（杭州）','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_013','we-Link之“1024”创新基地','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_014','王道互联网+众创空间','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_015','宁波新材料众创空间','ZCKJ','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_016','鄞州区大学生（青年）创业园7号众创空间','ZCKJ','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_017','宁波集物堂众创平台','ZCKJ','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_018','西电筋斗云众创空间','ZCKJ','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_019','Pearl Space众创空间','ZCKJ','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_020','中物科技园“SOS空间站”','ZCKJ','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_021','宁波中科院创客空间','ZCKJ','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_022','良仓众创空间','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_023','银江创业梦工场','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_024','润湾创客中心','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_025','Equarter众创空间','ZCKJ','330500');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_026','金融客吧','ZCKJ','330500');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_027','极客创业营','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_028','沃创空间','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_029','温州大学众创空间','ZCKJ','330300');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_030','嘉禾地带','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_031','温州产业科技众创空间','ZCKJ','330300');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_032','楚洲人才梦工场','ZCKJ','331000');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_033','浙江工贸学院众创空间','ZCKJ','330300');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_034','湾西众创空间','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_035','台州众创空间','ZCKJ','331000');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_036','独角兽','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_037','海宁苏河汇','ZCKJ','330400');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_038','第七空间','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_039','吴兴众创空间','ZCKJ','330500');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_040','创客梦工场','ZCKJ','330300');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_041','创客码头','ZCKJ','330900');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_042','映创空间','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_043','贝壳咖啡创客空间','ZCKJ','330400');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_044','北斗创客家','ZCKJ','330400');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_045','衢州苏河汇','ZCKJ','330800');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_046','经纬创造社','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_047','微巢空间','ZCKJ','330600');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_048','杭州幼发拉底创业空间','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_049','狐仙会联创空间','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_050','创盒空间','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_051','魔豆工坊','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_052','零·一智慧谷','ZCKJ','330400');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_053','B2B睿智工场','ZCKJ','330800');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_054','凤岐茶社乌镇创客空间','ZCKJ','330400');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_055','泰豪创空间','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_056','创客公社','ZCKJ','330400');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_057','唯曦V创汇','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_058','创业小二','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_059','UP+THINK众创空间','ZCKJ','330400');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_060','薪火工坊','ZCKJ','330300');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_061','258邻客','ZCKJ','330800');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_062','杭州望江创业大街','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_063','清创空间','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_064','地信梦工场','ZCKJ','330500');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_065','北京大学（金华）信息科技园创业孵化营','ZCKJ','330700');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_066','123茶楼','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_067','众创实验室','ZCKJ','330500');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_068','温青汇','ZCKJ','330300');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_069','宁波新材料创客中心','ZCKJ','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_070','“海蓝宝”众创空间','ZCKJ','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_071','梦想4.0创新工场','ZCKJ','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_072','宁海求是众创空间','ZCKJ','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_073','甬创工社','ZCKJ','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_074','宁波市创新设计众创空间','ZCKJ','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_075','万里笃创','ZCKJ','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_076','复旦大学宁波创客服务中心','ZCKJ','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_077','数字科技园众创空间','ZCKJ','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_078','创梦未来','ZCKJ','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_079','宁波市天使投资俱乐部','ZCKJ','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_080','浙大宁波工研院','ZCKJ','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_080','浙江大学国家大学科技园（浙江大学科技园发展有限公司）','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_081','浙江省国家大学科技园（浙江高校科技园发展有限公司）','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_082','宁波大学科技园（宁波市大学科技园发展有限公司）','ZCKJ','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_083','中国美术学院国家大学科技园（杭州之江创意园开发有限公司）','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_084','温州市国家大学科技园','ZCKJ','330300');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('ZCKJ_085','中国计量学院国家大学科技园（杭州嘉量科技企业管理有限公司）','ZCKJ','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_001','杭州高新技术产业开发区科技创业服务中心','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_002','宁波市科技创业中心','KJFHY','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_003','温州高新技术产业园区创业服务中心','KJFHY','330300');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_004','金华科技园创业服务中心','KJFHY','330700');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_005','嘉兴科技创业服务中心','KJFHY','330400');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_006','绍兴市高新技术创业服务中心','KJFHY','330600');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_007','浙江大学科技园发展有限公司（浙江大学国家大学科技园）','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_008','宁波保税区科技促进中心','KJFHY','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_009','湖州科技创业服务中心','KJFHY','330500');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_010','杭州市上城区科技创业中心','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_011','杭州拱墅区科技创业服务中心','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_012','嘉善县科技创业服务有限公司','KJFHY','330400');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_013','长兴民营科技园发展有限公司','KJFHY','330500');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_014','宁波经济技术开发区科技创业园服务中心','KJFHY','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_015','临安市科技孵化中心','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_016','台州市高新技术创业服务中心有限公司','KJFHY','331000');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_017','嘉兴市南湖科技创业服务中心','KJFHY','330400');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_018','杭州东部软件园股份有限公司','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_019','浙江大学科技园宁波发展有限公司','KJFHY','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_020','杭州数字娱乐园有限公司','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_021','宁波市鄞创科技孵化器管理服务有限公司','KJFHY','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_022','浙江秀洲科技创业发展有限公司','KJFHY','330400');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_023','浙江赛博科技孵化器有限公司','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_024','杭州乐富智汇园孵化器有限公司','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_025','湖州吴兴区科技发展有限公司','KJFHY','330500');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_026','杭州市下城区科技创业中心','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_027','颐高科技创业园有限公司','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_028','德清科技创业服务有限公司','KJFHY','330500');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_029','银江孵化器股份有限公司','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_030','杭州市高科技企业孵化器有限公司','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_031','绍兴市越城科技创业中心有限公司','KJFHY','330600');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_032','乐清市科技孵化创业中心','KJFHY','330300');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_033','杭州余杭高新园区孵化器有限公司','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_034','杭州之江创意园开发有限公司','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_035','浙江高校科技园发展有限公司（浙江省国家大学科技园）','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_036','桐乡市科技创业服务中心有限公司','KJFHY','330400');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_037','杭州万轮科技创业中心有限公司','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_038','宁波高新区甬港现代创业服务有限公司','KJFHY','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_039','平湖市高新技术创业服务中心发展有限公司','KJFHY','330400');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_040','绍兴市科技创业中心','KJFHY','330600');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_041','杭州嘉量科技企业管理有限公司（中国计量学院科技创业园）','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_042','杭州电子商务产业园发展有限公司','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_043','浙江汇林科技孵化园有限公司','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_044','杭州华业高科技产业园有限公司','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_045','海盐县科技创业服务中心','KJFHY','330400');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_046','宁波市大学科技园发展有限公司','KJFHY','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_047','海宁市科技创业中心','KJFHY','330400');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_048','安吉科技创业园有限公司','KJFHY','330500');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_049','浙江智新泽地科技发展有限公司','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_050','浙江向上投资管理有限公司','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_051','杭州天盛科技创业服务有限公司','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_052','浙江中物九鼎科技孵化器有限公司','KJFHY','330200');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_053','杭州天和高科技产业园有限公司','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_054','杭州恒生百川科技有限公司','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_055','浙江杭州湾信息港高新建设开发有限公司','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_056','和瑞科技（杭州）有限公司','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_057','杭州和达文化创意产业园管理有限公司','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_058','杭州师范大学科技园发展有限公司','KJFHY','330100');
+INSERT INTO sm_bus_entarchives_area(AreaCode,AreaName,AreaPcode,DeptCode) VALUE('KJFHY_059','宁波市鄞州鄞创大学生创业园管理服务有限公司','KJFHY','330200');
+
+
+-- 特色小镇
+INSERT INTO sm_bus_entarchives_area (AreaCode, AreaName, AreaPcode,DeptCode)
+VALUE('TSXZ_001', '上城玉皇山南基金小镇','TSXZ','3301');
+
+INSERT INTO sm_bus_entarchives_area (AreaCode,AreaName,AreaPcode,DeptCode)
+VALUE('TSXZ_002','余杭梦想小镇','TSXZ','3301');
+
+INSERT INTO sm_bus_entarchives_area (AreaCode,AreaName,AreaPcode,DeptCode)
+VALUE('TSXZ_003','西湖云栖小镇','TSXZ','3301');
+
+INSERT INTO sm_bus_entarchives_area (AreaCode,AreaName,AreaPcode,DeptCode)
+VALUE('TSXZ_004','临安云制造小镇','TSXZ','3301');
+
+INSERT INTO sm_bus_entarchives_area (AreaCode,AreaName,AreaPcode,DeptCode)
+VALUE('TSXZ_005','江干丁兰智慧小镇','TSXZ','3301');
+
+INSERT INTO sm_bus_entarchives_area (AreaCode,AreaName,AreaPcode,DeptCode)
+VALUE('TSXZ_006','富阳硅谷小镇','TSXZ','3301');
+
+INSERT INTO sm_bus_entarchives_area (AreaCode,AreaName,AreaPcode,DeptCode)
+VALUE('TSXZ_007','桐庐健康小镇','TSXZ','3301');
+
+INSERT INTO sm_bus_entarchives_area (AreaCode,AreaName,AreaPcode,DeptCode)
+VALUE('TSXZ_008','余杭艺尚小镇','TSXZ','3301');
+
+INSERT INTO sm_bus_entarchives_area (AreaCode,AreaName,AreaPcode,DeptCode)
+VALUE('TSXZ_009','西湖龙坞茶镇','TSXZ','3301');
+
+INSERT INTO sm_bus_entarchives_area (AreaCode,AreaName,AreaPcode,DeptCode)
+VALUE('TSXZ_010','江北动力小镇','TSXZ','3302');
+
+INSERT INTO sm_bus_entarchives_area (AreaCode,AreaName,AreaPcode,DeptCode)
+VALUE('TSXZ_011','梅山海洋金融小镇','TSXZ','3302');
+
+INSERT INTO sm_bus_entarchives_area (AreaCode,AreaName,AreaPcode,DeptCode)
+VALUE('TSXZ_012','奉化滨海养生小镇','TSXZ','3302');

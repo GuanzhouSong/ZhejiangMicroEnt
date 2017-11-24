@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.dzdtinfo.mapper.HzDzhyZfgjjjcdjMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.dzdtinfo.model.HzDzhyZfgjjjcdj" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PRIPID" property="priPid" jdbcType="VARCHAR" />
+    <result column="JBR" property="jbr" jdbcType="VARCHAR" />
+    <result column="CERNO" property="cerNo" jdbcType="VARCHAR" />
+    <result column="MOBTEL" property="mobtel" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

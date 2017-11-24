@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.rpt.rptmapper.SmCountMonthRouteMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.rpt.rptmodel.SmCountMonthRoute" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="SmCount" property="smcount" jdbcType="INTEGER" />
+    <result column="SmMonth" property="smmonth" jdbcType="VARCHAR" />
+    <result column="SmFlag" property="smflag" jdbcType="CHAR" />
+  </resultMap>
+  
+  <select id="selectSmCountMonthRoute" resultMap="BaseResultMap" parameterType="MAP">
+	SELECT id,SmCount,SmMonth,SmFlag FROM sm_count_month_route WHERE 1=1
+	<if test="smFlag !=null and smFlag !=''">
+	 and SmFlag = #{smFlag}
+	</if>
+	ORDER BY SmMonth DESC LIMIT ${numStart},${pageSize}
+  </select>
+</mapper>

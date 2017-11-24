@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.depsyn.mapper.DepSynSearchHisMapper" >
+
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.depsyn.dto.DepSynSearchHisDto" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="HisPriPID" property="hisPriPID" jdbcType="CHAR" />
+    <result column="HisEntName" property="hisEntName" jdbcType="VARCHAR" />
+    <result column="HisUniCode" property="hisUniCode" jdbcType="CHAR" />
+    <result column="HisRegNO" property="hisRegNO" jdbcType="CHAR" />
+    <result column="HisUserId" property="hisUserId" jdbcType="VARCHAR" />
+    <result column="HisViewTime" property="hisViewTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+    <select id="selectHistory" resultMap="BaseResultMap" parameterType="map">
+		SELECT UID, HisPriPID, HisEntName, HisUniCode, HisRegNO, HisUserId, HisViewTime 
+			FROM cs_depsyn_search_his
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+	    	<if test="uid != null and uid != ''">
+	    	 	UID=#{uid} 
+	    	</if>
+	    	<if test="priPID != null and priPID != ''">
+	    	 	HisPriPID=#{priPID} 
+	    	</if>
+			<if test="userId != null and userId != ''">
+				AND HisUserId=#{userId}
+			</if>
+			<if test="uniCode != null and uniCode != ''">
+				AND HisUniCode=#{uniCode}
+			</if>
+			<if test="regNO != null and regNO != ''">
+				AND HisRegNO=#{regNO}
+			</if>
+		</trim>
+		ORDER BY HisViewTime DESC
+		LIMIT 0,5
+	</select>
+	
+	<select id="historyExist" resultMap="BaseResultMap" parameterType="map">
+		SELECT UID FROM cs_depsyn_search_his WHERE HisUserId=#{userId} AND HisPriPID=#{priPID} LIMIT 0,1
+	</select>
+  
+</mapper>

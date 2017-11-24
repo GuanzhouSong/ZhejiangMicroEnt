@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.copysend.mapper.CopySendMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.copysend.model.CopySend" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="CopyFormNo" property="copyFormNo" jdbcType="VARCHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="CopyNo" property="copyNo" jdbcType="INTEGER" />
+    <result column="CopyDepartCode" property="copyDepartCode" jdbcType="VARCHAR" />
+    <result column="CopyDepartName" property="copyDepartName" jdbcType="VARCHAR" />
+    <result column="AcceptDeptCodes" property="acceptDeptCodes" jdbcType="VARCHAR" />
+    <result column="AcceptDeptNames" property="acceptDeptNames" jdbcType="VARCHAR" />
+    <result column="CopyType" property="copyType" jdbcType="VARCHAR" />
+    <result column="CopyState" property="copyState" jdbcType="VARCHAR" />
+    <result column="IllegalItem" property="illegalItem" jdbcType="VARCHAR" />
+    <result column="CopyInfoFrom" property="copyInfoFrom" jdbcType="VARCHAR" />
+    <result column="FeedbackNeed" property="feedbackNeed" jdbcType="INTEGER" />
+    <result column="IllegalCase" property="illegalCase" jdbcType="VARCHAR" />
+    <result column="EvidenceData" property="evidenceData" jdbcType="VARCHAR" />
+    <result column="CopyDate" property="copyDate" jdbcType="TIMESTAMP" />
+    <result column="CopyOptDate" property="copyOptDate" jdbcType="TIMESTAMP" />
+    <result column="CopyDepartPerson" property="copyDepartPerson" jdbcType="VARCHAR" />
+    <result column="CopyDepartTel" property="copyDepartTel" jdbcType="VARCHAR" />
+    <result column="CopyDepartFax" property="copyDepartFax" jdbcType="VARCHAR" />
+    <result column="CopyDepartMail" property="copyDepartMail" jdbcType="VARCHAR" />
+    <result column="CheckPerson" property="checkPerson" jdbcType="VARCHAR" />
+    <result column="CheckResult" property="checkResult" jdbcType="VARCHAR" />
+    <result column="CheckDate" property="checkDate" jdbcType="TIMESTAMP" />
+    <result column="CheckOpinion" property="checkOpinion" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap id="CopySendDto" type="com.icinfo.cs.copysend.dto.CopySendDto" extends="BaseResultMap">
+  	<result column="AcceptDepartCode"  property="acceptDepartCode" jdbcType="VARCHAR"></result>
+  	<result column="AcceptDepartName"  property="acceptDepartName" jdbcType="VARCHAR"></result>
+  	<result column="fkState"  property="fkState" jdbcType="VARCHAR"></result>
+  </resultMap>
+  
+  <sql id="cgcs_where">
+  	<if test="copyFormNo != null and copyFormNo != ''">
+	  	and	a.CopyFormNo = #{copyFormNo}
+	</if>
+  	<if test="copyInfoFrom != null and copyInfoFrom != ''">
+	  	and	a.copyInfoFrom = #{copyInfoFrom}
+	</if>
+  	<if test="copyType != null and copyType!=''">
+  		and a.CopyType = #{copyType}
+  	</if>
+  	<if test="feedbackNeed !=null and feedbackNeed != ''">
+  		and a.FeedbackNeed = #{feedbackNeed}
+  	</if>
+  	<if test="illegalItem!=null and illegalItem!=''">
+  		and a.IllegalItem like concat('%', #{illegalItem},'%')
+  	</if>
+  	<if test="clientName != null and clientName !=''">
+  		and ClientName = #{clientName}
+  	</if>
+  	<if test="startDate!=null and startDate!=''">
+  		and <![CDATA[ CopyDate > #{startDate} ]]>
+  	</if>
+  	<if test="endDate!=null and endDate!=''">
+  		and <![CDATA[ CopyDate < #{endDate} ]]>
+  	</if>
+  	<if test="sendDeptCode != null and sendDeptCode != ''">
+  		<if test="dutyCodes == 'A058'.toString()">
+  		and (CopyDepartCode = #{sendDeptCode}
+  		OR (LENGTH(CopyDepartCode) = '8' AND CopyDepartCode = LEFT(#{sendDeptCode},8)))
+  		</if>
+  		<if test="dutyCodes != 'A058'.toString()">
+  		and CopyDepartCode = #{sendDeptCode}
+  		</if>
+  	</if>
+  	<if test="acceptDeptCodes != null and acceptDeptCodes != ''">
+  		and AcceptDeptCodes like concat('%', #{acceptDeptCodes},'%')
+  	</if>
+  	<if test="copyState!=null and copyState !=''">
+  		and CopyState = #{copyState}
+  	</if>	
+  	<if test="fkState !=null and fkState !=''">
+  		and b.State = #{fkState}
+  	</if>
+  </sql>
+  
+  
+  <select id="selectAllSend" resultMap="CopySendDto" parameterType="map">
+  	SELECT 
+  		id,UID,CopyFormNo,CopyDepartCode,CopyDepartName,AcceptDeptCodes,AcceptDeptNames,
+  		CopyType,copyState,IllegalItem,CopyInfoFrom,FeedbackNeed,IllegalCase,
+  		EvidenceData,CopyDate,CopyOptDate,CopyDepartPerson,CopyDepartTel,
+  		CopyDepartFax,CopyDepartMail,CheckPerson,CheckResult,CheckDate,
+  		CheckOpinion,CreateTime
+  	FROM cs_copy_send a
+  		where 1=1
+  	<include refid="cgcs_where"></include>
+  </select>
+  
+  <select id="selectXTSend" resultMap="CopySendDto" parameterType="map">
+  	SELECT 
+  		id,UID,CopyFormNo,CopyDepartCode,CopyDepartName,AcceptDeptCodes,AcceptDeptNames,
+  		CopyType,copyState,IllegalItem,CopyInfoFrom,FeedbackNeed,IllegalCase,
+  		EvidenceData,CopyDate,CopyOptDate,CopyDepartPerson,CopyDepartTel,
+  		CopyDepartFax,CopyDepartMail,CheckPerson,CheckResult,CheckDate,
+  		CheckOpinion,CreateTime
+  	FROM cs_copy_send a
+  	WHERE  CopyDepartCode = #{deptCode}
+  	<if test="dutyDeptCodes !=null and dutyDeptCodes !='' and dutyDeptCodes == 'A058'.toString() ">
+  	and (1=1 or (LENGTH(CopyDepartCode)='8' and CopyDepartCode = LEFT(#{deptCode},8)))
+  	</if>
+  	<include refid="cgcs_where"></include>
+  </select>
+  
+  <select id="selectJSSend" resultMap="CopySendDto" parameterType="map">
+  	SELECT 
+  		a.id,a.UID,a.CopyFormNo,CopyDepartCode,CopyDepartName,AcceptDeptCodes,AcceptDeptNames,
+  		CopyType,copyState,IllegalItem,CopyInfoFrom,FeedbackNeed,IllegalCase,
+  		EvidenceData,CopyDate,CopyOptDate,CopyDepartPerson,CopyDepartTel,
+  		CopyDepartFax,CopyDepartMail,CheckPerson,CheckResult,CheckDate,
+  		CheckOpinion,CreateTime
+  	FROM cs_copy_send a
+  	LEFT JOIN cs_dept_dutycode_ref b ON a.CopyDepartCode = b.AdCode
+  	WHERE 1=1
+  	and (CopyDepartCode = #{deptCode} or 
+  	(b.DutyDeptCode = 'A058' and b.AdCode like concat('%',#{deptCode},'%')))
+  	<include refid="cgcs_where"></include>
+  </select>
+  
+   <select id="selectAllAccept" resultMap="CopySendDto" parameterType="map">
+  	SELECT 
+  		a.id,a.UID,a.CopyFormNo,a.CopyDepartCode,a.CopyDepartName,CopyType,
+  		a.copyState,IllegalItem,CopyInfoFrom,FeedbackNeed,IllegalCase,
+  		EvidenceData,CopyDate,CopyOptDate,CopyDepartPerson,CopyDepartTel,
+  		CopyDepartFax,CopyDepartMail,CheckPerson,CheckResult,CheckDate,
+  		CheckOpinion,a.CreateTime,a.AcceptDeptCodes,a.AcceptDeptNames,
+  		AcceptDepartCode,b.State fkState
+  	FROM cs_copy_send a 
+  	LEFT JOIN cs_copy_send_feedback b ON  a.CopyFormNo = b.CopyFormNo
+  	<if test="userType !=null and userType !='' and userType == '2'.toString() ">
+  	where b.AcceptDepartCode = #{acceptDepartCode}
+  	</if>
+  	<if test="userType !=null and userType !='' and userType == '1'.toString() ">
+  	LEFT JOIN cs_dept_dutycode_ref c ON  b.AcceptDepartCode = c.AdCode
+  	where c.DutyDeptCode = 'A058'
+  	and c.AdCode like concat('%',#{acceptDepartCode},'%')
+  	</if>
+  	<include refid="cgcs_where"></include>		
+  </select>
+  
+  <select id="selectMaxCopyFormNo" resultMap="CopySendDto" parameterType="map">
+  	select 
+  		a.id,a.UID,a.CopyFormNo,Year,max(CopyNo) CopyNo,CopyDepartCode,CopyDepartName 
+  	from 
+  		cs_copy_send a
+  	LEFT JOIN cs_dept_dutycode_ref b ON a.CopyDepartCode = b.AdCode
+  	where 
+  		Year = #{year}
+  	<if test="userType !=null and userType !='' and userType =='1'.toString()">
+  		and (CopyDepartCode = #{copyDepartCode} 
+  		or 
+  		(b.DutyDeptCode = 'A058' and b.AdCode like concat('%',#{copyDepartCode},'%')))
+  	</if>
+  	<if test="userType !=null and userType !='' and userType == '2'.toString() ">
+  		<if test="dutyDeptCodes !=null and dutyDeptCodes !='' and dutyDeptCodes !='A058'.toString()">
+	  	and CopyDepartCode = #{copyDepartCode}
+	  	</if>
+	  	<if test="dutyDeptCodes !=null and dutyDeptCodes !='' and dutyDeptCodes =='A058'.toString()">
+	  	and (CopyDepartCode = #{copyDepartCode}
+  		or 
+  		(length(CopyDepartCode) = '8' and CopyDepartCode = LEFT(#{copyDepartCode},8)))
+	  	</if>
+  	</if>
+  </select>
+  
+ <select id="selectTotal" parameterType="map" resultType="Integer">
+ 	select count(0)
+ 	FROM cs_copy_send a
+ 	<if test="userType !=null and userType !='' and userType == '1'.toString() ">
+ 	LEFT JOIN cs_dept_dutycode_ref b ON a.CopyDepartCode = b.AdCode
+ 	where(CopyDepartCode = #{departCode} 
+ 	  or (b.DutyDeptCode = 'A058' and b.AdCode like concat('%',#{departCode},'%')))
+ 	</if>
+ 	<if test="userType !=null and userType !='' and userType == '2'.toString() ">
+ 		<if test="dutyDeptCodes !=null and dutyDeptCodes !='' and dutyDeptCodes !='A058'.toString()">
+	  		where CopyDepartCode = #{departCode}
+	  	</if>
+	  	<if test="dutyDeptCodes !=null and dutyDeptCodes !='' and dutyDeptCodes =='A058'.toString()">
+		  	where (CopyDepartCode = #{departCode}
+	  		or 
+	  		(length(CopyDepartCode) = '8' and CopyDepartCode = LEFT(#{departCode},8)))
+	  	</if>
+ 	</if>
+ </select>
+ 
+ <select id="selectDaiShenHeNum" parameterType="map" resultType="Integer">
+ 	select count(0)
+ 	FROM cs_copy_send a
+ 	<if test="userType !=null and userType !='' and userType == '1'.toString() ">
+ 	LEFT JOIN cs_dept_dutycode_ref b ON a.CopyDepartCode = b.AdCode
+ 	where copyState = 'dsh'
+ 	and (CopyDepartCode = #{departCode} 
+    or (b.DutyDeptCode = 'A058' and b.AdCode like concat('%',#{departCode},'%')))
+ 	</if>
+ 	<if test="userType !=null and userType !='' and userType == '2'.toString() ">
+ 	where copyState = 'dsh'
+ 		<if test="dutyDeptCodes !=null and dutyDeptCodes !='' and dutyDeptCodes !='A058'.toString()">
+	  		and CopyDepartCode = #{departCode}
+	  	</if>
+	  	<if test="dutyDeptCodes !=null and dutyDeptCodes !='' and dutyDeptCodes =='A058'.toString()">
+		  	and (CopyDepartCode = #{departCode}
+	  		or 
+	  		(length(CopyDepartCode) = '8' and CopyDepartCode = LEFT(#{departCode},8)))
+	  	</if>
+ 	</if>
+ </select>
+ 
+ <select id="selectYCGFGZNum" parameterType="map" resultType="Integer">
+ 	select count(0)
+ 	FROM cs_copy_send a 
+ 	<if test="userType !=null and userType !='' and userType == '1'.toString() ">
+ 	LEFT JOIN cs_dept_dutycode_ref b ON a.CopyDepartCode = b.AdCode
+ 	where copyState = 'ycgfkz'
+ 	and (CopyDepartCode = #{departCode} 
+ 	or (b.DutyDeptCode = 'A058' and b.AdCode like concat('%',#{departCode},'%')))
+ 	</if>
+ 	<if test="userType !=null and userType !='' and userType == '2'.toString() ">
+ 	where copyState = 'ycgfkz'
+ 		<if test="dutyDeptCodes !=null and dutyDeptCodes !='' and dutyDeptCodes !='A058'.toString()">
+	  		and CopyDepartCode = #{departCode}
+	  	</if>
+	  	<if test="dutyDeptCodes !=null and dutyDeptCodes !='' and dutyDeptCodes =='A058'.toString()">
+		  	and (CopyDepartCode = #{departCode}
+	  		or 
+	  		(length(CopyDepartCode) = '8' and CopyDepartCode = LEFT(#{departCode},8)))
+	  	</if>
+ 	</if>
+ </select>
+ 
+ <select id="selectSHTHNum" parameterType="map" resultType="Integer">
+ 	select count(0)
+ 	FROM cs_copy_send a 
+ 	<if test="userType !=null and userType !='' and userType == '1'.toString() ">
+ 	LEFT JOIN cs_dept_dutycode_ref b ON a.CopyDepartCode = b.AdCode
+ 	where copyState = 'yshth'
+ 	and (CopyDepartCode = #{departCode} 
+ 	or (b.DutyDeptCode = 'A058' and b.AdCode like concat('%',#{departCode},'%')))
+ 	</if>
+ 	<if test="userType !=null and userType !='' and userType == '2'.toString() ">
+ 	where copyState = 'yshth'
+ 		<if test="dutyDeptCodes !=null and dutyDeptCodes !='' and dutyDeptCodes !='A058'.toString()">
+	  		and CopyDepartCode = #{departCode}
+	  	</if>
+	  	<if test="dutyDeptCodes !=null and dutyDeptCodes !='' and dutyDeptCodes =='A058'.toString()">
+		  	and (CopyDepartCode = #{departCode}
+	  		or 
+	  		(length(CopyDepartCode) = '8' and CopyDepartCode = LEFT(#{departCode},8)))
+	  	</if>
+ 	</if>
+ </select>
+ 
+  <select id="selectYCGFGZSuccessNum" parameterType="map" resultType="Integer">
+ 	select count(0)
+ 	FROM cs_copy_send a 
+ 	<if test="userType !=null and userType !='' and userType == '1'.toString() ">
+ 	LEFT JOIN cs_dept_dutycode_ref b ON a.CopyDepartCode = b.AdCode
+ 	where copyState = 'ycgfkwc'
+ 	and (CopyDepartCode = #{departCode} 
+ 	or (b.DutyDeptCode = 'A058' and b.AdCode like concat('%',#{departCode},'%')))
+ 	</if>
+ 	<if test="userType !=null and userType !='' and userType == '2'.toString() ">
+ 	where copyState = 'ycgfkwc'
+ 		<if test="dutyDeptCodes !=null and dutyDeptCodes !='' and dutyDeptCodes !='A058'.toString()">
+	  		and CopyDepartCode = #{departCode}
+	  	</if>
+	  	<if test="dutyDeptCodes !=null and dutyDeptCodes !='' and dutyDeptCodes =='A058'.toString()">
+		  	and (CopyDepartCode = #{departCode}
+	  		or 
+	  		(length(CopyDepartCode) = '8' and CopyDepartCode = LEFT(#{departCode},8)))
+	  	</if>
+ 	</if>
+ </select>
+ 
+  <select id="selectCancelCGNum" parameterType="map" resultType="Integer">
+ 	select count(0)
+ 	FROM cs_copy_send a 
+ 	<if test="userType !=null and userType !='' and userType == '1'.toString() ">
+ 	LEFT JOIN cs_dept_dutycode_ref b ON a.CopyDepartCode = b.AdCode
+ 	where copyState = 'qxcg'
+ 	and (CopyDepartCode = #{departCode} 
+ 	or (b.DutyDeptCode = 'A058' and b.AdCode like concat('%',#{departCode},'%')))
+ 	</if>
+ 	<if test="userType !=null and userType !='' and userType == '2'.toString() ">
+ 	where copyState = 'qxcg' 
+ 		<if test="dutyDeptCodes !=null and dutyDeptCodes !='' and dutyDeptCodes !='A058'.toString()">
+	  		and CopyDepartCode = #{departCode}
+	  	</if>
+	  	<if test="dutyDeptCodes !=null and dutyDeptCodes !='' and dutyDeptCodes =='A058'.toString()">
+		  	and (CopyDepartCode = #{departCode}
+	  		or 
+	  		(length(CopyDepartCode) = '8' and CopyDepartCode = LEFT(#{departCode},8)))
+	  	</if>
+ 	</if>
+ </select>
+ 
+  <select id="selectCGSuccessNum" parameterType="map" resultType="Integer">
+ 	select count(0)
+ 	FROM cs_copy_send a 
+ 	<if test="userType !=null and userType !='' and userType == '1'.toString() ">
+ 	LEFT JOIN cs_dept_dutycode_ref b ON a.CopyDepartCode = b.AdCode
+ 	where copyState = 'ycgwc'
+ 	and (CopyDepartCode = #{departCode} 
+ 	or (b.DutyDeptCode = 'A058' and b.AdCode like concat('%',#{departCode},'%')))
+ 	</if>
+ 	<if test="userType !=null and userType !='' and userType == '2'.toString() ">
+ 	where copyState = 'ycgwc' 
+ 		<if test="dutyDeptCodes !=null and dutyDeptCodes !='' and dutyDeptCodes !='A058'.toString()">
+	  		and CopyDepartCode = #{departCode}
+	  	</if>
+	  	<if test="dutyDeptCodes !=null and dutyDeptCodes !='' and dutyDeptCodes =='A058'.toString()">
+		  	and (CopyDepartCode = #{departCode}
+	  		or 
+	  		(length(CopyDepartCode) = '8' and CopyDepartCode = LEFT(#{departCode},8)))
+	  	</if>
+ 	</if>
+ </select>
+  
+ <select id="selectDFKNum" parameterType="map" resultType="Integer">
+ 	select count(0)
+ 	FROM cs_copy_send a
+ 	LEFT JOIN cs_copy_send_feedback b ON a.CopyFormNo = b.CopyFormNo
+ 	LEFT JOIN cs_dept_dutycode_ref c ON b.AcceptDepartCode = c.AdCode
+ 	where b.State = 0
+ 	<if test="userType !=null and userType !='' and userType == '1'.toString() ">
+ 	and (b.AcceptDepartCode = #{departCode}
+	 	or (c.DutyDeptCode = 'A058' and c.AdCode like concat('%',#{departCode},'%')))
+ 	</if>
+ 	<if test="userType !=null and userType !='' and userType == '2'.toString() ">
+ 		and b.AcceptDepartCode = #{departCode}
+ 	</if>
+ </select>
+ 
+ <select id="selectYFKNum" parameterType="map" resultType="Integer">
+ 	select count(0)
+ 	FROM cs_copy_send a
+ 	LEFT JOIN cs_copy_send_feedback b ON a.CopyFormNo = b.CopyFormNo
+ 	LEFT JOIN cs_dept_dutycode_ref c ON b.AcceptDepartCode = c.AdCode
+ 	where b.State = 1
+ 	<if test="userType !=null and userType !='' and userType == '1'.toString() ">
+ 	and (b.AcceptDepartCode = #{departCode}
+	 	or (c.DutyDeptCode = 'A058' and c.AdCode like concat('%',#{departCode},'%')))
+ 	</if>
+ 	<if test="userType !=null and userType !='' and userType == '2'.toString() ">
+ 		and b.AcceptDepartCode = #{departCode}
+ 	</if>
+ </select>
+ 
+ <select id="selectAcceptTotal" parameterType="map" resultType="Integer">
+ 	select count(0)
+ 	FROM cs_copy_send a
+ 	LEFT JOIN cs_copy_send_feedback b ON a.CopyFormNo = b.CopyFormNo
+ 	LEFT JOIN cs_dept_dutycode_ref c ON b.AcceptDepartCode = c.AdCode
+ 	where b.AcceptDepartCode = #{departCode}
+ 	<if test="userType !=null and userType !='' and userType == '1'.toString() ">
+	 	or (c.DutyDeptCode = 'A058' and c.AdCode like concat('%',#{departCode},'%'))
+ 	</if>
+ </select>
+</mapper>

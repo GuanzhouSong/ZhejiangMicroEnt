@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.orderreform.mapper.OrderReformSetMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.orderreform.model.OrderReformSet" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="RegNo" property="regNo" jdbcType="CHAR" />
+    <result column="UniSCID" property="uniSCID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="EntType" property="entType" jdbcType="CHAR" />
+    <result column="BusSt" property="busSt" jdbcType="CHAR" />
+    <result column="BusStatusCN" property="busStatusCN" jdbcType="VARCHAR" />
+    <result column="IndustryCo" property="industryCo" jdbcType="CHAR" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="ReportState" property="reportState" jdbcType="CHAR" />
+    <result column="ApplyMan" property="applyMan" jdbcType="VARCHAR" />
+    <result column="ApplyDate" property="applyDate" jdbcType="DATE" />
+    <result column="EfftStatus" property="efftStatus" jdbcType="CHAR" />
+    <result column="AuditState" property="auditState" jdbcType="CHAR" />
+    <result column="AdminGuideType" property="adminGuideType" jdbcType="VARCHAR" />
+    <result column="AdminGuideDocType" property="adminGuideDocType" jdbcType="VARCHAR" />
+    <result column="StaDate" property="staDate" jdbcType="DATE" />
+    <result column="EndDate" property="endDate" jdbcType="DATE" />
+    <result column="LinkMan" property="linkMan" jdbcType="VARCHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="AssignDate" property="assignDate" jdbcType="DATE" />
+    <result column="AuditName" property="auditName" jdbcType="VARCHAR" />
+    <result column="AuditDate" property="auditDate" jdbcType="DATE" />
+    <result column="AuditRemark" property="auditRemark" jdbcType="VARCHAR" />
+    <result column="IsAbort" property="isAbort" jdbcType="CHAR" />
+    <result column="SusRemark" property="susRemark" jdbcType="VARCHAR" />
+    <result column="SusDate" property="susDate" jdbcType="DATE" />
+    <result column="ApplySusMan" property="applySusMan" jdbcType="VARCHAR" />
+    <result column="ApplySusDate" property="applySusDate" jdbcType="DATE" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="AdminGuideCerContent" property="adminGuideCerContent" jdbcType="LONGVARCHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="CHAR" />
+    <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  
+
+    <select id="selectOrderReformSetList" resultMap="BaseResultMap" parameterType="Map"> 
+	        SELECT 
+ 				id,  
+			    UID, 
+			    PriPID, 
+			    RegNo, 
+			    UniSCID,
+			    EntName, 
+			    EntType, 
+			    BusSt, 
+			    BusStatusCN, 
+			    IndustryCo, 
+			    RegOrg, 
+			    RegOrgName,
+			    LeRep,
+			    Year, 
+			    ReportState,
+			    ApplyMan, 
+			    ApplyDate, 
+			    EfftStatus,
+			    AuditState, 
+			    AdminGuideType,
+			    AdminGuideDocType,
+			    StaDate, 
+			    EndDate,
+			    LinkMan, 
+			    Tel, 
+			    AssignDate, 
+			    AuditName, 
+			    AuditDate, 
+			    AuditRemark, 
+			    IsAbort, 
+			    SusRemark,
+			    SusDate, 
+			    ApplySusMan,
+			    ApplySusDate, 
+			    CreateTime,
+			    AdminGuideCerContent, 
+			    LocalAdm,
+			    LocalAdmName 
+	        FROM
+	        cs_orderreform_set
+	        WHERE
+	          1=1 
+	        <if test="pripid !='' and pripid !=null">
+	        and PriPID =#{pripid}
+	        </if>
+	        <if test="regNoOrUniSciD !='' and regNoOrUniSciD !=null">
+		    and  (RegNO  LIKE concat('%', #{regNoOrUniSciD},'%') or UniSCID  LIKE concat('%', #{regNoOrUniSciD},'%')) 
+		    </if>
+		    <if test="entName !='' and entName !=null">
+		    and EntName  LIKE concat('%', #{entName},'%')
+		    </if>
+		    <if test="staDate !='' and staDate !=null">
+	        <![CDATA[
+			and StaDate >= #{staDate}
+			]]>
+	        </if>
+	        <if test="endDate !='' and endDate !=null">
+	        <![CDATA[
+			and EndDate <= #{endDate}
+			]]>
+	        </if>
+	        <if test="auditNames !='' and auditNames !=null">
+		    and  (ApplyMan  LIKE concat('%', #{auditNames},'%') or AuditName  LIKE concat('%', #{auditNames},'%'))
+		    </if>
+		    <if test="auditState !='' and auditState !=null">
+		     and AuditState =#{auditState}
+		    </if>
+		    <if test="efftStatus !='' and efftStatus !=null">
+		     and EfftStatus =#{efftStatus}
+		    </if>
+		    <if test="adminGuideType !='' and adminGuideType !=null">
+		     and AdminGuideType =#{adminGuideType}
+		    </if>
+		    <if test="regOrg !='' and regOrg !=null">
+		    and RegOrg  IN  (${regOrg})
+		    </if>
+		    <if test="localAdm !='' and localAdm !=null">
+		    and LocalAdm IN  (${localAdm})
+		    </if>
+		    <if test="uid !='' and uid !=null">
+		    and UID =#{uid}
+		    </if>
+		    <!-- 数据权限 -->
+ 	       <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </select>
+    
+    
+     <!-- 根据文号简称获取当前文号简称下的最大文号 -->
+  <select id="selectOrderReformSetPenDecNoByDocShorName" parameterType="Map"   resultType="String"> 
+	  SELECT
+		  CONCAT(
+		    (SELECT
+		      IFNULL(MAX(d.DocShortName),'##')
+		    FROM
+		      cs_department d
+		    WHERE d.deptcode = #{regorg}),
+		    '责字[',
+		    #{year},
+		    ']第',
+		    xx.penDecNo,
+		    '号'
+		  ) pendecno
+		FROM
+		  (SELECT
+		    IFNULL(
+		      MAX(
+		        IFNULL(
+		          REPLACE (
+		            SUBSTR(penDecNo, INSTR(penDecNo, '第') + 1),
+		            '号',
+		            ''
+		          ),
+		          0
+		        )
+		      ),
+		      0
+		    ) + 1 penDecNo
+		  FROM
+		    cs_orderreform_set a
+		  WHERE a.year= #{year}
+		    AND a.regorg=#{regorg}
+		    AND LEFT(
+		      a.penDecNo,
+		      INSTR(a.penDecNo, '责') - 1
+		    ) =
+		    (SELECT
+		      d.DocShortName
+		    FROM
+		      cs_department d
+		    WHERE d.deptcode =#{regorg})) xx 
+  </select> 
+</mapper>

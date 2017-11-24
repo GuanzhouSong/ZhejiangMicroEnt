@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.copysend.mapper.CopySendIllegalItemsMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.copysend.model.CopySendIllegalItems" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="UnitCode" property="unitCode" jdbcType="VARCHAR" />
+    <result column="UnitLevel" property="unitLevel" jdbcType="VARCHAR" />
+    <result column="DeptCode" property="deptCode" jdbcType="VARCHAR" />
+    <result column="IllegalItems" property="illegalItems" jdbcType="VARCHAR" />
+    <result column="SetUserName" property="setUserName" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.copysend.dto.CopySendIllegalItemsDto" id="CopySendIllegalItemsDto">
+  	<result column="DeptCodeName" property="deptCodeName" jdbcType="VARCHAR"/>
+  </resultMap>
+  <select id="selectCopySendIllegalItemsList" resultMap="BaseResultMap" parameterType="map">
+  		SELECT a.id,a.UID,DeptCode,IllegalItems,UnitCode,UnitLevel,SetUserName,SetTime
+  		FROM cs_copy_send_illegal_items a
+  		LEFT JOIN cs_dept_dutycode_ref b ON a.DeptCode = b.AdCode
+  		WHERE 
+  		<if test="userType == '1'.toString()">
+  			b.DutyDeptCode = 'A058'
+  			and b.AdCode like concat('%',#{deptCode},'%')
+  		</if>
+  		<if test="userType == '2'.toString()">
+  			DeptCode= #{deptCode}
+  		</if>
+  		<if test="illegalItems != null and illegalItems != ''">
+	  		AND	IllegalItems like concat('%', #{illegalItems},'%')
+		</if>
+  </select>
+  
+  <select id="selectCopySendIllegalItemsWeiHuList" resultMap="CopySendIllegalItemsDto" parameterType="map">
+  		SELECT a.id,a.UID,d.OrgName DeptCodeName,a.DeptCode,a.IllegalItems,a.UnitCode,e.OrgName UnitLevel,a.SetUserName,a.SetTime
+  		FROM cs_copy_send_illegal_items a
+  		LEFT JOIN cs_sys_depart d ON d.Adcode = a.DeptCode
+  		LEFT JOIN cs_sys_depart e ON e.Adcode = a.UnitLevel
+  		WHERE 1=1
+  		<if test="deptCode != null and deptCode != ''">
+  			AND a.DeptCode= #{deptCode}
+  		</if>
+  		<if test="illegalItems != null and illegalItems != ''">
+	  		AND	a.IllegalItems like concat('%', #{illegalItems},'%')
+		</if>
+  </select>
+  
+  <select id="selectCopySendIllegalItemsWeiHuById" resultMap="CopySendIllegalItemsDto" parameterType="String">
+  		SELECT a.id,a.UID,d.OrgName DeptCodeName,a.DeptCode,a.IllegalItems,a.UnitCode,e.OrgName UnitLevel,a.SetUserName,a.SetTime
+  		FROM cs_copy_send_illegal_items a
+  		LEFT JOIN cs_sys_depart d ON d.Adcode = a.DeptCode
+  		LEFT JOIN cs_sys_depart e ON e.Adcode = a.UnitLevel
+  		WHERE a.id = #{id}
+  </select>
+</mapper>

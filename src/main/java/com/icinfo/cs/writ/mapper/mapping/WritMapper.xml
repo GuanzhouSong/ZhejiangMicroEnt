@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.writ.mapper.WritMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.writ.model.Writ" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="WritNo" property="writNo" jdbcType="VARCHAR" />
+    <result column="WritType" property="writType" jdbcType="CHAR" />
+    <result column="WritName" property="writName" jdbcType="VARCHAR" />
+    <result column="SendTime" property="sendTime" jdbcType="TIMESTAMP" />
+    <result column="SendPeople" property="sendPeople" jdbcType="VARCHAR" />
+    <result column="NoticePeople" property="noticePeople" jdbcType="VARCHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="MessageLookStatue" property="messageLookStatue" jdbcType="CHAR" />
+    <result column="ReceivePeople" property="receivePeople" jdbcType="VARCHAR" />
+    <result column="WritReceiveStatue" property="writReceiveStatue" jdbcType="CHAR" />
+    <result column="WritReceiveTime" property="writReceiveTime" jdbcType="TIMESTAMP" />
+    <result column="InformNum" property="informNum" jdbcType="INTEGER" />
+    <result column="NewestInformTime" property="newestInformTime" jdbcType="TIMESTAMP" />
+    <result column="WritKeyID" property="writKeyID" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <!--扩展Dto-->
+  <resultMap type="com.icinfo.cs.writ.dto.WritDto" id="BaseResultDtoMap" extends="BaseResultMap">
+      <result column="RegNO" property="regNO" jdbcType="CHAR"/>
+      <result column="UniCode" property="uniCode" jdbcType="CHAR"/>
+      <result column="EntName" property="entName" jdbcType="VARCHAR"/>
+      <result column="LeRep" property="leRep" jdbcType="VARCHAR"/>
+      <result column="RegOrg" property="regOrg" jdbcType="CHAR"/>
+      <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR"/>
+      <result column="regState" property="regState" jdbcType="CHAR"/>
+      <result column="SliceNOName" property="sliceNOName" jdbcType="VARCHAR"/>
+  </resultMap>
+
+
+  <!--根据pripid 和 年份 查询当前企业的文书 client端  satat -->
+  <select id="selectByPripidAndYear" parameterType="Map" resultMap="BaseResultDtoMap">
+        SELECT
+          t1.id,
+          t1.Uuid,
+          t1.Year,
+          t1.PriPID,
+          t1.WritType,
+          t1.WritName,
+          t1.SendTime,
+          t1.SendPeople,
+          t1.NoticePeople,
+          t1.Tel,
+          t1.MessageLookStatue,
+          t1.ReceivePeople,
+          t1.WritReceiveStatue,
+          t1.WritReceiveTime,
+          t1.InformNum,
+          t1.NewestInformTime,
+          t1.WritKeyID,
+          t1.CreateTime,
+          t2.RegNO,
+          t2.UniCode,
+          t2.EntName,
+          t2.LeRep,
+          t2.RegOrg,
+          t2.LocalAdmName,
+          t2.regState,
+          t2.SliceNOName
+        FROM
+           cs_writ t1 LEFT  JOIN cs_mid_baseinfo t2 on t1.PriPID = t2.PriPID
+    <trim prefix="WHERE" prefixOverrides="AND | OR">
+      t1.PriPID = #{priPID}  /*AND t2.RegState IN (${regState})*/
+    </trim>
+  </select>
+  <!--根据pripid 和 年份 查询当前企业的文书 end -->
+
+
+
+  <!--根据多条件进行查询   server  satat -->
+  <select id="selectByParameters" parameterType="Map" resultMap="BaseResultDtoMap">
+        SELECT
+            t1.id,
+            t1.Uuid,
+            t1.Year,
+            t1.PriPID,
+            t1.WritType,
+            t1.WritName,
+            t1.SendTime,
+            t1.SendPeople,
+            t1.NoticePeople,
+            t1.Tel,
+            t1.MessageLookStatue,
+            t1.ReceivePeople,
+            t1.WritReceiveStatue,
+            t1.WritReceiveTime,
+            t1.InformNum,
+            t1.NewestInformTime,
+            t1.WritKeyID,
+            t1.CreateTime,
+            t2.RegNO,
+            t2.UniCode,
+            t2.EntName,
+            t2.LeRep,
+            t2.RegOrg,
+            t2.LocalAdmName,
+            t2.regState,
+            t2.SliceNOName
+        FROM
+        cs_writ t1 LEFT  JOIN cs_mid_baseinfo t2 on t1.PriPID = t2.PriPID
+        <include refid="writ_where"></include>
+  </select>
+  <!--根据多条件进行查询   server  end  -->
+
+  <!--根据多条件进行查询统计结果集   server  satat -->
+        <select id="search_countResult" parameterType="Map" resultType="com.icinfo.cs.writ.dto.WritCountDto">
+            SELECT
+            count(0) as writNum,
+            count(distinct t1.pripid) as entNameNum,
+            sum(case when t1.MessageLookStatue='1' then 1 else 0 end) lookNum,
+            sum(case when t1.MessageLookStatue='0' then 1 else 0 end) notLookNum
+            FROM
+            cs_writ t1 LEFT  JOIN cs_mid_baseinfo t2 on t1.PriPID = t2.PriPID
+            <include refid="writ_where"></include>
+        </select>
+  <!--根据多条件进行查询统计结果集   server  end  -->
+
+    <!-- sql 片段 start -->
+    <sql id="writ_where">
+
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <!-- 注册号&统一信用代码 -->
+            <if test="regno !='' and regno !=null">
+                 (t2.RegNO  LIKE concat('%', #{regno},'%') OR t2.UNICODE  LIKE concat('%', #{regno},'%'))
+            </if>
+
+            <!-- 企业名称 -->
+            <if test="entName!='' and entName !=null">
+                and  t2.EntName like  CONCAT('%', #{entName},'%')
+            </if>
+
+            <!-- 主体类别 -->
+            <if test=" entTypeCatg!='' and  entTypeCatg!=null">
+                and t2.entTypeCatg   IN  (${entTypeCatg})
+            </if>
+
+            <!-- 登记机关 -->
+            <if test=" regOrg!='' and  regOrg!=null">
+                and t2.RegOrg   IN  (${regOrg})
+            </if>
+
+            <!-- 片区 -->
+            <if test=" sliceNO!='' and  sliceNO!=null">
+                and t2.SliceNO   IN  (${sliceNO})
+            </if>
+
+            <!-- 登记状态 -->
+            <if test=" regState!='' and regState !=null">
+                and t2.regState   IN  (${regState})
+            </if>
+
+            <!-- 管辖单位 -->
+            <if test=" localAdm!='' and localAdm!=null">
+                and t2.LocalAdm  IN  (${localAdm})
+            </if>
+
+            <!-- 文书类型 -->
+            <if test=" writType!='' and writType!=null">
+                and  t1.WritType =  #{writType}
+            </if>
+
+            <!-- 消息查阅状态  -->
+            <if test=" messageLookStatue!='' and messageLookStatue!=null">
+                and  t1.MessageLookStatue =  #{messageLookStatue}
+            </if>
+
+            <!-- 文书回执状态 -->
+            <if test=" writReceiveStatue!='' and writReceiveStatue!=null">
+                and  t1.WritReceiveStatue =  #{writReceiveStatue}
+            </if>
+
+            <!-- 文书发送时间 -->
+            <if test=" sendTimeStart!='' and sendTimeStart!=null">
+                <![CDATA[   AND  t1.SendTime >=  DATE_FORMAT(#{sendTimeStart}, '%Y-%m-%d')   ]]>
+            </if>
+
+            <if test=" sendTimeEnd!='' and sendTimeEnd!=null">
+                <![CDATA[   AND  t1.SendTime <=  DATE_FORMAT(#{sendTimeEnd}, '%Y-%m-%d')   ]]>
+            </if>
+
+            <!-- 文书回执时间 -->
+            <if test=" writReceiveTimeStart!='' and writReceiveTimeStart!=null">
+                <![CDATA[   AND  t1.WritReceiveTime >=  DATE_FORMAT(#{writReceiveTimeStart}, '%Y-%m-%d')   ]]>
+            </if>
+
+            <if test=" writReceiveTimeEnd!='' and writReceiveTimeEnd!=null">
+                <![CDATA[   AND  t1.WritReceiveTime <=  DATE_FORMAT(#{writReceiveTimeEnd}, '%Y-%m-%d')   ]]>
+            </if>
+
+        </trim>
+
+    </sql>
+
+
+
+</mapper>

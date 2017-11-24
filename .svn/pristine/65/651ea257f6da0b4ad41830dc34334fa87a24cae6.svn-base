@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.opanomaly.mapper.PubOpaDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.opanomaly.model.PubOpaDetail" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="UniSCID" property="uniSCID" jdbcType="CHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="CerType" property="cerType" jdbcType="CHAR" />
+    <result column="CerNO" property="cerNO" jdbcType="VARCHAR" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="CHAR" />
+    <result column="SpeCauseCN" property="speCauseCN" jdbcType="VARCHAR" />
+    <result column="SpeCause" property="speCause" jdbcType="VARCHAR" />
+    <result column="AbnTime" property="abnTime" jdbcType="TIMESTAMP" />
+    <result column="DecOrg" property="decOrg" jdbcType="VARCHAR" />
+    <result column="DecorgCN" property="decorgCN" jdbcType="VARCHAR" />
+    <result column="IsMove" property="isMove" jdbcType="CHAR" />
+    <result column="RemExcpresCN" property="remExcpresCN" jdbcType="VARCHAR" />
+    <result column="RemExcpres" property="remExcpres" jdbcType="CHAR" />
+    <result column="RemDate" property="remDate" jdbcType="TIMESTAMP" />
+    <result column="ReDecOrgCN" property="reDecOrgCN" jdbcType="VARCHAR" />
+    <result column="ReDecOrg" property="reDecOrg" jdbcType="VARCHAR" />
+    <result column="RemoveRea" property="removeRea" jdbcType="VARCHAR" />
+    <result column="FirstDept" property="firstDept" jdbcType="VARCHAR" />
+    <result column="FirstName" property="firstName" jdbcType="VARCHAR" />
+    <result column="Firstdate" property="firstdate" jdbcType="TIMESTAMP" />
+    <result column="FirstOpin" property="firstOpin" jdbcType="VARCHAR" />
+    <result column="AuditDept" property="auditDept" jdbcType="VARCHAR" />
+    <result column="AuditName" property="auditName" jdbcType="VARCHAR" />
+    <result column="AuditDate" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="AuditOpin" property="auditOpin" jdbcType="VARCHAR" />
+    <result column="AuditState" property="auditState" jdbcType="CHAR" />
+    <result column="PenDecNo" property="penDecNo" jdbcType="VARCHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="SeqYear" property="seqYear" jdbcType="INTEGER" />
+    <result column="DeptName" property="deptName" jdbcType="VARCHAR" />
+    <result column="DeptUpName" property="deptUpName" jdbcType="VARCHAR" />
+    <result column="DeptSameCourt" property="deptSameCourt" jdbcType="VARCHAR" />
+    <result column="DeptSameGov" property="deptSameGov" jdbcType="VARCHAR" />
+    <result column="EntTypeCatg" property="entTypeCatg" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="BusExcList" property="busExcList" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <resultMap id="BaseExtResultMap" type="com.icinfo.cs.opanomaly.dto.PubOpaDetailDto" extends="BaseResultMap">
+      <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" /> 
+      <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />  
+      <result column="SliceNOName" property="sliceNOName" jdbcType="VARCHAR" /> 
+      <result column="EstDate" property="estDate" jdbcType="TIMESTAMP" /> 
+      <result column="CheckDepName" property="checkDepName" jdbcType="TIMESTAMP"/>   
+  </resultMap>
+  
+   <resultMap id="PubOpanoMalyResultMap" type="com.icinfo.cs.opanomaly.dto.PubOpanoMalyDto" extends="BaseResultMap"> 
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="UniSCID" property="uniSCID" jdbcType="CHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="CerType" property="cerType" jdbcType="CHAR" />
+    <result column="CerNO" property="cerNO" jdbcType="VARCHAR" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="CHAR" />
+    <result column="SpeCauseCN" property="speCauseCN" jdbcType="VARCHAR" />
+    <result column="SpeCause" property="speCause" jdbcType="VARCHAR" />
+    <result column="AbnTime" property="abnTime" jdbcType="TIMESTAMP" />
+    <result column="DecOrg" property="decOrg" jdbcType="VARCHAR" />
+    <result column="DecorgCN" property="decorgCN" jdbcType="VARCHAR" />
+    <result column="AnomalyRea" property="anomalyRea" jdbcType="VARCHAR" />
+    <result column="FirstDept" property="firstDept" jdbcType="VARCHAR" />
+    <result column="FirstName" property="firstName" jdbcType="VARCHAR" />
+    <result column="Firstdate" property="firstdate" jdbcType="TIMESTAMP" />
+    <result column="FirstOpin" property="firstOpin" jdbcType="VARCHAR" />
+    <result column="AuditDept" property="auditDept" jdbcType="VARCHAR" />
+    <result column="AuditName" property="auditName" jdbcType="VARCHAR" />
+    <result column="AuditDate" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="AuditOpin" property="auditOpin" jdbcType="VARCHAR" />
+    <result column="AuditState" property="auditState" jdbcType="CHAR" />
+    <result column="PenDecNo" property="penDecNo" jdbcType="VARCHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="SeqYear" property="seqYear" jdbcType="INTEGER" />
+    <result column="DeptName" property="deptName" jdbcType="VARCHAR" />
+    <result column="DeptUpName" property="deptUpName" jdbcType="VARCHAR" />
+    <result column="DeptSameCourt" property="deptSameCourt" jdbcType="VARCHAR" />
+    <result column="DeptSameGov" property="deptSameGov" jdbcType="VARCHAR" />
+    <result column="RevokeFlag" property="revokeFlag" jdbcType="CHAR" />
+    <result column="BatchEntType" property="batchEntType" jdbcType="CHAR" />
+    <result column="ImpFlag" property="impFlag" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="BusExcList" property="busExcList" jdbcType="VARCHAR" />
+    <result column="Remark" property="remark" jdbcType="LONGVARCHAR" />
+    <result column="EstDate" property="estDate" jdbcType="TIMESTAMP"/>  
+      
+    <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" /> 
+    <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" /> 
+    <result column="SliceNOName" property="sliceNOName" jdbcType="VARCHAR" /> 
+    <result column="CheckDepName" property="checkDepName" jdbcType="TIMESTAMP"/>  
+  </resultMap>
+  
+   <sql id="pubopadetail_where"> 
+	   <if test="busExcList !='' and busExcList !=null">
+	    and A.BusExcList  =  #{busExcList}
+	    </if>
+	    <if test="priPID !='' and priPID !=null">
+	        and A.PriPID =#{priPID}
+	    </if>
+	    <if test="regNO !='' and regNO !=null">
+	    and (A.RegNO  LIKE concat('%', #{regNO},'%') or A.UniSCID  LIKE concat('%', #{regNO},'%')  )
+	    </if>
+	    <if test="entName !='' and entName !=null">
+	    and A.EntName  LIKE concat('%', #{entName},'%')
+	    </if>
+	    <if test="leRep !='' and leRep !=null">
+	    and A.LeRep  LIKE concat('%', #{leRep},'%')
+	    </if>
+	    <if test="regOrg !='' and regOrg !=null">
+	    and B.RegOrg = #{regOrg} 
+	    </if>
+	    <if test="localAdm !='' and localAdm !=null">
+	    and B.LocalAdm  IN (${localAdm})
+	    </if>
+	    <if test="sliceNO !='' and sliceNO !=null">
+	    and B.sliceNO  IN (${sliceNO})
+	    </if>
+	    <if test="checkDep !='' and checkDep !=null">
+	    and B.checkDep  IN (${checkDep})
+	    </if>
+	    <!-- 列入原因 -->
+	    <if test="speCause !='' and speCause !=null">
+	    and A.SpeCause  =#{speCause}
+	    </if>
+	    <!-- 移出原因 -->
+	    <if test="remExcpres !='' and remExcpres !=null">
+	    and A.RemExcpres  =#{remExcpres}
+	    </if>
+	    <!-- 移出/撤销事由 -->
+	    <if test="removeRea !='' and removeRea !=null">
+	    and A.RemoveRea  LIKE concat('%', #{removeRea},'%')
+	    </if>
+	    <!-- 年份 -->
+	    <if test="year !='' and year !=null">
+	    and A.Year  =#{year}
+	    </if>
+	    <!-- 移出文号 -->
+	    <if test="penDecNo !='' and penDecNo !=null">
+	    and A.PenDecNo  LIKE concat('%', #{penDecNo},'%')
+	    </if>
+	    <!-- 列入决定机关 -->
+	    <if test="decorgCN !='' and decorgCN !=null">
+	    and A.DecorgCN  LIKE concat('%', #{decorgCN},'%')
+	    </if>
+	    <!-- 移出决定机关 -->
+	    <if test="reDecOrgCN !='' and reDecOrgCN !=null">
+	    and A.ReDecOrgCN  LIKE concat('%', #{reDecOrgCN},'%')
+	    </if>
+	    <!-- 审核状态 -->
+	    <if test="auditState !='' and auditState !=null">
+	    <if test="auditState == 0 ">
+	       and A.AuditState  =#{auditState}
+	    </if>
+	    <if test="auditState == 1 or auditState == 2 ">
+	       and A.AuditState  =#{auditState} and A.IsMove = '1' 
+	    </if>
+	    <if test="auditState == 3 ">
+	       and A.AuditState  = '1' and A.IsMove = '2' 
+	    </if>
+	    <if test="auditState == 4 ">
+	       and A.AuditState  = '2' and A.IsMove = '2' 
+	    </if>
+	    </if>
+	    <!-- 初审人 -->
+	    <if test="firstName !='' and firstName !=null">
+	    and A.FirstName  like concat('%', #{firstName},'%')
+	    </if>
+	    <!-- 审核人  -->
+	    <if test="auditName !='' and auditName !=null">
+	    and A.AuditName like concat('%', #{auditName},'%')
+	    </if>
+	    <!-- 初审日期开始 -->
+		<if test="startFirstdate !='' and startFirstdate !=null">
+		<![CDATA[
+		and DATE_FORMAT(A.Firstdate,'%Y-%m-%d') >= #{startFirstdate}
+		]]>
+		</if>
+		<if test="endFirstdate !='' and endFirstdate !=null">
+		<![CDATA[
+		and DATE_FORMAT(A.Firstdate,'%Y-%m-%d') <= #{endFirstdate}
+		]]>
+		</if>
+	    <!-- 审核日期开始 -->
+		<if test="startAuditDate !='' and startAuditDate !=null">
+		<![CDATA[
+		and DATE_FORMAT(A.AuditDate,'%Y-%m-%d') >= #{startAuditDate}
+		]]>
+		</if>
+		<if test="endAuditDate !='' and endAuditDate !=null">
+		<![CDATA[
+		and DATE_FORMAT(A.AuditDate,'%Y-%m-%d') <= #{endAuditDate}
+		]]>
+		</if>
+		<!-- 列入日期 -->
+		<if test="startAbnTime !='' and startAbnTime !=null">
+		<![CDATA[
+		and DATE_FORMAT(A.AbnTime,'%Y-%m-%d') >= #{startAbnTime}
+		]]>
+		</if>
+		<if test="endAbnTime !='' and endAbnTime !=null">
+		<![CDATA[
+		and DATE_FORMAT(A.AbnTime,'%Y-%m-%d') <= #{endAbnTime}
+		]]>
+		</if> 
+		<!-- 移出日期 -->
+		<if test="startRemDate !='' and startRemDate !=null">
+		<![CDATA[
+		and DATE_FORMAT(A.RemDate,'%Y-%m-%d') >= #{startRemDate}
+		]]>
+		</if>
+		<if test="endRemDate !='' and endRemDate !=null">
+		<![CDATA[
+		and DATE_FORMAT(A.RemDate,'%Y-%m-%d') <= #{endRemDate}
+		]]>
+		</if>
+		<!-- 成立日期 -->
+		<if test="startEstDate !='' and startEstDate !=null">
+		<![CDATA[
+		and DATE_FORMAT(B.EstDate,'%Y-%m-%d') >= #{startEstDate}
+		]]>
+		</if>
+		<if test="endEstDate !='' and endEstDate !=null">
+		<![CDATA[
+		and DATE_FORMAT(B.EstDate,'%Y-%m-%d') <= #{endEstDate}
+		]]>
+		</if>
+		<if test="entType ==1 "><!--内资 -->
+		and A.EntTypeCatg  in (11,12,13,14,15,31,32,33,34)
+		</if>
+		<if test="entType ==2 "><!-- 外资 -->
+		and A.EntTypeCatg  in (21,22,23,24,25,26,27,28)
+		</if> 
+  </sql>
+  
+  
+  
+  <!-- 移出设置查询 -->
+  <select id="selectMoveOutSearchList" resultMap="BaseExtResultMap" parameterType="Map">
+    SELECT A.id,A.PriPID,A.EntName,A.RegNO,A.UniSCID,A.LeRep,A.CerType,A.CerNO,A.RegOrg,A.LocalAdm,SpeCauseCN,SpeCause,AbnTime,DecOrg,DecorgCN,IsMove,RemExcpresCN,
+    RemExcpres,RemDate,ReDecOrgCN,ReDecOrg,RemoveRea,FirstDept,FirstName,Firstdate,FirstOpin,AuditDept,AuditName,AuditDate,AuditOpin,AuditState,
+    PenDecNo,YEAR,SeqYear,DeptName,DeptUpName,DeptSameCourt,DeptSameGov,A.EntTypeCatg,A.CreateTime,BusExcList,
+    B.RegOrgName,B.LocalAdmName,B.SliceNOName,B.EstDate,B.CheckDepName
+    FROM cs_pub_opadetail A,cs_mid_baseinfo B WHERE A.PriPID = B.PriPID     
+    <!-- 企业 -->
+    <if test="systemType!=null and systemType == '1'.toString()">
+    and A.EntTypeCatg not in ('16','17','50') 
+    </if>
+    <!-- 农专 -->
+    <if test="systemType!=null and systemType == '2'.toString()">
+    and A.EntTypeCatg in ('16','17') 
+    </if>
+    <!-- 1移出/2撤销 -->
+    <if test="isMove!=null and isMove !=''">
+    and A.IsMove = #{isMove}
+    </if>
+    <include refid="pubopadetail_where"></include>
+  	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    order by AuditState Asc,RemDate desc
+  </select>
+  
+  <!-- 移出设置新增查询  列入未移出且未提交移出申请 -->
+  <select id="selectAddMoveOutSearchList" resultMap="PubOpanoMalyResultMap" parameterType="Map">
+    SELECT A.id,
+	A.PriPID,  
+	A.EntName ,
+	A.RegNO ,
+	A.UniSCID ,
+	A.LeRep ,
+	A.CerType, 
+	A.CerNO ,
+	A.RegOrg ,
+	A.LocalAdm ,
+	A.SpeCauseCN ,
+	A.SpeCause ,
+	A.AbnTime ,
+	A.DecOrg ,
+	A.DecorgCN ,
+	A.AnomalyRea,  
+	A.FirstDept,  
+	A.FirstName,  
+	A.Firstdate,  
+	A.FirstOpin,  
+	A.AuditDept,  
+	A.AuditName,  
+	A.AuditDate, 
+	A.AuditOpin,  
+	A.AuditState,  
+	A.PenDecNo,  
+	A.Year,  
+	A.SeqYear,  
+	A.DeptName,  
+	A.DeptUpName,  
+	A.DeptSameCourt,  
+	A.DeptSameGov,  
+	A.RevokeFlag,  
+	A.BatchEntType,  
+	A.ImpFlag,  
+	A.CreateTime,  
+	A.BusExcList,  
+	A.Remark,
+	A.EstDate,
+    B.RegOrgName,B.LocalAdmName,B.SliceNOName,B.CheckDepName FROM cs_pub_opanomaly A 
+    LEFT JOIN cs_pub_opadetail c ON A.BusExcList = c.BusExcList 
+    INNER JOIN cs_mid_baseinfo B ON A.PriPID = B.PriPID
+    WHERE  
+    (A.RevokeFlag IS NULL OR A.RevokeFlag != '1') AND (c.AuditState IS NULL)
+    AND A.AuditState  ='1'
+    AND B.RegState not in (${regState})
+    <!-- 企业 -->
+    <if test="systemType!=null and systemType == '1'.toString()">
+    and B.EntTypeCatg not in ('16','17','50') 
+    </if>
+    <!-- 农专 -->
+    <if test="systemType!=null and systemType == '2'.toString()">
+    and B.EntTypeCatg in ('16','17') 
+    </if>
+    <include refid="pubopadetail_where"/>
+    <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    order by AuditState Asc,AuditDate desc
+  </select>
+  
+  <!-- 根据文号简称获取当前文号简称下的最大文号 -->
+   <select id="selectPenDecNoMove" parameterType="Map"   resultType="java.lang.Integer">
+		SELECT 
+		  IFNULL(
+		    MAX(
+		      IFNULL(
+		        REPLACE (
+		          SUBSTR(penDecNo, INSTR(penDecNo, '第') + 1),
+		          '号',
+		          ''
+		        )+0,
+		        0
+		      )
+		    ),
+		    0
+		  ) + 1 
+		FROM
+		  cs_pub_opadetail a 
+		WHERE a.SeqYear = #{year} 
+		 AND a.IsMove = #{isMove}
+		 AND LEFT(a.penDecNo,INSTR(a.penDecNo, '异') - 1) = #{regOrg} 
+   </select>
+   
+    <!-- 列入异常待审核条数 -->
+    <select id="selectPubOpaInCount" resultType="Integer" parameterType="Map"> 
+	SELECT COUNT(0) FROM cs_pub_opanomaly A LEFT JOIN cs_pub_opadetail B ON A.BusExcList = B.BusExcList 
+	LEFT JOIN cs_mid_baseinfo t ON A.PriPID=t.PriPID WHERE A.RevokeFlag IS NULL AND (B.AuditState 
+	IS NULL OR B.AuditState != '1') AND A.AuditState = '0'
+	<if test="regOrg !=null and regOrg != ''">
+	and t.regOrg = #{regOrg}
+	</if>
+	<!-- 企业 -->
+    <if test="systemType!=null and systemType == '1'.toString()">
+    and t.EntTypeCatg not in ('16','17','50') 
+    </if>
+    <!-- 农专 -->
+    <if test="systemType!=null and systemType == '2'.toString()">
+    and t.EntTypeCatg in ('16','17') 
+    </if>
+  	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </select>
+ 
+    <!--移出+撤销异常待审核条数 -->
+    <select id="selectPubOpaOutCount" resultType="Integer" parameterType="Map"> 
+	SELECT COUNT(0) FROM cs_pub_opadetail A, cs_mid_baseinfo t WHERE A.PriPID = t.PriPID
+	AND A.AuditState = '0'
+	<if test="regOrg !=null and regOrg != ''">
+	and t.regOrg = #{regOrg}
+	</if>
+	<!-- 企业 -->
+    <if test="systemType!=null and systemType == '1'.toString()">
+    and A.EntTypeCatg not in ('16','17','50') 
+    </if>
+    <!-- 农专 -->
+    <if test="systemType!=null and systemType == '2'.toString()">
+    and A.EntTypeCatg in ('16','17') 
+    </if>
+  	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </select>
+    
+</mapper>

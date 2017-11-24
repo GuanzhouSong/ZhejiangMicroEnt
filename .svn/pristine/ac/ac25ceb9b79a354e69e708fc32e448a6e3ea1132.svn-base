@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.rpt.rptmapper.RptOptoExpiredMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.rpt.rptmodel.RptOptoExpired" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <result column="pripid" property="pripid" jdbcType="CHAR" />
+    <result column="regno" property="regno" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="CHAR" />
+    <result column="RegState" property="regState" jdbcType="CHAR" />
+    <result column="OpFrom" property="opFrom" jdbcType="DATE" />
+    <result column="OpTo" property="opTo" jdbcType="DATE" />
+    
+    <result column="Dom" property="dom" jdbcType="VARCHAR"/>
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR"/>
+    <result column="Tel" property="tel" jdbcType="VARCHAR"/>
+    <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR"/>
+    <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR"/>    
+    <result column="SliceNO" property="sliceNO" jdbcType="VARCHAR"/>
+    <result column="SliceNOName" property="sliceNOName" jdbcType="VARCHAR"/>
+    </resultMap>
+  
+  <resultMap type="com.icinfo.cs.rpt.rptdto.RptOptoExpiredDto" id="BaseResultDtoMap" extends="BaseResultMap">
+    <result column="LiaName" property="liaName" jdbcType="VARCHAR" />
+    <result column="LiaTel" property="liaTel" jdbcType="VARCHAR" />
+  </resultMap>  
+  
+  <select id="selectRptOptoExpiredList" resultMap="BaseResultDtoMap" parameterType="Map">
+   SELECT a.pripid,a.regno,a.EntName,a.UniCode,RegOrg,a.LocalAdm,RegState,OpFrom,OpTo,a.LeRep,a.Tel,a.Dom,a.SliceNo,
+	a.SliceNOName,a.RegOrgName,a.LocalAdmName,b.liaName,b.Tel liaTel  FROM
+	(SELECT a.pripid,a.regno,a.EntName,a.UniCode,RegOrg,a.LocalAdm,RegState,OpFrom,OpTo,a.LeRep,a.Tel,a.Dom,a.SliceNo,
+	a.SliceNOName,a.RegOrgName,a.LocalAdmName FROM 
+	<if test="expiredFlag !=null and expiredFlag !='' and expiredFlag == '1'.toString()">
+		cs_rpt_opto_expired a
+	</if>
+	<if test="expiredFlag !=null and expiredFlag !='' and expiredFlag == '0'.toString()">
+		cs_rpt_opto_willexpired a
+	</if>
+	INNER JOIN zjcsdb1.cs_code_regunit b ON a.LocalAdm = b.Code where 1=1
+	<if test="keyword !=null and keyword !=''">
+	 and (a.regno like CONCAT('%',#{keyword},'%') or a.UniCode like CONCAT('%',#{keyword},'%') or a.EntName like CONCAT('%',#{keyword},'%'))
+	</if> 
+	<if test="selectCode !=null and selectCode !=''">
+    <if test="selectCode == '1'.toString()"><!-- 本市 -->
+     AND (LEFT(RegOrg,4) = left(#{deptCode},4) or left(LocalAdm,4) =  left(#{deptCode},4))
+    </if>
+    <if test="selectCode == '2'.toString()"><!-- 本局 -->
+     and (RegOrg = left(#{deptCode},6) or left(LocalAdm,6) = left(#{deptCode},6)) 
+    </if>
+    <if test="selectCode == '3'.toString()"><!-- 本所 -->
+      and LocalAdm = left(#{deptCode},8)
+     </if>
+     </if>
+     <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	limit #{numStart},#{pageSize}) a
+	LEFT JOIN zjcsdb1.cs_pub_eppassword b
+	on a.pripid = b.pripid
+  </select>
+  
+  <select id="selectRptOptoExpiredCount" resultType="Integer" parameterType="Map">
+    SELECT Count(0) FROM 
+    <if test="expiredFlag !=null and expiredFlag !='' and expiredFlag == '1'.toString()">
+		cs_rpt_opto_expired a
+	</if>
+	<if test="expiredFlag !=null and expiredFlag !='' and expiredFlag == '0'.toString()">
+		cs_rpt_opto_willexpired a
+	</if>
+	INNER JOIN zjcsdb1.cs_code_regunit b ON a.LocalAdm = b.Code where 1=1
+	<if test="keyword !=null and keyword !=''">
+	 and (a.regno like CONCAT('%',#{keyword},'%') or a.UniCode like CONCAT('%',#{keyword},'%') or a.EntName like CONCAT('%',#{keyword},'%'))
+	</if> 
+	<if test="selectCode !=null and selectCode !=''">
+    <if test="selectCode == '1'.toString()"><!-- 本市 -->
+     AND (LEFT(a.RegOrg,4) = left(#{deptCode},4) or left(a.LocalAdm,4) =  left(#{deptCode},4)) 
+    </if>
+    <if test="selectCode == '2'.toString()"><!-- 本局 -->
+     and (a.RegOrg = left(#{deptCode},6) or left(a.LocalAdm,6) = left(#{deptCode},6)) 
+    </if>
+    <if test="selectCode == '3'.toString()"><!-- 本所 -->
+      and a.LocalAdm = left(#{deptCode},8)
+     </if>
+     </if>
+     <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>  
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.ext.mapper.MidBaseinfoDelMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.ext.model.MidBaseinfoDel" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="update_time" property="update_time" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  
+  <select id="selectMidBaseinfoDelList" resultMap="BaseResultMap">
+	SELECT 
+	  A.id,
+	  A.PriPID priPID
+	FROM
+	  cs_mid_baseinfo_del A 
+	    WHERE A.update_time >= 
+	  DATE_SUB(CURDATE(),INTERVAL 1 DAY)
+	</select>
+</mapper>

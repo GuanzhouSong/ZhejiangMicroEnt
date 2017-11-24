@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+	default-lazy-init="false">
+
+	<bean id="sjTaskQuartzJob" class="com.icinfo.cs.system.controller.SendSmsTaskController"> </bean>
+	<bean id="hzTaskQuartzJob" class="com.icinfo.cs.system.controller.SendSmsTaskController"> </bean>
+	<bean id="nbTaskQuartzJob" class="com.icinfo.cs.system.controller.SendSmsTaskController"> </bean>
+	<bean id="wzTaskQuartzJob" class="com.icinfo.cs.system.controller.SendSmsTaskController"> </bean>
+	<bean id="jxTaskQuartzJob" class="com.icinfo.cs.system.controller.SendSmsTaskController"> </bean>
+	<bean id="huzTaskQuartzJob" class="com.icinfo.cs.system.controller.SendSmsTaskController"> </bean>
+	<bean id="sxTaskQuartzJob" class="com.icinfo.cs.system.controller.SendSmsTaskController"> </bean>
+	<bean id="jhTaskQuartzJob" class="com.icinfo.cs.system.controller.SendSmsTaskController"> </bean>
+	<bean id="qzTaskQuartzJob" class="com.icinfo.cs.system.controller.SendSmsTaskController"> </bean>
+	<bean id="zsTaskQuartzJob" class="com.icinfo.cs.system.controller.SendSmsTaskController"> </bean>
+	<bean id="tzTaskQuartzJob" class="com.icinfo.cs.system.controller.SendSmsTaskController"> </bean>
+	<bean id="lsTaskQuartzJob" class="com.icinfo.cs.system.controller.SendSmsTaskController"> </bean>
+	
+	<bean id="hzSmsTaskJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">   
+        <property name="targetObject" ref="hzTaskQuartzJob"/>  
+        <property name="targetMethod" value="hzSmsTask"/>  
+        <property name="concurrent" value="true"/>
+	</bean>
+	<bean id="nbSmsTaskJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">   
+        <property name="targetObject" ref="nbTaskQuartzJob"/>  
+        <property name="targetMethod" value="nbSmsTask"/>  
+        <property name="concurrent" value="true"/>
+	</bean>
+	<bean id="wzSmsTaskJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">   
+        <property name="targetObject" ref="wzTaskQuartzJob"/>  
+        <property name="targetMethod" value="wzSmsTask"/>  
+        <property name="concurrent" value="true"/>
+	</bean>
+	<bean id="jxSmsTaskJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">   
+        <property name="targetObject" ref="jxTaskQuartzJob"/>  
+        <property name="targetMethod" value="jxSmsTask"/>  
+        <property name="concurrent" value="true"/>
+	</bean>
+	<bean id="huzSmsTaskJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">   
+        <property name="targetObject" ref="huzTaskQuartzJob"/>  
+        <property name="targetMethod" value="huzSmsTask"/>  
+        <property name="concurrent" value="true"/>
+	</bean>
+	<bean id="sxSmsTaskJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">   
+        <property name="targetObject" ref="sxTaskQuartzJob"/>  
+        <property name="targetMethod" value="sxSmsTask"/>  
+        <property name="concurrent" value="true"/>
+	</bean>
+	<bean id="jhSmsTaskJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">   
+        <property name="targetObject" ref="jhTaskQuartzJob"/>  
+        <property name="targetMethod" value="jhSmsTask"/>  
+        <property name="concurrent" value="true"/>
+	</bean>
+	<bean id="qzSmsTaskJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">   
+        <property name="targetObject" ref="qzTaskQuartzJob"/>  
+        <property name="targetMethod" value="qzSmsTask"/>  
+        <property name="concurrent" value="true"/>
+	</bean>
+	<bean id="zsSmsTaskJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">   
+        <property name="targetObject" ref="zsTaskQuartzJob"/>  
+        <property name="targetMethod" value="zsSmsTask"/>  
+        <property name="concurrent" value="true"/>
+	</bean>
+	<bean id="tzSmsTaskJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">   
+        <property name="targetObject" ref="tzTaskQuartzJob"/>  
+        <property name="targetMethod" value="tzSmsTask"/>  
+        <property name="concurrent" value="true"/>
+	</bean>
+	<bean id="lsSmsTaskJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">   
+        <property name="targetObject" ref="lsTaskQuartzJob"/>  
+        <property name="targetMethod" value="lsSmsTask"/>  
+        <property name="concurrent" value="true"/>
+	</bean>
+	<bean id="sjSmsTaskJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">   
+        <property name="targetObject" ref="sjTaskQuartzJob"/>  
+        <property name="targetMethod" value="sjSmsTask"/>  
+        <property name="concurrent" value="true"/>
+	</bean>
+	
+	<!-- 短信发送早上任务 -->
+	<bean id="cronTrigger1" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="hzSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 07  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger2" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="nbSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 07  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger3" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="wzSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 07  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger4" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="jxSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 07  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger5" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="huzSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 07  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger6" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="sxSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 07  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger7" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="jhSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 07  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger8" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="qzSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 07  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger9" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="zsSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 07  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger10" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="tzSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 07  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger11" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="lsSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 07  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger12" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="sjSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 07  * * ?"/>  
+	</bean>
+	
+	<!-- 短信发送中午任务 -->
+	<bean id="cronTrigger13" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="hzSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 12  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger14" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="nbSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 12  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger15" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="wzSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 12  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger16" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="jxSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 12  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger17" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="huzSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 12  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger18" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="sxSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 12  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger19" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="jhSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 12  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger20" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="qzSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 12  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger21" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="zsSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 12  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger22" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="tzSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 12  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger23" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="lsSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 12  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger24" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="sjSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 12  * * ?"/>  
+	</bean>
+	
+	
+	<!-- 短信发送下午任务 -->
+	<bean id="cronTrigger25" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="hzSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 17  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger26" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="nbSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 17  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger27" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="wzSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 17  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger28" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="jxSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 17  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger29" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="huzSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 17  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger30" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="sxSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 17  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger31" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="jhSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 17  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger32" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="qzSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 17  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger33" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="zsSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 17  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger34" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="tzSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 17  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger35" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="lsSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 17  * * ?"/>  
+	</bean>
+	<bean id="cronTrigger36" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="sjSmsTaskJobDetail"/>
+       <property name="cronExpression" value="0 00 17  * * ?"/>  
+	</bean>
+	
+	
+	<!-- 定时触发器 *配置哪些定时任务需要执行*-->
+	<bean   class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
+       <property name="triggers">  
+           <list>  
+              <ref bean="cronTrigger1"/>
+              <ref bean="cronTrigger2"/>
+              <ref bean="cronTrigger3"/>
+              <ref bean="cronTrigger4"/>
+              <ref bean="cronTrigger5"/>
+              <ref bean="cronTrigger6"/>
+              <ref bean="cronTrigger7"/>
+              <ref bean="cronTrigger8"/>
+              <ref bean="cronTrigger9"/>
+              <ref bean="cronTrigger10"/>
+              <ref bean="cronTrigger11"/>
+              <ref bean="cronTrigger12"/>
+              
+              <ref bean="cronTrigger13"/>
+              <ref bean="cronTrigger14"/>
+              <ref bean="cronTrigger15"/>
+              <ref bean="cronTrigger16"/>
+              <ref bean="cronTrigger17"/>
+              <ref bean="cronTrigger18"/>
+              <ref bean="cronTrigger19"/>
+              <ref bean="cronTrigger20"/>
+              <ref bean="cronTrigger21"/>
+              <ref bean="cronTrigger22"/>
+              <ref bean="cronTrigger23"/>
+              <ref bean="cronTrigger24"/>
+              
+              <ref bean="cronTrigger25"/>
+              <ref bean="cronTrigger26"/>
+              <ref bean="cronTrigger27"/>
+              <ref bean="cronTrigger28"/>
+              <ref bean="cronTrigger29"/>
+              <ref bean="cronTrigger30"/>
+              <ref bean="cronTrigger31"/>
+              <ref bean="cronTrigger32"/>
+              <ref bean="cronTrigger33"/>
+              <ref bean="cronTrigger34"/>
+              <ref bean="cronTrigger35"/>
+              <ref bean="cronTrigger36"/>
+           </list>  
+       </property>  
+       <property name="autoStartup" value="true"/>
+       <property name="configLocation" value="classpath:quartz.properties"/>  
+</bean>
+</beans>
+

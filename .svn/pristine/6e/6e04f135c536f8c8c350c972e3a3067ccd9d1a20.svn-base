@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.mainmark.mapper.MainMarkHisMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.mainmark.model.MainMarkHis" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="MarkUuid" property="markUuid" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="SetDeptCode" property="setDeptCode" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+    <result column="SetId" property="setId" jdbcType="VARCHAR" />
+    <result column="SetDeptName" property="setDeptname" jdbcType="VARCHAR" />
+    <result column="AuditorId" property="auditorId" jdbcType="VARCHAR" />
+    <result column="AuditorName" property="auditorName" jdbcType="VARCHAR" />
+    <result column="AuditorDesc" property="auditorDesc" jdbcType="VARCHAR" />
+    <result column="AuditState" property="auditState" jdbcType="VARCHAR" />
+    <result column="AuditTime" property="auditTime" jdbcType="TIMESTAMP" />
+    <result column="AuditDeptId" property="auditDeptId" jdbcType="VARCHAR" />
+    <result column="AuditDeptName" property="auditDeptName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapDto" type="com.icinfo.cs.mainmark.dto.MainMarkHisDto" extends="BaseResultMap" >
+    <result column="MarkName2" property="markName2" jdbcType="VARCHAR" />
+    <result column="MarkName3" property="markName3" jdbcType="VARCHAR" />
+    <result column="MarkName4" property="markName4" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 分页查询 -->
+  <select id="queryPageList" resultMap="BaseResultMapDto" parameterType="Map">
+       SELECT
+		cmmh.id,
+		cmmh.MarkUuid,
+		cmmh.PriPID,
+		cmmh.SetDeptCode,
+		cmmh.CreateTime,
+		cmmh.SetTime,
+		cmmh.SetName,
+		cmmh.SetId,
+		cmmh.SetDeptname,
+		cmmh.AuditorId,
+		cmmh.AuditorName,
+		cmmh.AuditorDesc,
+		cmmh.AuditState,
+		cmmh.AuditTime,
+		cmmh.AuditDeptId,
+		cmmh.AuditDeptName,
+		group_concat(
+			CASE
+			WHEN cmmr.Type = '2' THEN
+				cmmr.MarkName
+			END
+			ORDER BY
+				cmmr.MarkCode ASC
+		) MarkName2,
+		group_concat(
+			CASE
+			WHEN cmmr.Type = '3' THEN
+				cmmr.MarkName
+			END
+			ORDER BY
+				cmmr.MarkCode ASC
+		) MarkName3,
+		group_concat(
+			CASE
+			WHEN cmmr.Type = '4' THEN
+				cmmr.MarkName
+			END
+			ORDER BY
+				cmmr.MarkCode ASC
+		) MarkName4
+	FROM
+		cs_main_mark_his cmmh
+	LEFT JOIN cs_main_mark_rel cmmr ON cmmr.MarkUuid = cmmh.MarkUuid
+	where 
+		cmmh.PriPID = #{priPID} AND cmmh.AuditorName IS NOT NULL
+	GROUP BY
+		cmmh.id
+	ORDER BY
+		cmmh.id DESC
+  </select>
+ 
+  <!-- 批量新增 -->
+  <insert id="insertBatch" parameterType="java.util.List">
+      insert into cs_main_mark_his(MarkUuid,
+						      PriPID,
+						      SetDeptCode,
+						      CreateTime,
+						      SetTime,
+						      SetName,
+						      SetId,
+						      SetDeptname,
+						      AuditState
+						     )
+		values
+		 <foreach collection="list" item="item" index="index" separator="," >
+           (#{item.markUuid},
+           #{item.priPID},
+           #{item.setDeptCode},
+           #{item.createTime},
+           #{item.setTime},
+           #{item.setName},
+           #{item.setId},
+           #{item.setDeptname},
+           #{item.auditState})
+        </foreach>					
+  </insert>
+  
+    <!-- 新增 -->
+  <insert id="insertOne" parameterType="com.icinfo.cs.mainmark.model.MainMarkHis">
+      insert into cs_main_mark_his(MarkUuid,
+						      PriPID,
+						      SetDeptCode,
+						      CreateTime,
+						      SetTime,
+						      SetName,
+						      SetId,
+						      SetDeptname,
+						      AuditState
+						     )
+		values
+           (#{markUuid},
+           #{priPID},
+           #{setDeptCode},
+           #{createTime},
+           #{setTime},
+           #{setName},
+           #{setId},
+           #{setDeptname},
+           #{auditState})
+  </insert>
+    <!-- 更新 -->
+    <update id="updateByMarkUuid" parameterType="com.icinfo.cs.mainmark.model.MainMarkHis">
+        update cs_main_mark_his set AuditorId = #{auditorId},
+        AuditorName = #{auditorName},
+        AuditorDesc = #{auditorDesc},
+        AuditState = #{auditState},
+        AuditTime = #{auditTime},
+        AuditDeptId = #{auditDeptId},
+        AuditDeptName = #{auditDeptName},
+        AuditState = #{auditState}
+        where MarkUuid = #{markUuid}
+    </update>
+    
+    <!-- 根据企业ID更新最新一条数据 -->
+    <update id="updateLastByPriPID" parameterType="com.icinfo.cs.mainmark.model.MainMarkHis">
+            UPDATE cs_main_mark_his cmmh1,
+			 (
+				SELECT
+					max(id) id
+				FROM
+					cs_main_mark_his cmmh2
+				WHERE
+					cmmh2.PriPID = #{priPID}
+				GROUP BY
+					cmmh2.PriPID
+			) t
+			SET 
+				AuditorId = #{auditorId},
+		        AuditorName = #{auditorName},
+		        AuditorDesc = #{auditorDesc},
+		        AuditState = #{auditState},
+		        AuditTime = #{auditTime},
+		        AuditDeptId = #{auditDeptId},
+		        AuditDeptName = #{auditDeptName}
+			WHERE
+				cmmh1.id = t.id
+			AND (
+				cmmh1.AuditorName IS NULL
+				OR cmmh1.AuditorName = ''
+			)
+    </update>
+    
+
+    
+    <!-- 根据企业id获取最新未审核记录 -->
+     <select id="queryLastMarkUuidByPriPID" resultType="String" parameterType="String">
+     	SELECT
+			cmmh.MarkUuid
+		FROM
+			cs_main_mark_his cmmh
+		WHERE
+			cmmh.PriPID = #{priPID}
+		AND cmmh.AuditorName IS NULL OR cmmh.AuditorName = ''
+		ORDER BY
+			id DESC
+		LIMIT 0,1
+	 </select>
+
+</mapper>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.registinfo.mapper.UlManageMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.registinfo.model.UlManage" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="DisposeWay" property="disposeWay" jdbcType="VARCHAR" />
+    <result column="DisposeDate" property="disposeDate" jdbcType="TIMESTAMP" />
+    <result column="DisposeName" property="disposeName" jdbcType="VARCHAR" />
+    <result column="InputName" property="inputName" jdbcType="VARCHAR" />
+    <result column="Remark" property="remark" jdbcType="LONGVARCHAR" />
+    <result column="LogoffReason" property="logoffReason" jdbcType="VARCHAR" />
+  </resultMap>
+  <!-- 查询无证管理记录，无证无照建档页面用 -->
+  <select id="manageInfoQueryPage" parameterType="Map" resultMap="BaseResultMap">
+    SELECT
+    id,
+    PriPID,
+    Remark,
+    CreateTime,
+    UID,
+    DisposeWay,
+    DisposeDate,
+    DisposeName
+    FROM
+    cs_ul_manage
+    WHERE UID=#{uid}
+  </select>
+</mapper>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.drcheck.mapper.PubDeptSctaskMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.drcheck.model.PubDeptSctask" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="TaskNO" property="taskNO" jdbcType="VARCHAR" />
+    <result column="InspectDept" property="inspectDept" jdbcType="VARCHAR" />
+    <result column="InspectDesc" property="inspectDesc" jdbcType="VARCHAR" />
+    <result column="InspectState" property="inspectState" jdbcType="VARCHAR" />
+    <result column="InspectType" property="inspectType" jdbcType="VARCHAR" />
+    <result column="InspectTypeDesc" property="inspectTypeDesc" jdbcType="VARCHAR"/>
+    <result column="InspectUserNames" property="inspectUserNames" jdbcType="VARCHAR" />
+    <result column="InspectDepts" property="inspectDepts" jdbcType="VARCHAR" />
+    <result column="InspectDate" property="inspectDate" jdbcType="TIMESTAMP" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapDto" type="com.icinfo.cs.drcheck.dto.PubDeptSctaskDto" extends="BaseResultMap">
+  	<result column="resultId" property="resultId" jdbcType="INTEGER" />
+  	<result column="resultUID" property="resultUID" jdbcType="VARCHAR" />
+  	<result column="ScDetail" property="scDetail" jdbcType="VARCHAR" />
+  	<result column="ScResult" property="scResult" jdbcType="VARCHAR" />
+  	<result column="disposeId" property="disposeId" jdbcType="INTEGER" />
+  	<result column="disposeUID" property="disposeUID" jdbcType="VARCHAR" />
+  	<result column="disposeDetail" property="disposeDetail" jdbcType="VARCHAR" />
+  	<result column="disposeResult" property="disposeResult" jdbcType="VARCHAR" />
+    <result column="SetUserId" property="setUserId" jdbcType="VARCHAR" />
+    <result column="SetUserName" property="setUserName" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="ResultFlag" property="resultFlag" jdbcType="VARCHAR" />
+    <result column="AuditName" property="auditName" jdbcType="VARCHAR" />
+    <result column="AuditDate" property="auditDate" jdbcType="VARCHAR" />
+    <result column="AuditOpin" property="auditOpin" jdbcType="VARCHAR" />
+    <result column="AuditState" property="auditState" jdbcType="VARCHAR" />
+    <result column="scTypes" property="scTypes" jdbcType="VARCHAR" />
+    <result column="scNames" property="scNames" jdbcType="VARCHAR" />
+  </resultMap>
+   
+  <select id="selectPubDeptSctaskByTaskNO" resultMap="BaseResultMapDto" parameterType="Map"> 
+	SELECT t.id,t.UID,t.TaskNO,t.InspectDept,t.InspectDept,t.InspectDesc,t.InspectState,t.InspectType,
+			t.InspectUserNames,t.InspectDepts,t.InspectDate,r.SetUserId,r.SetUserName,
+			r.SetTime,r.Remark,r.ScResult,r.AuditName,r.AuditDate,r.AuditOpin,r.AuditState,t.CreateTime,r.id resultId,r.UID resultUID ,r.ScDetail,r.ScResult,
+			a.id disposeId,a.UID disposeUID,a.ScDetail disposeDetail,a.ScResult disposeResult,r.ResultFlag
+	FROM   cs_pub_dept_sctask t 
+	LEFT JOIN cs_pub_scresult r ON t.UID = r.TaskNO and t.InspectDept = r.InspectDept
+	LEFT JOIN cs_pub_scdispose a ON r.PriPID = a.PriPID AND t.UID  = a.TaskNO
+	<trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="taskNO != null and taskNO != ''">
+			t.TaskNO = #{taskNO,jdbcType=VARCHAR}
+		</if>
+		<if test="priPID != null and priPID != ''">
+			and r.PriPID = #{priPID,jdbcType=VARCHAR}
+		</if>
+		<if test="inspectDept != null and inspectDept != ''">
+			and t.InspectDept = #{inspectDept,jdbcType=VARCHAR}
+		</if>
+	</trim>
+  </select>
+  
+  <select id="selectNewPubDeptSctaskByTaskNO" resultMap="BaseResultMapDto" parameterType="Map"> 
+	SELECT t.id,t.UID,t.TaskNO,t.InspectDept,t.InspectDept,t.InspectDesc,t.InspectState,t.InspectType,
+			t.InspectUserNames,t.InspectDepts,t.InspectDate
+	FROM   cs_pub_dept_sctask t 
+	<trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="taskNO != null and taskNO != ''">
+			t.TaskNO = #{taskNO,jdbcType=VARCHAR}
+		</if>
+	</trim>
+  </select>
+  
+  <select id="countPubDeptSctaskByTaskNO" resultType="java.lang.Integer" parameterType="Map"> 
+	SELECT count(t.id)
+	FROM   cs_pub_dept_sctask t 
+	LEFT JOIN cs_pub_scresult r ON t.UID = r.TaskNO and t.InspectDept = r.InspectDept
+	LEFT JOIN cs_pub_scdispose a ON r.PriPID = a.PriPID AND t.UID  = a.TaskNO
+	where	t.TaskNO = #{taskNO,jdbcType=VARCHAR}
+			and r.PriPID = #{priPID,jdbcType=VARCHAR}
+			and (r.ResultFlag is null OR r.ResultFlag = '0')
+  </select>
+  
+  <select id="selectCountDeptSctaskAllFinished" resultType="java.lang.Integer" parameterType="Map"> 
+	select count(t.id) from cs_pub_dept_sctask t
+		LEFT JOIN cs_pub_scinfo n ON t.TaskNO = n.TaskNO 
+		LEFT JOIN cs_pub_scresult r ON n.PriPID = r.PriPID AND r.TaskNO = t.UID
+	where t.TaskNO = #{taskNO,jdbcType=VARCHAR} 
+	AND (r.AuditState is NULL OR r.AuditState = '0' OR r.AuditState ='1');
+  </select>
+  
+  <select id="selectPubDeptSctypesList" resultMap="BaseResultMapDto" parameterType="Map"> 
+	select t.id,t.UID,t.TaskNO,t.InspectDept,t.InspectDesc,t.InspectState,t.InspectType,t.InspectTypeDesc,
+			t.InspectUserNames,t.InspectDepts,t.InspectDate,r.ResultFlag from cs_pub_dept_sctask t 
+	LEFT JOIN cs_pub_scinfo i ON t.TaskNO = i.TaskNO
+	LEFT JOIN cs_pub_scresult r ON i.PriPID = r.PriPID AND r.InspectDept = t.InspectDept AND r.TaskNO = t.UID
+ 	where t.TaskNO = #{taskNO,jdbcType=VARCHAR} and i.PriPID = #{priPID,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectPubDeptSctypesListByTaskNO" resultMap="BaseResultMapDto" parameterType="java.lang.String"> 
+	select t.id,t.UID,t.TaskNO,t.InspectDept,t.InspectDesc,t.InspectState,t.InspectType,t.InspectTypeDesc,
+			t.InspectUserNames,t.InspectDepts,t.InspectDate
+	 from cs_pub_dept_sctask t 
+ 	where t.TaskNO = #{taskNO,jdbcType=VARCHAR}
+  </select>
+</mapper>

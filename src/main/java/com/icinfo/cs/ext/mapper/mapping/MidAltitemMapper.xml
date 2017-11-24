@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.ext.mapper.MidAltitemMapper" >
+  <resultMap id="MidAltitem" type="com.icinfo.cs.ext.model.MidAltitem" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="AltItem" property="altItem" jdbcType="CHAR" />
+    <result column="AltTime" property="altTime" jdbcType="INTEGER" />
+    <result column="AltDate" property="altDate" jdbcType="DATE" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="AltBeContent" property="altBeContent" jdbcType="LONGVARCHAR" />
+    <result column="AltAfContent" property="altAfContent"  jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <resultMap id="MidAltitemDto" type="com.icinfo.cs.ext.dto.MidAltitemDto" extends="MidAltitem">
+  	<result column="AltContent" property="altContent" jdbcType="VARCHAR"></result>
+  </resultMap>
+  
+  <select id="queryPageResultByPripid" resultMap="MidAltitemDto" parameterType="Map">
+		SELECT 
+		  A.AltItem,
+		  A.AltBeContent,
+		  A.AltAfContent,
+		  A.AltDate
+		FROM
+		  cs_mid_altitem A 
+		  where A.PriPID =#{priPID} 
+		  and A.Altdate IS NOT NULL
+			order by A.AltDate Desc 
+	</select>
+	
+	
+	
+	  <select id="selectMidAltitemByPripid" resultMap="MidAltitemDto" parameterType="Map">
+		SELECT 
+		  A.AltItem,
+		  C.Content AltContent,
+		  A.AltBeContent,
+		  A.AltAfContent,
+		  A.AltDate
+		FROM
+		  cs_mid_altitem A 
+		LEFT JOIN 
+		  cs_code_chgtype C ON A.AltItem = C.Code
+		  where A.PriPID =#{priPID}
+		  and A.AltItem='05'
+		  order by AltDate desc  
+	 </select>
+</mapper>

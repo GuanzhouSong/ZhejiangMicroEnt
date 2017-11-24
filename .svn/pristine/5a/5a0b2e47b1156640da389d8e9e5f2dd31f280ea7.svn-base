@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.YrSfcBaseinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.YrSfcBaseinfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="Dom" property="dom" jdbcType="VARCHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="FarSpeArtName" property="farSpeArtName" jdbcType="VARCHAR" />
+    <result column="MemConGro" property="memConGro" jdbcType="DECIMAL" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="Email" property="email" jdbcType="VARCHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="MemNum" property="memNum" jdbcType="INTEGER" />
+    <result column="AnnNewMemNum" property="annNewMemNum" jdbcType="INTEGER" />
+    <result column="AnnRedMemNum" property="annRedMemNum" jdbcType="INTEGER" />
+    <result column="Farnum" property="farnum" jdbcType="INTEGER" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="AnCheID" property="anCheID" jdbcType="VARCHAR" />
+    <result column="SubDate" property="subDate" jdbcType="TIMESTAMP" />
+    <result column="OthICService" property="othICService" jdbcType="VARCHAR" />
+    <result column="ICService" property="ICService" jdbcType="VARCHAR" />
+    <result column="CreditMem" property="creditMem" jdbcType="DECIMAL" />
+    <result column="LiaPhone" property="liaPhone" jdbcType="VARCHAR" />
+    <result column="LiaIDNum" property="liaIDNum" jdbcType="VARCHAR" />
+    <result column="LiaIDType" property="liaIDType" jdbcType="VARCHAR" />
+    <result column="LiaName" property="liaName" jdbcType="VARCHAR" />
+    <result column="LeRepPhone" property="leRepPhone" jdbcType="VARCHAR" />
+    <result column="OpScope" property="opScope" jdbcType="LONGVARCHAR" />
+    <result column="regNO" property="RegNO" jdbcType="LONGVARCHAR" />
+    <result column="uniCode" property="UniCode" jdbcType="LONGVARCHAR" />
+    <result column="RatGro" property="ratGro" jdbcType="DECIMAL" />
+    <result column="VendIncIsPub" property="vendIncIsPub" jdbcType="VARCHAR" />
+    <result column="VendInc" property="vendInc" jdbcType="DECIMAL" />
+    <result column="PriYeaProfit" property="priYeaProfit" jdbcType="DECIMAL" />
+    <result column="PriYeaSub" property="priYeaSub" jdbcType="DECIMAL" />
+    <result column="PriYeaLoan" property="priYeaLoan" jdbcType="DECIMAL" />
+    <result column="MaiBusIncIsPub" property="maiBusIncIsPub" jdbcType="VARCHAR" />
+    <result column="RatGroIsPub" property="ratGroIsPub" jdbcType="VARCHAR" />
+    <result column="PriYeaLoanIsPub" property="priYeaLoanIsPub" jdbcType="VARCHAR" />
+    <result column="PriYeaSubIsPub" property="priYeaSubIsPub" jdbcType="VARCHAR" />
+
+    <result column="EmpNum" property="empNum" jdbcType="INTEGER" />
+    <result column="EmpNumDis" property="empNumDis" jdbcType="VARCHAR" />
+    <result column="FemaleEmploye" property="femaleEmploye" jdbcType="INTEGER" />
+    <result column="FemaleEmployeIsPub" property="femaleEmployeIsPub" jdbcType="VARCHAR" />
+    <result column="EntMainBusActivity" property="entMainBusActivity" jdbcType="VARCHAR" />
+    <result column="WebsiteFlag" property="websiteFlag" jdbcType="CHAR" />
+
+    <result column="AddrDom" property="addrDom" jdbcType="VARCHAR" />
+    <result column="CityAddressCopy" property="cityAddressCopy" jdbcType="VARCHAR" />
+    <result column="AreaAddressCopy" property="areaAddressCopy" jdbcType="VARCHAR" />
+    <result column="StreeAddressCopy" property="streeAddressCopy" jdbcType="VARCHAR" />
+    <result column="CityAddress" property="cityAddress" jdbcType="VARCHAR" />
+    <result column="AreaAddress" property="areaAddress" jdbcType="VARCHAR" />
+    <result column="StreeAddress" property="streeAddress" jdbcType="VARCHAR" />
+    <result column="DesAddress" property="desAddress" jdbcType="VARCHAR" />
+
+
+
+
+
+
+  </resultMap>
+</mapper>

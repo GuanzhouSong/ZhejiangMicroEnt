@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.opanomaly.mapper.PubPbOpadetailMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.opanomaly.model.PubPbOpadetail" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="RecoveryType" property="recoveryType" jdbcType="CHAR" />
+    <result column="IsRecovery" property="isRecovery" jdbcType="CHAR" />
+    <result column="NorRea" property="norRea" jdbcType="CHAR" />
+    <result column="NorReaCN" property="norReaCN" jdbcType="VARCHAR" />
+    <result column="NorDecOrg" property="norDecOrg" jdbcType="VARCHAR" />
+    <result column="NorDecOrgCN" property="norDecOrgCN" jdbcType="VARCHAR" />
+    <result column="NorDate" property="norDate" jdbcType="TIMESTAMP" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="RecoverRea" property="recoverRea" jdbcType="VARCHAR" />
+    <result column="ResetName" property="resetName" jdbcType="VARCHAR" />
+    <result column="FirstDept" property="firstDept" jdbcType="VARCHAR" />
+    <result column="FirstName" property="firstName" jdbcType="VARCHAR" />
+    <result column="FirstDate" property="firstDate" jdbcType="TIMESTAMP" />
+    <result column="FirstOpin" property="firstOpin" jdbcType="VARCHAR" />
+    <result column="AuditDept" property="auditDept" jdbcType="VARCHAR" />
+    <result column="AuditName" property="auditName" jdbcType="VARCHAR" />
+    <result column="AuditDate" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="AuditOpin" property="auditOpin" jdbcType="VARCHAR" />
+    <result column="AuditState" property="auditState" jdbcType="CHAR" />
+    <result column="BusExcList" property="busExcList" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapDto" type="com.icinfo.cs.opanomaly.dto.PubPbOpadetailDto" extends="BaseResultMap">
+      <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" /> 
+      <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" /> 
+      <result column="Uniscid" property="uniscid" jdbcType="VARCHAR" /> 
+      <result column="RegNO" property="regNO" jdbcType="VARCHAR" /> 
+      <result column="EntName" property="entName" jdbcType="VARCHAR" /> 
+      <result column="LeRep" property="leRep" jdbcType="VARCHAR" /> 
+      <result column="RegState" property="regState" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectPubPbOpadetailDtoList" resultMap="BaseResultMapDto" parameterType="Map">
+	    SELECT
+		A.id,
+		A.PriPID,
+		B.EntName,
+		B.RegNO,
+		B.UniCode,
+		B.LeRep,
+		B.RegState,
+		A.NorRea,
+		A.NorReaCN,
+		A.NorDate,
+		A.NorDecOrg,
+		A.NorDecOrgCN,
+		A.FirstName,
+		A.FirstDate,
+		A.FirstDept,
+		A.FirstOpin,
+		A.BusExcList,
+		B.RegOrgName,
+		B.LocalAdmName,
+		A.AuditName,
+		A.AuditDate,
+		A.AuditState,
+		A.AuditOpin,
+		A.RecoverRea,
+		A.IsRecovery
+	FROM
+		cs_pub_pbopadetail A
+	LEFT JOIN cs_mid_baseinfo B ON A.PriPID = B.PriPID
+	WHERE 1=1 
+	and B.EntTypeCatg ='50'
+	<include refid="pbopadetailapp_where"></include>
+	ORDER BY IFNULL(A.AuditState,5) ASC
+  </select>
+  
+  <sql id="pbopadetailapp_where"> 
+    <if test="regNO !='' and regNO !=null">
+    	and (B.RegNO  LIKE concat('%', #{regNO},'%') or B.Unicode  LIKE concat('%', #{regNO},'%') ) 
+    </if>
+    <if test="entName !='' and entName !=null">
+    	and B.EntName  LIKE concat('%', #{entName},'%')
+    </if>
+    <if test="regOrg !='' and regOrg !=null">
+    	and B.RegOrg  IN  (${regOrg})
+    </if>
+    <if test="norReas != null and norReas != ''">
+		and 
+		<foreach item="item" index="index" collection="norReas"
+			open="(" separator="OR" close=")">
+			A.NorRea like concat('%',#{item},'%')
+		</foreach> 
+	</if>
+    <if test="leRep !='' and leRep !=null">
+    	and B.LeRep  LIKE concat('%', #{leRep},'%')
+    </if>
+    <if test="localAdm !='' and localAdm !=null">
+    	and B.LocalAdm  IN (${localAdm})
+    </if>
+    <if test="auditState !='' and auditState !=null">
+    	and A.AuditState=#{auditState}
+    </if>
+    <if test="firstName !='' and firstName !=null">
+    	and A.FirstName =#{firstName}
+    </if>
+    <if test="auditName !='' and auditName !=null">
+    	and A.AuditName =#{auditName}
+    </if>
+    <if test="recoveryType !='' and recoveryType !=null">
+    	and A.RecoveryType IN (${recoveryType})
+    </if>
+    <!-- 数据权限 -->
+ 	   <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+  </sql>
+  
+  <select id="selectPubPbOpadetailByBusExcList" resultMap="BaseResultMapDto" parameterType="Map">
+	    SELECT
+		A.id,
+		A.PriPID,
+		B.EntName,
+		B.RegNO,
+		A.RecoveryType,
+		A.IsRecovery,
+		A.NorRea,
+		A.NorReaCN,
+		A.NorDecOrg,
+		A.NorDecOrgCN,
+		A.NorDate,
+		A.Year,
+		A.RecoverRea,
+		A.ResetName,
+		A.FirstDept,
+		A.FirstName,
+		A.FirstOpin,
+		A.FirstDate,
+		A.AuditName,
+		A.AuditDate,
+		A.AuditState,
+		A.AuditOpin,
+		A.AuditDept,
+		A.BusExcList
+	FROM
+		cs_pub_pbopadetail A
+	LEFT JOIN cs_mid_baseinfo B ON A.PriPID = B.PriPID
+	WHERE A.BusExcList=#{busExcList}
+  </select>
+  
+  <!-- 根据主体身份代码获取移出信息 不包括撤销 -->
+  <select id="selectPubPbOpadetailByPriPID" resultMap="BaseResultMapDto" parameterType="Map">
+	    SELECT
+		A.id,
+		A.PriPID,
+		B.EntName,
+		B.RegNO,
+		A.RecoveryType,
+		A.IsRecovery,
+		A.NorRea,
+		A.NorReaCN,
+		A.NorDecOrg,
+		A.NorDecOrgCN,
+		A.NorDate,
+		A.Year,
+		A.RecoverRea,
+		A.ResetName,
+		A.FirstDept,
+		A.FirstName,
+		A.FirstOpin,
+		A.FirstDate,
+		A.AuditName,
+		A.AuditDate,
+		A.AuditState,
+		A.AuditOpin,
+		A.AuditDept,
+		A.BusExcList
+	FROM
+		cs_pub_pbopadetail A
+	LEFT JOIN cs_mid_baseinfo B ON A.PriPID = B.PriPID
+	WHERE A.PriPID=#{priPID}  A.RecoveryType ='1' AND A.AuditState='1' ORDER BY A.NorDate desc
+  </select>
+  
+</mapper>

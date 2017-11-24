@@ -1,0 +1,1543 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.rpt.rptmapper.RptSmBaseinfoMapper">
+	<resultMap id="BaseResultMap" type="com.icinfo.cs.rpt.rptmodel.RptSmBaseinfo">
+		<result column="PriPID" property="priPID" jdbcType="CHAR" />
+		<result column="EntName" property="entName" jdbcType="VARCHAR" />
+		<result column="RegNO" property="regNO" jdbcType="CHAR" />
+		<result column="Dom" property="dom" jdbcType="VARCHAR" />
+		<result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+		<result column="RegCap" property="regCap" jdbcType="DECIMAL" />
+		<result column="EntType" property="entType" jdbcType="CHAR" />
+		<result column="EstDate" property="estDate" jdbcType="DATE" />
+		<result column="IndustryCo" property="industryCo" jdbcType="CHAR" />
+		<result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+		<result column="IndustryPhy" property="industryPhy" jdbcType="CHAR" />
+		<result column="RegState" property="regState" jdbcType="CHAR" />
+		<result column="RegCapUSD" property="regCapUSD" jdbcType="DECIMAL" />
+		<result column="UniCode" property="uniCode" jdbcType="CHAR" />
+		<result column="OpFrom" property="opFrom" jdbcType="DATE" />
+		<result column="OpTo" property="opTo" jdbcType="DATE" />
+		<result column="Currency" property="currency" jdbcType="CHAR" />
+		<result column="Tel" property="tel" jdbcType="VARCHAR" />
+		<result column="Email" property="email" jdbcType="VARCHAR" />
+		<result column="ApprDate" property="apprDate" jdbcType="DATE" />
+		<result column="AltDate" property="altDate" jdbcType="DATE" />
+		<result column="UID" property="UID" jdbcType="VARCHAR" />
+		<result column="CurrencyCn" property="currencyCn" jdbcType="VARCHAR" />
+		<result column="EntTypeCatg" property="entTypeCatg" jdbcType="VARCHAR" />
+		<result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+		<result column="LocalAdm" property="localAdm" jdbcType="CHAR" />
+		<result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+		<result column="SliceNO" property="sliceNO" jdbcType="VARCHAR" />
+		<result column="SliceNOName" property="sliceNOName" jdbcType="VARCHAR" />
+		<result column="SmentReason" property="smentReason" jdbcType="VARCHAR" />
+		<result column="IsSment" property="isSment" jdbcType="CHAR" />
+		<result column="SmentRemReason" property="smentRemReason" jdbcType="VARCHAR" />
+		<result column="OpForm" property="opForm" jdbcType="LONGVARCHAR" />
+		<result column="OpScope" property="opScope" jdbcType="LONGVARCHAR" />
+		<result column="PostalCode" property="postalCode" jdbcType="VARCHAR" />
+		<result column="CerNO" property="cerNO" jdbcType="VARCHAR" />
+		<result column="EmpNum" property="empNum" jdbcType="INTEGER" />
+		<result column="SmentRemTime" property="smentRemTime" jdbcType="DATE" />
+	</resultMap>
+
+	<resultMap type="com.icinfo.cs.rpt.rptdto.RptSmBaseinfoDto" id="BaseResultDtoMap"
+		extends="BaseResultMap">
+		<result column="VendInc" property="vendInc" jdbcType="DECIMAL" />
+		<result column="IndustryCoName" property="industryCoName" jdbcType="VARCHAR" />
+		<result column="EntTypeName" property="entTypeName" jdbcType="VARCHAR" />
+		<result column="SourceType" property="sourceType" jdbcType="VARCHAR" />
+		<result column="IndustryName" property="industryName" jdbcType="VARCHAR" />
+		<result column="CultivationTypeName" property="cultivationTypeName" jdbcType="VARCHAR" />
+		<result column="HelpNum" property="helpNum" jdbcType="INTEGER" />
+		<result column="HelpTypeNum" property="helpTypeNum" jdbcType="INTEGER" />
+		<result column="HelpState" property="helpState" jdbcType="VARCHAR" />
+		
+		<result column="AncheDate" property="ancheDate" jdbcType="DATE" />
+		<result column="Year" property="year" jdbcType="VARCHAR" />
+		
+		<result column="rptCount" property="rptCount" jdbcType="DECIMAL" />
+		<result column="isRptCount" property="isRptCount" jdbcType="DECIMAL" />
+		<result column="busstatus" property="busstatus" jdbcType="DECIMAL" />
+		<result column="assGro" property="assGro" jdbcType="DECIMAL" />
+		<result column="fixAssets" property="fixAssets" jdbcType="DECIMAL" />
+		<result column="liaGro" property="liaGro" jdbcType="DECIMAL" />
+		<result column="proGro" property="proGro" jdbcType="DECIMAL" />
+		<result column="netInc" property="netInc" jdbcType="DECIMAL" />
+		<result column="addProCount" property="addProCount" jdbcType="DECIMAL" />
+		<result column="minuProCount" property="minuProCount" jdbcType="DECIMAL" />
+		<result column="ratGro" property="ratGro" jdbcType="DECIMAL" />
+		<result column="yreportRay" property="yreportRay" jdbcType="DECIMAL" />
+		<result column="busstatusRay" property="busstatusRay" jdbcType="DECIMAL" />
+		<result column="assliaRay" property="assliaRay" jdbcType="DECIMAL" />
+		<result column="entTypeCatgName" property="entTypeCatgName" jdbcType="VARCHAR" />
+		<result column="industryCodeName" property="industryCodeName" jdbcType="VARCHAR" />
+		
+		<result column="RemoveTypeCode" property="removeTypeCode" jdbcType="VARCHAR" />
+	    <result column="RemoveTypeName" property="removeTypeName" jdbcType="VARCHAR" />
+	    <result column="RemoveTime" property="removeTime" jdbcType="TIMESTAMP" />
+	
+	    <result column="DirYear" property="dirYear" jdbcType="VARCHAR" />
+        <result column="AssgroIsp" property="assgroIsp" jdbcType="CHAR" />
+	    <result column="MaiBusincIsp" property="maiBusincIsp" jdbcType="CHAR" />
+        <result column="MaiBusinc" property="maiBusinc" jdbcType="DECIMAL" />
+        <result column="EmpNumIsp" property="empNumIsp" jdbcType="CHAR" />
+	    <result column="DirCreateReasonCode" property="dirCreateReasonCode" jdbcType="VARCHAR" />
+	    <result column="DirCreateReason" property="dirCreateReason" jdbcType="VARCHAR" />
+	    <result column="DirCreateTime" property="dirCreateTime" jdbcType="DATE" />
+        <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+	
+	    <result column="entTypeCatgDesc" property="entTypeCatgDesc" jdbcType="VARCHAR" />
+        <result column="industryMlDesc" property="industryMlDesc" jdbcType="VARCHAR" />
+        <result column="regOrgDesc" property="regOrgDesc" jdbcType="VARCHAR" />
+        
+        
+        
+	</resultMap>
+
+
+	<!-- 培育库分页列表 -->
+	<select id="queryPageListForEntarchives" resultMap="BaseResultDtoMap">
+	SELECT 
+	A.PriPID,
+	A.EntName,
+	A.RegNO,
+	A.Dom,
+	A.LeRep,
+	A.RegCap,
+	A.EntType,
+	A.EstDate,
+	A.IndustryCo,
+	A.RegOrg,
+	A.IndustryPhy,
+	A.RegState,
+	A.RegCapUSD,
+	A.UniCode,
+	A.OpFrom,
+	A.OpTo,
+	A.Currency,
+	A.Tel,
+	A.Email,
+	A.ApprDate,
+	A.AltDate,
+	A.CurrencyCn,
+	A.OpForm,
+	A.OpScope,
+	A.EntTypeCatg,
+	A.RegOrgName,
+	A.LocalAdm,
+	A.LocalAdmName,
+	A.SliceNO,
+	A.SliceNOName,
+	A.SmentReason,
+	A.IsSment,
+	A.SmentRemReason,
+	<if test="year !=null and year != ''">
+		A.EmpNum,
+		A.VendInc,
+		A.ProGro,
+		A.RatGro,
+	</if>
+	<if test="year ==null or year.toString() == ''">
+		null EmpNum,
+		null VendInc,
+		null ProGro,
+		null RatGro,
+	</if>
+	D.Content industryCoName,
+    E.Content entTypeName
+	FROM 
+	(SELECT
+	sb.PriPID,
+	sb.EntName,
+	sb.RegNO,
+	sb.Dom,
+	sb.LeRep,
+	sb.RegCap,
+	sb.EntType,
+	sb.EstDate,
+	sb.IndustryCo,
+	sb.RegOrg,
+	sb.IndustryPhy,
+	sb.RegState,
+	sb.RegCapUSD,
+	sb.UniCode,
+	sb.OpFrom,
+	sb.OpTo,
+	sb.Currency,
+	sb.Tel,
+	sb.Email,
+	sb.ApprDate,
+	sb.AltDate,
+	sb.CurrencyCn,
+	sb.OpForm,
+	sb.OpScope,
+	sb.EntTypeCatg,
+	sb.RegOrgName,
+	sb.LocalAdm,
+	sb.LocalAdmName,
+	sb.SliceNO,
+	sb.SliceNOName,
+	sb.SmentReason,
+	sb.IsSment,
+	sb.SmentRemReason,
+	<if test="year !=null and year != ''">
+		cya.EmpNum,
+		cya.VendInc,
+		cya.ProGro,
+		cya.RatGro
+	</if>
+	<if test="year ==null or year.toString() == ''">
+		null EmpNum,
+		null VendInc,
+		null ProGro,
+		null RatGro
+	</if>
+	FROM
+	rpt_sm_baseinfo sb
+	<if test="year !=null and year != ''">
+		INNER JOIN zjcsdb1.cs_yr_asset cya ON sb.PriPID = cya.PriPID and cya.YEAR = #{year}
+	</if>
+	LEFT JOIN zjcsdb1.sm_bus_entarchives sbe ON sb.PriPID = sbe.PriPID
+	<include refid="queryPageListForEntarchivesCommonSql" />
+	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	order by sb.estDate desc
+	LIMIT ${numStart},${pageSize}) A
+	LEFT JOIN zjcsdb1.cs_code_industry D on  A.IndustryCo = D.code
+	LEFT JOIN zjcsdb1.cs_code_enttype E ON A.EntType = E.code		
+	</select>
+	
+	<sql id="queryPageListForEntarchivesCommonSql">
+	    WHERE (
+			sbe.PriPID is null
+		or 
+			EXISTS (
+				SELECT
+					1
+				FROM
+					zjcsdb1.sm_bus_entarchives_his sbeh
+				WHERE
+				 sbeh.PriPID = sb.PriPID
+			)
+		)
+  		<if test="cidRegNO !=null and cidRegNO != ''">
+			<![CDATA[AND (instr(sb.UniCode, #{cidRegNO}) > 0 OR instr(sb.RegNO, #{cidRegNO}) >0)]]>
+		</if>
+		<if test="entName !=null and entName != ''">
+			<![CDATA[AND instr(sb.EntName, #{entName}) > 0]]>
+		</if>
+		<if test="industryCo !=null and industryCo != ''">
+			<![CDATA[AND sb.IndustryCo in (${industryCo})]]>
+		</if>
+		<if test="entType !=null and entType != ''">
+			<![CDATA[AND sb.EntType in (${entType})]]>
+		</if>
+		<if test="regOrg !=null and regOrg != ''">
+			AND sb.RegOrg in (${regOrg})
+		</if>
+		<if test="estDateStart !=null and estDateStart != '' ">
+  			<![CDATA[AND sb.EstDate >= #{estDateStart}	]]>
+		</if>
+		<if test="estDateEnd !=null and estDateEnd != '' ">
+  			<![CDATA[AND sb.EstDate <= #{estDateEnd}	]]>
+		</if>
+		<if test="regCapStart !=null and regCapStart != '' ">
+  			<![CDATA[AND sb.RegCap >= ${regCapStart}	]]>
+		</if>
+		<if test="regCapEnd !=null and regCapEnd != '' ">
+  			<![CDATA[AND sb.RegCap <= ${regCapEnd}	]]>
+		</if>
+		<if test="localAdm !=null and localAdm != '' ">
+			AND sb.LocalAdm in (${localAdm})
+		</if>
+		<if test="empNumStart !=null and empNumStart != '' ">
+  			<![CDATA[AND cya.EmpNum >= ${empNumStart}	]]>
+		</if>
+		<if test="empNumEnd !=null and empNumEnd != '' ">
+  			<![CDATA[AND cya.EmpNum <= ${empNumEnd}	]]>
+		</if>
+		<if test="vendIncStart !=null and vendIncStart != '' ">
+  			<![CDATA[AND cya.VendInc >= ${vendIncStart}	]]>
+		</if>
+		<if test="vendIncEnd !=null and vendIncEnd != '' ">
+  			<![CDATA[AND cya.VendInc <= ${vendIncEnd}	]]>
+		</if>
+	    <if test="industryType !=null and industryType != '' ">
+			AND sb.industryCo in (SELECT
+					cct.`Code`
+				FROM
+					zjcsdb1.cs_code_trade cct
+				WHERE
+					cct.Type = #{industryType})
+		</if>
+	</sql>
+	
+	<!-- 培育库分页列表-总数-->
+	<select id="queryPageListForEntarchivesCount" resultType="Long">
+	    SELECT
+		count(1)
+		FROM
+		rpt_sm_baseinfo sb
+  		<if test="year !=null and year != ''">
+			INNER JOIN zjcsdb1.cs_yr_asset cya ON sb.PriPID = cya.PriPID and cya. YEAR = #{year}
+		</if>
+		LEFT JOIN zjcsdb1.sm_bus_entarchives sbe ON sb.PriPID = sbe.PriPID
+		<include refid="queryPageListForEntarchivesCommonSql" />
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	</select>
+	
+
+	<!-- 获取企业、培育库分页列表 -->
+	<select id="queryEntAndEntarchivesPageList" resultMap="BaseResultDtoMap">
+		SELECT
+		sb.PriPID,
+		sb.EntName,
+		sb.RegNO,
+		sb.Dom,
+		sb.LeRep,
+		sb.RegCap,
+		sb.EntType,
+		sb.EstDate,
+		sb.IndustryCo,
+		sb.RegOrg,
+		sb.IndustryPhy,
+		sb.RegState,
+		sb.RegCapUSD,
+		sb.UniCode,
+		sb.OpFrom,
+		sb.OpTo,
+		sb.Currency,
+		sb.Tel,
+		sb.Email,
+		sb.ApprDate,
+		sb.AltDate,
+		sb.CurrencyCn,
+		sb.OpForm,
+		sb.OpScope,
+		sb.EntTypeCatg,
+		sb.RegOrgName,
+		sb.LocalAdm,
+		sb.LocalAdmName,
+		sb.SliceNO,
+		sb.SliceNOName,
+		sb.SmentReason,
+		sb.IsSment,
+		sb.SmentRemReason,
+		<if test="year !=null and year != ''">
+			cya.EmpNum,
+			cya.VendInc,
+			cya.ProGro,
+			cya.RatGro,
+		</if>
+		<if test="year ==null or year.toString() == ''">
+			null EmpNum,
+			null VendInc,
+			null ProGro,
+			null RatGro,
+		</if>
+		cci.Content IndustryCoName,
+		cce.Content EntTypeName,
+		sbe.HelpState,
+		sbe.CultivationTypeName,
+		sbe.HelpTypeNum
+		FROM
+		rpt_sm_baseinfo sb
+		INNER JOIN zjcsdb1.sm_bus_entarchives sbe ON sbe.PriPID = sb.PriPID
+		LEFT JOIN
+		zjcsdb1.sm_bus_entarchives_help sbeh ON sbeh.PriPID = sbe.PriPID
+		<if test="year !=null and year != ''">
+  		LEFT JOIN zjcsdb1.cs_yr_asset cya ON sb.PriPID = cya.PriPID and cya. YEAR = #{year}
+        </if>
+		LEFT JOIN zjcsdb1.cs_code_industry
+		cci ON cci.code = sb.IndustryCo
+		LEFT JOIN zjcsdb1.cs_code_enttype cce ON cce.code = sb.EntType
+		WHERE
+		NOT EXISTS (
+			SELECT
+			1
+			FROM
+			zjcsdb1.sm_bus_entarchives_his sbeh
+			WHERE
+			sbeh.PriPID = sbe.PriPID
+		)
+		<if test="cultivationTypeCode !=null and cultivationTypeCode != ''">
+			AND sbe.CultivationTypeCode = #{cultivationTypeCode}
+		</if>
+		<if test="areaTypeCode !=null and areaTypeCode != ''">
+			AND (sbe.Tsxz REGEXP ('${areaTypeCode}') or Zckj REGEXP
+			('${areaTypeCode}') or Kjfhy REGEXP ('${areaTypeCode}') or Kjdsy REGEXP
+			('${areaTypeCode}') or Xwqyy REGEXP('${areaTypeCode}') or Qt REGEXP ('${areaTypeCode}'))
+		</if>
+		<if test="industryType !=null and industryType != '' and industryType != 0">
+			AND FIND_IN_SET(#{industryType},IndustryType) 
+		</if>
+		<if test="industryType !=null and industryType != '' and industryType == 0">
+			AND IndustryType is not null
+		</if>
+		<if test="entCrowdCode !=null and entCrowdCode != ''">
+			AND EntCrowdCode = #{entCrowdCode}
+		</if>
+		<if test="helpTypeCode !=null and helpTypeCode != ''">
+			AND HelpTypeCode = #{helpTypeCode}
+		</if>
+		<if test="helpState !=null and helpState != ''">
+			AND HelpState = #{helpState}
+		</if>
+		<if test="helpStateWelcome !=null and helpStateWelcome != '' and helpStateWelcome == 1">
+			AND HelpState = 1
+		</if>
+		<if test="helpStateWelcome !=null and helpStateWelcome != '' and helpStateWelcome == 2">
+			AND (HelpState = 2 OR HelpState = 3)
+		</if>
+
+		<if test="cidRegNO !=null and cidRegNO != ''">
+			<![CDATA[AND (instr(sb.UniCode, #{cidRegNO}) > 0 OR instr(sb.RegNO, #{cidRegNO}) >0)]]>
+		</if>
+		<if test="entName !=null and entName != ''">
+			<![CDATA[AND instr(sb.EntName, #{entName}) > 0]]>
+		</if>
+		<if test="industryCo !=null and industryCo != ''">
+			<![CDATA[AND sb.IndustryCo in (${industryCo})]]>
+		</if>
+		<if test="entType !=null and entType != ''">
+			<![CDATA[AND sb.EntType in (${entType})]]>
+		</if>
+		<if test="regOrg !=null and regOrg != ''">
+			AND sb.RegOrg in (${regOrg})
+		</if>
+		<if test="estDateStart !=null and estDateStart != '' ">
+  			<![CDATA[AND sb.EstDate >= #{estDateStart}	]]>
+		</if>
+		<if test="estDateEnd !=null and estDateEnd != '' ">
+  			<![CDATA[AND sb.EstDate <= #{estDateEnd}	]]>
+		</if>
+		<if test="regCapStart !=null and regCapStart != '' ">
+  			<![CDATA[AND sb.RegCap >= ${regCapStart}	]]>
+		</if>
+		<if test="regCapEnd !=null and regCapEnd != '' ">
+  			<![CDATA[AND sb.RegCap <= ${regCapEnd}	]]>
+		</if>
+		<if test="localAdm !=null and localAdm != '' ">
+			AND sb.LocalAdm in (${localAdm})
+		</if>
+		<if test="empNumStart !=null and empNumStart != '' ">
+  			<![CDATA[AND cya.EmpNum >= ${empNumStart}	]]>
+		</if>
+		<if test="empNumEnd !=null and empNumEnd != '' ">
+  			<![CDATA[AND cya.EmpNum <= ${empNumEnd}	]]>
+		</if>
+		<if test="vendIncStart !=null and vendIncStart != '' ">
+  			<![CDATA[AND cya.VendInc >= ${vendIncStart}	]]>
+		</if>
+		<if test="vendIncEnd !=null and vendIncEnd != '' ">
+  			<![CDATA[AND cya.VendInc <= ${vendIncEnd}	]]>
+		</if>
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+		GROUP BY sb.id 
+		order by sbe.UpdateTime desc
+	</select>
+
+	<!-- 根据企业id获取对象 -->
+	<select id="queryBeanByPriPID" resultMap="BaseResultDtoMap">
+		select sb.EntName,cci.Content IndustryCoName,sb.EstDate,sb.Dom,sb.PostalCode
+		from rpt_sm_baseinfo sb
+		LEFT JOIN zjcsdb1.cs_code_industry cci ON cci.code = sb.IndustryCo
+		where sb.PriPID = #{_parameter}
+	</select>
+
+	<select id="selectListByCondition" parameterType="map" resultMap="BaseResultDtoMap">
+		SELECT
+		A.id,
+		A.PriPID,
+		A.EntName,
+		A.RegNO,
+		A.Dom,
+		A.LeRep,
+		A.RegCap,
+		A.EntType,
+		A.EstDate,
+		A.IndustryCo,
+		A.RegOrg,
+		A.RegOrgName,
+		A.IndustryCo,
+		A.IndustryPhy,
+		A.RegState,
+		A.RegCapUSD,
+		A.UniCode,
+		A.OpFrom,
+		A.OpTo,
+		A.Currency,
+		A.Tel,
+		A.Email,
+		A.ApprDate,
+		A.AltDate,
+		A.UID,
+		A.CurrencyCn,
+		A.PostalCode,
+		A.OpForm,
+		A.OpScope,
+		A.EntTypeCatg,
+		A.LocalAdm,
+		A.LocalAdmName,
+		A.SliceNO,
+		A.SliceNOName,
+		A.SmentReason,
+		A.IsSment,
+		A.SmentRemReason
+		FROM
+		rpt_sm_baseinfo A
+		WHERE (A.RegNO=#{condition} or A.EntName=#{condition} or
+		UniCode=#{condition} or A.priPID=#{condition}))
+	</select>
+
+	<select id="selectIncreCount" resultType="Integer" parameterType="Map">
+		select count(id) from rpt_sm_baseinfo 
+		<![CDATA[ where UPDATE_TIME > #{updateTime} ]]>
+	</select>
+	
+	<select id="selectIncreData" resultMap="BaseResultDtoMap" parameterType="Map">
+		select
+			m.PriPID
+		from
+			rpt_sm_baseinfo m
+		WHERE
+	 <![CDATA[ UPDATE_TIME > #{updateTime} ]]>
+		LIMIT #{numStart},#{pageSize}
+	</select>
+	
+	<select id="selectOneForCompare" resultMap="BaseResultDtoMap" parameterType="String"> 
+		select
+			PriPID,EstDate,RegState,ENTTYPE,RegCap,CurrencyCN,EntTypeCatg,IsSment, smentReason, SourceType 
+		from  
+			((SELECT PriPID,EstDate,RegState,ENTTYPE,RegCap,CurrencyCN,EntTypeCatg,'0' IsSment,'' smentReason,'cs_mid_baseinfo' SourceType 
+				FROM zjcsdb1.cs_mid_baseinfo WHERE PriPID = #{priPID} LIMIT 0,1)
+			UNION ALL 
+			(SELECT PriPID,EstDate,RegState,ENTTYPE,RegCap,CurrencyCN,EntTypeCatg,IsSment, smentReason ,'sm_baseinfo' SourceType 
+				FROM rpt_sm_baseinfo WHERE PriPID = #{priPID} LIMIT 0,1)) T
+	</select>
+	
+	<insert id="insertOneFromCsMidBaseinfo" parameterType="Map">
+	INSERT INTO
+		rpt_sm_baseinfo(PriPID, EntName, RegNO, Dom, LeRep,
+			RegCap, EntType, EstDate, IndustryCo, RegOrg,
+			IndustryPhy, RegState, RegCapUSD, UNICODE, PostalCode,
+			OpFrom, OpTo, Currency, Tel, Email, 
+			ApprDate, AltDate, UID, CurrencyCn, OpForm,
+			OpScope,EntTypeCatg, RegOrgName,LocalAdm, LocalAdmName,
+			SliceNO, SliceNOName, SmentReason, IsSment,
+			SmentRemReason,CerNO,EmpNum )
+	SELECT
+			PriPID, EntName, RegNO, Dom, LeRep,
+			RegCap, EntType, EstDate, IndustryCo, RegOrg,
+			IndustryPhy, RegState, RegCapUSD, UNICODE, PostalCode,
+			OpFrom,	OpTo, Currency, Tel, Email,
+			ApprDate, AltDate, REPLACE(UUID(),'-','') UID, CurrencyCn, OpForm,
+			OpScope, EntTypeCatg, RegOrgName, LocalAdm, LocalAdmName,
+			SliceNO,SliceNOName,#{smentReason} SmentReason,#{isSment} IsSment,
+			'' SmentRemReason,CerNO ,EmpNum
+	FROM 
+		zjcsdb1.CS_MID_BASEINFO
+	WHERE 
+		pripid = #{priPID} 
+	limit 1
+	</insert>
+
+	<select id="selectMaxId" resultType="Integer">
+  	  select max(id) from rpt_sm_baseinfo
+    </select>
+    
+    <select id="selectIndexListById" parameterType="map" resultMap="BaseResultDtoMap">
+	</select>
+	
+	<select id="queryPageResult" resultMap="BaseResultDtoMap" parameterType="Map">
+		<if test="industryType !='' and industryType !=null">
+		SELECT 
+		    H.id,
+		    H.PriPID,
+			H.RegNO,
+			H.UniCode,
+			H.EntName,
+			H.LeRep,
+			H.EntType,
+			H.EntTypeName,
+			H.RegOrgName,
+			H.LocalAdmName,
+			H.RegState,
+	        H.EstDate,
+			H.IndustryCoName,
+			H.Dom,
+			H.OpScope,
+		    H.IndustryName,
+			H.CultivationTypeName,
+		    H.RegCap,
+			H.RegCapUSD,
+			H.Currency,
+			H.SliceNOName,
+		    H.SmentReason,
+		    H.IsSment,
+		    H.SmentRemReason,
+		    H.HelpNum,
+		    H.HelpTypeNum
+		FROM
+		(
+		</if>
+		SELECT 
+		    A.id,
+		    A.PriPID,
+			A.RegNO,
+			A.UniCode,
+			A.EntName,
+			A.LeRep,
+			A.EntType,
+			B.Content EntTypeName,
+			A.RegOrgName,
+			A.LocalAdmName,
+			A.RegState,
+	        A.EstDate,
+			C.Content IndustryCoName,
+			A.Dom,
+			A.OpScope,
+		    (SELECT GROUP_CONCAT(typeName) from zjcsdb1.cs_code_trade T where code = A.IndustryCo
+		     <if test="industryType !='' and industryType !=null and industryType != 0">
+		     and T.type=#{industryType}
+		     </if>
+		     <if test="industryType !='' and industryType !=null and industryType == 0">
+             and T.type is not null
+		     </if>
+		     ) IndustryName,
+			D.CultivationTypeName,
+		    A.RegCap,
+			A.RegCapUSD,
+			A.Currency,
+			A.SliceNOName,
+		    A.SmentReason,
+		    A.IsSment,
+		    A.SmentRemReason,
+		    D.HelpNum,
+		    (SELECT COUNT(t.priPID) FROM zjcsdb1.sm_bus_entarchives_help t WHERE t.priPID=A.PriPID) HelpTypeNum
+		FROM
+		  rpt_sm_baseinfo A 
+		LEFT JOIN zjcsdb1.cs_code_enttype B ON A.EntType=B.Code
+		LEFT JOIN zjcsdb1.cs_code_industry C ON A.IndustryCo = C.code
+		LEFT JOIN zjcsdb1.sm_bus_entarchives D ON A.PriPID=D.PriPID
+		<if test="helpTypeCode !='' and helpTypeCode !=null">
+		LEFT JOIN (SELECT PriPID, HelpTypeCode FROM zjcsdb1.sm_bus_entarchives_help WHERE HelpTypeCode=#{helpTypeCode}) F ON A.PriPID=F.PriPID
+		</if>
+		WHERE 1=1
+		<if test="cidRegNO !='' and cidRegNO !=null">
+			and (A.RegNO LIKE concat('%', #{cidRegNO},'%') OR A.UniCode LIKE concat('%', #{cidRegNO},'%'))
+		</if>
+		<if test="entName !='' and entName !=null">
+			and A.entName LIKE concat('%', #{entName},'%')
+		</if>
+		<if test="leRep !='' and leRep !=null">
+		  and A.LeRep=#{leRep}
+		</if>
+		<if test="entType !='' and entType !=null">
+		  and A.EntType in (${entType})
+		</if>
+		<if test="regOrg !='' and regOrg !=null">
+		  and A.RegOrg in (${regOrg})
+		</if>
+		<if test="localAdm !='' and localAdm !=null">
+		  and A.LocalAdm in (${localAdm})
+		</if>
+		<if test="regState !='' and regState !=null">
+		  and A.RegState in (${regState})
+		</if>
+		<if test="estDateStart !='' and estDateStart !=null">
+		<![CDATA[
+		  and A.EstDate >= #{estDateStart}
+		]]>
+		</if>
+		<if test="estDateEnd !='' and estDateEnd !=null">
+		<![CDATA[
+		  and A.EstDate <= #{estDateEnd}
+		]]>
+		</if>
+		<if test="industryCo !='' and industryCo !=null">
+		  and A.IndustryCo in (${industryCo})
+		</if>
+		<if test="dom !='' and dom !=null">
+			and A.Dom LIKE concat('%', #{dom},'%')
+		</if>
+		<if test="opScope !='' and opScope !=null">
+			and A.OpScope LIKE concat('%', #{opScope},'%')
+		</if>
+		<if test="cultivationTypeCode !='' and cultivationTypeCode !=null">
+		  and D.CultivationTypeCode=#{cultivationTypeCode}
+		</if>
+		<if test="helpTypeCode !='' and helpTypeCode !=null">
+		AND F.HelpTypeCode=#{helpTypeCode}
+		</if>
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+		<if test="industryType !='' and industryType !=null">
+		)H
+		WHERE H.IndustryName IS NOT NULL
+		</if>
+	</select>
+	
+	<select id="selectYrInfoListByPriPID" parameterType="map" resultMap="BaseResultDtoMap">
+		SELECT
+			A. YEAR,
+			A.AncheDate,
+			B.IsSment,
+			C.CultivationTypeName
+		FROM
+			zjcsdb1.cs_baseinfo A
+		LEFT JOIN zjcsdb1.sm_bus_entarchives C ON A.PriPID = C.PriPID
+		LEFT JOIN rpt_sm_baseinfo B ON A.PriPID = B.PriPID
+		WHERE A.PriPID=#{priPID}
+	</select>
+	
+	   <sql id="count_where"> 
+		<!-- 三大产业 对应行业门类 -->
+		<if test="thrIndustry !=null and thrIndustry != '' ">
+	    and  t.IndustryPhy in (${thrIndustry})
+	    </if>
+		<!-- 行业（统计只到单个门类） -->
+		<if test="industryCo !=null and industryCo != '' ">
+	    and  t.IndustryPhy in (${industryCo})
+	    </if>
+	    <if test="regOrg !='' and regOrg !=null">
+	    and t.RegOrg  IN  (${regOrg})
+	    </if>
+	    <if test="localAdm !='' and localAdm !=null">
+	    and t.LocalAdm  IN (${localAdm})
+	    </if>
+	    <if test="entType !='' and entType !=null">
+	     and t.entType  IN (${entType})
+	    </if>
+	    <!-- 注册资本 -->
+	    <if test="regCapStart !='' and regCapStart !=null">
+	      <![CDATA[ and t.RegCap >=  ${regCapStart} ]]> 
+	    </if>
+	    <if test="regCapEnd !='' and regCapEnd !=null">
+	     <![CDATA[ and t.RegCap < ${regCapEnd}]]> 
+	    </if>
+	    <!-- 从业人数 -->
+	    <if test="empNumStart !='' and empNumStart !=null">
+	      <![CDATA[ and s.empNum >=  ${empNumStart} ]]> 
+	    </if>
+	    <if test="empNumEnd !='' and empNumEnd !=null">
+	     <![CDATA[ and s.empNum < ${empNumEnd}]]> 
+	    </if>
+	    <!-- 营业收入 -->
+	    <if test="vendIncStart !='' and vendIncStart !=null">
+	      <![CDATA[ and s.vendInc >=  ${vendIncStart} ]]> 
+	    </if>
+	    <if test="vendIncEnd !='' and vendIncEnd !=null">
+	     <![CDATA[ and s.vendInc < ${vendIncEnd}]]> 
+	    </if>
+	    <!-- 资产规模 -->
+	    <if test="assGroStart !='' and assGroStart !=null">
+	      <![CDATA[ and s.assGro >=  ${assGroStart} ]]> 
+	    </if>
+	    <if test="assGroEnd !='' and assGroEnd !=null">
+	     <![CDATA[ and s.assGro < ${assGroEnd}]]> 
+	    </if>
+	    <!-- 净利润规模 -->
+	    <if test="netInc !=null and netInc !='' and netInc == 1">
+	      <![CDATA[ and s.netInc > 0 ]]> 
+	    </if>
+	    <if test="netInc !=null and netInc !='' and netInc == 0">
+	      <![CDATA[ and s.netInc = 0 ]]> 
+	    </if>
+	    <if test="netInc !=null and netInc !='' and netInc == -1">
+	      <![CDATA[ and s.netInc < 0 ]]> 
+	    </if>
+	    <if test="netIncStart !='' and netIncStart !=null">
+	      <![CDATA[ and s.netInc >=  ${netIncStart} ]]> 
+	    </if>
+	    <if test="netIncEnd !='' and netIncEnd !=null">
+	     <![CDATA[ and s.netInc < ${netIncEnd}]]> 
+	    </if>
+	    <!-- 固定资产规模 -->
+	    <if test="fixAssetsStart !='' and fixAssetsStart !=null">
+	      <![CDATA[ and b.fixAssets >=  ${fixAssetsStart} ]]> 
+	    </if>
+	    <if test="fixAssetsEnd !='' and fixAssetsEnd !=null">
+	     <![CDATA[ and b.fixAssets < ${regCapEnd}]]> 
+	    </if>
+	    <!-- 负债总额规模 -->
+	    <if test="liaGroStart !='' and liaGroStart !=null">
+	      <![CDATA[ and s.liaGro >=  ${liaGroStart} ]]> 
+	    </if>
+	    <if test="liaGroEnd !='' and liaGroEnd !=null">
+	     <![CDATA[ and s.liaGro < ${liaGroEnd}]]> 
+	    </if>
+	    <!-- 纳税总额规模 -->
+	    <if test="ratGroStart !='' and ratGroStart !=null">
+	      <![CDATA[ and s.ratGro >=  ${ratGroStart} ]]> 
+	    </if>
+	    <if test="ratGroEnd !='' and ratGroEnd !=null">
+	     <![CDATA[ and s.ratGro <  ${ratGroEnd}]]> 
+	    </if>
+	    
+	    
+	    <!-- 八大产业：信息产业 -->
+	    <if test="industryCode !=null and industryCode !='' and industryCode == 0 ">
+           and t.IndustryCo IN (SELECT CODE FROM zjcsdb1.cs_code_trade b)
+	    </if>
+	    <if test="industryCode !=null and industryCode !='' and industryCode == 1 ">
+	       and t.IndustryCo in ('3911','3912','3913','3919','3921','3922','3931','3932','3939','3940','3951','3952','3953','3961','3962','3963','3969','3971','3972','3990','2330','8790','2664','3819','3824','3825','3831','3832','3841','3842','3849','4011','3581','3562','3891','3475','3472','3879','3871','3859','4012','4021','4022','4023','4024','4025','4026','4027','4028','4029','6510','6520','6530','6540','6550','6591','6592','6599','8021','6311','6312','6319','6321','6322','6330','6410','6420','6490','8524','8525','8529','8610','8620','8630','8640','8650','8660')
+	    </if>
+	    <!-- 环保 -->
+	    <if test="industryCode !=null and industryCode !='' and industryCode == 2 ">
+	       and t.IndustryCo in ('3819','3414','3415','3825','2530','4412','4413','4414','4415','3419','4419','3871','3545','3640','4210','3211','3212','2914','4220','2012','2022','2023','2512','4620','4690','3735','4822','4021','4027','2665','7514','7461','7462','7721','7723','7722','7724','7725','7729','7820','5191','4821')
+	    </if>
+	     <!-- 旅游 -->
+	    <if test="industryCode !=null and industryCode !='' and industryCode == 3 ">
+	       and t.IndustryCo in ('5310','5331','5420','5531','5611','5631','5632','5822','6110','6120','7851','7852','8920','8740','8750','8760','7271','7272','7279','5512')
+	    </if>
+	     <!-- 金融 -->
+	    <if test="industryCode !=null and industryCode !='' and industryCode == 4 ">
+		AND t.IndustryCo IN('6610','6620','6631','6632','6633','6639','6640','6711','6712','6713','6721','6729','6730','6740','6790','6811','6812','6820','6830','6840','6850','6860','6891','6899','6910','6920','6930','6940','7212','6990','7296')
+	    </if>
+	     <!-- 健康 -->
+	    <if test="industryCode !=null  and industryCode !='' and industryCode == 5 ">
+	       and t.IndustryCo in ('0170','2710','2720','2730','3581','3582','3583','5238','3584','3585','2740','2760','2770','3586','3589','3373','5225','3544','1491','1492','2441','2442','2443','5252','3761','2444','2449','3770','8311','8312','8313','8314','8315','8316','8321','8322','8323','8330','8340','8350','8360','8370','8390','7960','5251','8412','5142','8413','8414','5126','8421','5153','8810','5152','8820','6812','8830','8890','7340','8292','6811','6840','5242')
+	    </if>
+	     <!-- 时尚 -->
+	    <if test="industryCode !=null and industryCode !='' and industryCode == 6 ">
+           and t.IndustryCo in ('1732','1741','1731','1723','1722','1721','1713','1712','1711','1733','1742','1743','1751','1752','1761','1762','1763','1771','1772','1773','1779','1781','1782','1783','1784','1789','1810','1820','1830','1910','1921','1922','1923','1929','1931','1932','1939','1942','1951','1952','1953','1954','1959','2110','2120','2130','2140','2190','2411','2421','2422','2423','2429','2431','2432','2433','2434','2435','2436','2437','2439','2441','2442','2443','2444','2449','2450','3861','3869','3871','3872','3879','4030','4119','2438','2682','3471','3473','3851','3852','3853','3854','3855','3856','3857','3859','3911','3912','3913','3919','3922','3951','3952','3953')
+	    </if>
+	     <!-- 高端制造业 -->
+	    <if test="industryCode !=null and industryCode !='' and industryCode == 7 ">
+	       and t.IndustryCo in ('3849','3412','3711','3714','3720','3741','3743','3749','3891','4015','4341','3825','4415','3415','4414','4413','3413','3414','3824','3411','3441','3442','3545','3812','3819','3597','4620','3591','2914','3735','4021','3551','3331','3332','3432','3434','3435','3323','3531','3571','3572','3573','3574','3575','3576','3577','3579','2770','3544','3581','3582','3583','3584','3585','3586','3589','3599','4011','3421','3422','3429','4012','3451','3452','3444','3443','3482','3525')
+	    </if>
+	     <!-- 文化产业-->
+	    <if test="industryCode !=null and industryCode !='' and industryCode == 8 ">
+	       and t.IndustryCo in ('8510','8521','8522','8523','8524','8525','8529','5143','5144','5145','5243','5244','8610','8620','8630','8640','8650','8660','8710','8720','8731','8732','8740','8750','8760','8770','7350','9421','8293','8299','8790','6420','6319','6321','6322','6330','7240','6510','6591','7482','7491','7851','7852','7712','7713','8911','8912','8913','8919','8920','8990','7492','2431','2432','2433','2434','2435','2436','2437','2438','2439','3079','5146','5245','5246','7250','2311','2312','2319','2320','2330','8941','8949','5181','5182','7121','7122','7123','7292','7299','2411','2412','2414','2421','2422','2423','2429','2450','2461','2462','2469','3951','3952','3953','2672','2221','2222','2642','2643','2664','3872','3990','5141','5241','5247','5248','5137','5271','5149','5249','3542','3931','3932','3939','3471','3472','3473','3474','5178','5176')
+	    </if>
+	    
+	    <!-- 上市 -->
+	    <if test="entyTypeCatg !=null and entyTypeCatg !='' and entyTypeCatg == 1 ">
+	       and t.entType in ('6280','6260','6240','6220','5854','5852','5824','5822','5240','5220','6854','6852','6828','6826','6824','6822','2213','1213')
+	    </if>
+	    <!-- 股份 -->
+	    <if test="entyTypeCatg !=null and entyTypeCatg !='' and entyTypeCatg == 2 ">
+	       and t.entType in ('6821','6820','6270','6250','6230','6210','5854','5852','5824','5821','5240','5230','5220','5210','5200','6858','6857','6856','6855','6854','6853','6852','6851','6828','6827','6826','6825','6824','6823','6822')
+	    </if>
+	     <!-- 国有 -->
+	    <if test="entyTypeCatg !=null and entyTypeCatg !='' and entyTypeCatg == 3 ">
+	       and t.entType in ('4410','4370','4350','4210','4110','3610','3502','3501','3100','2223','2213','2140','2110','1223','1140','1110')
+	    </if>
+	     <!-- 控股 -->
+	    <if test="entyTypeCatg !=null and entyTypeCatg !='' and entyTypeCatg == 4 ">
+	       and t.entType in ('2223','2213','2140','1223','1213','1140')
+	    </if>
+	     <!-- 独资 -->
+	    <if test="entyTypeCatg !=null  and entyTypeCatg !='' and entyTypeCatg == 5 ">
+	       and t.entType in ('2110','1110')
+	    </if>
+	     <!-- 内资 -->
+	    <if test="entyTypeCatg !=null and entyTypeCatg !='' and entyTypeCatg == 6 ">
+	       and t.entType in ('6821','6820','6819','6817','6816','6815','6814','6813','6812','6811','6810','6800','6390','6320','6310','6300','6290','6280','6270','6240','6230','6220','6210','6200','6190','6143','6142','6141','6140','6130','6120','6110','6100','6000','5860','5859','5850','5849','5840','5830','5829','5820','5819','5810','5300','5290','5200','5190','9000','8660','8650','8000','7500','7400','7380','7370','7360','7350','7340','7330','7320','7310','6869','6862','6861','6860','6859','6858','6857','6854','6853','6852','6851','6850','6849','6847',
+           '6846','6845','6844','6843','6842','6841','6840','6839','6832','6831','6830','6829','6828','6827','6824','6823','6822','5100','4900','4800','4720','4710','4700','4600','4580','4570','4560','4550','4543','4542','4541','4540','4530','4523','4522','4521','4520','4510','4500','4430','4420','4410','4400','4380','4370','4360','4350','4340','4330','4320','4310','4300','4220','4210','4200','4120','4110','4100','4000','3900','3800','3700','3620','3610','3600','3504','3503','3502','3501','3500','3400','3320','3310','3300','3200','3100','2229','2223','2222',
+           '2220','2219','2213','2212','2210','2200','2190','2153','2152','2151','2150','2140','2130','2110','2100','2000','1229','1223','1222','1220','1219','1213','1212','1210','1200','1190','1153','1152','1151','1150','1140','1130','1110','1100','1000')
+	    </if>
+	     <!-- 外资 -->
+	    <if test="entyTypeCatg !=null and entyTypeCatg !='' and entyTypeCatg == 7 ">
+	       and t.entType in ('6818','6430','6420','6410','6400','6260','6250','6150','5869','5862','5861','5854','5853','5852','5851','5847','5846','5845','5844','5843','5842','5841','5839','5832','5831','5824','5823','5822','5821','5817','5816','5815','5814','5813','5812','5811','5800','5390','5320','5310','5240','5230','5220','5210','5143','5142','5141','5140','5130','5120','7300','7200','7190''7130','7120','7110','7100','7000','6930','6920','6910','6900','6856','6855','6848','6826','6825','5110','5000','2221','2211','2124','2123','2122','2121','2120','1221','1211','1154','1124','1123','1122','1121','1120')
+	    </if>
+	     <!-- 港澳台资 -->
+	    <if test="entyTypeCatg !=null and entyTypeCatg !='' and entyTypeCatg == 8 ">
+	       and t.entType in ('6821','6818','6817','6816','6815','6814','6813','6812','6811','6800','6390','6320','6310','6280','6270','6260','6250','6240','6230','6220','6210','6150','6143','6142','6141','6140','6130','6120','6110','6000','6869','6862','6861','6858','6857','6856','6855','6854','6853','6852','6851','6848','6847','6846','6845','6844','6843','6842','6841','6839','6832','6831','6828','6827','6826','6825','6824','6823','6822')
+	    </if>
+  </sql>
+	
+	
+	 <!-- 年报信息统计 普通统计 -->
+     <select id="selectYrSmNormalCount" resultMap="BaseResultDtoMap" parameterType="Map">
+        SELECT D.year,D.regorg,
+        <if test="(entyTypeCatg !='' and entyTypeCatg !=null) or (entType != null and entType != '') ">
+        D.EntType,
+        E.content entTypeName,E.IndType entTypeCatgName,
+        </if>
+		<if test="(thrIndustry !=null and thrIndustry != '') or (industryCo != null and industryCo != '')  ">
+        D.IndustryPhy,
+        F.IndType industryCodeName,F.Content industryCoName,
+        </if>
+	    IFNULL(D.rptCount,0) rptCount,IFNULL(D.isRptCount,0) isRptCount,
+		<![CDATA[ROUND(CASE  WHEN  IFNULL(D.rptCount,0) = 0  THEN  0 ELSE (IFNULL(D.isRptCount,0))*100/IFNULL(D.rptCount,0) END,2) yreportRay,]]>
+	    IFNULL(D.busstatus,0) busstatus,
+		<![CDATA[ROUND(CASE  WHEN  IFNULL(D.isRptCount,0) = 0  THEN  0 ELSE (IFNULL(D.busstatus,0))*100/IFNULL(D.isRptCount,0) END,2) busstatusRay,]]>
+	    TRUNCATE(IFNULL(D.vendInc,0),4) vendInc,TRUNCATE(IFNULL(D.assGro,0),4) assGro,TRUNCATE(IFNULL(D.fixAssets,0),4) fixAssets,TRUNCATE(IFNULL(D.liaGro,0),4) liaGro,
+	    TRUNCATE(IFNULL(D.proGro,0),4) proGro,TRUNCATE(IFNULL(D.netInc,0),4) netInc,IFNULL(D.addProCount,0) addProCount,IFNULL(D.minuProCount,0) minuProCount,
+	    TRUNCATE(IFNULL(D.ratGro,0),4) ratGro,IFNULL(D.EmpNum,0) EmpNum,
+		<![CDATA[ROUND(CASE  WHEN  IFNULL(D.assGro,0) = 0  THEN  0 ELSE (IFNULL(D.liaGro,0))*100/IFNULL(D.assGro,0) END,2) assliaRay,]]>
+		<if test="statLevel != null and statLevel != '' and  statLevel != 'areacode' ">
+		G.Content regorgName 
+		</if>
+        <if test="statLevel != null and statLevel != '' and  statLevel == 'areacode' ">
+		D.regorg regorgName 
+		</if>
+		FROM
+		(select #{year} as year,
+        <if test="statLevel != null and statLevel != '' and  statLevel == 'areacode' ">
+		LEFT(IFNULL(t.RegOrg,t.LocalAdm),4) regorg,
+		</if>
+        <if test="statLevel != null and statLevel != '' and  statLevel != 'areacode' ">
+		t.${statLevel} regorg,
+		</if>
+        <if test="(entyTypeCatg !='' and entyTypeCatg !=null) or (entType != null and entType != '') ">
+		t.EntType,
+		</if>
+		<if test="(thrIndustry !=null and thrIndustry != '') or (industryCo != null and industryCo != '')  ">
+		t.IndustryPhy,
+		</if>
+		<![CDATA[sum(case when t.EstDate < CONCAT((#{year} + 1), '-01-01')  then 1 else 0 end) rptCount, ]]> 
+		sum(case when ifnull(s.pripid,'') = ''  then 0 else 1 end) isRptCount,
+		sum(case when s.BusStatusCN = '开业' then 1 else 0 end) busstatus,
+		sum(s.vendInc) vendInc,
+		sum(s.AssGro) assGro,
+		sum(b.FixAssets) fixAssets,
+		sum(s.liaGro) liaGro,
+		sum(s.proGro) proGro,
+		sum(s.netInc) netInc,
+		<![CDATA[sum(CASE WHEN s.netInc > 0 THEN 1 ELSE 0 END) addProCount,]]> 
+		<![CDATA[sum(CASE WHEN s.netInc < 0 THEN 1 ELSE 0 END) minuProCount,]]> 
+		sum(s.ratGro) ratGro,
+		sum(s.EmpNum) EmpNum
+		from rpt_sm_baseinfo t LEFT join zjcsdb1.cs_baseinfo s on t.pripid = s.pripid and s.year = #{year}
+		left JOIN zjcsdb1.cs_yr_asset b ON s.PriPID = b.PriPID AND s.Year = b.Year
+		where t.RegOrg is not null
+		<include refid="count_where"/>
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+        <if test="statLevel != null and statLevel != '' and  statLevel == 'areacode' ">
+		group by LEFT(IFNULL(t.RegOrg,t.LocalAdm),4)
+		</if>
+        <if test="statLevel != null and statLevel != '' and  statLevel != 'areacode' ">
+		 group by t.${statLevel}
+		</if>		
+        <if test="(entyTypeCatg !='' and entyTypeCatg !=null) or (entType != null and entType != '') ">
+		,t.EntType
+		</if>
+		<if test="(thrIndustry !=null and thrIndustry != '') or (industryCo != null and industryCo != '')  ">
+		,t.IndustryPhy
+		</if>
+		) D 
+        <if test="(entyTypeCatg !='' and entyTypeCatg !=null) or (entType != null and entType != '') ">
+		LEFT JOIN zjcsdb1.cs_code_enttype E
+		on D.EntType = E.code
+		</if>
+		<if test="(thrIndustry !=null and thrIndustry != '') or (industryCo != null and industryCo != '')  ">
+		LEFT JOIN zjcsdb1.cs_code_industrytype F
+		on D.IndustryPhy = F.code
+		</if>
+        <if test="statLevel != null and statLevel != '' and  statLevel == 'RegOrg' ">
+		LEFT JOIN zjcsdb1.cs_code_regorg G
+		ON D.regorg = G.Code
+		</if>
+        <if test="statLevel != null and statLevel != '' and  statLevel == 'LocalAdm' ">
+		LEFT JOIN zjcsdb1.cs_code_regunit G
+		ON D.regorg = G.Code
+		</if>
+     </select>
+	 
+	 
+	 
+	 
+	 <!-- 年报信息统计 八大重点产业统计 -->
+     <select id="selectYrSmImPortCount" resultMap="BaseResultDtoMap" parameterType="Map">
+       SELECT D.year,D.regorg,
+        <if test="(entyTypeCatg !='' and entyTypeCatg !=null) or (entType != null and entType != '') ">
+        D.EntType,
+        E.content entTypeName,E.IndType entTypeCatgName,
+        </if>
+        <if test="industryCode != null and industryCode != '' ">
+        D.industryCoName,
+        </if>
+        <![CDATA[
+	    IFNULL(D.rptCount,0) rptCount,IFNULL(D.isRptCount,0) isRptCount,
+		ROUND(CASE  WHEN  IFNULL(D.rptCount,0) = 0  THEN  0 ELSE (IFNULL(D.isRptCount,0))*100/IFNULL(D.rptCount,0) END,2) yreportRay,
+	    IFNULL(D.busstatus,0) busstatus,
+		ROUND(CASE  WHEN  IFNULL(D.isRptCount,0) = 0  THEN  0 ELSE (IFNULL(D.busstatus,0))*100/IFNULL(D.isRptCount,0) END,2) busstatusRay,
+	    TRUNCATE(IFNULL(D.vendInc,0),4) vendInc,TRUNCATE(IFNULL(D.assGro,0),4) assGro,TRUNCATE(IFNULL(D.fixAssets,0),4) fixAssets,TRUNCATE(IFNULL(D.liaGro,0),4) liaGro,
+	    TRUNCATE(IFNULL(D.proGro,0),4) proGro,TRUNCATE(IFNULL(D.netInc,0),4) netInc,IFNULL(D.addProCount,0) addProCount,IFNULL(D.minuProCount,0) minuProCount,
+	    TRUNCATE(IFNULL(D.ratGro,0),4) ratGro,IFNULL(D.EmpNum,0) EmpNum,
+		ROUND(CASE  WHEN  IFNULL(D.assGro,0) = 0  THEN  0 ELSE (IFNULL(D.liaGro,0))*100/IFNULL(D.assGro,0) END,2) assliaRay,
+		]]>
+		<if test="statLevel != null and statLevel != '' and  statLevel != 'areacode' ">
+		G.Content regorgName 
+		</if>
+        <if test="statLevel != null and statLevel != '' and  statLevel == 'areacode' ">
+		D.regorg regorgName 
+		</if>
+		FROM
+		(select 2016 as year,
+        <if test="statLevel != null and statLevel != '' and  statLevel == 'areacode' ">
+		LEFT(IFNULL(t.RegOrg,t.LocalAdm),4) regorg,
+		</if>
+        <if test="statLevel != null and statLevel != '' and  statLevel != 'areacode' ">
+		t.${statLevel} regorg,
+		</if>
+		<if test="(entyTypeCatg !='' and entyTypeCatg !=null) or (entType != null and entType != '') ">
+		t.EntType,
+		</if>
+		<if test="industryCode != null and industryCode != '' ">
+		#{industryCode} industryCoName,
+		</if>
+		<![CDATA[
+		sum(case when t.EstDate < CONCAT((#{year} + 1), '-01-01')  then 1 else 0 end) rptCount,  
+		sum(case when ifnull(s.pripid,'') = ''  then 0 else 1 end) isRptCount,
+		sum(case when s.BusStatusCN = '开业' then 1 else 0 end) busstatus,
+		sum(s.vendInc) vendInc,
+		sum(s.AssGro) assGro,
+		sum(b.FixAssets) fixAssets,
+		sum(s.liaGro) liaGro,
+		sum(s.proGro) proGro,
+		sum(s.netInc) netInc,
+		sum(CASE WHEN s.netInc > 0 THEN 1 ELSE 0 END) addProCount,
+		sum(CASE WHEN s.netInc < 0 THEN 1 ELSE 0 END) minuProCount,
+		sum(s.ratGro) ratGro,
+		sum(s.EmpNum) EmpNum
+		from rpt_sm_baseinfo t LEFT join zjcsdb1.cs_baseinfo s on t.pripid = s.pripid and s.year = #{year}
+		left JOIN zjcsdb1.cs_yr_asset b ON s.PriPID = b.PriPID AND s.Year = b.Year
+		where t.RegOrg is not null
+		]]>
+		<include refid="count_where"/>
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+		group by 
+        <if test="statLevel != null and statLevel != '' and  statLevel == 'areacode' ">
+		LEFT(IFNULL(t.RegOrg,t.LocalAdm),4)
+		</if>
+        <if test="statLevel != null and statLevel != '' and  statLevel != 'areacode' ">
+		t.${statLevel}
+		</if>
+		<if test="(entyTypeCatg !='' and entyTypeCatg !=null) or (entType != null and entType != '') ">
+		,t.EntType
+		</if>
+		) D 
+		<if test="(entyTypeCatg !='' and entyTypeCatg !=null) or (entType != null and entType != '') ">
+		LEFT JOIN zjcsdb1.cs_code_enttype E
+		on D.EntType = E.code
+		</if>
+        <if test="statLevel != null and statLevel != '' and  statLevel == 'RegOrg' ">
+		LEFT JOIN zjcsdb1.cs_code_regorg G
+		ON D.regorg = G.Code
+		</if>
+        <if test="statLevel != null and statLevel != '' and  statLevel == 'LocalAdm' ">
+		LEFT JOIN zjcsdb1.cs_code_regunit G
+		ON D.regorg = G.Code
+		</if>
+     </select>
+	
+     <!-- 根据注册号获取不在培育库的pripid -->
+	<select id="queryPriPIDByRegNoOrUniCode" resultType="String" parameterType="String">
+	    
+	    SELECT
+			PriPID
+		FROM
+			rpt_sm_baseinfo sb
+		WHERE
+			(
+				sb.RegNO = #{_parameter}
+				OR UniCode = #{_parameter}
+			)
+		AND (
+			NOT EXISTS (
+				SELECT
+					1
+				FROM
+					zjcsdb1.sm_bus_entarchives sbe
+				WHERE
+					sbe.PriPID = sb.PriPID
+			)
+			OR EXISTS (
+				SELECT
+					1
+				FROM
+					zjcsdb1.sm_bus_entarchives_his sbeh
+				WHERE
+					sbeh.PriPID = sb.PriPID
+			)
+		)
+	</select>
+	
+	<!-- 根据pripid获取类型 -->
+	<select id="selectTypeByPriPID" resultType="String" parameterType="String">
+	    
+	    SELECT DISTINCT
+			cct.Type
+		FROM
+			zjcsdb1.cs_code_trade cct
+		WHERE
+			cct.`Code` IN (
+				SELECT
+					IndustryCo
+				FROM
+					rpt_sm_baseinfo
+				WHERE
+					pripid  = #{_parameter}
+			)
+	</select>
+	
+	<!-- 查询小微企业总数 -->
+	<select id="smbaseinfoCount" resultType="Integer" parameterType="Map">
+	  SELECT COUNT(0) FROM rpt_sm_baseinfo t where 1=1
+	  <if test="eightIndutryType != null and eightIndutryType != ''">
+	   and t.IndustryCo IN (SELECT CODE FROM zjcsdb1.cs_code_trade b)
+	  </if>
+	</select>
+	
+	<!-- 首页年报统计 -->
+	<select id="smbaseinfoNbCount" resultMap="BaseResultDtoMap" parameterType="Map">
+	SELECT 
+    SUM(
+      CASE
+        WHEN s.netInc > 0 
+        THEN 1 
+        ELSE 0 
+      END
+    ) addProCount,
+    ROUND(SUM(s.ratGro),0)  ratGro,
+    SUM(s.EmpNum) EmpNum 
+   FROM rpt_sm_baseinfo t,zjcsdb1.cs_baseinfo s 
+      WHERE t.pripid = s.pripid 
+      AND s.year = #{year}
+      AND t.RegOrg IS NOT NULL
+	</select>
+	
+	<!-- 小微三大产业统计 -->
+	<select id="smbaseThreeTypeCount" resultType="Integer" parameterType="Map" >
+	SELECT COUNT(0) FROM rpt_sm_baseinfo t
+	<if test="threeType != null and threeType !=''">
+     ,zjcsdb1.cs_code_industrytype b WHERE t.IndustryPhy = b.CODE	
+    <if test="threeType == 0">
+	and b.Indtype IS NOT NULL
+	</if>
+	<if test="threeType != 0">
+	and b.Indtype = #{threeType}
+	</if>
+	</if>
+	</select>
+	
+	<!-- 统计入库企业上规升级数量-->
+	<select id="countSgsjBySetDeptCode" resultType="Long" parameterType="String">
+     SELECT
+		count(DISTINCT sbe.PriPID )
+	FROM
+		zjcsdb1.sm_bus_entarchives sbe
+	INNER JOIN rpt_sm_baseinfo sb ON sb.PriPID = sbe.PriPID
+	AND sb.IsSment = '0'
+	INNER JOIN zjcsdb1.cs_yr_asset cya ON sb.PriPID = cya.PriPID
+	AND cya. YEAR = (DATE_FORMAT(NOW(), '%Y') + 0 ) -1 
+	INNER JOIN zjcsdb1.cs_yr_asset cya2 ON cya2.PriPID = cya.PriPID
+	AND cya2. YEAR = (DATE_FORMAT(NOW(), '%Y') + 0 ) -2 
+	WHERE
+		<![CDATA[cya.VendInc > cya2.VendInc]]>
+	AND	sbe.setDeptCode like '${_parameter}%'
+	</select>
+
+	<!-- 统计入库企业上规升级数量列表-->
+	<select id="selectSgsjBySetDeptCodeList" resultMap="BaseResultDtoMap" parameterType="Map">
+		SELECT
+		sb.PriPID,sb.EntName,sb.RegNO,sb.Dom,sb.LeRep,sb.RegCap,sb.EntType,sb.EstDate,sb.IndustryCo,sb.RegOrg,sb.IndustryPhy,
+		  sb.RegState,sb.RegCapUSD, sb.UniCode,sb.OpFrom,sb.OpTo,sb.Currency,sb.Tel,sb.Email,sb.ApprDate,sb.AltDate,sb.CurrencyCn,
+		  sb.OpForm,sb.OpScope,sb.EntTypeCatg, sb.RegOrgName,sb.LocalAdm,sb.LocalAdmName,sb.SliceNO,sb.SliceNOName,sb.SmentReason,
+		  sb.IsSment,sb.SmentRemReason, NULL EmpNum,NULL VendInc, NULL ProGro,NULL RatGro,cci.Content IndustryCoName,
+		  cce.Content EntTypeName, sbe.HelpState,sbe.CultivationTypeName,sbe.HelpTypeNum
+		FROM
+		zjcsdb1.sm_bus_entarchives sbe
+		INNER JOIN rpt_sm_baseinfo sb ON sb.PriPID = sbe.PriPID
+		AND sb.IsSment = '0'
+		INNER JOIN zjcsdb1.cs_yr_asset cya ON sb.PriPID = cya.PriPID
+		AND cya. YEAR = (DATE_FORMAT(NOW(), '%Y') + 0 ) -1
+		INNER JOIN zjcsdb1.cs_yr_asset cya2 ON cya2.PriPID = cya.PriPID
+		AND cya2. YEAR = (DATE_FORMAT(NOW(), '%Y') + 0 ) -2
+		LEFT JOIN zjcsdb1.cs_code_industry cci ON cci.code = sb.IndustryCo
+ 		LEFT JOIN zjcsdb1.cs_code_enttype cce ON cce.code = sb.EntType
+		WHERE
+		<![CDATA[cya.VendInc > cya2.VendInc]]>
+		AND	sbe.setDeptCode like '${deptCode}%'
+	</select>
+	
+	
+	<select id="selectEntarchivesHisList" parameterType="Map" resultMap="BaseResultDtoMap">
+  	  SELECT
+		sb.PriPID,
+		sb.EntName,
+		sb.RegNO,
+		sb.Dom,
+		sb.LeRep,
+		sb.RegCap,
+		sb.EntType,
+		sb.EstDate,
+		sb.IndustryCo,
+		sb.RegOrg,
+		sb.IndustryPhy,
+		sb.RegState,
+		sb.RegCapUSD,
+		sb.UniCode,
+		sb.OpFrom,
+		sb.OpTo,
+		sb.Currency,
+		sb.Tel,
+		sb.Email,
+		sb.ApprDate,
+		sb.AltDate,
+		sb.CurrencyCn,
+		sb.OpForm,
+		sb.OpScope,
+		sb.EntTypeCatg,
+		sb.RegOrgName,
+		sb.LocalAdm,
+		sb.LocalAdmName,
+		sb.SliceNO,
+		sb.SliceNOName,
+		sb.SmentReason,
+		sb.IsSment,
+		sb.SmentRemReason,
+		cya.EmpNum,
+		cya.VendInc,
+		cci.Content IndustryCoName,
+		cce.Content EntTypeName,
+		sbe.RemoveTime,
+		sbe.RemoveTypeCode
+		FROM
+			rpt_sm_baseinfo sb
+    INNER JOIN zjcsdb1.sm_bus_entarchives_his sbe ON sbe.PriPID = sb.PriPID
+		LEFT JOIN zjcsdb1.sm_bus_entarchives_help sbeh ON sbeh.PriPID = sbe.PriPID
+		LEFT JOIN zjcsdb1.cs_yr_asset cya ON sb.PriPID = cya.PriPID
+		LEFT JOIN zjcsdb1.cs_code_industry cci ON cci.code = sb.IndustryCo 
+ 		LEFT JOIN zjcsdb1.cs_code_enttype cce ON cce.code = sb.EntType
+		WHERE 1=1
+		<if test="removeTypeCode !=null and removeTypeCode != ''">
+				AND	sbe.RemoveTypeCode = #{removeTypeCode}
+  		</if>
+		<if test="cultivationTypeCode !=null and cultivationTypeCode != ''">
+				AND	sbe.CultivationTypeCode = #{cultivationTypeCode}
+  		</if>	
+		<if test="areaTypeCode !=null and areaTypeCode != ''">
+			AND (sbe.Tsxz REGEXP ('${areaTypeCode}') or Zckj REGEXP
+			('${areaTypeCode}') or Kjfhy REGEXP ('${areaTypeCode}') or Kjdsy REGEXP
+			('${areaTypeCode}') or Qt REGEXP ('${areaTypeCode}'))
+		</if>	
+		<if test="industryType !=null and industryType != '' and industryType != 0">
+			AND FIND_IN_SET(#{industryType},IndustryType) 
+  		</if>	
+		<if test="industryType !=null and industryType != '' and industryType == 0">
+			AND IndustryType is not null
+  		</if>	
+		<if test="entCrowdCode !=null and entCrowdCode != ''">
+			AND EntCrowdCode = #{entCrowdCode}
+  		</if>	
+  		<if test="helpTypeCode !=null and helpTypeCode != ''">
+			AND HelpTypeCode = #{helpTypeCode}
+  		</if>
+  		<if test="helpState !=null and helpState != ''">
+			AND HelpState = #{helpState}
+  		</if>	
+  		
+  		<if test="cidRegNO !=null and cidRegNO != ''">
+			<![CDATA[AND (instr(sb.UniCode, #{cidRegNO}) > 0 OR instr(sb.RegNO, #{cidRegNO}) >0)]]>
+  		</if>
+		<if test="entName !=null and entName != ''">
+			<![CDATA[AND instr(sb.EntName, #{entName}) > 0]]>
+  		</if>
+  		<if test="industryCo !=null and industryCo != ''">
+			<![CDATA[AND sb.IndustryCo in (${industryCo})]]>
+  		</if>
+		<if test="entType !=null and entType != ''">
+			<![CDATA[AND sb.EntType in (${entType})]]>
+  		</if>
+		<if test="regOrg !=null and regOrg != ''">
+			AND sb.RegOrg in (${regOrg}) 
+  		</if>
+		<if test="estDateStart !=null and estDateStart != '' ">
+  			<![CDATA[AND sb.EstDate >= #{estDateStart}	]]>
+  		</if>
+  		<if test="estDateEnd !=null and estDateEnd != '' ">
+  			<![CDATA[AND sb.EstDate <= #{estDateEnd}	]]>
+  		</if>
+		<if test="regCapStart !=null and regCapStart != '' ">
+  			<![CDATA[AND sb.RegCap >= ${regCapStart}	]]>
+  		</if>
+  		<if test="regCapEnd !=null and regCapEnd != '' ">
+  			<![CDATA[AND sb.RegCap <= ${regCapEnd}	]]>
+  		</if>
+  		<if test="localAdm !=null and localAdm != '' ">
+  			AND sb.LocalAdm  in (${localAdm})  
+  		</if>
+		<if test="empNumStart !=null and empNumStart != '' ">
+  			<![CDATA[AND cya.EmpNum >= ${empNumStart}	]]>
+  		</if>
+  		<if test="empNumEnd !=null and empNumEnd != '' ">
+  			<![CDATA[AND cya.EmpNum <= ${empNumEnd}	]]>
+  		</if>
+  		<if test="vendIncStart !=null and vendIncStart != '' ">
+  			<![CDATA[AND cya.VendInc >= ${vendIncStart}	]]>
+  		</if>
+  		<if test="vendIncEnd !=null and vendIncEnd != '' ">
+  			<![CDATA[AND cya.VendInc <= ${vendIncEnd}	]]>
+  		</if>
+  	 <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>	
+ 	 GROUP BY sb.id
+    </select>
+    
+    
+    <!-- 国家局小微标准 -->
+    <select id="selectSmallDirInfoList" resultMap="BaseResultDtoMap" parameterType="Map">
+    select
+    id,UID,PriPID,DirYear,UniSCID,
+    case when UniSCID is null or UniSCID = '' then RegNO ELSE  UniSCID end RegNO,EntName,EntTypeCatg,EntType,EstDate,RegCap,RegOrg,IndustryPhy
+    ,IndustryCo,Year,AssgroIsp,assgro,MaiBusincIsp,MaiBusinc,EmpNumIsp,EmpNum,DirCreateReasonCode,DirCreateReason,DirCreateTime,CreateTime
+    , entTypeCatgDesc, industryMlDesc , regOrgDesc
+    from
+    (
+        select
+        a.id,a.UID,PriPID,DirYear,UniSCID,RegNO,EntName,EntTypeCatg,EntType,EstDate,RegCap,RegOrg,IndustryPhy
+        ,IndustryCo,Year,AssgroIsp,assgro,MaiBusincIsp,MaiBusinc,EmpNumIsp,EmpNum,DirCreateReasonCode,DirCreateReason,DirCreateTime,CreateTime
+        ,b.Content entTypeCatgDesc,c.Content industryMlDesc ,d.Content regOrgDesc
+        from cs_sm_baseinfo a
+        LEFT JOIN zjcsdb1.cs_code_entcatg b ON a.EntTypeCatg = b.Code
+        LEFT JOIN zjcsdb1.cs_code_industrytype c ON a.IndustryPhy = c.Code
+        LEFT JOIN zjcsdb1.cs_code_regorg d ON a.RegOrg = d.Code
+        where 1=1
+        <include refid="support_where"/> LIMIT 0,50
+    ) t
+    where 1=1
+  </select>
+
+
+  <sql id="support_where">
+
+    <if test="regOrg != null and regOrg !=''">
+      and RegOrg LIKE  concat(#{regOrg},'%')
+    </if>
+
+    <if test="nameOrRegNO != null and nameOrRegNO !=''">
+      and EntName LIKE concat(#{nameOrRegNO},'%') or RegNO = #{nameOrRegNO} or UniSCID = #{nameOrRegNO}
+    </if>
+
+  </sql>
+
+  
+  <select id="selectDirBaseInfo" resultMap="BaseResultDtoMap">
+    select
+    a.id,a.UID,PriPID,DirYear,UniSCID,RegNO,EntName,EntTypeCatg,EntType,EstDate,RegCap,RegOrg,IndustryPhy
+    ,IndustryCo,Year,AssgroIsp,assgro,MaiBusincIsp,MaiBusinc,EmpNumIsp,EmpNum,DirCreateReasonCode,DirCreateReason,DirCreateTime,CreateTime
+    ,b.Content entTypeCatgDesc,c.Content industryMlDesc ,d.Content regOrgDesc
+    from
+    cs_sm_baseinfo a
+    LEFT JOIN zjcsdb1.cs_code_entcatg b ON a.EntTypeCatg = b.Code
+    LEFT JOIN zjcsdb1.cs_code_industrytype c ON a.IndustryPhy = c.Code
+    LEFT JOIN zjcsdb1.cs_code_regorg d ON a.RegOrg = d.Code
+    where a.UID = #{UID,jdbcType=VARCHAR}
+  </select>
+
+
+
+	<select id="countByHelp" parameterType="Map" resultType="Integer">
+		SELECT
+		  COUNT(1)
+		FROM
+		  (SELECT
+			sb.PriPID
+		  FROM
+			rpt_sm_baseinfo sb
+			INNER JOIN zjcsdb1.sm_bus_entarchives sbe
+			  ON sbe.PriPID = sb.PriPID
+			LEFT JOIN zjcsdb1.sm_bus_entarchives_help sbeh
+			  ON sbeh.PriPID = sbe.PriPID
+			LEFT JOIN zjcsdb1.cs_code_industry cci
+			  ON cci.code = sb.IndustryCo
+			LEFT JOIN zjcsdb1.cs_code_enttype cce
+			  ON cce.code = sb.EntType
+		  WHERE NOT EXISTS
+			(SELECT
+			  1
+			FROM
+			  zjcsdb1.sm_bus_entarchives_his sbeh
+			WHERE sbeh.PriPID = sbe.PriPID)
+		<if test="helpState !=null and helpState != '' and helpState==1">
+			AND sbe.HelpState = 1
+		</if>
+		<if test="helpState !=null and helpState != '' and helpState==2">
+			AND (sbe.HelpState =2 OR sbe.HelpState =3)
+		</if>
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+		  GROUP BY sb.id) table_count
+
+	</select>
+	
+	<!-- 统计注销提醒数量 -->
+	<select id="countZx" parameterType="Map" resultType="Integer">
+		SELECT
+			COUNT(1)
+		FROM
+			zjcsdb1.sm_bus_entarchives sbe
+		WHERE
+			EXISTS (
+				SELECT
+					1
+				FROM
+					rpt_sm_baseinfo rsb
+				WHERE
+					rsb.RegState IN ('XX', 'DX')
+				AND sbe.PriPID = rsb.PriPID
+			)
+		AND NOT EXISTS (
+				SELECT
+					1
+				FROM
+					zjcsdb1.sm_bus_entarchives_his sbsh
+				WHERE
+				 sbe.PriPID = sbsh.PriPID
+			)
+		AND SetDeptCode like '${setDeptCode}%'
+
+
+	</select>
+	<!-- 首页统计注销提醒数量列表展示 -->
+	<select id="selectZxList" parameterType="Map" resultMap="BaseResultDtoMap">
+		SELECT
+		sb.PriPID,sb.EntName,sb.RegNO,sb.Dom,sb.LeRep,sb.RegCap,sb.EntType,sb.EstDate,sb.IndustryCo,sb.RegOrg,sb.IndustryPhy,
+				  sb.RegState,sb.RegCapUSD, sb.UniCode,sb.OpFrom,sb.OpTo,sb.Currency,sb.Tel,sb.Email,sb.ApprDate,sb.AltDate,sb.CurrencyCn,
+				  sb.OpForm,sb.OpScope,sb.EntTypeCatg, sb.RegOrgName,sb.LocalAdm,sb.LocalAdmName,sb.SliceNO,sb.SliceNOName,sb.SmentReason,
+				  sb.IsSment,sb.SmentRemReason, NULL EmpNum,NULL VendInc, NULL ProGro,NULL RatGro,cci.Content IndustryCoName,
+				  cce.Content EntTypeName, sbe.HelpState,sbe.CultivationTypeName,sbe.HelpTypeNum
+		FROM
+		zjcsdb1.sm_bus_entarchives sbe
+		  INNER JOIN  rpt_sm_baseinfo sb
+			ON sbe.PriPID = sb.PriPID
+		  LEFT JOIN zjcsdb1.sm_bus_entarchives_help sbeh
+			ON sbeh.PriPID = sbe.PriPID
+		  LEFT JOIN zjcsdb1.cs_code_industry cci
+			ON cci.code = sb.IndustryCo
+		  LEFT JOIN zjcsdb1.cs_code_enttype cce
+			ON cce.code = sb.EntType
+		WHERE EXISTS
+		  (SELECT
+			1
+		  FROM
+			rpt_sm_baseinfo rsb
+		  WHERE rsb.RegState IN ('XX', 'DX')
+			AND sbe.PriPID = rsb.PriPID)
+		  AND NOT EXISTS
+		  (SELECT
+			1
+		  FROM
+			zjcsdb1.sm_bus_entarchives_his sbsh
+		  WHERE sbe.PriPID = sbsh.PriPID)
+		  AND SetDeptCode LIKE '${deptCode}%'
+
+	</select>
+
+	<!-- 统计入库企业经营异常数量List-->
+	<select id="selectJyycBySetDeptCodeList" parameterType="Map" resultMap="BaseResultDtoMap">
+SELECT
+DISTINCT sb.PriPID,sb.EntName,sb.RegNO,sb.Dom,sb.LeRep,sb.RegCap,sb.EntType,sb.EstDate,sb.IndustryCo,sb.RegOrg,sb.IndustryPhy,
+		  sb.RegState,sb.RegCapUSD, sb.UniCode,sb.OpFrom,sb.OpTo,sb.Currency,sb.Tel,sb.Email,sb.ApprDate,sb.AltDate,sb.CurrencyCn,
+		  sb.OpForm,sb.OpScope,sb.EntTypeCatg, sb.RegOrgName,sb.LocalAdm,sb.LocalAdmName,sb.SliceNO,sb.SliceNOName,sb.SmentReason,
+		  sb.IsSment,sb.SmentRemReason, NULL EmpNum,NULL VendInc, NULL ProGro,NULL RatGro,cci.Content IndustryCoName,
+		  cce.Content EntTypeName, sbe.HelpState,sbe.CultivationTypeName,sbe.HelpTypeNum
+		FROM
+			zjcsdb1.cs_pub_opanomaly cpo,
+			zjcsdb1.sm_bus_entarchives sbe
+			INNER JOIN  rpt_sm_baseinfo sb
+    ON sbe.PriPID = sb.PriPID
+  LEFT JOIN zjcsdb1.sm_bus_entarchives_help sbeh
+    ON sbeh.PriPID = sbe.PriPID
+  LEFT JOIN zjcsdb1.cs_code_industry cci
+    ON cci.code = sb.IndustryCo
+  LEFT JOIN zjcsdb1.cs_code_enttype cce
+    ON cce.code = sb.EntType
+		WHERE
+			cpo.PriPID = sbe.PriPID
+		AND sbe.setDeptCode LIKE '${deptCode}%'
+		AND cpo.AuditState = '1'
+		AND cpo.BusExcList NOT IN (
+			SELECT
+				H.BusExcList
+			FROM
+				zjcsdb1.cs_pub_opadetail H
+			WHERE
+				H.AuditState = '1'
+		)
+	</select>
+	<!-- 统计入库企业违法违规数量List-->
+	<select id="selectWfwgBySetDeptCodeList" parameterType="Map" resultMap="BaseResultDtoMap">
+				SELECT DISTINCT t.PriPID,t.EntName,t.RegNO,t.Dom,t.LeRep,t.RegCap,t.EntType,t.EstDate,t.IndustryCo,t.RegOrg,t.IndustryPhy,
+t.RegState,t.RegCapUSD, t.UniCode,t.OpFrom,t.OpTo,t.Currency,t.Tel,t.Email,t.ApprDate,t.AltDate,t.CurrencyCn,
+t.OpForm,t.OpScope,t.EntTypeCatg, t.RegOrgName,t.LocalAdm,t.LocalAdmName,t.SliceNO,t.SliceNOName,t.SmentReason,
+t.IsSment,t.SmentRemReason, t.EmpNum,t.VendInc, t.ProGro,t.RatGro,t.IndustryCoName,
+t.EntTypeName, t.HelpState,t.CultivationTypeName,t.HelpTypeNum FROM (
+	SELECT
+sb.PriPID,sb.EntName,sb.RegNO,sb.Dom,sb.LeRep,sb.RegCap,sb.EntType,sb.EstDate,sb.IndustryCo,sb.RegOrg,sb.IndustryPhy,
+sb.RegState,sb.RegCapUSD, sb.UniCode,sb.OpFrom,sb.OpTo,sb.Currency,sb.Tel,sb.Email,sb.ApprDate,sb.AltDate,sb.CurrencyCn,
+sb.OpForm,sb.OpScope,sb.EntTypeCatg, sb.RegOrgName,sb.LocalAdm,sb.LocalAdmName,sb.SliceNO,sb.SliceNOName,sb.SmentReason,
+sb.IsSment,sb.SmentRemReason, NULL EmpNum,NULL VendInc, NULL ProGro,NULL RatGro,cci.Content IndustryCoName,
+cce.Content EntTypeName, sbe.HelpState,sbe.CultivationTypeName,sbe.HelpTypeNum
+  FROM
+    zjcsdb1.sm_bus_entarchives sbe
+    INNER JOIN zjcsdb1.cs_pub_otherpunish cpo
+      ON sbe.PriPID = cpo.PriPID
+       INNER JOIN rpt_sm_baseinfo sb
+    ON sbe.PriPID = sb.PriPID
+  LEFT JOIN zjcsdb1.sm_bus_entarchives_help sbeh
+    ON sbeh.PriPID = sbe.PriPID
+  LEFT JOIN zjcsdb1.cs_code_industry cci
+    ON cci.code = sb.IndustryCo
+  LEFT JOIN zjcsdb1.cs_code_enttype cce
+    ON cce.code = sb.EntType
+  WHERE sbe.setDeptCode LIKE '${deptCode}%'
+  UNION
+  SELECT
+sb.PriPID,sb.EntName,sb.RegNO,sb.Dom,sb.LeRep,sb.RegCap,sb.EntType,sb.EstDate,sb.IndustryCo,sb.RegOrg,sb.IndustryPhy,
+sb.RegState,sb.RegCapUSD, sb.UniCode,sb.OpFrom,sb.OpTo,sb.Currency,sb.Tel,sb.Email,sb.ApprDate,sb.AltDate,sb.CurrencyCn,
+sb.OpForm,sb.OpScope,sb.EntTypeCatg, sb.RegOrgName,sb.LocalAdm,sb.LocalAdmName,sb.SliceNO,sb.SliceNOName,sb.SmentReason,
+sb.IsSment,sb.SmentRemReason, NULL EmpNum,NULL VendInc, NULL ProGro,NULL RatGro,cci.Content IndustryCoName,
+cce.Content EntTypeName, sbe.HelpState,sbe.CultivationTypeName,sbe.HelpTypeNum
+  FROM
+    zjcsdb1.sm_bus_entarchives sbe
+    INNER JOIN zjcsdb1.cs_mid_caseinfo cmc
+      ON cmc.PriPID = sbe.PriPID
+      INNER JOIN rpt_sm_baseinfo sb
+    ON sbe.PriPID = sb.PriPID
+  LEFT JOIN zjcsdb1.sm_bus_entarchives_help sbeh
+    ON sbeh.PriPID = sbe.PriPID
+  LEFT JOIN zjcsdb1.cs_code_industry cci
+    ON cci.code = sb.IndustryCo
+  LEFT JOIN zjcsdb1.cs_code_enttype cce
+    ON cce.code = sb.EntType
+  WHERE sbe.setDeptCode LIKE '${deptCode}%' ) t
+	</select>
+	<!-- 统计入库企业营收下降数量List-->
+	<select id="selectJyxjBySetDeptCodeList" parameterType="Map" resultMap="BaseResultDtoMap">
+	 SELECT
+	DISTINCT sb.PriPID,sb.EntName,sb.RegNO,sb.Dom,sb.LeRep,sb.RegCap,sb.EntType,sb.EstDate,sb.IndustryCo,sb.RegOrg,sb.IndustryPhy,
+	sb.RegState,sb.RegCapUSD, sb.UniCode,sb.OpFrom,sb.OpTo,sb.Currency,sb.Tel,sb.Email,sb.ApprDate,sb.AltDate,sb.CurrencyCn,
+	sb.OpForm,sb.OpScope,sb.EntTypeCatg, sb.RegOrgName,sb.LocalAdm,sb.LocalAdmName,sb.SliceNO,sb.SliceNOName,sb.SmentReason,
+	sb.IsSment,sb.SmentRemReason, NULL EmpNum,NULL VendInc, NULL ProGro,NULL RatGro,cci.Content IndustryCoName,
+	cce.Content EntTypeName, sbe.HelpState,sbe.CultivationTypeName,sbe.HelpTypeNum
+	FROM
+		zjcsdb1.sm_bus_entarchives sbe
+	INNER JOIN zjcsdb1.cs_yr_asset cya ON sbe.PriPID = cya.PriPID
+	AND cya. YEAR = (DATE_FORMAT(NOW(), '%Y') + 0 ) -1
+	INNER JOIN zjcsdb1.cs_yr_asset cya2 ON cya2.PriPID = cya.PriPID
+	AND cya2. YEAR = (DATE_FORMAT(NOW(), '%Y') + 0 ) -2
+	INNER JOIN rpt_sm_baseinfo sb
+		ON sbe.PriPID = sb.PriPID
+	  LEFT JOIN zjcsdb1.sm_bus_entarchives_help sbeh
+		ON sbeh.PriPID = sbe.PriPID
+	  LEFT JOIN zjcsdb1.cs_code_industry cci
+		ON cci.code = sb.IndustryCo
+	  LEFT JOIN zjcsdb1.cs_code_enttype cce
+		ON cce.code = sb.EntType
+			WHERE
+				sbe.setDeptCode LIKE '${deptCode}%'
+
+			AND (
+				<![CDATA[
+					(cya.VendInc - cya2.VendInc) / cya2.VendInc < - 0.20
+					OR (cya.ProGro - cya2.ProGro) / cya2.ProGro < - 0.20
+					OR (cya.RatGro - cya2.RatGro) / cya2.RatGro < - 0.20
+				]]>
+			)
+	</select>
+	
+</mapper>

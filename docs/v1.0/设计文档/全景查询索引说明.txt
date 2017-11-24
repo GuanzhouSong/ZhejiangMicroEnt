@@ -1,0 +1,9 @@
+全景查询索引说明
+1索引生成
+	(生成前可以情况，也可以不清空，不清空以覆盖的方式生成)
+	A.初始化数据到cs_panorama_search表中去
+	B.运行程序开始生成索引(两个地址  协同：/syn/panoramasearch/createIndex 警示：/reg/server/panoramasearch/createIndex)
+2索引维护
+	A.查看索引详细信息地址  /esmanage/viewIdx/hx123zhu12315HXasdfuiop         （根据内部序号进行查看）
+	B.更新索引地址          /esmanage/doEnPanoManage/hx123zhu12315HXasdfuiop  （根据内部序号进行更新，更新密码：hx123zhu12315HXqwervbmn）
+	C.删除目前在eclipse里面运行代码处理的，没有对外地址

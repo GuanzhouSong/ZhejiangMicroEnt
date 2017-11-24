@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.ai12315.mapper.Ai12315InvoptInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.ai12315.model.Ai12315InvoptInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="PT_ID" property="ptId" jdbcType="VARCHAR" />
+    <result column="CONT_ID" property="contId" jdbcType="VARCHAR" />
+    <result column="PTTYPE" property="ptType" jdbcType="VARCHAR" />
+    <result column="PRIPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="INVOPT" property="invopt" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="UniSCID" property="uniSCID" jdbcType="CHAR" />
+    <result column="UBINDTYPE" property="ubindtype" jdbcType="VARCHAR" />
+    <result column="EntType" property="entType" jdbcType="CHAR" />
+    <result column="Addr" property="addr" jdbcType="VARCHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

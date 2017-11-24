@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.drcheck.mapper.PubScresultMapper" >
+  <resultMap id="PubScresult" type="com.icinfo.cs.drcheck.model.PubScresult" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="deptSctaskNO" property="deptSctaskNO" jdbcType="VARCHAR" />
+    <result column="TaskNO" property="taskNO" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="ScResult" property="scResult" jdbcType="VARCHAR" />
+    <result column="ScDetail" property="scDetail" jdbcType="VARCHAR" />
+    <result column="ScDeptName" property="scDeptName" jdbcType="VARCHAR" />
+    <result column="InspectDeptTime" property="inspectDeptTime" jdbcType="TIMESTAMP" />
+    <result column="InspectDesc" property="inspectDesc" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    
+  </resultMap>
+  
+  <resultMap id="PubScresultDto" type="com.icinfo.cs.drcheck.dto.PubScresultDto" extends="PubScresult">
+    <result column="InspectDepts" property="inspectDepts" jdbcType="VARCHAR" />
+    <result column="InspectDate" property="inspectDate" jdbcType="VARCHAR" />
+    <result column="ScType" property="scType" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="VARCHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="VARCHAR" />
+    <result column="LeaderDeptDesc" property="leaderDeptDesc" jdbcType="VARCHAR" />
+    <result column="TaskCode" property="taskCode" jdbcType="VARCHAR" />
+    <result column="InspectDesc" property="inspectDesc" jdbcType="VARCHAR" />
+    <result column="TaskState" property="taskState" jdbcType="VARCHAR" />
+    <result column="AuditState" property="auditState" jdbcType="VARCHAR" />
+    <result column="ResultFlag" property="resultFlag" jdbcType="VARCHAR" />
+    <result column="ScDetail" property="scDetail" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="queryPageResultByPripid" resultMap="PubScresultDto" parameterType="Map">
+	SELECT 
+	  A.ScResult,
+	  '抽查历史' ScType,
+	  A.InspectDeptTime InspectDate,
+	  A.ScDeptName InspectDesc 
+	FROM
+	  cs_pub_scresult A 
+	  LEFT JOIN cs_pub_dept_sctask B 
+	    ON B.UID = A.TaskNO 
+	where 1 = 1 
+	  and A.PriPID = #{priPID}
+	  and A.auditState = 2 
+	  union 
+	  SELECT
+	  	A.CheckResult ScResult,
+		'抽查' ScType,
+		A.CheckDate InspectDate,
+		A.CheckDeptName InspectDesc
+	FROM
+		cs_pub_scent_result A
+	LEFT JOIN pub_scdept_task D ON A.TaskUid=D.uid
+	LEFT JOIN cs_pub_scplan_task B ON D.TaskUid = B.Uid
+	WHERE A.PriPID=#{priPID} 
+	and A.AuditState='5'
+<!-- 	union  -->
+<!-- 	SELECT -->
+<!-- 	( -->
+<!-- 		SELECT -->
+<!-- 			CONCAT('[',c.Year,']',GROUP_CONCAT(co.Content)) -->
+<!-- 		FROM -->
+<!-- 			cs_report_check_result c, -->
+<!-- 			cs_report_check_code co -->
+<!-- 		WHERE -->
+<!-- 			c.uid = r.uid -->
+<!-- 		AND c.resresult = co. CODE -->
+<!-- 		AND co.type = 'res' -->
+<!-- 	) ScResult, -->
+<!-- 	'检查' ScType, -->
+<!-- 	r.InfoCheckDate InspectDate, -->
+<!-- 	r.InfoCheckOrgName InspectDesc -->
+<!-- 	FROM -->
+<!-- 		cs_report_check_info r -->
+<!-- 	WHERE -->
+<!-- 		r.InfoAuditResult = '4' -->
+<!-- 		and PriPID = #{priPID}  -->
+<!-- 	order by InspectDate desc -->
+	</select>
+  
+  <select id="queryPagePubScresultList" resultMap="PubScresultDto" parameterType="Map">
+		select t.LeaderDeptDesc,t.TaskCode,k.InspectDesc,t.TaskState,r.AuditState,r.ResultFlag,r.ScDetail,r.ScResult from cs_pub_sctask t 
+		LEFT JOIN cs_pub_dept_sctask k ON t.UID = k.TaskNO
+		LEFT JOIN cs_pub_scinfo i ON t.UID = i.TaskNO
+		LEFT JOIN cs_pub_scresult r ON i.PriPID = r.PriPID AND r.TaskNO = k.UID
+		where i.PriPID = #{priPID} 
+		<![CDATA[ and t.UID <> #{taskNO}]]>
+	</select>
+	
+  <select id="selectScresultForBulletin" resultMap="PubScresultDto" parameterType="Map">
+  SELECT
+     tmp.UID,
+     tmp.InspectDesc,
+     tmp.InspectDate,
+     tmp.EntName,
+     tmp.RegNO,
+     tmp.UniCode,
+     tmp.ScResult,
+     tmp.ScDeptName,
+     tmp.InspectDeptTime,
+     tmp.scType
+     FROM (
+	  SELECT
+		  a.UID, 
+		  a.InspectDesc,
+		  a.InspectDate,
+		  d.EntName,
+		  d.RegNO,
+		  d.UniCode,
+		  c.ScResult,
+		  c.ScDeptName,
+		  c.InspectDeptTime,
+		  1 scType
+		  FROM cs_pub_dept_sctask a 
+			  LEFT JOIN cs_pub_sctask b ON b.UID = a.TaskNO
+			  INNER  JOIN cs_pub_scresult c ON c.TaskNO = a.UID
+			  LEFT   JOIN cs_mid_baseinfo d ON d.PriPID = c.PriPID
+		  WHERE 1 = 1
+		  <if test="uid !='' and uid !=null">
+		  AND b.UID = #{uid}
+		  </if>
+	UNION ALL
+		SELECT 
+		  t.Uid UID,
+		  '' InspectDesc,
+		  '' InspectDate,
+		  a.EntName,
+		  a.RegNO,
+		  a.UniCode,
+		  t.CheckResult ScResult,
+		  t.CheckDeptName ScDeptName,
+		  t.CheckDate InspectDeptTime,
+		  2 scType
+		FROM cs_pub_scent_result t
+			LEFT JOIN pub_scdept_task k ON t.TaskUid = k.Uid
+			LEFT JOIN cs_pub_scplan_task m ON k.TaskUid = m.Uid
+		    LEFT JOIN cs_mid_baseinfo a ON t.PriPID = a.PriPID
+		WHERE 
+		m.TaskState IN ('02','03') 
+		AND k.DeptState IN ('2','3') 
+		AND t.AuditState = '5'
+		<if test="uid !='' and uid !=null">
+		  AND m.Uid = #{uid}
+		</if>
+	) tmp
+  </select>
+  
+  <select id="selectCheckScresultInfoForBulletin" resultMap="PubScresultDto" parameterType="Map">
+      SELECT
+	  r.InfoCheckDate InspectDeptTime,
+	  r.ENTNAME EntName,
+	  r.InfoCheckOrgName ScDeptName,
+	  r.UniCode,
+	  r.RegNO,
+	 (
+			SELECT
+				CONCAT('[',c.Year,']',GROUP_CONCAT(co.Content))
+			FROM
+				cs_report_check_result c,
+				cs_report_check_code co
+			WHERE
+				c.uid = r.uid
+			AND c.resresult = co. CODE
+			AND co.type = 'res'
+		) ScResult
+	FROM
+		cs_report_check_info r
+	WHERE
+	r.InfoAuditResult = '4' AND r.UID = #{uid}
+  </select>
+</mapper>

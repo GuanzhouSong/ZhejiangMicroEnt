@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.drcheck.mapper.PubScitemResultMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.drcheck.model.PubScitemResult" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="TaskNO" property="taskNO" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="ScType" property="scType" jdbcType="VARCHAR" />
+    <result  column="ScName" property="scName" jdbcType="VARCHAR"/>
+    <result column="ItemCode" property="itemCode" jdbcType="VARCHAR" />
+    <result column="ItemName" property="itemName" jdbcType="VARCHAR" />
+    <result column="ItemContent" property="itemContent" jdbcType="VARCHAR" />
+    <result column="ScResult" property="scResult" jdbcType="VARCHAR" />
+    <result column="SameFlag" property="sameFlag" jdbcType="VARCHAR" />
+    <result column="PubFlag" property="pubFlag" jdbcType="VARCHAR" />
+    <result column="SetUserId" property="setUserId" jdbcType="VARCHAR" />
+    <result column="SetUserName" property="setUserName" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="SetDeptCode" property="setDeptCode" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  
+  <resultMap type="com.icinfo.cs.drcheck.dto.PubScitemResultDto" id="PubScitemResultDto" extends="BaseResultMap">
+  	<result  column="InspectDept" property="inspectDept" jdbcType="VARCHAR"/>
+  	<result  column="InspectDesc" property="inspectDesc" jdbcType="VARCHAR"/>
+  	<result  column="InspectDate" property="inspectDate" jdbcType="TIMESTAMP"/>
+  </resultMap>
+  <select id="selectPubScitemResultListByPriPID" resultMap="PubScitemResultDto" parameterType="map">
+  	SELECT
+		  A.ScDetail ScResult, 
+		  '抽查' ScType,
+		  A.InspectDeptTime InspectDate,
+		  '随机抽查'  scName,
+		  B.InspectDesc,
+		  C.TaskCode TaskNO
+		FROM
+			cs_pub_scresult A
+		LEFT JOIN cs_pub_dept_sctask B ON B.UID = A.TaskNO
+		LEFT JOIN cs_pub_sctask C ON B.TaskNO=C.UID
+		where 
+			 A.PriPID =#{priPID} and A.auditState=2
+  </select>
+
+  
+  <!-- 查抽检查结果录入列表 -->
+  <select id="selectPubScitemResultListNew" resultMap="BaseResultMap" parameterType="map"> 
+  select a.ScType,a.ItemCode,a.ItemName,b.scName from  cs_pub_dept_scitem b LEFT JOIN cs_pub_scitem a ON b.scType = a.ScType
+	where b.TaskNO = #{taskNO,jdbcType=VARCHAR}  and b.deptCode = #{inspectDept,jdbcType=VARCHAR} 
+	ORDER BY a.ScType,a.ItemCode
+  </select>
+</mapper>

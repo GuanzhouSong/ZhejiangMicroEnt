@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.sccheck.mapper.PubScentAgentMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sccheck.model.PubScentAgent" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Uid" property="uid" jdbcType="VARCHAR" />
+    <result column="TaskUid" property="taskUid" jdbcType="VARCHAR" />
+    <result column="AgentUid" property="agentUid" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="AdjustUserUid" property="adjustUserUid" jdbcType="VARCHAR" />
+    <result column="AdjustUserName" property="adjustUserName" jdbcType="VARCHAR" />
+    <result column="AdjustDate" property="adjustDate" jdbcType="TIMESTAMP" />
+    <result column="LeaderFlag" property="leaderFlag" jdbcType="CHAR" />
+    <result column="ExpertFlag" property="expertFlag" jdbcType="CHAR" />
+    <result column="ScentUid" property="scentUid" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapDto" type="com.icinfo.cs.sccheck.dto.PubScentAgentDto" extends="BaseResultMap">
+    <result column="TaskCode" property="taskCode" jdbcType="VARCHAR" />
+    <result column="TaskName" property="taskName" jdbcType="VARCHAR" />
+    <result column="TaskState" property="taskState" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="VARCHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="VARCHAR" />
+    <result column="AgentName" property="agentName" jdbcType="VARCHAR" />
+    <result column="AuditState" property="auditState" jdbcType="VARCHAR" />
+    <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+    <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+    <result column="TeamLeader" property="teamLeader" jdbcType="VARCHAR" />
+    <result column="ExpertNames" property="expertNames" jdbcType="VARCHAR" />
+    <result column="AdjustUserName" property="adjustUserName" jdbcType="VARCHAR" />
+    <result column="AdjustTime" property="adjustTime" jdbcType="TIMESTAMP" />
+    <result column="CheckDeptPerson" property="checkDeptPerson" jdbcType="VARCHAR" />
+    
+    <result column="areaCode" property="areaCode" jdbcType="VARCHAR" />
+    <result column="checkPersonNum" property="checkPersonNum" jdbcType="INTEGER" />
+    <result column="RandomDate" property="randomDate" jdbcType="TIMESTAMP" />
+    <result column="DeptState" property="deptState" jdbcType="VARCHAR" />
+    <result column="deptOrgName" property="deptOrgName" jdbcType="VARCHAR" />
+    <result column="AuditState" property="auditState" jdbcType="VARCHAR" />
+    <result column="CheckDeptName" property="checkDeptName" jdbcType="VARCHAR" />
+    <result column="CheckDeptPerson" property="checkDeptPerson" jdbcType="VARCHAR" />
+    <result column="EstDate" property="estDate" jdbcType="TIMESTAMP" />
+    <result column="EntTypeCatgDesc" property="entTypeCatgDesc" jdbcType="VARCHAR" />
+    <result column="IndustryCoDesc" property="industryCoDesc" jdbcType="VARCHAR" />
+    <result column="OpScope" property="opScope" jdbcType="VARCHAR" />
+    <result column="Dom" property="dom" jdbcType="VARCHAR" />
+    <result column="SliceNOName" property="sliceNOName" jdbcType="VARCHAR" />
+    <result column="Lerep" property="lerep" jdbcType="VARCHAR" />
+    <result column="MobTel" property="mobTel" jdbcType="VARCHAR" />
+    <result column="LiaName" property="liaName" jdbcType="VARCHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <!-- 查询抽中当前企业的检查人员-->
+  <select id="selectEntAgents" resultType="java.lang.String" parameterType="Map"> 
+	SELECT
+		n.AgentName
+	FROM
+	cs_pub_scent_agent t
+	INNER JOIN cs_pub_scagent n
+	ON t.AgentUid = n.UID
+	where TaskUid = #{taskUid} and PriPID = #{priPID} and ScentUid = #{scentUid}
+  </select>
+  <select id="selectDeptNames" resultType="java.lang.String" parameterType="Map"> 
+	SELECT
+		n.SetDeptName
+	FROM
+	cs_pub_scent_agent t
+	INNER JOIN cs_pub_scagent n
+	ON t.AgentUid = n.UID
+	where TaskUid = #{taskUid} and PriPID = #{priPID} and ScentUid = #{scentUid}
+  </select>
+  
+  <select id="selectPubScentAgentDtoList" resultMap="BaseResultMapDto" parameterType="Map"> 
+	select 
+		t.Uid,t.taskUid,p.TaskCode,p.TaskName,e.PriPID,e.EntName,e.RegNO,
+		e.UniCode,e.RegOrgName,e.LocalAdmName,t.AuditState,t.TeamLeader,t.AdjustUserName,t.AdjustTime,t.CheckDeptPerson,t.ExpertNames
+	from cs_pub_scent_result t 
+	LEFT JOIN cs_mid_baseinfo e ON t.PriPID = e.PriPID AND e.RegState IN ('K','B','A','Q','X')
+	LEFT JOIN pub_scdept_task k ON t.TaskUid = k.Uid
+	LEFT JOIN cs_pub_scplan_task p ON t.MainTaskUid = p.Uid
+	WHERE 
+		p.TaskState in ('02','03') 
+		and k.DeptState in ('2','3') 
+	<if test="unitDeptCode != null and unitDeptCode != ''">
+		AND k.UnitDeptCode = #{unitDeptCode}
+	</if>
+	<if test="deptTaskUid != null and deptTaskUid != ''">
+		and t.TaskUid = #{deptTaskUid}
+	</if>
+	<if test="teamLeader != null and teamLeader != ''">
+		and (t.TeamLeader like concat('%', #{teamLeader},'%') OR t.ExpertNames like concat('%', #{teamLeader},'%')) 
+	</if>
+	<if test="adjustUserName != null and adjustUserName != ''">
+		and t.AdjustUserName = #{adjustUserName}
+	</if>
+	<if test="adjustTimeStart !='' and adjustTimeStart !=null">
+		<![CDATA[
+		   and t.AdjustTime >= #{adjustTimeStart}
+		]]>
+	</if>
+	<if test="adjustTimeEnd !='' and adjustTimeEnd !=null">
+		<![CDATA[
+		   and t.AdjustTime <= #{adjustTimeEnd}
+		]]>
+	</if>
+	<if test="taskName != null and taskName != ''">
+		and p.TaskName like concat('%', #{taskName},'%')
+	</if>
+	<if test="taskCode != null and taskCode != ''">
+		and p.TaskCode like concat('%', #{taskCode},'%')
+	</if>
+	<if test="agentName != null and agentName != ''">
+		and t.CheckDeptPerson like concat('%', #{agentName},'%')
+	</if>
+	<if test="entName != null and entName != ''">
+		and e.EntName like concat('%', #{entName},'%')
+	</if>
+	<if test="regNO != null and regNO != ''">
+		and (e.RegNO = #{regNO} OR e.UniCode = #{regNO})
+	</if>
+	<if test="regOrg !='' and regOrg !=null">
+	    and e.RegOrg in (${regOrg})
+	</if>
+	<if test="localAdm !='' and localAdm !=null">
+	    and e.LocalAdm in (${localAdm})
+	</if>
+	<if test="auditState !='' and auditState !=null">
+	    and t.AuditState = ${auditState}
+	</if>
+	 <if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+		<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+			separator="OR" close=")">
+			p.DutyDeptCode like concat('%',#{item},'%')
+		</foreach>
+	</if>
+  </select>
+  
+   <select id="selectSearchList" resultMap="BaseResultMapDto" parameterType="Map"> 
+	SELECT 
+		k.TaskCode,k.TaskName,k.RandomDate,p.DeptState,r.AuditState,c.Content deptOrgName,d.content CheckDeptName,r.CheckDeptPerson,r.TeamLeader,r.ExpertNames,
+		o.EntName,o.RegNO,o.UniCode,o.EstDate,g.Content EntTypeCatgDesc,u.Content IndustryCoDesc,o.OpScope,o.Dom,o.RegOrgName,o.LocalAdmName,o.SliceNOName,l.Name Lerep,l.MobTel,e.LiaName,e.Tel
+	FROM cs_pub_scent t 
+	LEFT JOIN cs_pub_scplan_task k ON t.TaskUid = k.Uid 
+	LEFT JOIN pub_scdept_task p ON t.DeptTaskUid = p.Uid
+	LEFT JOIN cs_pub_scent_result r ON t.Uid = r.ScentUid
+	LEFT JOIN cs_code_regorg c ON p.DeptCode = c.Code
+	LEFT JOIN cs_code_regunit d ON p.UnitDeptCode = d.Code
+	LEFT JOIN cs_mid_baseinfo o ON t.PriPID = o.PriPID
+	LEFT JOIN cs_mid_lerep l ON t.PriPID = l.PriPID
+	LEFT JOIN cs_pub_eppassword e ON t.PriPID = e.PriPID
+	LEFT JOIN cs_code_enttype g ON o.EntType = g.Code
+	LEFT JOIN cs_code_industrytype u ON o.IndustryPhy = u.Code
+	WHERE 1=1
+	<if test="unitDeptCode != null and unitDeptCode != ''">
+		AND p.UnitDeptCode = #{unitDeptCode}
+	</if>
+	<if test="teamLeader != null and teamLeader != ''">
+		and r.ExpertNames like concat('%', #{teamLeader},'%') 
+	</if>
+<!-- 	<if test="taskUid != null and taskUid != ''"> -->
+<!-- 		and t.TaskUid = #{taskUid}  -->
+<!-- 	</if> -->
+	<if test="adjustUserName != null and adjustUserName != ''">
+		and t.AdjustUserName = #{adjustUserName}
+	</if>
+	<if test="taskName != null and taskName != ''">
+		and k.TaskName like concat('%', #{taskName},'%')
+	</if>
+	<if test="taskCode != null and taskCode != ''">
+		and k.TaskCode like concat('%', #{taskCode},'%')
+	</if>
+	<if test="agentName != null and agentName != ''">
+		and r.CheckDeptPerson like concat('%', #{agentName},'%')
+	</if>
+	<if test="entName != null and entName != ''">
+		and o.EntName like concat('%', #{entName},'%')
+	</if>
+	<if test="opScope != null and opScope != ''">
+		and o.OpScope like concat('%', #{opScope},'%')
+	</if>
+	<if test="dom != null and dom != ''">
+		and o.Dom like concat('%', #{dom},'%')
+	</if>
+	<if test="regNO != null and regNO != ''">
+		and (o.RegNO = #{regNO} OR o.UniCode = #{regNO})
+	</if>
+	<if test="regOrg !='' and regOrg !=null">
+	    and o.RegOrg in (${regOrg})
+	</if>
+	<if test="localAdm !='' and localAdm !=null">
+	    and o.LocalAdm in (${localAdm})
+	</if>
+	<if test="deptCodeArr != null and deptCodeArr != ''">
+		AND p.DeptCode in (${deptCodeArr})
+	</if>
+	<if test="industryCo !='' and industryCo !=null">
+	    and o.IndustryCo in (${industryCo})
+	</if>
+	<if test="sliceNO !='' and sliceNO !=null">
+	    and o.SliceNO in (${sliceNO})
+	</if>
+	<if test="entType !='' and entType !=null">
+	    and o.EntType in (${entType})
+	</if>
+	<if test="auditState !='' and auditState !=null">
+	    and r.AuditState = #{auditState}
+	</if>
+	<if test="auditStateArr !='' and auditStateArr !=null">
+	    and r.AuditState in 
+	    <foreach item="item" index="index" collection="auditStateArr" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</if>
+	<if test="deptStateArr !='' and deptStateArr !=null">
+	    and p.DeptState in 
+	    <foreach item="item" index="index" collection="deptStateArr" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</if>
+	<if test="deptCodes !='' and deptCodes !=null">
+    	and p.DeptCode in (${deptCodes})
+	</if>
+	<if test="unitDeptCodes !='' and unitDeptCodes !=null">
+    	and p.UnitDeptCode in (${unitDeptCodes})
+	</if>
+	<if test="leRep !='' and leRep !=null">
+    	and l.Name = #{leRep}
+	</if>
+	<if test="liaName !='' and liaName !=null">
+    	and e.LiaName = #{liaName}
+	</if>
+	<if test="year != null and year !=''">
+		and DATE_FORMAT(k.SetTime,'%Y') = #{year}
+	</if>
+	<if test="estDateStart !='' and estDateStart !=null">
+	    <![CDATA[
+		and DATE_FORMAT(o.EstDate,'%Y-%m-%d') >= #{estDateStart}
+		]]>
+    </if>
+     <if test="estDateEnd !='' and estDateEnd !=null">
+	    <![CDATA[
+		and DATE_FORMAT(o.EstDate,'%Y-%m-%d') <= #{estDateEnd}
+		]]>
+	</if>
+	<if test="randomDateStart !='' and randomDateStart !=null">
+	    <![CDATA[
+		and DATE_FORMAT(K.RandomDate,'%Y-%m-%d') >= #{randomDateStart}
+		]]>
+    </if>
+     <if test="randomDateEnd !='' and randomDateEnd !=null">
+	    <![CDATA[
+		and DATE_FORMAT(K.RandomDate,'%Y-%m-%d') <= #{randomDateEnd}
+		]]>
+	</if>
+	 <if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+		<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+			separator="OR" close=")">
+			k.DutyDeptCode like concat('%',#{item},'%')
+		</foreach>
+	</if>
+	GROUP BY t.TaskUid,t.PriPID
+  </select>
+  
+  <!-- 可视化检察人员统计 -->
+  <select id="selectPubScentAgentChartsCount" resultMap="BaseResultMapDto" parameterType="Map"> 
+   select t.areaCode,count(temp.agentuid) checkPersonNum
+	from 
+	(SELECT LEFT(t.code,4) areaCode, LEFT(t.code,4) deptCode 
+    FROM cs_code_regorg t WHERE CODE != '100000' and CODE != '999999' GROUP BY LEFT(t.code,4)) t
+    LEFT JOIN
+	(
+	select 
+	 DISTINCT(a.agentuid),b.DutyDeptCode,LEFT(k.DeptCode,4) areaCode
+	from 
+	cs_pub_scent_agent a  
+	left JOIN pub_scdept_task k  
+	on a.taskuid = k.uid
+	left join cs_pub_scent t
+	on k.uid = t.depttaskuid
+	LEFT JOIN cs_pub_scplan_task b
+	ON k.TaskUid = b.uid
+	where k.deptstate in ('2','3')
+	AND LEFT(k.DeptCode, 4) IN (3300,3301,3302,3303,3304,3305,3306,3307,3308,3309,3310,3325)
+	<if test="rptDateEnd != null and rptDateEnd != ''">
+	<![CDATA[ AND DATE_FORMAT(k.SetTime,'%Y-%m-%d') <= #{rptDateEnd} ]]>
+	</if>
+	<if test="rptYear != null and rptYear !=''">
+	and DATE_FORMAT(k.SetTime,'%Y') = #{rptYear}
+	</if> 
+	<if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+		<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+			separator="OR" close=")">
+			b.DutyDeptCode like concat('%',#{item},'%')
+		</foreach>
+	</if>
+	<if test="checkRptArea != null and checkRptArea != ''">
+	  and LEFT(k.DeptCode,4) = #{checkRptArea}
+	</if> 
+	)temp
+	on t.areaCode = temp.areaCode
+	<if test="groupFlag != null and groupFlag != ''">
+	 GROUP BY t.areaCode
+	 </if>
+  </select>
+  
+  
+</mapper>

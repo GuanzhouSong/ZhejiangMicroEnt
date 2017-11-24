@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.es.mapper.CsPubIlldisdetailMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.es.model.CsPubIlldisdetail" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Illid" property="illid" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="uniscid" property="uniscid" jdbcType="VARCHAR" />
+    <result column="RegNo" property="regNo" jdbcType="VARCHAR" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="CerType" property="cerType" jdbcType="VARCHAR" />
+    <result column="CerNO" property="cerNO" jdbcType="VARCHAR" />
+    <result column="Serillrea" property="serillrea" jdbcType="VARCHAR" />
+    <result column="Serillrea_CN" property="serillrea_CN" jdbcType="VARCHAR" />
+    <result column="AbnTime" property="abnTime" jdbcType="DATE" />
+    <result column="DeCorg" property="deCorg" jdbcType="VARCHAR" />
+    <result column="DeCorg_CN" property="deCorg_CN" jdbcType="VARCHAR" />
+    <result column="DeDocNum" property="deDocNum" jdbcType="VARCHAR" />
+    <result column="PeMexcPrexs" property="peMexcPrexs" jdbcType="VARCHAR" />
+    <result column="PeMexcPrexs_CN" property="peMexcPrexs_CN" jdbcType="VARCHAR" />
+    <result column="RemDate" property="remDate" jdbcType="DATE" />
+    <result column="ReCorg" property="reCorg" jdbcType="VARCHAR" />
+    <result column="ReCorg_CN" property="reCorg_CN" jdbcType="VARCHAR" />
+    <result column="ReCorgNum" property="reCorgNum" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.system.mapper.SysDepartOptRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.system.model.SysDepartOptRecord" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="OrgCoding" property="orgCoding" jdbcType="VARCHAR" />
+    <result column="OrgName" property="orgName" jdbcType="VARCHAR" />
+    <result column="OrgNameNew" property="orgNameNew" jdbcType="VARCHAR" />
+    <result column="DevCoding" property="devCoding" jdbcType="VARCHAR" />
+    <result column="OrganizeAllName" property="organizeAllName" jdbcType="VARCHAR" />
+    <result column="OrderBy" property="orderBy" jdbcType="INTEGER" />
+    <result column="Adcode" property="adcode" jdbcType="VARCHAR" />
+    <result column="PorgCoding" property="porgCoding" jdbcType="VARCHAR" />
+    <result column="DutyCodes" property="dutyCodes" jdbcType="VARCHAR" />
+    <result column="DutyNames" property="dutyNames" jdbcType="VARCHAR" />
+    <result column="DutyCodesNew" property="dutyCodesNew" jdbcType="VARCHAR" />
+    <result column="DutyNames" property="dutyNames" jdbcType="VARCHAR" />
+    <result column="DutyNamesNew" property="dutyNamesNew" jdbcType="VARCHAR" />
+    <result column="OptType" property="optType" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

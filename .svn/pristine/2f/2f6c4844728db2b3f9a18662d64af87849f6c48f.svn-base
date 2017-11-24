@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.registinfo.mapper.RegistSurverMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.registinfo.model.RegistSurver" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="VARCHAR" />
+    <result column="SurverDate" property="surverDate" jdbcType="DATE" />
+    <result column="SurverName" property="surverName" jdbcType="VARCHAR" />
+    <result column="SurverInfo" property="surverInfo" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectRegistSurverPage" resultMap="BaseResultMap" parameterType="Map">
+	SELECT
+	A.id,
+	A.uid,
+	A.SurverDate,
+	A.SurverName,
+	A.SurverInfo,
+	A.PriPID
+    FROM
+	   cs_regist_surver A
+    WHERE A.PriPID =#{priPID}
+	</select>
+</mapper>

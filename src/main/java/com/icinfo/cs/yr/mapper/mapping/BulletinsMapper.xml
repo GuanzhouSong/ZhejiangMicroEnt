@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.BulletinsMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.Bulletins" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Title" property="title" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="Source" property="source" jdbcType="VARCHAR" />
+    <result column="BulScope" property="bulScope" jdbcType="CHAR" />
+    <result column="SetDeptname" property="setDeptname" jdbcType="VARCHAR" />
+    <result column="BulType" property="bulType" jdbcType="CHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+    <result column="SetId" property="setId" jdbcType="VARCHAR" />
+    <result column="IsValid" property="isValid" jdbcType="CHAR" />
+    <result column="contents" property="contents" jdbcType="LONGVARCHAR" />
+    <result column="SystemType" property="systemType" jdbcType="CHAR" />
+    <result column="SetDeptCode" property="setDeptCode" jdbcType="VARCHAR" />
+    <result column="ReadCount" property="readCount" jdbcType="VARCHAR" />
+
+    <result column="ModTime" property="modTime" jdbcType="TIMESTAMP" />
+    <result column="BulData" property="bulData" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectBulletinsList" resultMap="BaseResultMap" parameterType="Map" >
+      SELECT id,Title,CreateTime,UID,Source,BulScope,SetDeptname,BulType,SetTime,SetName,SetId,IsValid,contents,SystemType,
+      SetDeptCode,ReadCount,
+      ModTime,BulData
+      FROM cs_bulletins where  1=1
+        <if test="systemType !=null and systemType != ''">
+			AND SystemType = #{systemType}
+		</if>
+        <if test="isValid !=null and isValid != ''">
+			AND IsValid = #{isValid}
+		</if>
+        <if test="title !=null and title != ''">
+			AND Title like CONCAT('%', #{title},'%')
+		</if>
+        <if test="setName !=null and setName != ''">
+			AND SetName like CONCAT('%', #{setName},'%')
+		</if>
+		<if test="bulType !=null and bulType != ''">
+			and bulType = #{bulType}
+		</if>
+        <if test="bulScope !=null and bulScope != ''">
+			and bulScope = #{bulScope}
+		</if>
+		<if test="setTimeStart !='' and setTimeStart !=null">
+	    <![CDATA[
+		and DATE_FORMAT(SetTime,'%Y-%m-%d') >= #{setTimeStart}
+		]]>
+	    </if>
+	     <if test="setTimeEnd !='' and setTimeEnd !=null">
+	    <![CDATA[
+		and DATE_FORMAT(SetTime,'%Y-%m-%d') <= #{setTimeEnd}
+		]]>
+		</if>
+		<if test="deptCode != null and deptCode != '' ">
+		   and (bulscope = 1 
+           or (bulscope = 2 and left(SetDeptCode,6)=left(#{deptCode},6))
+           or (bulscope = 3 and left(SetDeptCode,4)=left(#{deptCode},4)))
+		</if>
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+		order by SetTime desc
+  </select>
+  
+  
+  <select id="selectBulletinsListBySysuser">
+    SELECT id,Title,CreateTime,UID,Source,BulScope,SetDeptname,BulType,SetTime,SetName,SetId,IsValid,contents,SystemType
+    FROM cs_bulletins where  1=1
+    order by SetTime desc
+  </select>
+  
+   <!-- 企业端公告列表 -->
+   <select id="selectBulletinsClientList" resultMap="BaseResultMap" parameterType="Map" >
+      SELECT id,Title,CreateTime,UID,Source,BulScope,SetDeptname,BulType,SetTime,SetName,SetId,IsValid,contents,SystemType,
+      SetDeptCode,ReadCount 
+      FROM cs_bulletins where  1=1
+        <if test="systemType !=null and systemType != ''">
+			AND SystemType = #{systemType}
+		</if>
+		<!--  企业端可查看到的公告，包含面向企业 的-->
+		<if test="bulClientType !=null and bulClientType != ''">
+			and bulType in ('1','5')
+		</if>
+        <if test="bulScope !=null and bulScope != ''">
+			and bulScope = #{bulScope}
+		</if>
+		<if test="setTimeStart !='' and setTimeStart !=null">
+	    <![CDATA[
+		and DATE_FORMAT(SetTime,'%Y-%m-%d') >= #{setTimeStart}
+		]]>
+	    </if>
+	     <if test="setTimeEnd !='' and setTimeEnd !=null">
+	    <![CDATA[
+		and DATE_FORMAT(SetTime,'%Y-%m-%d') <= #{setTimeEnd}
+		]]>
+		</if>
+		<!--  地市范围 (直接截取设置部门编码的前四位)-->
+		<if test="deptScope !=null and deptScope != ''">
+			and LEFT(SetDeptCode,4) = #{deptScope}
+		</if>
+		<!-- 排序标志 -->
+        <if test="orderFlag !=null and orderFlag == '1'.toString()">
+        	order by ReadCount desc
+        </if>
+        <if test="orderFlag !=null and orderFlag == '2'.toString()">
+        	order by SetTime desc
+        </if>		
+  </select>
+  
+</mapper>

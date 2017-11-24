@@ -1,0 +1,950 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.sccheck.mapper.PubScentResultMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sccheck.model.PubScentResult" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Uid" property="uid" jdbcType="VARCHAR" />
+    <result column="MainTaskUid" property="mainTaskUid" jdbcType="VARCHAR" />
+    <result column="TaskUid" property="taskUid" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="AuditState" property="auditState" jdbcType="CHAR" />
+    <result column="CheckType" property="checkType" jdbcType="VARCHAR" />
+    <result column="CheckDeptCode" property="checkDeptCode" jdbcType="VARCHAR" />
+    <result column="CheckDeptName" property="checkDeptName" jdbcType="VARCHAR" />
+    <result column="CheckDeptPerson" property="checkDeptPerson" jdbcType="VARCHAR" />
+    <result column="CheckDate" property="checkDate" jdbcType="TIMESTAMP" />
+    <result column="CheckResult" property="checkResult" jdbcType="VARCHAR" />
+    <result column="DisposeMss" property="disposeMss" jdbcType="VARCHAR" />
+    <result column="DisposeState" property="disposeState" jdbcType="CHAR" />
+    <result column="DisposeFinishDate" property="disposeFinishDate" jdbcType="TIMESTAMP" />
+    <result column="EnterUserName" property="enterUserName" jdbcType="VARCHAR" />
+    <result column="EnterDate" property="enterDate" jdbcType="TIMESTAMP" />
+    <result column="AuditUserName" property="auditUserName" jdbcType="VARCHAR" />
+    <result column="AuditOpinion" property="auditOpinion" jdbcType="VARCHAR" />
+    <result column="AuditDate" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="AuditDate" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="CheckTableFlag" property="checkTableFlag" jdbcType="CHAR" />
+    <result column="CheckTableSetUser" property="checkTableSetUser" jdbcType="CHAR" />
+    <result column="CheckTableSetTime" property="checkTableSetTime" jdbcType="TIMESTAMP" />
+    <result column="AdmissionFlag" property="admissionFlag" jdbcType="CHAR" />
+    <result column="AdmissionSetUser" property="admissionSetUser" jdbcType="VARCHAR" />
+    <result column="AdmissionSetTime" property="admissionSetTime" jdbcType="TIMESTAMP" />
+    <result column="SetUserName" property="setUserName" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="ReadType" property="readType" jdbcType="CHAR" />
+    <result column="TeamLeader" property="teamLeader" jdbcType="VARCHAR" />
+    <result column="ExpertNames" property="expertNames" jdbcType="VARCHAR" />
+    <result column="AdjustUserUid" property="adjustUserUid" jdbcType="VARCHAR" />
+    <result column="AdjustUserName" property="adjustUserName" jdbcType="VARCHAR" />
+    <result column="AdjustTime" property="adjustTime" jdbcType="TIMESTAMP" />
+    <result column="DisposeFinishMss" property="disposeFinishMss" jdbcType="VARCHAR" />
+    <result column="ScentUid" property="scentUid" jdbcType="VARCHAR" />
+    <result column="Materials" property="materials" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="PubScentResultDto" type="com.icinfo.cs.sccheck.dto.PubScentResultDto" extends="BaseResultMap">
+  	<result column="RegNO" property="regNO" jdbcType="VARCHAR" />
+  	<result column="UniCode" property="uniCode" jdbcType="VARCHAR" />
+  	<result column="EntName" property="entName" jdbcType="VARCHAR" />
+  	<result column="TaskCode" property="taskCode" jdbcType="VARCHAR" />
+  	<result column="TaskType" property="taskType" jdbcType="VARCHAR" />
+  	<result column="TaskObject" property="taskObject" jdbcType="VARCHAR" />
+  	<result column="TaskName" property="taskName" jdbcType="VARCHAR" />
+  	<result column="RandomPercent" property="randomPercent" jdbcType="VARCHAR" />
+  	<result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+  	<result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+  	<result column="SliceNOName" property="sliceNOName" jdbcType="VARCHAR" />
+  	<result column="Dom" property="dom" jdbcType="VARCHAR" />
+  	<result column="ScType" property="scType" jdbcType="VARCHAR" />
+  	<result column="DutyDeptCode" property="dutyDeptCode" jdbcType="VARCHAR" />
+  	<result column="TaskEndTime" property="taskEndTime" jdbcType="TIMESTAMP" />
+  	
+  	<result column="deptName" property="deptName" jdbcType="VARCHAR" />
+  	<result column="areaName" property="areaName" jdbcType="VARCHAR" />
+  	<result column="finishedNum" property="finishedNum" jdbcType="INTEGER" />
+  	<result column="disposeNum" property="disposeNum" jdbcType="INTEGER" />
+  	<result column="totalNum" property="totalNum" jdbcType="INTEGER" />
+  	<result column="EntTotal" property="entTotal" jdbcType="INTEGER" />
+  	<result column="result1" property="result1" jdbcType="INTEGER" />
+  	<result column="result2" property="result2" jdbcType="INTEGER" />
+  	<result column="result3" property="result3" jdbcType="INTEGER" />
+  	<result column="result4" property="result4" jdbcType="INTEGER" />
+  	<result column="result6" property="result6" jdbcType="INTEGER" />
+  	<result column="result7" property="result7" jdbcType="INTEGER" />
+  	<result column="result8" property="result8" jdbcType="INTEGER" />
+  	<result column="result9" property="result9" jdbcType="INTEGER" />
+  	<result column="result10" property="result10" jdbcType="INTEGER" />
+  	<result column="result11" property="result11" jdbcType="INTEGER" />
+  	<result column="result12" property="result12" jdbcType="INTEGER" />
+  	<result column="resultA" property="resultA" jdbcType="INTEGER" />
+  	<result column="resultB" property="resultB" jdbcType="INTEGER" />
+  	<result column="resultC" property="resultC" jdbcType="INTEGER" />
+  	<result column="resultD" property="resultD" jdbcType="INTEGER" />
+  	<result column="resultE" property="resultE" jdbcType="INTEGER" />
+  	<result column="resultF" property="resultF" jdbcType="INTEGER" />
+  	<result column="dispose1" property="dispose1" jdbcType="INTEGER" />
+  	<result column="dispose2" property="dispose2" jdbcType="INTEGER" />
+  	<result column="dispose3" property="dispose3" jdbcType="INTEGER" />
+  	<result column="dispose4" property="dispose4" jdbcType="INTEGER" />
+  	<result column="dispose5" property="dispose5" jdbcType="INTEGER" />
+  	<result column="dispose6" property="dispose6" jdbcType="INTEGER" />
+  	
+  	<result column="editNum" property="editNum" jdbcType="INTEGER" />
+  	<result column="auditNum" property="auditNum" jdbcType="INTEGER" />
+  	<result column="endNum" property="endNum" jdbcType="INTEGER" />
+  	<result column="UnendNum" property="unendNum" jdbcType="INTEGER" />
+  	
+  	<result column="resultA" property="resultA" jdbcType="INTEGER" />
+  	<result column="resultE" property="resultE" jdbcType="INTEGER" />
+  	<result column="resultF" property="resultF" jdbcType="INTEGER" />
+  	<result column="result5" property="result5" jdbcType="INTEGER" />
+  </resultMap>  
+  
+  <resultMap id="SccheckCount" type="com.icinfo.cs.sccheck.dto.SccheckCount">
+  	 <result column="notInputNum" property="notInputNum" jdbcType="INTEGER" />
+  	 <result column="toCheckNum" property="toCheckNum" jdbcType="INTEGER" />
+  	 <result column="checkReturnNum" property="checkReturnNum" jdbcType="INTEGER" />
+  	 <result column="alreadyPubNum" property="alreadyPubNum" jdbcType="INTEGER" />
+  	 <result column="notOverNum" property="notOverNum" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <select id="queryPageResult" resultMap="PubScentResultDto" parameterType="Map">
+	 SELECT
+	 	A.Uid,
+		A.AuditState,
+		A.DisposeState,
+		C.RegNO,
+		C.UniCode,
+		C.EntName,
+		B.TaskCode,
+		B.TaskName,
+		A.DisposeFinishDate,
+		A.CheckDate,
+		A.CheckResult,
+		A.CheckDeptPerson,
+		A.CheckDeptName,
+		C.RegOrgName,
+		C.LocalAdmName,
+		C.SliceNOName,
+		A.EnterUserName,
+		A.EnterDate,
+		A.TaskUid,
+		A.PriPID,
+		A.CheckType,
+		A.DisposeMss,
+		A.CheckTableFlag,
+		A.AdmissionFlag,
+		A.SetUserName,
+		A.SetTime,
+		C.Dom,
+		B.TaskEndTime,
+		A.ReadType,
+		B.DutyDeptCode
+	FROM
+		cs_pub_scent_result A
+	LEFT JOIN pub_scdept_task D ON A.TaskUid=D.uid
+	LEFT JOIN cs_pub_scplan_task B ON D.TaskUid = B.Uid
+	LEFT JOIN cs_mid_baseinfo C ON A.PriPID = C.PriPID
+	WHERE 1=1
+	<include refid="queryPageResultSql" />
+	ORDER BY A.AuditState,A.DisposeState
+	</select>
+	
+  <select id="queryPageSearchResult" resultMap="PubScentResultDto" parameterType="Map">
+	 SELECT
+	 	A.Uid,
+		A.AuditState,
+		A.DisposeState,
+		C.RegNO,
+		C.UniCode,
+		C.EntName,
+		B.TaskCode,
+		B.TaskName,
+		A.DisposeFinishDate,
+		A.CheckDate,
+		A.CheckResult,
+		A.CheckDeptPerson,
+		A.CheckDeptName,
+		C.RegOrgName,
+		C.LocalAdmName,
+		C.SliceNOName,
+		A.EnterUserName,
+		A.EnterDate,
+		A.TaskUid,
+		A.PriPID,
+		A.CheckType,
+		A.DisposeMss,
+		A.CheckTableFlag,
+		A.AdmissionFlag,
+		A.SetUserName,
+		A.SetTime,
+		C.Dom,
+		B.TaskEndTime,
+		A.ReadType,
+		B.DutyDeptCode
+	FROM
+		cs_pub_scent_result A
+	LEFT JOIN pub_scdept_task D ON A.TaskUid=D.uid
+	LEFT JOIN cs_pub_scplan_task B ON D.TaskUid = B.Uid
+	LEFT JOIN cs_mid_baseinfo C ON A.PriPID = C.PriPID
+	WHERE 1=1
+	<include refid="queryPageSearchResultSql" />
+	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	ORDER BY A.AuditState,A.DisposeState
+	</select>
+	
+	<sql id="queryPageSearchResultSql">
+		and B.TaskState in('02','03')
+		and D.DeptState in('2','3')
+		<if test="entName !='' and entName !=null">
+		    and C.EntName LIKE concat('%', #{entName},'%')
+		</if>
+		<if test="cidRegNO !='' and cidRegNO !=null">
+			and (C.Unicode LIKE concat('%', #{cidRegNO},'%') or C.RegNO LIKE concat('%', #{cidRegNO},'%'))
+		</if>
+		<if test="regOrg !='' and regOrg !=null">
+		    and C.RegOrg in (${regOrg})
+		</if>
+		<if test="taskName !='' and taskName !=null">
+		    and B.TaskName LIKE concat('%', #{taskName},'%')
+		</if>
+		<if test="taskCode !='' and taskCode !=null">
+		    and B.TaskCode LIKE concat('%', #{taskCode},'%')
+		</if>
+		<if test="unitDeptCodeLike !='' and unitDeptCodeLike !=null">
+		    and D.UnitDeptCode LIKE concat(#{unitDeptCodeLike},'%')
+		</if>
+		<if test="unitDeptCode !='' and unitDeptCode !=null">
+		    and D.UnitDeptCode = #{unitDeptCode}
+		</if>
+		<if test="localAdm !='' and localAdm !=null">
+		    and C.LocalAdm in (${localAdm})
+		</if>
+		<if test="auditState !='' and auditState !=null">
+		    and A.AuditState in (${auditState})
+		</if>
+		<if test="disposeState !='' and disposeState !=null">
+		    and A.DisposeState = #{disposeState}
+		</if>
+		<if test="sliceNO !='' and sliceNO !=null">
+		    and C.SliceNO in (${sliceNO})
+		</if>
+		
+		<if test="checkResults != null and checkResults != ''">
+			and 
+			<foreach item="item" index="index" collection="checkResults"
+				open="(" separator="OR" close=")">
+				A.CheckResult like concat('%',#{item},'%')
+			</foreach> 
+		</if>
+		 
+		<if test="checkDateStart !='' and checkDateStart !=null">
+		<![CDATA[
+		   and A.CheckDate >= #{checkDateStart}
+		]]>
+		</if>
+		<if test="checkDateEnd !='' and checkDateEnd !=null">
+		<![CDATA[
+		   and A.CheckDate <= #{checkDateEnd}
+		]]>
+		</if>
+		<if test="checkDeptName !='' and checkDeptName !=null">
+		    and A.CheckDeptName LIKE concat('%', #{checkDeptName},'%')
+		</if>
+		<if test="checkDeptPersons !='' and checkDeptPersons !=null">
+		    <!-- and A.CheckDeptPerson = #{checkDeptPerson} -->
+		    and 
+			<foreach item="item" index="index" collection="checkDeptPersons"
+				open="(" separator="OR" close=")">
+				A.CheckDeptPerson like concat('%',#{item},'%')
+			</foreach>
+		</if>
+		<if test="disposeFinishDateStart !='' and disposeFinishDateStart !=null">
+		<![CDATA[
+		   and A.DisposeFinishDate >= #{disposeFinishDateStart}
+		]]>
+		</if>
+		<if test="disposeFinishDateEnd !='' and disposeFinishDateEnd !=null">
+		<![CDATA[
+		   and A.DisposeFinishDate <= #{disposeFinishDateEnd}
+		]]>
+		</if>
+		<if test="enterUserName !='' and enterUserName !=null">
+		    and A.EnterUserName = #{enterUserName}
+		</if>
+		
+		<if test="admissionFlag !='' and admissionFlag !=null">
+		    and IFNULL(A.AdmissionFlag,0) = #{admissionFlag}
+		</if>
+		<if test="checkTableFlag !='' and checkTableFlag !=null">
+		    and IFNULL(A.CheckTableFlag,0) = #{checkTableFlag}
+		</if>
+		<if test="dom !='' and dom !=null">
+		    and C.Dom LIKE concat('%', #{dom},'%')
+		</if>
+		 <if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+			<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+				separator="OR" close=")">
+				B.DutyDeptCode like concat('%',#{item},'%')
+			</foreach>
+		</if>
+	</sql>
+	
+	<sql id="queryPageResultSql">
+		and B.TaskState in('02','03')
+		and D.DeptState in('2','3')
+		<if test="entName !='' and entName !=null">
+		    and C.EntName LIKE concat('%', #{entName},'%')
+		</if>
+		<if test="cidRegNO !='' and cidRegNO !=null">
+			and (C.Unicode LIKE concat('%', #{cidRegNO},'%') or C.RegNO LIKE concat('%', #{cidRegNO},'%'))
+		</if>
+		<if test="regOrg !='' and regOrg !=null">
+		    and C.RegOrg in (${regOrg})
+		</if>
+		<if test="taskName !='' and taskName !=null">
+		    and B.TaskName LIKE concat('%', #{taskName},'%')
+		</if>
+		<if test="taskCode !='' and taskCode !=null">
+		    and B.TaskCode LIKE concat('%', #{taskCode},'%')
+		</if>
+		<if test="localAdm !='' and localAdm !=null">
+		    and C.LocalAdm in (${localAdm})
+		</if>
+		<if test="auditState !='' and auditState !=null">
+		    and A.AuditState in (${auditState})
+		</if>
+		<if test="disposeState !='' and disposeState !=null">
+		    and A.DisposeState = #{disposeState}
+		</if>
+		<if test="sliceNO !='' and sliceNO !=null">
+		    and C.SliceNO in (${sliceNO})
+		</if>
+		
+		<if test="checkResults != null and checkResults != ''">
+			and 
+			<foreach item="item" index="index" collection="checkResults"
+				open="(" separator="OR" close=")">
+				A.CheckResult like concat('%',#{item},'%')
+			</foreach> 
+		</if>
+		 
+		<if test="checkDateStart !='' and checkDateStart !=null">
+		<![CDATA[
+		   and A.CheckDate >= #{checkDateStart}
+		]]>
+		</if>
+		<if test="checkDateEnd !='' and checkDateEnd !=null">
+		<![CDATA[
+		   and A.CheckDate <= #{checkDateEnd}
+		]]>
+		</if>
+		<if test="checkDeptName !='' and checkDeptName !=null">
+		    and A.CheckDeptName LIKE concat('%', #{checkDeptName},'%')
+		</if>
+		<if test="checkDeptPersons !='' and checkDeptPersons !=null">
+		    <!-- and A.CheckDeptPerson = #{checkDeptPerson} -->
+		    and 
+			<foreach item="item" index="index" collection="checkDeptPersons"
+				open="(" separator="OR" close=")">
+				A.CheckDeptPerson like concat('%',#{item},'%')
+			</foreach>
+		</if>
+		<if test="taskEndTimeStart !='' and taskEndTimeStart !=null">
+		<![CDATA[
+		   and B.TaskEndTime >= #{taskEndTimeStart}
+		]]>
+		</if>
+		<if test="taskEndTimeEnd !='' and taskEndTimeEnd !=null">
+		<![CDATA[
+		   and B.TaskEndTime <= #{taskEndTimeEnd}
+		]]>
+		</if>
+		<if test="enterUserName !='' and enterUserName !=null">
+		    and A.EnterUserName = #{enterUserName}
+		</if>
+		
+		<if test="admissionFlag !='' and admissionFlag !=null">
+		    and IFNULL(A.AdmissionFlag,0) = #{admissionFlag}
+		</if>
+		<if test="checkTableFlag !='' and checkTableFlag !=null">
+		    and IFNULL(A.CheckTableFlag,0) = #{checkTableFlag}
+		</if>
+		<if test="dom !='' and dom !=null">
+		    and C.Dom LIKE concat('%', #{dom},'%')
+		</if>
+		<if test="deptCode !='' and deptCode !=null and userId !='' and userId !=null">
+		 AND (D.deptCode = #{deptCode} or D.SetUserUid = #{userId})
+		</if>
+		<if test="unitDeptCode !='' and unitDeptCode !=null">
+		    and D.UnitDeptCode = #{unitDeptCode}
+		</if>
+		 <if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+			<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+				separator="OR" close=")">
+				B.DutyDeptCode like concat('%',#{item},'%')
+			</foreach>
+		</if>
+	</sql>
+	
+	<select id="querySccheckSearchCount" resultMap="SccheckCount" parameterType="Map">
+		SELECT 
+		sum( case when A.auditState='1' then 1 else 0 end ) notInputNum,
+		sum( case when A.auditState='2' then 1 else 0 end ) toCheckNum,
+		sum( case when A.auditState='4' then 1 else 0 end ) checkReturnNum,
+		sum( case when A.auditState='5' then 1 else 0 end ) alreadyPubNum,
+		sum( case when A.disposeState='1' then 1 else 0 end ) notOverNum
+		FROM cs_pub_scent_result A
+		LEFT JOIN pub_scdept_task D ON A.TaskUid=D.uid
+		LEFT JOIN cs_pub_scplan_task B ON D.TaskUid = B.Uid
+		LEFT JOIN cs_mid_baseinfo C ON A.PriPID = C.PriPID
+		WHERE 1=1
+		<include refid="queryPageSearchResultSql" />
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	</select>
+	
+	<select id="querySccheckCount" resultMap="SccheckCount" parameterType="Map">
+		SELECT 
+		sum( case when A.auditState='1' then 1 else 0 end ) notInputNum,
+		sum( case when A.auditState='2' then 1 else 0 end ) toCheckNum,
+		sum( case when A.auditState='4' then 1 else 0 end ) checkReturnNum,
+		sum( case when A.auditState='5' then 1 else 0 end ) alreadyPubNum,
+		sum( case when A.disposeState='1' then 1 else 0 end ) notOverNum
+		FROM cs_pub_scent_result A
+		LEFT JOIN pub_scdept_task D ON A.TaskUid=D.uid
+		LEFT JOIN cs_pub_scplan_task B ON D.TaskUid = B.Uid
+		LEFT JOIN cs_mid_baseinfo C ON A.PriPID = C.PriPID
+		WHERE 1=1
+		<include refid="queryPageResultSql" />
+	</select>
+	
+	<select id="selectPubScentResultDtoByUid" resultMap="PubScentResultDto" parameterType="Map">
+	 SELECT
+	 	A.id,
+	 	A.Uid,
+	 	A.TaskUid,
+	 	A.PriPID,
+		A.AuditState,
+		A.CheckType,
+		A.CheckDeptCode,
+		A.CheckDeptName,
+		A.CheckDeptPerson,
+		A.CheckDate,
+		A.CheckResult,
+		A.DisposeMss,
+		A.DisposeState,
+		A.DisposeFinishDate,
+		A.EnterUserName,
+		A.EnterDate,
+		A.AuditUserName,
+		A.AuditOpinion,
+		A.AuditDate,
+		A.CheckTableFlag,
+		A.AdmissionFlag,
+		A.CheckTableFlag,
+		A.AdmissionFlag,
+		C.RegNO,
+		C.UniCode,
+		C.EntName,
+		B.TaskCode,
+		B.TaskName,
+		C.RegOrgName,
+		C.LocalAdmName,
+		C.SliceNOName,
+		C.dom,
+		A.ReadType,
+		A.DisposeFinishMss,
+		A.ScentUid,
+		B.DutyDeptCode,
+		A.MainTaskUid,
+		A.materials
+	FROM
+		cs_pub_scent_result A
+	LEFT JOIN pub_scdept_task D ON A.TaskUid=D.uid
+	LEFT JOIN cs_pub_scplan_task B ON D.TaskUid = B.Uid
+	LEFT JOIN cs_mid_baseinfo C ON A.PriPID = C.PriPID
+	WHERE A.Uid=#{uid}
+	and B.TaskState in('02','03')
+	and D.DeptState in ('2','3')
+	</select>
+	<select id="selectPubScentResultDtoByTaskUidAndPriPID" resultMap="PubScentResultDto" parameterType="Map">
+	 SELECT
+	 	A.id,
+	 	A.Uid,
+	 	A.TaskUid,
+	 	A.PriPID,
+		A.AuditState,
+		A.CheckType,
+		A.CheckDeptCode,
+		A.CheckDeptName,
+		A.CheckDeptPerson,
+		A.CheckDate,
+		A.CheckResult,
+		A.DisposeMss,
+		A.DisposeState,
+		A.DisposeFinishDate,
+		A.EnterUserName,
+		A.EnterDate,
+		A.AuditUserName,
+		A.AuditOpinion,
+		A.AuditDate,
+		A.CheckTableFlag,
+		A.AdmissionFlag,
+		C.RegNO,
+		C.UniCode,
+		C.EntName,
+		B.TaskCode,
+		B.TaskName,
+		C.RegOrgName,
+		C.LocalAdmName,
+		C.SliceNOName,
+		C.dom,
+		A.ReadType
+	FROM
+		cs_pub_scent_result A
+	LEFT JOIN pub_scdept_task D ON A.TaskUid=D.uid
+	LEFT JOIN cs_pub_scplan_task B ON D.TaskUid = B.Uid
+	LEFT JOIN cs_mid_baseinfo C ON A.PriPID = C.PriPID
+	WHERE A.TaskUid=#{taskUid} and A.PriPID=#{priPID}
+	and B.TaskState in('02','03')
+	and D.DeptState in ('2','3')
+	</select>
+	
+	<select id="queryPageResultByPriPID" resultMap="PubScentResultDto" parameterType="Map">
+	SELECT D.CheckDeptName,D.ScType,D.CheckDate,D.CheckResult FROM
+	( SELECT 
+		A.ScDeptName CheckDeptName,
+	  '抽查历史' ScType,
+	  A.InspectDeptTime CheckDate,
+	  A.ScResult CheckResult
+	FROM
+	  cs_pub_scresult A 
+	  LEFT JOIN cs_pub_dept_sctask B 
+	    ON B.UID = A.TaskNO 
+	where 1 = 1 
+	  and A.PriPID = #{priPID} 
+	  and A.auditState = 2 
+	  union all
+	  SELECT
+		A.CheckDeptName,
+		'抽查' ScType,
+		A.CheckDate,
+		A.CheckResult
+	FROM
+		cs_pub_scent_result A
+	LEFT JOIN pub_scdept_task D ON A.TaskUid=D.uid
+	LEFT JOIN cs_pub_scplan_task B ON D.TaskUid = B.Uid
+	WHERE A.PriPID=#{priPID}
+	and A.AuditState='5'
+<!-- 	union all -->
+<!-- 		SELECT -->
+<!-- 		r.InfoCheckOrgName CheckDeptName, -->
+<!-- 		'检查' ScType, -->
+<!-- 		r.InfoCheckDate CheckDate, -->
+<!-- 		( -->
+<!-- 			SELECT -->
+<!-- 				CONCAT('[',c.Year,']',GROUP_CONCAT(co.Content)) -->
+<!-- 			FROM -->
+<!-- 				cs_report_check_result c, -->
+<!-- 				cs_report_check_code co -->
+<!-- 			WHERE -->
+<!-- 				c.uid = r.uid -->
+<!-- 			AND c.resresult = co.CODE -->
+<!-- 			AND co.type = 'res' -->
+<!-- 		) CheckResult -->
+<!-- 	FROM -->
+<!-- 		cs_report_check_info r -->
+<!-- 	WHERE -->
+<!-- 		r.InfoAuditResult = '4' -->
+<!-- 		AND r.PriPID=#{priPID} -->
+	) D
+		ORDER BY D.CheckDate DESC
+	</select>
+	
+	<select id="queryPreParePageResult" resultMap="PubScentResultDto" parameterType="Map">
+		 SELECT
+		 	A.Uid,
+			A.AuditState,
+			A.DisposeState,
+			C.RegNO,
+			C.UniCode,
+			C.EntName,
+			B.TaskCode,
+			B.TaskName,
+			A.DisposeFinishDate,
+			A.CheckDate,
+			A.CheckResult,
+			A.CheckDeptPerson,
+			A.CheckDeptName,
+			C.RegOrgName,
+			C.LocalAdmName,
+			C.SliceNOName,
+			A.EnterUserName,
+			A.EnterDate,
+			A.TaskUid,
+			A.PriPID,
+			A.CheckType,
+			A.DisposeMss,
+			A.CheckTableFlag,
+			A.AdmissionFlag,
+			A.SetUserName,
+			A.SetTime,
+			C.Dom,
+			B.TaskEndTime,
+			A.ReadType
+		FROM
+			cs_pub_scent_result A
+		LEFT JOIN pub_scdept_task D ON A.TaskUid=D.uid
+		LEFT JOIN cs_pub_scplan_task B ON D.TaskUid = B.Uid
+		LEFT JOIN cs_mid_baseinfo C ON A.PriPID = C.PriPID
+		WHERE 1=1
+		<if test="priPID != null and priPID != ''"> 
+			and	A.PriPID =#{priPID}
+		</if>
+		<include refid="queryPageResultSql" />
+		ORDER BY A.CheckTableFlag,A.AdmissionFlag
+	</select>
+	
+	 <select id="selectScentResultCount" resultMap="PubScentResultDto" parameterType="Map">
+		SELECT
+			<if test="statLevel != null and statLevel != '' and statLevel == 'area'"> 
+				'' deptName,
+			</if>
+			<if test="statLevel != null and statLevel != '' and statLevel != 'area'"> 
+				g.Content deptName,
+			</if>
+			temp.areaName,temp.finishedNum,temp.editNum,temp.AuditNum,temp.endNum,temp.disposeNum,temp.totalNum,
+			temp.result1,temp.result2,temp.result3,temp.result4,temp.result5,temp.result6,temp.result7,temp.result8,temp.result9,
+			temp.resultA,temp.resultB,temp.resultC,temp.resultD,temp.resultE,temp.resultF,temp.dispose1,temp.dispose2,temp.dispose3,temp.dispose4,temp.dispose5,temp.dispose6
+		FROM (
+			SELECT
+			   LEFT(k.DeptCode,4) areaName,
+			  <if test="statLevel != null and statLevel != '' and statLevel == 'area'">
+			     LEFT(k.DeptCode,4) regOrg,
+			  </if>
+			  <if test="statLevel != null and statLevel != '' and statLevel == 'regOrg'">
+			     LEFT(k.DeptCode,6) regOrg,
+			  </if>
+			  <if test="statLevel != null and statLevel != '' and statLevel == 'localAdm'">
+			     K.UnitDeptCode regOrg,
+			  </if>
+			  <![CDATA[   
+			    SUM(CASE WHEN t.AuditState <> '1' THEN 1 ELSE 0 END ) finishedNum,
+			    SUM(CASE WHEN t.AuditState = '1' OR t.AuditState IS NULL THEN 1 ELSE 0 END ) editNum,
+			    SUM(CASE WHEN t.AuditState = '2' OR t.AuditState = '4' THEN 1 ELSE 0 END ) AuditNum,
+			    SUM(CASE WHEN t.AuditState = '5' THEN 1 ELSE 0 END ) endNum,
+			    SUM(CASE WHEN t.disposeState = '2' and t.AuditState = '5' THEN 1 ELSE 0 END ) disposeNum,
+			    SUM(1) totalNum,
+			    SUM(CASE WHEN t.CheckResult = '1' THEN 1 ELSE 0 END ) result1,
+			    SUM(CASE WHEN t.CheckResult = '2' OR LOCATE(',2', t.CheckResult) > 0 OR (LOCATE('2,', t.CheckResult) > 0 AND LOCATE('12', t.CheckResult) = 0) THEN 1 ELSE 0 END ) result2,
+			    SUM(CASE WHEN LOCATE('3',t.CheckResult) > 0 THEN 1 ELSE 0 END ) result3,
+			    SUM(CASE WHEN LOCATE('4',t.CheckResult) > 0 THEN 1 ELSE 0 END ) result4,
+			    SUM(CASE WHEN LOCATE('5',t.CheckResult) > 0 THEN 1 ELSE 0 END ) result5,
+			    SUM(CASE WHEN LOCATE('6',t.CheckResult) > 0 THEN 1 ELSE 0 END ) result6,
+			    SUM(CASE WHEN LOCATE('7',t.CheckResult) > 0 THEN 1 ELSE 0 END ) result7,
+			    SUM(CASE WHEN LOCATE('8',t.CheckResult) > 0 THEN 1 ELSE 0 END ) result8,
+			    SUM(CASE WHEN LOCATE('9',t.CheckResult) > 0 OR LOCATE('10',t.CheckResult) > 0 OR LOCATE('11',t.CheckResult) > 0 OR LOCATE('12',t.CheckResult) > 0 THEN 1 ELSE 0 END ) result9,
+			    SUM(CASE WHEN LOCATE('A',t.CheckResult) > 0 THEN 1 ELSE 0 END ) resultA,
+			    SUM(CASE WHEN LOCATE('B',t.CheckResult) > 0 THEN 1 ELSE 0 END ) resultB,
+			    SUM(CASE WHEN LOCATE('C',t.CheckResult) > 0 THEN 1 ELSE 0 END ) resultC,
+			    SUM(CASE WHEN LOCATE('D',t.CheckResult) > 0 THEN 1 ELSE 0 END ) resultD,
+			    SUM(CASE WHEN LOCATE('E',t.CheckResult) > 0 THEN 1 ELSE 0 END ) resultE,
+			    SUM(CASE WHEN LOCATE('F',t.CheckResult) > 0 THEN 1 ELSE 0 END ) resultF,
+			    SUM(CASE WHEN LOCATE('无需后续处置',t.DisposeMss) > 0 THEN 1 ELSE 0 END ) dispose1,
+			    SUM(CASE WHEN LOCATE('停止检查',t.DisposeMss) > 0 THEN 1 ELSE 0 END ) dispose2,
+			    SUM(CASE WHEN LOCATE('违反本部门相关规定，责令改正；后续跟踪由日常监管部门负责',t.DisposeMss) > 0 THEN 1 ELSE 0 END ) dispose3,
+			    SUM(CASE WHEN LOCATE('发现案件线索',t.DisposeMss) > 0 THEN 1 ELSE 0 END ) dispose4,
+			    SUM(CASE WHEN LOCATE('抄告相关部门',t.DisposeMss) > 0 THEN 1 ELSE 0 END ) dispose5,
+			    SUM(CASE WHEN 
+					REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(t.DisposeMss,
+					'未发现问题或相关问题已规范、已改正，无需后续处置；','')
+					,'停止检查，反馈至日常监管部门依法依规处理；','')
+					,'违反本部门相关规定，责令改正；后续跟踪由日常监管部门负责；','')
+					,'发现案件线索，初步固定相关证据后移送办案机构依法依规处理；','')
+					,'违反其他部门相关规定，抄告相关部门。','')
+					,',','') <> ''
+					THEN 1 ELSE 0 END ) dispose6 
+			]]>		  
+			FROM  cs_pub_scent m 
+		    LEFT JOIN cs_pub_scent_result t ON m.taskuid = t.MainTaskUid AND m.pripid = t.pripid AND m.Uid = t.ScentUid
+		    LEFT JOIN pub_scdept_task k ON m.DeptTaskUid = k.Uid 
+		    LEFT JOIN cs_pub_scplan_task a ON k.TaskUid = a.Uid  
+			<where>
+				<if test="statArea !='' and statArea !=null">
+			    	and  LEFT(k.DeptCode, 4)  IN  (${statArea}) 
+			    </if>
+			    <if test="deptCodeLike !='' and deptCodeLike !=null">
+			    	and k.DeptCode LIKE concat(#{deptCodeLike},'%')
+			    </if>
+			    <if test="taskName !='' and taskName !=null">
+			    	and a.TaskName LIKE concat('%', #{taskName},'%')
+			    </if>
+			    <if test="taskUid !='' and taskUid !=null">
+			    	and a.Uid = #{taskUid}
+			    </if>
+			     <if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+					<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+						separator="OR" close=")">
+						a.DutyDeptCode like concat('%',#{item},'%')
+					</foreach>
+				</if>
+			    <if test="countType !='' and countType !=null and countType == '00'">
+			    	<if test="setTimeMonthStart !='' and setTimeMonthStart !=null">
+				      <![CDATA[
+					  and DATE_FORMAT(a.SetTime,'%Y-%m') >= #{setTimeMonthStart}
+					  ]]>
+			       </if> 
+				    <if test="setTimeMonthEnd !='' and setTimeMonthEnd !=null">
+				      <![CDATA[
+					  and DATE_FORMAT(a.SetTime,'%Y-%m') <= #{setTimeMonthEnd}
+					  ]]>
+			       </if> 
+				   
+			    </if>
+			    <if test="countType !='' and countType !=null and countType == '01'">
+				     <if test="setTimeStart !='' and setTimeStart !=null">
+				      <![CDATA[
+					  and DATE_FORMAT(a.SetTime,'%Y-%m-%d') >= #{setTimeStart}
+					  ]]>
+			       </if> 
+				    <if test="setTimeEnd !='' and setTimeEnd !=null">
+				      <![CDATA[
+					  and DATE_FORMAT(a.SetTime,'%Y-%m-%d') <= #{setTimeEnd}
+					  ]]>
+			       </if> 
+			    </if>
+			</where>
+			<if test="statLevel != null and statLevel != '' and statLevel == 'area'">
+			  GROUP BY LEFT(k.DeptCode,4)
+			  ORDER BY LEFT(k.DeptCode,4)
+			</if>
+			<if test="statLevel != null and statLevel != '' and statLevel == 'regOrg'">
+			  GROUP BY LEFT(k.DeptCode,6)
+			  ORDER BY LEFT(k.DeptCode,6)
+			</if>
+			<if test="statLevel != null and statLevel != '' and statLevel == 'localAdm'">
+			     GROUP BY K.UnitDeptCode
+			     ORDER BY K.UnitDeptCode
+			 </if>
+		) temp 
+		<if test="statLevel != null and statLevel != '' and statLevel == 'regOrg'">
+			LEFT JOIN cs_code_regorg g ON temp.regOrg = g.Code
+		</if>
+		<if test="statLevel != null and statLevel != '' and statLevel == 'localAdm'">
+			LEFT JOIN cs_code_regunit g ON temp.regOrg = g.Code
+		</if>
+  	</select>
+  	
+  	<select id="doGetAgentIdByResultuid" resultMap="PubScentResultDto" parameterType="Map">
+  	    SELECT 
+  	    a.AgentUid   uid,
+  	    a.LeaderFlag teamLeader,
+        a.ExpertFlag expertNames,
+  	    b.AgentName  checkDeptPerson,
+  	    c.OrgName    checkDeptName 
+  	    FROM cs_pub_scent_result t 
+		LEFT JOIN cs_pub_scent_agent a ON t.TaskUid = a.TaskUid AND t.PriPID = a.PriPID AND t.ScentUid = a.ScentUid
+		LEFT JOIN cs_pub_scagent b ON a.AgentUid = b.UID
+		LEFT JOIN cs_sys_depart c ON b.DeptCode = c.OrgCoding
+		WHERE t.Uid = #{uid}
+  	</select>
+  	
+  	<update id="doUpdateDefaultNull" parameterType="Map">
+      update cs_pub_scent_result set  teamLeader=null,expertNames=null,checkDeptPerson=null,checkDeptName=null 
+      where TaskUid = #{taskUid} and PriPID = #{priPID} and scentUid = #{scentUid}
+   </update>
+   
+   <select id="selectPubScentResultDtoByMainUid" resultMap="PubScentResultDto" parameterType="Map">
+       SELECT
+            a.TaskUid,
+  			b.PriPID,
+			b.EntName,
+			IFNULL(b.UniCode,b.RegNO) RegNO,
+			b.UniCode,
+			a.CheckDate,
+			a.AuditState
+		FROM
+			cs_pub_scent t
+		LEFT JOIN cs_pub_scent_result a ON t.Uid = a.ScentUid
+		LEFT JOIN cs_mid_baseinfo b ON t.PriPID = b.PriPID
+		WHERE
+		t.TaskUid = #{relatedUid}
+   </select>
+   
+   <select id="selectPubScentResultTotalByUid" resultType="java.lang.Integer" parameterType="Map">
+       SELECT
+			COUNT(t.id)
+		FROM
+			cs_pub_scent t
+		LEFT JOIN cs_pub_scent_result a ON t.Uid = a.ScentUid
+		LEFT JOIN cs_mid_baseinfo b ON t.PriPID = b.PriPID
+		WHERE
+		t.TaskUid = #{relatedUid}
+   </select>   
+   
+   <!-- 获取企业检查结果包括查无下落的最大检查日期 -->
+   <select id="selectMaxCheckDateScentResultByPriPID" resultMap="PubScentResultDto" parameterType="Map">
+		SELECT
+		 MAX(A.CheckDate) 	 CheckDate
+		FROM
+			cs_pub_scent_result A
+		WHERE 
+		A.PriPID=#{priPID}  AND  A.AuditState='5' AND A.CheckResult LIKE '%6%'
+	</select>
+	
+	   
+   <!-- 可视化综合抽查结果统计 -->
+   <select id="selectScentResultChartCount" resultMap="PubScentResultDto" parameterType="Map">
+     SELECT temp.areaName,
+		temp.finishedNum,
+		temp.editNum,
+		temp.AuditNum,temp.endNum,temp.disposeNum,temp.totalNum,
+		temp.result1,temp.resultA,
+		temp.result2,temp.result3,temp.result4,temp.result5,
+		temp.result6,
+		temp.resultE, temp.resultF,temp.result7,temp.result8,temp.result9,
+		temp.dispose1,temp.dispose2,temp.dispose3,temp.dispose4,temp.dispose5,
+		temp.dispose6 FROM 
+		( SELECT LEFT(k.DeptCode,4) areaName, 
+		LEFT(k.DeptCode,4) regOrg, 
+		<![CDATA[SUM(CASE WHEN t.AuditState <> '1' THEN 1 ELSE 0 END ) finishedNum,]]>
+		SUM(CASE WHEN t.AuditState = '1' OR t.AuditState IS NULL THEN 1 ELSE 0 END ) editNum,
+		SUM(CASE WHEN t.AuditState = '2' OR t.AuditState = '4' THEN 1 ELSE 0 END ) AuditNum,
+		SUM(CASE WHEN t.AuditState = '5' THEN 1 ELSE 0 END ) endNum, 
+		SUM(CASE WHEN t.disposeState = '2' and t.AuditState = '5' THEN 1 ELSE 0 END ) disposeNum,
+		SUM(1) totalNum,
+		SUM(CASE WHEN t.CheckResult = '1' OR LOCATE('1,', t.CheckResult) > 0 
+		OR LOCATE(',1', t.CheckResult) > 0 THEN 1 ELSE 0 END ) result1, 
+		SUM(CASE WHEN t.CheckResult = '2' OR LOCATE('2,', t.CheckResult) > 0 
+		OR LOCATE(',2', t.CheckResult) > 0 THEN 1 ELSE 0 END ) result2, 
+		SUM(CASE WHEN LOCATE('3',t.CheckResult) > 0 THEN 1 ELSE 0 END ) result3, 
+		SUM(CASE WHEN LOCATE('4',t.CheckResult) > 0 THEN 1 ELSE 0 END ) result4,
+		SUM(CASE WHEN LOCATE('5',t.CheckResult) > 0 THEN 1 ELSE 0 END ) result5, <!-- 违反其他部门相关规定  --> 
+		SUM(CASE WHEN LOCATE('A',t.CheckResult) > 0 THEN 1 ELSE 0 END ) resultA, <!-- 发现问题后续处置 -->
+		SUM(CASE WHEN LOCATE('6',t.CheckResult) > 0 THEN 1 ELSE 0 END ) result6,
+		SUM(CASE WHEN LOCATE('7',t.CheckResult) > 0 THEN 1 ELSE 0 END ) result7, 
+		SUM(CASE WHEN LOCATE('8',t.CheckResult) > 0 THEN 1 ELSE 0 END ) result8, 
+		SUM(CASE WHEN LOCATE('E',t.CheckResult) > 0 THEN 1 ELSE 0 END ) resultE, 
+		SUM(CASE WHEN LOCATE('F',t.CheckResult) > 0 THEN 1 ELSE 0 END ) resultF, 
+		SUM(CASE WHEN LOCATE('9',t.CheckResult) > 0 or LOCATE('10',t.CheckResult) > 0 
+		or LOCATE('11',t.CheckResult) > 0 or LOCATE('12',t.CheckResult) > 0 THEN 1 ELSE 0 END ) result9, 
+		SUM(CASE WHEN LOCATE('无需后续处置',t.DisposeMss) > 0 THEN 1 ELSE 0 END ) dispose1, 
+		SUM(CASE WHEN LOCATE('停止检查',t.DisposeMss) > 0 THEN 1 ELSE 0 END ) dispose2, 
+		SUM(CASE WHEN LOCATE('违反本部门相关规定，责令改正；后续跟踪由日常监管部门负责',t.DisposeMss) > 0 THEN 1 ELSE 0 END ) 
+		dispose3, 
+		SUM(CASE WHEN LOCATE('发现案件线索',t.DisposeMss) > 0 THEN 1 ELSE 0 END ) dispose4, 
+		SUM(CASE WHEN LOCATE('抄告相关部门',t.DisposeMss) > 0 THEN 1 ELSE 0 END ) dispose5, 
+		<![CDATA[SUM(CASE WHEN 
+					REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(t.DisposeMss,
+					'未发现问题或相关问题已规范、已改正，无需后续处置；','')
+					,'停止检查，反馈至日常监管部门依法依规处理；','')
+					,'违反本部门相关规定，责令改正；后续跟踪由日常监管部门负责；','')
+					,'发现案件线索，初步固定相关证据后移送办案机构依法依规处理；','')
+					,'违反其他部门相关规定，抄告相关部门。','')
+					,',','') <> ''
+					THEN 1 ELSE 0 END ) dispose6 ]]>
+		FROM cs_pub_scent m LEFT JOIN cs_pub_scent_result t ON m.taskuid = t.MainTaskUid 
+		AND m.pripid = t.pripid AND m.Uid = t.ScentUid 
+		LEFT JOIN pub_scdept_task k ON m.DeptTaskUid = k.Uid 
+		LEFT JOIN cs_pub_scplan_task a ON k.TaskUid = a.Uid 
+		WHERE LEFT(k.DeptCode, 4) IN (3300,3301,3302,3303,3304,3305,3306,3307,3308,3309,3310,3325) 
+		<if test="rptDateEnd != null and rptDateEnd != ''">
+		<![CDATA[AND DATE_FORMAT(a.SetTime,'%Y-%m-%d') <= #{rptDateEnd}]]>
+		</if> 
+		<if test="rptYear != null and rptYear !=''">
+		and a.SeqYear = #{rptYear}
+		</if>
+		<if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+			<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+				separator="OR" close=")">
+				a.DutyDeptCode like concat('%',#{item},'%')
+			</foreach>
+		</if>
+		<!-- 区域选择 -->
+		 <if test="checkRptArea != null and checkRptArea != ''">
+		 and LEFT(k.DeptCode,4) = #{checkRptArea}
+		 </if>
+		) temp
+   </select>
+   
+   <!-- 抽查工作情况 -->
+   <select id="selectCheckWorkCount" resultMap="PubScentResultDto" parameterType="Map">
+   	
+     SELECT 
+	    a.TaskName,a.TaskCode,a.EntTotal,a.RandomPercent,a.TaskType,a.TaskObject,
+	    <![CDATA[SUM(CASE WHEN t.AuditState IS NULL OR t.AuditState <> '5' THEN 1 ELSE 0 END ) UnendNum,]]>
+	    SUM(CASE WHEN t.AuditState = '5' THEN 1 ELSE 0 END) endNum,
+	    SUM(CASE WHEN t.disposeState = '2' AND t.AuditState = '5' THEN 1 ELSE 0 END) disposeNum,
+	    SUM(1) totalNum,
+	    SUM(CASE WHEN t.CheckResult = '1' THEN 1 ELSE 0 END) result1,
+	    SUM(CASE WHEN t.CheckResult = '2' OR LOCATE(',2', t.CheckResult) > 0 OR (LOCATE('2,', t.CheckResult) > 0 AND LOCATE('12', t.CheckResult) = 0) THEN 1 ELSE 0 END) result2,
+	    SUM(CASE WHEN LOCATE('3', t.CheckResult) > 0 THEN 1 ELSE 0 END) result3,
+	    SUM(CASE WHEN LOCATE('4', t.CheckResult) > 0 THEN 1 ELSE 0 END) result4,
+	    SUM(CASE WHEN LOCATE('5', t.CheckResult) > 0 THEN 1 ELSE 0 END) result5,
+	    SUM(CASE  WHEN LOCATE('6', t.CheckResult) > 0 THEN 1 ELSE 0 END) result6,
+	    SUM(CASE WHEN LOCATE('7', t.CheckResult) > 0 THEN 1 ELSE 0 END) result7,
+	    SUM(CASE WHEN LOCATE('8', t.CheckResult) > 0 THEN 1 ELSE 0 END) result8,
+	    SUM(CASE
+	        WHEN LOCATE('9', t.CheckResult) > 0 
+	        OR LOCATE('10', t.CheckResult) > 0 
+	        OR LOCATE('11', t.CheckResult) > 0 
+	        OR LOCATE('12', t.CheckResult) > 0 
+	        THEN 1 ELSE 0 END) result9,
+	    SUM(CASE WHEN LOCATE('A', t.CheckResult) > 0 THEN 1 ELSE 0 END) resultA,
+	    SUM(CASE WHEN LOCATE('B', t.CheckResult) > 0 THEN 1 ELSE 0 END) resultB,
+	    SUM(CASE WHEN LOCATE('C', t.CheckResult) > 0 THEN 1 ELSE 0 END) resultC,
+	    SUM(CASE WHEN LOCATE('D', t.CheckResult) > 0 THEN 1 ELSE 0 END) resultD,
+	    SUM(CASE WHEN LOCATE('E', t.CheckResult) > 0 THEN 1 ELSE 0 END) resultE,
+	    SUM(CASE WHEN LOCATE('F', t.CheckResult) > 0 THEN 1 ELSE 0 END) resultF,
+	    SUM(CASE WHEN LOCATE('无需后续处置',t.DisposeMss) > 0 THEN 1 ELSE 0 END) dispose1,
+	    SUM(CASE WHEN LOCATE('停止检查', t.DisposeMss) > 0 THEN 1 ELSE 0 END) dispose2,
+	    SUM(CASE WHEN LOCATE('违反本部门相关规定，责令改正；后续跟踪由日常监管部门负责', t.DisposeMss ) > 0 THEN 1 ELSE 0 END) dispose3,
+	    SUM(CASE WHEN LOCATE('发现案件线索',t.DisposeMss) > 0 THEN 1 ELSE 0 END ) dispose4,
+	    SUM(CASE WHEN LOCATE('抄告相关部门', t.DisposeMss ) > 0 THEN 1 ELSE 0 END) dispose5,
+	    <![CDATA[SUM(CASE WHEN 
+					REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(t.DisposeMss,
+					'未发现问题或相关问题已规范、已改正，无需后续处置；','')
+					,'停止检查，反馈至日常监管部门依法依规处理；','')
+					,'违反本部门相关规定，责令改正；后续跟踪由日常监管部门负责；','')
+					,'发现案件线索，初步固定相关证据后移送办案机构依法依规处理；','')
+					,'违反其他部门相关规定，抄告相关部门。','')
+					,',','') <> ''
+					THEN 1 ELSE 0 END ) dispose6 ]]> 
+	  FROM
+	    cs_pub_scent m 
+	    LEFT JOIN cs_pub_scent_result t ON  m.Uid = t.ScentUid 
+	    LEFT JOIN cs_pub_scplan_task a ON m.TaskUid = a.Uid 
+	  where a.TaskState in ('02','03')
+	  <if test="taskLeadDeptCode !='' and taskLeadDeptCode !=null">
+		    and a.TaskLeadDeptCode = #{taskLeadDeptCode}
+		</if>
+		<if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+			<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+				separator="OR" close=")">
+				a.DutyDeptCode like concat('%',#{item},'%')
+			</foreach>
+		</if>
+		<if test="setTimeEnd != null and setTimeEnd != ''">
+			<![CDATA[AND DATE_FORMAT(a.SetTime,'%Y-%m-%d') <= #{setTimeEnd}]]>
+		</if> 
+		<if test="year != null and year !=''">
+			and DATE_FORMAT(a.SetTime,'%Y') = #{year}
+		</if>
+      GROUP BY a.Uid
+      ORDER BY a.SetDeptCode,a.SetTime 
+   </select>
+    
+   <!-- 查询当前部门任务未完成量 -->
+   <select id="selectCountNotFinishNum" resultType="java.lang.Integer" parameterType="java.lang.String">
+   		<![CDATA[
+		SELECT COUNT(t.Uid)
+		FROM cs_pub_scent t
+		LEFT JOIN cs_pub_scent_result b
+		ON t.Uid = b.ScentUid
+		WHERE t.DeptTaskUid = #{deptTaskUid}
+		AND (b.AuditState IS NULL OR b.AuditState <> '5') ]]>
+	</select>
+</mapper>

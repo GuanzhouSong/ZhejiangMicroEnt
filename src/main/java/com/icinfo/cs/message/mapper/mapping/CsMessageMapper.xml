@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.message.mapper.CsMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.message.model.CsMessage" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="MsgUid" property="msgUid" jdbcType="VARCHAR" />
+    <result column="MsgTitle" property="msgTitle" jdbcType="VARCHAR" />
+    <result column="MsgTxtPath" property="msgTxtPath" jdbcType="VARCHAR" />
+    <result column="MsgRemark" property="msgRemark" jdbcType="VARCHAR" />
+    <result column="MsgPcReadState" property="msgPcReadState" jdbcType="CHAR" />
+    <result column="MsgPcReadTime" property="msgPcReadTime" jdbcType="TIMESTAMP" />
+    <result column="MsgPcReadId" property="msgPcReadId" jdbcType="VARCHAR" />
+    <result column="MsgPcReadName" property="msgPcReadName" jdbcType="VARCHAR" />
+    <result column="MsgPcReadTel" property="msgPcReadTel" jdbcType="VARCHAR" />
+    <result column="MsgWxReadState" property="msgWxReadState" jdbcType="CHAR" />
+    <result column="MsgWxReadTime" property="msgWxReadTime" jdbcType="TIMESTAMP" />
+    <result column="MsgWxReadId" property="msgWxReadId" jdbcType="VARCHAR" />
+    <result column="MsgWxReadName" property="msgWxReadName" jdbcType="VARCHAR" />
+    <result column="MsgWxReadTel" property="msgWxReadTel" jdbcType="VARCHAR" />
+    <result column="MsgLlReadState" property="msgLlReadState" jdbcType="CHAR" />
+    <result column="MsgLlReadTime" property="msgLlReadTime" jdbcType="TIMESTAMP" />
+    <result column="MsgLlReadId" property="msgLlReadId" jdbcType="VARCHAR" />
+    <result column="MsgLlReadName" property="msgLlReadName" jdbcType="VARCHAR" />
+    <result column="MsgLlReadTel" property="msgLlReadTel" jdbcType="VARCHAR" />
+    <result column="SendTime" property="sendTime" jdbcType="TIMESTAMP" />
+    <result column="SendId" property="sendId" jdbcType="VARCHAR" />
+    <result column="SendName" property="sendName" jdbcType="VARCHAR" />
+    <result column="SendDeptId" property="sendDeptId" jdbcType="VARCHAR" />
+    <result column="SendDeptName" property="sendDeptName" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UpdateTime" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="MsgAbstract" property="msgAbstract" jdbcType="VARCHAR" />
+    <result column="MsgType" property="msgType" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  	<resultMap type="com.icinfo.cs.message.dto.CsMessageDto" id="BaseResultDtoMap" extends="BaseResultMap">
+
+	</resultMap>
+  	<!-- 根据联络员手机号获取对应消息列表 -->
+	<select id="queryMessagePageListByLiaisonManTel" resultMap="BaseResultDtoMap">
+	    SELECT
+			cm.MsgUid,
+			cm.MsgTitle,
+			cm.SendTime,
+			cm.MsgAbstract,
+			cm.MsgType,
+			cm.MsgRemark
+		FROM
+			cs_message cm
+		WHERE
+			EXISTS (
+				SELECT
+					1
+				FROM
+					cs_message_rel cmr
+				WHERE
+					cmr.LiaisonManTel = #{liaisonManTel}
+				AND cmr.MsgUid = cm.MsgUid
+			)
+		order by cm.SendTime desc
+		LIMIT ${numStart},${pageSize} 
+	</select>
+	
+	<!-- 根据联络员手机号获取对应消息列表-总数 -->
+	<select id="queryMessagePageCountByLiaisonManTel" resultType="Long">
+	    SELECT
+			count(1)
+		FROM
+			cs_message cm
+		WHERE
+			EXISTS (
+				SELECT
+					1
+				FROM
+					cs_message_rel cmr
+				WHERE
+					cmr.LiaisonManTel = #{liaisonManTel}
+				AND cmr.MsgUid = cm.MsgUid
+			)
+	</select>
+	
+	<!-- 根据消息id更新数据 -->
+	<update id="updateMessageByMsgUid" parameterType="com.icinfo.cs.message.model.CsMessage">
+         UPDATE cs_message
+		SET MsgPcReadTime = #{msgPcReadTime},
+		 MsgPcReadId = #{msgPcReadId},
+		 MsgPcReadName = #{msgPcReadName},
+		 MsgPcReadTel = #{msgPcReadTel}
+		WHERE
+			MsgUid = #{msgUid}
+    </update>
+</mapper>

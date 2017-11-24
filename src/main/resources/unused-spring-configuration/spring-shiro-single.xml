@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Copyright© 2003-2016 浙江汇信科技有限公司, All Rights Reserved.
+  -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--
+    使用说明：
+    1、spring-shiro-single.xml配置文件中导入
+    2、添加项目MAVEN依赖
+    -->
+    <!-- 添加 动态权限 定义 -->
+    <bean id="filterChainDefinitions" class="java.lang.String">
+        <constructor-arg>
+            <value>
+                /syn/system/sysdepart/treeWithAllDept=anon
+                /syn/system/sysdepart/tree=anon
+
+                /syn/login=anon
+                /syn/logout=logout_syn
+                /syn/index=anon
+                /syn/synlogin=anon
+                <!--/syn/**=perms=[_SYN_SUPER_PERM]-->
+                <!--/syn/**=user-->
+
+                /reg/server/login=anon
+                /reg/server/logout = logout
+                <!--/reg/server/** = perms[_REG_SUPER_PERM]-->
+                <!--/syn/index=anon-->
+                <!--/reg/**=user-->
+
+            </value>
+        </constructor-arg>
+    </bean>
+
+    <!-- 权限定义管理-->
+    <bean id="defaultShiroChainService" class="com.icinfo.framework.security.shiro.DefaultShiroChainServiceImpl">
+        <property name="filterChainDefinitions" ref="filterChainDefinitions"/>
+        <property name="shiroSecurityService" ref="csSysLoginService"/>
+    </bean>
+
+    <!--重新加载权限定义-->
+    <bean id="defaultShiroChainReloadService"
+          class="com.icinfo.framework.security.shiro.DefaultShiroChainReloadServiceImpl">
+        <property name="shiroChainService" ref="defaultShiroChainService"/>
+    </bean>
+
+    <!-- 动态权限 定义 -->
+    <bean id="filterChainDefinitionMap" class="com.icinfo.framework.security.shiro.DefaultChainDefinitionFactory">
+        <property name="shiroChainService" ref="defaultShiroChainService"/>
+    </bean>
+
+    <!-- Shiro Filter warning:beanid 必须和web.xml中filter名字相同 -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="loginUrl" value="/reg/server/login"/>
+        <property name="successUrl" value="/reg"/>
+        <property name="unauthorizedUrl" value="/error"/>
+        <property name="securityManager" ref="securityManager"/>
+        <property name="filterChainDefinitionMap" ref="filterChainDefinitionMap"/>
+        <property name="filters">
+            <map>
+                <entry key="authc">
+                    <bean class="com.icinfo.framework.security.shiro.filter.FormAuthenticationExtendFilter"/>
+                </entry>
+                <entry key="perms">
+                    <bean class="com.icinfo.framework.security.shiro.filter.PermissionsAuthorizationExtendFilter"/>
+                </entry>
+                <entry key="logout_syn">
+                    <bean class="org.apache.shiro.web.filter.authc.LogoutFilter">
+                        <property name="redirectUrl" value="/syn/login"/>
+                    </bean>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <!-- 安全管理器 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="sessionManager" ref="defaultWebSessionManager"/>
+        <property name="realm" ref="securityAuthorizingRealm"/>
+    </bean>
+
+    <!-- 自定义的Realm -->
+    <bean id="securityAuthorizingRealm" class="com.icinfo.framework.security.shiro.SecurityAuthorizingRealm">
+        <property name="shiroSecurityService" ref="csSysLoginService"/>
+        <property name="credentialsMatcher">
+            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+                <property name="hashAlgorithmName" value="${spring.shiro.hash.algorithmName}"/>
+                <property name="hashIterations" value="${spring.shiro.hash.iterations}"/>
+            </bean>
+        </property>
+    </bean>
+
+    <!-- 会话验证调度器 -->
+    <bean id="sessionValidationScheduler" class="com.icinfo.framework.security.shiro.quartz.QuartzSessionValidationScheduler">
+        <property name="sessionValidationInterval" value="1800000"/>
+        <!--<property name="sessionValidationInterval" value="180000"/>-->
+        <property name="sessionManager" ref="defaultWebSessionManager"/>
+    </bean>
+
+    <bean id="defaultWebSessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <property name="globalSessionTimeout" value="1800000"/>
+        <!--<property name="globalSessionTimeout" value="180000"/>-->
+        <property name="deleteInvalidSessions" value="true"/>
+        <property name="sessionValidationSchedulerEnabled" value="true"/>
+        <property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
+        <property name="sessionIdCookie.name" value="_hm_cid"/>
+    </bean>
+
+    <bean class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+</beans>

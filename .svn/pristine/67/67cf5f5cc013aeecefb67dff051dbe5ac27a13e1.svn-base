@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.dtinfo.mapper.HzDtinfoHisMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.dtinfo.model.HzDtinfoHis" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="UniSCID" property="uniSCID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="ExaCode" property="exaCode" jdbcType="VARCHAR" />
+    <result column="ExaName" property="exaName" jdbcType="VARCHAR" />
+    <result column="CheckDep" property="checkDep" jdbcType="VARCHAR" />
+    <result column="CheckDepName" property="checkDepName" jdbcType="VARCHAR" />
+    <result column="CheckPushDate" property="checkPushDate" jdbcType="DATE" />
+    <result column="ClaimCode" property="claimCode" jdbcType="VARCHAR" />
+    <result column="ClaimName" property="claimName" jdbcType="VARCHAR" />
+    <result column="ClaimDate" property="claimDate" jdbcType="DATE" />
+    <result column="DutyDeptCode" property="dutyDeptCode" jdbcType="VARCHAR" />
+    <result column="DutyDeptName" property="dutyDeptName" jdbcType="VARCHAR" />
+    <result column="IsMatch" property="isMatch" jdbcType="CHAR" />
+    <result column="MatchMsg" property="matchMsg" jdbcType="VARCHAR" />
+    <result column="DistrictCode" property="districtCode" jdbcType="CHAR" />
+    <result column="DistrictName" property="districtName" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

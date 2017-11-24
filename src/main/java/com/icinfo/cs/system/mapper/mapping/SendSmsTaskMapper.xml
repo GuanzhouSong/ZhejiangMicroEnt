@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.system.mapper.SendSmsTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.system.model.SendSmsTask" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="taskid" property="taskid" jdbcType="VARCHAR" />
+    <result column="taskName" property="taskName" jdbcType="VARCHAR" />
+    <result column="taskType" property="taskType" jdbcType="CHAR" />
+    <result column="smsType" property="smsType" jdbcType="VARCHAR" />
+    <result column="smsLerep" property="smsLerep" jdbcType="CHAR" />
+    <result column="smsLia" property="smsLia" jdbcType="CHAR" />
+    <result column="smsDate" property="smsDate" jdbcType="TIMESTAMP" />
+    <result column="smsIntroduction" property="smsIntroduction" jdbcType="VARCHAR" />
+    <result column="rsmsIntroduction" property="rsmsIntroduction" jdbcType="VARCHAR" />
+    <result column="repeatLerep" property="repeatLerep" jdbcType="CHAR" />
+    <result column="repeatLia" property="repeatLia" jdbcType="CHAR" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="DeptId" property="deptId" jdbcType="VARCHAR" />
+    <result column="DeptName" property="deptName" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="taskInstruction" property="taskInstruction" jdbcType="LONGVARCHAR" />
+    <result column="smsMsg" property="smsMsg" jdbcType="LONGVARCHAR" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseResultDtoMap" type="com.icinfo.cs.system.dto.SendSmsTaskDto" extends="BaseResultMap">
+  </resultMap>
+  
+  <select id="selectSendSmsTaskInfo" resultMap="BaseResultDtoMap" parameterType="Map">
+    select
+     id,UID,taskid,taskName,taskType,smsType,smsLerep,smsLia,smsDate,smsIntroduction,rsmsIntroduction,
+     repeatLerep,repeatLia,SetName,SetTime,DeptId,DeptName,CreateTime,taskInstruction,smsMsg
+    from
+    cs_sendsms_task
+    <where>
+      <include refid="smsTask_where" />
+    </where>
+    ORDER BY SetTime DESC
+  </select>
+  
+   <sql id="smsTask_where">
+     <if test="taskid !='' and taskid !=null">
+      And taskid = #{taskid}
+     </if>
+     <if test="taskName !='' and taskName !=null">
+      And taskName LIKE concat('%', #{taskName},'%')
+     </if>
+     <if test="deptId !='' and deptId !=null">
+      And DeptId IN ('${deptId}')
+     </if>
+     <if test="smsLerep !='' and smsLerep !=null and smsLia ==''">
+      And smsLerep = #{smsLerep} And (smsLia is null or smsLia = '')
+     </if>
+     <if test="smsLia !='' and smsLia !=null and smsLerep ==''">
+      And smsLia = #{smsLia} And (smsLerep is null or smsLerep = '')
+     </if>
+     <if test="smsLerep !='' and smsLerep !=null and smsLia !='' and smsLia !=''">
+     And smsLerep = #{smsLerep} And smsLia = #{smsLia}
+     </if>
+     <if test="setTimeStart !='' and setTimeStart !=null">
+       <![CDATA[
+		and DATE_FORMAT(SetTime,'%Y-%m-%d') >= #{setTimeStart}
+	  ]]>
+     </if>
+     <if test="setTimeEnd !='' and setTimeEnd !=null">
+       <![CDATA[
+		and DATE_FORMAT(SetTime,'%Y-%m-%d') <= #{setTimeEnd}
+	  ]]>
+     </if>
+     <if test="taskType !='' and taskType !=null">
+      And taskType = #{taskType}
+     </if>
+     <if test="setName !='' and setName !=null">
+      And SetName = #{setName}
+     </if>
+      <if test="smsType !='' and smsType !=null">
+      And smsType = #{smsType}
+     </if>
+  </sql>
+  
+    <select id="selectMaxId" resultType="Integer">
+  		SELECT MAX(id) FROM cs_sendsms_task
+	</select>
+	<select id="selectSmsTaskByDeptId" resultMap="BaseResultDtoMap">
+  		SELECT taskid FROM cs_sendsms_task where deptId=#{deptId}
+	</select>
+	
+	<select id="selectNotOverTask" resultMap="BaseResultDtoMap">
+  		SELECT taskid FROM cs_sendsms_task where taskType!=3 and deptId=#{deptId}
+	</select>
+	
+  
+</mapper>

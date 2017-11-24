@@ -1,0 +1,893 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.rpt.rptmapper.YrRptMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.rpt.rptmodel.YrRpt" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <result column="areaCode" property="areaCode" jdbcType="VARCHAR" />
+    <result column="regOrgCode" property="regOrgCode" jdbcType="CHAR" />
+    <result column="localAdmCode" property="localAdmCode" jdbcType="VARCHAR" />
+    <result column="entCatgCode" property="entCatgCode" jdbcType="VARCHAR" />
+    <result column="YEAR" property="YEAR" jdbcType="INTEGER" />
+    <result column="isreported" property="isreported" jdbcType="DECIMAL" />
+    <result column="notFound" property="notFound" jdbcType="DOUBLE" />
+    <result column="delay" property="delay" jdbcType="DOUBLE" />
+    <result column="keyLogin" property="keyLogin" jdbcType="DECIMAL" />
+    <result column="passwordLogin" property="passwordLogin" jdbcType="DECIMAL" />
+    <result column="paper" property="paper" jdbcType="DECIMAL" />
+    <result column="app" property="app" jdbcType="DECIMAL" />
+    <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.rpt.rptdto.YrRptDto" id="BaseExtResultMap" extends="BaseResultMap">
+    <result column="areaName" property="areaName" jdbcType="VARCHAR" />
+    <result column="regOrgName" property="regOrgName" jdbcType="VARCHAR" />
+    <result column="monthCode" property="monthCode" jdbcType="VARCHAR" /> 
+    <result column="yrAmountSure" property="yrAmountSure" jdbcType="BIGINT" />
+    <result column="yrAmountIniSure" property="yrAmountIniSure" jdbcType="BIGINT" />
+    <result column="notreported" property="notreported" jdbcType="DECIMAL" />
+    <result column="usualreportRay" property="usualreportRay" jdbcType="DECIMAL" />
+    <result column="workreportRay" property="workreportRay" jdbcType="DECIMAL" />
+  </resultMap>
+  
+ 
+   <sql id="count_where"> 
+		<if test="entCatgCode !=null and entCatgCode == 1 ">
+	    and  entCatgCode not in ('16','17','50')
+	    </if>
+	    <if test="entCatgCode !=null and entCatgCode == 2 ">
+	    and  entCatgCode in ('16','17')
+	    </if>
+	    <if test="entCatgCode !=null and entCatgCode == 3 ">
+	    and  entCatgCode = 50
+	    </if>
+	    <if test="statArea !='' and statArea !=null">
+	    and  areaCode  IN  (${statArea}) 
+	    </if>
+  </sql>
+ 
+ 
+ 
+ <select id="selectRptYrCount" resultMap="BaseExtResultMap" parameterType="Map">
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'area' ">
+	      <![CDATA[
+	      SELECT D.areaCode,D.deptcode regorgName,D.yrAmountIniSure,D.yrAmountSure, D.notreported,
+		  CASE WHEN 
+		  D.usualreportRay > 100 
+		  THEN 100
+		  ELSE
+		  D.usualreportRay
+		  END 
+		  usualreportRay,
+		  CASE WHEN 
+		  D.workreportRay > 100 
+		  THEN 100
+		  ELSE
+		  D.workreportRay
+		  END 
+		  workreportRay,
+          D.isreported,D.notFound,D.delay,D.keyLogin,D.passwordLogin,D.paper,D.app
+          FROM (
+          ]]>
+	</if>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'regOrg' ">
+	     SELECT D.areaCode,D.deptcode,D.yrAmountIniSure,D.yrAmountSure, D.notreported,
+		  CASE WHEN 
+		  D.usualreportRay > 100 
+		  THEN 100
+		  ELSE
+		  D.usualreportRay
+		  END 
+		  usualreportRay,
+		  CASE WHEN 
+		  D.workreportRay > 100 
+		  THEN 100
+		  ELSE
+		  D.workreportRay          
+		  END 
+		  workreportRay,
+          D.isreported,D.notFound,D.delay,D.keyLogin,D.passwordLogin,D.paper,D.app,E.Contentshort regorgName
+          FROM (
+	</if>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'localAdm' ">
+	     SELECT D.areaCode,D.deptcode,D.yrAmountIniSure,D.yrAmountSure, D.notreported,
+		  CASE WHEN 
+		  D.usualreportRay > 100 
+		  THEN 100
+		  ELSE
+		  D.usualreportRay
+		  END 
+		  usualreportRay,
+		  CASE WHEN 
+		  D.workreportRay > 100 
+		  THEN 100
+		  ELSE
+		  D.workreportRay
+		  END 
+		  workreportRay,
+          D.isreported,D.notFound,D.delay,D.keyLogin,D.passwordLogin,D.paper,D.app,E.Content regorgName
+          FROM (
+	</if>
+	SELECT B.areaCode,B.deptcode deptcode,A.yrAmountIniSure,B.yrAmountSure, 
+	IFNULL(B.yrAmountSure,0) - IFNULL((keyLogin+passwordLogin+paper+app),0)  notreported ,
+	ROUND(
+	CASE  WHEN  IFNULL(B.yrAmountSure,0) = 0  THEN  0 
+	ELSE (IFNULL((keyLogin+passwordLogin+paper+app),0))*100/IFNULL(B.yrAmountSure,0) END
+	,2)
+	usualreportRay,
+	ROUND( 
+	CASE  WHEN  IFNULL(B.yrAmountSure,0) = 0 THEN  0 
+	ELSE (IFNULL((keyLogin+passwordLogin+paper+app),0)+IFNULL(F.notFound,0))*100/IFNULL(B.yrAmountSure,0) END
+	,2)
+	workreportRay,
+	IFNULL((keyLogin+passwordLogin+paper+app),0) isreported,   
+	IFNULL(notFound,0) notFound,   
+	IFNULL(delay,0) delay,
+	IFNULL(keyLogin,0) keyLogin,
+	IFNULL(passwordLogin,0) passwordLogin,
+	IFNULL(paper,0) paper,
+	IFNULL(app,0) app
+	FROM 
+	(SELECT areaCode, ${statLevel}Code deptcode,
+	IFNULL(SUM(yrAmountSure),0) yrAmountSure
+	FROM cs_rpt_yr_Amount t WHERE YEAR = #{year} 
+	<include refid="count_where"/>
+	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	GROUP BY ${statLevel}Code) B   
+	LEFT JOIN 
+	(SELECT areaCode, ${statLevel}Code deptcode,
+	IFNULL(SUM(yrAmountIniSure),0) yrAmountIniSure
+	FROM cs_rpt_yr_AmountIni t WHERE YEAR = #{year} 
+	<include refid="count_where"/>
+	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	GROUP BY ${statLevel}Code) A
+    ON B.deptcode = A.deptcode  
+	LEFT JOIN 
+	(SELECT areaCode, ${statLevel}Code deptcode,
+	IFNULL(SUM(isreported),0) isreported,   
+	IFNULL(SUM(delay),0) delay,
+	IFNULL(SUM(keyLogin),0) keyLogin,
+	IFNULL(SUM(passwordLogin),0) passwordLogin,
+	(CASE WHEN  entCatgCode = '50' THEN 
+        IFNULL(SUM(paper),0)        
+        ELSE
+        0
+        END) paper,
+	(CASE WHEN  entCatgCode = '50' THEN 
+        IFNULL(SUM(app),0)        
+        ELSE
+        0
+     END) app
+	FROM cs_rpt_yr t WHERE YEAR = #{year}
+   	<if test="startCheckPushDate !='' and startCheckPushDate !=null">
+	<![CDATA[
+	and monthCode >= left(#{startCheckPushDate},6) 
+	]]> 
+	</if>
+	<if test="endCheckPushDate !='' and endCheckPushDate !=null">
+	<![CDATA[
+	and monthCode <= left(#{endCheckPushDate},6) 
+	]]> 
+	</if>    
+	<include refid="count_where"/>
+	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	GROUP BY ${statLevel}Code ) C
+	ON B.deptcode = C.deptcode
+	Left JOIN 
+    (
+     SELECT areaCode,${statLevel}Code deptcode,IFNULL(SUM(notFound), 0) notFound  FROM cs_rpt_yr_notfound where year=#{year}
+     <choose>
+    <when test="year != null and year != '' and year != '2013' and year != '2014'">
+     <![CDATA[
+     and monthCode < CONCAT(#{year}+1,'07')
+	 ]]> 
+    </when>
+    <otherwise>
+     <![CDATA[
+     and monthCode < '201507'
+	 ]]>
+	 </otherwise>
+     </choose>
+     <if test="endCheckPushDate !='' and endCheckPushDate !=null">
+	 <![CDATA[
+	and monthCode <= left(#{endCheckPushDate},6) 
+	 ]]> 
+	</if>
+	 <include refid="count_where"/>
+     <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+     GROUP BY ${statLevel}Code
+    ) F
+    ON B.deptcode = F.deptCode
+    <if test="statLevel != null and statLevel != '' and  statLevel == 'area' ">
+    ) D
+	</if>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'regOrg' ">
+	) D
+	LEFT JOIN cs_code_regorg E ON D.deptcode = E.code
+	</if>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'localAdm' ">
+	) D
+	LEFT JOIN cs_code_regunit E ON D.deptcode = E.code
+	</if>
+ </select>
+  
+  <!-- 警示系统首页企业年度报告统计 -->
+  <select id="selectEntReportDataCount" resultMap="BaseExtResultMap" parameterType="Map">
+       <if test="statLevel != null and statLevel != '' and  statLevel == 'areatj' ">
+	        SELECT
+				D.areaCode,
+				D.deptcode,
+				D.yrAmountSure,
+				D.monthCode,
+				CASE
+			WHEN D.usualreportRay > 100 THEN
+				100
+			ELSE
+				D.usualreportRay
+			END usualreportRay,
+			 D.isreported,
+			 D.notreported
+			FROM
+				(
+					SELECT
+						B.areaCode,
+						B.deptcode deptcode,
+						B.yrAmountSure,
+						C.monthCode,
+						ROUND(
+							CASE
+							WHEN IFNULL(B.yrAmountSure, 0) = 0 THEN
+								0
+							ELSE
+								(
+									IFNULL(
+										(
+											keyLogin + passwordLogin + paper + app
+										),
+										0
+									)
+								) * 100 / IFNULL(B.yrAmountSure, 0)
+							END,
+							2
+						) usualreportRay,
+						IFNULL(
+							(
+								keyLogin + passwordLogin + paper + app
+							),
+							0
+						) isreported,
+						IFNULL(B.yrAmountSure, 0) - IFNULL(
+							(
+								keyLogin + passwordLogin + paper + app
+							),
+							0
+						) notreported
+					FROM
+						(
+							SELECT
+								areaCode,
+								#{areaCode}  deptcode,
+								IFNULL(SUM(yrAmountSure), 0) yrAmountSure
+							FROM
+								cs_rpt_yr_Amount t
+							WHERE
+								YEAR = #{year}
+								<!-- 企业 -->
+								<if test="entCatgCode !=null and entCatgCode == 1 ">
+							    AND  entCatgCode not in ('16','17','50')
+							    </if>
+							    <!-- 农专 -->
+							    <if test="entCatgCode !=null and entCatgCode ==2 ">
+							    AND  entCatgCode  in ('16','17')
+							    </if>
+							    <!-- 个体户 -->
+							    <if test="entCatgCode !=null and entCatgCode ==3 ">
+							    AND  entCatgCode = '50'
+							    </if> 
+							    <!-- 企业（内外资） -->
+							    <if test="entCatgCode !=null and entCatgCode ==4 ">
+							    AND  entCatgCode in (11,12,13,14,31,32,33,34,21,22,24,27,28)
+							    </if>
+							    <!-- 内资 --> 
+							    <if test="entCatgCode !=null and entCatgCode ==5 ">
+							    AND  entCatgCode in (11,12,13,14,31,32,33,34)
+							    </if> 
+							    <!-- 外资 -->
+							    <if test="entCatgCode !=null and entCatgCode ==6 ">
+							    AND  entCatgCode in (21,22,24,27,28)
+							    </if>
+							    <if test="areaCode !=null and areaCode ==33 ">
+							    AND  LEFT(areaCode,2)='33'
+							    </if>
+							    <if test="areaCode !=33 ">
+							   	AND areaCode = #{areaCode} 
+							    </if>
+						) B
+					LEFT JOIN (
+						SELECT
+							areaCode,
+							monthCode,
+							#{areaCode}  deptcode,
+							IFNULL(SUM(delay), 0) delay,
+							IFNULL(SUM(keyLogin), 0) keyLogin,
+							IFNULL(SUM(passwordLogin), 0) passwordLogin,
+							(
+								CASE
+								WHEN entCatgCode = '50' THEN
+									IFNULL(SUM(paper), 0)
+								ELSE
+									0
+								END
+							) paper,
+							(
+								CASE
+								WHEN entCatgCode = '50' THEN
+									IFNULL(SUM(app), 0)
+								ELSE
+									0
+								END
+							) app
+						FROM
+							cs_rpt_yr t
+						WHERE
+							YEAR = #{year}
+						<!-- 企业 -->
+						<if test="entCatgCode !=null and entCatgCode == 1 ">
+					    AND  entCatgCode not in ('16','17','50')
+					    </if>
+					    <!-- 农专 -->
+					    <if test="entCatgCode !=null and entCatgCode ==2 ">
+					    AND  entCatgCode  in ('16','17')
+					    </if>
+					    <!-- 个体户 -->
+					    <if test="entCatgCode !=null and entCatgCode ==3 ">
+					    AND  entCatgCode = '50'
+					    </if> 
+					    <!-- 企业（内外资） -->
+					    <if test="entCatgCode !=null and entCatgCode ==4 ">
+					    AND  entCatgCode in (11,12,13,14,31,32,33,34,21,22,24,27,28)
+					    </if>
+					    <!-- 内资 --> 
+					    <if test="entCatgCode !=null and entCatgCode ==5 ">
+					    AND  entCatgCode in (11,12,13,14,31,32,33,34)
+					    </if> 
+					    <!-- 外资 -->
+					    <if test="entCatgCode !=null and entCatgCode ==6 ">
+					    AND  entCatgCode in (21,22,24,27,28)
+					    </if>
+					    <if test="areaCode !=null and areaCode ==33 ">
+					    AND  LEFT(areaCode,2)='33'
+					    </if>
+					    <if test="areaCode !=33 ">
+					   	AND areaCode = #{areaCode} 
+					    </if>
+					    <if test="monthCodeStart != null and monthCodeEnd != ''">
+							<![CDATA[ 
+							AND monthCode>=LEFT (#{monthCodeStart}, 6)
+							AND monthCode<=LEFT (#{monthCodeEnd}, 6)
+							]]>
+						</if>
+						<if test="qstj != null and qstj != ''  and qstj==0 ">
+					   	<![CDATA[  AND monthCode >=CONCAT(${year} + 1,CONCAT('0','1')) ]]>  GROUP BY monthCode 
+					    </if>
+					) C ON B.deptcode = C.deptcode
+				) D ORDER BY D.monthCode
+       </if>
+       <if test="statLevel != null and statLevel != '' and  statLevel == 'regOrg' ">
+        SELECT
+			D.areaCode,
+			D.deptcode,
+			D.yrAmountSure,
+			CASE
+		WHEN D.usualreportRay > 100 THEN
+			100
+		ELSE
+			D.usualreportRay
+		END usualreportRay,
+		 D.isreported,
+		 D.notreported,
+		 E.Contentshort regorgName
+		FROM
+			(
+				SELECT
+					B.areaCode,
+					B.deptcode deptcode,
+					B.yrAmountSure,
+					ROUND(
+						CASE
+						WHEN IFNULL(B.yrAmountSure, 0) = 0 THEN
+							0
+						ELSE
+							(
+								IFNULL(
+									(
+										keyLogin + passwordLogin + paper + app
+									),
+									0
+								)
+							) * 100 / IFNULL(B.yrAmountSure, 0)
+						END,
+						2
+					) usualreportRay,
+					IFNULL(
+						(
+							keyLogin + passwordLogin + paper + app
+						),
+						0
+					) isreported,
+					IFNULL(B.yrAmountSure, 0) - IFNULL(
+						(
+							keyLogin + passwordLogin + paper + app
+						),
+						0
+					) notreported
+				FROM
+					(
+						SELECT
+							areaCode,
+							regOrgCode deptcode,
+							IFNULL(SUM(yrAmountSure), 0) yrAmountSure
+						FROM
+							cs_rpt_yr_Amount t
+						WHERE
+							YEAR = #{year} 
+						<!-- 企业 -->
+						<if test="entCatgCode !=null and entCatgCode == 1 ">
+					    AND  entCatgCode not in ('16','17','50')
+					    </if>
+					    <!-- 农专 -->
+					    <if test="entCatgCode !=null and entCatgCode ==2 ">
+					    AND  entCatgCode   in ('16','17')
+					    </if>
+					    <!-- 个体户 -->
+					    <if test="entCatgCode !=null and entCatgCode ==3 ">
+					    AND  entCatgCode = '50'
+					    </if> 
+					    <!-- 企业（内外资） -->
+					    <if test="entCatgCode !=null and entCatgCode ==4 ">
+					    AND  entCatgCode in (11,12,13,14,31,32,33,34,21,22,24,27,28)
+					    </if>
+					    <!-- 内资 --> 
+					    <if test="entCatgCode !=null and entCatgCode ==5 ">
+					    AND  entCatgCode in (11,12,13,14,31,32,33,34)
+					    </if> 
+					    <!-- 外资 -->
+					    <if test="entCatgCode !=null and entCatgCode ==6 ">
+					    AND  entCatgCode in (21,22,24,27,28)
+					    </if> 
+						AND areaCode = #{areaCode}
+						GROUP BY
+							regOrgCode
+					) B
+				LEFT JOIN (
+					SELECT
+						areaCode,
+						regOrgCode deptcode,
+						IFNULL(SUM(isreported), 0) isreported,
+						IFNULL(SUM(delay), 0) delay,
+						IFNULL(SUM(keyLogin), 0) keyLogin,
+						IFNULL(SUM(passwordLogin), 0) passwordLogin,
+						(
+							CASE
+							WHEN entCatgCode = '50' THEN
+								IFNULL(SUM(paper), 0)
+							ELSE
+								0
+							END
+						) paper,
+						(
+							CASE
+							WHEN entCatgCode = '50' THEN
+								IFNULL(SUM(app), 0)
+							ELSE
+								0
+							END
+						) app
+					FROM
+						cs_rpt_yr t
+					WHERE
+						YEAR = #{year}
+					<if test="monthCodeStart != null and monthCodeEnd != ''">
+						<![CDATA[ 
+						AND monthCode>=LEFT (#{monthCodeStart}, 6)
+						AND monthCode<=LEFT (#{monthCodeEnd}, 6)
+						]]>
+					</if>
+					<!-- 企业 -->
+					<if test="entCatgCode !=null and entCatgCode == 1 ">
+				    AND  entCatgCode not in ('16','17','50')
+				    </if>
+				    <!-- 农专 -->
+				    <if test="entCatgCode !=null and entCatgCode ==2 ">
+				    AND  entCatgCode in ('16','17')
+				    </if>
+				    <!-- 个体户 -->
+				    <if test="entCatgCode !=null and entCatgCode ==3 ">
+				    AND  entCatgCode = '50' 
+				    </if> 
+				    <!-- 企业（内外资） -->
+				    <if test="entCatgCode !=null and entCatgCode ==4 ">
+				    AND  entCatgCode in (11,12,13,14,31,32,33,34,21,22,24,27,28)
+				    </if>
+				    <!-- 内资 --> 
+				    <if test="entCatgCode !=null and entCatgCode ==5 ">
+				    AND  entCatgCode in (11,12,13,14,31,32,33,34)
+				    </if> 
+				    <!-- 外资 -->
+				    <if test="entCatgCode !=null and entCatgCode ==6 ">
+				    AND  entCatgCode in (21,22,24,27,28)
+				    </if> 
+					AND areaCode = #{areaCode}
+					GROUP BY
+						regOrgCode
+				) C ON B.deptcode = C.deptcode
+			) D
+		LEFT JOIN cs_code_regorg E ON D.deptcode = E. CODE
+       </if>
+       <if test="statLevel != null and statLevel != '' and  statLevel == 'area' ">
+            SELECT
+				D.areaCode,
+				D.deptcode regorgName,
+				D.yrAmountSure,
+				CASE
+			WHEN D.usualreportRay > 100 THEN
+				100
+			ELSE
+				D.usualreportRay
+			END usualreportRay,
+			 D.isreported,
+			 D.notreported
+			FROM
+				(
+					SELECT
+						B.areaCode,
+						B.deptcode deptcode,
+						B.yrAmountSure,
+						IFNULL(B.yrAmountSure, 0) - IFNULL(
+							(
+								keyLogin + passwordLogin + paper + app
+							),
+							0
+						) notreported,
+						ROUND(
+							CASE
+							WHEN IFNULL(B.yrAmountSure, 0) = 0 THEN
+								0
+							ELSE
+								(
+									IFNULL(
+										(
+											keyLogin + passwordLogin + paper + app
+										),
+										0
+									)
+								) * 100 / IFNULL(B.yrAmountSure, 0)
+							END,
+							2
+						) usualreportRay,
+						IFNULL(
+							(
+								keyLogin + passwordLogin + paper + app
+							),
+							0
+						) isreported,
+						IFNULL(delay, 0) delay,
+						IFNULL(keyLogin, 0) keyLogin,
+						IFNULL(passwordLogin, 0) passwordLogin,
+						IFNULL(paper, 0) paper,
+						IFNULL(app, 0) app
+					FROM
+						(
+							SELECT
+								areaCode,
+								areaCode deptcode,
+								IFNULL(SUM(yrAmountSure), 0) yrAmountSure
+							FROM
+								cs_rpt_yr_Amount t
+							WHERE
+								YEAR = #{year}
+								<!-- 企业 -->
+								<if test="entCatgCode !=null and entCatgCode == 1 ">
+							    AND  entCatgCode not in ('16','17','50')
+							    </if>
+							    <!-- 农专 -->
+							    <if test="entCatgCode !=null and entCatgCode ==2 ">
+							    AND  entCatgCode  in ('16','17')
+							    </if>
+							    <!-- 个体户 -->
+							    <if test="entCatgCode !=null and entCatgCode ==3 ">
+							    AND  entCatgCode = '50'
+							    </if> 
+							    <!-- 企业（内外资） -->
+							    <if test="entCatgCode !=null and entCatgCode ==4 ">
+							    AND  entCatgCode in (11,12,13,14,31,32,33,34,21,22,24,27,28)
+							    </if>
+							    <!-- 内资 --> 
+							    <if test="entCatgCode !=null and entCatgCode ==5 ">
+							    AND  entCatgCode in (11,12,13,14,31,32,33,34)
+							    </if> 
+							    <!-- 外资 -->
+							    <if test="entCatgCode !=null and entCatgCode ==6 ">
+							    AND  entCatgCode in (21,22,24,27,28)
+							    </if> 
+								GROUP BY
+									areaCode
+						) B
+					LEFT JOIN (
+						SELECT
+							areaCode,
+							areaCode deptcode,
+							IFNULL(SUM(isreported), 0) isreported,
+							IFNULL(SUM(delay), 0) delay,
+							IFNULL(SUM(keyLogin), 0) keyLogin,
+							IFNULL(SUM(passwordLogin), 0) passwordLogin,
+							(
+								CASE
+								WHEN entCatgCode = '50' THEN
+									IFNULL(SUM(paper), 0)
+								ELSE
+									0
+								END
+							) paper,
+							(
+								CASE
+								WHEN entCatgCode = '50' THEN
+									IFNULL(SUM(app), 0)
+								ELSE
+									0
+								END
+							) app
+						FROM
+							cs_rpt_yr t
+						WHERE
+							YEAR = #{year}
+							<!-- 企业 -->
+							<if test="entCatgCode !=null and entCatgCode == 1 ">
+						    AND  entCatgCode not in ('16','17','50')
+						    </if>
+						    <!-- 农专 -->
+						    <if test="entCatgCode !=null and entCatgCode ==2 ">
+						    AND  entCatgCode in ('16','17')
+						    </if>
+						    <!-- 个体户 -->
+						    <if test="entCatgCode !=null and entCatgCode ==3 ">
+						    AND  entCatgCode  = '50'
+						    </if> 
+						    <!-- 企业（内外资） -->
+						    <if test="entCatgCode !=null and entCatgCode ==4 ">
+						    AND  entCatgCode in (11,12,13,14,31,32,33,34,21,22,24,27,28)
+						    </if>
+						    <!-- 内资 --> 
+						    <if test="entCatgCode !=null and entCatgCode ==5 ">
+						    AND  entCatgCode in (11,12,13,14,31,32,33,34)
+						    </if> 
+						    <!-- 外资 -->
+						    <if test="entCatgCode !=null and entCatgCode ==6 ">
+						    AND  entCatgCode in (21,22,24,27,28)
+						    </if> 
+						    <if test="monthCodeStart != null and monthCodeEnd != ''">
+							<![CDATA[ 
+							AND monthCode>=LEFT (#{monthCodeStart}, 6)
+							AND monthCode<=LEFT (#{monthCodeEnd}, 6)
+							]]>
+							</if>
+						GROUP BY
+							areaCode
+					) C ON B.deptcode = C.deptcode
+				) D ORDER BY d.areaCode  asc 
+       </if>
+       <if test="statLevel != null and statLevel != '' and  statLevel == 'bsfs' ">
+             SELECT
+					D.areaCode,
+					D.deptcode,
+					CASE
+				WHEN D.isreported = 0 THEN
+					0
+				ELSE
+					ROUND(
+						(D.keyLogin / D.isreported) * 100,
+						2
+					)
+				END keyLogin,
+				 CASE
+				WHEN D.isreported = 0 THEN
+					0
+				ELSE
+					ROUND(
+						(
+							D.passwordLogin / D.isreported
+						) * 100,
+						2
+					)
+				END passwordLogin,
+				 CASE
+				WHEN D.isreported = 0 THEN
+					0
+				ELSE
+					ROUND(
+						(D.paper / D.isreported) * 100,
+						2
+					)
+				END paper,
+				 CASE
+				WHEN D.isreported = 0 THEN
+					0
+				ELSE
+					ROUND((D.app / D.isreported) * 100, 2)
+				END app
+			FROM
+				(
+					SELECT
+						areaCode,
+						areaCode deptcode,
+						IFNULL(SUM(keyLogin), 0) + IFNULL(SUM(passwordLogin), 0) + IFNULL(SUM(paper), 0) + IFNULL(SUM(app), 0) isreported,
+						IFNULL(SUM(delay), 0) delay,
+						IFNULL(SUM(keyLogin), 0) keyLogin,
+						IFNULL(SUM(passwordLogin), 0) passwordLogin,
+						(
+							CASE
+							WHEN entCatgCode = '50' THEN
+								IFNULL(SUM(paper), 0)
+							ELSE
+								0
+							END
+						) paper,
+						(
+							CASE
+							WHEN entCatgCode = '50' THEN
+								IFNULL(SUM(app), 0)
+							ELSE
+								0
+							END
+						) app
+					FROM
+						cs_rpt_yr t
+					WHERE
+						YEAR = #{year}
+						<!-- 企业 -->
+						<if test="entCatgCode !=null and entCatgCode == 1 ">
+					    AND  entCatgCode not in ('16','17','50')
+					    </if>
+					    <!-- 农专 -->
+					    <if test="entCatgCode !=null and entCatgCode ==2 ">
+					    AND  entCatgCode  in ('16','17')
+					    </if>
+					    <!-- 个体户 -->
+					    <if test="entCatgCode !=null and entCatgCode ==3 ">
+					    AND  entCatgCode = '50'
+					    </if> 
+					    <!-- 企业（内外资） -->
+					    <if test="entCatgCode !=null and entCatgCode ==4 ">
+					    AND  entCatgCode in (11,12,13,14,31,32,33,34,21,22,24,27,28)
+					    </if>
+					    <!-- 内资 --> 
+					    <if test="entCatgCode !=null and entCatgCode ==5 ">
+					    AND  entCatgCode in (11,12,13,14,31,32,33,34)
+					    </if> 
+					    <!-- 外资 -->
+					    <if test="entCatgCode !=null and entCatgCode ==6 ">
+					    AND  entCatgCode in (21,22,24,27,28)
+					    </if>
+					    <if test="areaCode !=null and areaCode ==33 ">
+					    AND  LEFT(areaCode,2)='33'
+					    </if>
+					    <if test="areaCode !=33 ">
+					   	AND areaCode = #{areaCode} 
+					    </if>
+					    <if test="monthCodeStart != null and monthCodeEnd != ''">
+						<![CDATA[ 
+						AND monthCode>=LEFT (#{monthCodeStart}, 6)
+						AND monthCode<=LEFT (#{monthCodeEnd}, 6)
+						]]>
+						</if>
+				) D
+       </if>
+       <if test="statLevel != null and statLevel != '' and  statLevel == 'industryphy' ">
+             SELECT
+					D.deptcode,
+					D.yrAmountSure,
+					CASE
+				WHEN D.usualreportRay > 100 THEN
+					100
+				ELSE
+					D.usualreportRay
+				END usualreportRay,
+				 D.isreported,
+				 D.notreported,
+				 E.content regorgName
+				FROM
+					(
+						SELECT
+							B.areaCode,
+							B.deptcode deptcode,
+							B.yrAmountSure,
+							ROUND(
+								CASE
+								WHEN IFNULL(B.yrAmountSure, 0) = 0 THEN
+									0
+								ELSE
+									(
+										IFNULL(
+											(
+												keyLogin + passwordLogin + paper + app
+											),
+											0
+										)
+									) * 100 / IFNULL(B.yrAmountSure, 0)
+								END,
+								2
+							) usualreportRay,
+							IFNULL(
+								(
+									keyLogin + passwordLogin + paper + app
+								),
+								0
+							) isreported,
+							IFNULL(B.yrAmountSure, 0) - IFNULL(
+								(
+									keyLogin + passwordLogin + paper + app
+								),
+								0
+							) notreported
+						FROM
+							(
+								SELECT
+									areaCode,
+									industryPhy deptcode,
+									IFNULL(SUM(yrAmountSure), 0) yrAmountSure
+								FROM
+									cs_rpt_yr_Amount_IndustryPhy t
+								WHERE
+								<![CDATA[ 
+									YEAR =#{year}  
+								AND industryPhy IS NOT NULL
+								AND industryPhy != ''
+								]]>  
+								<if test="areaCode !=null and areaCode ==33 ">
+							    AND  LEFT(areaCode,2)='33'
+							    </if>
+							    <if test="areaCode !=33 ">
+							   	AND areaCode = #{areaCode} 
+							    </if>
+								GROUP BY
+									industryPhy
+							) B
+						LEFT JOIN (
+							SELECT
+								areaCode,
+								industryPhy deptcode,
+								IFNULL(SUM(isreported), 0) isreported,
+								IFNULL(SUM(delay), 0) delay,
+								IFNULL(SUM(keyLogin), 0) keyLogin,
+								IFNULL(SUM(passwordLogin), 0) passwordLogin,
+								IFNULL(SUM(paper), 0) paper,
+								IFNULL(SUM(app), 0) app
+							FROM
+								cs_rpt_yr_IndustryPhy t     
+							WHERE
+							<![CDATA[ 
+								YEAR = #{year}  
+							AND industryPhy IS NOT NULL
+							AND industryPhy != ''
+							]]> 
+							<if test="areaCode !=null and areaCode ==33 ">
+						    AND  LEFT(areaCode,2)='33'
+						    </if>
+						    <if test="areaCode !=33 ">
+						   	AND areaCode = #{areaCode} 
+						    </if>
+						    <if test="monthCodeStart != null and monthCodeEnd != ''">
+							<![CDATA[ 
+							AND monthCode>=LEFT (#{monthCodeStart}, 6)
+							AND monthCode<=LEFT (#{monthCodeEnd}, 6)
+							]]>
+							</if>
+							GROUP BY
+								industryPhy
+						) C ON B.deptcode = C.deptcode
+					) D
+				LEFT JOIN cs_code_industrytype E ON D.deptcode = E. CODE
+       </if>
+  </select>
+</mapper>

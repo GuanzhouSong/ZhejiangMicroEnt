@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.sment.mapper.EntarchivesAdjustMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sment.model.EntarchivesAdjust" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="AdjustTypeCode" property="adjustTypeCode" jdbcType="VARCHAR" />
+    <result column="AdjustTypeName" property="adjustTypeName" jdbcType="VARCHAR" />
+    <result column="AdjustReason" property="adjustReason" jdbcType="VARCHAR" />
+    <result column="AdjustUserId" property="adjustUserId" jdbcType="VARCHAR" />
+    <result column="AdjustUserName" property="adjustUserName" jdbcType="VARCHAR" />
+    <result column="AdjustDeptId" property="adjustDeptId" jdbcType="VARCHAR" />
+    <result column="AdjustDeptName" property="adjustDeptName" jdbcType="VARCHAR" />
+    <result column="AdjustTime" property="adjustTime" jdbcType="TIMESTAMP" />
+    <result column="AdjustState" property="adjustState" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

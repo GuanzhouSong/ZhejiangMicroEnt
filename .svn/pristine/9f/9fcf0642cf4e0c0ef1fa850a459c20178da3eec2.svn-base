@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.dzdtinfo.mapper.HzDzhyFdcjjjgbaMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.dzdtinfo.model.HzDzhyFdcjjjgba" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PRIPID" property="priPid" jdbcType="VARCHAR" />
+    <result column="JJRID" property="jjrId" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="CERNO" property="cerNo" jdbcType="VARCHAR" />
+    <result column="QUALIFICATIONNAME" property="qualificationName" jdbcType="VARCHAR" />
+    <result column="QUALIFICATIONNO" property="qualificationNo" jdbcType="VARCHAR" />
+    <result column="POSITION" property="position" jdbcType="VARCHAR" />
+    <result column="TEL" property="tel" jdbcType="VARCHAR" />
+    <result column="ZWGFZDW" property="zwgfzdw" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

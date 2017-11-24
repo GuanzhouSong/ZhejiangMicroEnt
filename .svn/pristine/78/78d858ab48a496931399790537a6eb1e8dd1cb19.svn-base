@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.sccheck.mapper.PubSccheckItemResultMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sccheck.model.PubSccheckItemResult" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Uid" property="uid" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="TaskUid" property="taskUid" jdbcType="VARCHAR" />
+    <result column="CheckType" property="checkType" jdbcType="VARCHAR" />
+    <result column="CheckTypeName" property="checkTypeName" jdbcType="VARCHAR" />
+    <result column="CheckCode" property="checkCode" jdbcType="VARCHAR" />
+    <result column="CheckName" property="checkName" jdbcType="VARCHAR" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="IsCheck" property="isCheck" jdbcType="CHAR" />
+    <result column="Problem" property="problem" jdbcType="VARCHAR" />
+    <result column="Dispose" property="dispose" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <delete id="deletePubSccheckItemResultByTaskUidAndPriPID" parameterType="Map">
+	  delete from cs_pub_sccheck_item_result 
+	  where TaskUid=#{taskUid}
+	  and PriPID=#{priPID}
+  </delete>
+</mapper>

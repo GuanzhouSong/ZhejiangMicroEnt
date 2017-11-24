@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.smallent.mapper.SmBaseInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.smallent.model.SmBaseInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="DirYear" property="dirYear" jdbcType="VARCHAR" />
+    <result column="UniSCID" property="uniSCID" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="EntTypeCatg" property="entTypeCatg" jdbcType="VARCHAR" />
+    <result column="EntType" property="entType" jdbcType="VARCHAR" />
+    <result column="EstDate" property="estDate" jdbcType="DATE" />
+    <result column="RegCap" property="regCap" jdbcType="DECIMAL" />
+    <result column="RegOrg" property="regOrg" jdbcType="VARCHAR" />
+    <result column="IndustryPhy" property="industryPhy" jdbcType="VARCHAR" />
+    <result column="IndustryCo" property="industryCo" jdbcType="VARCHAR" />
+    <result column="Year" property="year" jdbcType="VARCHAR" />
+    <result column="AssgroIsp" property="assgroIsp" jdbcType="CHAR" />
+    <result column="Assgro" property="assgro" jdbcType="DECIMAL" />
+    <result column="MaiBusincIsp" property="maiBusincIsp" jdbcType="CHAR" />
+    <result column="MaiBusinc" property="maiBusinc" jdbcType="DECIMAL" />
+    <result column="EmpNumIsp" property="empNumIsp" jdbcType="CHAR" />
+    <result column="EmpNum" property="empNum" jdbcType="VARCHAR" />
+    <result column="DirCreateReasonCode" property="dirCreateReasonCode" jdbcType="VARCHAR" />
+    <result column="DirCreateReason" property="dirCreateReason" jdbcType="VARCHAR" />
+    <result column="DirCreateTime" property="dirCreateTime" jdbcType="DATE" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.smallent.dto.SmBaseInfoDto" id="BaseResultDtoMap" extends="BaseResultMap">
+     <result column="entTypeCatgDesc" property="entTypeCatgDesc" jdbcType="VARCHAR" />
+     <result column="industryMlDesc" property="industryMlDesc" jdbcType="VARCHAR" />
+     <result column="regOrgDesc" property="regOrgDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectSmallDirInfoList" resultMap="BaseResultDtoMap" parameterType="Map">
+    select
+    id,UID,PriPID,DirYear,UniSCID,
+    case when UniSCID is null or UniSCID = '' then RegNO ELSE  UniSCID end RegNO,EntName,EntTypeCatg,EntType,EstDate,RegCap,RegOrg,IndustryPhy
+    ,IndustryCo,Year,AssgroIsp,Assgro,MaiBusincIsp,MaiBusinc,EmpNumIsp,EmpNum,DirCreateReasonCode,DirCreateReason,DirCreateTime,CreateTime
+    , entTypeCatgDesc, industryMlDesc , regOrgDesc
+    from
+    (
+        select
+        a.id,a.UID,PriPID,DirYear,UniSCID,RegNO,EntName,EntTypeCatg,EntType,EstDate,RegCap,RegOrg,IndustryPhy
+        ,IndustryCo,Year,AssgroIsp,Assgro,MaiBusincIsp,MaiBusinc,EmpNumIsp,EmpNum,DirCreateReasonCode,DirCreateReason,DirCreateTime,CreateTime
+        ,b.Content entTypeCatgDesc,c.Content industryMlDesc ,d.Content regOrgDesc
+        from cs_sm_baseinfo a
+        LEFT JOIN cs_code_entcatg b ON a.EntTypeCatg = b.Code
+        LEFT JOIN cs_code_industrytype c ON a.IndustryPhy = c.Code
+        LEFT JOIN cs_code_regorg d ON a.RegOrg = d.Code
+        where 1=1
+        <include refid="support_where"/> LIMIT 0,50
+    ) t
+    where 1=1
+  </select>
+
+
+  <sql id="support_where">
+
+    <if test="regOrg != null and regOrg !=''">
+      and RegOrg LIKE  concat(#{regOrg},'%')
+    </if>
+
+    <if test="nameOrRegNO != null and nameOrRegNO !=''">
+      and EntName LIKE concat(#{nameOrRegNO},'%') or RegNO = #{nameOrRegNO} or UniSCID = #{nameOrRegNO}
+    </if>
+
+  </sql>
+
+  
+  <select id="selectDirBaseInfo" resultMap="BaseResultDtoMap">
+    select
+    a.id,a.UID,PriPID,DirYear,UniSCID,RegNO,EntName,EntTypeCatg,EntType,EstDate,RegCap,RegOrg,IndustryPhy
+    ,IndustryCo,Year,AssgroIsp,Assgro,MaiBusincIsp,MaiBusinc,EmpNumIsp,EmpNum,DirCreateReasonCode,DirCreateReason,DirCreateTime,CreateTime
+    ,b.Content entTypeCatgDesc,c.Content industryMlDesc ,d.Content regOrgDesc
+    from
+    cs_sm_baseinfo a
+    LEFT JOIN cs_code_entcatg b ON a.EntTypeCatg = b.Code
+    LEFT JOIN cs_code_industrytype c ON a.IndustryPhy = c.Code
+    LEFT JOIN cs_code_regorg d ON a.RegOrg = d.Code
+    where a.UID = #{UID,jdbcType=VARCHAR}
+  </select>
+</mapper>

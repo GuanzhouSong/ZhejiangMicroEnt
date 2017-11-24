@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.inforece.mapper.SecNoCreditMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.secnocreditsup.dto.SecNoCreditSearchDto" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="UniSCID" property="uniSCID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="AddSecState" property="addSecState" jdbcType="VARCHAR" />
+    <result column="SecDishonestyType" property="secDishonestyType" jdbcType="VARCHAR" />
+    <result column="AddSecCause" property="addSecCause" jdbcType="VARCHAR" />
+    <result column="AddSecDate" property="addSecDate" jdbcType="DATE" />
+    <result column="AddSecDateStart" property="addSecDateStart" jdbcType="DATE" />
+    <result column="AddSecDateEnd" property="addSecDateEnd" jdbcType="DATE" />
+    <result column="AddSecNo" property="addSecNo" jdbcType="VARCHAR" />
+    <result column="AddSecOrg" property="addSecOrg" jdbcType="VARCHAR" />
+    <result column="PublicState" property="publicState" jdbcType="VARCHAR" />
+    <result column="RegState" property="regState" jdbcType="VARCHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="VARCHAR" />
+    <result column="SpeCause" property="speCause" jdbcType="VARCHAR" />
+    <result column="SourceId" property="sourceId" jdbcType="VARCHAR" />
+    <result column="Adcode" property="adcode" jdbcType="VARCHAR" />
+    <result column="DownState" property="downState" jdbcType="VARCHAR" />
+    <result column="EstDate" property="estDate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="sql_where"> 
+        <if test="regNODesc !='' and regNODesc !=null">
+	    and (a.RegNO  LIKE concat('%', #{regNODesc},'%') or a.UniSCID  LIKE concat('%', #{regNODesc},'%'))
+	    </if>
+	   <if test="uid !='' and uid !=null">
+	    and a.UID  =  #{uid}
+	    </if>
+	    <if test="priPID !='' and priPID !=null">
+	     and a.PriPID =#{priPID}
+	    </if>
+	    <if test="regNO !='' and regNO !=null">
+	    and a.RegNO  LIKE concat('%', #{regNO},'%')
+	    </if>
+	     <if test="uniSCID !='' and uniSCID !=null">
+	    and a.UniSCID  LIKE concat('%', #{uniSCID},'%')
+	    </if>
+	    <if test="entName !='' and entName !=null">
+	    and a.EntName  LIKE concat('%', #{entName},'%')
+	    </if>
+  </sql>
+  
+  
+  <select id="selectSecNoCreditListSearch" resultMap="BaseResultMap" parameterType="Map" >
+    select 
+          a.id,a.UID,a.PriPID,a.EntName,a.RegNO,a.UniSCID,a.LeRep,'未移出' AddSecState,SecDishonestyType,AddSecCause,AddSecDate,
+          AddSecNo,AddSecOrg,PublicState,RegState,r.Content LocalAdm,SourceId,EstDate,S.DownState,SpeCause
+     from 
+          cs_exp_serious_crime_list a
+     left join
+          cs_code_regunit r
+     on a.LocalAdm = r.Code
+     LEFT JOIN (SELECT RelateId,'1' DownState FROM cs_info_rece_stat WHERE Type='2'
+	<if test="adcode !=null and adcode != ''">
+	     and Adcode = #{adcode}
+	</if> 
+	) S 
+    ON a.id = S.RelateId 
+    WHERE  BusinessStatus = '4'
+    <include refid="sql_where"></include>
+     
+  </select>
+  
+  <select id="selectDownList" resultMap="BaseResultMap" parameterType="com.icinfo.cs.secnocreditsup.dto.SecNoCreditSearchDto" >
+  SELECT a.id,a.UID,a.PriPID 
+  FROM cs_exp_serious_crime_list a,cs_info_rece_stat S
+  where 
+     a.id = S.RelateId 
+   AND     S.Type='2'
+  <if test="adcode !=null and adcode != ''">
+	     and S.Adcode = #{adcode}
+  </if> 
+  <include refid="sql_where"></include>
+  </select>
+</mapper>

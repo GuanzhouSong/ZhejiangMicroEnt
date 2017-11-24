@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.rpt.rptmapper.DeptPubInfoRptMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.rpt.rptmodel.DeptPubInfoRpt" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="areacode" property="areacode" jdbcType="VARCHAR" />
+    <result column="regorg" property="regorg" jdbcType="VARCHAR" />
+    <result column="localadm" property="localadm" jdbcType="VARCHAR" />
+    <result column="publicInfo" property="publicInfo" jdbcType="INTEGER" />
+    <result column="regstateK" property="regstateK" jdbcType="INTEGER" />
+    <result column="regstateD" property="regstateD" jdbcType="INTEGER" />
+    <result column="regstateC" property="regstateC" jdbcType="INTEGER" />
+    <result column="regstateQ" property="regstateQ" jdbcType="INTEGER" />
+    <result column="regstateXX" property="regstateXX" jdbcType="INTEGER" />
+    <result column="altItemH" property="altItemH" jdbcType="INTEGER" />
+    <result column="altItemT" property="altItemT" jdbcType="INTEGER" />
+    <result column="mortH" property="mortH" jdbcType="INTEGER" />
+    <result column="mortT" property="mortT" jdbcType="INTEGER" />
+    <result column="pledgeH" property="pledgeH" jdbcType="INTEGER" />
+    <result column="pledgeT" property="pledgeT" jdbcType="INTEGER" />
+    <result column="ippldgH" property="ippldgH" jdbcType="INTEGER" />
+    <result column="ippldgT" property="ippldgT" jdbcType="INTEGER" />
+    <result column="tmH" property="tmH" jdbcType="INTEGER" />
+    <result column="tmT" property="tmT" jdbcType="INTEGER" />
+    <result column="spotcheckH" property="spotcheckH" jdbcType="INTEGER" />
+    <result column="spotcheckT" property="spotcheckT" jdbcType="INTEGER" />
+    <result column="sfH" property="sfH" jdbcType="INTEGER" />
+    <result column="sfT" property="sfT" jdbcType="INTEGER" />
+    <result column="licenceH" property="licenceH" jdbcType="INTEGER" />
+    <result column="licenceT" property="licenceT" jdbcType="INTEGER" />
+    <result column="punishH" property="punishH" jdbcType="INTEGER" />
+    <result column="punishT" property="punishT" jdbcType="INTEGER" />
+    <result column="opanomlyH" property="opanomlyH" jdbcType="INTEGER" />
+    <result column="opanomlyT" property="opanomlyT" jdbcType="INTEGER" />
+    <result column="illDisHoneH" property="illDisHoneH" jdbcType="INTEGER" />
+    <result column="illDisHoneT" property="illDisHoneT" jdbcType="INTEGER" />
+    <result column="escH" property="escH" jdbcType="INTEGER" />
+    <result column="escT" property="escT" jdbcType="INTEGER" />
+    
+    <result column="caseH" property="caseH" jdbcType="INTEGER" />
+    <result column="caseT" property="caseT" jdbcType="INTEGER" />
+    <result column="otherpunishH" property="otherpunishH" jdbcType="INTEGER" />
+    <result column="otherpunishT" property="otherpunishT" jdbcType="INTEGER" />
+    <result column="invH" property="invH" jdbcType="INTEGER" />
+    <result column="invT" property="invT" jdbcType="INTEGER" />
+    <result column="memH" property="memH" jdbcType="INTEGER" />
+    <result column="memT" property="memT" jdbcType="INTEGER" />
+    <result column="supH" property="supH" jdbcType="INTEGER" />
+    <result column="supT" property="supT" jdbcType="INTEGER" />
+    <result column="liqH" property="liqH" jdbcType="INTEGER" />
+    <result column="liqT" property="liqT" jdbcType="INTEGER" />
+    <result column="spotcheckotherH" property="spotcheckotherH" jdbcType="INTEGER" />
+    <result column="spotcheckotherT" property="spotcheckotherT" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.rpt.rptdto.DeptPubInfoRptDto" id="BaseExtResultMap" extends="BaseResultMap">
+    <result column="deptName" property="deptName" jdbcType="VARCHAR" />
+    <result column="otherpanomlyH" property="otherpanomlyH" jdbcType="INTEGER" />
+    <result column="otherpanomlyT" property="otherpanomlyT" jdbcType="INTEGER" />
+    <result column="otherillDisHoneH" property="otherillDisHoneH" jdbcType="INTEGER" />
+    <result column="otherillDisHoneT" property="otherillDisHoneT" jdbcType="INTEGER" />
+  </resultMap>
+  
+ 
+   <sql id="sql_where"> 
+	    <if test="entTypeCatg !=null and entTypeCatg != '' ">
+	    and  entTypeCatg in (${entTypeCatg})
+	    </if>
+	    <if test="statArea !='' and statArea !=null">
+	    and  areaCode  IN  (${statArea}) 
+	    </if>
+  </sql>
+ 
+ 
+ 
+ <select id="selectDeptPubInfoRpt" resultMap="BaseExtResultMap" parameterType="Map">
+	SELECT
+	B.areacode,
+	B.regOrgCode, 
+	B.localadmCode,
+	<choose>
+	 <when test="statLevel != null and statLevel != '' and  statLevel == 'area' ">
+	    B.areacode deptName,
+	 </when> 
+	 <otherwise>
+	    C.Content deptName,
+	 </otherwise> 
+	</choose> 
+	B.publicInfo,
+	B.regstateK,
+	B.regstateD,
+	B.regstateC,
+	B.regstateQ,
+	B.regstateXX,
+	B.altItemH,
+	B.altItemT,
+	B.mortH,
+ 	B.mortT,
+	B.pledgeH,
+	B.pledgeT,
+	B.ippldgH,
+	B.ippldgT,
+	B.tmH,
+	B.tmT,
+	B.spotcheckH,
+	B.spotcheckT,
+	B.sfH,
+	B.sfT,
+	B.licenceH,
+	B.licenceT,
+	B.punishH,
+	B.punishT,
+	B.opanomlyH,
+	B.opanomlyT,
+	B.illDisHoneH,
+	B.illDisHoneT,
+	B.escH,
+	B.escT
+	FROM (
+	 SELECT
+	A.areacode,
+	A.regorgCode,
+	A.localadmCode,
+	sum(A.publicInfo) publicInfo,
+	sum(A.regstateK) regstateK,
+	sum(A.regstateD) regstateD, 
+	sum(A.regstateC) regstateC,
+	sum(A.regstateQ) regstateQ,
+	sum(A.regstateXX) regstateXX,
+	sum(A.altItemH) altItemH, 
+ 	sum(A.altItemT) altItemT,
+	sum(A.mortH) mortH,
+	sum(A.mortT) mortT, 
+	sum(A.pledgeH) pledgeH,
+	sum(A.pledgeT) pledgeT,
+	sum(A.ippldgH) ippldgH, 
+	sum(A.ippldgT) ippldgT,
+	sum(A.tmH) tmH,
+	sum(A.tmT) tmT, 
+	sum(A.spotcheckH) spotcheckH,
+	sum(A.spotcheckT) spotcheckT,
+	sum(A.sfH) sfH, 
+	sum(A.sfT) sfT,
+	sum(A.licenceH) licenceH,
+	sum(A.licenceT) licenceT, 
+	sum(A.punishH) punishH,
+	sum(A.punishT) punishT,
+	sum(A.opanomlyH) opanomlyH, 
+	sum(A.opanomlyT) opanomlyT,
+	sum(A.illDisHoneH) illDisHoneH,
+	sum(A.illDisHoneT) illDisHoneT, 
+	sum(A.escH) escH,
+	sum(A.escT) escT
+    FROM
+	cs_rpt_public_info A  
+	WHERE 
+	1=1 
+	<if test="endCheckPushDate !='' and endCheckPushDate !=null">
+	<![CDATA[
+	and monthCode = left(#{endCheckPushDate},6) 
+	]]> 
+	</if> 
+	<include refid="sql_where"/>
+	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	GROUP BY A.${statLevel}Code 
+	) B 
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'regOrg' ">
+	   LEFT JOIN zjcsdb1.cs_code_regorg C ON B.regOrgCode=C.Code
+	</if>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'localAdm' ">
+	   LEFT JOIN zjcsdb1.cs_code_regunit C ON B.localAdmCode=C.Code
+	</if>
+  </select>
+  
+  
+  <!--可视化企业信用信息公示统计 -->
+  <select id="selectDeptPubInfoSituationRpt" resultMap="BaseExtResultMap" parameterType="Map">
+	   <if test="statLevel != null and statLevel != '' and  statLevel == 'pubtotal' "> 
+	       SELECT sum(A.publicInfo) publicInfo   FROM  cs_rpt_public_info A  where 1=1 
+	       <include refid="situationrpt_where"/>
+	   </if>
+  	   <if test="statLevel != null and statLevel != '' and  statLevel == 'pubregstate' "> 
+	       SELECT sum(publicInfo) publicInfo ,sum(A.regstateK) regstateK,sum(A.regstateD) regstateD, 
+	          sum(A.regstateC) regstateC,sum(A.regstateQ) regstateQ,sum(A.regstateXX) regstateXX 
+	       FROM  cs_rpt_public_info A where 1=1 
+	       <include refid="situationrpt_where"/>
+	   </if> 
+	   <if test="statLevel != null and statLevel != '' and  statLevel == 'pubinfo' "> 
+	       SELECT sum(licenceH) licenceH ,sum(A.licenceT) licenceT,sum(A.opanomlyH) opanomlyH, 
+	          sum(A.opanomlyT) opanomlyT,sum(A.illDisHoneH) illDisHoneH,sum(A.illDisHoneT) illDisHoneT, 
+	          sum(A.punishH) punishH,sum(A.punishT) punishT,sum(A.caseH) caseH,sum(A.caseT) caseT,
+	          sum(A.otherpunishH) otherpunishH,sum(A.otherpunishT) otherpunishT
+	       FROM  cs_rpt_public_info A  where 1=1 
+	       <include refid="situationrpt_where"/>
+	   </if>
+	   <if test="statLevel != null and statLevel != '' and  statLevel == 'pubentbaseinfo' "> 
+	       SELECT sum(mortH) mortH ,sum(A.mortT) mortT,sum(A.pledgeH) pledgeH, 
+	          sum(A.pledgeT) pledgeT,sum(A.ippldgH) ippldgH,sum(A.ippldgT) ippldgT, 
+	          sum(A.tmH) tmH,sum(A.tmT) tmT, sum(A.spotcheckH) spotcheckH,sum(A.spotcheckT) spotcheckT,
+	          sum(A.sfH) sfH,sum(A.sfT) sfT,sum(A.altItemH) altItemH,sum(A.altItemT) altItemT,
+	          sum(A.invH) invH,sum(A.invT) invT,sum(A.memH) memH,sum(A.memT) memT,sum(A.supH) supH,sum(A.supT) supT,
+	          sum(A.liqH) liqH,sum(A.liqT) liqT
+	       FROM  cs_rpt_public_info A  where 1=1 
+	       <include refid="situationrpt_where"/>
+	   </if> 
+  </select>
+  
+  
+    <sql id="situationrpt_where"> 
+	    <if test="areaCode !=null and areaCode ==33 ">
+			AND  LEFT(A.areaCode,2)='33'
+		</if>
+		<if test="areaCode !=33 and areaCode !=null and areaCode !='' ">
+			AND A.areaCode = #{areaCode} 
+        </if>
+        <if test=" monthCode !=null and monthCode !='' ">
+		<![CDATA[ AND A.monthCode < #{monthCode}  ]]>
+        </if>
+        AND A.entTypeCatg IN (21,22,24,27,28,11,12,13,14,31,32,33,34,16,17,50) 
+  	</sql>
+  	
+  	<!-- 大屏可视化 图6监管动态 -->
+  	<select id="selectRptPublicInfoList" parameterType="Map" resultMap="BaseExtResultMap">
+  	select sum(spotcheckH) spotcheckH,sum(spotcheckT) spotcheckT,sum(punishH) punishH,
+	sum(punishT) punishT,sum(opanomlyH) opanomlyH,
+	sum(opanomlyT) opanomlyT,sum(illDisHoneH) illDisHoneH,
+	sum(illDisHoneT) illDisHoneT , sum(otherpunishH) otherpunishH ,sum(otherpunishT) otherpunishT,
+	sum(ifnull(spotcheckotherH,0)) spotcheckotherH ,sum(ifnull(spotcheckotherT,0)) spotcheckotherT,
+	0 otherpanomlyH,0 otherpanomlyT,0 otherillDisHoneH,0 otherillDisHoneT
+	from cs_rpt_public_info t where monthCode = DATE_FORMAT(SYSDATE(),'%Y%m')
+  	</select>
+</mapper>

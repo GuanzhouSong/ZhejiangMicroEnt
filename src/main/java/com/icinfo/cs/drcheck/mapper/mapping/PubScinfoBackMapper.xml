@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.drcheck.mapper.PubScinfoBackMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.drcheck.model.PubScinfoBack" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="TaskNO" property="taskNO" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.drcheck.dto.PubScinfoBackDto" id="BaseResultMapDto" extends="BaseResultMap">
+  	<result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="VARCHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="EstDate" property="estDate" jdbcType="TIMESTAMP" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="LiaName" property="liaName" jdbcType="VARCHAR"/>
+    <result column="LeRepPhone" property="leRepPhone" jdbcType="VARCHAR"/>
+    <result column="EntTypeCatgDesc" property="entTypeCatgDesc" jdbcType="VARCHAR"/>
+    <result column="IndustryDesc" property="industryDesc" jdbcType="VARCHAR"/>
+    <result column="RegOrg" property="regOrg" jdbcType="VARCHAR"/>
+    <result column="entCount" property="entCount" jdbcType="INTEGER"/>
+  </resultMap>
+  
+  <!--批量导入  未进行设置编码-->
+    <insert id="insertBatch"  parameterType="java.util.List">
+        INSERT INTO cs_pub_scinfo_back
+        (TaskNO,PriPID,CreateTime)
+        values
+        <foreach collection="list" item="item" index="index" separator="," >
+           (#{item.taskNO},#{item.priPID},#{item.createTime})
+        </foreach>
+    </insert>
+  
+  <select id="selectPubScinfoBackDtoList" resultMap="BaseResultMapDto" parameterType="Map"> 
+  	SELECT DISTINCT t.PriPID,t.TaskNO,m.EntName,m.RegNO,m.UniCode,m.LeRep,m.EstDate,m.Tel,d.LiaName,d.LeRepPhone,g.Content EntTypeCatgDesc,e.Content IndustryDesc
+	FROM
+		cs_pub_scinfo_back t
+	LEFT JOIN cs_mid_baseinfo m ON t.PriPID = m.PriPID
+	LEFT JOIN cs_pub_eppassword d ON t.PriPID = d.PriPID
+	LEFT JOIN cs_code_entcatg g ON m.EntTypeCatg = g.Code
+	LEFT JOIN cs_code_industrytype e ON m.IndustryPhy = e.Code
+	<trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="taskNO != null and taskNO != ''">
+			t.TaskNO = #{taskNO,jdbcType=VARCHAR}
+		</if>
+	</trim>
+	GROUP BY t.PriPID
+  </select>
+  
+<!--   	统计备份表，各登记机关企业数量 -->
+  <select id="selectCountInfoBack" resultMap="BaseResultMapDto" parameterType="Map"> 
+  select temp.RegOrg,temp.entCount from (
+  	SELECT 
+  		m.RegOrg,count(t.PriPID) as entCount
+  	from cs_pub_scinfo_back t 
+  	LEFT JOIN cs_mid_baseinfo m ON t.PriPID = m.PriPID 
+	<trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="taskNO != null and taskNO != ''">
+			t.TaskNO = #{taskNO,jdbcType=VARCHAR}
+		</if>
+	</trim>
+	GROUP BY m.RegOrg ORDER BY m.RegOrg )temp
+	<trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="minNum != null and minNum != ''">
+			temp.entCount >= #{minNum,jdbcType=VARCHAR}
+		</if>
+	</trim>
+  </select>
+  
+<!--   获取最小值 -->
+	<select id="selectCountMinBack" resultMap="BaseResultMapDto" parameterType="Map"> 
+  	  	SELECT
+			min(tempA.entCount)
+		FROM
+			(
+				SELECT
+					temp.RegOrg,temp.entCount
+				FROM
+					(
+						SELECT
+							m.RegOrg,
+							count(t.PriPID) AS entCount
+						FROM
+							cs_pub_scinfo_back t
+						LEFT JOIN cs_mid_baseinfo m ON t.PriPID = m.PriPID
+						WHERE
+							t.TaskNO = #{taskNO}
+						GROUP BY
+							m.RegOrg
+						ORDER BY
+							m.RegOrg
+					) temp 
+			) tempA
+  </select>
+  
+  <select id="selectPubScinfoBackByTaskNO" resultMap="BaseResultMap" parameterType="Map"> 
+  	SELECT DISTINCT t.PriPID,t.TaskNO
+	FROM
+		cs_pub_scinfo_back t
+	LEFT JOIN cs_mid_baseinfo m ON t.PriPID = m.PriPID
+	<trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="taskNO != null and taskNO != ''">
+			t.TaskNO = #{taskNO,jdbcType=VARCHAR}
+		</if>
+	</trim>
+	order by m.regOrg,m.LocalAdm
+  </select>
+  
+   <!--  先查询此次任务中的管辖单位  -->
+  <select id="selectPriPIDListByTaskNO" parameterType="Map"  resultType="java.lang.String"> 
+      select PriPID from cs_pub_scinfo_back 
+      <trim prefix="WHERE" prefixOverrides="AND | OR">
+        <if test="taskNO != null and taskNO != ''">
+            TaskNO = #{taskNO,jdbcType=VARCHAR}
+        </if>
+    </trim>
+  </select>
+</mapper>

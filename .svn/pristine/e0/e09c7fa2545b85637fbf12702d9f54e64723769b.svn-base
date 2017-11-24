@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.ext.mapper.MidCaseInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.ext.model.MidCaseInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="CaseNO" property="caseNO" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="SetDeptname" property="setDeptname" jdbcType="VARCHAR" />
+    <result column="CaseType" property="caseType" jdbcType="CHAR" />
+    <result column="AuditName" property="auditName" jdbcType="VARCHAR" />
+    <result column="AuditDate" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="AuditState" property="auditState" jdbcType="CHAR" />
+    <result column="AudSug" property="audSug" jdbcType="VARCHAR" />
+    <result column="PenDecNo" property="penDecNo" jdbcType="VARCHAR" />
+    <result column="PenType" property="penType" jdbcType="CHAR" />
+    <result column="PenAm" property="penAm" jdbcType="DECIMAL" />
+    <result column="ForfAm" property="forfAm" jdbcType="DECIMAL" />
+    <result column="PenAuth" property="penAuth" jdbcType="CHAR" />
+    <result column="PenDecIssDate" property="penDecIssDate" jdbcType="DATE" />
+    <result column="UnitName" property="unitName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="update_time" jdbcType="TIMESTAMP" />
+    <result column="delflag" property="delflag" jdbcType="BIT" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+    <result column="IllegActType" property="illegActType" jdbcType="LONGVARCHAR" />
+    <result column="PenContent" property="penContent" jdbcType="LONGVARCHAR" />
+    <result column="PunDecDoc" property="punDecDoc" jdbcType="LONGVARCHAR" />
+    <result column="AudSugDesc" property="audSugDesc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <select id="selectMidCaseInfoListByPriPID" parameterType="map" resultMap="BaseResultMap">
+  	SELECT PriPID,PenDecNo,B.DeptName SetDeptname,PenContent,PenDecIssDate,AuditState
+  	FROM(
+		SELECT 
+			PriPID,PenDecNo,SetDeptname,PenContent,PenDecIssDate,AuditState
+	  	FROM 
+	  		cs_mid_caseinfo c
+	  	WHERE c.PriPID = #{priPID}
+	  	 	 
+	  	UNION ALL
+	  	
+	  	SELECT 
+	  		PriPID,PenDecNo,SetDeptname,PenContent,PenDecIssDate,AuditState
+	  	FROM
+	  		cs_pub_otherpunish o 
+	  	WHERE o.PriPID = #{priPID}
+  	) A 
+	LEFT JOIN cs_department B ON A.SetDeptname =  B.DeptCode  	
+  </select>
+  
+  <insert id="insertMidCaseInfo">
+  	INSERT INTO cs_mid_caseinfo(PriPID,PenDecNo,SetDeptname,PenContent,PenDecIssDate,AuditState,update_time) VALUES('3300000000024769','杭工商处字〔2014〕第48号','111','111','111','111',NOW())
+  </insert>
+  
+  <!-- 根据自然人身份证号获取列表  -->
+   <select id="selectListByCerNO" parameterType="map" resultMap="BaseResultMap">
+		select 
+			cmc.id,
+			cmc.CaseNO,
+			cmc.PriPID,
+			cmc.SetDeptname,
+			cmc.CaseType,
+			cmc.AuditName,
+			cmc.AuditDate,
+			cmc.AuditState,
+			cmc.AudSug,
+			cmc.PenDecNo,
+			cmc.IllegActType,
+			cmc.PenType,
+			cmc.PenAm,
+			cmc.ForfAm,
+			cmc.PenDecIssDate,
+			cmc.UnitName,
+			cmc.RegNO,
+			cmc.LeRep,
+			cmc.PenContent,
+			cmc.PunDecDoc,
+			cmc.CreateTime,
+			cmc.AudSugDesc,
+			cmc.update_time,
+			cmc.SetName,
+			cmc.SetTime,
+			cmc.PenAuth
+		 from 
+		(select t.CerNO from cs_mid_inv t where t.CerNO = #{cerNO}) cmi
+		LEFT JOIN  cs_mid_baseinfo cmb ON cmb.CerNO = cmi.CerNO
+		LEFT JOIN cs_mid_caseinfo cmc ON cmc.PriPID = cmb.PriPID
+		where cmc.CaseNO is not null
+		group by cmc.id
+		ORDER BY cmc.id desc
+   </select>
+  
+</mapper>

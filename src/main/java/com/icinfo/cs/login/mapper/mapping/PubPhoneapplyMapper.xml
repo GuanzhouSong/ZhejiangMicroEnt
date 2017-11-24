@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.login.mapper.PubPhoneapplyMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.login.model.PubPhoneapply" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="pripid" jdbcType="CHAR" />
+    <result column="EntName" property="entname" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regno" jdbcType="CHAR" />
+    <result column="LeRep" property="lerep" jdbcType="VARCHAR" />
+    <result column="EntType" property="enttype" jdbcType="CHAR" />
+    <result column="UniCode" property="unicode" jdbcType="CHAR" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="LeRepPhone" property="lerepphone" jdbcType="VARCHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="PasID" property="pasid" jdbcType="VARCHAR" />
+    <result column="PasStatus" property="passtatus" jdbcType="VARCHAR" />
+    <result column="LiaIDNum" property="liaidnum" jdbcType="VARCHAR" />
+    <result column="LiaIDType" property="liaidtype" jdbcType="VARCHAR" />
+    <result column="LiaName" property="lianame" jdbcType="VARCHAR" />
+    <result column="CerNO" property="cerNO" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapDto" type="com.icinfo.cs.login.dto.PubPhoneapplyDto" extends="BaseResultMap">
+       <result column="regOrg" property="regOrg" jdbcType="VARCHAR" />
+       <result column="regOrgName" property="regOrgName" jdbcType="VARCHAR" />
+       <result column="localAdm" property="localAdm" jdbcType="VARCHAR" />
+       <result column="localAdmName" property="localAdmName" jdbcType="VARCHAR" />
+       <result column="checkDep" property="checkDep" jdbcType="VARCHAR" />
+   </resultMap>
+  
+  <!-- 联络员确认书打印 -->
+  <select id="selectPubPhoneapplyPrint" resultMap="BaseResultMapDto" parameterType="Map"> 
+      SELECT P.id,P.PriPID, P.EntName, P.RegNO,P.LeRep,P.EntType,P.UNICODE,P.CreateTime,P.LeRepPhone,P.Tel,P.PasID,P.PasStatus,  P.LiaIDNum,P.LiaIDType,P.LiaName, E.`RegOrg` RegOrg, E.`LocalAdm` LocalAdm, 
+      E.`CheckDep` CheckDep , E.RegOrgName , E.LocalAdmName FROM 
+      cs_mid_baseinfo E INNER JOIN ( SELECT id,PriPID, EntName, RegNO,LeRep,EntType,UNICODE,CreateTime,LeRepPhone,Tel,PasID,PasStatus,LiaIDNum,
+      LiaIDType,LiaName,CerNO FROM cs_pub_phoneapply 
+      WHERE PasID = #{PasID} ) P ON P.PriPID= E.PriPID
+  </select>
+  
+  <select id="selectPubPhoneInfoAcceptList" resultMap="BaseResultMapDto" parameterType="Map">
+      SELECT
+		a.id,a.PriPID, a.EntName, a.RegNO,a.LeRep,a.EntType,a.UNICODE,a.CreateTime,a.LeRepPhone,a.Tel,a.PasID,a.PasStatus,a.LiaIDNum,a.LiaIDType,a.LiaName,
+		b.RegOrg,b.LocalAdm,b.CheckDep,
+		b.RegOrgName,
+		b.LocalAdmName
+	    FROM
+		cs_pub_phoneapply a
+		INNER JOIN cs_mid_baseinfo b ON a.PriPID = b.PriPID
+	<trim prefix="WHERE" prefixOverrides="AND | OR">
+	   a.PasStatus = '02'
+      <if test="pasid!=null and pasid != ''">
+       and a.PasID LIKE concat('%', #{pasid},'%')
+      </if>
+        <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+      order by a.CreateTime Desc
+    </trim>
+  </select>
+  
+</mapper>

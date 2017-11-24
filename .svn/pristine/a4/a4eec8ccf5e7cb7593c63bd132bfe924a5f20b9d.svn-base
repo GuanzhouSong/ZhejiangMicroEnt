@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.inspect.mapper.ReportCheckResultMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.inspect.model.ReportCheckResult" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="ID" property="ID" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="Year" property="year" jdbcType="CHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="ResResult" property="resResult" jdbcType="VARCHAR" />
+   <!-- <result column="ResDispose" property="resDispose" jdbcType="VARCHAR" />
+    <result column="ResContent" property="resContent" jdbcType="VARCHAR" />-->
+  </resultMap>
+</mapper>

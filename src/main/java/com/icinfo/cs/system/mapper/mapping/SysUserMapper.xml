@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+   Copyright© 2003-2016 浙江汇信科技有限公司, All Rights Reserved.
+  -->
+<mapper namespace="com.icinfo.cs.system.mapper.SysUserMapper">
+    <resultMap id="BaseResultMap" type="com.icinfo.cs.system.model.SysUser">
+        <!--
+          WARNING - @mbggenerated
+        -->
+        <id column="UID" jdbcType="VARCHAR" property="id"/>
+        <result column="USER_USERNAME" jdbcType="VARCHAR" property="username"/>
+        <result column="USER_PASSWORD" jdbcType="VARCHAR" property="password"/>
+        <result column="USER_PASSWORD_SALT" jdbcType="VARCHAR" property="passwordSalt"/>
+        <result column="USER_IDENTITY" jdbcType="VARCHAR" property="identity"/>
+        <result column="USER_REAL_NAME" jdbcType="VARCHAR" property="realName"/>
+        <result column="USER_EMAIL" jdbcType="VARCHAR" property="email"/>
+        <result column="USER_CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="USER_LAST_LOGIN_TIME" jdbcType="TIMESTAMP" property="lastLoginTime"/>
+        <result column="USER_STATUS" jdbcType="VARCHAR" property="status"/>
+        <result column="USER_DESC" jdbcType="VARCHAR" property="desc"/>
+
+        <result column="DEPT_NAME" jdbcType="VARCHAR" property="deptName"/>
+        <result column="POST" jdbcType="VARCHAR" property="post"/>
+        <result column="TEL_PHONE" jdbcType="VARCHAR" property="telPhone"/>
+        <result column="PHONE" jdbcType="VARCHAR" property="phone"/>
+        <result column="PHONE_EXT" jdbcType="VARCHAR" property="phoneExt"/>
+        <result column="USER_SET_PERSON" jdbcType="VARCHAR" property="userSetPerson"/>
+        <result column="SEARCH_RANGE_LEVEL" jdbcType="VARCHAR" property="searchRangeLevel"/>
+        <result column="SEARCH_RANGE_ENT_TYPE" jdbcType="VARCHAR" property="searchRangeEntType"/>
+        <result column="EXT_NET_AUTH" jdbcType="VARCHAR" property="extNetAuth"/>
+        <result column="JUR_UNIT" jdbcType="VARCHAR" property="jurUnit"/>
+        <result column="DeptCode" jdbcType="VARCHAR" property="deptCode"/>
+        <result column="USER_TYPE" jdbcType="VARCHAR" property="userType"/>
+        <result column="IS_ADMIN" jdbcType="CHAR" property="isAdmin"/>
+        <result column="IS_CHECK" jdbcType="CHAR" property="isCheck"/>
+        <result column="SetDate" jdbcType="CHAR" property="setDate"/>
+    </resultMap>
+
+    <resultMap id="SysUserDto" type="com.icinfo.cs.system.dto.SysUserDto" extends="BaseResultMap">
+        <result column="Dept" property="dept"></result>
+        <result column="UserId" property="userId"></result> 
+        <result column="USER_PASSWORD_KEY" property="userPasswordKey"></result>
+    </resultMap>
+
+    <select id="selectRegUser" parameterType="string" resultMap="SysUserDto">
+        select t.UID,t.USER_USERNAME, t.USER_PASSWORD,t.USER_PASSWORD_SALT,t.USER_IDENTITY,
+        t.USER_REAL_NAME,t.USER_EMAIL,t.USER_CREATE_TIME,t.USER_LAST_LOGIN_TIME,t.IS_CHECK,
+        t.USER_STATUS,t.USER_DESC,t.DEPT_NAME,t.POST,t.TEL_PHONE,t.PHONE,t.PHONE_EXT,
+        USER_SET_PERSON,t.SEARCH_RANGE_LEVEL,t.SEARCH_RANGE_ENT_TYPE,t.EXT_NET_AUTH,t.JUR_UNIT,t.DeptCode,
+        d.DeptName Dept,d.DeptDID deptId,t.USER_TYPE,t.IS_ADMIN,t.IS_CHECK,t.SetDate
+        from SYS_USER t LEFT JOIN cs_department d
+        on d.DeptDID=t.DeptCode
+        <if test="roleId !=null and roleId != ''">
+            RIGHT JOIN SYS_USER_ROLE r on t.UID = r.UR_USER_ID
+            AND r.UR_ROLE_ID = #{roleId}
+        </if>
+        where t.USER_TYPE = '1' 
+        <![CDATA[
+        AND  t.USER_STATUS != '2'
+        ]]>
+        <if test="username !=null and username != ''">
+            AND t.USER_USERNAME = #{username}
+        </if>
+        <if test="levels !=null and levels != ''">
+            <choose><!-- 省级 -->
+                <when test="levels==0">
+                 AND  d.DeptCode in ('33000000','33001000')   
+                </when>
+                <when test="levels==3"><!-- 市级 -->
+                <![CDATA[  AND  RIGHT (d.DeptCode, 4) ='0000' AND  RIGHT (d.DeptCode, 6) !='000000' ]]>   
+                </when>
+                <when test="levels==2"><!-- 县级 -->
+                <![CDATA[ AND  RIGHT (d.DeptCode, 4) !='0000' AND  RIGHT (d.DeptCode, 2) ='00' ]]>  
+                </when>
+                <otherwise><!-- 所级 -->
+                <![CDATA[ AND  RIGHT (d.DeptCode, 4) !='0000' AND  RIGHT (d.DeptCode, 2) !='00' ]]>  
+                </otherwise>
+            </choose>
+        </if>
+        <if test="realName !=null and realName != ''">
+            AND t.USER_REAL_NAME = #{realName}
+        </if>
+        <if test="realNameLike !=null and realNameLike != ''">
+            AND t.USER_REAL_NAME LIKE concat('%', #{realNameLike},'%')
+        </if>
+
+        <if test="jurUnit !=null and jurUnit != ''">
+            AND t.JUR_UNIT = #{jurUnit}
+        </if>
+        <if test="extNetAuth !=null and extNetAuth != ''">
+            AND t.EXT_NET_AUTH = #{extNetAuth}
+        </if>
+        <if test="status !=null and status != ''">
+            AND t.USER_STATUS = #{status}
+        </if>
+        <if test="userSetPerson !=null and userSetPerson != ''">
+            AND t.USER_SET_PERSON = #{userSetPerson}
+        </if>
+        <if test="deptCode !=null and deptCode != ''">
+            AND t.DeptCode = #{deptCode}
+        </if>
+        <if test="postLike !=null and postLike != ''">
+            AND t.POST LIKE #{postLike}
+        </if>
+        <if test="deptCodeLike !=null and deptCodeLike != ''">
+            AND d.DeptCode LIKE #{deptCodeLike}
+        </if>
+        ORDER BY USER_CREATE_TIME DESC
+    </select>
+
+
+    <select id="selectSynUser" parameterType="string" resultMap="SysUserDto">
+        select t.UID,USER_USERNAME, USER_PASSWORD,USER_PASSWORD_SALT,USER_IDENTITY,
+        USER_REAL_NAME,USER_EMAIL,USER_CREATE_TIME,USER_LAST_LOGIN_TIME,
+        USER_STATUS,USER_DESC,DEPT_NAME,POST,TEL_PHONE,PHONE,PHONE_EXT,USER_SET_PERSON,SEARCH_RANGE_LEVEL,SEARCH_RANGE_ENT_TYPE,EXT_NET_AUTH,JUR_UNIT,t.DeptCode,
+        d.OrgName Dept,d.OrgCoding deptId,USER_TYPE,IS_ADMIN,t.IS_CHECK,t.SetDate
+        from SYS_USER t LEFT JOIN cs_sys_depart d on d.OrgCoding=t.DeptCode
+        <if test="roleId !=null and roleId != ''">
+            RIGHT JOIN SYS_USER_ROLE r on t.UID = r.UR_USER_ID
+            AND r.UR_ROLE_ID = #{roleId}
+        </if>
+        WHERE t.USER_TYPE = '2'
+        <if test="dutyDeptCodes !=null and dutyDeptCodes != ''">
+            and t.DeptCode in (
+            SELECT OrgCoding from cs_dept_dutycode_ref
+            <where>
+                <if test="deptCodeLike !=null and deptCodeLike != ''">
+                    and Adcode like #{deptCodeLike}
+                </if>
+                <foreach collection="dutyDeptCodes" item="item" index="index"
+                         open="and (" close=")" separator="or">
+                    DutyDeptCode=#{item}
+                </foreach>
+            </where>
+            )
+        </if>
+        <!-- 区域管理员 -->
+        <if test="isSysUserAreaManage !=null and isSysUserAreaManage != '' and isSysUserAreaManage==1 and deptCodeLike!=null and deptCodeLike!='' ">
+            AND d.Adcode like #{deptCodeLike}
+        </if>
+        <if test="username !=null and username != ''">
+            AND t.USER_USERNAME = #{username}
+        </if>
+        <if test="realName !=null and realName != ''">
+            AND t.USER_REAL_NAME = #{realName}
+        </if>
+        <if test="realNameLike !=null and realNameLike != ''">
+            AND t.USER_REAL_NAME LIKE concat('%', #{realNameLike},'%')
+        </if>
+        <if test="jurUnit !=null and jurUnit != ''">
+            AND t.JUR_UNIT = #{jurUnit}
+        </if>
+        <if test="extNetAuth !=null and extNetAuth != ''">
+            AND t.EXT_NET_AUTH = #{extNetAuth}
+        </if>
+        <if test="status !=null and status != ''">
+            AND t.USER_STATUS = #{status}
+        </if>
+        <if test="userSetPerson !=null and userSetPerson != ''">
+            AND t.USER_SET_PERSON = #{userSetPerson}
+        </if>
+        <if test="deptCode !=null and deptCode != ''">
+            AND t.DeptCode = #{deptCode}
+        </if>
+        <if test="postLike !=null and postLike != ''">
+            AND t.POST LIKE #{postLike}
+        </if>
+        <if test="areaCode !=null and areaCode != ''">
+            AND t.DeptCode IN (
+            SELECT OrgCoding FROM cs_sys_depart where SUBSTR(Adcode,1,6) in (${areaCode})
+            )
+        </if>
+        ORDER BY USER_CREATE_TIME DESC
+    </select>
+     
+	<!-- 小微监测用户信息 start -->
+	<select id="selectSmentUser" parameterType="string" resultMap="SysUserDto">
+        select t.UID,t.USER_USERNAME, t.USER_PASSWORD,t.USER_PASSWORD_SALT,t.USER_IDENTITY,
+        t.USER_REAL_NAME,t.USER_EMAIL,t.USER_CREATE_TIME,t.USER_LAST_LOGIN_TIME,t.IS_CHECK,
+        t.USER_STATUS,t.USER_DESC,t.DEPT_NAME,t.POST,t.TEL_PHONE,t.PHONE,t.PHONE_EXT,
+        USER_SET_PERSON,t.SEARCH_RANGE_LEVEL,t.SEARCH_RANGE_ENT_TYPE,t.EXT_NET_AUTH,t.JUR_UNIT,t.DeptCode,
+        d.DeptName Dept,d.DeptDID deptId,t.USER_TYPE,t.IS_ADMIN,t.IS_CHECK,t.SetDate
+        from SYS_USER t LEFT JOIN cs_department d
+        on d.DeptDID=t.DeptCode
+        <if test="roleId !=null and roleId != ''">
+            RIGHT JOIN SYS_USER_ROLE r on t.UID = r.UR_USER_ID
+            AND r.UR_ROLE_ID = #{roleId}
+        </if>
+        where t.USER_TYPE = '3'
+        <if test="username !=null and username != ''">
+            AND t.USER_USERNAME = #{username}
+        </if>
+        <if test="realName !=null and realName != ''">
+            AND t.USER_REAL_NAME = #{realName}
+        </if>
+        <if test="realNameLike !=null and realNameLike != ''">
+            AND t.USER_REAL_NAME LIKE concat('%', #{realNameLike},'%')
+        </if>
+
+        <if test="jurUnit !=null and jurUnit != ''">
+            AND t.JUR_UNIT = #{jurUnit}
+        </if>
+        <if test="extNetAuth !=null and extNetAuth != ''">
+            AND t.EXT_NET_AUTH = #{extNetAuth}
+        </if>
+        <if test="status !=null and status != ''">
+            AND t.USER_STATUS = #{status}
+        </if>
+        <if test="userSetPerson !=null and userSetPerson != ''">
+            AND t.USER_SET_PERSON = #{userSetPerson}
+        </if>
+        <if test="deptCode !=null and deptCode != ''">
+            AND t.DeptCode = #{deptCode}
+        </if>
+        <if test="postLike !=null and postLike != ''">
+            AND t.POST LIKE #{postLike}
+        </if>
+        <if test="deptCodeLike !=null and deptCodeLike != ''">
+            AND d.DeptCode LIKE #{deptCodeLike}
+        </if>
+        ORDER BY USER_CREATE_TIME DESC
+    </select>
+    <!-- 小微监测用户信息 end -->
+
+    <select id="selectUserByUId" parameterType="string" resultMap="SysUserDto">
+    select t.UID,USER_USERNAME, USER_PASSWORD,USER_PASSWORD_SALT,USER_IDENTITY,
+    USER_REAL_NAME,USER_EMAIL,USER_CREATE_TIME,USER_LAST_LOGIN_TIME,
+    USER_STATUS,USER_DESC,DEPT_NAME,POST,TEL_PHONE,PHONE,PHONE_EXT,USER_SET_PERSON,SEARCH_RANGE_LEVEL,SEARCH_RANGE_ENT_TYPE,EXT_NET_AUTH,JUR_UNIT,t.DeptCode,
+    d.DeptName Dept ,USER_TYPE,IS_ADMIN,IS_CHECK
+    from SYS_USER t LEFT JOIN cs_department d on d.DeptDID=t.DeptCode
+    where UID=#{userUID}
+  </select>
+
+    <select id="selectSynUserByUId" parameterType="string" resultMap="SysUserDto">
+    select t.UID,USER_USERNAME, USER_PASSWORD,USER_PASSWORD_SALT,USER_IDENTITY,
+    USER_REAL_NAME,USER_EMAIL,USER_CREATE_TIME,USER_LAST_LOGIN_TIME,
+    USER_STATUS,USER_DESC,DEPT_NAME,POST,TEL_PHONE,PHONE,PHONE_EXT,USER_SET_PERSON,SEARCH_RANGE_LEVEL,SEARCH_RANGE_ENT_TYPE,EXT_NET_AUTH,JUR_UNIT,t.DeptCode,
+    d.OrgName Dept ,USER_TYPE,IS_ADMIN,IS_CHECK
+    from SYS_USER t LEFT JOIN cs_sys_depart d on d.OrgCoding=t.DeptCode
+    where UID=#{userUID}
+  </select>
+
+    <select id="selectByLoginNameAndUserType" parameterType="map" resultMap="SysUserDto">
+    select UID,USER_USERNAME, USER_PASSWORD,USER_PASSWORD_SALT,USER_IDENTITY,
+    USER_REAL_NAME,USER_EMAIL,USER_CREATE_TIME,USER_LAST_LOGIN_TIME,
+    USER_STATUS,USER_DESC,DEPT_NAME,POST,TEL_PHONE,PHONE,PHONE_EXT,USER_SET_PERSON,SEARCH_RANGE_LEVEL,SEARCH_RANGE_ENT_TYPE,EXT_NET_AUTH,JUR_UNIT,DeptCode,
+    USER_TYPE,IS_ADMIN,IS_CHECK,USER_PASSWORD_KEY,UserId
+    from SYS_USER
+    where USER_USERNAME=#{loginName} and  USER_TYPE=#{userType}
+    <if test="status !=null and status !=''">
+       USER_STATUS =#{status}
+    </if>
+    <if test="userPasswordKey !=null and userPasswordKey !=''">
+       USER_PASSWORD_KEY =#{userPasswordKey}
+    </if>
+  </select>
+  
+   <!-- 根绝用户名 可解密密码查询用户 -->
+    <select id="selectListByUserPasswordKey" parameterType="map" resultMap="SysUserDto">
+    select UID,USER_USERNAME, USER_PASSWORD,USER_PASSWORD_SALT,USER_IDENTITY,
+    USER_REAL_NAME,USER_EMAIL,USER_CREATE_TIME,USER_LAST_LOGIN_TIME,
+    USER_STATUS,USER_DESC,DEPT_NAME,POST,TEL_PHONE,PHONE,PHONE_EXT,USER_SET_PERSON,SEARCH_RANGE_LEVEL,SEARCH_RANGE_ENT_TYPE,EXT_NET_AUTH,JUR_UNIT,DeptCode,
+    USER_TYPE,IS_ADMIN,IS_CHECK,USER_PASSWORD_KEY,UserId
+    from SYS_USER
+    where USER_USERNAME=#{loginName} and  USER_TYPE=#{userType}
+    <if test="status !=null and status !=''">
+       and USER_STATUS =#{status}
+    </if>
+    <if test="userPasswordKey !=null and userPasswordKey !=''">
+       and USER_PASSWORD_KEY =#{userPasswordKey}
+    </if>
+  </select>
+
+    <update id="revalidUser" parameterType="string">
+ 	 update SYS_USER set IS_CHECK=NULL WHERE UID=#{id}
+	</update>
+	
+	 <!-- 根据用户名或手机号码查询 -->
+	 <select id="selectSysUserListByLoginNameOrTelPhoneAndUserType" parameterType="map" resultMap="SysUserDto">
+	   SELECT
+	    A.UID,
+		A.USER_USERNAME,
+		A.USER_PASSWORD,
+		A.USER_PASSWORD_SALT,
+		A.USER_IDENTITY,
+		A.USER_REAL_NAME,
+		A.USER_EMAIL,
+		A.USER_CREATE_TIME,
+		A.USER_LAST_LOGIN_TIME,
+		A.USER_STATUS,
+		A.USER_DESC,
+		A.DEPT_NAME,
+		A.POST,
+		A.TEL_PHONE,
+		A.PHONE,
+		A.PHONE_EXT,
+		A.USER_SET_PERSON,
+		A.SEARCH_RANGE_LEVEL,
+		A.SEARCH_RANGE_ENT_TYPE,
+		A.EXT_NET_AUTH,
+		A.JUR_UNIT,
+		A.DeptCode,
+		A.USER_TYPE,
+		A.IS_ADMIN,
+		A.IS_CHECK,
+		A.USER_PASSWORD_KEY,
+		A.UserId
+	    from SYS_USER A,
+	    cs_department B
+	    where
+	    A.DeptCode = B.DeptDID
+	    AND  (A.USER_USERNAME=#{loginName} or A.TEL_PHONE=#{loginName})
+	    AND  A.USER_TYPE=#{userType}  
+	    <if test="userStatus !=null and userStatus !=''">
+         AND  A.USER_STATUS=#{userStatus} 
+    	</if> 
+	  </select>
+</mapper>

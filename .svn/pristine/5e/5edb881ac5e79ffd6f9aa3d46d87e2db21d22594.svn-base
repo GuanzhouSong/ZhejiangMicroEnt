@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.bulletin.mapper.PubAnnounceMentMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.bulletin.model.PubAnnounceMent" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="AuditDate" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="AuditArea" property="auditArea" jdbcType="VARCHAR" />
+    <result column="AuditDeptName" property="auditDeptName" jdbcType="VARCHAR" />
+    <result column="PubType" property="pubType" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="LinkUID" property="linkUID" jdbcType="VARCHAR" />
+    <result column="PubTitle" property="pubTitle" jdbcType="VARCHAR" />
+    <result column="Year" property="year" jdbcType="VARCHAR" />
+    <result column="LicZone" property="licZone" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseResultDtoMap" type="com.icinfo.cs.bulletin.dto.PubAnnounceMentDto" extends="BaseResultMap">
+     <result column="RegState" property="regState" jdbcType="VARCHAR" />
+     <result column="UniCode" property="uniCode" jdbcType="VARCHAR" />
+     <result column="RegNO" property="regNO" jdbcType="VARCHAR" />
+     <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+     <result column="EntTypeCatg" property="entTypeCatg" jdbcType="VARCHAR" />
+     <result column="SetName" property="setName" jdbcType="VARCHAR" />
+     <result column="bulletinWay" property="bulletinWay" jdbcType="VARCHAR" />
+     <result column="pubState" property="pubState" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <select id="doGetBulletinInfo" resultMap="BaseResultMap" parameterType="Map">
+    select
+    id,UID,PriPID,EntName,AuditDate,AuditArea,PubType,CreateTime,LinkUID,pubTitle,AuditDeptName,LicZone,Year
+    from
+    cs_pub_announcement
+    where 1=1
+    <if test="pubType !=null and pubType !=''">
+    and PubType = #{pubType}
+    </if>
+    <if test="pubTitle !=null and pubTitle !=''">
+    and  PubTitle  LIKE concat('%', #{pubTitle},'%')
+    </if>
+    <if test="auditArea !=null and auditArea !=''">
+    and  AuditArea = #{auditArea}
+    </if>
+    ORDER BY AuditDate desc
+  </select>
+  
+  <select id="doGetPubBulletinfoForServer" resultMap="BaseResultDtoMap"  parameterType="Map">
+	   SELECT
+		t.UID,
+		t.PriPID,
+		t.AuditDate,
+		t.AuditArea,
+		t.PubType,
+		t.CreateTime,
+		t.LinkUID,
+		t.pubTitle,
+		t.AuditDeptName,
+		a.RegState,
+		a.UniCode,
+		a.RegNO,
+		a.EntName,
+		a.RegOrgName,
+		a.EntTypeCatg,
+		b.SetName,
+        CASE
+		WHEN b.UID IS NULL THEN
+			'1'
+		ELSE
+			'0'
+		END AS bulletinWay,
+		'0' pubState
+	FROM
+		cs_pub_announcement t
+	LEFT JOIN cs_mid_baseinfo a ON t.PriPID = a.PriPID
+	LEFT JOIN cs_bulletins b ON t.LinkUID = b.UID
+	<where>
+		<include refid="bulletinServer_where"/>
+	</where>
+	LIMIT ${numStart},${pageSize}
+  </select>
+  
+  <select id="selectPubBulletinTotalForServer" resultType="Integer" parameterType="Map"> 
+     SELECT
+      COUNT(0)
+    FROM
+		cs_pub_announcement t
+	LEFT JOIN cs_mid_baseinfo a ON t.PriPID = a.PriPID
+	LEFT JOIN cs_bulletins b ON t.LinkUID = b.UID
+	<where>
+		<include refid="bulletinServer_where"/>
+	</where>
+  </select>
+  
+  <select id="selectDistinctBulletinTotalForServer" resultType="Integer" parameterType="Map"> 
+     SELECT
+      COUNT(DISTINCT t.PriPID)
+    FROM
+		cs_pub_announcement t
+	LEFT JOIN cs_mid_baseinfo a ON t.PriPID = a.PriPID
+	LEFT JOIN cs_bulletins b ON t.LinkUID = b.UID
+	<where>
+		<include refid="bulletinServer_where"/>
+	</where>
+  </select>
+  
+  <sql id="bulletinServer_where">
+     <if test="entName !='' and entName !=null">
+      And a.EntName LIKE concat('%', #{entName},'%')
+    </if>
+     <if test="uniCodeOrRegNO !='' and uniCodeOrRegNO !=null">
+      And (a.UniCode LIKE concat('%', #{uniCodeOrRegNO}) Or a.RegNO LIKE concat('%', #{uniCodeOrRegNO}))
+    </if>
+    <if test="regOrg !='' and regOrg !=null">
+     And a.RegOrg IN (${regOrg})
+    </if>
+    <if test="regStates!=null and regStates!=''">
+		And a.RegState IN
+		<foreach item="item" index="index" collection="regStates" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+    </if>
+    <if test="pubType !=null and pubType !=''">
+    And t.PubType IN (${pubType})
+    </if>
+    <if test="pubTitle !=null and pubTitle !=''">
+    And t.PubTitle  LIKE concat('%', #{pubTitle},'%')
+    </if>
+    <if test="entCatg !='' and entCatg !=null">
+    And a.EntTypeCatg IN (${entCatg})
+    </if>
+    <if test="bulletinWay == 0 and bulletinWay !=null and bulletinWay!=''">
+    And b.UID IS NOT NULL
+    </if>
+    <if test="bulletinWay == 1 and bulletinWay !=null and bulletinWay!=''">
+    And b.UID IS NULL
+    </if>
+    <if test="pubState == 1">
+    And 0 = #{pubState}
+    </if>
+    <if test="setName !='' and setName !=null">
+    And b.SetName = #{setName}
+    </if>
+    <if test="auditDeptName !='' and auditDeptName !=null">
+    And t.AuditDeptName LIKE concat('%', #{auditDeptName},'%')
+    </if>
+    <if test="auditDateStart !='' and auditDateStart !=null">
+      <![CDATA[
+	  and DATE_FORMAT(t.AuditDate,'%Y-%m-%d') >= #{auditDateStart}
+	  ]]>
+     </if>
+      <if test="auditDateEnd !='' and auditDateEnd !=null">
+      <![CDATA[
+	  and DATE_FORMAT(t.AuditDate,'%Y-%m-%d') <= #{auditDateEnd}
+	  ]]>
+     </if>
+  </sql>
+  
+</mapper>

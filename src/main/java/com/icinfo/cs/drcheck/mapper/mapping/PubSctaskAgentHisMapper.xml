@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.drcheck.mapper.PubSctaskAgentHisMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.drcheck.model.PubSctaskAgentHis" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="TaskNO" property="taskNO" jdbcType="VARCHAR" />
+    <result column="AgentId" property="agentId" jdbcType="VARCHAR" />
+    <result column="AgentOrder" property="agentOrder" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <!--批量导入 未进行设置编码 -->
+	<insert id="insertBatch" parameterType="java.util.List">
+		INSERT INTO cs_pub_sctask_agent_his
+		(TaskNO,AgentId,AgentOrder,CreateTime)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.taskNO},#{item.agentId},#{item.agentOrder},#{item.createTime})
+		</foreach>
+	</insert>
+	
+	<select id="selectOrderPubSctaskAgentBack" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select b.AgentId,b.TaskNO
+		from cs_pub_sctask_agent_back b
+		LEFT JOIN cs_pub_scagent a ON b.AgentId = a.UID
+		where b.TaskNO = #{taskNO} 
+	</select>
+</mapper>

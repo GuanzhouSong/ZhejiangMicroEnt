@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.im.mapper.ImPermitMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.im.model.ImPermit" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="LicNO" property="licNO" jdbcType="VARCHAR" />
+    <result column="ValTo" property="valTo" jdbcType="DATE" />
+    <result column="LicAnth" property="licAnth" jdbcType="VARCHAR" />
+    <result column="ValFrom" property="valFrom" jdbcType="DATE" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="CanDate" property="canDate" jdbcType="DATE" />
+    <result column="RevDate" property="revDate" jdbcType="DATE" />
+    <result column="EquPleCanRea" property="equPleCanRea" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="LicNameCN" property="licNameCN" jdbcType="VARCHAR" />
+    <result column="LicID" property="licID" jdbcType="VARCHAR" />
+    <result column="InvAliDRea" property="invAliDRea" jdbcType="VARCHAR" />
+    <result column="InvAlidDate" property="invAlidDate" jdbcType="DATE" />
+    <result column="PubType" property="pubType" jdbcType="VARCHAR" />
+    <result column="PubFlag" property="pubFlag" jdbcType="VARCHAR" />
+    <result column="PublicDate" property="publicDate" jdbcType="DATE" />
+    <result column="LicItem" property="licItem" jdbcType="LONGVARCHAR" />
+    <result column="SugRevReason" property="sugRevReason" jdbcType="LONGVARCHAR" />
+  </resultMap>
+</mapper>

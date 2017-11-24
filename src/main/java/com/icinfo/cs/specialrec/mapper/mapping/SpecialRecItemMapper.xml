@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.specialrec.mapper.SpecialRecItemMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.specialrec.model.SpecialRecItem" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Uid" property="uid" jdbcType="VARCHAR" />
+    <result column="ResultUid" property="resultUid" jdbcType="VARCHAR" />
+    <result column="CheckContent" property="checkContent" jdbcType="VARCHAR" />
+    <result column="CheckProblem" property="checkProblem" jdbcType="VARCHAR" />
+    <result column="DisposalContent" property="disposalContent" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,201 @@
+require(['component/iframeLayer', 'component/dataTable', 'common/util', 'common/http', 'handlebars', 'jquery','jquery.serialize','laydate'], function (layer, dataTable, util, http,handlebars) {
+	var table_one,table_all,table,paramsType;
+	var flag_one=false;
+	var flag_all = false;
+	var searchParams_one=$("#form_one").serializeObject();
+	var searchParams_all=$("#form_all").serializeObject();
+	var sysDate = getNowFormatDate();
+    init();
+    /**
+     * 初始化函数集合
+     */
+    function init() {
+        initDataTable('one');
+        bind();
+    }
+    
+  //获取当前时间
+    function getNowFormatDate() {
+        var date = new Date();
+        var seperator1 = "-";
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate;
+        return currentdate;
+    }
+    /**
+     * 初始化dataTable
+     */
+    function initDataTable(_type) {
+    	if(_type=='one') flag_one = true;
+    	else     		flag_all = true;
+    	table = (_type == 'one') ? table_one : table_all;
+    	var tableId = '#table_' + _type
+    	paramsType = (_type == 'one') ? searchParams_one : searchParams_all;
+    	table = dataTable.load({
+            //需要初始化dataTable的dom元素
+            el: tableId,
+			scrollX:true, //支持滚动
+            //是否加索引值
+            showIndex: true,
+            ajax: {
+                url:'/syn/risk/cswarnmark/doGetSupMarklist',
+                data:function(d){
+                	d.params = paramsType;
+                }
+            },
+            columns: [
+                {data: '_idx', className: 'center'},
+                {data: 'id', className: 'center'},
+                {data: 'markNo', className: 'center'},
+                {data: 'markSetYear',className: 'center' },
+                {data: 'markClass', className: 'center'},
+                {data: 'markName', className: 'center'},
+                {data: 'markContent', className: 'center', cut: {length: 20, mark: '...'}},
+                {data: 'markStartDate', className: 'center'},
+                {data: 'markEndDate', className: 'center'},
+                {data: 'markState', className: 'center'},
+                {data: 'markAppointWay', className: 'center'},
+                {data: 'setDeptContact', className: 'center'},
+                {data: 'markSetDept', className: 'center'},
+                {data: 'markSetDate', className: 'center'}
+            ],
+             columnDefs : [
+							{
+								targets: 4,
+			                    render: function (data, type, row, meta) {
+			                    	if(row.markClass=='0')  return '关注';
+			                    	else if(row.markClass=='1') return '警示'
+			                    	else  if(row.markClass=='2') return '限制'
+			                    }
+			                },{
+								targets: 9,
+			                    render: function (data, type, row, meta) {
+			                    	if(row.markState=='1' &&(!(Date.parse(sysDate) > Date.parse(row.markEndDate)))&&(!(Date.parse(sysDate) < Date.parse(row.markStartDate))))
+			                    			return '有效';
+			                    	else return '无效';
+			                    }
+			                },{
+								targets: 10,
+			                    render: function (data, type, row, meta) {
+			                    	if(row.markAppointWay=='0')  return '对内提示';
+			                    	else if(row.markAppointWay=='1') return '部门共享';
+			                    	else return '公开发布';
+			                    }
+			                },{
+								targets: 1,
+			                    render: function (data, type, row, meta) {
+			                    	if(_type!='one') return "<a class='view'>查看</a>";
+			                    	if(row.markState=='1' && (Date.parse(sysDate) <= Date.parse(row.markEndDate)) && (Date.parse(sysDate) >= Date.parse(row.markStartDate)))
+				                    	    return "<a href='javascript:void(0)' class='mr10 markedit'>修改</a><a href='javascript:void(0)' class='disable'>失效</a>";
+				                        else 
+				                    	    return "<a href='javascript:void(0)' class='view'>查看</a>";	
+			                    }
+			                }
+					  ]
+             })
+        }
+    
+    
+    function bind() {
+        util.bindEvents([
+        {
+            el: '#searchOne',
+            event: 'click',
+            handler: function () {
+            	paramsType = $("#form_one").serializeObject();
+            	table.ajax.reload();
+            }
+        },{
+            el: '.view',
+            event: 'click',
+            handler: function () {
+            	var data = table.row($(this).closest('td')).data();
+            	if(data.uid==null || data.uid=='') return ;
+            	window.location.href='/syn/risk/cswarnmark/doEnMarkView?uid='+data.uid;
+            }
+        },{
+        	el:'#reset_one',
+        	event:'click',
+        	handler:function(){
+        		$('.clx_one').val('');
+        	}
+        },{
+        	el:'#reset_all',
+        	event:'click',
+        	handler:function(){
+        		$('.clx_all').val('');
+        	}
+        },{
+        	el: '#searchAll',
+        	event: 'click',
+            handler: function () {
+            	paramsType = $("#form_all").serializeObject();
+            	table.ajax.reload();
+            }
+        },{
+        	el: '._tab',
+        	event: 'click',
+            handler: function () {
+            	var _id = $(this).attr('id');
+            	if(_id == 'one' && !flag_one) initDataTable(_id);
+            	if(_id == 'all' && !flag_all) initDataTable(_id);
+            }
+        },{
+        	el: '.markadd',
+        	event: 'click',
+            handler: function () {
+            	window.location.href='/syn/risk/cswarnmark/doEnMarkAddAndEdit';
+            }
+        },{
+        	el: '.markedit',
+        	event: 'click',
+            handler: function () {
+            	var data = table.row($(this).closest('td')).data();
+            	if(data.uid==null || data.uid=='') return ;
+            	window.location.href='/syn/risk/cswarnmark/doEnMarkAddAndEdit?uid='+data.uid;
+            }
+        },{
+        	el: '.disable',
+        	event: 'click',
+            handler: function () {
+            	var data = table.row($(this).closest('td')).data();
+            	http.httpRequest({
+                    url: '/syn/risk/cswarnmark/disable',
+                    data: {'uid':data.uid,'markNo':data.markNo,'type':'jg'},
+                    type: 'post',
+                    success: function (data) {
+                        layer.msg(data.msg, {time: 1000}, function () {
+                        	table.ajax.reload();
+                        });
+                    }
+                });
+            }
+        }
+        
+        ])
+    }
+    //选择部门
+    function doSelectWarnMarkSetDept() {
+        var supCode='';
+        var select_dept_url=window._CONFIG.select_dept_url;
+        layer.dialog({
+            title: '选择设置部门',
+            area: ['350px', '666px'],
+            content: select_dept_url+"?supCode="+supCode,
+            callback: function (data) {
+                if(data.deptCode!=null&&data.deptName!=null){
+                    $("#markSetDept").val(data.deptName);
+                    $("#markSetDeptCode").val(data.deptCode);
+                }
+            }
+        })
+    }
+
+})

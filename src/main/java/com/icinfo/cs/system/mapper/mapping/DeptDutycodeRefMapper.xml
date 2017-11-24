@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.system.mapper.DeptDutycodeRefMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.system.model.DeptDutycodeRef" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="OrgCoding" property="orgCoding" jdbcType="VARCHAR" />
+    <result column="AdCode" property="adCode" jdbcType="VARCHAR" />
+    <result column="OrgName" property="orgName" jdbcType="VARCHAR" />
+    <result column="DutyDeptCode" property="dutyDeptCode" jdbcType="VARCHAR" />
+    <result column="DutyDeptName" property="dutyDeptName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  
+    <!-- 根据adCode和dutyDeptCode查询-->
+    <select id="selectDeptDutycodeRefByAdCodeSubDutyDeptCode" resultMap="BaseResultMap" parameterType="Map">
+	select id,
+		   OrgCoding,
+		   AdCode,
+		   OrgName,
+		   DutyDeptCode,
+		   DutyDeptName
+    from cs_dept_dutycode_ref 
+    where LENGTH(AdCode)=13 
+    <if test="adCode !='' and adCode !=null">
+	    and LEFT(adCode,9)= #{adCode}
+	</if>
+	<if test="dutyDeptCode !='' and dutyDeptCode !=null">
+	     and DutyDeptCode= #{dutyDeptCode} 
+	</if>
+    </select>
+  
+  
+    <!-- 根据adCode和dutyDeptCode查询-->
+    <select id="selectByName" resultMap="BaseResultMap" parameterType="Map">
+		select a.OrgCoding,
+			   f.AdCode,
+			   a.OrgName,
+			   f.DutyDeptCode,
+			   f.DutyDeptName
+	    from cs_sys_depart a left join cs_dept_dutycode_ref f on a.OrgCoding = f.OrgCoding
+	    where 1=1
+	    <if test="orgName !='' and orgName !=null">
+		    and a.OrgName = #{orgName}
+		</if>
+		<if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+			<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+				separator="OR" close=")">
+				f.DutyDeptCode like concat('%',#{item},'%')
+			</foreach>
+		</if>
+    </select>
+
+  <select id="getMaxAdCode" resultType="string" parameterType="string">
+    select
+    AdCode
+    from cs_dept_dutycode_ref
+    where PorgCoding=#{orgCoding} order by AdCode DESC LIMIT 0,1
+  </select>
+
+  <select id="getMaxOrgCode" resultType="string" parameterType="string">
+    select
+    OrgCoding
+    from cs_dept_dutycode_ref
+    where PorgCoding=#{orgCoding} order by OrgCoding DESC LIMIT 0,1
+  </select>
+
+</mapper>

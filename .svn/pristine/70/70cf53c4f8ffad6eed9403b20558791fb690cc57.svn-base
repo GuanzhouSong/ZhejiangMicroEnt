@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.IndividQuestionnaireMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.IndividQuestionnaire" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="QueID" property="queID" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="VendInc" property="vendInc" jdbcType="DECIMAL" />
+    <result column="ProGro" property="proGro" jdbcType="DECIMAL" />
+    <result column="RatGro" property="ratGro" jdbcType="DECIMAL" />
+    <result column="SocIns" property="socIns" jdbcType="DECIMAL" />
+    <result column="OpSpace" property="opSpace" jdbcType="DECIMAL" />
+    <result column="EmpNum" property="empNum" jdbcType="INTEGER" />
+    <result column="Insured" property="insured" jdbcType="INTEGER" />
+    <result column="ComLoan" property="comLoan" jdbcType="DECIMAL" />
+    <result column="DomTraRegs" property="domTraRegs" jdbcType="INTEGER" />
+    <result column="PatAmount" property="patAmount" jdbcType="INTEGER" />
+    <result column="HorAmount" property="horAmount" jdbcType="INTEGER" />
+    <result column="TaxpayerType" property="taxpayerType" jdbcType="CHAR" />
+    <result column="QueFlag" property="queFlag" jdbcType="CHAR" />
+    <result column="SetDate" property="setDate" jdbcType="TIMESTAMP" />
+    <result column="QmID" property="qmID" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="BaseResultMapDto" type="com.icinfo.cs.yr.dto.IndividQuestionnaireDto" extends="BaseResultMap">
+  	   <result column="VendIncTotal" property="vendIncTotal" jdbcType="DECIMAL"/>
+       <result column="ProGroTotal" property="proGroTotal" jdbcType="DECIMAL"/>
+       <result column="RatGroTotal" property="ratGroTotal" jdbcType="DECIMAL"/>
+       <result column="SocInsTotal" property="socInsTotal" jdbcType="DECIMAL"/>
+       <result column="OpSpaceTotal" property="opSpaceTotal" jdbcType="DOUBLE"/>
+       <result column="EmpNumTotal" property="empNumTotal" jdbcType="INTEGER"/>
+       <result column="InsuredTotal" property="insuredTotal" jdbcType="INTEGER"/>
+       <result column="ComLoanTotal" property="comLoanTotal" jdbcType="DECIMAL"/>
+       <result column="DomTraRegsTotal" property="domTraRegsTotal" jdbcType="INTEGER"/>
+       <result column="PatAmountTotal" property="patAmountTotal" jdbcType="INTEGER"/>
+       <result column="HorAmountTotal" property="horAmountTotal" jdbcType="INTEGER"/>
+       <result column="TaxpayerTypeCommTotal" property="taxpayerTypeCommTotal" jdbcType="INTEGER"/>
+       <result column="TaxpayerTypeSmallscaleTotal" property="taxpayerTypeSmallscaleTotal" jdbcType="INTEGER"/>
+  </resultMap>
+  <select id="selectQuestionnaireCount" resultMap="BaseResultMapDto" parameterType="Map">
+     SELECT
+		SUM(A.VendInc) vendIncTotal,
+		SUM(A.ProGro) proGroTotal,
+		SUM(A.RatGro) ratGroTotal,
+		SUM(A.SocIns) socInsTotal,
+		SUM(A.OpSpace) opSpaceTotal,
+		SUM(A.EmpNum) empNumTotal,
+		SUM(A.Insured) insuredTotal,
+		SUM(A.ComLoan) comLoanTotal,
+		SUM(A.DomTraRegs) domTraRegsTotal,
+		SUM(A.PatAmount) patAmountTotal,
+		SUM(A.HorAmount) horAmountTotal,
+		SUM(CASE WHEN A.TaxpayerType='1' THEN 1 ELSE 0 END) AS taxpayerTypeCommTotal,
+		SUM(CASE WHEN A.TaxpayerType='2' THEN 1 ELSE 0 END) AS taxpayerTypeSmallscaleTotal
+	FROM
+		cs_individ_questionnaire A
+	LEFT JOIN cs_mid_baseinfo B
+	ON A.PriPID=B.PriPID
+	WHERE
+		A.QueFlag = #{queFlag}
+		<include refid="sql_where" />
+  </select>
+  <sql id="sql_where">
+  		<if test="regOrg != null and regOrg != ''">
+			AND B.RegOrg IN(${regOrg}) 
+		</if>
+       	<if test="year != null and year != ''">
+			AND A.year = #{year}
+		</if>
+		<if test="setDateStart !='' and setDateStart !=null">
+            <![CDATA[
+		and A.SetDate >= #{setDateStart}
+		]]>
+        </if>
+        <if test="setDateEnd !='' and setDateEnd !=null">
+            <![CDATA[
+		and A.SetDate <= #{setDateEnd}
+		]]>
+        </if>
+   </sql>
+</mapper>

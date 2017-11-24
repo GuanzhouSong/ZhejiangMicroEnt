@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.base.mapper.CodeDzLicenseMapper">
+	<resultMap id="BaseResultMap" type="com.icinfo.cs.base.model.CodeDzLicense">
+		<!-- WARNING - @frameworkgenerated -->
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="ExaCode" property="exaCode" jdbcType="VARCHAR" />
+		<result column="ExaName" property="exaName" jdbcType="VARCHAR" />
+		<result column="LicRea" property="licRea" jdbcType="VARCHAR" />
+		<result column="LicDept" property="licDept" jdbcType="VARCHAR" />
+		<result column="LicDeptType" property="licDeptType" jdbcType="VARCHAR" />
+		<result column="LicZone" property="licZone" jdbcType="VARCHAR" />
+		<result column="LicType" property="licType" jdbcType="VARCHAR" />
+		<result column="Content" property="content" jdbcType="VARCHAR" />
+		<result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<!--根据备案事项编码或名称查询后置备案事项 -->
+	<select id="selectCodeLicenseListByExaCodeOrExaName" resultMap="BaseResultMap"
+		parameterType="Map">
+		SELECT
+		id,ExaCode,ExaName,LicRea,LicDept,LicDeptType,LicZone,LicType,CreateTime,Content
+		FROM cs_code_dz_license
+		WHERE LicType='2'
+		<if test="licContent !='' and licContent !=null">
+			AND ExaCode LIKE concat('%', #{licContent},'%') OR ExaName LIKE
+			concat('%', #{licContent},'%')
+		</if>
+		ORDER BY ExaCode ASC
+	</select>
+
+	<!-- 分页查询后置备案事项 -->
+	<select id="selectCodeLicenseSearchList" resultMap="BaseResultMap"
+		parameterType="Map">
+		SELECT
+		ExaCode,ExaName,LicRea,LicDept,LicDeptType,LicZone,LicType,Content
+		FROM cs_code_dz_license
+		WHERE 1=1
+		<if test="licType !='' and licType !=null">
+			AND LicType = #{licType}
+		</if>
+		<if test="exaCode !='' and exaCode !=null">
+			AND ExaCode LIKE concat('%', #{exaCode},'%')
+		</if>
+		<if test="exaName !='' and exaName !=null">
+			AND ExaName LIKE concat('%', #{exaName},'%')
+		</if>
+		<if test="licDept !='' and licDept !=null">
+			AND LicDept LIKE concat('%', #{licDept},'%')
+		</if>
+		<if test="licZone !='' and licZone !=null">
+			<if test="licZone==4 ">
+				and LicZone NOT IN ('0','1','2','3')
+			</if>
+			<if test="licZone!=4">
+				and LicZone=#{licZone}
+			</if>
+		</if>
+		ORDER BY ExaCode ASC
+	</select>
+
+
+	<!--根据备案事项编码或名称查询备案事项 -->
+	<select id="selectLicenseList" resultMap="BaseResultMap"
+		parameterType="Map">
+		SELECT
+		id,ExaCode,ExaName,LicRea,LicDept,LicDeptType,LicZone,LicType,CreateTime,Content
+		FROM cs_code_dz_license
+		WHERE 1=1
+		<if test="licType !='' and licType !=null">
+			AND LicType = #{licType}
+		</if>
+		<if test="licContent !='' and licContent !=null">
+			AND ExaCode LIKE concat('%', #{licContent},'%') OR ExaName LIKE
+			concat('%', #{licContent},'%')
+		</if>
+		ORDER BY ExaCode ASC
+	</select>
+
+</mapper>

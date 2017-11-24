@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.system.mapper.SysLogMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.system.model.SysLog" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="LogEntType" property="logEntType" jdbcType="CHAR" />
+    <result column="LogType" property="logType" jdbcType="VARCHAR" />
+    <result column="LogOperation" property="logOperation" jdbcType="VARCHAR" />
+    <result column="CallIp" property="callIp" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+    <result column="SetId" property="setId" jdbcType="VARCHAR" />
+    <result column="LogMsg" property="logMsg" jdbcType="LONGVARCHAR" />
+	<result column="Remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="BaseResultMapDto" type="com.icinfo.cs.system.dto.SysLogDto" extends="BaseResultMap">
+    <result column="LogOperationCode" property="logOperationCode" jdbcType="VARCHAR" />
+    <result column="LogEntTypeDesc" property="logEntTypeDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <!-- 查询日志列表 -->
+  <select id="selectSysLogList" resultMap="BaseResultMapDto" parameterType="Map"> 
+	SELECT 
+		l.id,l.UID,l.PriPID,l.EntName,l.RegNO,l.Year,l.LogEntType,l.LogType,
+		l.LogOperation LogOperationCode,l.CallIp,l.SetTime,l.SetName,l.SetId,l.LogMsg,l.Remark,
+		e.Content LogEntTypeDesc
+	from cs_sys_log l
+	LEFT JOIN cs_code_entcatg e ON l.LogEntType = e.Code
+	<trim prefix="WHERE" prefixOverrides="AND | OR">
+		<if test="regNo != null and regNo != ''">
+			l.RegNO = #{regNo,jdbcType=VARCHAR}
+		</if>
+		<if test="entName != null and entName != ''">
+			and l.EntName like concat('%', #{entName},'%')
+		</if>
+		<if test="year != null and year != ''">
+			and l.Year = #{year,jdbcType=VARCHAR}
+		</if>
+		<if test="setName != null and setName != ''">
+			and l.SetName like concat('%', #{setName},'%')
+		</if>
+		<if test="logOperation != null and logOperation != ''">
+			and l.logOperation = #{logOperation,jdbcType=VARCHAR}
+		</if>
+		<if test="logMsg != null and logMsg != ''">
+			and l.LogMsg like concat('%', #{logMsg},'%')
+		</if>
+		<if test="getPwdFlag == 01">
+			and l.SetTime > date_sub(now(), interval 12 hour)
+		</if>
+	</trim>
+	order by SetTime desc
+  </select>
+  
+  <!-- 查询日志详情 -->
+  <select id="selectSysLogDtoById" resultMap="BaseResultMapDto" parameterType="Map"> 
+	SELECT 
+		l.id,l.UID,l.PriPID,l.EntName,l.RegNO,l.Year,l.LogEntType,l.LogType,
+		l.LogOperation LogOperationCode,l.CallIp,l.SetTime,l.SetName,l.SetId,l.LogMsg,l.Remark,
+		e.Content LogEntTypeDesc
+	from cs_sys_log l
+	LEFT JOIN cs_code_entcatg e ON l.LogEntType = e.Code
+	where l.id = #{id,jdbcType=INTEGER}
+  </select>
+  
+</mapper>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.drcheck.mapper.PubScCheckBillMapper" >
+  	<resultMap id="BaseResultMap" type="com.icinfo.cs.drcheck.model.PubScCheckBill" >
+	    <!--
+	      WARNING - @frameworkgenerated
+	    -->
+	    <id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="UID" property="UID" jdbcType="VARCHAR" />
+	    <result column="CheckCode" property="checkCode" jdbcType="VARCHAR" />
+	    <result column="CheckDesc" property="checkDesc" jdbcType="VARCHAR" />
+	    <result column="CheckItemCode" property="checkItemCode" jdbcType="VARCHAR" />
+	    <result column="CheckItemDesc" property="checkItemDesc" jdbcType="VARCHAR" />
+	    <result column="CheckReason" property="checkReason" jdbcType="VARCHAR" />
+	    <result column="CheckSubject" property="checkSubject" jdbcType="VARCHAR" />
+	    <result column="CheckObject" property="checkObject" jdbcType="VARCHAR" />
+	    <result column="CheckScale" property="checkScale" jdbcType="VARCHAR" />
+	    <result column="CheckFrequent" property="checkFrequent" jdbcType="VARCHAR" />
+	    <result column="CheckWay" property="checkWay" jdbcType="VARCHAR" />
+	    <result column="CheckManFlag" property="checkManFlag" jdbcType="CHAR" />
+	    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+	    <result column="ResponsibleOffices" property="responsibleOffices" jdbcType="VARCHAR" />
+	    <result column="IsScVlid" property="isScVlid" jdbcType="CHAR" />
+	    <result column="SetUserUid" property="setUserUid" jdbcType="VARCHAR" />
+	    <result column="SetUserName" property="setUserName" jdbcType="VARCHAR" />
+	    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+	    <result column="SetDeptcode" property="setDeptcode" jdbcType="VARCHAR" />
+	    <result column="SetDeptName" property="setDeptName" jdbcType="VARCHAR" />
+	    <result column="CheckContent" property="checkContent" jdbcType="LONGVARCHAR" />
+	    <result column="DutyDeptCode" property="dutyDeptCode" jdbcType="LONGVARCHAR" />
+  	</resultMap>
+  
+	<resultMap type="com.icinfo.cs.drcheck.dto.PubScCheckBillDto" id="PubScCheckBillDto" extends="BaseResultMap">
+  	</resultMap>
+  
+  	<select id="selectPubScCheckBillDtoList" parameterType="Map" resultMap="PubScCheckBillDto">
+	  	SELECT 
+			id,UID,CheckCode,CheckDesc,CheckItemCode,CheckItemDesc,CheckReason,
+			CheckObject,CheckScale,CheckFrequent,CheckWay,CheckManFlag,Remark,ResponsibleOffices,IsScVlid,SetUserUid,
+			SetUserName,SetTime,SetDeptcode,SetDeptName,CheckContent,DutyDeptCode
+		FROM cs_pub_sccheck_bill
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="setUserName !=null and setUserName !=''">
+				and SetUserName = #{setUserName}
+			</if>
+			<if test="isScVlid !=null and isScVlid !=''">
+				and IsScVlid = #{isScVlid}
+			</if>
+			<if test="setTimeStart != null and setTimeStart != ''">
+				<![CDATA[ AND DATE_FORMAT(SetTime,'%Y-%m-%d') >= #{setTimeStart}]]>
+			</if>
+			<if test="setTimeEnd != null and setTimeEnd != ''">
+				<![CDATA[ AND  DATE_FORMAT(SetTime,'%Y-%m-%d') <= #{setTimeEnd} ]]>
+			</if>
+			<if test="checkManFlags != null and checkManFlags != ''">
+				and CheckManFlag in
+				<foreach item="item" index="index" collection="checkManFlags" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="checkWays != null and checkWays != ''">
+				and 
+				<foreach item="item" index="index" collection="checkWays" open="(" separator="OR" close=")">
+					CheckWay like concat('%',#{item},'%')
+				</foreach> 
+			</if>
+			<if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+				<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+					separator="OR" close=")">
+					DutyDeptCode like concat('%',#{item},'%')
+				</foreach>
+			</if>
+		</trim>
+	</select>
+</mapper>

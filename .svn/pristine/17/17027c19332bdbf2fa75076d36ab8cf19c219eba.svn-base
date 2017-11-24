@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.registinfo.mapper.UnlicensedInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.registinfo.model.UnlicensedInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="CHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="CerNO" property="cerNO" jdbcType="VARCHAR" />
+    <result column="MobTel" property="mobTel" jdbcType="VARCHAR" />
+    <result column="FixTel" property="fixTel" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="SliceNo" property="sliceNo" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+    <result column="UnlicState" property="unlicState" jdbcType="CHAR" />
+    <result column="IsInvolve" property="isInvolve" jdbcType="CHAR" />
+    <result column="UnlicType" property="unlicType" jdbcType="CHAR" />
+    <result column="ProLocAddress" property="proLocAddress" jdbcType="VARCHAR" />
+    <result column="ProLocStreet" property="proLocStreet" jdbcType="VARCHAR" />
+    <result column="ProLocCounty" property="proLocCounty" jdbcType="VARCHAR" />
+    <result column="ProLocCity" property="proLocCity" jdbcType="VARCHAR" />
+    <result column="MgrName" property="mgrName" jdbcType="VARCHAR" />
+    <result column="MgrScope" property="mgrScope" jdbcType="VARCHAR" />
+    <result column="ProLoc" property="proLoc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+    <resultMap id="UlManageBaseResultMap" type="com.icinfo.cs.registinfo.model.UlManage" extends="BaseResultMap">
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="DisposeWay" property="disposeWay" jdbcType="VARCHAR" />
+    <result column="DisposeDate" property="disposeDate" jdbcType="TIMESTAMP" />
+    <result column="DisposeName" property="disposeName" jdbcType="VARCHAR" />
+    <result column="InputName" property="inputName" jdbcType="VARCHAR" />
+    <result column="Remark" property="remark" jdbcType="LONGVARCHAR" />
+    <result column="LogoffReason" property="logoffReason" jdbcType="VARCHAR" />
+    </resultMap>
+  <resultMap id="BaseResultMapDto" type="com.icinfo.cs.registinfo.dto.UnlicensedInfoDto" extends="BaseResultMap">
+      <result column="SliceMan" property="sliceMan" jdbcType="VARCHAR" />
+      <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+      <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+      <result column="SliceTel" property="sliceTel" jdbcType="VARCHAR" />
+      <result column="Dom" property="dom" jdbcType="VARCHAR" />
+      <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+      <result column="EstDate" property="estDate" jdbcType="VARCHAR" />
+      <result column="OpTo" property="opTo" jdbcType="VARCHAR" />
+      <result column="SliceNoName" property="sliceNoName" jdbcType="VARCHAR" />
+      <result column="RegState" property="regState" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <!-- 查询无照库表表格信息，无照库查询页面用 -->
+  <select id="unlicensedInfoQueryPage" parameterType="Map" resultMap="BaseResultMapDto">
+  SELECT
+  id,
+  PriPID,
+  EntName,
+  RegNO,
+  LocalAdm,
+  UniCode,
+  Name,
+  CerNO,
+  MobTel,
+  FixTel,
+  CreateTime,
+  UID,
+  ProLoc,
+  SliceNo,
+  SetTime,
+  SetName,
+  UnlicState,
+  IsInvolve,
+  UnlicType,
+  ProLocAddress,
+  ProLocStreet,
+  ProLocCounty,
+  ProLocCity,
+  MgrName,
+  MgrScope,
+  ( SELECT b.OpTo FROM cs_mid_baseinfo b WHERE b.PriPID=u.PriPID)OpTo,
+  ( SELECT b.SliceNoName FROM cs_mid_baseinfo b WHERE b.PriPID=u.PriPID)SliceNoName,
+  ( SELECT b.RegState FROM cs_mid_baseinfo b WHERE b.PriPID=u.PriPID)RegState
+  FROM
+  cs_unlicensed_info u
+  <where>
+  <if test="unlicState !=null and unlicState != ''">
+      AND UnlicState = #{unlicState}
+  </if>
+    <if test="name !=null and name != ''">
+      AND Name like CONCAT('%', #{name},'%')
+  </if>
+  <if test="entName !=null and entName != ''">
+      AND EntName like CONCAT('%', #{entName},'%')
+  </if>
+  <if test="proLoc !=null and proLoc != ''">
+     AND ProLoc like CONCAT('%', #{proLoc},'%')
+ </if>
+    <if test="mgrName !=null and mgrName != ''">
+      AND MgrName   like CONCAT('%', #{mgrName},'%')
+    </if>
+    <if test="cerNO !=null and cerNO != ''">
+      AND CerNO = #{cerNO}
+    </if>
+    <if test="proLocAddress !=null and proLocAddress != ''">
+      AND ProLocAddress  like CONCAT('%', #{proLocAddress},'%')
+    </if>
+      <if test="uniCode !=null and uniCode != ''">
+          AND UniCode = #{uniCode}
+      </if>
+      <if test="regNO !=null and regNO != ''">
+          AND RegNO = #{regNO}
+      </if>
+      <if test="localAdm !=null and localAdm != ''">
+          AND LocalAdm = #{localAdm}
+      </if>
+      <if test="unlicType !=null and unlicType != ''">
+          AND UnlicType = #{unlicType}
+      </if>
+      <if test="sliceNo !=null and sliceNo != ''">
+          AND SliceNo = #{sliceNo}
+      </if>
+
+  </where>
+</select>
+
+  <select id="selectUnlicensedInfoByUid" parameterType="String" resultMap="BaseResultMapDto">
+    SELECT
+    PriPID,
+    EntName,
+    RegNO,
+    LocalAdm,
+    (SELECT LocalAdmName FROM cs_mid_baseinfo c WHERE c.PriPID= u.PriPID LIMIT 0,1)  LocalAdmName,
+    UniCode,
+    Name,
+    CerNO,
+    MobTel,
+    FixTel,
+    CreateTime,
+    UID,
+    ProLoc,
+    SliceNo,
+    SetTime,
+    SetName,
+    UnlicState,
+    IsInvolve,
+    UnlicType,
+    ProLocAddress,
+    ProLocStreet,
+    ProLocCounty,
+    ProLocCity,
+    MgrName,
+    MgrScope,
+  ( SELECT b.OpTo FROM cs_mid_baseinfo b WHERE b.PriPID=u.PriPID)OpTo,
+  ( SELECT b.SliceNoName FROM cs_mid_baseinfo b WHERE b.PriPID=u.PriPID)SliceNoName,
+  ( SELECT b.RegState FROM cs_mid_baseinfo b WHERE b.PriPID=u.PriPID)RegState
+    FROM
+    cs_unlicensed_info u
+    WHERE UID=#{uid}
+   </select>
+    <select id="selectMidBaseinfoByregNO" parameterType="com.icinfo.cs.ext.model.MidBaseInfo" resultMap="BaseResultMapDto">
+        SELECT
+        c.RegState,
+        c.OpTo,
+        c.LeRep,
+        c.EntName MgrName,
+        c.OpScope MgrScope
+        FROM cs_mid_baseinfo c
+        WHERE c.RegNO=#{regNO}
+   </select>
+
+</mapper>

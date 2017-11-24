@@ -1,0 +1,844 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.PubOtherpunishMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.PubOtherpunish" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="CaseNO" property="caseNO" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="PenDecNo" property="penDecNo" jdbcType="VARCHAR" />
+    <result column="PenType" property="penType" jdbcType="VARCHAR" />
+    <result column="PenAm" property="penAm" jdbcType="DECIMAL" />
+    <result column="ForfAm" property="forfAm" jdbcType="DECIMAL" />
+    <result column="PenDecIssDate" property="penDecIssDate" jdbcType="DATE" />
+    <result column="JudAuth" property="judAuth" jdbcType="VARCHAR" />
+    <result column="PubFlag" property="pubFlag" jdbcType="VARCHAR" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+    <result column="SetDate" property="setDate" jdbcType="DATE" />
+    <result column="AuditName" property="auditName" jdbcType="VARCHAR" />
+    <result column="AuditDate" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="AuditState" property="auditState" jdbcType="CHAR" />
+    <result column="AuditOpin" property="auditOpin" jdbcType="VARCHAR" />
+    <result column="SetDeptname" property="setDeptname" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="IllegActType" property="illegActType" jdbcType="LONGVARCHAR" />
+    <result column="PenContent" property="penContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.yr.dto.PubOtherpunishDto" id="BaseDtoResultMap" extends="BaseResultMap">
+    <result column="regOrgDesc" property="regOrgDesc" jdbcType="VARCHAR"/>
+    <result column="localAdmName" property="localAdmName" jdbcType="VARCHAR"/>
+    <result column="entTypeCatgDesc" property="entTypeCatgDesc" jdbcType="VARCHAR"/>
+    <result column="SliceNOName" property="sliceNOName" jdbcType="VARCHAR"/>
+    <result column="punIsAlter" property="punIsAlter" jdbcType="VARCHAR"/>
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.yr.dto.PubOtherpunishDto" id="PunishSearchResultMap" extends="BaseResultMap">
+    <result column="regOrgDesc" property="regOrgDesc" jdbcType="VARCHAR"/>
+    <result column="localAdmName" property="localAdmName" jdbcType="VARCHAR"/>
+    <result column="entTypeCatgDesc" property="entTypeCatgDesc" jdbcType="VARCHAR"/>
+    <result column="SliceNOName" property="sliceNOName" jdbcType="VARCHAR"/>
+    <result column="punIsAlter" property="punIsAlter" jdbcType="VARCHAR"/>
+    <result column="RegState" property="regState" jdbcType="VARCHAR"/>
+    <result column="Dom" property="dom" jdbcType="VARCHAR"/>
+    <result column="punSource" property="punSource" jdbcType="VARCHAR"/>
+    <result column="total" property="total" jdbcType="INTEGER"/>
+    <result column="amount" property="amount" jdbcType="INTEGER"/>
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.yr.dto.PubOtherpunishDto" id="PunishDetailsResultMap" extends="BaseResultMap">
+    <result column="regOrgDesc" property="regOrgDesc" jdbcType="VARCHAR"/>
+    <result column="localAdmName" property="localAdmName" jdbcType="VARCHAR"/>
+    <result column="entTypeCatgDesc" property="entTypeCatgDesc" jdbcType="VARCHAR"/>
+    <result column="SliceNOName" property="sliceNOName" jdbcType="VARCHAR"/>
+    <result column="punIsAlter" property="punIsAlter" jdbcType="VARCHAR"/>
+    <result column="RegState" property="regState" jdbcType="VARCHAR"/>
+    <result column="Dom" property="dom" jdbcType="VARCHAR"/>
+    <result column="punSource" property="punSource" jdbcType="VARCHAR"/>
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR"/>
+    <result column="PunDecDoc" property="punDecDoc" jdbcType="VARCHAR"/>
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.yr.dto.PubOtherpunishDto" id="PunishForPubResultDetailsMap" extends="BaseResultMap">
+  	<result column="PunDecDoc" jdbcType="VARCHAR" property="punDecDoc" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.yr.dto.PubOtherpunishDto" id="PunishForPubResultMap" extends="BaseResultMap">
+  </resultMap>
+  
+  
+  
+   <!-- 根据主体身份代码查询行政处罚 -->
+   <select id="selectPubOtherpunishDto" resultMap="PunishForPubResultDetailsMap" parameterType="Map">
+       SELECT
+			PriPID,
+		    CaseNO,
+		    PenDecNo,
+			IllegActType,
+			PenContent,
+			penDecIssDate,
+			JudAuth,
+			AuditDate,
+			PubFlag
+		FROM
+			cs_pub_otherpunish 
+		where   PriPID=#{priPID}   AND PubFlag = '1'
+		UNION ALL 
+		SELECT
+			PriPID,
+			CaseNO,
+			PenDecNo,
+			IllegActType,
+			PenContent,
+			PenDecIssDate,
+			PenAuth JudAuth,
+			AuditDate,
+			'1' PubFlag
+		FROM
+			cs_mid_caseinfo
+		where 
+			PriPID=#{priPID}
+  </select>
+  
+  <select id="selectOtherPunishInfo" resultMap="BaseDtoResultMap" parameterType="Map">
+    select 
+    a.CaseNO,
+    a.PriPID,
+    b.RegNO,
+    a.EntName,
+    PenDecNo,
+    PenType,
+    PenAm,
+    ForfAm,
+    PenDecIssDate,
+    JudAuth,
+    PubFlag,
+    SetName,
+    SetDate,
+    AuditName,
+    AuditDate,
+    AuditState,
+    SetDeptname,
+    IllegActType,
+    b.SliceNOName,
+	b.RegOrgName regOrgDesc,
+	b.LocalAdmName localAdmName,
+	CASE 
+	WHEN t.PriPID IS NULL
+	THEN '无' ELSE '有' END AS punIsAlter
+	FROM cs_pub_otherpunish a
+	LEFT JOIN cs_mid_baseinfo b ON a.PriPID = b.PriPID
+	LEFT JOIN 
+	(SELECT DISTINCT CaseNO,PriPID FROM cs_pub_otherpunish_alter ) t 
+	ON a.CaseNO =t.CaseNO AND a.PriPID = t.PriPID
+	<where>
+		<include refid="punishInfo_where" />
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	</where>
+	order by a.SetDate desc
+  </select>
+  
+  <!--行政处罚查询 -->
+  <select id="selectInfoForPunishSearch" resultMap="PunishSearchResultMap" parameterType="Map">
+  select 
+      t.CaseNO,
+      t.PriPID,
+      t.RegNO,
+      t.EntName,
+      t.PenDecNo,
+      t.IllegActType,
+      t.JudAuth,
+      t.PenDecIssDate,
+      t.AuditDate,
+      t.punSource,
+      t.punIsAlter,
+      t.RegState,
+      t.Dom,
+	  t.SliceNOName,
+	  t.regOrgDesc,
+      t.localAdmName 
+      FROM(
+	   <if test="punSource !=null and punSource !='' and punSource ==1">
+	     <include refid="punSource1" />
+	   </if>
+	   <if test="punSource !=null and punSource !='' and punSource ==2">
+	     <include refid="punSource2" />
+	   </if>
+	   <if test="punSource !=null and punSource !='' and punSource ==3">
+	     <include refid="punSource3" />
+	   </if>
+	   <if test="punSource == null or punSource == ''">
+	     <include refid="punSource1" />
+	     union all
+	     <include refid="punSource2" />
+	     union all
+		 <include refid="punSource3" />
+	   </if>
+	  ) t
+  </select>
+  
+  <select id="selectPunishSearchTotal" parameterType="Map" resultMap="PunishSearchResultMap">
+	select 
+		total,amount,punSource
+	from 
+		(		
+			<if test="punSource !=null and punSource !='' and punSource ==1">
+		     <include refid="total_punSource1" />
+		   </if>
+		   <if test="punSource !=null and punSource !='' and punSource ==2">
+		     <include refid="total_punSource2" />
+		   </if>
+		   <if test="punSource !=null and punSource !='' and punSource ==3">
+		     <include refid="total_punSource3" />
+		   </if>
+		   <if test="punSource == null or punSource == ''">
+		   <include refid="total_punSource1" />
+		     union all
+		   <include refid="total_punSource2" />
+		     union all
+		   <include refid="total_punSource3" />
+		   </if>
+		) t
+	</select>
+  
+  <sql id="punSource1">
+	    (select 
+	    a.CaseNO,
+	    a.PriPID,
+	    b.RegNO,
+	    a.EntName,
+		PenDecNo,
+  		IllegActType,
+  		JudAuth,
+  		PenDecIssDate,
+ 		AuditDate,
+  		1 punSource,
+		CASE 
+	    WHEN t.PriPID IS NULL
+	    THEN '无' ELSE '有' END AS punIsAlter,
+	    b.RegState,
+        b.Dom,
+	    b.SliceNOName,
+	    b.RegOrgName regOrgDesc,
+        b.LocalAdmName localAdmName
+		FROM cs_pub_otherpunish a
+		LEFT JOIN cs_mid_baseinfo b ON a.PriPID = b.PriPID
+		LEFT JOIN 
+		(SELECT DISTINCT CaseNO,PriPID FROM cs_pub_otherpunish_alter ) t 
+		ON a.CaseNO =t.CaseNO AND a.PriPID = t.PriPID
+		where a.PubFlag ='1'
+		<include refid="punishInfo_where" />
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>)
+  </sql>
+  
+  <sql id="punSource2">
+	   (select 
+	    a.CaseNO,
+	    a.PriPID,
+	    a.RegNO,
+	    b.EntName,
+		PenDecNo,
+  		IllegActType,
+  		PenAuth JudAuth,
+  		PenDecIssDate,
+ 		AuditDate,
+        2 punSource,
+        '无' punIsAlter,
+        b.RegState,
+        b.Dom,
+	    b.SliceNOName,
+	    b.RegOrgName regOrgDesc,
+        b.LocalAdmName localAdmName
+		FROM cs_mid_caseinfo a
+	    LEFT JOIN cs_mid_baseinfo b ON a.PriPID = b.PriPID
+	    <where>
+			<include refid="midcaseInfo_where" />
+			<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+		</where>
+	  )
+  </sql>
+  
+  <sql id="punSource3">
+	  (SELECT
+	  a.CaseNO,
+	  a.PriPID,
+	  a.RegNO,
+	  a.EntName,
+	  PenDecNo,
+	  IllegActType,
+	  JudAuth,
+	  PenDecIssDate,
+	  PublicDate AuditDate,
+      3 punSource,
+      CASE 
+	  WHEN t.CaseNO IS NULL
+	  THEN '无' ELSE '有' END AS punIsAlter,
+	  b.RegState,
+      b.Dom,
+	  b.SliceNOName,
+	  b.RegOrgName regOrgDesc,
+      b.LocalAdmName localAdmName
+	  FROM
+	  cs_im_case a
+        LEFT JOIN cs_mid_baseinfo b ON a.PriPID = b.PriPID
+		LEFT JOIN (
+	    SELECT DISTINCT CaseNO FROM cs_im_casalt
+      ) t ON a.CaseNO = t.CaseNO
+      WHERE a.PubFlag = '1'
+	  <include refid="imCaseInfo_where" />
+	  <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	  )
+  </sql>
+  
+  <!-- 后期增加其它来源的行政处罚公示详细信息 -->
+  <select id="selectOtherPunishDetails" resultMap="PunishDetailsResultMap" parameterType="Map">
+    <if test="punSource !=null and punSource !='' and punSource ==1">
+	    select 
+	    a.CaseNO,a.PriPID,a.Year,b.RegNO,a.EntName,PenDecNo,PenType,PenAm,ForfAm,PenDecIssDate,JudAuth
+	    ,PubFlag,SetName,SetDate,AuditName,AuditDate,AuditState,AuditOpin,SetDeptname,IllegActType,PenContent,
+	    b.RegState,b.Dom,b.LeRep,b.SliceNOName,
+	    1 punSource,
+		b.RegOrgName regOrgDesc,
+	    b.LocalAdmName localAdmName,
+		e.content entTypeCatgDesc,
+		CASE 
+	    WHEN t.PriPID IS NULL
+	    THEN '无' ELSE '有' END AS punIsAlter
+		FROM cs_pub_otherpunish a
+		LEFT JOIN cs_mid_baseinfo b ON a.PriPID = b.PriPID
+		LEFT JOIN cs_code_entcatg e ON b.EntTypeCatg = e.Code
+		LEFT JOIN 
+		(SELECT DISTINCT CaseNO,PriPID FROM cs_pub_otherpunish_alter ) t 
+		ON a.CaseNO =t.CaseNO AND a.PriPID = t.PriPID
+		where 1=1
+		and a.PubFlag ='1' and a.PriPID =#{priPID,jdbcType=VARCHAR} and a.caseNO = #{caseNO,jdbcType=VARCHAR}
+	</if>
+	<if test="punSource !=null and punSource !='' and punSource ==2">
+	   SELECT
+		  a.CaseNO,
+		  a.PriPID,
+		  a.RegNO,
+		  b.EntName,
+		  PenDecNo,
+		  IllegActType,
+		  PenAuth JudAuth,
+		  PenDecIssDate,
+		  AuditDate,
+		  PenContent,
+		  PunDecDoc,
+		  b.RegState,
+		  b.Dom,
+		  b.LeRep,
+		  b.SliceNOName,
+		  b.RegOrgName regOrgDesc,
+	      b.LocalAdmName localAdmName,
+		  e.content entTypeCatgDesc,
+	      2 punSource,
+	      '无' punIsAlter
+	      From
+	      cs_mid_caseinfo a
+	      LEFT JOIN cs_mid_baseinfo b ON a.PriPID = b.PriPID
+	      LEFT JOIN cs_code_entcatg e ON b.EntTypeCatg = e. CODE
+	      WHERE a.PriPID =#{priPID,jdbcType=VARCHAR} and a.caseNO = #{caseNO,jdbcType=VARCHAR}
+	</if>
+	<if test="punSource !=null and punSource !='' and punSource ==3">
+	    SELECT
+		  a.CaseNO,
+		  a.PriPID,
+		  a.RegNO,
+		  a.EntName,
+		  PenDecNo,
+		  IllegActType,
+		  JudAuth,
+		  PenDecIssDate,
+		  PublicDate AuditDate,
+		  PenContent,
+		  b.RegState,
+		  b.Dom,
+		  b.LeRep,
+		  b.SliceNOName,
+		  b.RegOrgName regOrgDesc,
+	      b.LocalAdmName localAdmName,
+		  e.content entTypeCatgDesc,
+	      3 punSource,
+	      CASE 
+	      WHEN t.CaseNO IS NULL
+	      THEN '无' ELSE '有' END AS punIsAlter
+		  FROM
+		  cs_im_case a
+	        LEFT JOIN cs_mid_baseinfo b ON a.PriPID = b.PriPID
+			LEFT JOIN cs_code_entcatg e ON b.EntTypeCatg = e. CODE
+			LEFT JOIN (
+		    SELECT DISTINCT CaseNO FROM cs_im_casalt
+	      ) t ON a.CaseNO = t.CaseNO
+	    WHERE  a.PubFlag ='1' and a.PriPID =#{priPID,jdbcType=VARCHAR} and a.caseNO = #{caseNO,jdbcType=VARCHAR}
+	</if>
+  </select>
+  
+  <sql id="total_punSource1">
+    SELECT
+		 COUNT(distinct a.PriPID) total,COUNT(a.CaseNO)  amount,1 punSource
+	FROM
+		cs_pub_otherpunish a
+	LEFT JOIN cs_mid_baseinfo b ON a.PriPID = b.PriPID
+	WHERE
+		a.PubFlag = '1'
+  <include refid="punishInfo_where" />
+  <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+  </sql>
+  
+  <sql id="total_punSource2">
+     SELECT COUNT(distinct t.PriPID) total,COUNT(t.CaseNO)  amount,2 punSource  
+	 FROM
+	 (
+	 SELECT a.PriPID,a.CaseNO FROM cs_mid_caseinfo a 
+	 LEFT JOIN cs_mid_baseinfo b ON a.PriPID = b.PriPID
+	 where 1=1
+	 <include refid="midcaseInfo_where" />
+	 <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	 ) t
+  </sql>
+  
+  <sql id="total_punSource3">
+    SELECT
+	COUNT(DISTINCT a.PriPID) total,COUNT(a.CaseNO) amount,3 punSource
+	FROM
+		cs_im_case a
+	LEFT JOIN cs_mid_baseinfo b ON a.PriPID = b.PriPID
+	WHERE
+	a.PubFlag = '1'
+  <include refid="imCaseInfo_where" />
+  <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+  </sql>
+  
+  <select id="selectTotalForPunishSearch" resultType="java.lang.Integer" parameterType="Map">
+     SELECT
+		 COUNT(distinct a.PriPID) total
+	FROM
+		cs_pub_otherpunish a
+	LEFT JOIN cs_mid_baseinfo b ON a.PriPID = b.PriPID
+	WHERE
+		a.PubFlag = '1'
+  <include refid="punishInfo_where" />
+  </select>
+  
+  <select id="selectAmountForPunishSearch" resultType="java.lang.Integer" parameterType="Map">
+     SELECT
+		 COUNT(a.CaseNO)  amount
+	FROM
+		cs_pub_otherpunish a
+	LEFT JOIN cs_mid_baseinfo b ON a.PriPID = b.PriPID
+	WHERE
+		a.PubFlag = '1'
+  <include refid="punishInfo_where" />
+  </select>
+  
+  <sql id="midcaseInfo_where">
+    <if test="regNO !='' and regNO !=null">
+    And a.RegNO = #{regNO}
+    </if>
+     <if test="entName !='' and entName !=null">
+    And b.EntName LIKE concat('%', #{entName},'%')
+    </if>
+    <if test="opScope !='' and opScope !=null">
+    And b.OpScope LIKE concat('%', #{opScope},'%')
+    </if>
+    <if test="leRep !='' and leRep !=null">
+    And b.LeRep = #{leRep}
+    </if>
+    <if test="regOrg !='' and regOrg !=null">
+    and b.RegOrg  IN  (${regOrg})
+    </if>
+    <if test="localAdm !='' and localAdm !=null">
+    and b.LocalAdm  IN (${localAdm})
+    </if>
+    <if test="sliceNO !='' and sliceNO !=null">
+    and b.SliceNO  IN (${sliceNO})
+    </if>
+    <!-- 登记状态 -->
+	 <if test="regState !=null and regState !=''">
+	       and  b.RegState  in
+     <foreach item="item" index="index" collection="regState" open="("
+					separator="," close=")">
+					#{item}
+	 </foreach>    
+	 </if>
+    <if test="penDecNo !='' and penDecNo !=null">
+    And PenDecNo LIKE concat('%', #{penDecNo},'%')
+    </if>
+    <if test="judAuth !='' and judAuth !=null">
+   	And penAuth LIKE concat('%', #{judAuth},'%')
+    </if>
+    <if test="illegActType !='' and illegActType !=null">
+    And IllegActType LIKE concat('%', #{illegActType},'%')
+    </if>
+    <if test="penDecIssDateStart !='' and penDecIssDateStart !=null">
+    <![CDATA[
+	and PenDecIssDate >= #{penDecIssDateStart}
+	]]>
+    </if>
+     <if test="penDecIssDateEnd !='' and penDecIssDateEnd !=null">
+    <![CDATA[
+	and PenDecIssDate <= #{penDecIssDateEnd}
+	]]>
+    </if>
+    <if test="auditDateStart !='' and auditDateStart !=null">
+    <![CDATA[
+	and AuditDate >= #{auditDateStart}
+	]]>
+    </if>
+     <if test="auditDateEnd !='' and auditDateEnd !=null">
+    <![CDATA[
+	and AuditDate <= #{auditDateEnd}
+	]]>
+    </if>
+    <!-- 工商来源暂无处罚变更表，默认无-->
+    <if test="isAlter !='' and isAlter !=null and isAlter == 1">
+       and  0 = #{isAlter} 
+    </if>
+     <if test="isAlter !='' and isAlter !=null and isAlter == 0">
+        and  0 = #{isAlter} 
+     </if>
+  </sql>
+  
+  <sql id="imCaseInfo_where">
+     <if test="regNO !='' and regNO !=null">
+    And a.RegNO = #{regNO}
+    </if>
+     <if test="entName !='' and entName !=null">
+    And a.EntName LIKE concat('%', #{entName},'%')
+    </if>
+    <if test="opScope !='' and opScope !=null">
+    And b.OpScope LIKE concat('%', #{opScope},'%')
+    </if>
+    <if test="leRep !='' and leRep !=null">
+    And b.LeRep = #{leRep}
+    </if>
+    <if test="regOrg !='' and regOrg !=null">
+    and b.RegOrg  IN  (${regOrg})
+    </if>
+    <if test="localAdm !='' and localAdm !=null">
+    and b.LocalAdm  IN (${localAdm})
+    </if>
+    <if test="sliceNO !='' and sliceNO !=null">
+    and b.SliceNO  IN (${sliceNO})
+    </if>
+    <!-- 登记状态 -->
+	 <if test="regState !=null and regState !=''">
+	       and  b.RegState  in
+     <foreach item="item" index="index" collection="regState" open="("
+					separator="," close=")">
+					#{item}
+	 </foreach>    
+	 </if>
+    <if test="penDecNo !='' and penDecNo !=null">
+    And PenDecNo LIKE concat('%', #{penDecNo},'%')
+    </if>
+    <if test="judAuth !='' and judAuth !=null">
+   	And JudAuth LIKE concat('%', #{judAuth},'%')
+    </if>
+    <if test="illegActType !='' and illegActType !=null">
+    And IllegActType LIKE concat('%', #{illegActType},'%')
+    </if>
+    <if test="penDecIssDateStart !='' and penDecIssDateStart !=null">
+    <![CDATA[
+	and PenDecIssDate >= #{penDecIssDateStart}
+	]]>
+    </if>
+     <if test="penDecIssDateEnd !='' and penDecIssDateEnd !=null">
+    <![CDATA[
+	and PenDecIssDate <= #{penDecIssDateEnd}
+	]]>
+    </if>
+    <if test="auditDateStart !='' and auditDateStart !=null">
+    <![CDATA[
+	and PublicDate >= #{auditDateStart}
+	]]>
+    </if>
+     <if test="auditDateEnd !='' and auditDateEnd !=null">
+    <![CDATA[
+	and PublicDate <= #{auditDateEnd}
+	]]>
+    </if>
+    <if test="isAlter !='' and isAlter !=null and isAlter == 1">
+       and  exists (SELECT CaseNO FROM cs_im_casalt WHERE  CaseNO = a.CaseNO)
+    </if>
+     <if test="isAlter !='' and isAlter !=null and isAlter == 0">
+        and  not exists (SELECT CaseNO FROM cs_im_casalt WHERE  CaseNO = a.CaseNO)
+     </if>
+  </sql>
+  
+  <sql id="punishInfo_where">
+    <if test="regNO !='' and regNO !=null">
+    And b.RegNO = #{regNO}
+    </if>
+     <if test="entName !='' and entName !=null">
+    And a.EntName LIKE concat('%', #{entName},'%')
+    </if>
+    <if test="opScope !='' and opScope !=null">
+    And b.OpScope LIKE concat('%', #{opScope},'%')
+    </if>
+    <if test="regOrg !='' and regOrg !=null">
+    and b.RegOrg  IN  (${regOrg})
+    </if>
+    <if test="localAdm !='' and localAdm !=null">
+    and b.LocalAdm  IN (${localAdm})
+    </if>
+    <if test="entTypeCode !='' and entTypeCode !=null">
+    and b.EntType  IN (${entTypeCode})
+    </if>
+    <if test="sliceNO !='' and sliceNO !=null">
+    and b.SliceNO  IN (${sliceNO})
+    </if>
+    <if test="penType !='' and penType !=null">
+   	And PenType = #{penType}
+    </if>
+     <if test="judAuth !='' and judAuth !=null">
+   	And JudAuth LIKE concat('%', #{judAuth},'%')
+    </if>
+     <if test="penDecNo !='' and penDecNo !=null">
+    And PenDecNo LIKE concat('%', #{penDecNo},'%')
+    </if>
+     <if test="illegActType !='' and illegActType !=null">
+    And IllegActType LIKE concat('%', #{illegActType},'%')
+    </if>
+     <if test="pubFlag !='' and pubFlag !=null">
+    And PubFlag = #{pubFlag}
+    </if>
+     <if test="setName !='' and setName !=null">
+    And SetName = #{setName}
+    </if>
+     <if test="penAm !='' and penAm !=null">
+    And PenAm = #{penAm}
+    </if>
+     <if test="auditName !='' and auditName !=null">
+    And AuditName = #{auditName}
+    </if>
+    <if test="forfAm !='' and forfAm !=null">
+    And ForfAm = #{forfAm}
+    </if>
+    <if test="auditState !='' and auditState !=null">
+    And AuditState = #{auditState}
+    </if>
+    <if test="leRep !='' and leRep !=null">
+    And b.LeRep = #{leRep}
+    </if>
+    <!-- 登记状态 -->
+	 <if test="regState !=null and regState !=''">
+	       and  b.RegState  in
+     <foreach item="item" index="index" collection="regState" open="("
+					separator="," close=")">
+					#{item}
+	 </foreach>    
+	 </if>
+    <if test="auditState !='' and auditState !=null">
+    And AuditState = #{auditState}
+    </if>
+    <if test="auditDateStart !='' and auditDateStart !=null">
+    <![CDATA[
+	and DATE_FORMAT(AuditDate,'%Y-%m-%d') >= #{auditDateStart}
+	]]>
+    </if>
+     <if test="auditDateEnd !='' and auditDateEnd !=null">
+    <![CDATA[
+	and DATE_FORMAT(AuditDate,'%Y-%m-%d') <= #{auditDateEnd}
+	]]>
+    </if>
+    <if test="penDecIssDateStart !='' and penDecIssDateStart !=null">
+    <![CDATA[
+	and PenDecIssDate >= #{penDecIssDateStart}
+	]]>
+    </if>
+     <if test="penDecIssDateEnd !='' and penDecIssDateEnd !=null">
+    <![CDATA[
+	and PenDecIssDate <= #{penDecIssDateEnd}
+	]]>
+    </if>
+    <if test="setDateStart !='' and setDateStart !=null">
+    <![CDATA[
+	and SetDate >= #{setDateStart}
+	]]>
+    </if>
+     <if test="setDateEnd !='' and setDateEnd !=null">
+    <![CDATA[
+	and SetDate <= #{setDateEnd}
+	]]>
+    </if>
+    <if test="penAmStart !='' and penAmStart !=null">
+     <![CDATA[
+    And PenAm >= #{penAmStart}
+    ]]>
+    </if>
+    <if test="penAmEnd !='' and penAmEnd !=null">
+     <![CDATA[
+    And PenAm <= #{penAmEnd}
+    ]]>
+    </if>
+    <if test="forfAmStart !='' and forfAmStart !=null">
+     <![CDATA[
+    And ForfAm >= #{forfAmStart}
+    ]]>
+    </if>
+    <if test="forfAmEnd !='' and forfAmEnd !=null">
+     <![CDATA[
+    And ForfAm <= #{forfAmEnd}
+    ]]>
+    </if>
+    <if test="isAlter !='' and isAlter !=null and isAlter == 1">
+       and  exists (SELECT CaseNO,PriPID FROM cs_pub_otherpunish_alter WHERE PriPID = a.PriPID AND CaseNO = a.CaseNO)
+    </if>
+     <if test="isAlter !='' and isAlter !=null and isAlter == 0">
+        and  not exists (SELECT CaseNO,PriPID FROM cs_pub_otherpunish_alter WHERE PriPID = a.PriPID AND CaseNO = a.CaseNO)
+     </if>
+  </sql>
+  
+  <!-- 获取行政处罚信息列表数据（公示） -->
+  <select id="selectPubOtherpunishForPub" resultMap="PunishForPubResultMap" parameterType="Map">
+    SELECT 
+	  id,
+	  CaseNO,
+	  PriPID,
+	  RegNO,
+	  EntName,
+	  LeRep,
+	  PenDecNo,
+	  PenType,
+	  PenAm,
+	  ForfAm,
+	  PenDecIssDate,
+	  JudAuth,
+	  AuditDate,
+	  IllegActType,
+	  PenContent 
+	FROM
+  	(select 
+  		id,CaseNO,PriPID,RegNO,EntName,LeRep,PenDecNo,PenType,PenAm,ForfAm,PenDecIssDate,JudAuth,
+  		AuditDate,IllegActType,PenContent
+    from cs_pub_otherpunish
+    where PriPID = #{priPID,jdbcType=VARCHAR} and PubFlag = '1'
+    union 
+    select 
+    	id,CaseNO,PriPID,RegNO,UnitName EntName,LeRep,PenDecNo,PenType,PenAm,ForfAm,PenDecIssDate,PenAuth JudAuth,
+    	SetTime AuditDate,IllegActType,PenContent
+    from cs_mid_caseinfo
+    where IsPub='1' AND PriPID = #{priPID,jdbcType=VARCHAR}) t
+  </select>
+  
+  <select id="selectPubOtherpunishByCaseNO" resultMap="PunishForPubResultDetailsMap" parameterType="java.lang.String">
+    SELECT 
+	  id,
+	  CaseNO,
+	  PriPID,
+	  RegNO,
+	  EntName,
+	  LeRep,
+	  PenDecNo,
+	  PenType,
+	  PenAm,
+	  ForfAm,
+	  PenDecIssDate,
+	  JudAuth,
+	  AuditDate,
+	  IllegActType,
+	  PenContent,
+	  punDecDoc 
+	FROM
+  	(select 
+  		id,CaseNO,PriPID,RegNO,EntName,LeRep,PenDecNo,PenType,PenAm,ForfAm,PenDecIssDate,JudAuth,
+  		AuditDate,IllegActType,PenContent,null punDecDoc
+    from cs_pub_otherpunish
+    where PriPID = #{priPID,jdbcType=VARCHAR} and CaseNO = #{caseNO,jdbcType=VARCHAR}
+    union 
+    select 
+    	id,CaseNO,PriPID,RegNO,UnitName EntName,LeRep,PenDecNo,PenType,PenAm,ForfAm,PenDecIssDate,PenAuth JudAuth,
+    	SetTime AuditDate,IllegActType,PenContent,punDecDoc
+    from cs_mid_caseinfo
+    where PriPID = #{priPID,jdbcType=VARCHAR} and CaseNO = #{caseNO,jdbcType=VARCHAR}) t
+  </select>
+  
+  
+  <select id="selectOtherPunishForBulletin" resultMap="BaseDtoResultMap" parameterType="java.lang.String">
+   select 
+     t.CaseNO,
+     t.PriPID,
+     t.EntName,
+     t.JudAuth,
+     t.AuditDate
+   from(
+     select 
+     CaseNO,
+     PriPID,
+     EntName,
+     JudAuth,
+     AuditDate
+    from cs_pub_otherpunish
+    where PubFlag = '1'
+    <if test="_parameter !='' and _parameter != null">
+    and <![CDATA[ update_time >= #{_parameter}]]>
+    </if>
+    union all
+     (select 
+    	CaseNO,
+    	PriPID,
+    	UnitName as EntName,
+    	PenAuth as JudAuth,
+    	PenDecIssDate as AuditDate
+    from cs_mid_caseinfo
+    <if test="_parameter !='' and _parameter != null">
+    where  <![CDATA[ update_time >= #{_parameter}]]>
+    </if>
+    )
+   ) t 
+  </select>
+  
+  <select id="doGetOtherPunishInfo" resultMap="PunishForPubResultDetailsMap" parameterType="java.lang.String">
+    select
+    id,CaseNO,PriPID,RegNO,EntName,LeRep,PenDecNo,PenType,PenAm,ForfAm,PenDecIssDate,JudAuth,
+  		AuditDate,IllegActType,PenContent,punDecDoc
+    from
+    (select 
+  		id,CaseNO,PriPID,RegNO,EntName,LeRep,PenDecNo,PenType,PenAm,ForfAm,PenDecIssDate,JudAuth,
+  		AuditDate,IllegActType,PenContent,null punDecDoc
+    from cs_pub_otherpunish
+    where  CaseNO = #{caseNO,jdbcType=VARCHAR}
+    union 
+    select 
+    	id,CaseNO,PriPID,RegNO,UnitName EntName,LeRep,PenDecNo,PenType,PenAm,ForfAm,PenDecIssDate,PenAuth JudAuth,
+    	SetTime AuditDate,IllegActType,PenContent,punDecDoc
+    from cs_mid_caseinfo
+    where  CaseNO = #{caseNO,jdbcType=VARCHAR}
+    )t
+  </select>
+  
+   <select id="selectOtherpunishListForIdx" resultMap="BaseResultMap" parameterType="Map">
+        SELECT 
+            PriPID
+        FROM
+            (SELECT 
+                   PriPID
+             FROM
+                 cs_mid_caseinfo 
+             where 
+             <if test="updateTime !='' and updateTime !=null">
+                <![CDATA[ update_time >= #{updateTime}]]>
+            </if>
+             UNION
+             SELECT 
+                   PriPID
+             FROM
+                cs_pub_otherpunish
+             where 
+             <if test="updateTime !='' and updateTime !=null">
+                <![CDATA[ update_time >= #{updateTime}]]>
+             </if>
+                ) P 
+          WHERE P.priPID IS NOT NULL 
+          AND P.priPID <![CDATA[<> '']]>
+   </select>
+</mapper>

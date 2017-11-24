@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.rpt.rptmapper.SmRptAddcountMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.rpt.rptmodel.SmRptAddcount" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="TableType" property="tableType" jdbcType="CHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="CHAR" />
+    <result column="RptDate" property="rptDate" jdbcType="DATE" />
+    <result column="addCount" property="addCount" jdbcType="BIGINT" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.rpt.rptdto.SmRptAddcountDto" id="BaseResultDtoMap" extends="BaseResultMap">
+    <result column="countDate" property=   "countDate" jdbcType="VARCHAR" />
+    <result column="addCount1" property="addCount1" jdbcType="BIGINT" />
+    <result column="addCount2" property="addCount2" jdbcType="BIGINT" />
+    <result column="addCount3" property="addCount3" jdbcType="BIGINT" />
+    <result column="addCount4" property="addCount4" jdbcType="BIGINT" />
+  </resultMap>
+  
+  <!-- 登记主表、年报主表、列入异常表、移出异常表数据量 -->
+  <select id="tableAddCount" resultMap="BaseResultDtoMap" parameterType="Map">
+   SELECT  <![CDATA[DATE_FORMAT(RptDate,'%Y/%m/%d')]]> countDate,sum(CASE when TableType = '1' THEN addCount ELSE 0 END) addCount1,
+	sum(CASE when TableType = '2' THEN addCount ELSE 0 END) addCount2,
+	sum(CASE when TableType = '3' THEN addCount ELSE 0 END) addCount3,
+	sum(CASE when TableType = '4' THEN addCount ELSE 0 END) addCount4
+   FROM sm_rpt_addcount where 
+   <![CDATA[
+   RptDate >= #{rptDateStart} and RptDate < #{rptDateEnd} ]]>
+   GROUP BY RptDate
+  </select>
+  
+</mapper>

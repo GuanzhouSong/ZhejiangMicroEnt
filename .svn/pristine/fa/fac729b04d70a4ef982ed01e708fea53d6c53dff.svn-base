@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.FoodstorageInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.FoodstorageInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="FsinfoID" property="fsinfoID" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="WareAddr" property="wareAddr" jdbcType="VARCHAR" />
+    <result column="Addr" property="addr" jdbcType="VARCHAR" />
+    <result column="Linkman" property="linkman" jdbcType="VARCHAR" />
+    <result column="Linktel" property="linktel" jdbcType="VARCHAR" />
+    <result column="EmpNum" property="empNum" jdbcType="INTEGER" />
+    <result column="OpSpace" property="opSpace" jdbcType="DECIMAL" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="SubmitState" property="submitState" jdbcType="CHAR" />
+  </resultMap>
+  
+   <resultMap id="BaseResultMapDto" type="com.icinfo.cs.yr.dto.FoodstorageInfoDto" extends="BaseResultMap">
+   </resultMap>
+   
+    <!-- 年度修改申请 -->
+  <select id="selectFoodstorageInfoDtoById" resultMap="BaseResultMapDto" parameterType="Map"> 
+	SELECT id,FsinfoID,PriPID,EntName,Year,RegNO,LeRep,Tel,WareAddr,Addr,Linkman,Linktel,EmpNum,OpSpace,SetTime,CreateTime,SubmitState
+	FROM   cs_foodstorage_info
+	where FsinfoID = #{fsinfoID,jdbcType=VARCHAR}  and PriPID = #{priPID,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="selectFoodstorageInfoDto" resultMap="BaseResultMapDto" parameterType="Map"> 
+	SELECT id,FsinfoID,PriPID,EntName,Year,RegNO,LeRep,Tel,WareAddr,Addr,Linkman,Linktel,EmpNum,OpSpace,SetTime,CreateTime,SubmitState
+	FROM   cs_foodstorage_info
+	where PriPID = #{priPID,jdbcType=VARCHAR}  and Year = #{year,jdbcType=INTEGER}
+  </select>
+</mapper>

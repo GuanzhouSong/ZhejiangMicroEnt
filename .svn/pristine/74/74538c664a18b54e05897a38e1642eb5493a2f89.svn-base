@@ -1,0 +1,701 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.inspect.mapper.ReportCheckInfoMapper">
+    <resultMap id="BaseResultMap" type="com.icinfo.cs.inspect.model.ReportCheckInfo">
+        <!--
+          WARNING - @frameworkgenerated
+        -->
+        <id column="ID" property="ID" jdbcType="INTEGER"/>
+        <result column="UID" property="UID" jdbcType="VARCHAR"/>
+        <result column="UniCode" property="uniCode" jdbcType="VARCHAR"/>
+        <result column="RegNO" property="regNO" jdbcType="VARCHAR"/>
+        <result column="PriPID" property="priPID" jdbcType="VARCHAR"/>
+        <result column="Year" property="year" jdbcType="CHAR"/>
+        <result column="EntName" property="entName" jdbcType="VARCHAR"/>
+        <result column="InfoCheckCon" property="infoCheckCon" jdbcType="CHAR"/>
+        <result column="InfoCheckDate" property="infoCheckDate" jdbcType="DATE"/>
+        <result column="InfoAuditResult" property="infoAuditResult" jdbcType="CHAR"/>
+        <result column="InfoCheckOrg" property="infoCheckOrg" jdbcType="VARCHAR"/>
+        <result column="InfoCheckOrgName" property="infoCheckOrgName" jdbcType="VARCHAR"/>
+        <result column="Depart" property="depart" jdbcType="VARCHAR"/>
+        <result column="DepartName" property="departName" jdbcType="VARCHAR"/>
+        <result column="InfoCheckMan" property="infoCheckMan" jdbcType="VARCHAR"/>
+        <result column="InfoFillMan" property="infoFillMan" jdbcType="VARCHAR"/>
+        <result column="InfoFillDate" property="infoFillDate" jdbcType="DATE"/>
+        <result column="InfoAuditMan" property="infoAuditMan" jdbcType="VARCHAR"/>
+        <result column="InfoAuditDate" property="infoAuditDate" jdbcType="DATE"/>
+        <result column="InfoAuditOpin" property="infoAuditOpin" jdbcType="VARCHAR"/>
+        <result column="LocalAdm" property="localAdm" jdbcType="CHAR"/>
+        <result column="FirstReportTime" property="firstReportTime" jdbcType="TIMESTAMP"/>
+        <result column="EstDate" property="estDate" jdbcType="DATE"/>
+        <result column="LeRep" jdbcType="VARCHAR" property="leRep"/>
+        <result column="ResDispose" jdbcType="VARCHAR" property="resDispose"/>
+        <result column="ResContent" jdbcType="VARCHAR" property="resContent"/>
+        <result column="ItemWay" jdbcType="VARCHAR" property="itemWay"/>
+        <result column="PubDate" jdbcType="DATE" property="pubDate"/>
+        <result column="EntTypeCatg" jdbcType="VARCHAR" property="entTypeCatg"/>
+        <result column="RegState" jdbcType="CHAR" property="regState"/>
+        <result column="CheckDep" jdbcType="VARCHAR" property="checkDep"/>
+		<result column="DisposeFinishMss" property="disposeFinishMss" jdbcType="VARCHAR" />
+	    <result column="DisposeState" property="disposeState" jdbcType="CHAR" />
+	    <result column="DisposeFinishDate" property="disposeFinishDate" jdbcType="TIMESTAMP" />
+	    <result column="ModName" property="modName" jdbcType="VARCHAR" />
+	    <result column="ModTime" property="modTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <resultMap id="BaseResultMapDto" type="com.icinfo.cs.inspect.dto.ReportCheckInfoDto" extends="BaseResultMap">
+        <result column="ResResult" jdbcType="VARCHAR" property="resResult"/>
+        <result column="Dom" jdbcType="VARCHAR" property="dom"/>
+        <result column="RegOrgName" jdbcType="VARCHAR" property="regOrgName"/>
+        <result column="LocalAdmName" jdbcType="VARCHAR" property="localAdmName"/>
+        <result column="SliceNOName" jdbcType="VARCHAR" property="sliceNOName"/>
+    </resultMap>
+    <select id="inspectCheckInfoQueryPage" parameterType="Map" resultMap="BaseResultMapDto">
+        SELECT
+        r.ID,
+        r.UID,
+        r.UniCode,
+        r.RegNO,
+        r.PriPID,
+        r.Year,
+        r.EntName,
+        r.InfoCheckCon,
+        r.InfoCheckDate,
+        r.InfoAuditResult,
+        r.InfoCheckOrg,
+        r.InfoCheckOrgName,
+        r.Depart,
+        r.DepartName,
+        r.InfoCheckMan,
+        r.InfoFillMan,
+        r.InfoFillDate,
+        r.InfoAuditMan,
+        r.InfoAuditDate,
+        r.InfoAuditOpin,
+        r.LocalAdm,
+        r.EstDate,
+        r.FirstReportTime,
+        r.ResDispose,
+        r.ResContent,
+        r.ItemWay,
+        r.PubDate,
+        r.DisposeState,
+        r.ModName,
+        r.ModTime,
+        (SELECT
+        GROUP_CONCAT(co.Content)
+        FROM
+        cs_report_check_result c,
+        cs_report_check_code co
+        WHERE c.uid = r.uid
+        AND c.resresult = co.code
+        AND co.type = 'res') ResResult,
+        r.LeRep,
+        b.Dom,
+        b.RegOrgName,
+        b.SliceNOName,
+        b.LocalAdmName
+        FROM
+        cs_report_check_info r
+        LEFT JOIN cs_mid_baseinfo b
+        on r.PriPID=b.PriPID
+        where InfoAuditResult = '5'
+        and b.regstate IN (${regState})
+        <include refid="check_where"></include>
+        <include refid="common_where"></include>
+        <include refid="view_where"></include>
+        <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+        ORDER BY r.modTime DESC
+
+    </select>
+
+    <select id="inspectViewInfoQueryPage" parameterType="Map" resultMap="BaseResultMapDto">
+        SELECT
+        r.ID,
+        r.UID,
+        r.UniCode,
+        r.RegNO,
+        r.PriPID,
+        r.Year,
+        r.EntName,
+        r.InfoCheckCon,
+        r.InfoCheckDate,
+        r.InfoAuditResult,
+        r.InfoCheckOrg,
+        r.InfoCheckOrgName,
+        r.Depart,
+        r.DepartName,
+        r.InfoCheckMan,
+        r.InfoFillMan,
+        r.InfoFillDate,
+        r.InfoAuditMan,
+        r.InfoAuditDate,
+        r.InfoAuditOpin,
+        r.LocalAdm,
+        r.EstDate,
+        r.FirstReportTime,
+        r.ResDispose,
+        r.ResContent,
+        r.ItemWay,
+        r.PubDate,
+        r.RegState,
+        r.DisposeState,
+        (SELECT
+        GROUP_CONCAT(co.Content)
+        FROM
+        cs_report_check_result c,
+        cs_report_check_code co
+        WHERE c.uid = r.uid
+        AND c.resresult = co.code
+        AND co.type = 'res') ResResult,
+        r.LeRep,
+        b.Dom,
+        b.RegOrgName,
+        b.SliceNOName,
+        b.LocalAdmName
+        FROM
+        cs_report_check_info r
+        LEFT JOIN cs_mid_baseinfo b
+        on r.PriPID=b.PriPID
+        where InfoAuditResult = '5'
+        and b.regstate IN (${regState})
+        <include refid="check_where"></include>
+        <include refid="view_where"></include>
+        <include refid="common_where"></include>
+        <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+        ORDER BY r.DisposeState ASC
+    </select>
+    <select id="inspectInputInfoQueryPage_all" parameterType="Map" resultMap="BaseResultMapDto">
+        SELECT
+        r.ID,
+        r.UID,
+        r.UniCode,
+        r.RegNO,
+        r.PriPID,
+        r.Year,
+        r.EntName,
+        r.InfoCheckCon,
+        r.InfoCheckDate,
+        r.InfoAuditResult,
+        r.InfoCheckOrg,
+        r.InfoCheckOrgName,
+        r.Depart,
+        r.DepartName,
+        r.InfoCheckMan,
+        r.InfoFillMan,
+        r.InfoFillDate,
+        r.InfoAuditMan,
+        r.InfoAuditDate,
+        r.InfoAuditOpin,
+        r.LocalAdm,
+        r.EstDate,
+        r.FirstReportTime,
+        r.ResDispose,
+        r.ResContent,
+        r.ItemWay,
+        r.PubDate,
+        r.DisposeState,
+        (SELECT
+        GROUP_CONCAT(co.Content)
+        FROM
+        cs_report_check_result c,
+        cs_report_check_code co
+        WHERE c.uid = r.uid
+        AND c.resresult = co.code
+        AND co.type = 'res') ResResult,
+        r.LeRep,
+        b.Dom,
+        b.RegOrgName,
+        b.SliceNOName,
+        b.LocalAdmName
+        FROM
+         cs_report_check_info r
+        LEFT JOIN cs_mid_baseinfo b
+        on r.PriPID=b.PriPID
+        where b.regstate IN (${regState})
+        <include refid="check_where"></include>
+        <include refid="common_where"></include>
+        <include refid="view_where"></include>
+        <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+        ORDER BY r.DisposeState ASC ,r.InfoAuditResult DESC
+    </select>
+    
+    <select id="selectCheckInfoCountTotal" parameterType="Map" resultType="java.lang.Integer">
+       SELECT
+        count(0)
+        FROM
+        cs_report_check_info r
+        LEFT JOIN cs_mid_baseinfo b
+        on r.PriPID=b.PriPID
+        where r.InfoAuditResult = '5'
+        and r.DisposeState = #{disposeStateCount}
+        <if test="regState  !=null and regState != '' ">
+            AND b.regstate IN (${regState})
+        </if>
+        <include refid="check_where"></include>
+        <include refid="common_where"></include>
+        <include refid="view_where"></include>
+        <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </select>
+    
+    <select id="inspectInputInfoQueryPageNew" parameterType="Map" resultMap="BaseResultMapDto">
+        SELECT
+        r.ID,
+        r.UID,
+        r.UniCode,
+        r.RegNO,
+        r.PriPID,
+        r.Year,
+        r.EntName,
+        r.Depart,
+        r.DepartName,
+        r.LocalAdm,
+        r.EstDate,
+        r.FirstReportTime,
+        r.ResDispose,
+        r.ResContent,
+        r.ItemWay,
+        r.PubDate,
+        r.LeRep,
+        b.Dom,
+        b.RegOrgName,
+        b.SliceNOName,
+        b.LocalAdmName
+        FROM
+        cs_report_check_info r
+        LEFT JOIN cs_mid_baseinfo b
+        on r.PriPID=b.PriPID
+        where 1=1
+        <include refid="check_where"></include>
+        <include refid="common_where"></include>
+        <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+        ORDER BY r.InfoAuditResult ASC, r.InfoFillDate DESC
+    </select>
+    <select id="inspectInputInfoQueryPage" parameterType="Map" resultMap="BaseResultMapDto">
+        SELECT
+        r.ID,
+        r.UID,
+        r.UniCode,
+        r.RegNO,
+        r.PriPID,
+        r.Year,
+        r.EntName,
+        r.InfoCheckCon,
+        r.InfoCheckDate,
+        r.InfoAuditResult,
+        r.InfoCheckOrg,
+        r.InfoCheckOrgName,
+        r.Depart,
+        r.DepartName,
+        r.InfoCheckMan,
+        r.InfoFillMan,
+        r.InfoFillDate,
+        r.InfoAuditMan,
+        r.InfoAuditDate,
+        r.InfoAuditOpin,
+        r.LocalAdm,
+        r.EstDate,
+        r.FirstReportTime,
+        r.ResDispose,
+        r.ResContent,
+        r.ItemWay,
+        r.PubDate,
+        r.RegState,
+        (SELECT
+        GROUP_CONCAT(co.Content)
+        FROM
+        cs_report_check_result c,
+        cs_report_check_code co
+        WHERE c.uid = r.uid
+        AND c.resresult = co.code
+        AND co.type = 'res') ResResult,
+        r.LeRep,
+        b.Dom,
+        b.RegOrgName,
+        b.SliceNOName,
+        b.LocalAdmName
+        FROM
+        cs_report_check_info r
+        LEFT JOIN cs_mid_baseinfo b
+        on r.PriPID=b.PriPID
+        where 1=1
+        <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+        <include refid="check_where"></include>
+        <include refid="common_where"></include>
+        ORDER BY r.InfoAuditResult ASC, r.InfoFillDate DESC
+        LIMIT ${_pnum},${_len}
+    </select>
+    <select id="inspectYrInfoQueryPage" parameterType="Map" resultMap="BaseResultMapDto">
+        SELECT
+        r.id,
+        r.PriPID,
+        r.EntName,
+        r.RegNO,
+        r.EstDate,
+        r.LeRep,
+        r.EstDate,
+        3 InfoAuditResult,
+        r.UNICODE,
+        r.FirstReportTime,
+        r.YEAR,
+        b.Dom,
+        b.RegOrgName,
+        b.SliceNOName,
+        b.LocalAdmName,
+        r.RegState
+        FROM
+        cs_yr_reg_check r LEFT JOIN cs_mid_baseinfo b
+        on r.PriPID=b.PriPID
+        WHERE r.regstate IN (${regState})
+        AND r.EntTypeCatg != '50'
+        AND r.isReported = 2
+        AND NOT EXISTS
+        (SELECT
+        1
+        FROM
+        cs_report_check_info c
+        WHERE c.Year = r.YEAR
+        AND c.PriPID = r.pripid)
+        <include refid="yr_where"></include>
+        <include refid="common_where"></include>
+        <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </select>
+    
+    <select id="selectNeedToInputCountForCheck" parameterType="Map" resultType="java.lang.Integer">
+       SELECT
+		count(0)
+		FROM
+			cs_yr_reg_check r
+		LEFT JOIN cs_mid_baseinfo t ON r.PriPID = t.PriPID
+		WHERE
+			 r.regstate IN (${regState})
+		AND r.EntTypeCatg != '50'
+		AND r.isReported = 2
+		AND NOT EXISTS (
+			SELECT
+				1
+			FROM
+				cs_report_check_info c
+			WHERE
+				c. YEAR = r. YEAR
+			AND c.PriPID = r.pripid
+		)
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </select>
+    
+    <select id="selectNeedToAuditCountForCheck" parameterType="Map" resultType="java.lang.Integer">
+       SELECT 
+       count(0) 
+       		FROM cs_report_check_info r 
+       LEFT JOIN 
+       cs_mid_baseinfo b
+        ON r.PriPID = b.PriPID 
+	  WHERE 1 = 1 AND r.infoAuditResult = '0'
+      <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </select>
+    
+    <!-- 获取yr表的总数 -->
+    <select id="inspectInputInfoQueryPage_total" parameterType="Map" resultType="int">
+        SELECT
+        count(1)
+        FROM
+        cs_yr_reg_check r
+        WHERE regstate IN (${regState})
+        AND EntTypeCatg != '50'
+        and isReported=2
+        <if test="infoAuditResult == 3">
+            AND NOT EXISTS
+            (SELECT
+            1
+            FROM
+            cs_report_check_info c
+            WHERE c.Year = r.YEAR
+            AND c.PriPID = r.pripid)
+        </if>
+        <include refid="yr_where"></include>
+        <include refid="common_where"></include>
+        <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </select>
+    <!-- 获取check表的总数 -->
+    <select id="getTotalFromCheckInfo" parameterType="Map" resultType="int">
+        SELECT
+        count(1)
+        FROM
+        cs_report_check_info r
+        where 1=1
+        <include refid="check_where"></include>
+        <include refid="common_where"></include>
+        <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </select>
+    <!-- 获取check表待审核的总数 view查看使用-->
+    <select id="countWaitCheckNum" parameterType="Map" resultType="int">
+        SELECT
+        count(1)
+        FROM
+        cs_report_check_info r
+        where r.InfoAuditResult=0
+        <include refid="check_where"></include>
+        <include refid="view_where"></include>
+        <include refid="common_where"></include>
+        <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </select>
+    <!-- 获取check表审核不通过的总数 view查看使用-->
+    <select id="countCheckNoNum" parameterType="Map" resultType="int">
+        SELECT
+        count(1)
+        FROM
+        cs_report_check_info r
+        where r.InfoAuditResult=2
+        <include refid="check_where"></include>
+        <include refid="view_where"></include>
+        <include refid="common_where"></include>
+        <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </select>
+    <sql id="check_where">
+        <if test="resResult !=null and resResult != ''">
+            AND exists (
+            select 1 from cs_report_check_result re
+            where re.uid=r.uid
+            and re.ResResult in (${resResult})
+            )
+        </if>
+        <if test="infoAuditResult !=null and infoAuditResult != '' ">
+            AND r.infoAuditResult=#{infoAuditResult}
+        </if>
+        <if test="regOrg  !=null and regOrg != '' ">
+            AND b.regOrg in (${regOrg})
+        </if>
+        <if test="disposeState !=null and disposeState != '' ">
+            AND r.DisposeState=#{disposeState} and r.InfoAuditResult = '5'
+        </if>
+    </sql>
+
+    <sql id="yr_where">
+        <if test="resResult !=null and resResult != '' ">
+            AND 1=2
+        </if>
+        <if test="infoAuditResult !=null and infoAuditResult != '' and infoAuditResult != 3">
+            AND 1=3
+        </if>
+        <if test="regOrg  !=null and regOrg != '' ">
+            AND b.regOrg in (${regOrg})
+        </if>
+    </sql>
+    <sql id="all_where">
+        <if test="resResult !=null and resResult != ''">
+            AND exists (
+            select 1 from cs_report_check_result re
+            where re.uid=X.uid
+            and re.ResResult in (${resResult})
+            )
+        </if>
+        <if test="infoAuditResult !=null and infoAuditResult != '' and infoAuditResult!=3">
+            AND X.InfoAuditResult=#{infoAuditResult}
+        </if>
+        <if test="infoAuditResult == 3 ">
+            AND X.InfoAuditResult is null
+        </if>
+        <if test="regOrg  !=null and regOrg != '' ">
+            AND X.RegOrg in (${regOrg})
+        </if>
+        <if test="entName !=null and entName != ''">
+            AND X.EntName like '%${entName}%'
+        </if>
+        <if test="uniCode !=null and uniCode != ''">
+            AND (X.UniCode like CONCAT('%',#{uniCode}) or X.RegNO like CONCAT('%',#{uniCode}))
+        </if>
+        <if test="year !=null and year != '' ">
+            AND X.year=#{year}
+        </if>
+        <if test="subject == 'ent' "> <!-- 企业 -->
+            AND X.EntTypeCatg not in ('50','16','17')
+        </if>
+        <if test="subject == 'sfc' "> <!-- 农专社 -->
+            AND X.EntTypeCatg in('16','17')
+        </if>
+
+        <if test="localAdm  !=null and localAdm != '' ">
+            AND X.localAdm in (${localAdm})
+        </if>
+
+        <if test="sliceNO  !=null and sliceNO != '' ">
+            AND X.sliceNO in (${sliceNO})
+        </if>
+    </sql>
+    <sql id="common_where">
+        <if test="entName !=null and entName != ''">
+            AND r.EntName like '%${entName}%'
+        </if>
+        <if test="uniCode !=null and uniCode != ''">
+            AND (r.UniCode like CONCAT('%',#{uniCode}) or r.RegNO like CONCAT('%',#{uniCode}))
+        </if>
+        <if test="year !=null and year != '' ">
+            AND r.year=#{year}
+        </if>
+        <if test="subject == 'ent' "> <!-- 企业 -->
+            AND r.EntTypeCatg not in ('50','16','17')
+        </if>
+        <if test="subject == 'sfc' "> <!-- 农专社 -->
+            AND r.EntTypeCatg in('16','17')
+        </if>
+
+        <if test="localAdm  !=null and localAdm != '' ">
+            AND b.localAdm in (${localAdm})
+        </if>
+
+        <if test="sliceNO  !=null and sliceNO != '' ">
+            AND exists (
+            select 1 from cs_mid_baseinfo bb
+            where bb.sliceNO in (${sliceNO})
+            and bb.pripid=r.pripid
+            )
+        </if>
+    </sql>
+    <!-- 更多查询 -->
+    <sql id="view_where">
+        <if test="checkDep !=null and checkDep != ''">
+            AND r.Depart=#{checkDep}
+        </if>
+        <if test="leRep !=null and leRep != ''">
+            AND r.leRep=#{leRep}
+        </if>
+        <if test="infoCheckDateStart != null and infoCheckDateStart != ''">
+            AND r.infoCheckDate &gt;= #{infoCheckDateStart}
+        </if>
+
+        <if test="infoCheckDateEnd !=null and infoCheckDateEnd != ''">
+            AND r.infoCheckDate &lt;= #{infoCheckDateEnd}
+        </if>
+
+        <if test="estDateStart !=null and estDateStart  != ''">
+            AND r.estDate &gt;= #{estDateStart}
+        </if>
+        <if test="estDateEnd !=null and estDateEnd != ''">
+            AND r.estDate &lt;= #{estDateEnd}
+        </if>
+
+        <if test="pubDateStart !=null and pubDateStart  != ''">
+            AND r.pubDate &gt;= #{pubDateStart}
+        </if>
+        <if test="pubDateEnd !=null and pubDateEnd != ''">
+            AND r.pubDate &lt;= #{pubDateEnd}
+        </if>
+
+        <if test="infoFillDateStart !=null and infoFillDateStart  != ''">
+            AND r.infoFillDate &gt;= #{infoFillDateStart}
+        </if>
+        <if test="infoFillDateEnd !=null and infoFillDateEnd != ''">
+            AND r.infoFillDate &lt;= #{infoFillDateEnd}
+        </if>
+
+        <if test="firstReportTimeStart !=null and firstReportTimeStart  != ''">
+            AND r.firstReportTime &gt;= #{firstReportTimeStart}
+        </if>
+        <if test="firstReportTimeEnd !=null and firstReportTimeEnd != ''">
+            AND r.firstReportTime &lt;= #{firstReportTimeEnd}
+        </if>
+
+
+        <if test="infoAuditDateStart !=null and infoAuditDateStart  != ''">
+            AND r.infoAuditDate &gt;= #{infoAuditDateStart}
+        </if>
+        <if test="infoAuditDateEnd !=null and infoAuditDateEnd != ''">
+            AND r.infoCheckDate &lt;= #{infoAuditDateEnd}
+        </if>
+
+        <if test="infoCheckMan !=null and infoCheckMan != ''">
+            AND r.infoCheckMan like '%${infoCheckMan}%'
+        </if>
+        <if test="infoFillMan !=null and infoFillMan != ''">
+            AND r.infoFillMan=#{infoFillMan}
+        </if>
+        <if test="infoAuditMan !=null and infoAuditMan != ''">
+            AND r.infoAuditMan=#{infoAuditMan}
+        </if>
+        
+        <if test="modName !=null and modName != ''">
+            AND r.modName like '%${modName}%'
+        </if>
+        <if test="modTimeStart !=null and modTimeStart  != ''">
+            AND r.modTime &gt;= #{modTimeStart}
+        </if>
+        <if test="modTimeEnd !=null and modTimeEnd != ''">
+            AND r.modTime &lt;= #{modTimeEnd}
+        </if>
+
+    </sql>
+    
+    
+    <!-- 定时 -->
+    <select id="selectNewReportCheckInfo" parameterType="Map" resultMap="BaseResultMap">
+		SELECT 
+		  COUNT(*)
+		FROM
+		  cs_yr_reg_check t1 
+		  JOIN cs_mid_baseinfo t2
+		    ON t1.PriPID = t2.PriPID 
+		WHERE t1.IsReported = 2 
+		  AND t2.RegState IN (${regState}) 
+		  AND t2.EntTypeCatg != '50' 
+		  AND NOT EXISTS 
+		  (SELECT 
+		    1 
+		  FROM
+		    cs_report_check_info t3 
+		  WHERE t1.PriPID = t3.PriPID 
+		    AND t1.year = t3.year)  
+	</select>
+	
+	
+	<insert id="insertReportCheckInfo" parameterType="Map">
+	  	INSERT INTO cs_report_check_info (
+		  UID,
+		  PriPID,
+		  Year,
+		  InfoCheckCon,
+		  InfoAuditResult,
+		  DisposeState,
+		  FirstReportTime,
+		  entName,
+		  localAdm,
+		  uniCode,
+		  regNO,
+		  regState,
+		  estDate,
+		  checkDep,
+		  entTypeCatg,
+		  LeRep
+		)
+		SELECT 
+		  REPLACE (UUID(), '-', ''),
+		  t1.PriPID,
+		  t1.Year,
+		  '3',
+		  '3',
+		  '1',
+		  t1.FirstReportTime,
+		  t2.entName,
+		  t2.localAdm,
+		  t2.uniCode,
+		  t2.regNO,
+		  t2.regState,
+		  t2.estDate,
+		  t2.checkDep,
+		  t2.entTypeCatg,
+		  t2.LeRep
+		FROM
+		  cs_yr_reg_check t1 
+		  JOIN cs_mid_baseinfo t2
+		    ON t1.PriPID = t2.PriPID 
+		WHERE t1.IsReported = 2 
+		  AND t2.RegState IN (${regState}) 
+		  AND t2.EntTypeCatg != '50' 
+		  AND NOT EXISTS 
+		  (SELECT 
+		    1 
+		  FROM
+		    cs_report_check_info t3 
+		  WHERE t1.PriPID = t3.PriPID 
+		    AND t1.year = t3.year) 
+    </insert>
+
+</mapper>

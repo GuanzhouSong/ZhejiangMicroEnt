@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.YrForinvestMentMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.YrForinvestMent" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="SubConProp" property="subConProp" jdbcType="DECIMAL" />
+      <result column="AcConAmProp" property="acConAmProp" jdbcType="DECIMAL" />
+
+    <result column="SubConAm" property="subConAm" jdbcType="DECIMAL" />
+    <result column="AcConAm" property="acConAm" jdbcType="DECIMAL" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="ConFormCN" property="conFormCN" jdbcType="VARCHAR" />
+    <result column="AcConFormCn" property="acConFormCn" jdbcType="VARCHAR" />
+    <result column="AnCheID" property="anCheID" jdbcType="VARCHAR" />
+    <result column="OUTINVID" property="OUTINVID" jdbcType="VARCHAR" />
+    <result column="AcConForm" property="acConForm" jdbcType="VARCHAR" />
+    <result column="SubConForm" property="subConForm" jdbcType="VARCHAR" /> 
+  </resultMap>
+  
+  
+  <!-- 根据年度和主体主体代码查询对外投资实缴总额 -->
+  <select id="selectInvestSumByYearAndPriPid" parameterType="Map"   resultType="java.math.BigDecimal">
+	    select 
+		     sum(AcConAm) as  acConAm  from cs_yr_forinvestment A 
+		where
+			A.Year = #{year} and  A.PriPID =#{priPID}
+	</select> 
+	
+	<!-- 根据年度和主体主体代码查询对外投资实缴总额 -->
+   <select id="selectInvestSubConAmSumByYearAndPriPid" parameterType="Map"   resultType="java.math.BigDecimal">
+	    select 
+		     sum(SubConAm) as  SubConAm  from cs_yr_forinvestment A 
+		where
+			A.Year = ${year} and  A.PriPID =#{priPID}  
+	</select> 
+</mapper>

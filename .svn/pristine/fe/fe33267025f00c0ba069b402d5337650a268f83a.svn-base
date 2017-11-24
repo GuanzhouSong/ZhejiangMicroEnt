@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.im.mapper.ImIppldgMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.im.model.ImIppldg" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="Pledgor" property="pledgor" jdbcType="VARCHAR" />
+    <result column="TMRegNo" property="TMRegNo" jdbcType="VARCHAR" />
+    <result column="CanDate" property="canDate" jdbcType="DATE" />
+    <result column="TMName" property="TMName" jdbcType="VARCHAR" />
+    <result column="ImpOrg" property="impOrg" jdbcType="VARCHAR" />
+    <result column="PleRegPerFrom" property="pleRegPerFrom" jdbcType="DATE" />
+    <result column="EquPleCanRea" property="equPleCanRea" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="PleID" property="pleID" jdbcType="VARCHAR" />
+    <result column="Kinds" property="kinds" jdbcType="VARCHAR" />
+    <result column="InvAliDRea" property="invAliDRea" jdbcType="VARCHAR" />
+    <result column="InvAlidDate" property="invAlidDate" jdbcType="DATE" />
+    <result column="PubType" property="pubType" jdbcType="VARCHAR" />
+    <result column="PubFlag" property="pubFlag" jdbcType="VARCHAR" />
+    <result column="PublicDate" property="publicDate" jdbcType="DATE" />
+    <result column="PleRegPerTo" property="pleRegPerTo" jdbcType="DATE" />
+  </resultMap>
+  
+  <!-- 根据自然人身份证号获取 个人知识产权出质登记信息 -->
+  <select id="selectListByCerNO" resultMap="BaseResultMap" parameterType="Map" >
+	select cii.PriPID,
+		cii.EntName,
+		cii.RegNO,
+		cii.UniCode,
+		cii.Pledgor,
+		cii.TMRegNo,
+		cii.CanDate,
+		cii.TMName,
+		cii.ImpOrg,
+		cii.PleRegPerFrom,
+		cii.EquPleCanRea,
+		cii.PleID,
+		cii.InvAliDRea,
+		cii.InvAlidDate,
+		cii.PubType,
+		cii.PubFlag,
+		cii.PublicDate,
+		cii.PleRegPerTo,
+		cii.Kinds	
+		 from 
+(select cmi.CerNO from cs_mid_inv cmi where cmi.CerNO = #{cerNO}) t1
+LEFT JOIN cs_mid_baseinfo cmb on t1.CerNO = cmb.CerNO
+LEFT JOIN cs_im_ippldg cii on cii.PriPID = cmb.PriPID
+where cii.PubFlag = '11'
+GROUP BY cii.id
+ORDER BY cii.id desc
+  </select>
+</mapper>

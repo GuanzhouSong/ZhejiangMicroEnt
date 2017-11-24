@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.concern.mapper.CsConcernActivityMapper" >
+
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.concern.model.CsConcernActivity">
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="Uid" jdbcType="VARCHAR" property="id" />
+    <result column="CreateTime" property="createTime" jdbcType="DATE" />
+    <result column="Theme" property="theme" jdbcType="VARCHAR" />
+    <result column="MarkName" property="markName" jdbcType="VARCHAR" />
+    <result column="MarkNo" property="markNo" jdbcType="VARCHAR" />
+    <result column="DateBegin" property="dateBegin" jdbcType="DATE" />
+    <result column="DateEnd" property="dateEnd" jdbcType="DATE" />
+    <result column="IsLong" property="isLong" jdbcType="VARCHAR" />
+    <result column="ActFormat" property="actFormat" jdbcType="VARCHAR" />
+    <result column="Amount" property="amount" jdbcType="DECIMAL" />
+    <result column="LauDeptName" property="lauDeptName" jdbcType="VARCHAR" />
+    <result column="LauDeptCode" property="lauDeptCode" jdbcType="VARCHAR" />
+    <result column="OperDeptName" property="operDeptName" jdbcType="VARCHAR" />
+    <result column="OperDeptCode" property="operDeptCode" jdbcType="VARCHAR" />
+    <result column="OperName" property="operName" jdbcType="VARCHAR" />
+    <result column="OperUid" property="operUid" jdbcType="VARCHAR" />
+    <result column="Content" property="content" jdbcType="VARCHAR" />
+    <result column="OtherAct" property="otherAct" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectActivityList" parameterType="Map" resultMap="BaseResultMap">
+  	SELECT Uid id, CreateTime, Theme, MarkName, MarkNo, DateBegin, DateEnd, IsLong, ActFormat, Amount, LauDeptName, LauDeptCode, OperDeptName, OperDeptCode, OperName, OperUid, Content, OtherAct FROM cs_concern_activity t
+  	<trim prefix="WHERE" prefixOverrides="AND | OR">
+    	<if test="theme != null and theme != ''">
+			t.Theme=#{theme}
+		</if>
+		<if test="actFormat != null and actFormat != ''">
+			AND t.ActFormat=#{actFormat}
+		</if>
+		<if test="markName != null and markName != ''">
+			AND t.MarkName=#{markName}
+		</if>
+		<if test="markNo != null and markNo != ''">
+			AND t.MarkNo=#{markNo}
+		</if>
+		<if test="dateBegin != null and dateBegin !=''">
+			and t.DateBegin &lt;= #{dateBegin,jdbcType=DATE}
+		</if>
+		<if test="dateEnd != null and dateEnd !=''">
+			and t.DateEnd &gt;= #{dateEnd,jdbcType=DATE}
+		</if>
+		<if test="amountMin != null and amountMin != ''">
+			AND t.Amount &gt;=#{amountMin}
+		</if>
+		<if test="amountMax != null and amountMax != ''">
+			AND t.Amount &lt;=#{amountMax}
+		</if>
+		<if test="lauDeptCode != null and lauDeptCode != ''">
+			AND t.LauDeptCode like concat('%', #{lauDeptCode},'%')
+		</if>
+		<if test="operDeptCode != null and operDeptCode != ''">
+			AND t.OperDeptCode=#{operDeptCode}
+		</if>
+	</trim>
+	ORDER BY t.CreateTime DESC
+  </select>
+  
+</mapper>

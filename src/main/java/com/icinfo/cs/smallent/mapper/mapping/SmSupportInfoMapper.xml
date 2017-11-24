@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.smallent.mapper.SmSupportInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.smallent.model.SmSupportInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="EnjoyYear" property="enjoyYear" jdbcType="VARCHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="EnjSpBasis" property="enjSpBasis" jdbcType="VARCHAR" />
+    <result column="EnjSpContent" property="enjSpContent" jdbcType="VARCHAR" />
+    <result column="EnjSpAmount" property="enjSpAmount" jdbcType="DECIMAL" />
+    <result column="ImpSpDepart" property="impSpDepart" jdbcType="VARCHAR" />
+    <result column="ImpSpDate" property="impSpDate" jdbcType="DATE" />
+    <result column="EnjoyCreateTime" property="enjoyCreateTime" jdbcType="DATE" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="RegOrg" property="regOrg" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectSupportInfoList" resultMap="BaseResultMap" parameterType="Map">
+    select
+     id,UID,PriPID,EnjoyYear,UniCode,
+     case when UniCode is null or UniCode = '' then RegNO ELSE  UniCode end RegNO,
+     EntName,EnjSpBasis,EnjSpContent
+     ,EnjSpAmount,ImpSpDepart,ImpSpDate,EnjoyCreateTime,CreateTime
+    from
+      (select id,UID,PriPID,EnjoyYear,UniCode,RegNO,EntName,EnjSpBasis,EnjSpContent ,EnjSpAmount,ImpSpDepart,ImpSpDate,EnjoyCreateTime,CreateTime
+               from  cs_sm_support where 1=1 <include refid="support_where" />  LIMIT 0,50 ) t
+    where
+     1=1
+<!--    <include refid="support_where" />-->
+  </select>
+  
+   
+  <sql id="support_where">
+
+    <if test="regOrg != null and regOrg !=''">
+      and RegOrg LIKE  concat(#{regOrg},'%')
+    </if>
+
+    <if test="nameOrRegNO != null and nameOrRegNO !=''">
+       and EntName LIKE concat( #{nameOrRegNO},'%') or RegNO = #{nameOrRegNO} or UniCode = #{nameOrRegNO}
+    </if>
+  </sql>
+</mapper>

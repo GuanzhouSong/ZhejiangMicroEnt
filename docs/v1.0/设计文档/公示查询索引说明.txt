@@ -1,0 +1,10 @@
+﻿公示查询索引说明
+索引生成
+	(生成前可以情况，也可以不清空，不清空以覆盖的方式生成)
+	1.全量生成索引(client/entsearch/toEntSearch/doInsertPubDataToGsById)
+索引维护
+	1.根据企业名称或者统一代码或者注册号更新
+	2.根据核准日期更新
+	3.根据内部序号删除索引
+	以上3条更新页面地址(client/entsearch/updateOrSaveToGsView)，其中删除索引密码：209814cqwxqqnbasdf
+	

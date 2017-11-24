@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.registinfo.mapper.PubApprMarkRelMapper">
+	<resultMap id="BaseResultMap" type="com.icinfo.cs.registinfo.model.PubApprMarkRel">
+		<!-- WARNING - @frameworkgenerated -->
+		<id column="ID" property="ID" jdbcType="INTEGER" />
+		<result column="PriPID" property="priPID" jdbcType="CHAR" />
+		<result column="MarkCode" property="markCode" jdbcType="VARCHAR" />
+		<result column="MarkName" property="markName" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="BaseResultMapDto"
+		type="com.icinfo.cs.registinfo.dto.PubApprMarkRelDto" extends="BaseResultMap">
+		<result column="DoublyStoState" property="doublyStoState"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 获取分组后的标签列表 -->
+	<select id="selectPubApprMarkRelDtoByPriPIDGroup" parameterType="map"
+		resultMap="BaseResultMapDto">
+		SELECT
+		cmmr.PriPID,
+		GROUP_CONCAT(cmmr.MarkCode) MarkCode,
+		GROUP_CONCAT(cmmr.MarkName) MarkName
+		FROM
+		cs_pub_appr_mark_rel cmmr
+		WHERE
+		cmmr.PriPID=${priPID}
+	</select>
+
+	<!-- 根据企业id删除对应信息 -->
+	<delete id="deleteInPriPID" parameterType="String">
+		delete from cs_pub_appr_mark_rel where PriPID in (${_parameter})
+	</delete>
+
+
+	<!-- 获取当前企业所属标签及标签是否为专项库标签 -->
+	<select id="selectPubApprMarkRelDtoByPriPID" parameterType="map"
+		resultMap="BaseResultMapDto">
+		SELECT a.PriPID PriPID,
+		a.MarkCode MarkCode,
+		a.MarkName MarkName,
+		b.DoublyStoState
+		FROM cs_pub_appr_mark_rel a
+		LEFT JOIN
+		cs_regist_mark b
+		ON a.MarkCode = b.IDCode
+		WHERE a.PriPID = ${priPID}
+	</select>
+
+
+	<!-- 根据企业id删除对应信息 -->
+	<delete id="deleteByMap" parameterType="Map">
+		delete from
+		cs_pub_appr_mark_rel
+		WHERE
+		PriPID in (${priPIDs})
+		AND MarkCode in
+		(${markCodes})
+	</delete>
+
+	<!-- 根据markcodes 删除对应数据 -->
+	<delete id="deleteByMarkCode" parameterType="String">
+		delete from
+		cs_pub_appr_mark_rel
+		WHERE
+		MarkCode = #{_parameter}
+	</delete>
+
+
+	<!-- 根据企业ID获取所有是专项库的标签code -->
+	<select id="queryDoublyStoMarkCodeListInPriPID" parameterType="String" resultType="String">
+		SELECT
+		cpam.MarkCode
+		FROM
+		cs_pub_appr_mark_rel cpam,
+		cs_regist_mark crm
+		WHERE
+		cpam.PriPID in (${_parameter})
+		AND cpam.MarkCode = crm.IDCode
+		AND
+		crm.DoublyStoState = '1'
+	</select>
+
+</mapper>

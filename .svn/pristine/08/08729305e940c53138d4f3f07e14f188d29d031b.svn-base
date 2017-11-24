@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.favorable.mapper.FavorAbleInfoHisMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.favorable.model.FavorAbleInfoHis" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="HisNO" property="hisNO" jdbcType="VARCHAR" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="UniSCID" property="uniSCID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="VARCHAR" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="SetDept" property="setDept" jdbcType="VARCHAR" />
+    <result column="AuditName" property="auditName" jdbcType="VARCHAR" />
+    <result column="AuditDate" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="AuditDept" property="auditDept" jdbcType="VARCHAR" />
+    <result column="AuditOpin" property="auditOpin" jdbcType="VARCHAR" />
+    <result column="RegDate" property="regDate" jdbcType="DATE" />
+    <result column="RegDeptCn" property="regDeptCn" jdbcType="VARCHAR" />
+    <result column="RegDept" property="regDept" jdbcType="VARCHAR" />
+    <result column="RegDocNo" property="regDocNo" jdbcType="VARCHAR" />
+    <result column="RegFrom" property="regFrom" jdbcType="DATE" />
+    <result column="RegTo" property="regTo" jdbcType="DATE" />
+    <result column="RegType" property="regType" jdbcType="VARCHAR" />
+    <result column="RegYear" property="regYear" jdbcType="INTEGER" />
+    <result column="LicZone" property="licZone" jdbcType="VARCHAR" />
+    <result column="FavType" property="favType" jdbcType="CHAR" />
+    <result column="AuditState" property="auditState" jdbcType="CHAR" />
+    <result column="EfftStatus" property="efftStatus" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="Remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+</mapper>

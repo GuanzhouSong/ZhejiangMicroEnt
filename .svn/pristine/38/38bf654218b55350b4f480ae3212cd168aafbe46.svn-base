@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.YrPbBaseInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.YrPbBaseInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="OpLoc" property="opLoc" jdbcType="VARCHAR" />
+    <result column="TraName" property="traName" jdbcType="VARCHAR" />
+    <result column="EmpNum" property="empNum" jdbcType="INTEGER" />
+    <result column="FundAm" property="fundAm" jdbcType="DECIMAL" />
+    <result column="RatGro" property="ratGro" jdbcType="DECIMAL" />
+    <result column="VendIncIsPub" property="vendIncIsPub" jdbcType="VARCHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="VendInc" property="vendInc" jdbcType="DECIMAL" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="IsLegRep" property="isLegRep" jdbcType="VARCHAR" />
+    <result column="AnCheID" property="anCheID" jdbcType="VARCHAR" />
+    <result column="ParInsCN" property="parInsCN" jdbcType="VARCHAR" />
+    <result column="PbFundAm" property="pbFundAm" jdbcType="DECIMAL" />
+    <result column="PartOrgIs" property="partOrgIs" jdbcType="VARCHAR" />
+    <result column="ComPhone" property="comPhone" jdbcType="VARCHAR" />
+    <result column="RreeTaxIs" property="rreeTaxIs" jdbcType="VARCHAR" />
+    <result column="ParIns" property="parIns" jdbcType="CHAR" />
+    <result column="NumParM" property="numParM" jdbcType="INTEGER" />
+    <result column="ResParMSign" property="resParMSign" jdbcType="CHAR" />
+    <result column="ResParSecSign" property="resParSecSign" jdbcType="CHAR" />
+    <result column="RatGroIsPub" property="ratGroIsPub" jdbcType="VARCHAR" />
+    <result column="DisEmps" property="disEmps" jdbcType="INTEGER" />
+    <result column="ExSoldEmps" property="exSoldEmps" jdbcType="INTEGER" />
+    <result column="UniGradEmps" property="uniGradEmps" jdbcType="INTEGER" />
+    <result column="UnemEmps" property="unemEmps" jdbcType="INTEGER" />
+    <result column="MemberNumsIsPub" property="memberNumsIsPub" jdbcType="VARCHAR" />
+    <result column="WebsiteFlag" property="websiteFlag" jdbcType="CHAR" />
+
+    <result column="CityAddressCopy" property="cityAddressCopy" jdbcType="VARCHAR" />
+    <result column="AreaAddressCopy" property="areaAddressCopy" jdbcType="VARCHAR" />
+    <result column="StreeAddressCopy" property="streeAddressCopy" jdbcType="VARCHAR" />
+    <result column="CityAddress" property="cityAddress" jdbcType="VARCHAR" />
+    <result column="AreaAddress" property="areaAddress" jdbcType="VARCHAR" />
+    <result column="StreeAddress" property="streeAddress" jdbcType="VARCHAR" />
+    <result column="DesAddress" property="desAddress" jdbcType="VARCHAR" />
+    <result column="Addr" property="addr" jdbcType="VARCHAR" />
+    
+    <result column="LicenseFlag" property="licenseFlag" jdbcType="CHAR" />
+    
+
+
+
+  </resultMap>
+</mapper>

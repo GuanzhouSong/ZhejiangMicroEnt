@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.ext.mapper.TmDetailInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.ext.model.TmDetailInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="REG_NUM" property="REG_NUM" jdbcType="VARCHAR" />
+    <result column="REG_CN_NAME" property="REG_CN_NAME" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="RegNo" property="regNo" jdbcType="VARCHAR" />
+    <result column="UniSCID" property="uniSCID" jdbcType="VARCHAR" />
+    <result column="INT_CLS" property="INT_CLS" jdbcType="VARCHAR" />
+    <result column="TM_NAME" property="TM_NAME" jdbcType="VARCHAR" />
+    <result column="TM_NAME_TRANSLATE" property="TM_NAME_TRANSLATE" jdbcType="VARCHAR" />
+    <result column="TM_TYPE" property="TM_TYPE" jdbcType="VARCHAR" />
+    <result column="REG_ANNC_ISSUE" property="REG_ANNC_ISSUE" jdbcType="VARCHAR" />
+    <result column="REG_ANNC_DATE" property="REG_ANNC_DATE" jdbcType="TIMESTAMP" />
+    <result column="PROPERTY_BGN_DATE" property="PROPERTY_BGN_DATE" jdbcType="TIMESTAMP" />
+    <result column="PROPERTY_END_DATE" property="PROPERTY_END_DATE" jdbcType="TIMESTAMP" />
+    <result column="IF_CM_TM" property="IF_CM_TM" jdbcType="CHAR" />
+    <result column="TM_IMAGE" property="TM_IMAGE" jdbcType="LONGVARBINARY" />
+  </resultMap>
+  
+  <resultMap id="BaseExtendsResultMap" type="com.icinfo.cs.ext.dto.TmDetailInfoDto"  extends="BaseResultMap">
+    <result column="EnRegNum" property="enRegNum" jdbcType="VARCHAR" />
+    <result column="goodsName" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goodsCode" property="goodsCode" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectTmDetailInfoList" resultMap="BaseExtendsResultMap" parameterType="java.lang.String">
+    SELECT REG_NUM,REG_CN_NAME,PriPID,RegNo,UniSCID,INT_CLS,TM_NAME,TM_NAME_TRANSLATE,TM_TYPE,REG_ANNC_ISSUE,REG_ANNC_DATE,PROPERTY_BGN_DATE,PROPERTY_END_DATE,IF_CM_TM,TM_IMAGE 
+    FROM cs_tm_detail_info 
+    WHERE 1=1
+    <if test="priPID !=null and priPID != ''">
+    	and	PriPID = #{priPID,jdbcType=VARCHAR}
+    </if>
+    <if test="regnum !=null and regnum != ''">
+    	and	REG_NUM = #{regnum,jdbcType=VARCHAR}
+    </if>    
+  </select>
+  
+  <select id="selectTmDetailInfoListForServer" resultMap="BaseExtendsResultMap" parameterType="java.lang.String">
+     SELECT 
+	     t.REG_NUM,t.REG_CN_NAME,t.PriPID,t.RegNo,t.UniSCID,t.INT_CLS,t.TM_NAME,t.TM_NAME_TRANSLATE,
+	     t.TM_TYPE,t.REG_ANNC_ISSUE,t.REG_ANNC_DATE,t.PROPERTY_BGN_DATE,t.PROPERTY_END_DATE,t.IF_CM_TM,t.TM_IMAGE ,
+	     group_concat(a.goods_cn_name) goodsName, group_concat(a.goods_code) goodsCode
+     FROM cs_tm_detail_info t
+     left join  cs_tm_goods a on t.REG_NUM = a.REG_NUM
+     WHERE t.PriPID =  #{priPID,jdbcType=VARCHAR}
+     GROUP BY t.REG_NUM
+  </select>
+</mapper>

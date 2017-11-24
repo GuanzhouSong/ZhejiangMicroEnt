@@ -1,0 +1,1081 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.rpt.rptmapper.RptSmEntInfoAllMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.rpt.rptmodel.RptSmEntInfoAll" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <result column="regorg" property="regorg" jdbcType="CHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="CHAR" />
+    <result column="EntTypeCatg" property="entTypeCatg" jdbcType="VARCHAR" />
+    <result column="EntType" property="entType" jdbcType="CHAR" />
+    <result column="IndustryPhy" property="industryPhy" jdbcType="CHAR" />
+    <result column="IndustryCo" property="industryCo" jdbcType="CHAR" />
+    <result column="ThrIndustry1" property="thrIndustry1" jdbcType="DECIMAL" />
+    <result column="ThrIndustry2" property="thrIndustry2" jdbcType="DECIMAL" />
+    <result column="ThrIndustry3" property="thrIndustry3" jdbcType="DECIMAL" />
+    <result column="EigIndustry1" property="eigIndustry1" jdbcType="DECIMAL" />
+    <result column="EigIndustry2" property="eigIndustry2" jdbcType="DECIMAL" />
+    <result column="EigIndustry3" property="eigIndustry3" jdbcType="DECIMAL" />
+    <result column="EigIndustry4" property="eigIndustry4" jdbcType="DECIMAL" />
+    <result column="EigIndustry5" property="eigIndustry5" jdbcType="DECIMAL" />
+    <result column="EigIndustry6" property="eigIndustry6" jdbcType="DECIMAL" />
+    <result column="EigIndustry7" property="eigIndustry7" jdbcType="DECIMAL" />
+    <result column="EigIndustry8" property="eigIndustry8" jdbcType="DECIMAL" />
+    <result column="RegCap10" property="regCap10" jdbcType="DECIMAL" />
+    <result column="RegCap50" property="regCap50" jdbcType="DECIMAL" />
+    <result column="RegCap100" property="regCap100" jdbcType="DECIMAL" />
+    <result column="RegCap500" property="regCap500" jdbcType="DECIMAL" />
+    <result column="RegCapO500" property="regCapO500" jdbcType="DECIMAL" />
+    <result column="empnum5" property="empnum5" jdbcType="DECIMAL" />
+    <result column="empnum10" property="empnum10" jdbcType="DECIMAL" />
+    <result column="empnum20" property="empnum20" jdbcType="DECIMAL" />
+    <result column="empnum50" property="empnum50" jdbcType="DECIMAL" />
+    <result column="empnum100" property="empnum100" jdbcType="DECIMAL" />
+    <result column="empnum200" property="empnum200" jdbcType="DECIMAL" />
+    <result column="empnum300" property="empnum300" jdbcType="DECIMAL" />
+    <result column="empnum500" property="empnum500" jdbcType="DECIMAL" />
+    <result column="empnumO500" property="empnumO500" jdbcType="DECIMAL" />
+    <result column="newEnt" property="newEnt" jdbcType="DECIMAL" />
+    <result column="canEnt" property="canEnt" jdbcType="DECIMAL" />
+    <result column="EstDate" property="estDate" jdbcType="TIMESTAMP" />
+    <result column="ApprDate" property="apprDate" jdbcType="DATE" />
+    <result column="EntNum" property="entNum" jdbcType="BIGINT" />
+    <result column="avgAge" property="avgAge" jdbcType="DOUBLE" />
+    <result column="cer80" property="cer80" jdbcType="DECIMAL" />
+    <result column="cer90" property="cer90" jdbcType="DECIMAL" />
+    <result column="cer33" property="cer33" jdbcType="DECIMAL" />
+    <result column="RegCapAll" property="regCapAll" jdbcType="DECIMAL" />
+    <result column="RegCapAvg" property="regCapAvg" jdbcType="DECIMAL" />
+    <result column="InvLeg" property="invLeg" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.rpt.rptdto.RptSmEntInfoAllDto" id="BaseExtResultMap" extends="BaseResultMap">
+    <result column="industryCodeName" property="industryCodeName" jdbcType="VARCHAR" />
+    <result column="areaTime" property="areaTime" jdbcType="VARCHAR" />
+    <result column="industryCoName" property="industryCoName" jdbcType="VARCHAR" />
+    <result column="entTypeCatgName" property="entTypeCatgName" jdbcType="VARCHAR" />
+    <result column="entTypeName" property="entTypeName" jdbcType="VARCHAR" />
+    <result column="regorgName" property="regorgName" jdbcType="VARCHAR" />
+    <result column="localAdmName" property="localAdmName" jdbcType="VARCHAR" />
+    <result column="newEntAll" property="newEntAll" jdbcType="DECIMAL" />
+    <result column="canEntAll" property="canEntAll" jdbcType="DECIMAL" />
+    <result column="newRegCapAll" property="newRegCapAll" jdbcType="DECIMAL" />
+    <result column="avgAgeCount" property="avgAgeCount" jdbcType="DECIMAL" />
+    
+    <result column="cancelEnt" property="cancelEnt" jdbcType="DECIMAL" />
+    <result column="cancelEntAll" property="cancelEntAll" jdbcType="DECIMAL" />
+  </resultMap>
+  
+   <sql id="count_where">
+    
+		<if test="cer !=null and cer != '' ">
+	    and  t.${cer} > 0
+	    </if>
+		<if test="thrIndustry !=null and thrIndustry != ''">
+	    and  t.${thrIndustry} > 0
+	    </if>
+	    <if test="regOrg !='' and regOrg !=null">
+	    and t.RegOrg  IN  (${regOrg})
+	    </if>
+	    <if test="localAdm !='' and localAdm !=null">
+	    and t.LocalAdm  IN (${localAdm})
+	    </if>
+	    <if test="entType !='' and entType !=null">
+	    and t.entType  IN (${entType})
+	    </if>
+		<if test="industryCo !=null and industryCo != '' ">
+	    and  t.IndustryPhy in (${industryCo})
+	    </if>
+	    <if test="regCap !='' and regCap !=null">
+	    and t.${regCap} > 0
+	    </if>
+	    <if test="empNum !='' and empNum !=null">
+	    and t.${empNum} > 0
+	    </if>
+	    <if test="eigIndustry !='' and eigIndustry !=null and eigIndustry !='eigIndustry0'">
+	    and t.${eigIndustry} > 0
+	    </if>
+	    <if test="eigIndustry !='' and eigIndustry !=null and eigIndustry =='eigIndustry0'">
+	    and (t.eigIndustry1 >0 OR t.eigIndustry2 >0 OR t.eigIndustry3 >0 
+         OR t.eigIndustry4 >0 OR t.eigIndustry5 >0 OR t.eigIndustry6 >0 OR t.eigIndustry7 >0 OR t.eigIndustry8 >0)
+	    </if>
+	    <!-- 上市 -->
+	    <if test="entyTypeCatg !=null and entyTypeCatg !='' and entyTypeCatg == 1 ">
+	       and t.entType in ('6280','6260','6240','6220','5854','5852','5824','5822','5240','5220','6854','6852','6828','6826','6824','6822','2213','1213')
+	    </if>
+	    <!-- 股份 -->
+	    <if test="entyTypeCatg !=null and entyTypeCatg !='' and entyTypeCatg == 2 ">
+	       and t.entType in ('6821','6820','6270','6250','6230','6210','5854','5852','5824','5821','5240','5230','5220','5210','5200','6858','6857','6856','6855','6854','6853','6852','6851','6828','6827','6826','6825','6824','6823','6822')
+	    </if>
+	     <!-- 国有 -->
+	    <if test="entyTypeCatg !=null and entyTypeCatg !='' and entyTypeCatg == 3 ">
+	       and t.entType in ('4410','4370','4350','4210','4110','3610','3502','3501','3100','2223','2213','2140','2110','1223','1140','1110')
+	    </if>
+	     <!-- 控股 -->
+	    <if test="entyTypeCatg !=null and entyTypeCatg !='' and entyTypeCatg == 4 ">
+	       and t.entType in ('2223','2213','2140','1223','1213','1140')
+	    </if>
+	     <!-- 独资 -->
+	    <if test="entyTypeCatg !=null  and entyTypeCatg !='' and entyTypeCatg == 5 ">
+	       and t.entType in ('2110','1110')
+	    </if>
+	     <!-- 内资 -->
+	    <if test="entyTypeCatg !=null and entyTypeCatg !='' and entyTypeCatg == 6 ">
+	       and t.entType in ('6821','6820','6819','6817','6816','6815','6814','6813','6812','6811','6810','6800','6390','6320','6310','6300','6290','6280','6270','6240','6230','6220','6210','6200','6190','6143','6142','6141','6140','6130','6120','6110','6100','6000','5860','5859','5850','5849','5840','5830','5829','5820','5819','5810','5300','5290','5200','5190','9000','8660','8650','8000','7500','7400','7380','7370','7360','7350','7340','7330','7320','7310','6869','6862','6861','6860','6859','6858','6857','6854','6853','6852','6851','6850','6849','6847',
+           '6846','6845','6844','6843','6842','6841','6840','6839','6832','6831','6830','6829','6828','6827','6824','6823','6822','5100','4900','4800','4720','4710','4700','4600','4580','4570','4560','4550','4543','4542','4541','4540','4530','4523','4522','4521','4520','4510','4500','4430','4420','4410','4400','4380','4370','4360','4350','4340','4330','4320','4310','4300','4220','4210','4200','4120','4110','4100','4000','3900','3800','3700','3620','3610','3600','3504','3503','3502','3501','3500','3400','3320','3310','3300','3200','3100','2229','2223','2222',
+           '2220','2219','2213','2212','2210','2200','2190','2153','2152','2151','2150','2140','2130','2110','2100','2000','1229','1223','1222','1220','1219','1213','1212','1210','1200','1190','1153','1152','1151','1150','1140','1130','1110','1100','1000')
+	    </if>
+	     <!-- 外资 -->
+	    <if test="entyTypeCatg !=null and entyTypeCatg !='' and entyTypeCatg == 7 ">
+	       and t.entType in ('6818','6430','6420','6410','6400','6260','6250','6150','5869','5862','5861','5854','5853','5852','5851','5847','5846','5845','5844','5843','5842','5841','5839','5832','5831','5824','5823','5822','5821','5817','5816','5815','5814','5813','5812','5811','5800','5390','5320','5310','5240','5230','5220','5210','5143','5142','5141','5140','5130','5120','7300','7200','7190''7130','7120','7110','7100','7000','6930','6920','6910','6900','6856','6855','6848','6826','6825','5110','5000','2221','2211','2124','2123','2122','2121','2120','1221','1211','1154','1124','1123','1122','1121','1120')
+	    </if>
+	     <!-- 港澳台资 -->
+	    <if test="entyTypeCatg !=null and entyTypeCatg !='' and entyTypeCatg == 8 ">
+	       and t.entType in ('6821','6818','6817','6816','6815','6814','6813','6812','6811','6800','6390','6320','6310','6280','6270','6260','6250','6240','6230','6220','6210','6150','6143','6142','6141','6140','6130','6120','6110','6000','6869','6862','6861','6858','6857','6856','6855','6854','6853','6852','6851','6848','6847','6846','6845','6844','6843','6842','6841','6839','6832','6831','6828','6827','6826','6825','6824','6823','6822')
+	    </if>
+  </sql>
+  
+  <!-- ****************************************普通账号走建模************************************ -->
+   <select id="selectRptSmNormalCount" resultMap="BaseExtResultMap" parameterType="Map">
+		SELECT D.areaTime,D.localAdm,
+		<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+		D.EntType,
+		E.content entTypeName,E.IndType entTypeCatgName,
+		</if>
+		<if test="(thrIndustry !=null and thrIndustry !='') or (industryCo !=null and industryCo !='')">
+		D.IndustryPhy,
+		F.IndType industryCodeName,F.Content industryCoName,
+		</if>
+		D.newEntAll,D.canEntAll,D.cancelEntAll,
+		D.newEnt,TRUNCATE(D.regCapAll,4) regCapAll,D.cancelEnt,
+		D.canEnt,TRUNCATE(D.newRegCapAll,4) newRegCapAll,TRUNCATE(D.RegCapAvg,4) RegCapAvg,TRUNCATE(D.avgAge,0) avgAge,TRUNCATE(D.avgAgeCount,0) avgAgeCount,D.cer80,D.cer90,D.cer33,D.InvLeg, 
+        <if test="statLevel != null and statLevel != '' and  statLevel != 'areacode' ">
+		G.Content regorgName 
+		</if>
+        <if test="statLevel != null and statLevel != '' and  statLevel == 'areacode' ">
+		D.localAdm regorgName 
+		</if>
+		FROM
+		(SELECT A.areaTime,A.localAdm,
+		<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+		A.EntType,
+		</if>
+		<if test="(thrIndustry !=null and thrIndustry !='') or (industryCo !=null and industryCo !='')">
+		A.IndustryPhy,
+		</if>
+		IFNULL(A.newEntAll,0) newEntAll,IFNULL(A.canEntAll,0) canEntAll,IFNULL(A.cancelEntAll,0) cancelEntAll, 
+		IFNULL(B.newEnt,0) newEnt,IFNULL(B.regCapAll,0) regCapAll,IFNULL(B.cancelEnt,0) cancelEnt, 
+		IFNULL(C.canEnt,0) canEnt,IFNULL(C.newRegCapAll,0) newRegCapAll,IFNULL(C.RegCapAvg,0) RegCapAvg,
+		IFNULL(C.avgAge,0) avgAge,IFNULL(C.avgAgeCount,0) avgAgeCount,
+		IFNULL(C.cer80,0) cer80,IFNULL(C.cer90,0) cer90,IFNULL(C.cer33,0) cer33,IFNULL(C.InvLeg,0) InvLeg 
+		FROM
+		(SELECT CONCAT(#{estDateStart},'——',#{estDateEnd}) areaTime,t.${statLevel} localAdm,
+		<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+		  t.EntType,
+	    </if>
+		<if test="(thrIndustry !=null and thrIndustry !='') or (industryCo !=null and industryCo !='')">
+		  t.IndustryPhy,
+	    </if>  
+		<![CDATA[
+		SUM(CASE WHEN (DATE_FORMAT(t.EstDate,'%Y-%m-%d') <= #{estDateEnd}) THEN t.newEnt ELSE 0 END) + SUM( CASE WHEN (DATE_FORMAT(t.apprDate,'%Y-%m-%d') > #{estDateEnd} ) THEN t.CanEnt ELSE 0 END ) newEntAll,
+		SUM(CASE WHEN (DATE_FORMAT(t.EstDate,'%Y-%m-%d') <= #{estDateEnd} AND t.EstDate >#{estDateStart}) THEN t.newEnt ELSE 0 END) canEntAll,
+		SUM(CASE WHEN (DATE_FORMAT(t.apprDate,'%Y-%m-%d') <= #{estDateEnd} AND t.apprDate >#{estDateStart}) THEN t.CanEnt ELSE 0 END) cancelEntAll
+		]]>
+		FROM  rpt_ent_info_all t
+		where 
+		<![CDATA[
+		DATE_FORMAT(t.EstDate,'%Y-%m-%d') <= #{estDateEnd}
+		and CASE WHEN (DATE_FORMAT(t.EstDate,'%Y-%m-%d') <= #{estDateEnd}) THEN t.newEnt ELSE 0 END >0
+		]]>
+		<include refid="count_where"/>
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+		GROUP BY t.${statLevel}
+		<if test="(entType !=null and entType !='' ) or (entyTypeCatg !=null and entyTypeCatg !='')">
+		,t.EntType
+		</if>
+		<if test="(thrIndustry !=null and thrIndustry !='') or (industryCo !=null and industryCo !='') ">
+		,t.IndustryPhy
+		</if>
+		) A
+		LEFT JOIN
+		(select CONCAT(#{estDateStart},'——',#{estDateEnd}) areaTime,t.${statLevel} LocalAdm,
+		<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+		  t.EntType,
+	    </if>
+		<if test="(thrIndustry !=null and thrIndustry !='') or (industryCo !=null and industryCo !='')">
+		  t.IndustryPhy,
+	    </if> 
+		<![CDATA[
+		SUM(CASE WHEN (DATE_FORMAT(t.EstDate,'%Y-%m-%d') <= #{estDateEnd}) THEN t.newEnt ELSE 0 END) + SUM( CASE WHEN (DATE_FORMAT(t.apprDate,'%Y-%m-%d') > #{estDateEnd}) THEN t.CanEnt ELSE 0 END ) newEnt,
+		SUM(CASE WHEN (DATE_FORMAT(t.EstDate,'%Y-%m-%d') <= #{estDateEnd}) THEN t.RegCapAll ELSE 0 END) + SUM( CASE WHEN (DATE_FORMAT(t.apprDate,'%Y-%m-%d') > #{estDateEnd}) THEN t.RegCapAll ELSE 0 END ) RegCapAll,
+        SUM(CASE WHEN (t.apprDate > #{estDateStart} and DATE_FORMAT(t.apprDate,'%Y-%m-%d') <= #{estDateEnd}) THEN t.CanEnt ELSE 0 END ) cancelEnt
+		from rpt_sm_ent_info_all t
+		where DATE_FORMAT(t.EstDate,'%Y-%m-%d') <= #{estDateEnd}
+		]]>
+		<include refid="count_where"/>
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+		GROUP BY t.${statLevel}
+		<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+		,t.EntType
+		</if>
+		<if test="(thrIndustry !=null and thrIndustry !='') or (industryCo !=null and industryCo !='') ">
+		,t.IndustryPhy
+		</if>
+		) B
+		ON A.localAdm = B.localAdm
+		<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+		AND A.EntType = B.EntType
+		</if>
+		<if test="(thrIndustry !=null and thrIndustry !='') or (industryCo !=null and industryCo !='') ">
+		AND A.IndustryPhy = B.IndustryPhy
+		</if>
+		LEFT JOIN
+		(select CONCAT(#{estDateStart},'——',#{estDateEnd}) areaTime,t.${statLevel} LocalAdm,
+		<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+		  t.EntType,
+	    </if>
+		<if test="(thrIndustry !=null and thrIndustry !='') or (industryCo !=null and industryCo !='')">
+		  t.IndustryPhy,
+	    </if>
+		SUM(t.newEnt) canEnt,
+		SUM(t.RegCapAll) newRegCapAll,
+		AVG(t.RegCapAvg) RegCapAvg,
+		<![CDATA[
+		AVG(CASE when t.avgAge >0 THEN t.avgAge END) avgAge,
+		SUM(CASE when t.avgAge >0 THEN 1 ELSE 0 END) avgAgeCount,
+		]]>		
+		SUM(t.cer80) cer80,
+		SUM(t.cer90) cer90,
+		SUM(t.cer33) cer33,
+		SUM(t.InvLeg) InvLeg
+		from rpt_sm_ent_info_all t
+		where 
+		<![CDATA[ DATE_FORMAT(t.EstDate,'%Y-%m-%d') <= #{estDateEnd} AND t.EstDate > #{estDateStart}
+		]]>
+		<include refid="count_where"/>
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+		GROUP BY t.${statLevel}
+		<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+		,t.EntType
+		</if>
+		<if test="(thrIndustry !=null and thrIndustry !='') or (industryCo !=null and industryCo !='') ">
+		,t.IndustryPhy
+		</if>
+		) C
+		ON A.localAdm = C.localAdm
+		<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+		AND A.EntType = C.EntType
+		</if>
+		<if test="(thrIndustry !=null and thrIndustry !='') or (industryCo !=null and industryCo !='') ">
+		AND A.IndustryPhy = C.IndustryPhy
+		</if>
+		) D
+		<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+		LEFT JOIN cs_code_enttype E
+		on D.EntType = E.code
+		</if>
+		<if test="(thrIndustry !=null and thrIndustry !='') or (industryCo !=null and industryCo !='') ">
+		LEFT JOIN cs_code_industrytype F
+		on D.IndustryPhy = F.code
+		</if>
+        <if test="statLevel != null and statLevel != '' and  statLevel == 'RegOrg' ">
+		LEFT JOIN cs_code_regorg G
+		ON D.localAdm = G.Code
+		</if>
+        <if test="statLevel != null and statLevel != '' and  statLevel == 'LocalAdm' ">
+		LEFT JOIN cs_code_regunit G
+		ON D.localAdm = G.Code
+		</if>
+	    LIMIT ${numStart},${pageSize}
+     </select>
+  
+  
+      <select id="selectRptSmNormalTotal" parameterType="Map" resultType="Integer">
+        SELECT
+        COUNT(0)
+        FROM
+		(SELECT CONCAT(#{estDateStart},'——',#{estDateEnd}) areaTime,t.${statLevel} localAdm,
+		<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+		t.EntType,
+		</if>
+		<if test="(thrIndustry !=null and thrIndustry !='') or (industryCo !=null and industryCo !='') ">
+		t.IndustryPhy,
+		</if>
+		<![CDATA[
+		SUM(CASE WHEN (DATE_FORMAT(t.EstDate,'%Y-%m-%d') <= #{estDateEnd}) THEN t.newEnt ELSE 0 END) + SUM( CASE WHEN (DATE_FORMAT(t.apprDate,'%Y-%m-%d') > #{estDateEnd} ) THEN t.CanEnt ELSE 0 END ) newEntAll,
+		SUM(CASE WHEN (DATE_FORMAT(t.EstDate,'%Y-%m-%d') <= #{estDateEnd} AND t.EstDate >#{estDateStart}) THEN t.newEnt ELSE 0 END) canEntAll
+		]]>
+		FROM  rpt_ent_info_all t
+		where 
+		<![CDATA[
+		DATE_FORMAT(t.EstDate,'%Y-%m-%d') <= #{estDateEnd}
+		and CASE WHEN (DATE_FORMAT(t.EstDate,'%Y-%m-%d') <= #{estDateEnd}) THEN t.newEnt ELSE 0 END >0
+		]]>
+		<include refid="count_where"/>
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+		GROUP BY t.${statLevel}
+		<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+		,t.EntType
+		</if>
+		<if test="(thrIndustry !=null and thrIndustry !='') or (industryCo !=null and industryCo !='') ">
+		,t.IndustryPhy
+		</if>
+		) A
+      </select>
+  
+  
+     <!-- 八大重点产业统计 -->
+     <select id="selectRptImportCount" resultMap="BaseExtResultMap" parameterType="Map">
+		SELECT D.areaTime,D.localAdm,
+		<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+		D.EntType,
+		E.content entTypeName,E.IndType entTypeCatgName,
+		</if>
+	    <if test="eigIndustry !=null and eigIndustry !='' ">
+		D.industryCoName,
+		</if>
+		D.newEntAll,D.canEntAll,D.cancelEntAll,
+		D.newEnt,TRUNCATE(D.regCapAll,4) regCapAll,D.cancelEnt,
+		D.canEnt,TRUNCATE(D.newRegCapAll,4) newRegCapAll,TRUNCATE(D.RegCapAvg,4) RegCapAvg,TRUNCATE(D.avgAge,0) avgAge,TRUNCATE(D.avgAgeCount,0) avgAgeCount,D.cer80,D.cer90,D.cer33,D.InvLeg, 
+        <if test="statLevel != null and statLevel != '' and  statLevel != 'areacode' ">
+		G.Content regorgName 
+		</if>
+        <if test="statLevel != null and statLevel != '' and  statLevel == 'areacode' ">
+		D.localAdm regorgName 
+		</if>
+		FROM
+		(SELECT A.areaTime,A.localAdm,
+		<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+		A.EntType,
+		</if>
+	    <if test="eigIndustry !=null and eigIndustry !='' ">
+		A.industryCoName,
+		</if>
+		IFNULL(A.newEntAll,0) newEntAll,IFNULL(A.canEntAll,0) canEntAll,IFNULL(A.cancelEntAll,0) cancelEntAll, 
+		IFNULL(B.newEnt,0) newEnt,IFNULL(B.regCapAll,0) regCapAll,IFNULL(B.cancelEnt,0) cancelEnt, 
+		IFNULL(C.canEnt,0) canEnt,IFNULL(C.newRegCapAll,0) newRegCapAll,IFNULL(C.RegCapAvg,0) RegCapAvg,
+		IFNULL(C.avgAge,0) avgAge,IFNULL(C.avgAgeCount,0) avgAgeCount,
+		IFNULL(C.cer80,0) cer80,IFNULL(C.cer90,0) cer90,IFNULL(C.cer33,0) cer33,IFNULL(C.InvLeg,0) InvLeg  
+		FROM
+		(SELECT CONCAT(#{estDateStart},'——',#{estDateEnd}) areaTime,t.${statLevel} localAdm,
+		<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+		t.EntType,
+		</if>
+	    <if test="eigIndustry !=null and eigIndustry !='' ">
+		#{eigIndustry} industryCoName,
+		</if>
+		<![CDATA[
+		SUM(CASE WHEN (DATE_FORMAT(t.EstDate,'%Y-%m-%d') <=#{estDateEnd}) THEN t.newEnt ELSE 0 END) + SUM( CASE WHEN (DATE_FORMAT(t.apprDate,'%Y-%m-%d') > #{estDateEnd} ) THEN t.CanEnt ELSE 0 END ) newEntAll,
+		SUM(CASE WHEN (DATE_FORMAT(t.EstDate,'%Y-%m-%d') <=#{estDateEnd} AND t.EstDate >#{estDateStart}) THEN t.newEnt ELSE 0 END) canEntAll,
+		SUM(CASE WHEN (DATE_FORMAT(t.apprDate,'%Y-%m-%d') <=#{estDateEnd} AND t.apprDate >#{estDateStart}) THEN t.CanEnt ELSE 0 END) cancelEntAll
+		]]>
+		FROM  rpt_ent_info_all t
+		where 
+		<![CDATA[
+		DATE_FORMAT(t.EstDate,'%Y-%m-%d') <= #{estDateEnd}
+		and CASE WHEN (DATE_FORMAT(t.EstDate,'%Y-%m-%d') <=#{estDateEnd}) THEN t.newEnt ELSE 0 END >0
+		]]>
+		<include refid="count_where"/>
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+		GROUP BY t.${statLevel}
+		<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+		,t.EntType
+		</if>
+		) A
+		LEFT JOIN
+		(select CONCAT(#{estDateStart},'——',#{estDateEnd}) areaTime,t.${statLevel} LocalAdm,
+		<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+		t.EntType,
+		</if>
+	    <if test="eigIndustry !=null and eigIndustry !='' ">
+		#{eigIndustry} industryCoName,
+		</if>
+		<![CDATA[
+		SUM(CASE WHEN (DATE_FORMAT(t.EstDate,'%Y-%m-%d') <= #{estDateEnd}) THEN t.newEnt ELSE 0 END) + SUM( CASE WHEN (DATE_FORMAT(t.apprDate,'%Y-%m-%d') > #{estDateEnd}) THEN t.CanEnt ELSE 0 END ) newEnt,
+		SUM(CASE WHEN (DATE_FORMAT(t.EstDate,'%Y-%m-%d') <= #{estDateEnd}) THEN t.RegCapAll ELSE 0 END) + SUM( CASE WHEN (DATE_FORMAT(t.apprDate,'%Y-%m-%d') > #{estDateEnd}) THEN t.RegCapAll ELSE 0 END ) RegCapAll,
+		SUM(CASE WHEN (t.apprDate > #{estDateStart} and DATE_FORMAT(t.apprDate,'%Y-%m-%d') <= #{estDateEnd}) THEN t.CanEnt ELSE 0 END ) cancelEnt
+		from rpt_sm_ent_info_all t
+		where DATE_FORMAT(t.EstDate,'%Y-%m-%d') <= #{estDateEnd}
+		]]>
+		<include refid="count_where"/>
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+		GROUP BY t.${statLevel}
+		<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+		,t.EntType
+		</if>
+		) B
+		ON A.localAdm = B.localAdm
+		<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+		AND A.EntType = B.EntType
+		</if>
+		LEFT JOIN
+		(select CONCAT(#{estDateStart},'——',#{estDateEnd}) areaTime,t.${statLevel} LocalAdm,
+		<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+		t.EntType,
+		</if>
+	    <if test="eigIndustry !=null and eigIndustry !='' ">
+		#{eigIndustry} industryCoName,
+		</if>
+		SUM(t.newEnt) canEnt,
+		SUM(t.RegCapAll) newRegCapAll,
+		AVG(t.RegCapAvg) RegCapAvg,
+		<![CDATA[
+		AVG(CASE when t.avgAge >0 THEN t.avgAge END) avgAge,
+		SUM(CASE when t.avgAge >0 THEN 1 ELSE 0 END) avgAgeCount,
+		]]>		
+		SUM(t.cer80) cer80,
+		SUM(t.cer90) cer90,
+		SUM(t.cer33) cer33,
+		SUM(t.InvLeg) InvLeg
+		from rpt_sm_ent_info_all t
+		where 
+		<![CDATA[ DATE_FORMAT(t.EstDate,'%Y-%m-%d') <= #{estDateEnd} AND t.EstDate > #{estDateStart}
+		]]>
+		<include refid="count_where"/>
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+		GROUP BY t.${statLevel}
+		<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+		,t.EntType
+		</if>
+		) C
+		ON A.localAdm = C.localAdm
+		<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+		AND A.EntType = C.EntType
+		</if>
+		) D
+		<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+		LEFT JOIN cs_code_enttype E
+		on D.EntType = E.code
+		</if>
+        <if test="statLevel != null and statLevel != '' and  statLevel == 'RegOrg' ">
+		LEFT JOIN cs_code_regorg G
+		ON D.localAdm = G.Code
+		</if>
+        <if test="statLevel != null and statLevel != '' and  statLevel == 'LocalAdm' ">
+		LEFT JOIN cs_code_regunit G
+		ON D.localAdm = G.Code
+		</if>
+		LIMIT ${numStart},${pageSize}
+    </select>
+  
+        <select id="selectRptImportTotal" parameterType="Map" resultType="Integer">
+        SELECT
+        COUNT(0)
+        FROM
+		(SELECT CONCAT(#{estDateStart},'——',#{estDateEnd}) areaTime,
+		t.${statLevel} localAdm,
+		<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+		t.EntType,
+		</if>
+	    <if test="eigIndustry !=null and eigIndustry !='' ">
+		#{eigIndustry} industryCoName,
+		</if>
+		<![CDATA[
+		SUM(CASE WHEN (DATE_FORMAT(t.EstDate,'%Y-%m-%d') <=#{estDateEnd}) THEN t.newEnt ELSE 0 END) + SUM( CASE WHEN (DATE_FORMAT(t.apprDate,'%Y-%m-%d') > #{estDateEnd} ) THEN t.CanEnt ELSE 0 END ) newEntAll,
+		SUM(CASE WHEN (DATE_FORMAT(t.EstDate,'%Y-%m-%d') <=#{estDateEnd} AND t.EstDate >#{estDateStart}) THEN t.newEnt ELSE 0 END) canEntAll
+		]]>
+		FROM  rpt_ent_info_all t
+		where 
+		<![CDATA[
+		DATE_FORMAT(t.EstDate,'%Y-%m-%d') <= #{estDateEnd}
+		and CASE WHEN (DATE_FORMAT(t.EstDate,'%Y-%m-%d') <=#{estDateEnd}) THEN t.newEnt ELSE 0 END >0
+		]]>
+		<include refid="count_where"/>
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+		GROUP BY t.${statLevel}
+		<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+		,t.EntType
+		</if>
+		) A
+      </select>
+      
+       <!-- *******************************************省局账号走数据库表************************************************* -->
+       <select id="selectRptSmNormalsjCount" resultMap="BaseExtResultMap" parameterType="Map">
+			SELECT D.areaTime,D.localAdm,
+			<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+			D.EntType,
+			E.content entTypeName,E.IndType entTypeCatgName,
+			</if>
+			<if test="(thrIndustry !=null and thrIndustry !='') or (industryCo !=null and industryCo !='')">
+			D.IndustryPhy,
+			F.IndType industryCodeName,F.Content industryCoName,
+			</if>
+			D.newEntAll,D.canEntAll,D.cancelEntAll,
+			D.newEnt,TRUNCATE(D.regCapAll,4) regCapAll,D.cancelEnt,
+			D.canEnt,TRUNCATE(D.newRegCapAll,4) newRegCapAll,TRUNCATE(D.RegCapAvg,4) RegCapAvg,TRUNCATE(D.avgAge,0) avgAge,TRUNCATE(D.avgAgeCount,0) avgAgeCount,D.cer80,D.cer90,D.cer33,D.InvLeg, 
+	        <if test="statLevel != null and statLevel != '' and  statLevel != 'areacode' ">
+			G.Content regorgName 
+			</if>
+	        <if test="statLevel != null and statLevel != '' and  statLevel == 'areacode' ">
+			D.localAdm regorgName 
+			</if>
+			FROM(
+			SELECT A.areaTime,A.localAdm,
+			<if test="(entyTypeCatg !='' and entyTypeCatg !=null) or (entType != null and entType != '') ">
+			A.EntType,
+			</if>
+			<if test="(thrIndustry !=null and thrIndustry != '') or (industryCo != null and industryCo != '')  ">
+			A.IndustryPhy,
+			</if> 
+			IFNULL(A.newEntAll,0) newEntAll,IFNULL(A.canEntAll,0) canEntAll,IFNULL(A.cancelEntAll,0) cancelEntAll, 
+			IFNULL(B.newEnt,0) newEnt,IFNULL(B.regCapAll,0) regCapAll,IFNULL(B.cancelEnt,0) cancelEnt, 
+			IFNULL(C.canEnt,0) canEnt,IFNULL(C.newRegCapAll,0) newRegCapAll,IFNULL(C.RegCapAvg,0) RegCapAvg, 
+			IFNULL(C.avgAge,0) avgAge,IFNULL(C.avgAge,0) avgAgeCount,IFNULL(C.cer80,0) 
+			cer80,IFNULL(C.cer90,0) cer90,IFNULL(C.cer33,0) cer33,IFNULL(C.InvLeg,0) InvLeg 
+			FROM 
+			(select CONCAT(#{estDateStart},'——',#{estDateEnd}) areaTime,
+			<if test="statLevel != null and statLevel != '' and  statLevel == 'areacode' ">
+			LEFT(IFNULL(t.RegOrg,t.LocalAdm),4) localAdm,
+			</if>
+	        <if test="statLevel != null and statLevel != '' and  statLevel != 'areacode' ">
+			t.${statLevel} localAdm,
+			</if>
+	        <if test="(entyTypeCatg !='' and entyTypeCatg !=null) or (entType != null and entType != '') ">
+			t.EntType,
+			</if>
+			<if test="(thrIndustry !=null and thrIndustry != '') or (industryCo != null and industryCo != '')  ">
+			t.IndustryPhy,
+			</if>
+			<![CDATA[
+			sum(case when (t.RegState in (${regState})) or (t.RegState not in (${regState}) AND DATE_FORMAT(t.apprDate,'%Y-%m-%d') > #{estDateEnd}) then 1 else 0 end) newEntAll,
+			sum(case when t.RegState in (${regState}) AND t.EstDate > #{estDateStart} then 1 else 0 end) canEntAll,
+			sum(case when t.RegState not in (${regState}) and t.ApprDate > #{estDateStart} and DATE_FORMAT(t.apprDate,'%Y-%m-%d') <= #{estDateEnd} then 1 else 0 end) cancelEntAll
+			]]>
+			from zjcsdb1.cs_mid_baseinfo t 
+			where 
+			t.EntTypeCatg not in (16,17,50) 
+			and t.RegOrg is not null
+			and LENGTH(t.RegOrg)>4
+			and LENGTH(t.LocalAdm)>4
+			<![CDATA[and DATE_FORMAT(t.EstDate,'%Y-%m-%d') <= #{estDateEnd}]]>
+			<include refid="sjcount_where"></include>
+			<if test="cer != null and cer != '' ">
+		    AND (case when ((LENGTH(t.cerno) = 18 and SUBSTR(t.cerno FROM 9 FOR 1) = #{cer}) or (LENGTH(t.cerno) = 15 and SUBSTR(t.cerno FROM 7 FOR 1) = #{cer} )) and t.RegState in (${regState}) then 1 else 0 end) >0
+		    </if>
+		    <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+			<if test="statLevel != null and statLevel != '' and  statLevel == 'areacode' ">
+			group by LEFT(IFNULL(t.RegOrg,t.LocalAdm),4)
+			</if>
+	        <if test="statLevel != null and statLevel != '' and  statLevel != 'areacode' ">
+			group by t.${statLevel}
+			</if>
+	        <if test="(entyTypeCatg !='' and entyTypeCatg !=null) or (entType != null and entType != '') ">
+			,t.EntType
+			</if>
+			<if test="(thrIndustry !=null and thrIndustry != '') or (industryCo != null and industryCo != '')  ">
+			,t.IndustryPhy
+			</if>
+			)A
+			LEFT JOIN
+			(select CONCAT(#{estDateStart},'——',#{estDateEnd}) areaTime,
+			<if test="statLevel != null and statLevel != '' and  statLevel == 'areacode' ">
+			LEFT(IFNULL(t.RegOrg,t.LocalAdm),4) localAdm,
+			</if>
+	        <if test="statLevel != null and statLevel != '' and  statLevel != 'areacode' ">
+			t.${statLevel} localAdm,
+			</if>
+	        <if test="(entyTypeCatg !='' and entyTypeCatg !=null) or (entType != null and entType != '') ">
+			t.EntType,
+			</if>
+			<if test="(thrIndustry !=null and thrIndustry != '') or (industryCo != null and industryCo != '')  ">
+			t.IndustryPhy,
+			</if>
+			<![CDATA[
+			sum(case when t.RegState in (${regState}) or (t.RegState not in (${regState}) AND DATE_FORMAT(t.apprDate,'%Y-%m-%d') > #{estDateEnd}) then 1 else 0 end) newEnt,
+			sum(case when t.RegState not in (${regState}) and t.ApprDate > #{estDateStart} and DATE_FORMAT(t.apprDate,'%Y-%m-%d') <= #{estDateEnd} then 1 else 0 end) cancelEnt,
+			sum(case when t.RegState in (${regState}) or (t.RegState not in (${regState}) AND DATE_FORMAT(t.apprDate,'%Y-%m-%d') > #{estDateEnd}) then t.regcap ELSE 0 END) RegCapAll
+			]]>
+			from rpt_sm_baseinfo t 
+			where t.RegOrg is not null
+			<![CDATA[and LENGTH(t.RegOrg)>4
+			and LENGTH(t.LocalAdm)>4
+			and DATE_FORMAT(t.EstDate,'%Y-%m-%d') <= #{estDateEnd}]]>
+			<include refid="sjcount_where"></include>
+			<if test="cer != null and cer != '' ">
+		    AND (case when ((LENGTH(t.cerno) = 18 and SUBSTR(t.cerno FROM 9 FOR 1) = #{cer}) or (LENGTH(t.cerno) = 15 and SUBSTR(t.cerno FROM 7 FOR 1) = #{cer} )) and t.RegState in (${regState}) then 1 else 0 end) >0
+		    </if>
+		    <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+			<if test="statLevel != null and statLevel != '' and  statLevel == 'areacode' ">
+			group by LEFT(IFNULL(t.RegOrg,t.LocalAdm),4)
+			</if>
+	        <if test="statLevel != null and statLevel != '' and  statLevel != 'areacode' ">
+			group by t.${statLevel}
+			</if>
+	        <if test="(entyTypeCatg !='' and entyTypeCatg !=null) or (entType != null and entType != '') ">
+			,t.EntType
+			</if>
+			<if test="(thrIndustry !=null and thrIndustry != '') or (industryCo != null and industryCo != '')  ">
+			,t.IndustryPhy
+			</if>
+			)B
+			ON A.localAdm = B.localAdm
+			<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+			AND A.EntType = B.EntType
+			</if>
+			<if test="(thrIndustry !=null and thrIndustry !='') or (industryCo !=null and industryCo !='') ">
+			AND A.IndustryPhy = B.IndustryPhy
+			</if>
+			LEFT JOIN
+			(select CONCAT(#{estDateStart},'——',#{estDateEnd}) areaTime,
+			<if test="statLevel != null and statLevel != '' and  statLevel == 'areacode' ">
+			LEFT(IFNULL(t.RegOrg,t.LocalAdm),4) localAdm,
+			</if>
+	        <if test="statLevel != null and statLevel != '' and  statLevel != 'areacode' ">
+			t.${statLevel} localAdm,
+			</if>
+	        <if test="(entyTypeCatg !='' and entyTypeCatg !=null) or (entType != null and entType != '') ">
+			t.EntType,
+			</if>
+			<if test="(thrIndustry !=null and thrIndustry != '') or (industryCo != null and industryCo != '')  ">
+			t.IndustryPhy,
+			</if>
+			sum(1) canEnt,
+			<![CDATA[case when sum( case when  LENGTH(t.cerno) =18 then 1 else 0 end) = 0 then 0 else
+			(sum( case when  LENGTH(t.cerno) =18 then  DATE_FORMAT(now(),'%Y')-SUBSTR(t.cerno FROM 7 FOR 4) end)) / 
+			(sum( case when  LENGTH(t.cerno) =18 then 1 else 0 end)) end avgAge,]]>
+			sum( case when ((LENGTH(t.cerno) = 18 and SUBSTR(t.cerno FROM 9 FOR 1) = '6') or (LENGTH(t.cerno) = 15 and SUBSTR(t.cerno FROM 7 FOR 1) = '6' )) then 1 else 0 end) cer60,
+			sum( case when ((LENGTH(t.cerno) = 18 and SUBSTR(t.cerno FROM 9 FOR 1) = '7') or (LENGTH(t.cerno) = 15 and SUBSTR(t.cerno FROM 7 FOR 1) = '7' )) then 1 else 0 end) cer70,
+			sum( case when ((LENGTH(t.cerno) = 18 and SUBSTR(t.cerno FROM 9 FOR 1) = '8') or (LENGTH(t.cerno) = 15 and SUBSTR(t.cerno FROM 7 FOR 1) = '8' )) then 1 else 0 end) cer80,
+			sum( case when ((LENGTH(t.cerno) = 18 and SUBSTR(t.cerno FROM 9 FOR 1) = '9') or (LENGTH(t.cerno) = 15 and SUBSTR(t.cerno FROM 7 FOR 1) = '9' )) then 1 else 0 end) cer90,
+			sum( case when SUBSTR(t.cerno FROM 1 FOR 2) = '33' then 1 else 0 end) cer33,
+			sum(IFNULL(t.regcap,0))  newRegCapAll,
+			avg(IFNULL(t.regcap,0)) RegCapAvg,
+			<![CDATA[sum( case when (select count(0) from zjcsdb1.cs_mid_inv s where s.pripid = t.pripid and invType = '2')>0 and (select count(0) from zjcsdb1.cs_mid_inv s where s.pripid = t.pripid and invType <> '2' )=0 then 1 else 0 end ) InvLeg]]>
+			from rpt_sm_baseinfo t 
+			where t.RegOrg is not null
+			and LENGTH(RegOrg)>4
+			and LENGTH(LocalAdm)>4
+			<![CDATA[and DATE_FORMAT(t.EstDate,'%Y-%m-%d') <= #{estDateEnd}
+			and t.EstDate > #{estDateStart}]]>
+			and t.RegState in (${regState}) 
+			<include refid="sjcount_where"></include>
+			<if test="cer != null and cer != '' ">
+		    AND (case when ((LENGTH(t.cerno) = 18 and SUBSTR(t.cerno FROM 9 FOR 1) = #{cer}) or (LENGTH(t.cerno) = 15 and SUBSTR(t.cerno FROM 7 FOR 1) = #{cer} )) then 1 else 0 end) >0
+		    </if>
+		    <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+			<if test="statLevel != null and statLevel != '' and  statLevel == 'areacode' ">
+			group by LEFT(IFNULL(t.RegOrg,t.LocalAdm),4)
+			</if>
+	        <if test="statLevel != null and statLevel != '' and  statLevel != 'areacode' ">
+			group by t.${statLevel}
+			</if>
+	        <if test="(entyTypeCatg !='' and entyTypeCatg !=null) or (entType != null and entType != '') ">
+			,t.EntType
+			</if>
+			<if test="(thrIndustry !=null and thrIndustry != '') or (industryCo != null and industryCo != '')  ">
+			,t.IndustryPhy
+			</if>
+			)C
+			ON A.localAdm = C.localAdm
+			<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+			AND A.EntType = C.EntType
+			</if>
+			<if test="(thrIndustry !=null and thrIndustry !='') or (industryCo !=null and industryCo !='') ">
+			AND A.IndustryPhy = C.IndustryPhy
+			</if>
+			)D
+			<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+			LEFT JOIN cs_code_enttype E
+			on D.EntType = E.code
+			</if>
+			<if test="(thrIndustry !=null and thrIndustry !='') or (industryCo !=null and industryCo !='') ">
+			LEFT JOIN cs_code_industrytype F
+			on D.IndustryPhy = F.code
+			</if>
+	        <if test="statLevel != null and statLevel != '' and  statLevel == 'RegOrg' ">
+			LEFT JOIN cs_code_regorg G
+			ON D.localAdm = G.Code
+			</if>
+	        <if test="statLevel != null and statLevel != '' and  statLevel == 'LocalAdm' ">
+			LEFT JOIN cs_code_regunit G
+			ON D.localAdm = G.Code
+			</if>
+		    LIMIT ${numStart},${pageSize}
+       </select>  
+      
+        <select id="selectRptSmNormalsjTotal" parameterType="Map" resultType="Integer">
+        SELECT
+        COUNT(0)
+        FROM
+		(select
+			<if test="statLevel != null and statLevel != '' and  statLevel == 'areacode' ">
+			LEFT(IFNULL(t.RegOrg,t.LocalAdm),4) localAdm,
+			</if>
+	        <if test="statLevel != null and statLevel != '' and  statLevel != 'areacode' ">
+			t.${statLevel} localAdm,
+			</if>
+	        <if test="(entyTypeCatg !='' and entyTypeCatg !=null) or (entType != null and entType != '') ">
+			t.EntType,
+			</if>
+			<if test="(thrIndustry !=null and thrIndustry != '') or (industryCo != null and industryCo != '')  ">
+			t.IndustryPhy,
+			</if>
+			CONCAT(#{estDateStart},'——',#{estDateEnd}) areaTime
+			from zjcsdb1.cs_mid_baseinfo t 
+			where 
+			t.EntTypeCatg not in (16,17,50) 
+			and t.RegOrg is not null
+			and LENGTH(t.RegOrg)>4
+			and LENGTH(t.LocalAdm)>4
+			<![CDATA[and DATE_FORMAT(t.EstDate,'%Y-%m-%d') <= #{estDateEnd}]]>
+			<include refid="sjcount_where"></include>
+			<if test="cer != null and cer != '' ">
+		    AND (case when ((LENGTH(t.cerno) = 18 and SUBSTR(t.cerno FROM 9 FOR 1) = #{cer}) or (LENGTH(t.cerno) = 15 and SUBSTR(t.cerno FROM 7 FOR 1) = #{cer} )) and t.RegState in (${regState}) then 1 else 0 end) >0
+		    </if>
+		    <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+			<if test="statLevel != null and statLevel != '' and  statLevel == 'areacode' ">
+			group by LEFT(IFNULL(t.RegOrg,t.LocalAdm),4)
+			</if>
+	        <if test="statLevel != null and statLevel != '' and  statLevel != 'areacode' ">
+			group by t.${statLevel}
+			</if>
+	        <if test="(entyTypeCatg !='' and entyTypeCatg !=null) or (entType != null and entType != '') ">
+			,t.EntType
+			</if>
+			<if test="(thrIndustry !=null and thrIndustry != '') or (industryCo != null and industryCo != '')  ">
+			,t.IndustryPhy
+			</if>
+		) A
+      </select>
+  
+  	   <sql id="sjcount_where"> 
+		<!-- 三大产业 对应行业门类 -->
+		<if test="thrIndustry !=null and thrIndustry != '' ">
+	    and  t.IndustryPhy in (${thrIndustry})
+	    </if>
+		<!-- 行业（统计只到单个门类） -->
+		<if test="industryCo !=null and industryCo != '' ">
+	    and  t.IndustryPhy in (${industryCo})
+	    </if>
+	    <if test="regOrg !='' and regOrg !=null">
+	    and t.RegOrg  IN  (${regOrg})
+	    </if>
+	    <if test="localAdm !='' and localAdm !=null">
+	    and t.LocalAdm  IN (${localAdm})
+	    </if>
+	    <if test="entType !='' and entType !=null">
+	     and t.entType  IN (${entType})
+	    </if>
+	    <!-- 注册资本 -->
+	    <if test="regCapStart !='' and regCapStart !=null">
+	      <![CDATA[ and t.RegCap >=  ${regCapStart} ]]> 
+	    </if>
+	    <if test="regCapEnd !='' and regCapEnd !=null">
+	     <![CDATA[ and t.RegCap < ${regCapEnd}]]> 
+	    </if>
+	    <!-- 从业人数 -->
+	    <if test="empNumStart !='' and empNumStart !=null">
+	      <![CDATA[ and t.empNum >=  ${empNumStart} ]]> 
+	    </if>
+	    <if test="empNumEnd !='' and empNumEnd !=null">
+	     <![CDATA[ and t.empNum < ${empNumEnd}]]> 
+	    </if>
+	    <!-- 经营范围 -->
+	    <if test="opScope !=null and opScope != ''">
+            AND t.Dom like CONCAT('%', #{opScope},'%')
+        </if>
+	    <!-- 八大产业:全部 -->
+	    <if test="industryCode !=null and industryCode !='' and industryCode == 0 ">
+           AND t.IndustryCo IN (SELECT CODE FROM zjcsdb1.cs_code_trade b)
+	    </if>
+	    <!-- 八大产业：信息产业 -->
+	    <if test="industryCode !=null and industryCode !='' and industryCode == 1 ">
+	       and t.IndustryCo in ('3911','3912','3913','3919','3921','3922','3931','3932','3939','3940','3951','3952','3953','3961','3962','3963','3969','3971','3972','3990','2330','8790','2664','3819','3824','3825','3831','3832','3841','3842','3849','4011','3581','3562','3891','3475','3472','3879','3871','3859','4012','4021','4022','4023','4024','4025','4026','4027','4028','4029','6510','6520','6530','6540','6550','6591','6592','6599','8021','6311','6312','6319','6321','6322','6330','6410','6420','6490','8524','8525','8529','8610','8620','8630','8640','8650','8660')
+	    </if>
+	    <!-- 环保 -->
+	    <if test="industryCode !=null and industryCode !='' and industryCode == 2 ">
+	       and t.IndustryCo in ('3819','3414','3415','3825','2530','4412','4413','4414','4415','3419','4419','3871','3545','3640','4210','3211','3212','2914','4220','2012','2022','2023','2512','4620','4690','3735','4822','4021','4027','2665','7514','7461','7462','7721','7723','7722','7724','7725','7729','7820','5191','4821')
+	    </if>
+	     <!-- 旅游 -->
+	    <if test="industryCode !=null and industryCode !='' and industryCode == 3 ">
+	       and t.IndustryCo in ('5310','5331','5420','5531','5611','5631','5632','5822','6110','6120','7851','7852','8920','8740','8750','8760','7271','7272','7279','5512')
+	    </if>
+	     <!-- 金融 -->
+	    <if test="industryCode !=null and industryCode !='' and industryCode == 4 ">
+          and t.IndustryCo in ('6610','6620','6631','6632','6633','6639','6640','6711','6712','6713','6721','6729','6730','6740','6790','6811','6812','6820','6830','6840','6850','6860','6891','6899','6910','6920','6930','6940','7212','6990','7296')
+	    </if>
+	     <!-- 健康 -->
+	    <if test="industryCode !=null  and industryCode !='' and industryCode == 5 ">
+	       and t.IndustryCo in ('0170','2710','2720','2730','3581','3582','3583','5238','3584','3585','2740','2760','2770','3586','3589','3373','5225','3544','1491','1492','2441','2442','2443','5252','3761','2444','2449','3770','8311','8312','8313','8314','8315','8316','8321','8322','8323','8330','8340','8350','8360','8370','8390','7960','5251','8412','5142','8413','8414','5126','8421','5153','8810','5152','8820','6812','8830','8890','7340','8292','6811','6840','5242')
+	    </if>
+	     <!-- 时尚 -->
+	    <if test="industryCode !=null and industryCode !='' and industryCode == 6 ">
+           and t.IndustryCo in ('1732','1741','1731','1723','1722','1721','1713','1712','1711','1733','1742','1743','1751','1752','1761','1762','1763','1771','1772','1773','1779','1781','1782','1783','1784','1789','1810','1820','1830','1910','1921','1922','1923','1929','1931','1932','1939','1942','1951','1952','1953','1954','1959','2110','2120','2130','2140','2190','2411','2421','2422','2423','2429','2431','2432','2433','2434','2435','2436','2437','2439','2441','2442','2443','2444','2449','2450','3861','3869','3871','3872','3879','4030','4119','2438','2682','3471','3473','3851','3852','3853','3854','3855','3856','3857','3859','3911','3912','3913','3919','3922','3951','3952','3953')
+	    </if>
+	     <!-- 高端制造业 -->
+	    <if test="industryCode !=null and industryCode !='' and industryCode == 7 ">
+           and t.IndustryCo in ('3849','3412','3711','3714','3720','3741','3743','3749','3891','4015','4341','3825','4415','3415','4414','4413','3413','3414','3824','3411','3441','3442','3545','3812','3819','3597','4620','3591','2914','3735','4021','3551','3331','3332','3432','3434','3435','3323','3531','3571','3572','3573','3574','3575','3576','3577','3579','2770','3544','3581','3582','3583','3584','3585','3586','3589','3599','4011','3421','3422','3429','4012','3451','3452','3444','3443','3482','3525')
+	    </if>
+	     <!-- 文化产业-->
+	    <if test="industryCode !=null and industryCode !='' and industryCode == 8 ">
+	       and t.IndustryCo in ('8510','8521','8522','8523','8524','8525','8529','5143','5144','5145','5243','5244','8610','8620','8630','8640','8650','8660','8710','8720','8731','8732','8740','8750','8760','8770','7350','9421','8293','8299','8790','6420','6319','6321','6322','6330','7240','6510','6591','7482','7491','7851','7852','7712','7713','8911','8912','8913','8919','8920','8990','7492','2431','2432','2433','2434','2435','2436','2437','2438','2439','3079','5146','5245','5246','7250','2311','2312','2319','2320','2330','8941','8949','5181','5182','7121','7122','7123','7292','7299','2411','2412','2414','2421','2422','2423','2429','2450','2461','2462','2469','3951','3952','3953','2672','2221','2222','2642','2643','2664','3872','3990','5141','5241','5247','5248','5137','5271','5149','5249','3542','3931','3932','3939','3471','3472','3473','3474','5178','5176')
+	    </if>
+	    
+	    <!-- 上市 -->
+	    <if test="entyTypeCatg !=null and entyTypeCatg !='' and entyTypeCatg == 1 ">
+	       and t.entType in ('6280','6260','6240','6220','5854','5852','5824','5822','5240','5220','6854','6852','6828','6826','6824','6822','2213','1213')
+	    </if>
+	    <!-- 股份 -->
+	    <if test="entyTypeCatg !=null and entyTypeCatg !='' and entyTypeCatg == 2 ">
+	       and t.entType in ('6821','6820','6270','6250','6230','6210','5854','5852','5824','5821','5240','5230','5220','5210','5200','6858','6857','6856','6855','6854','6853','6852','6851','6828','6827','6826','6825','6824','6823','6822')
+	    </if>
+	     <!-- 国有 -->
+	    <if test="entyTypeCatg !=null and entyTypeCatg !='' and entyTypeCatg == 3 ">
+	       and t.entType in ('4410','4370','4350','4210','4110','3610','3502','3501','3100','2223','2213','2140','2110','1223','1140','1110')
+	    </if>
+	     <!-- 控股 -->
+	    <if test="entyTypeCatg !=null and entyTypeCatg !='' and entyTypeCatg == 4 ">
+	       and t.entType in ('2223','2213','2140','1223','1213','1140')
+	    </if>
+	     <!-- 独资 -->
+	    <if test="entyTypeCatg !=null  and entyTypeCatg !='' and entyTypeCatg == 5 ">
+	       and t.entType in ('2110','1110')
+	    </if>
+	     <!-- 内资 -->
+	    <if test="entyTypeCatg !=null and entyTypeCatg !='' and entyTypeCatg == 6 ">
+	       and t.entType in ('6821','6820','6819','6817','6816','6815','6814','6813','6812','6811','6810','6800','6390','6320','6310','6300','6290','6280','6270','6240','6230','6220','6210','6200','6190','6143','6142','6141','6140','6130','6120','6110','6100','6000','5860','5859','5850','5849','5840','5830','5829','5820','5819','5810','5300','5290','5200','5190','9000','8660','8650','8000','7500','7400','7380','7370','7360','7350','7340','7330','7320','7310','6869','6862','6861','6860','6859','6858','6857','6854','6853','6852','6851','6850','6849','6847',
+           '6846','6845','6844','6843','6842','6841','6840','6839','6832','6831','6830','6829','6828','6827','6824','6823','6822','5100','4900','4800','4720','4710','4700','4600','4580','4570','4560','4550','4543','4542','4541','4540','4530','4523','4522','4521','4520','4510','4500','4430','4420','4410','4400','4380','4370','4360','4350','4340','4330','4320','4310','4300','4220','4210','4200','4120','4110','4100','4000','3900','3800','3700','3620','3610','3600','3504','3503','3502','3501','3500','3400','3320','3310','3300','3200','3100','2229','2223','2222',
+           '2220','2219','2213','2212','2210','2200','2190','2153','2152','2151','2150','2140','2130','2110','2100','2000','1229','1223','1222','1220','1219','1213','1212','1210','1200','1190','1153','1152','1151','1150','1140','1130','1110','1100','1000')
+	    </if>
+	     <!-- 外资 -->
+	    <if test="entyTypeCatg !=null and entyTypeCatg !='' and entyTypeCatg == 7 ">
+	       and t.entType in ('6818','6430','6420','6410','6400','6260','6250','6150','5869','5862','5861','5854','5853','5852','5851','5847','5846','5845','5844','5843','5842','5841','5839','5832','5831','5824','5823','5822','5821','5817','5816','5815','5814','5813','5812','5811','5800','5390','5320','5310','5240','5230','5220','5210','5143','5142','5141','5140','5130','5120','7300','7200','7190''7130','7120','7110','7100','7000','6930','6920','6910','6900','6856','6855','6848','6826','6825','5110','5000','2221','2211','2124','2123','2122','2121','2120','1221','1211','1154','1124','1123','1122','1121','1120')
+	    </if>
+	     <!-- 港澳台资 -->
+	    <if test="entyTypeCatg !=null and entyTypeCatg !='' and entyTypeCatg == 8 ">
+	       and t.entType in ('6821','6818','6817','6816','6815','6814','6813','6812','6811','6800','6390','6320','6310','6280','6270','6260','6250','6240','6230','6220','6210','6150','6143','6142','6141','6140','6130','6120','6110','6000','6869','6862','6861','6858','6857','6856','6855','6854','6853','6852','6851','6848','6847','6846','6845','6844','6843','6842','6841','6839','6832','6831','6828','6827','6826','6825','6824','6823','6822')
+	    </if>
+  </sql>
+  
+  
+        <select id="selectRptImportsjCount" resultMap="BaseExtResultMap" parameterType="Map">
+			SELECT D.areaTime,D.localAdm,
+			<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+			D.EntType,
+			E.content entTypeName,E.IndType entTypeCatgName,
+			</if>
+			<if test="industryCode != null and industryCode != '' ">
+	        D.industryCoName,
+	        </if>
+			D.newEntAll,D.canEntAll,D.cancelEntAll,
+			D.newEnt,TRUNCATE(D.regCapAll,4) regCapAll,D.cancelEnt,
+			D.canEnt,TRUNCATE(D.newRegCapAll,4) newRegCapAll,TRUNCATE(D.RegCapAvg,4) RegCapAvg,TRUNCATE(D.avgAge,0) avgAge,TRUNCATE(D.avgAgeCount,0) avgAgeCount,D.cer80,D.cer90,D.cer33,D.InvLeg, 
+	        <if test="statLevel != null and statLevel != '' and  statLevel != 'areacode' ">
+			G.Content regorgName 
+			</if>
+	        <if test="statLevel != null and statLevel != '' and  statLevel == 'areacode' ">
+			D.localAdm regorgName 
+			</if>
+			FROM(
+			SELECT A.areaTime,A.localAdm,
+			<if test="(entyTypeCatg !='' and entyTypeCatg !=null) or (entType != null and entType != '') ">
+			A.EntType,
+			</if>
+			<if test="industryCode != null and industryCode != '' ">
+			A.industryCoName,
+			</if>
+			IFNULL(A.newEntAll,0) newEntAll,IFNULL(A.canEntAll,0) canEntAll,IFNULL(A.cancelEntAll,0) cancelEntAll, 
+			IFNULL(B.newEnt,0) newEnt,IFNULL(B.regCapAll,0) regCapAll,IFNULL(B.cancelEnt,0) cancelEnt, 
+			IFNULL(C.canEnt,0) canEnt,IFNULL(C.newRegCapAll,0) newRegCapAll,IFNULL(C.RegCapAvg,0) RegCapAvg, 
+			IFNULL(C.avgAge,0) avgAge,IFNULL(C.avgAge,0) avgAgeCount,IFNULL(C.cer80,0) 
+			cer80,IFNULL(C.cer90,0) cer90,IFNULL(C.cer33,0) cer33,IFNULL(C.InvLeg,0) InvLeg 
+			FROM 
+			(select CONCAT(#{estDateStart},'——',#{estDateEnd}) areaTime,
+	        <if test="statLevel != null and statLevel != '' and  statLevel == 'areacode' ">
+			LEFT(IFNULL(t.RegOrg,t.LocalAdm),4) localAdm,
+			</if>
+	        <if test="statLevel != null and statLevel != '' and  statLevel != 'areacode' ">
+			t.${statLevel} localAdm,
+			</if>
+			<if test="(entyTypeCatg !='' and entyTypeCatg !=null) or (entType != null and entType != '') ">
+			t.EntType,
+			</if>
+			<if test="industryCode != null and industryCode != '' ">
+			#{industryCode} industryCoName,
+			</if>
+			<![CDATA[
+			sum(case when (t.RegState in (${regState})) or (t.RegState not in (${regState}) AND DATE_FORMAT(t.apprDate,'%Y-%m-%d') > #{estDateEnd}) then 1 else 0 end) newEntAll,
+			sum(case when t.RegState in (${regState}) AND t.EstDate > #{estDateStart} then 1 else 0 end) canEntAll,
+			sum(case when t.RegState not in (${regState}) and t.ApprDate > #{estDateStart} and DATE_FORMAT(t.apprDate,'%Y-%m-%d') <= #{estDateEnd} then 1 else 0 end) cancelEntAll
+			]]>
+			from zjcsdb1.cs_mid_baseinfo t 
+			where 
+			t.EntTypeCatg not in (16,17,50) 
+			and t.RegOrg is not null
+			and LENGTH(t.RegOrg)>4
+			and LENGTH(t.LocalAdm)>4
+			<![CDATA[and DATE_FORMAT(t.EstDate,'%Y-%m-%d') <= #{estDateEnd}]]>
+			<include refid="sjcount_where"></include>
+			<if test="cer != null and cer != '' ">
+		    AND (case when ((LENGTH(t.cerno) = 18 and SUBSTR(t.cerno FROM 9 FOR 1) = #{cer}) or (LENGTH(t.cerno) = 15 and SUBSTR(t.cerno FROM 7 FOR 1) = #{cer} )) and t.RegState in (${regState}) then 1 else 0 end) >0
+		    </if>
+			<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+			<if test="statLevel != null and statLevel != '' and  statLevel == 'areacode' ">
+			group by LEFT(IFNULL(t.RegOrg,t.LocalAdm),4)
+			</if>
+	        <if test="statLevel != null and statLevel != '' and  statLevel != 'areacode' ">
+			group by t.${statLevel}
+			</if>
+			<if test="(entyTypeCatg !='' and entyTypeCatg !=null) or (entType != null and entType != '') ">
+			,t.EntType
+			</if>
+			)A
+			LEFT JOIN
+			(select CONCAT(#{estDateStart},'——',#{estDateEnd}) areaTime,
+	        <if test="statLevel != null and statLevel != '' and  statLevel == 'areacode' ">
+			LEFT(IFNULL(t.RegOrg,t.LocalAdm),4) localAdm,
+			</if>
+	        <if test="statLevel != null and statLevel != '' and  statLevel != 'areacode' ">
+			t.${statLevel} localAdm,
+			</if>
+			<if test="(entyTypeCatg !='' and entyTypeCatg !=null) or (entType != null and entType != '') ">
+			t.EntType,
+			</if>
+			<if test="industryCode != null and industryCode != '' ">
+			#{industryCode} industryCoName,
+			</if>
+			<![CDATA[
+			sum(case when t.RegState in (${regState}) or (t.RegState not in (${regState}) AND DATE_FORMAT(t.apprDate,'%Y-%m-%d') > #{estDateEnd}) then 1 else 0 end) newEnt,
+			sum(case when t.RegState not in (${regState}) and t.ApprDate > #{estDateStart} and DATE_FORMAT(t.apprDate,'%Y-%m-%d') <= #{estDateEnd} then 1 else 0 end) cancelEnt,
+			sum(case when t.RegState in (${regState}) or (t.RegState not in (${regState}) AND DATE_FORMAT(t.apprDate,'%Y-%m-%d') > #{estDateEnd}) then t.regcap ELSE 0 END) RegCapAll
+			]]>
+			from rpt_sm_baseinfo t 
+			where t.RegOrg is not null
+			<![CDATA[and LENGTH(t.RegOrg)>4
+			and LENGTH(t.LocalAdm)>4
+			and DATE_FORMAT(t.EstDate,'%Y-%m-%d') <= #{estDateEnd}]]>
+			<include refid="sjcount_where"></include>
+			<if test="cer != null and cer != '' ">
+		    AND (case when ((LENGTH(t.cerno) = 18 and SUBSTR(t.cerno FROM 9 FOR 1) = #{cer}) or (LENGTH(t.cerno) = 15 and SUBSTR(t.cerno FROM 7 FOR 1) = #{cer} )) and t.RegState in (${regState}) then 1 else 0 end) >0
+		    </if>
+			<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+			<if test="statLevel != null and statLevel != '' and  statLevel == 'areacode' ">
+			group by LEFT(IFNULL(t.RegOrg,t.LocalAdm),4)
+			</if>
+	        <if test="statLevel != null and statLevel != '' and  statLevel != 'areacode' ">
+			group by t.${statLevel}
+			</if>
+			<if test="(entyTypeCatg !='' and entyTypeCatg !=null) or (entType != null and entType != '') ">
+			,t.EntType
+			</if>
+			)B
+			ON A.localAdm = B.localAdm
+			<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+			AND A.EntType = B.EntType
+			</if>
+			LEFT JOIN
+			(select CONCAT(#{estDateStart},'——',#{estDateEnd}) areaTime,
+	        <if test="statLevel != null and statLevel != '' and  statLevel == 'areacode' ">
+			LEFT(IFNULL(t.RegOrg,t.LocalAdm),4) localAdm,
+			</if>
+	        <if test="statLevel != null and statLevel != '' and  statLevel != 'areacode' ">
+			t.${statLevel} localAdm,
+			</if>
+			<if test="(entyTypeCatg !='' and entyTypeCatg !=null) or (entType != null and entType != '') ">
+			t.EntType,
+			</if>
+			<if test="industryCode != null and industryCode != '' ">
+			#{industryCode} industryCoName,
+			</if>
+			sum(1) canEnt,
+			<![CDATA[case when sum( case when  LENGTH(t.cerno) =18 then 1 else 0 end) = 0 then 0 else
+			(sum( case when  LENGTH(t.cerno) =18 then  DATE_FORMAT(now(),'%Y')-SUBSTR(t.cerno FROM 7 FOR 4) end)) / 
+			(sum( case when  LENGTH(t.cerno) =18 then 1 else 0 end)) end avgAge,]]>
+			sum( case when ((LENGTH(t.cerno) = 18 and SUBSTR(t.cerno FROM 9 FOR 1) = '6') or (LENGTH(t.cerno) = 15 and SUBSTR(t.cerno FROM 7 FOR 1) = '6' )) then 1 else 0 end) cer60,
+			sum( case when ((LENGTH(t.cerno) = 18 and SUBSTR(t.cerno FROM 9 FOR 1) = '7') or (LENGTH(t.cerno) = 15 and SUBSTR(t.cerno FROM 7 FOR 1) = '7' )) then 1 else 0 end) cer70,
+			sum( case when ((LENGTH(t.cerno) = 18 and SUBSTR(t.cerno FROM 9 FOR 1) = '8') or (LENGTH(t.cerno) = 15 and SUBSTR(t.cerno FROM 7 FOR 1) = '8' )) then 1 else 0 end) cer80,
+			sum( case when ((LENGTH(t.cerno) = 18 and SUBSTR(t.cerno FROM 9 FOR 1) = '9') or (LENGTH(t.cerno) = 15 and SUBSTR(t.cerno FROM 7 FOR 1) = '9' )) then 1 else 0 end) cer90,
+			sum( case when SUBSTR(t.cerno FROM 1 FOR 2) = '33' then 1 else 0 end) cer33,
+			sum(IFNULL(t.regcap,0))  newRegCapAll,
+			avg(IFNULL(t.regcap,0)) RegCapAvg,
+			<![CDATA[sum( case when (select count(0) from zjcsdb1.cs_mid_inv s where s.pripid = t.pripid and invType = '2')>0 and (select count(0) from zjcsdb1.cs_mid_inv s where s.pripid = t.pripid and invType <> '2' )=0 then 1 else 0 end ) InvLeg]]>
+			from rpt_sm_baseinfo t 
+			where t.RegOrg is not null
+			and LENGTH(RegOrg)>4
+			and LENGTH(LocalAdm)>4
+			<![CDATA[and DATE_FORMAT(t.EstDate,'%Y-%m-%d') <= #{estDateEnd}
+			and t.EstDate > #{estDateStart}]]>
+			and t.RegState in (${regState}) 
+			<include refid="sjcount_where"></include>
+			<if test="cer != null and cer != '' ">
+		    AND (case when ((LENGTH(t.cerno) = 18 and SUBSTR(t.cerno FROM 9 FOR 1) = #{cer}) or (LENGTH(t.cerno) = 15 and SUBSTR(t.cerno FROM 7 FOR 1) = #{cer} )) then 1 else 0 end) >0
+		    </if>
+			<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+			<if test="statLevel != null and statLevel != '' and  statLevel == 'areacode' ">
+			group by LEFT(IFNULL(t.RegOrg,t.LocalAdm),4)
+			</if>
+	        <if test="statLevel != null and statLevel != '' and  statLevel != 'areacode' ">
+			group by t.${statLevel}
+			</if>
+			<if test="(entyTypeCatg !='' and entyTypeCatg !=null) or (entType != null and entType != '') ">
+			,t.EntType
+			</if>
+			)C
+			ON A.localAdm = C.localAdm
+			<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+			AND A.EntType = C.EntType
+			</if>
+			)D
+			<if test="(entType !=null and entType !='' ) or ( entyTypeCatg !=null and entyTypeCatg !='' )">
+			LEFT JOIN cs_code_enttype E
+			on D.EntType = E.code
+			</if>
+	        <if test="statLevel != null and statLevel != '' and  statLevel == 'RegOrg' ">
+			LEFT JOIN cs_code_regorg G
+			ON D.localAdm = G.Code
+			</if>
+	        <if test="statLevel != null and statLevel != '' and  statLevel == 'LocalAdm' ">
+			LEFT JOIN cs_code_regunit G
+			ON D.localAdm = G.Code
+			</if>
+			LIMIT ${numStart},${pageSize}
+       </select>  
+      
+        <select id="selectRptImportsjTotal" parameterType="Map" resultType="Integer">
+        SELECT
+        COUNT(0)
+        FROM
+			(select 
+	        <if test="statLevel != null and statLevel != '' and  statLevel == 'areacode' ">
+			LEFT(IFNULL(t.RegOrg,t.LocalAdm),4) localAdm,
+			</if>
+	        <if test="statLevel != null and statLevel != '' and  statLevel != 'areacode' ">
+			t.${statLevel} localAdm,
+			</if>
+			<if test="(entyTypeCatg !='' and entyTypeCatg !=null) or (entType != null and entType != '') ">
+			t.EntType,
+			</if>
+			<if test="industryCode != null and industryCode != '' ">
+			#{industryCode} industryCoName,
+			</if>
+			CONCAT(#{estDateStart},'——',#{estDateEnd}) areaTime
+			from zjcsdb1.cs_mid_baseinfo t 
+			where 
+			t.EntTypeCatg not in (16,17,50) 
+			and t.RegOrg is not null
+			and LENGTH(t.RegOrg)>4
+			and LENGTH(t.LocalAdm)>4
+			<![CDATA[and DATE_FORMAT(t.EstDate,'%Y-%m-%d') <= #{estDateEnd}]]>
+			<include refid="sjcount_where"></include>
+			<if test="cer != null and cer != '' ">
+		    AND (case when ((LENGTH(t.cerno) = 18 and SUBSTR(t.cerno FROM 9 FOR 1) = #{cer}) or (LENGTH(t.cerno) = 15 and SUBSTR(t.cerno FROM 7 FOR 1) = #{cer} )) and t.RegState in (${regState}) then 1 else 0 end) >0
+		    </if>
+			<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+			<if test="statLevel != null and statLevel != '' and  statLevel == 'areacode' ">
+			group by LEFT(IFNULL(t.RegOrg,t.LocalAdm),4)
+			</if>
+	        <if test="statLevel != null and statLevel != '' and  statLevel != 'areacode' ">
+			group by t.${statLevel}
+			</if>
+			<if test="(entyTypeCatg !='' and entyTypeCatg !=null) or (entType != null and entType != '') ">
+			,t.EntType
+			</if>
+			)A
+      </select>
+  
+  
+  
+  
+  
+</mapper>

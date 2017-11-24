@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.webservice.mapper.WsMidAltitemMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.webservice.model.WsMidAltitem" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="AltItem" property="altItem" jdbcType="CHAR" />
+    <result column="AltTime" property="altTime" jdbcType="INTEGER" />
+    <result column="AltDate" property="altDate" jdbcType="DATE" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="AltBeContent" property="altBeContent" jdbcType="LONGVARCHAR" />
+    <result column="AltAfContent" property="altAfContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <select id="selectWsMidAltitemListByContion" parameterType="map" resultMap="BaseResultMap">
+  	SELECT 
+		id,PRIPID,AltItem,AltTime,AltDate,UID,CreateTime,AltBeContent,AltAfContent,UPDATE_TIME
+	FROM 
+		cs_mid_altitem
+    WHERE 
+    	UPDATE_TIME BETWEEN STR_TO_DATE(#{startdate},'%Y%m%d%H%i%s') AND STR_TO_DATE(#{enddate},'%Y%m%d%H%i%s')
+   AND id BETWEEN #{startNum} AND #{endNum}
+  </select>
+  
+  
+  <select id="selectWsMidAltitemCountByContion" parameterType="map" resultType="Integer">
+  	SELECT
+      	count(*)
+    FROM
+    	cs_mid_altitem
+    WHERE 
+    	UPDATE_TIME BETWEEN STR_TO_DATE(#{startdate},'%Y%m%d%H%i%s') AND STR_TO_DATE(#{enddate},'%Y%m%d%H%i%s')
+  </select>
+  
+  <select id="selectWsMidAltitemMaxId" parameterType="map" resultType="Integer">
+  	SELECT 
+		MAX(id)
+	FROM 
+		cs_mid_altitem
+    WHERE 
+    	UPDATE_TIME BETWEEN STR_TO_DATE(#{startdate},'%Y%m%d%H%i%s') AND STR_TO_DATE(#{enddate},'%Y%m%d%H%i%s')
+  </select>
+  
+  <select id="selectWsMidAltitemMinId" parameterType="map" resultType="Integer">
+  	SELECT 
+		MIN(id)
+	FROM 
+		cs_mid_altitem
+    WHERE 
+    	UPDATE_TIME BETWEEN STR_TO_DATE(#{startdate},'%Y%m%d%H%i%s') AND STR_TO_DATE(#{enddate},'%Y%m%d%H%i%s')
+  </select>
+  
+</mapper>

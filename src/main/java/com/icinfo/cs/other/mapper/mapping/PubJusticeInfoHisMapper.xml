@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.other.mapper.PubJusticeInfoHisMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.other.model.PubJusticeInfoHis" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="JusticeType" property="justiceType" jdbcType="CHAR" />
+    <result column="ExecutionCourt" property="executionCourt" jdbcType="VARCHAR" />
+    <result column="ExeRulNum" property="exeRulNum" jdbcType="VARCHAR" />
+    <result column="BotRefNum" property="botRefNum" jdbcType="VARCHAR" />
+    <result column="ExecuteNo" property="executeNo" jdbcType="VARCHAR" />
+    <result column="ExecuteItem" property="executeItem" jdbcType="CHAR" />
+    <result column="Inv" property="inv" jdbcType="VARCHAR" />
+    <result column="CerType" property="cerType" jdbcType="VARCHAR" />
+    <result column="CerNO" property="cerNO" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="UniSCID" property="uniSCID" jdbcType="VARCHAR" />
+    <result column="FroAm" property="froAm" jdbcType="DECIMAL" />
+    <result column="FroAuth" property="froAuth" jdbcType="VARCHAR" />
+    <result column="FrozDeadline" property="frozDeadline" jdbcType="VARCHAR" />
+    <result column="FroFrom" property="froFrom" jdbcType="DATE" />
+    <result column="FroTo" property="froTo" jdbcType="DATE" />
+    <result column="ThawDate" property="thawDate" jdbcType="DATE" />
+    <result column="LoseEffDate" property="loseEffDate" jdbcType="DATE" />
+    <result column="LoseEffRes" property="loseEffRes" jdbcType="CHAR" />
+    <result column="PublicDate" property="publicDate" jdbcType="DATE" />
+    <result column="FrozState" property="frozState" jdbcType="CHAR" />
+    <result column="AssInv" property="assInv" jdbcType="VARCHAR" />
+    <result column="AssCerType" property="assCerType" jdbcType="VARCHAR" />
+    <result column="AssCerNO" property="assCerNO" jdbcType="VARCHAR" />
+    <result column="ExecuteDate" property="executeDate" jdbcType="DATE" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+    <result column="SetDate" property="setDate" jdbcType="DATE" />
+    <result column="AuditName" property="auditName" jdbcType="VARCHAR" />
+    <result column="AuditDate" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="AuditOpin" property="auditOpin" jdbcType="VARCHAR" />
+    <result column="AuditState" property="auditState" jdbcType="CHAR" />
+    <result column="JusticeConNO" property="justiceConNO" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="HisNO" property="hisNO" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

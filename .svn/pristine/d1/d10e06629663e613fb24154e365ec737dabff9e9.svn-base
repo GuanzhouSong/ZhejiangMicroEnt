@@ -1,0 +1,1863 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.ext.mapper.MidBaseInfoMapper">
+    <resultMap id="BaseResultMap" type="com.icinfo.cs.ext.model.MidBaseInfo">
+        <!--
+          WARNING - @frameworkgenerated
+        -->
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="PriPID" property="priPID" jdbcType="CHAR"/>
+        <result column="EntName" property="entName" jdbcType="VARCHAR"/>
+        <result column="RegNO" property="regNO" jdbcType="CHAR"/>
+        <result column="Dom" property="dom" jdbcType="VARCHAR"/>
+        <result column="DomDistrict" property="domDistrict" jdbcType="CHAR"/>
+        <result column="LeRep" property="leRep" jdbcType="VARCHAR"/>
+        <result column="RegCap" property="regCap" jdbcType="DECIMAL"/>
+        <result column="EntType" property="entType" jdbcType="CHAR"/>
+        <result column="EstDate" property="estDate" jdbcType="DATE"/>
+        <result column="IndustryCo" property="industryCo" jdbcType="CHAR"/>
+        <result column="RegOrg" property="regOrg" jdbcType="CHAR"/>
+        <result column="LocalAdm" property="localAdm" jdbcType="CHAR"/>
+        <result column="IndustryPhy" property="industryPhy" jdbcType="CHAR"/>
+        <result column="RegState" property="regState" jdbcType="CHAR"/>
+        <result column="RegCapUSD" property="regCapUSD" jdbcType="DECIMAL"/>
+        <result column="RecCapUSD" property="recCapUSD" jdbcType="DECIMAL"/>
+        <result column="RecCapRMB" property="recCapRMB" jdbcType="DECIMAL"/>
+        <result column="UniCode" property="uniCode" jdbcType="CHAR"/>
+        <result column="PostalCode" property="postalCode" jdbcType="CHAR"/>
+        <result column="OpFrom" property="opFrom" jdbcType="DATE"/>
+        <result column="OpTo" property="opTo" jdbcType="DATE"/>
+        <result column="EmpNum" property="empNum" jdbcType="INTEGER"/>
+        <result column="Country" property="country" jdbcType="CHAR"/>
+        <result column="Currency" property="currency" jdbcType="CHAR"/>
+        <result column="Town" property="town" jdbcType="BIT"/>
+        <result column="Street" property="street" jdbcType="VARCHAR"/>
+        <result column="CerNO" property="cerNO" jdbcType="VARCHAR"/>
+        <result column="Tel" property="tel" jdbcType="VARCHAR"/>
+        <result column="Email" property="email" jdbcType="VARCHAR"/>
+        <result column="ApprDate" property="apprDate" jdbcType="DATE"/>
+        <result column="AltDate" property="altDate" jdbcType="DATE"/>
+        <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="UID" property="UID" jdbcType="VARCHAR"/>
+        <result column="IsIndivid" property="isIndivid" jdbcType="VARCHAR"/>
+        <result column="ImpDate" property="impDate" jdbcType="TIMESTAMP"/>
+        <result column="CheckDep" property="checkDep" jdbcType="VARCHAR"/>
+        <result column="Yiedistrict" property="yiedistrict" jdbcType="VARCHAR"/>
+        <result column="CurrencyCn" property="currencyCn" jdbcType="VARCHAR"/>
+        <result column="EntTypeCatg" property="entTypeCatg" jdbcType="VARCHAR"/>
+        <result column="ProLoc" property="proLoc" jdbcType="LONGVARCHAR"/>
+        <result column="OpForm" property="opForm" jdbcType="LONGVARCHAR"/>
+        <result column="OpScope" property="opScope" jdbcType="LONGVARCHAR"/>
+        <result column="IndividDate" property="individDate" jdbcType="DATE"/>
+        <result column="DelegateOrg" property="delegateOrg" jdbcType="VARCHAR"/>
+        <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR"/>
+        <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR"/>
+        <result column="DelegateOrgName" property="delegateOrgName" jdbcType="VARCHAR"/>
+        <result column="Area" property="area" jdbcType="VARCHAR"/>
+        <result column="SliceNO" property="sliceNO" jdbcType="VARCHAR"/>
+        <result column="SliceNOName" property="sliceNOName" jdbcType="VARCHAR"/>
+        <result column="CheckDepName" property="checkDepName" jdbcType="VARCHAR"/>
+        <result column="CompFormName" property="compFormName" jdbcType="VARCHAR"/>
+        <result column="CompForm" property="compForm" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+    <resultMap id="MidBaseResultMap" type="com.icinfo.cs.ext.model.MidBaseInfo" extends="BaseResultMap">
+        <result column="HzApprCode" property="hzApprCode" jdbcType="VARCHAR"/>
+        <result column="HzApprName" property="hzApprName" jdbcType="VARCHAR"/>
+        <result column="updateTime" property="updateTime" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapDto" type="com.icinfo.cs.ext.dto.MidBaseInfoDto" extends="BaseResultMap">
+        <result column="IndustryCoName" property="industryCoName" jdbcType="VARCHAR"/>
+        <result column="PositionName" property="positionName" jdbcType="VARCHAR"/>
+        <result column="isOpanomaly" property="isOpanomaly" jdbcType="VARCHAR"/>
+        <result column="entTypeCatgName" property="entTypeCatgName" jdbcType="VARCHAR"/>
+        <result column="entTypeName" property="entTypeName" jdbcType="VARCHAR"/>
+        <result column="encerNO" property="encerNO" jdbcType="VARCHAR"/>
+        <result column="enleRep" property="enleRep" jdbcType="VARCHAR"/>
+        <result column="leRep" property="leRep" jdbcType="VARCHAR"/>
+        <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR"/>
+        <result column="regCap" property="regCap" jdbcType="VARCHAR"/>
+        <result column="entType" property="entType" jdbcType="VARCHAR"/>
+        <result column="dom" property="dom" jdbcType="VARCHAR"/>
+        <result column="regOrgName" property="regOrgName" jdbcType="VARCHAR"/>
+        <result column="regState" property="regState" jdbcType="CHAR"/>
+        <result column="PunishDate" property="punishDate" jdbcType="DATE"/>
+        <result column="ExeAffSign" property="exeAffSign" jdbcType="VARCHAR"/>
+        <result column="Inv" property="inv" jdbcType="VARCHAR"/>
+        <result column="isSimpleCancle" property="isSimpleCancle" jdbcType="VARCHAR"/>
+        <result column="hisEntName" property="hisEntName" jdbcType="VARCHAR"/>
+        <result column="UpdateTime" property="updateTime" jdbcType="DATE"/>
+        
+        <!--<association property="entTypeCatgName" column="EntTypeCatg" javaType="java.lang.String" select="selectEntTypeCatgName"></association>-->
+        
+        <result column="LimitName" property="limitName" jdbcType="VARCHAR"/>
+        <result column="CerType" property="cerType" jdbcType="VARCHAR"/>
+        
+        <result column="Year" property="year" jdbcType="INTEGER" />
+        <result column="BatchEntType" property="batchEntType" jdbcType="VARCHAR" />
+        
+        <result column="Basx" property="basx" jdbcType="VARCHAR" />
+        
+    </resultMap>
+
+    <select id="selectEntByEntName" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT id,PriPID,EntName,RegNO from cs_mid_baseinfo where EntName=#{entName}
+	</select>
+
+    <select id="selectEntTypeCatgName" resultType="java.lang.String" parameterType="java.lang.String">
+		SELECT Content from cs_code_entcatg where CODE=#{entTypeCatg}
+	</select>
+
+    <!--按内部序号查询企业基本信息-->
+    <select id="selectByPripid" resultMap="BaseResultMapDto" parameterType="java.lang.String">
+	        SELECT 
+	        	A.id,
+				PriPID,
+				EntName,
+				RegNO,
+				Dom,
+				DomDistrict,
+				LeRep,
+				RegCap,
+				EntType,
+				EstDate,
+				IndustryCo,
+				RegOrg,
+				LocalAdm,
+				IndustryPhy,
+				RegState,
+				RegCapUSD,
+				RecCapUSD,
+				RecCapRMB,
+				UniCode,
+				PostalCode,
+				OpFrom,
+				OpTo,
+				EmpNum,
+				Country,
+				Currency,
+				Town,
+				Street,
+				CerNO,
+				Tel,
+				Email,
+				ApprDate,
+				AltDate,
+				CreateTime,
+				UID,
+				IsIndivid,
+				IndividDate,
+				ImpDate,
+				CheckDep,
+				Yiedistrict,
+				ProLoc,
+				CurrencyCn,
+				OpForm,
+				OpScope,
+				EntTypeCatg,
+				DelegateOrg,
+				DelegateOrgName,
+				Area,
+				RegOrgName,
+				LocalAdmName,
+				SliceNO,
+				SliceNOName,
+				CheckDepName,
+				CompFormName,
+				CompForm,
+				C.Content entTypeName
+	        FROM
+	        cs_mid_baseinfo A
+	         LEFT JOIN cs_code_enttype C 
+    		ON A.EntType = C.Code 
+	        WHERE
+	        PriPID = #{pripid,jdbcType=VARCHAR}
+    </select>
+
+    <!--经济户口销户记录list  add by liuhq -->
+    <select id="yetLogoffQueryPage" resultMap="BaseResultMapDto" parameterType="Map">
+        SELECT
+        b.AltDate,
+        b.RegState,
+        b.UniCode,
+        b.RegNO,
+        b.LocalAdmName,
+        b.RegOrgName,
+        b.EstDate,
+        b.LeRep,
+        b.Dom,
+        b.EntName
+        FROM
+        cs_mid_baseinfo b
+        WHERE b.RegState NOT IN (${regState})
+        <if test="leRep !=null and leRep != ''">
+            AND b.LeRep = #{leRep}
+        </if>
+        <if test="altDate_sta !=null and altDate_sta != ''">
+            AND b.AltDate &gt;= #{altDate_sta}
+        </if>
+        <if test="altDate_end !=null and altDate_end != ''">
+            AND b.AltDate &lt;= #{altDate_end}
+        </if>
+        <if test="regState !=null and regState != ''">
+            AND b.RegState = #{regState}
+        </if>
+        <if test="entType !=null and entType != ''">
+            AND b.EntType in (${entType})
+        </if>
+        <if test="localAdm !=null and localAdm != ''">
+            AND b.LocalAdm in (${localAdm})
+        </if>
+        <if test="sliceNo !=null and sliceNo != ''">
+            AND b.SliceNO in (${sliceNo})
+        </if>
+        <if test="dom !=null and dom != ''">
+            AND b.Dom like CONCAT('%', #{dom},'%')
+        </if>
+
+        <if test="uniCode !=null and uniCode != ''">
+            AND (b.UniCode like CONCAT(#{uniCode},'%') or b.RegNO like CONCAT(#{uniCode},'%'))
+        </if>
+        <if test="entName !=null and entName != ''">
+            AND b.EntName like CONCAT('%', #{entName},'%')
+        </if>
+
+    </select>
+    <!--登录时按内部序号查询企业基本信息-->
+    <select id="selectMidBaseInfoByPripidForLogin" resultMap="BaseResultMapDto" parameterType="java.lang.String">
+        SELECT
+        id,
+        PriPID,
+        EntName,
+        RegNO,
+        Dom,
+        DomDistrict,
+        LeRep,
+        RegCap,
+        EntType,
+        EstDate,
+        IndustryCo,
+        RegOrg,
+        LocalAdm,
+        IndustryPhy,
+        RegState,
+        RegCapUSD,
+        RecCapUSD,
+        RecCapRMB,
+        UniCode,
+        PostalCode,
+        OpFrom,
+        OpTo,
+        EmpNum,
+        Country,
+        Currency,
+        Town,
+        Street,
+        CerNO,
+        Tel,
+        Email,
+        ApprDate,
+        AltDate,
+        CreateTime,
+        UID,
+        IsIndivid,
+        IndividDate,
+        ImpDate,
+        CheckDep,
+        Yiedistrict,
+        ProLoc,
+        CurrencyCn,
+        OpForm,
+        OpScope,
+        EntTypeCatg,
+        DelegateOrg,
+        DelegateOrgName,
+        Area,
+        RegOrgName,
+        LocalAdmName,
+        SliceNO,
+        SliceNOName,
+        CheckDepName,
+        CompFormName,
+        CompForm
+        FROM
+        cs_mid_baseinfo
+        WHERE
+        PriPID = #{pripid,jdbcType=VARCHAR}
+        and RegState IN (${regState})
+        <if test="systemType !=null and systemType == 1">
+            and EntTypeCatg not in ('16','17','50')
+        </if>
+        <if test="systemType !=null and systemType == 2">
+            and EntTypeCatg in ('50')
+        </if>
+        <if test="systemType !=null and systemType == 3">
+            and EntTypeCatg in ('16','17')
+        </if>
+    </select>
+     <!--按照注册号查询内部序号-->
+    <select id="selectPriPIDByRegno" parameterType="Map"  resultType="java.lang.String">
+        SELECT
+        DISTINCT PriPID
+        FROM
+        cs_mid_baseinfo
+        WHERE 1=1 
+        <if test="regNOList != null and regNOList != ''">
+			and (RegNO in
+			<foreach collection="regNOList" item="item" index="index" open="(" close=")" separator=",">
+						#{item}
+		    </foreach> OR 
+		    UniCode in
+			<foreach collection="regNOList" item="item" index="index" open="(" close=")" separator=",">
+						#{item}
+		    </foreach>)
+	   </if>
+    </select>
+    <!--登录时按注册号、企业名称查询企业基本信息-->
+    <select id="selectByRegnoAndEntname" resultMap="BaseResultMapDto" parameterType="Map">
+        SELECT
+        id,
+        PriPID,
+        EntName,
+        RegNO,
+        Dom,
+        DomDistrict,
+        LeRep,
+        RegCap,
+        EntType,
+        EstDate,
+        IndustryCo,
+        RegOrg,
+        LocalAdm,
+        IndustryPhy,
+        RegState,
+        RegCapUSD,
+        RecCapUSD,
+        RecCapRMB,
+        UniCode,
+        PostalCode,
+        OpFrom,
+        OpTo,
+        EmpNum,
+        Country,
+        Currency,
+        Town,
+        Street,
+        CerNO,
+        Tel,
+        Email,
+        ApprDate,
+        AltDate,
+        CreateTime,
+        UID,
+        IsIndivid,
+        IndividDate,
+        ImpDate,
+        CheckDep,
+        Yiedistrict,
+        ProLoc,
+        CurrencyCn,
+        OpForm,
+        OpScope,
+        EntTypeCatg,
+        DelegateOrg,
+        DelegateOrgName,
+        Area,
+        RegOrgName,
+        LocalAdmName,
+        SliceNO,
+        SliceNOName,
+        CheckDepName,
+        CompFormName,
+        CompForm
+        FROM
+        cs_mid_baseinfo
+        WHERE
+        (RegNO = #{regno,jdbcType=VARCHAR} or UniCode = #{regno,jdbcType=VARCHAR})
+        and RegState IN (${regState})
+        <if test="entname !=null and entname != ''">
+            and EntName = #{entname,jdbcType=VARCHAR}
+        </if>
+        <if test="systemType !=null and systemType == 1">
+            and EntTypeCatg not in ('16','17','50')
+        </if>
+        <if test="systemType !=null and systemType == 2">
+            and EntTypeCatg in ('50')
+        </if>
+        <if test="systemType !=null and systemType == 3">
+            and EntTypeCatg in ('16','17')
+        </if>
+    </select>
+    
+    <!--登录时按注册号、企业名称查询企业基本信息-->
+    <select id="selectMidBaseInfoByRegNOHold" resultMap="BaseResultMapDto" parameterType="Map">
+        SELECT
+        id,
+        PriPID,
+        EntName,
+        RegNO,
+        LeRep,
+        EntType,
+        EstDate,
+        RegOrg,
+        LocalAdm,
+        RegState,
+        UniCode,
+        UID,
+        CheckDep,
+        EntTypeCatg,
+        RegOrgName,
+        LocalAdmName,
+        SliceNO,
+        SliceNOName,
+        CheckDepName
+        from cs_mid_baseinfo
+        WHERE
+        (RegNO = #{regno,jdbcType=VARCHAR} or UniCode = #{regno,jdbcType=VARCHAR})
+        and RegState IN (${regState})
+    </select>
+
+    <!-- 根据注册号（统一代码）或名称查询 -->
+    <select id="selectMidBaseinfoByRegNoAndName" resultMap="BaseResultMapDto" parameterType="Map">
+        SELECT
+        id,PriPID,EntName,RegNO,Dom,DomDistrict,LeRep,RegCap,EntType,EstDate,IndustryCo,RegOrg,LocalAdm,IndustryPhy,
+        RegState,RegCapUSD,RecCapUSD,RecCapRMB,UNICODE,PostalCode,OpFrom,OpTo,EmpNum,Country,Currency,Town,Street,CerNO,
+        Tel,Email,ApprDate,AltDate,CreateTime,UID,IsIndivid,IndividDate,ImpDate,CheckDep,Yiedistrict,CurrencyCn,EntTypeCatg,ProLoc,OpForm,OpScope,DelegateOrg,
+        DelegateOrgName,Area,RegOrgName,LocalAdmName,SliceNO,SliceNOName,CheckDepName,CompFormName,CompForm
+        FROM cs_mid_baseinfo
+        where 1=1
+        <if test="regNO!=null and regNO !=''">
+            and ( RegNO = #{regNO} or UNICODE = #{regNO} )
+        </if>
+        <!-- 状态有效(Mybatis中验证等于时得加上toString()强转) -->
+        <if test="regState!=null and regState == '1'.toString()">
+            and RegState IN (${regStateParam})
+        </if>
+        <if test="regState!=null and regState == '0'.toString()">
+            and RegState IN (${regStateParam})
+        </if>
+        <!-- 大类范围 -->
+        <!-- 企业 或即时-->
+        <if test="entTypeCatg!=null and entTypeCatg == '1'.toString()">
+            and EntTypeCatg not in ('16','17','50')
+        </if>
+        <!-- 农专 -->
+        <if test="entTypeCatg!=null and entTypeCatg == '2'.toString()">
+            and EntTypeCatg in ('16','17')
+        </if>
+        <!-- 个体 -->
+        <if test="entTypeCatg!=null and entTypeCatg == '3'.toString()">
+            and EntTypeCatg = '50'
+        </if>
+        <if test="entName!=null and entName !=''">
+            and EntName =#{entName}
+        </if>
+        <if test="PriPID!=null and PriPID !=''">
+            and PriPID =#{PriPID}
+        </if>
+        <if test="searchregNO !=null and searchregNO !=''">
+            and RegNO =#{searchregNO}
+        </if>
+        <if test="searchuniCode !=null and searchuniCode !=''">
+            and UNICODE =#{searchuniCode}
+        </if>
+        <if test="searchentName !=null and searchentName !=''">
+            and EntName =#{searchentName}
+        </if>
+    </select>
+
+    <!-- 根据一些条件查询个体户 -->
+    <select id="selectPbMidBaseinfoByManyConditions" resultMap="BaseResultMapDto" parameterType="Map">
+        SELECT
+        cs_mid_baseinfo.id,PriPID,EntName,RegNO,Dom,DomDistrict,LeRep,RegCap,EntType,EstDate,IndustryCo,RegOrg,LocalAdm,IndustryPhy,
+        RegState,RegCapUSD,RecCapUSD,RecCapRMB,UNICODE,PostalCode,OpFrom,OpTo,EmpNum,Country,Currency,Town,Street,CerNO,
+        Tel,Email,ApprDate,AltDate,CreateTime,UID,IsIndivid,IndividDate,ImpDate,CheckDep,Yiedistrict,CurrencyCn,EntTypeCatg,
+        ProLoc,OpForm,OpScope,DelegateOrgName,Area,RegOrgName,LocalAdmName,SliceNO,SliceNOName,CheckDepName,CompFormName,CompForm
+        FROM cs_mid_baseinfo
+        where 1=1
+        <!-- 个体 -->
+        and EntTypeCatg = '50'
+        <if test="regNO !=null and regNO !=''">
+            AND RegNO like CONCAT('%', #{regNO},'%')
+        </if>
+        <if test="entName !=null and entName !=''">
+            AND EntName like CONCAT('%', #{entName},'%')
+        </if>
+        <if test="leRep !=null and leRep !=''">
+            AND leRep like CONCAT('%', #{leRep},'%')
+        </if>
+        <if test="regOrg !='' and regOrg !=null">
+            and RegOrg IN (${regOrg})
+        </if>
+        <if test="localAdm !='' and localAdm !=null">
+            and LocalAdm IN (${localAdm})
+        </if>
+        <if test="sliceNO !='' and sliceNO !=null">
+            and SliceNO IN (${sliceNO})
+        </if>
+        <if test="checkDep !='' and checkDep !=null">
+            and CheckDep IN (${checkDep})
+        </if>
+
+
+    </select>
+    <!-- 行政指导新增页面查询基础表数据 add by liuhq -->
+    <select id="midbaseinfoForGovuideAdd_querypage" parameterType="Map" resultMap="BaseResultMap">
+        SELECT
+        id,
+        PriPID,
+        UID,
+        EntName,
+        RegNO,
+        UniCode,
+        Dom,
+        LeRep,
+        IndustryPhy,
+        EntTypeCatg,
+        RegOrg,
+        LocalAdm,
+        RegOrgName,
+        LocalAdmName
+        FROM
+        cs_mid_baseinfo
+        <where>
+            <if test="entName !=null and entName != ''">
+                AND EntName like CONCAT('%', #{entName},'%')
+            </if>
+            <if test="leRep !=null and leRep != ''">
+                AND LeRep = #{leRep}
+            </if>
+            <if test="dom !=null and dom != ''">
+                AND Dom like CONCAT('%', #{dom},'%')
+            </if>
+            <if test="uniCode !=null and uniCode != ''">
+                AND (UniCode like CONCAT(#{uniCode},'%') or RegNO like CONCAT(#{uniCode},'%'))
+            </if>
+            <if test="entType !=null and entType != ''">
+                AND EntType in (${entType})
+            </if>
+            <if test="localAdm !=null and localAdm != ''">
+                AND LocalAdm in (${localAdm})
+            </if>
+            <if test="regOrg !=null and regOrg != ''">
+                AND RegOrg in (${regOrg})
+            </if>
+            <if test="industryCo !=null and industryCo != ''">
+                AND IndustryCo in (${industryCo})
+            </if>
+        </where>
+    </select>
+    <!--按内部序号查询企业基本信息 add by liuhq -->
+    <select id="selectMidBaseInfoByPripid" resultMap="BaseResultMapDto" parameterType="java.lang.String">
+		SELECT
+		m.PriPID,
+		m.EntName,
+		m.RegNO,
+		m.Dom,
+		m.LeRep,
+		m.RegCap,
+		m.EntType,
+		(select c.Content from cs_code_enttype c where c.Code=m.EntType ) EntTypeName,
+		m.EstDate,
+		m.IndustryCo,
+		(select c.Content from cs_code_industry c where c.Code=m.IndustryCo ) IndustryCoName,
+		m.RegOrg,
+		m.RegOrgName,
+		m.LocalAdm,
+		m.IndustryPhy,
+		m.RegState,
+		m.RegCapUSD,
+		m.RecCapUSD,
+		m.RecCapRMB,
+		m.UniCode,
+		m.PostalCode,
+		m.OpFrom,
+		m.OpTo,
+		m.EmpNum,
+		m.Country,
+		m.Currency,
+		m.Town,
+		m.Street,
+		m.CerNO,
+		m.Tel,
+		m.Email,
+		m.ApprDate,
+		m.AltDate,
+		m.CreateTime,
+		m.UID,
+		m.IsIndivid,
+		m.IndividDate,
+		m.ImpDate,
+		m.CheckDep,
+		m.Yiedistrict,
+		m.ProLoc,
+		m.CurrencyCn,
+		m.OpForm,
+		m.OpScope,
+		m.EntTypeCatg,
+		m.DelegateOrg,
+		m.DelegateOrgName,
+		m.Area,
+		m.RegOrgName,
+		m.LocalAdmName,
+		m.SliceNO,
+		m.SliceNOName,
+		m.CheckDepName,
+		m.CompFormName,
+		m.CompForm
+		FROM
+		cs_mid_baseinfo m
+		WHERE
+		m.PriPID = #{priPID}
+	</select>
+
+
+    <!--  查找登记机关与管辖单位所在机关不一致的企业（regOrgCode！= 管辖单位的父代码的前6位） -->
+    <select id="selectMidbaseinfo4delegate" resultMap="BaseResultMapDto" parameterType="Map">
+
+        select b.id ,PriPID,PriPID as
+        _ID,EntName,RegNO,Dom,DomDistrict,LeRep,RegCap,EntType,EstDate,IndustryCo,RegOrg,LocalAdm,IndustryPhy,
+        RegState,RegCapUSD,RecCapUSD,RecCapRMB,UNICODE,PostalCode,OpFrom,OpTo,EmpNum,Country,Currency,Town,Street,CerNO,
+        Tel,Email,ApprDate,AltDate,CreateTime,UID,IsIndivid,ImpDate,CheckDep,Yiedistrict,CurrencyCn,EntTypeCatg,ProLoc,OpForm,OpScope,
+        CheckDep,DelegateOrg from cs_mid_baseinfo b
+        left join cs_code_regunit r on b.LocalAdm=r.Code
+        where
+        <![CDATA[ LEFT(r.SupCode,6)<>b.RegOrg ]]>
+
+        <if test="regOrg!=null and regOrg!=''">
+            where RegOrg=#{regOrg}
+        </if>
+
+
+        <if test="regNO!=null and regNO !=''">
+            and ( RegNO = #{regNO} or UNICODE = #{regNO} )
+        </if>
+        <if test="entName!=null and entName !=''">
+            and EntName =#{entName}
+        </if>
+        <if test="estDate!=null and estDate !=''">
+            <![CDATA[   and DATE_FORMAT(EstDate, '%Y-%m-%d')>=  DATE_FORMAT(#{beginTime}, '%Y-%m-%d')]]>
+        </if>
+        <if test="estDate!=null and estDate !=''">
+            <![CDATA[   and DATE_FORMAT(EstDate, '%Y-%m-%d')<=  DATE_FORMAT(#{endTime}, '%Y-%m-%d')]]>
+        </if>
+        <if test="delegateOrg!=null and delegateOrg !=''">
+            and DelegateOrg =#{delegateOrg}
+        </if>
+        <if test="localAdm!=null and localAdm !=''">
+            and LocalAdm =#{localAdm}
+        </if>
+        <if test="entType!=null and entType !=''">
+            and EntType =#{entType}
+        </if>
+
+    </select>
+
+    <select id="selectMidInfoForOtherAdd" resultMap="BaseResultMapDto" parameterType="Map">
+        SELECT
+        id,
+        PriPID,
+        UID,
+        EntName,
+        RegNO,
+        UniCode,
+        Dom,
+        LeRep,
+        Tel,
+        EstDate,
+        EntTypeCatg,
+        IndustryPhy,
+        RegOrgName,
+        LocalAdmName,
+        SliceNOName
+        FROM
+        cs_mid_baseinfo
+        <!-- 		LEFT JOIN cs_code_enttype a on t.EntType = a.code -->
+        <!-- 		LEFT JOIN cs_code_industry b on t.IndustryCo =b.code -->
+        where 1=1
+        <if test="regNO !=null and regNO != ''">
+            and RegNO = #{regNO}
+        </if>
+        <if test="unicode !=null and unicode != ''">
+            and (UniCode like CONCAT(#{unicode},'%') or RegNO like CONCAT(#{unicode},'%'))
+        </if>
+        <if test="entName !=null and entName != ''">
+            and EntName = #{entName}
+        </if>
+        <if test="lerep !=null and lerep != ''">
+            and LeRep = #{lerep}
+        </if>
+        <if test="enttypecatg !=null and enttypecatg != ''">
+            and EntTypeCatg = #{enttypecatg}
+        </if>
+        <if test="industryCo !=null and industryCo != ''">
+            and IndustryCo = #{industryCo}
+        </if>
+        <if test="dom !=null and dom != ''">
+            and Dom like CONCAT('%', #{dom},'%')
+        </if>
+        <if test="localadm !=null and localadm != ''">
+            and LocalAdm = #{localadm}
+        </if>
+        <if test="regorg !=null and regorg != ''">
+            and RegOrg = #{regorg}
+        </if>
+
+        <if test="estDateStart !='' and estDateStart !=null">
+            <![CDATA[
+		and EstDate >= #{estDateStart}
+		]]>
+        </if>
+        <if test="estDateEnd !='' and estDateEnd !=null">
+            <![CDATA[
+		and EstDate <= #{estDateEnd}
+		]]>
+        </if>
+
+        <if test="regOrgs!=null and regOrgs!=''">
+            and regOrg in
+            <foreach item="item" index="index" collection="regOrgs" open="("
+                     separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+
+
+        <if test="entTypes!=null and entTypes!=''">
+            and entType in
+            <foreach item="item" index="index" collection="entTypes" open="("
+                     separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="localAdms!=null and localAdms!=''">
+            and localAdm in
+            <foreach item="item" index="index" collection="localAdms" open="("
+                     separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="sliceNOs!=null and sliceNOs!=''">
+            and sliceNO in
+            <foreach item="item" index="index" collection="sliceNOs" open="("
+                     separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="industryCos!=null and industryCos!=''">
+            and industryCo in
+            <foreach item="item" index="index" collection="industryCos" open="("
+                     separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+
+
+    </select>
+
+
+    <!-- 企业基本数据查询 -->
+    <select id="selectMidInfo" resultMap="MidBaseResultMap" parameterType="Map">
+        SELECT
+        id,
+        PriPID,
+        UID,
+        EntName,
+        RegNO,
+        UniCode,
+        Dom,
+        LeRep,
+        Tel,
+        EstDate,
+        EntTypeCatg,
+        IndustryPhy,
+        RegOrgName,
+        LocalAdmName,
+        SliceNOName,
+        RegState,
+        CheckDepName,
+        CerNO,
+        HzApprCode,
+        update_time updateTime
+        FROM
+        cs_mid_baseinfo
+        where 1=1
+        <if test="regNO !=null and regNO != ''">
+            and RegNO = #{regNO}
+        </if>
+        <if test="unicode !=null and unicode != ''">
+            and (UniCode like CONCAT(#{unicode},'%') or RegNO like CONCAT(#{unicode},'%'))
+        </if>
+        <if test="uniCode_regNO !=null and uniCode_regNO != ''">
+            and (UniCode = #{uniCode_regNO} or RegNO = #{uniCode_regNO})
+        </if>
+        <if test="entname !=null and entname != ''">
+            and EntName = #{entname}
+        </if>
+        <if test="leRep !=null and leRep != ''">
+            and LeRep = #{leRep}
+        </if>
+        <if test="industryCo !=null and industryCo != ''">
+            and IndustryCo = #{industryCo}
+        </if>
+        <if test="dom !=null and dom != ''">
+            and Dom like CONCAT('%', #{dom},'%')
+        </if>
+        <if test="regOrg !='' and regOrg !=null">
+            and RegOrg IN (${regOrg})
+        </if>
+        <if test="localAdm !='' and localAdm !=null">
+            and LocalAdm IN (${localAdm})
+        </if>
+        <if test="entTypeCode !='' and entTypeCode !=null">
+            and EntType IN (${entTypeCode})
+        </if>
+        <if test="sliceNO !='' and sliceNO !=null">
+            and SliceNO IN (${sliceNO})
+        </if>
+        <if test="industryCo !='' and industryCo !=null">
+            and IndustryCo IN (${industryCo})
+        </if>
+        <if test="estDateStart !='' and estDateStart !=null">
+            <![CDATA[
+		and EstDate >= #{estDateStart}
+		]]>
+        </if>
+        <if test="estDateEnd !='' and estDateEnd !=null">
+            <![CDATA[
+		and EstDate <= #{estDateEnd}
+		]]>
+        </if>
+        <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </select>
+
+    <!-- 根据核准日期获取在册企业且审批事项编码不为空的企业核准数据 双告知专用 请勿调用或修改 -->
+    <select id="selectMidInfoByApprDate" resultMap="MidBaseResultMap" parameterType="Map">
+		     SELECT id,PriPID,EntName,RegNO,Dom,DomDistrict,LeRep,RegCap,EntType,EstDate,IndustryCo,RegOrg,LocalAdm,IndustryPhy,
+	         RegState,RegCapUSD,RecCapUSD,RecCapRMB,UNICODE,PostalCode,OpFrom,OpTo,EmpNum,Country,Currency,Town,Street,CerNO,
+	         Tel,Email,ApprDate,AltDate,CreateTime,UID,IsIndivid,IndividDate,ImpDate,CheckDep,Yiedistrict,CurrencyCn,EntTypeCatg,
+	         ProLoc,OpForm,OpScope,DelegateOrgName,Area,RegOrgName,LocalAdmName,SliceNO,SliceNOName,CheckDepName,CompFormName,
+	         CompForm,HzApprCode,HzApprName
+	         FROM cs_mid_baseinfo
+		     where 
+		     HzApprCode is not null 
+		     and HzApprCode !='' 
+		     and RegState IN (${regState})
+		     <choose>
+		        <when test="flag==1"><!-- 企业名称 -->
+		          and  EntName in (${priPIDStr}) 
+		        </when>
+		        <when test="flag==2"><!-- 注册号 -->
+		          and  RegNO in (${priPIDStr}) 
+		        </when>
+		        <when test="flag==3"><!--主体身份代码 -->
+		          and  PriPID in (${priPIDStr}) 
+		        </when> 
+		        <otherwise><!-- 晚上定时 -->
+		         <![CDATA[
+			     and ApprDate >= #{startApprDate}
+				 and ApprDate <= #{endApprDate}
+	             ]]>  LIMIT 999999 
+		        </otherwise>
+		     </choose>
+    </select>
+    
+    <!--  多证合一-->
+    <select id="selectMidInfoDzByApprDate" resultMap="MidBaseResultMap" parameterType="Map">
+			     SELECT
+					A.PriPID,
+					EntName,
+					RegNO,
+					Dom,
+					DomDistrict,
+					LeRep,
+					RegCap,
+					EntType,
+					EstDate,
+					IndustryCo,
+					RegOrg,
+					LocalAdm,
+					IndustryPhy,
+					RegState,
+					RegCapUSD,
+					RecCapUSD,
+					RecCapRMB,
+					UNICODE,
+					PostalCode,
+					OpFrom,
+					OpTo,
+					EmpNum,
+					Country,
+					Currency,
+					Town,
+					Street,
+					CerNO,
+					Tel,
+					Email,
+					ApprDate,
+					AltDate,
+					CreateTime,
+					UID,
+					IsIndivid,
+					IndividDate,
+					ImpDate,
+					CheckDep,
+					Yiedistrict,
+					CurrencyCn,
+					EntTypeCatg,
+					ProLoc,
+					OpForm,
+					OpScope,
+					DelegateOrgName,
+					Area,
+					RegOrgName,
+					LocalAdmName,
+					SliceNO,
+					SliceNOName,
+					CheckDepName,
+					CompFormName,
+					CompForm,
+					A.Basx HzApprCode
+				FROM
+					CS_HZ_DZHY_BASX A
+				LEFT JOIN cs_mid_baseinfo B ON A.PriPID = B.PriPID
+				WHERE
+					A.Basx IS NOT NULL
+				AND A.Basx != ''
+				AND RegState IN (${regState})
+				AND B.PriPID IS NOT NULL
+		     <choose>
+		        <when test="flag==1"><!-- 企业名称 -->
+		          and  B.EntName in (${priPIDStr}) 
+		        </when>
+		        <when test="flag==2"><!-- 注册号 -->
+		          and   B.RegNO in (${priPIDStr}) 
+		        </when>
+		        <when test="flag==3"><!--主体身份代码 -->
+		          and   B.PriPID in (${priPIDStr}) 
+		        </when> 
+		        <otherwise><!-- 晚上定时 -->
+		         <![CDATA[
+			     and  B.ApprDate >= #{startApprDate}
+				 and  B.ApprDate <= #{endApprDate}
+	             ]]>  LIMIT 999999 
+		        </otherwise>
+		     </choose>
+    </select>
+    
+    <select id="selectMidBaseinfoBackList" resultMap="BaseResultMapDto" parameterType="map">
+    	SELECT 
+		t4.tid,
+		GROUP_CONCAT(t4.Position) PositionName,
+		t5.RegNO,
+		t5.UniCode,
+		t5.EntName,
+		t5.PriPID,
+		t5.LeRep,
+		t5.EstDate,
+		t5.RegOrgName,
+		t5.LocalAdmName,
+		t5.RegState 
+		FROM (
+		SELECT t1.PriPID tid,p.Content Position from cs_mid_member t1
+		LEFT JOIN cs_code_position p ON t1.Position = p.Code
+		<trim prefix="WHERE" prefixOverrides="AND | OR"> 
+			<if test="clientName !=null and clientName != ''">
+	            AND t1.Name = #{clientName}
+	        </if>
+			<if test="cerType !=null and cerType != ''">
+	            AND t1.CerType = #{cerType}
+	        </if>
+			<if test="certNO !=null and certNO != ''">
+	            AND t1.CerNO = #{certNO}
+	        </if>
+	        <if test="notInPidArr != null and notInPidArr != ''">
+				and t1.PriPID not in
+				<foreach item="item" index="index" collection="notInPidArr" open="(" separator="," close=")">
+							#{item}
+			    </foreach>
+		   </if>
+        </trim>
+		UNION ALL 
+		select t3.PriPID tid,'法定代表人' Position from cs_mid_lerep t3 
+		<trim prefix="WHERE" prefixOverrides="AND | OR"> 
+			<if test="clientName !=null and clientName != ''">
+	            AND t3.Name = #{clientName}
+	        </if>
+			<if test="cerType !=null and cerType != ''">
+	            AND t3.CerType = #{cerType}
+	        </if>
+			<if test="certNO !=null and certNO != ''">
+	            AND t3.CerNO = #{certNO}
+	        </if>
+	        <if test="notInPidArr != null and notInPidArr != ''">
+				and t3.PriPID not in
+				<foreach item="item" index="index" collection="notInPidArr" open="(" separator="," close=")">
+							#{item}
+			    </foreach>
+		   </if>
+        </trim>
+		) t4
+		LEFT JOIN
+		cs_mid_baseinfo t5
+		ON t4.tid = t5.PriPID
+		where t5.PriPID is not NULL
+		GROUP BY t5.PriPID
+	</select>
+    
+    <select id="selectLimitObjRelEntList" resultMap="BaseResultMapDto" parameterType="map">
+    	SELECT 
+		t4.tid,
+		GROUP_CONCAT(t4.Position) PositionName,
+		t5.RegNO,
+		t5.UniCode,
+		t5.EntName,
+		t5.PriPID,
+		t5.LeRep,
+		t5.EstDate,
+		t5.RegOrgName,
+		t5.LocalAdmName,
+		t5.RegState 
+		FROM (
+		SELECT t1.PriPID tid,p.Content Position from cs_mid_member t1
+		LEFT JOIN cs_code_position p ON t1.Position = p.Code
+		<trim prefix="WHERE" prefixOverrides="AND | OR"> 
+			<if test="clientName !=null and clientName != ''">
+	            AND t1.Name = #{clientName}
+	        </if>
+			<if test="cerType !=null and cerType != ''">
+	            AND t1.CerType = #{cerType}
+	        </if>
+			<if test="certNO !=null and certNO != ''">
+	            AND t1.CerNO = #{certNO}
+	        </if>
+	        <if test="notInPidArr != null and notInPidArr != ''">
+				and t1.PriPID not in
+				<foreach item="item" index="index" collection="notInPidArr" open="(" separator="," close=")">
+							#{item}
+			    </foreach>
+		   </if>
+        </trim>
+		UNION ALL 
+		select t2.PriPID tid,'法定代表人' Position from cs_mid_lerep t2 
+		<trim prefix="WHERE" prefixOverrides="AND | OR"> 
+			<if test="clientName !=null and clientName != ''">
+	            AND t2.Name = #{clientName}
+	        </if>
+			<if test="cerType !=null and cerType != ''">
+	            AND t2.CerType = #{cerType}
+	        </if>
+			<if test="certNO !=null and certNO != ''">
+	            AND t2.CerNO = #{certNO}
+	        </if>
+	        <if test="notInPidArr != null and notInPidArr != ''">
+				and t2.PriPID not in
+				<foreach item="item" index="index" collection="notInPidArr" open="(" separator="," close=")">
+							#{item}
+			    </foreach>
+		   </if>
+		  </trim>
+		   UNION ALL 
+		select t3.PriPID tid,'法定代表人' Position from cs_mid_inv t3 
+		LEFT JOIN cs_mid_baseinfo m
+		on t3.PriPID = m.PriPID
+		<trim prefix="WHERE" prefixOverrides="AND | OR"> 
+			AND m.EntTypeCatg in (33,27)
+			<if test="clientName !=null and clientName != ''">
+	            AND t3.Inv = #{clientName}
+	        </if>
+			<if test="cerType !=null and cerType != ''">
+	            AND t3.CerType = #{cerType}
+	        </if>
+			<if test="certNO !=null and certNO != ''">
+	            AND t3.CerNO = #{certNO}
+	        </if>
+	        <if test="notInPidArr != null and notInPidArr != ''">
+				AND t3.PriPID not in
+				<foreach item="item" index="index" collection="notInPidArr" open="(" separator="," close=")">
+							#{item}
+			    </foreach>
+		   </if>
+        </trim>
+		) t4
+		LEFT JOIN
+		cs_mid_baseinfo t5
+		ON t4.tid = t5.PriPID
+		GROUP BY t5.PriPID
+		ORDER BY t5.RegState DESC
+	</select>
+	
+	<select id="selectLimitRelEntObjList" resultMap="BaseResultMapDto" parameterType="map">
+    	SELECT 
+		t4.tid PriPID,
+	  	t4.CerType,
+		t4.CerNO,
+		t4.Name LimitName,
+		GROUP_CONCAT(t4.Position) PositionName
+		FROM (
+		SELECT t1.PriPID tid,t1.CerType,
+			t1.CerNO,
+			t1.name,p.Content Position from cs_mid_member t1
+		LEFT JOIN cs_code_position p ON t1.Position = p.Code
+		<trim prefix="WHERE" prefixOverrides="AND | OR"> 
+			<if test="clientName !=null and clientName != ''">
+	            AND t1.Name = #{clientName}
+	        </if>
+			<if test="cerType !=null and cerType != ''">
+	            AND t1.CerType = #{cerType}
+	        </if>
+			<if test="certNO !=null and certNO != ''">
+	            AND t1.CerNO = #{certNO}
+	        </if>
+        </trim>
+		UNION ALL 
+		select t2.PriPID tid,t2.CerType,
+				t2.CerNO,
+				t2.name,'法定代表人' Position from cs_mid_lerep t2 
+		<trim prefix="WHERE" prefixOverrides="AND | OR"> 
+			<if test="clientName !=null and clientName != ''">
+	            AND t2.Name = #{clientName}
+	        </if>
+			<if test="cerType !=null and cerType != ''">
+	            AND t2.CerType = #{cerType}
+	        </if>
+			<if test="certNO !=null and certNO != ''">
+	            AND t2.CerNO = #{certNO}
+	        </if>
+		  </trim>
+		   UNION ALL 
+		select t3.PriPID tid,t3.CerType,
+					t3.CerNO,
+					t3.Inv NAME,'法定代表人' Position from cs_mid_inv t3 
+		LEFT JOIN cs_mid_baseinfo m
+		on t3.PriPID = m.PriPID
+		<trim prefix="WHERE" prefixOverrides="AND | OR"> 
+			AND m.EntTypeCatg in (33,27)
+			<if test="clientName !=null and clientName != ''">
+	            AND t3.Inv = #{clientName}
+	        </if>
+			<if test="cerType !=null and cerType != ''">
+	            AND t3.CerType = #{cerType}
+	        </if>
+			<if test="certNO !=null and certNO != ''">
+	            AND t3.CerNO = #{certNO}
+	        </if>
+        </trim>
+		) t4
+		GROUP BY t4.tid
+	</select>
+
+    <select id="selectMidBaseInfoDtoListByCerNO" parameterType="map" resultMap="BaseResultMapDto">
+		SELECT 
+  A.PositionName,
+  b.entName,
+  b.UniCode,
+  b.EstDate,
+  b.RegState,
+  b.IndustryPhy,
+  b.RegNO,
+  E.Content EntType,
+  I.Content IndustryCoName,
+  b.LeRep,
+  b.localAdmName,
+  b.RegCap,
+  b.EntType,
+  b.Dom,
+  b.RegOrgName,
+  b.PriPID
+FROM
+  (SELECT 
+    PriPID,
+    p.content PositionName 
+  FROM
+    cs_mid_member m 
+    LEFT JOIN cs_code_position p 
+      ON m.position = p.code 
+  WHERE CerNO = #{cerNO}
+  UNION
+  ALL 
+  SELECT 
+    PriPID,
+    '法定代表人' PositionName 
+  FROM
+    cs_mid_lerep 
+  WHERE CerNO = #{cerNO}) A 
+  LEFT JOIN cs_mid_baseinfo b 
+    ON A.PriPID = b.PriPID 
+   LEFT JOIN cs_code_enttype E ON b.EntType = E.Code
+      LEFT JOIN cs_code_industrytype I ON b.IndustryPhy= I.Code
+	where 1= 1 
+	<!-- 登记状态 -->
+	 <if test="regState !=null and regState !=''">
+	       and  b.RegState  in
+     <foreach item="item" index="index" collection="regState" open="("
+					separator="," close=")">
+					#{item}
+	 </foreach>    
+	 </if>
+	</select>
+    <update id="setDelegate" parameterType="java.lang.String">
+		UPDATE cs_mid_baseinfo
+		SET DelegateOrg= ( select  LEFT(r.SupCode,6) from (select LocalAdm from cs_mid_baseinfo where PriPID=#{priPID}) b left join cs_code_regunit r on b.LocalAdm=r.code )
+		WHERE PriPID=#{priPID}
+	</update>
+
+    <update id="cancleDelegate" parameterType="java.lang.String">
+		UPDATE cs_mid_baseinfo
+		SET DelegateOrg= null
+		WHERE PriPID=#{priPID}
+	</update>
+
+    <select id="doIncreCount" resultType="int">
+	SELECT 
+	  COUNT(PriPID) 
+	FROM
+	  cs_mid_baseinfo A 
+	WHERE A.update_time > 
+	  DATE_SUB(CURDATE(),INTERVAL 1 DAY)
+	   AND A.EntTypeCatg IN('11','13','31','33','21','27','24','12','14','32','34','22','28','50','16','17')
+	   AND NOT EXISTS 
+  (SELECT 
+    t.PriPID 
+  FROM
+    cs_pub_excludeent t 
+  WHERE t.PriPID = A.PriPID)
+	</select>
+
+
+    <select id="selectIndexListById" parameterType="map" resultMap="BaseResultMapDto">
+	SELECT 
+	  A.id,
+	  A.PriPID priPID,
+	  A.EntName entName,
+	  H.hisEntName,
+	  A.RegNO regNO,
+	  A.Dom dom,
+	  A.LeRep leRep,
+	  A.RegCap regCap,
+	  A.EntType entType,
+	  B.Content entTypeName,
+	  A.EstDate estDate,
+	  A.RegOrg regOrg,
+	  A.RegOrgName regOrgName,
+	  A.RegState regState,
+	  A.RegCapUSD regCapUSD,
+	  A.RecCapUSD recCapUSD,
+	  A.RecCapRMB recCapRMB,
+	  A.UniCode UNICODE,
+	  A.OpFrom opFrom,
+	  A.OpTo opTo,
+	  A.ApprDate apprDate,
+	  A.CreateTime createTime,
+	  A.OpScope opScope,
+	  A.EntTypeCatg entTypeCatg,
+	  C.Content entTypeCatgName,
+	  A.CompForm compForm,
+	  A.CompFormName compFormName,
+	  G.ExeAffSign,
+	  G.inv,
+	  CASE WHEN (SELECT COUNT(1) FROM er_esc_appinfo H WHERE A.PriPID = H.PriPID AND H.simplecanRea='4')>0 THEN 1 ELSE 0 END isSimpleCancle,
+	  CASE
+    WHEN 
+    (SELECT 
+      COUNT(1) 
+    FROM
+      cs_pub_opanomaly D 
+    WHERE A.PriPID = D.PriPID 
+    AND A.EntTypeCatg!='50'
+    AND A.RegState NOT IN (${regState})
+      AND D.AuditState = '1' 
+      AND revokeFlag IS NULL 
+      AND NOT EXISTS 
+      (SELECT 
+        1 
+      FROM
+        cs_pub_opadetail F 
+      WHERE D.BusExcList = F.BusExcList 
+        AND IsMove IN (1, 2) 
+        AND F.AuditState = '1')) > 0 
+    THEN 1 
+    WHEN 
+    (SELECT 
+      COUNT(1) 
+    FROM
+      cs_pub_pbopanomaly E 
+		LEFT JOIN cs_pub_pbopadetail G ON E.BusExcList=G.BusExcList
+    WHERE A.PriPID = E.PriPID 
+    AND A.EntTypeCatg='50'
+    AND A.RegState NOT IN (${regState})
+    AND E.AuditState = '1'
+		AND IFNULL(G.AuditState,0) NOT IN ('1','3')) > 0 
+    THEN 1 
+    ELSE 0 
+  END isOpanomaly 
+	FROM
+	  cs_mid_baseinfo A 
+	  LEFT JOIN cs_code_enttype B 
+	    ON A.EntType = B.Code 
+	  LEFT JOIN cs_code_entcatg C 
+	    ON A.EntTypeCatg = C.Code 
+	    LEFT JOIN cs_mid_inv G
+	    ON A.PriPID=G.PriPID AND G.ExeAffSign='1'
+	    LEFT JOIN 
+	   (SELECT id,PriPID,GROUP_CONCAT(AltBeContent SEPARATOR ';') hisEntName,MAX(update_time) FROM cs_mid_altitem WHERE altitem='01' GROUP BY PriPID) H 
+	   ON A.PriPID=H.PriPID
+	    <![CDATA[
+	    where A.id> #{start} and A.id<=#{end}
+	    ]]>
+	    AND A.EntTypeCatg IN('11','13','31','33','21','27','24','12','14','32','34','22','28','50','16','17')
+		AND NOT EXISTS 
+  (SELECT 
+    t.PriPID 
+  FROM
+    cs_pub_excludeent t 
+  WHERE t.PriPID = A.PriPID) limit 0,250000
+</select>
+
+    <select id="selectMaxId" resultType="Integer">
+  	select max(id) from cs_mid_baseinfo
+</select>
+
+<select id="selectListByPriPID" parameterType="map" resultMap="BaseResultMapDto">
+	SELECT 
+	  A.id,
+	  A.PriPID priPID,
+	  A.EntName entName,
+	  A.RegNO regNO,
+	  A.Dom dom,
+	  A.LeRep leRep,
+	  A.RegCap regCap,
+	  A.EntType entType,
+	  B.Content entTypeName,
+	  A.EstDate estDate,
+	  A.RegOrg regOrg,
+	  A.CurrencyCn currencyCn,
+	  A.RegOrgName regOrgName,
+	  A.RegState regState,
+	  A.RegCapUSD regCapUSD,
+	  A.RecCapUSD recCapUSD,
+	  A.RecCapRMB recCapRMB,
+	  A.UniCode UNICODE,
+	  A.OpFrom opFrom,
+	  A.OpTo opTo,
+	  A.ApprDate apprDate,
+	  A.CreateTime createTime,
+	  A.OpScope opScope,
+	  A.EntTypeCatg entTypeCatg,
+	  C.Content entTypeCatgName,
+	  A.CompForm compForm,
+	  A.CompFormName compFormName,
+	  A.altDate,
+	  A.IndividDate,
+	  D.PunishDate,
+	  E.ExeAffSign,
+	  E.inv,
+	  F.Basx
+	FROM
+	  cs_mid_baseinfo A 
+	  LEFT JOIN cs_code_enttype B 
+	    ON A.EntType = B.Code 
+	  LEFT JOIN cs_code_entcatg C 
+	    ON A.EntTypeCatg = C.Code 
+	    LEFT JOIN cs_punish_record D
+	    ON A.PriPID=D.PriPID AND D.RevLicense='1'
+	    LEFT JOIN cs_mid_inv E
+	    ON A.PriPID=E.PriPID AND E.ExeAffSign='1'
+	    LEFT JOIN CS_HZ_DZHY_BASX F
+		ON A.PriPID=F.PriPID
+	    where A.PriPID=#{priPID}
+</select>
+
+    <select id="selectListByCondition" parameterType="map" resultMap="BaseResultMapDto">
+	SELECT 
+	  A.id,
+	  A.PriPID priPID,
+	  A.EntName entName,
+	  H.hisEntName,
+	  A.RegNO regNO,
+	  A.Dom dom,
+	  A.LeRep leRep,
+	  A.RegCap regCap,
+	  A.EntType entType,
+	  B.Content entTypeName,
+	  A.EstDate estDate,
+	  A.RegOrg regOrg,
+	  A.RegOrgName regOrgName,
+	  A.RegState regState,
+	  A.RegCapUSD regCapUSD,
+	  A.RecCapUSD recCapUSD,
+	  A.RecCapRMB recCapRMB,
+	  A.UniCode UNICODE,
+	  A.OpFrom opFrom,
+	  A.OpTo opTo,
+	  A.ApprDate apprDate,
+	  A.CreateTime createTime,
+	  A.OpScope opScope,
+	  A.EntTypeCatg entTypeCatg,
+	  C.Content entTypeCatgName,
+	  A.CompForm compForm,
+	  A.CompFormName compFormName,
+	  G.ExeAffSign,
+	  G.inv,
+	  CASE WHEN (SELECT COUNT(1) FROM er_esc_appinfo H WHERE A.PriPID = H.PriPID AND H.simplecanRea='4')>0 THEN 1 ELSE 0 END isSimpleCancle,
+	  CASE
+    WHEN 
+    (SELECT 
+      COUNT(1) 
+    FROM
+      cs_pub_opanomaly D 
+    WHERE A.PriPID = D.PriPID 
+      AND A.EntTypeCatg!='50'
+      AND A.RegState NOT IN (${regState})
+      AND D.AuditState = '1' 
+      AND revokeFlag IS NULL 
+      AND NOT EXISTS 
+      (SELECT 
+        1 
+      FROM
+        cs_pub_opadetail F 
+      WHERE D.BusExcList = F.BusExcList 
+        AND IsMove IN (1, 2) 
+        AND F.AuditState = '1')) > 0 
+    THEN 1 
+    WHEN
+    (SELECT 
+      COUNT(1) 
+    FROM
+      cs_pub_pbopanomaly E 
+		LEFT JOIN cs_pub_pbopadetail G ON E.BusExcList=G.BusExcList
+    WHERE A.PriPID = E.PriPID 
+    AND A.EntTypeCatg='50'
+    AND A.RegState NOT IN (${regState})
+    AND E.AuditState = '1'
+		AND IFNULL(G.AuditState,0) NOT IN ('1','3')) > 0 
+    THEN 1 
+    ELSE 0 
+  END isOpanomaly 
+	FROM
+	  cs_mid_baseinfo A 
+	  LEFT JOIN cs_code_enttype B 
+	    ON A.EntType = B.Code 
+	  LEFT JOIN cs_code_entcatg C 
+	    ON A.EntTypeCatg = C.Code 
+	    LEFT JOIN cs_mid_inv G
+	    ON A.PriPID=G.PriPID AND G.ExeAffSign='1'
+	    LEFT JOIN 
+	   (SELECT id,PriPID,GROUP_CONCAT(AltBeContent SEPARATOR ';') hisEntName,MAX(update_time) FROM cs_mid_altitem WHERE altitem='01' GROUP BY PriPID) H 
+	   ON A.PriPID=H.PriPID
+	    where (A.RegNO=#{condition} or A.EntName=#{condition} or UniCode=#{condition})
+	    AND A.EntTypeCatg IN('11','13','31','33','21','27','24','12','14','32','34','22','28','50','16','17')
+		AND NOT EXISTS 
+  (SELECT 
+    t.PriPID 
+  FROM
+    cs_pub_excludeent t 
+  WHERE t.PriPID = A.PriPID)
+</select>
+
+    <!-- 根据关键词查询企业基本信息 -->
+    <select id="selectMidInfoByKeyword" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+		SELECT
+			PriPID,EntName, UniCode, RegNO
+		FROM
+		cs_mid_baseinfo
+		WHERE EntName = #{keyword} OR RegNO = #{keyword} OR UniCode = #{keyword} OR PriPID = #{keyword}
+	</select>
+	
+	<select id="doCountByApprDate" resultType="int" parameterType="java.util.HashMap">
+		SELECT 
+		  COUNT(PriPID) 
+		FROM
+		  cs_mid_baseinfo A 
+		WHERE A.ApprDate = #{apprDate }
+		   AND A.EntTypeCatg IN('11','13','31','33','21','27','24','12','14','32','34','22','28','50','16','17')
+		   AND NOT EXISTS 
+	  (SELECT 
+	    t.PriPID 
+	  FROM
+	    cs_pub_excludeent t 
+	  WHERE t.PriPID = A.PriPID)
+	</select>
+	
+	<select id="selectIndexListByApprDate" parameterType="map" resultMap="BaseResultMapDto">
+	SELECT 
+	  A.id,
+	  A.PriPID priPID,
+	  A.EntName entName,
+	  H.hisEntName,
+	  A.RegNO regNO,
+	  A.Dom dom,
+	  A.LeRep leRep,
+	  A.RegCap regCap,
+	  A.EntType entType,
+	  B.Content entTypeName,
+	  A.EstDate estDate,
+	  A.RegOrg regOrg,
+	  A.RegOrgName regOrgName,
+	  A.RegState regState,
+	  A.RegCapUSD regCapUSD,
+	  A.RecCapUSD recCapUSD,
+	  A.RecCapRMB recCapRMB,
+	  A.UniCode UNICODE,
+	  A.OpFrom opFrom,
+	  A.OpTo opTo,
+	  A.ApprDate apprDate,
+	  A.CreateTime createTime,
+	  A.OpScope opScope,
+	  A.EntTypeCatg entTypeCatg,
+	  C.Content entTypeCatgName,
+	  A.CompForm compForm,
+	  A.CompFormName compFormName,
+	  G.ExeAffSign,
+	  G.inv,
+	  CASE WHEN (SELECT COUNT(1) FROM er_esc_appinfo H WHERE A.PriPID = H.PriPID AND H.simplecanRea='4')>0 THEN 1 ELSE 0 END isSimpleCancle,
+	  CASE
+    WHEN 
+    (SELECT 
+      COUNT(1) 
+    FROM
+      cs_pub_opanomaly D 
+    WHERE A.PriPID = D.PriPID 
+    AND A.EntTypeCatg!='50'
+    AND A.RegState NOT IN (${regState})
+      AND D.AuditState = '1' 
+      AND revokeFlag IS NULL 
+      AND NOT EXISTS 
+      (SELECT 
+        1 
+      FROM
+        cs_pub_opadetail F 
+      WHERE D.BusExcList = F.BusExcList 
+        AND IsMove IN (1, 2) 
+        AND F.AuditState = '1')) > 0 
+    THEN 1 
+    WHEN 
+    (SELECT 
+      COUNT(1) 
+    FROM
+      cs_pub_pbopanomaly E 
+		LEFT JOIN cs_pub_pbopadetail G ON E.BusExcList=G.BusExcList
+    WHERE A.PriPID = E.PriPID 
+    AND A.EntTypeCatg='50'
+    AND A.RegState NOT IN (${regState})
+    AND E.AuditState = '1'
+		AND IFNULL(G.AuditState,0) NOT IN ('1','3')) > 0 
+    THEN 1 
+    ELSE 0 
+  END isOpanomaly 
+	FROM
+	  cs_mid_baseinfo A 
+	  LEFT JOIN cs_code_enttype B 
+	    ON A.EntType = B.Code 
+	  LEFT JOIN cs_code_entcatg C 
+	    ON A.EntTypeCatg = C.Code 
+	    LEFT JOIN cs_mid_inv G
+	    ON A.PriPID=G.PriPID AND G.ExeAffSign='1'
+	    LEFT JOIN 
+	   (SELECT id,PriPID,GROUP_CONCAT(AltBeContent SEPARATOR ';') hisEntName,MAX(update_time) FROM cs_mid_altitem WHERE altitem='01' GROUP BY PriPID) H 
+	   ON A.PriPID=H.PriPID
+	    WHERE A.ApprDate =#{apprDate}
+	   AND A.EntTypeCatg IN('11','13','31','33','21','27','24','12','14','32','34','22','28','50','16','17')
+	   AND NOT EXISTS 
+  (SELECT 
+    t.PriPID 
+  FROM
+    cs_pub_excludeent t 
+  WHERE t.PriPID = A.PriPID)
+	   limit #{pageNum},#{pageSize}
+	</select>
+	
+	<select id="selectMidBaseInfoListByPriPIDS" parameterType="map" resultMap="BaseResultMapDto">
+	SELECT id,PRIPID,EntName,REGNO,LEREP,CerNO 
+	FROM cs_mid_baseinfo
+	where PRIPID in
+	<if test="priPIDList!=null and priPIDList.size()>0">
+		<foreach collection="priPIDList" index="index" item="pripid" open="(" separator="," close=")">
+	           #{pripid}
+	    </foreach>
+	</if>
+
+	</select>
+	
+	<select id="selectForDrandomByKeyword" parameterType="map" resultMap="BaseResultMapDto">
+		SELECT 
+			PriPID,EntName,RegNO,UniCode,LeRep,RegOrg,LocalAdm,RegOrgName,LocalAdmName,
+			Dom,RegState,EstDate,OpScope,g.Content EntTypeCatgName 
+		FROM cs_mid_baseinfo t
+		left join cs_code_entcatg g on t.EntTypeCatg = g.code
+		where
+		<if test="keyword != null and keyword != ''">
+			EntName= #{keyword} OR RegNO = #{keyword} OR UniCode = #{keyword}
+		</if>
+		<if test="priPID != null and priPID != ''">
+			PriPID= #{priPID}
+		</if>
+		<if test="regNO != null and regNO != ''">
+			RegNO= #{regNO} OR UniCode = #{regNO}
+		</if>
+	</select>
+	
+	<select id="selectPunishDate"  resultMap="BaseResultMapDto" parameterType="java.lang.String">
+	   SELECT
+	    PunishDate
+	   FROM 
+	   cs_punish_record
+	   where PriPID = #{priPID}  
+	   order by PunishDate desc
+	</select>
+	
+	
+	<select id="selectIndexIncreList" parameterType="map" resultMap="BaseResultMapDto">
+	SELECT 
+	  A.id,
+	  A.PriPID priPID,
+	  A.EntName entName,
+	  A.RegNO regNO,
+	  A.Dom dom,
+	  A.LeRep leRep,
+	  A.RegCap regCap,
+	  A.EntType entType,
+	  B.Content entTypeName,
+	  A.EstDate estDate,
+	  A.RegOrg regOrg,
+	  A.RegOrgName regOrgName,
+	  A.RegState regState,
+	  A.RegCapUSD regCapUSD,
+	  A.RecCapUSD recCapUSD,
+	  A.RecCapRMB recCapRMB,
+	  A.UniCode UNICODE,
+	  A.OpFrom opFrom,
+	  A.OpTo opTo,
+	  A.ApprDate apprDate,
+	  A.CreateTime createTime,
+	  A.OpScope opScope,
+	  A.EntTypeCatg entTypeCatg,
+	  C.Content entTypeCatgName,
+	  A.CompForm compForm,
+	  A.CompFormName compFormName,
+	  G.ExeAffSign,
+	  G.inv,
+	  CASE WHEN (SELECT COUNT(1) FROM er_esc_appinfo H WHERE A.PriPID = H.PriPID AND H.simplecanRea='4')>0 THEN 1 ELSE 0 END isSimpleCancle,
+	  CASE
+    WHEN 
+    (SELECT 
+      COUNT(1) 
+    FROM
+      cs_pub_opanomaly D 
+    WHERE A.PriPID = D.PriPID 
+    AND A.EntTypeCatg!='50'
+    AND A.RegState NOT IN (${regState})
+      AND D.AuditState = '1' 
+      AND revokeFlag IS NULL 
+      AND NOT EXISTS 
+      (SELECT 
+        1 
+      FROM
+        cs_pub_opadetail F 
+      WHERE D.BusExcList = F.BusExcList 
+        AND IsMove IN (1, 2) 
+        AND F.AuditState = '1')) > 0 
+    THEN 1 
+    WHEN 
+    (SELECT 
+      COUNT(1) 
+    FROM
+      cs_pub_pbopanomaly E 
+		LEFT JOIN cs_pub_pbopadetail G ON E.BusExcList=G.BusExcList
+    WHERE A.PriPID = E.PriPID 
+    AND A.EntTypeCatg='50'
+    AND A.RegState NOT IN (${regState})
+    AND E.AuditState = '1'
+		AND IFNULL(G.AuditState,0) NOT IN ('1','3')) > 0 
+    THEN 1 
+    ELSE 0 
+  END isOpanomaly 
+	FROM
+	  cs_mid_baseinfo A 
+	  LEFT JOIN cs_code_enttype B 
+	    ON A.EntType = B.Code 
+	  LEFT JOIN cs_code_entcatg C 
+	    ON A.EntTypeCatg = C.Code 
+	    LEFT JOIN cs_mid_inv G
+	    ON A.PriPID=G.PriPID AND G.ExeAffSign='1'
+	    WHERE A.update_time > 
+	  DATE_SUB(CURDATE(),INTERVAL 1 DAY)
+	   AND A.EntTypeCatg IN('11','13','31','33','21','27','24','12','14','32','34','22','28','50','16','17')
+	   AND NOT EXISTS 
+  (SELECT 
+    t.PriPID 
+  FROM
+    cs_pub_excludeent t 
+  WHERE t.PriPID = A.PriPID)
+	   limit #{pageNum},#{pageSize}
+	</select>
+	
+	<!-- 新增批量列入经营异常记录列表（企业、农专） -->
+	<select id="selectBatchPubOpanomalyInAddList" parameterType="map" resultMap="BaseResultMapDto">
+		SELECT a.id,a.PriPID,a.EntName,a.RegNO,a.Dom,a.DomDistrict,a.LeRep,a.RegCap,a.EntType,a.EstDate,
+		a.IndustryCo,a.RegOrg,a.LocalAdm,a.IndustryPhy,a.RegState,a.UniCode,a.CerNO,
+        a.UID,a.IsIndivid,a.IndividDate,a.CheckDep,a.Yiedistrict,a.EntTypeCatg,
+        a.Area,a.RegOrgName,a.LocalAdmName,a.SliceNO,a.SliceNOName,a.CheckDepName,
+		${year} Year,
+		${batchEntType} BatchEntType
+		FROM cs_mid_baseinfo a 
+		LEFT JOIN cs_yr_reg_check b ON a.PriPID = b.PriPID and Year = ${year}
+		LEFT JOIN (SELECT PriPID FROM cs_pub_opanomaly WHERE SpeCause = '1' AND year = ${year} And SeqYear > ${year} ) c ON a.PriPID = c.PriPID
+		WHERE 1=1
+		 <![CDATA[ and NOW() > CONCAT(${year}+1,'-07-01')]]>
+		<if test="uniSCID != null and uniSCID != ''">
+	     and ( a.RegNO = #{uniSCID} or a.UniCode = #{uniSCID} )
+        </if>
+		<if test="batchEntType != null and batchEntType ==1 "><!--内资 需年报的-->
+		and a.EntTypeCatg  in (11,12,13,14,31,32,33,34)
+		</if>
+		<if test="batchEntType != null and batchEntType ==3 "><!-- 外资需年报的 -->
+		and a.EntTypeCatg  in (21,22,24,27,28)
+		</if> 
+		<if test="batchEntType != null and batchEntType ==2 "><!-- 农专 -->
+		and a.EntTypeCatg  in (16,17)
+		</if> 
+		<if test="isIndivid != null and isIndivid != '' "><!-- 是否个转企 -->
+		   <if test="isIndivid != null and isIndivid ==1 "><!--是 -->
+		     and a.IsIndivid = #{isIndivid}
+		   </if>
+		   <if test="isIndivid != null and isIndivid ==0 "><!--  否 -->
+		     and (a.IsIndivid = #{isIndivid} or a.IsIndivid = '' or a.IsIndivid is null )
+		   </if>
+		</if> 
+		<if test="localAdm !=null and localAdm !='' ">
+            and a.LocalAdm IN (${localAdm})
+        </if>
+        <if test="estDateStart !='' and estDateStart !=null">
+            <![CDATA[
+		   and a.EstDate >= #{estDateStart}
+		   ]]>
+        </if>
+        <if test="estDateEnd !='' and estDateEnd !=null">
+            <![CDATA[
+		   and a.EstDate <= #{estDateEnd}
+		]]>
+		</if>
+		And a.RegOrg = #{decOrg}
+		<![CDATA[And a.RegState IN (${regState}) AND a.EstDate < CONCAT(${year}+1,'-01-01')
+		AND (b.PriPID IS NULL OR (b.PriPID IS NOT NULL AND b.YEAR = ${year} AND (b.FirstReportTime>CONCAT(${year}+1,'-07-01') OR b.IsReported = '0')))]]>
+		AND c.PriPID IS NULL
+	</select>
+	
+	<!--  企信连联 专项查询 经营期限 -根据企业名称和信用代码获取企业信息 -->
+	<select id="selectOperatingList" parameterType="map" resultMap="BaseResultMapDto">
+	<!-- 	SELECT 
+			D.PriPID,D.EntName,IFNULL(D.OpTo,'9999-09-09') OpTo,  
+			IFNULL(D.UniCode,D.RegNO)  UniCode,
+			E.CsStateDesc RegState,
+			<![CDATA[
+			CASE
+			WHEN DATEDIFF(D.OpTo, NOW()) < 0 THEN
+				0
+			WHEN DATEDIFF(D.OpTo, NOW()) > 0
+			AND DATEDIFF(D.OpTo, NOW()) < 30 THEN
+				1
+			ELSE
+				2
+			END orderflag
+			]]>
+		FROM cs_mid_baseinfo D 
+		LEFT JOIN cs_code_regstate E ON D.RegState = E.RegState
+		where
+		  (D.EntName like  CONCAT(#{keyword},'%') or (D.UniCode=#{keyword} or D.RegNO=#{keyword}))
+		<if test="regState != null and regState != ''">
+		AND	D.RegState  IN (${regState}) 
+		</if>
+		ORDER BY
+		orderflag
+		LIMIT ${numStart},${pageSize} --> 
+		SELECT
+			d.PriPID,
+			d.EntName,
+			IFNULL(d.OpTo, '9999-09-09') OpTo,
+			IFNULL(d.UniCode, d.RegNO) UniCode,
+			(
+				SELECT
+					CsStateDesc
+				FROM
+					cs_code_regstate A1
+				WHERE
+					A1.RegState = d.RegState
+			) RegState,
+			<![CDATA[
+			CASE
+		WHEN DATEDIFF(d.OpTo, NOW()) < 0 THEN
+			0
+		WHEN DATEDIFF(d.OpTo, NOW()) > 0
+		AND DATEDIFF(d.OpTo, NOW()) < 30 THEN
+			1
+		ELSE
+			2
+		END orderflag ]]>
+		FROM
+			cs_mid_baseinfo d
+		WHERE
+		 (d.EntName like   '${keyword}%'  or (d.UniCode=#{keyword} or d.RegNO=#{keyword}))
+		<if test="regState != null and regState != ''">
+		AND	d.RegState  IN (${regState}) 
+		</if>
+		ORDER BY
+			orderflag
+		LIMIT ${numStart},${pageSize} 
+	</select>
+	
+	
+	<!--  企信连联 专项查询 经营期限 -查询联络员旗下的企业 -->
+	<select id="selectOperatingListByTel" parameterType="map" resultMap="BaseResultMapDto">
+		SELECT
+			D.PriPID,
+			D.EntName,
+			IFNULL(D.OpTo, '9999-09-09') OpTo,
+			IFNULL(D.UniCode, D.RegNO) UniCode,
+			E.CsStateDesc RegState
+		FROM
+			cs_pub_eppassword F,
+			cs_mid_baseinfo D
+		LEFT JOIN cs_code_regstate E ON D.RegState = E.RegState
+		WHERE
+			D.PriPID = F.PriPID
+		AND F.Tel = #{tel} 
+		<if test="regState != null and regState != ''">
+				AND	D.RegState  IN (${regState}) 
+		</if> 
+		<if test="keyword != null and keyword != ''">
+		AND (D.EntName like  CONCAT('%',#{keyword},'%') or (D.UniCode=#{keyword} or D.RegNO=#{keyword}))
+		</if> 
+		LIMIT ${numStart},${pageSize}
+	</select>
+	
+	<select id="opDateSoonExpireNum" parameterType="map" resultType="java.lang.Integer">
+	SELECT COUNT(1) FROM cs_mid_baseinfo b
+	WHERE b.OpTo>=DATE_SUB(CURDATE(),INTERVAL 30 DAY)
+	AND <![CDATA[ b.OpTo<=NOW() ]]>
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	</select>
+	
+	<select id="opDateAlreadyExpireNum" parameterType="map" resultType="java.lang.Integer">
+	SELECT COUNT(1) FROM cs_mid_baseinfo b
+	WHERE <![CDATA[ b.OpTo<NOW() ]]>
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	</select>
+
+<select id="selectIncreHisEntNameList" resultMap="BaseResultMapDto">
+	SELECT id,PriPID,GROUP_CONCAT(AltBeContent SEPARATOR ';') hisEntName,
+	MAX(update_time) updateTime FROM cs_mid_altitem 
+	WHERE altitem='01' GROUP BY PriPID
+	HAVING updateTime>DATE_SUB(CURDATE(),INTERVAL 1 DAY)
+	limit 0,99999
+</select>
+
+<select id="selectHisEntNameList" parameterType="map" resultMap="BaseResultMapDto">
+	SELECT DISTINCT priPID FROM cs_mid_altitem 
+	WHERE altitem='01'
+	limit #{pageNum},#{pageSize}
+</select>
+
+</mapper>

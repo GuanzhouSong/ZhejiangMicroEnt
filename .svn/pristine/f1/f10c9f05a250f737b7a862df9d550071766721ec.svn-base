@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.other.mapper.SpPledgeMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.other.model.SpPledge" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="uid" property="uid" jdbcType="VARCHAR" />
+    <result column="OrderNO" property="orderNO" jdbcType="VARCHAR" />
+    <result column="Pledgor" property="pledgor" jdbcType="VARCHAR" />
+    <result column="PleBLicNO" property="pleBLicNO" jdbcType="VARCHAR" />
+    <result column="ImpAm" property="impAm" jdbcType="DECIMAL" />
+    <result column="ImpOrg" property="impOrg" jdbcType="VARCHAR" />
+    <result column="ImpBLicNO" property="impBLicNO" jdbcType="VARCHAR" />
+    <result column="RecDate" property="recDate" jdbcType="DATE" />
+    <result column="Status" property="status" jdbcType="VARCHAR" />
+    <result column="EquPleDate" property="equPleDate" jdbcType="DATE" />
+    <result column="CanRea" property="canRea" jdbcType="VARCHAR" />
+    <result column="EquSource" property="equSource" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  
+  <select id="queryPageResult" resultMap="BaseResultMap" parameterType="Map">
+  	SELECT A.id,A.PriPID,A.uid,A.OrderNO,A.Pledgor,A.PleBLicNO,A.ImpAm,A.ImpOrg,A.ImpBLicNO,A.RecDate,A.STATUS,A.EquPleDate,A.CanRea,A.EquSource,A.CreateTime
+	FROM
+	(SELECT id,PriPID,uid,OrderNO,Pledgor,PleBLicNO,ImpAm,ImpOrg,ImpBLicNO,RecDate,STATUS,EquPleDate,CanRea,EquSource,CreateTime
+	FROM cs_sp_pledge
+	WHERE PriPID = #{priPID} AND EquPleDate >= '2014-10-01 00:00:00' AND EquSource='0'
+	UNION ALL
+	SELECT id,PriPID,uid,OrderNO,Pledgor,PleBLicNO,ImpAm,ImpOrg,ImpBLicNO,RecDate,STATUS,EquPleDate,CanRea,EquSource,CreateTime
+	FROM cs_sp_pledge
+	WHERE PriPID = #{priPID} AND EquPleDate >= '2014-10-01 00:00:00' AND EquSource='1' AND Status='X'
+	) A
+	ORDER BY A.RecDate DESC
+  </select>
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.dishonestexe.mapper.MidDishonestexeMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.dishonestexe.model.MidDishonestexe" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="InfoActionType" property="infoActionType" jdbcType="VARCHAR" />
+    <result column="LaoLaiID" property="laoLaiID" jdbcType="VARCHAR" />
+    <result column="CaseCode" property="caseCode" jdbcType="VARCHAR" />
+    <result column="IName" property="IName" jdbcType="VARCHAR" />
+    <result column="SexName" property="sexName" jdbcType="VARCHAR" />
+    <result column="Age" property="age" jdbcType="INTEGER" />
+    <result column="CardNum" property="cardNum" jdbcType="VARCHAR" />
+    <result column="BuesinessEntity" property="buesinessEntity" jdbcType="VARCHAR" />
+    <result column="CourtName" property="courtName" jdbcType="VARCHAR" />
+    <result column="AreaID" property="areaID" jdbcType="VARCHAR" />
+    <result column="AreaName" property="areaName" jdbcType="VARCHAR" />
+    <result column="PartyTypeName" property="partyTypeName" jdbcType="VARCHAR" />
+    <result column="GistCID" property="gistCID" jdbcType="VARCHAR" />
+    <result column="GistUnit" property="gistUnit" jdbcType="VARCHAR" />
+    <result column="PublishDate" property="publishDate" jdbcType="DATE" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="IsValid" property="isValid" jdbcType="CHAR" />
+    <result column="update_time" property="update_time" jdbcType="TIMESTAMP" />
+    <result column="delflag" property="delflag" jdbcType="BIT" />
+    <result column="Duty" property="duty" jdbcType="LONGVARCHAR" />
+    <result column="Performance" property="performance" jdbcType="LONGVARCHAR" />
+    <result column="DisReputTypeName" property="disReputTypeName" jdbcType="LONGVARCHAR" />
+    <result column="PerformedPart" property="performedPart" jdbcType="LONGVARCHAR" />
+    <result column="UnperformPart" property="unperformPart" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+   <!-- 根据自然人身份证号获取分页列表信息 -->
+   <select id="queryListByCardNum" parameterType="map" resultMap="BaseResultMap">
+    select CaseCode,GistUnit,date_format(PublishDate, '%Y-%m-%d') PublishDate from cs_mid_dishonestexe WHERE 
+	 CardNum = #{cerNO}
+	 ORDER BY ID desc
+    </select>
+</mapper>

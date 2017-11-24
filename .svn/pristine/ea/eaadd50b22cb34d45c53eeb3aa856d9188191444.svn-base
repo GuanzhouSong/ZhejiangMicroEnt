@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.drcheck.mapper.PubSctaskMapper">
+	<resultMap id="BaseResultMap" type="com.icinfo.cs.drcheck.model.PubSctask">
+		<!-- WARNING - @frameworkgenerated -->
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="UID" property="UID" jdbcType="VARCHAR" />
+		<result column="TaskName" property="taskName" jdbcType="VARCHAR" />
+		<result column="TaskCode" property="taskCode" jdbcType="VARCHAR" />
+		<result column="TotalEnt" property="totalEnt" jdbcType="INTEGER" />
+		<result column="LeaderDeptCode" property="leaderDeptCode"
+			jdbcType="VARCHAR" />
+		<result column="LeaderDeptDesc" property="leaderDeptDesc"
+			jdbcType="VARCHAR" />
+		<result column="TaskEntCatgCode" property="taskEntCatgCode"
+			jdbcType="VARCHAR" />
+		<result column="TaskEntCatgDesc" property="taskEntCatgDesc"
+			jdbcType="VARCHAR" />
+		<result column="StartDate" property="startDate" jdbcType="TIMESTAMP" />
+		<result column="EndDate" property="endDate" jdbcType="TIMESTAMP" />
+		<result column="CheckReason" property="checkReason" jdbcType="VARCHAR" />
+		<result column="CheckArea" property="checkArea" jdbcType="VARCHAR" />
+		<result column="CheckObject" property="checkObject" jdbcType="VARCHAR" />
+		<result column="CheckContent" property="checkContent" jdbcType="VARCHAR" />
+		<result column="PlanStartDate" property="planStartDate"
+			jdbcType="TIMESTAMP" />
+		<result column="PlanEndDate" property="planEndDate" jdbcType="TIMESTAMP" />
+		<result column="CheckNumber" property="checkNumber" jdbcType="INTEGER" />
+		<result column="CheckWay" property="checkWay" jdbcType="VARCHAR" />
+		<result column="SetName" property="setName" jdbcType="VARCHAR" />
+		<result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+		<result column="SetDeptCode" property="setDeptCode" jdbcType="VARCHAR" />
+		<result column="SetDeptDesc" property="setDeptDesc" jdbcType="VARCHAR" />
+		<result column="SuitArea" property="suitArea" jdbcType="VARCHAR" />
+		<result column="TaskState" property="taskState" jdbcType="VARCHAR" />
+		<result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="ImplDeptCode" property="implDeptCode" jdbcType="VARCHAR"/>
+		<result column="ImplDeptDesc" property="implDeptDesc" jdbcType="VARCHAR"/>
+		<result column="SpeckWay" property="speckWay" jdbcType="VARCHAR"/>
+	</resultMap>
+
+
+
+	<resultMap type="com.icinfo.cs.drcheck.dto.PubSctaskDto" id="PubSctaskDto"
+		extends="BaseResultMap">
+		<result column="InspectState" property="inspectState" jdbcType="VARCHAR" />
+		<result column="count" property="count" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="sctaskcation">
+		<if test="taskCode!=null and taskCode!=''">
+			and a.taskCode LIKE concat('%',#{taskCode},'%')
+		</if>
+		<if test="taskName!=null and taskName!=''">
+			and a.taskName LIKE concat('%',#{taskName},'%')
+		</if>
+		<if test="items!=null and items!=''">
+			and a.leaderDeptCode in
+			<foreach item="item" index="index" collection="items" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		<if test="taskEntCatgCode!=null and taskEntCatgCode!=''">
+			and a.taskEntCatgCode LIKE concat('%',#{taskEntCatgCode},'%')
+		</if>
+
+		 <if test="inspectDept !=null and inspectDept != ''">
+		  and a.implDeptCode LIKE concat('%',#{inspectDept},'%')
+		 </if> 
+			
+		<if test="taskState!=null and taskState!=''">
+			and a.taskState=#{taskState}
+		</if>
+		<if test="startDateStart!=null and startDateStart!=''">
+     <![CDATA[  and  a.StartDate >= DATE_FORMAT(#{startDateStart}, '%Y-%m-%d')    ]]>
+		</if>
+		<if test="StartDateEnd!=null and StartDateEnd!=''">
+     <![CDATA[  and  a.StartDate <= DATE_FORMAT(#{StartDateEnd}, '%Y-%m-%d')    ]]>
+		</if>
+		<if test="setTimeStart!=null and setTimeStart!=''">
+     <![CDATA[  and  a.CreateTime >= DATE_FORMAT(#{setTimeStart}, '%Y-%m-%d')    ]]>
+		</if>
+		<if test="setTimeEnd!=null and setTimeEnd!=''">
+     <![CDATA[  and  a.CreateTime <= DATE_FORMAT(#{setTimeEnd}, '%Y-%m-%d')    ]]>
+		</if>
+
+	</sql>
+
+
+	<sql id="sctaskcationT">
+		<if test="taskCode!=null and taskCode!=''">
+			and b.taskCode=#{taskCode}
+		</if>
+		<if test="taskName!=null and taskName!=''">
+			and b.taskName LIKE ('%',#{taskName},'%')
+		</if>
+		<if test="items!=null and items!=''">
+			and b.leaderDeptCode in
+			<foreach item="item" index="index" collection="items" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		<if test="taskEntCatgCode!=null and taskEntCatgCode!=''">
+		and b.taskEntCatgCode LIKE ('%',#{taskEntCatgCode},'%')
+		</if>
+
+		<if test="inspectDepts!=null and inspectDepts!=''">
+			and c.inspectDept in
+			<foreach item="item" index="index" collection="inspectDepts"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		<if test="taskState!=null and taskState!=''">
+			and b.taskState=#{taskState}
+		</if>
+		<if test="startDateStart!=null and startDateStart!=''">
+     <![CDATA[  and  b.StartDate >= DATE_FORMAT(#{startDateStart}, '%Y-%m-%d')    ]]>
+		</if>
+		<if test="StartDateEnd!=null and StartDateEnd!=''">
+     <![CDATA[  and  a.StartDate <= DATE_FORMAT(#{StartDateEnd}, '%Y-%m-%d')    ]]>
+		</if>
+		<if test="setTimeStart!=null and setTimeStart!=''">
+     <![CDATA[  and  b.setTime >= DATE_FORMAT(#{setTimeStart}, '%Y-%m-%d')    ]]>
+		</if>
+		<if test="setTimeEnd!=null and setTimeEnd!=''">
+     <![CDATA[  and  b.setTime <= DATE_FORMAT(#{setTimeEnd}, '%Y-%m-%d')    ]]>
+		</if>
+
+	</sql>
+
+
+
+	<!-- 多条件查询 -->
+	<select id="selectByManyCationToListJson" parameterType="Map"
+		resultMap="PubSctaskDto">
+		SELECT a.uid,
+		a.TaskState,a.TaskCode,a.TaskName,a.StartDate,a.EndDate,a.TaskEntCatgCode,a.TaskEntCatgDesc,a.TotalEnt
+		,'' inspectState
+		FROM cs_pub_sctask a WHERE 1=1 AND a.LeaderDeptCode=#{deptId}
+		<include refid="sctaskcation"></include>
+		UNION ALL
+		SELECT b.uid,
+		b.TaskState,b.TaskCode,b.TaskName,b.StartDate,b.EndDate,b.TaskEntCatgCode,b.TaskEntCatgDesc,b.TotalEnt
+		,c.inspectState FROM cs_pub_sctask b LEFT JOIN cs_pub_dept_sctask c ON
+		b.uid=c.taskNO
+		WHERE 1=1 AND c.InspectDept=#{deptId}
+		<include refid="sctaskcationT"></include>
+
+	</select>
+
+	<!-- 多条件查询本部门组织的任务 -->
+	<select id="selectLeadStacktoListJson" parameterType="Map"
+		resultMap="PubSctaskDto">
+		SELECT a.uid,
+		a.TaskState,a.TaskCode,a.TaskName,a.StartDate,a.EndDate,a.TaskEntCatgCode,a.TaskEntCatgDesc,a.TotalEnt
+		,'' inspectState,a.implDeptDesc,a.implDeptCode,a.speckWay,a.leaderDeptDesc,a.leaderDeptCode
+		FROM cs_pub_sctask a WHERE 1=1 AND a.LeaderDeptCode=#{deptId} 
+		<include refid="sctaskcation"></include>
+		 order by a.createTime desc
+	</select>
+	<!-- 多条件查询本部门实施任务 -->
+	<select id="selectDeptStacktoListJson"  parameterType="Map" resultMap="PubSctaskDto">
+	SELECT b.uid, b.TaskState,b.TaskCode,b.TaskName,b.StartDate,b.EndDate,b.TaskEntCatgCode,b.TaskEntCatgDesc,b.TotalEnt,b.implDeptDesc,b.implDeptCode,b.speckWay,b.leaderDeptDesc,b.leaderDeptCode,c.inspectState FROM cs_pub_sctask b LEFT JOIN cs_pub_dept_sctask  c ON b.uid=c.taskNO
+    WHERE 1=1 AND c.InspectDept=#{deptId}  and b.taskState in ('02','03','05') AND c.InspectState = '1'
+    	<include refid="sctaskcationT"></include>
+	</select>
+	
+	<!-- 条件统计 -->
+	<select id="selectCountByCation" parameterType="Map" resultType="Integer">
+		SELECT COUNT(1) COUNT FROM cs_pub_sctask a LEFT JOIN
+		cs_pub_dept_sctask b ON a.uid=b.TaskNO WHERE 1=1
+		<include refid="sctaskcation"></include>
+	</select>
+	
+	<!-- 用于公告 -->
+	<select id="selectScTaskListForBulletin" resultMap="BaseResultMap" parameterType="java.lang.String">
+	   SELECT
+		  t.UID,
+		  t.LeaderDeptDesc,
+		  t.TaskName,
+		  t.TaskCode,
+		  t.CreateTime
+		FROM
+			cs_pub_sctask t
+		<if test="_parameter !='' and _parameter != null">
+		WHERE  <![CDATA[ t.update_time >= #{_parameter}]]>
+		</if>
+	</select>
+
+
+ 
+
+
+
+</mapper>

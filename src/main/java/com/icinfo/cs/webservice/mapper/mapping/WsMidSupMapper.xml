@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.webservice.mapper.WsMidSupMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.webservice.model.WsMidSup" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <select id="selectWsMidSupListByContion" parameterType="map" resultMap="BaseResultMap">
+  	SELECT 
+		id,PRIPID,EntName,RegNO,UniCode,CreateTime,UPDATE_TIME
+	FROM 
+		cs_mid_sup
+    WHERE 
+    	UPDATE_TIME BETWEEN STR_TO_DATE(#{startdate},'%Y%m%d%H%i%s') AND STR_TO_DATE(#{enddate},'%Y%m%d%H%i%s')
+    AND id BETWEEN #{startNum} AND #{endNum}
+  </select>
+  
+  
+  <select id="selectWsMidSupCountByContion" parameterType="map" resultType="Integer">
+  	SELECT
+      	count(*)
+    FROM
+    	cs_mid_sup
+    WHERE 
+    	UPDATE_TIME BETWEEN STR_TO_DATE(#{startdate},'%Y%m%d%H%i%s') AND STR_TO_DATE(#{enddate},'%Y%m%d%H%i%s')
+  </select>
+  
+  <select id="selectWsMidSupMaxId" parameterType="map" resultType="Integer">
+  	SELECT
+      	MAX(id)
+    FROM
+    	cs_mid_sup
+    WHERE 
+    	UPDATE_TIME BETWEEN STR_TO_DATE(#{startdate},'%Y%m%d%H%i%s') AND STR_TO_DATE(#{enddate},'%Y%m%d%H%i%s')
+  </select>
+  
+  <select id="selectWsMidSupMinId" parameterType="map" resultType="Integer">
+  	SELECT
+      	MIN(id)
+    FROM
+    	cs_mid_sup
+    WHERE 
+    	UPDATE_TIME BETWEEN STR_TO_DATE(#{startdate},'%Y%m%d%H%i%s') AND STR_TO_DATE(#{enddate},'%Y%m%d%H%i%s')
+  </select>
+  
+  
+</mapper>

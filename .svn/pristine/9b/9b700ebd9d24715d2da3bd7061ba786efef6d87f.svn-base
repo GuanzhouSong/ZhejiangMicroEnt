@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.rpt.rptmapper.RptEntInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.rpt.rptmodel.RptEntInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <result column="areaCode" property="areaCode" jdbcType="VARCHAR" />
+    <result column="regOrgCode" property="regOrgCode" jdbcType="CHAR" /> 
+    <result column="entCatgCode" property="entCatgCode" jdbcType="VARCHAR" />
+    <result column="YEAR" property="YEAR" jdbcType="INTEGER" />
+    <result column="normal" property="normal" jdbcType="INTEGER" />
+    <result column="cancel" property="cancel" jdbcType="INTEGER" />
+    <result column="monthCode" property="monthCode" jdbcType="VARCHAR" /> 
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.rpt.rptdto.RptEntInfoDto" id="BaseExtResultMap" extends="BaseResultMap">
+     <result column="entNormalRate" property="entNormalRate" jdbcType="INTEGER" />
+     <result column="industryphyName" property="industryphyName" jdbcType="VARCHAR" /> 
+  </resultMap> 
+  
+  
+  <!-- 警示系统首页企业年度报告统计 -->
+  <select id="selectRptEntInfoDtoCount" resultMap="BaseExtResultMap" parameterType="Map">
+       <!-- 查询在企业总数 -->
+       <if test="statLevel != null and statLevel != '' and  statLevel == 'regstatektotal' ">
+         SELECT SUM(normal) normal  FROM  cs_rpt_ent_info where 1=1  
+         	<!-- 企业 -->
+			<if test="entCatgCode !=null and entCatgCode == 1 ">
+		    AND  entCatgCode not in ('16','17','50')
+		    </if>
+		    <!-- 农专 -->
+		    <if test="entCatgCode !=null and entCatgCode ==2 ">
+		    AND  entCatgCode  in ('16','17')
+		    </if>
+		    <!-- 个体户 -->
+		    <if test="entCatgCode !=null and entCatgCode ==3 ">
+		    AND  entCatgCode = '50'
+		    </if> 
+		    <if test="areaCode !=null and areaCode ==33 ">
+				AND  LEFT(areaCode,2)='33'
+			</if>
+			<if test="areaCode !=33 and areaCode !=null and areaCode !='' ">
+				AND areaCode = #{areaCode} 
+			</if>
+	   </if> 
+	   <!-- 查询在企业总数 -->
+       <if test="statLevel != null and statLevel != '' and  statLevel == 'entcatgtotal' "> 
+	         SELECT
+				ROUND(
+					(
+						SUM(c.normal) / SUM(c.allNormal)
+					) * 100,
+					2
+				)  entNormalRate,
+				SUM(c.normal) normal
+			FROM
+				(
+					SELECT
+						SUM(a.normal) allNormal,
+						0 normal
+					FROM
+						cs_rpt_ent_info a  
+					UNION ALL
+						SELECT
+							0 allNormal,
+							SUM(b.normal) normal
+						FROM
+							cs_rpt_ent_info b
+						WHERE
+						1=1
+						<!-- 企业 -->
+						<if test="entCatgCode !=null and entCatgCode == 1 ">
+					    AND  b.entCatgCode not in ('16','17','50')
+					    </if>
+					    <!-- 农专 -->
+					    <if test="entCatgCode !=null and entCatgCode ==2 ">
+					    AND  b.entCatgCode  in ('16','17')
+					    </if>
+					    <!-- 个体户 -->
+					    <if test="entCatgCode !=null and entCatgCode ==3 ">
+					    AND  b.entCatgCode ='50'
+					    </if> 
+					    <if test="areaCode !=null and areaCode ==33 ">
+						AND  LEFT(b.areaCode,2)='33'
+						</if>
+						<if test="areaCode !=33 and areaCode !=null and areaCode !='' ">
+						AND b.areaCode = #{areaCode} 
+						</if>
+				) c
+	   </if> 
+	   
+	   <!-- 在册主体分布 -->
+	   <if test="statLevel != null and statLevel != '' and  statLevel == 'areacdis' ">
+           SELECT  b.normal,b.areaCode FROM ( 
+            SELECT
+				SUM(normal) normal,areaCode
+			FROM
+				cs_rpt_ent_info WHERE   LEFT(areaCode,2)='33' 
+         	<!-- 企业 -->
+			<if test="entCatgCode !=null and entCatgCode == 1 ">
+		    AND  entCatgCode not in ('16','17','50')
+		    </if>
+		    <!-- 农专 -->
+		    <if test="entCatgCode !=null and entCatgCode ==2 ">
+		    AND  entCatgCode   in ('16','17')
+		    </if>
+		    <!-- 个体户 -->
+		    <if test="entCatgCode !=null and entCatgCode ==3 ">
+		    AND  entCatgCode = '50'
+		    </if> 
+		    <if test="areaCode !=null and areaCode ==33 ">
+				AND  LEFT(areaCode,2)='33'
+			</if>
+			<if test="areaCode !=33 and areaCode !=null and areaCode !='' ">
+				AND areaCode = #{areaCode} 
+			</if>
+			GROUP BY
+				areaCode 
+			)b order by b.areaCode
+	   </if>  
+	   
+	   
+	   <!-- 主体新增注销趋势 -->
+	   <if test="statLevel != null and statLevel != '' and  statLevel == 'ztzxqs' ">
+           SELECT
+				b.normal,
+				b.cancel,
+				b.monthCode
+			FROM
+				(
+					SELECT
+						SUM(normal) normal,
+						SUM(cancel) cancel,
+						monthCode
+					FROM
+						cs_rpt_ent_info
+					WHERE
+					<![CDATA[
+				    monthCode IS NOT NULL
+					AND monthCode != ''
+					AND monthCode <= #{yearCode}
+					]]>
+					<!-- 企业 -->
+					<if test="entCatgCode !=null and entCatgCode == 1 ">
+				    AND  entCatgCode not in ('16','17','50')
+				    </if>
+				    <!-- 农专 -->
+				    <if test="entCatgCode !=null and entCatgCode ==2 ">
+				    AND  entCatgCode  in ('16','17')
+				    </if>
+				    <!-- 个体户 -->
+				    <if test="entCatgCode !=null and entCatgCode ==3 ">
+				    AND  entCatgCode = '50'
+				    </if> 
+				    <if test="areaCode !=null and areaCode ==33 ">
+						AND  LEFT(areaCode,2)='33'
+					</if>
+					<if test="areaCode !=33 and areaCode !=null and areaCode !='' ">
+						AND areaCode = #{areaCode} 
+					</if>
+					GROUP BY
+						monthCode
+				) b
+			ORDER BY
+				b.monthCode
+	   </if> 
+	   
+	    <!-- 企业年增长情况 -->
+	   <if test="statLevel != null and statLevel != '' and  statLevel == 'increase' ">
+           SELECT
+				b.normal,
+				b.YEAR  
+			FROM
+				(
+					SELECT
+						SUM(normal) normal, 
+						YEAR 
+					FROM
+						cs_rpt_ent_info
+					WHERE
+					<![CDATA[
+				    monthCode IS NOT NULL
+					AND monthCode != ''
+					AND monthCode <= #{yearCode}
+					]]>
+					<!-- 企业 -->
+					<if test="entCatgCode !=null and entCatgCode == 1 ">
+				    AND  entCatgCode not in ('16','17','50')
+				    </if>
+				    <!-- 农专 -->
+				    <if test="entCatgCode !=null and entCatgCode ==2 ">
+				    AND  entCatgCode  in ('16','17')
+				    </if>
+				    <!-- 个体户 -->
+				    <if test="entCatgCode !=null and entCatgCode ==3 ">
+				    AND  entCatgCode = '50'
+				    </if> 
+				    <!-- 企业（内外资） -->
+				    <if test="entCatgCode !=null and entCatgCode ==4 ">
+				    AND  entCatgCode in (11,12,13,14,31,32,33,34,21,22,24,27,28)
+				    </if>
+				    <!-- 内资 --> 
+				    <if test="entCatgCode !=null and entCatgCode ==5 ">
+				    AND  entCatgCode in (11,12,13,14,31,32,33,34)
+				    </if> 
+				    <!-- 外资 -->
+				    <if test="entCatgCode !=null and entCatgCode ==6 ">
+				    AND  entCatgCode in (21,22,24,27,28)
+				    </if>
+				    <if test="areaCode !=null and areaCode ==33 ">
+						AND  LEFT(areaCode,2)='33'
+					</if>
+					<if test="areaCode !=33 and areaCode !=null and areaCode !='' ">
+						AND areaCode = #{areaCode} 
+					</if>
+					GROUP BY
+						YEAR
+				) b
+			ORDER BY
+				b.YEAR
+	   </if> 
+	   
+	    <!-- 行业 -->
+	   <if test="statLevel != null and statLevel != '' and  statLevel == 'industryphy' ">
+           SELECT
+				b.areaCode,
+				b.areaCode,
+				b.normal,
+				b.cancel,
+				b.industryphy,
+				b.monthCode,
+				c.content industryphyName
+			FROM
+				(
+					SELECT
+						SUM(a.normal) normal,
+						SUM(a.cancel) cancel,
+						a.monthCode,
+						a.industryphy,
+						a.areaCode
+					FROM
+						cs_rpt_ent_industryphy_info a
+					WHERE
+						a.monthCode IS NOT NULL
+					AND a.industryphy IS NOT NULL
+					<if test="areaCode !=null and areaCode ==33 ">
+						AND  LEFT(areaCode,2)='33'
+					</if>
+					<if test="areaCode !=null and areaCode !=33 ">
+						AND a.areaCode=#{areaCode}
+					</if>
+					AND a.monthCode=#{yearCode}
+					GROUP BY
+						a.monthCode,
+						a.industryphy
+				) b
+			LEFT JOIN cs_code_industrytype c ON b.industryphy = c. CODE
+			ORDER BY 
+				b.monthCode
+	   </if>  
+	   
+	   
+	   <!-- 根据年度查询 -->
+	   <if test="statLevel != null and statLevel != '' and  statLevel == 'yeartotal' ">
+               SELECT
+					SUM(a.normal) normal,
+					SUM(a.cancel) cancel 
+				FROM
+					cs_rpt_ent_info a
+				WHERE
+					a.monthCode IS NOT NULL
+				    AND a.Year in (${years}) 
+				    <!-- 企业 -->
+					<if test="entCatgCode !=null and entCatgCode == 1 ">
+				    AND  entCatgCode not in ('16','17','50')
+				    </if>
+				    <!-- 农专 -->
+				    <if test="entCatgCode !=null and entCatgCode ==2 ">
+				    AND  entCatgCode  in ('16','17')
+				    </if>
+				    <!-- 个体户 -->
+				    <if test="entCatgCode !=null and entCatgCode ==3 ">
+				    AND  entCatgCode = '50' 
+				    </if> 
+				    <!-- 企业（内外资） -->
+				    <if test="entCatgCode !=null and entCatgCode ==4 ">
+				    AND  entCatgCode in (11,12,13,14,31,32,33,34,21,22,24,27,28)
+				    </if>
+				    <!-- 内资 --> 
+				    <if test="entCatgCode !=null and entCatgCode ==5 ">
+				    AND  entCatgCode in (11,12,13,14,31,32,33,34)
+				    </if> 
+				    <!-- 外资 -->
+				    <if test="entCatgCode !=null and entCatgCode ==6 ">
+				    AND  entCatgCode in (21,22,24,27,28)
+				    </if>
+				    <if test="areaCode !=null and areaCode ==33 ">
+						AND  LEFT(areaCode,2)='33'
+					</if>
+					<if test="areaCode !=33 and areaCode !=null and areaCode !='' ">
+						AND areaCode = #{areaCode} 
+					</if>
+	   </if>   
+  </select>
+</mapper>

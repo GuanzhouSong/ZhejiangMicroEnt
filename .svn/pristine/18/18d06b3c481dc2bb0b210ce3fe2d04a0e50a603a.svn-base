@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.depsyn.mapper.CsDepsynComPunMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.depsyn.model.CsDepsynComPun" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="ComName" property="comName" jdbcType="VARCHAR" />
+    <result column="ComNO" property="comNO" jdbcType="VARCHAR" />
+    <result column="ProType" property="proType" jdbcType="CHAR" />
+    <result column="LimLegalBase" property="limLegalBase" jdbcType="VARCHAR" />
+    <result column="ValFrom" property="valFrom" jdbcType="VARCHAR" />
+    <result column="ValFromState" property="valFromState" jdbcType="CHAR" />
+    <result column="ValTo" property="valTo" jdbcType="VARCHAR" />
+    <result column="ValToState" property="valToState" jdbcType="CHAR" />
+    <result column="SendDepName" property="sendDepName" jdbcType="VARCHAR" />
+    <result column="RecvDepName" property="recvDepName" jdbcType="VARCHAR" />
+    <result column="MsgType" property="msgType" jdbcType="VARCHAR" />
+    <result column="ErrorCode" property="errorCode" jdbcType="VARCHAR" />
+    <result column="InputPerID" property="inputPerID" jdbcType="VARCHAR" />
+    <result column="InputDepCode" property="inputDepCode" jdbcType="VARCHAR" />
+    <result column="InputDate" property="inputDate" jdbcType="TIMESTAMP" />
+    <result column="Year" property="year" jdbcType="CHAR" />
+    <result column="Adcode" property="adcode" jdbcType="VARCHAR" />
+    <result column="LegalDesc" property="legalDesc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap id="BaseResultMapDto" type="com.icinfo.cs.depsyn.dto.CsDepsynComPunDto" extends="BaseResultMap">
+    <result column="Num" property="num" jdbcType="INTEGER" />
+    <result column="RealNum" property="realNum" jdbcType="INTEGER" />
+  </resultMap>
+  <!-- 根据证照号码/证件号码, 姓名查询 -->
+  <select id="queryComPun" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+    SELECT
+    id, UID, PriPID, ComName, ComNO,
+    ProType, LimLegalBase, ValFrom, ValFromState, ValTo,
+    ValToState, SendDepName, RecvDepName, MsgType, ErrorCode,
+    InputPerID, InputDepCode, InputDate, Year, Adcode,
+    LegalDesc
+    FROM
+    cs_depsyn_com_pun
+    WHERE
+    InputDepCode = #{deptCode}
+    <if test="comNO != null and comNO != ''">
+      AND ComNO = #{comNO}
+    </if>
+    <if test="comNameLike != null and comNameLike != ''">
+      AND ComName LIKE CONCAT('%',#{comNameLike},'%')
+    </if>
+    ORDER BY id DESC
+  </select>
+     <select id="searchFeedBackList" parameterType="java.util.HashMap" resultMap="BaseResultMapDto">
+	    SELECT
+	    a.id,a.UID, PriPID, ComName, ComNO,
+	    ProType, LimLegalBase, ValFrom, ValFromState, ValTo,
+	    ValToState, SendDepName, RecvDepName, a.MsgType, ErrorCode,
+	    InputPerID, InputDepCode, InputDate, Year, Adcode,
+	    LegalDesc,count(0) Num,b.ManageNum RealNum
+	    FROM
+	    cs_depsyn_com_pun a
+	    left join cs_depsyn_manage_num b
+	    on a.InputDepCode = b.Dept and a.MsgType = b.MsgType
+	    WHERE 1=1
+    <if test="deptCode != null and deptCode != ''">
+     and InputDepCode = #{deptCode}
+    </if>
+    <if test="year != null and year != ''">
+     and Year = #{year}
+    </if>
+    <if test="id != null and id != ''">
+     and a.id = #{id}
+    </if>
+     group by InputDepCode,a.MsgType
+     ORDER BY id DESC
+  </select>
+</mapper>

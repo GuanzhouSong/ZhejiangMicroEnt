@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.es.mapper.CsAttachmentEstateMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.es.model.CsAttachmentEstate" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="CerNO" property="cerNO" jdbcType="VARCHAR" />
+    <result column="AttachmentNO" property="attachmentNO" jdbcType="VARCHAR" />
+    <result column="AttachmenType" property="attachmenType" jdbcType="VARCHAR" />
+    <result column="EstateAddr" property="estateAddr" jdbcType="VARCHAR" />
+    <result column="AttachmentDep" property="attachmentDep" jdbcType="VARCHAR" />
+    <result column="AttachmentDate" property="attachmentDate" jdbcType="DATE" />
+    <result column="AttachmentCanDate" property="attachmentCanDate" jdbcType="DATE" />
+    <result column="AttachmenStatus" property="attachmenStatus" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.sccheck.mapper.CodeRightTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sccheck.model.CodeRightType" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Uid" property="uid" jdbcType="VARCHAR" />
+    <result column="RightCode" property="rightCode" jdbcType="VARCHAR" />
+    <result column="RightName" property="rightName" jdbcType="VARCHAR" />
+    <result column="IsVlid" property="isVlid" jdbcType="CHAR" />
+    <result column="CreatTime" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="SetUserUid" property="setUserUid" jdbcType="VARCHAR" />
+    <result column="SetUserName" property="setUserName" jdbcType="VARCHAR" />
+    <result column="SetDeptCode" property="setDeptCode" jdbcType="VARCHAR" />
+    <result column="DutyDeptCode" property="dutyDeptCode" jdbcType="VARCHAR" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="DutyDeptName" property="dutyDeptName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <resultMap id="CodeRightTypeDto" type="com.icinfo.cs.sccheck.dto.CodeRightTypeDto" extends="BaseResultMap">
+  </resultMap>
+  
+  <resultMap id="selectToTreeMapResultMap" type="java.util.HashMap">
+  	<result property="id" column="id" javaType="java.lang.String" jdbcType="VARCHAR"/>
+  	<result property="name" column="name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+  	<result property="pId" column="pId" javaType="java.lang.String" jdbcType="VARCHAR"/>
+  	<result property="nocheck" column="nocheck" javaType="java.lang.String" jdbcType="VARCHAR"/>
+  </resultMap>
+  
+  <select id="selectTreeMap" resultMap="selectToTreeMapResultMap" parameterType="map">
+	 SELECT
+	 	RightCode id,
+		RightName name,
+		'1' pId
+	from cs_code_right_type
+	where 1=1 and IsVlid = '1'
+	<if test="dutyDeptCode !='' and dutyDeptCode !=null">
+		AND DutyDeptCode = #{dutyDeptCode}
+	</if>
+	<if test="rightName !='' and rightName !=null">
+		and RightName like concat('%',#{rightName},'%')
+	</if>
+	<if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+		<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+			separator="OR" close=")">
+			DutyDeptCode like concat('%',#{item},'%')
+		</foreach>
+	</if>
+	</select>
+  
+   <select id="selectListByParams" resultMap="BaseResultMap" parameterType="map">
+	 SELECT
+	 	RightCode,
+		RightName,
+		DutyDeptCode,
+		DutyDeptName
+	from cs_code_right_type
+	where 1=1
+	<if test="dutyDeptCode !='' and dutyDeptCode !=null">
+		AND DutyDeptCode = #{dutyDeptCode}
+	</if>
+	<if test="isVlid !='' and isVlid !=null">
+		and IsVlid = #{isVlid}
+	</if>
+	<if test="rightName !='' and rightName !=null">
+		and RightName = #{rightName}
+	</if>
+	<if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+		<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+			separator="OR" close=")">
+			DutyDeptCode like concat('%',#{item},'%')
+		</foreach>
+	</if>
+	</select>
+	
+   <select id="selectByParams" resultMap="CodeRightTypeDto" parameterType="map">
+	 SELECT
+	 	Uid,
+	 	RightCode,
+		RightName,
+		DutyDeptCode,
+		DutyDeptName,
+		CreatTime,
+		SetUserName,
+		IsVlid,
+		Remark
+	from cs_code_right_type
+	where 1=1
+	<if test="isVlid !='' and isVlid !=null">
+		and IsVlid = #{isVlid}
+	</if>
+	<if test="rightName !='' and rightName !=null">
+		and RightName like concat('%',#{rightName},'%')
+	</if>
+	<if test="dutyDeptCodeArr !=null and dutyDeptCodeArr!=''">
+		<foreach item="item" index="index" collection="dutyDeptCodeArr" open="AND ("
+			separator="OR" close=")">
+			DutyDeptCode like concat('%',#{item},'%')
+		</foreach>
+	</if>
+	</select>
+	
+   <select id="selectMaxCode" resultType="java.lang.String" parameterType="java.lang.String">
+	 SELECT
+	 	Max(RightCode)
+		from cs_code_right_type
+		where  DutyDeptCode = #{dutyDeptCode}
+	</select>
+</mapper>

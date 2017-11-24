@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.mainmark.mapper.MainMarkRelMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.mainmark.model.MainMarkRel" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="MarkUuid" property="markUuid" jdbcType="VARCHAR" />
+    <result column="MarkCode" property="markCode" jdbcType="VARCHAR" />
+    <result column="MarkName" property="markName" jdbcType="VARCHAR" />
+    <result column="Type" property="type" jdbcType="VARCHAR" />
+    <result column="Ishis" property="ishis" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  
+   <resultMap id="BaseResultMapDto" type="com.icinfo.cs.mainmark.dto.MainMarkRelDto" extends="BaseResultMap">
+	    <id column="IDCode" property="idCode" jdbcType="VARCHAR" />
+	    <result column="IDName" property="idName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   
+   <!-- 根据企业id删除对应关系 -->
+   <delete id="deleteInPriPIDAndIshis"  parameterType="map">
+       delete from cs_main_mark_rel where PriPID in (${priPID}) AND	Ishis = #{ishis}
+   </delete>
+   
+   <!-- 根据bean删除对应数据 -->
+   <delete id="deleteByBean"  parameterType="com.icinfo.cs.mainmark.model.MainMarkRel">
+       delete from cs_main_mark_rel where 1=1
+       <if test="markCode !=null and markCode != ''">
+  			AND MarkCode = #{markCode}
+  		</if>
+  		<if test="type !=null and type != ''">
+  			AND Type = #{type}
+  		</if>
+  		<if test="ishis !=null and ishis != ''">
+  			AND Ishis = #{ishis}
+  		</if>
+   </delete>
+   
+   <!-- 批量插入 -->
+   <insert id="insertBatch"  parameterType="java.util.List">
+        INSERT INTO cs_main_mark_rel(PriPID,MarkCode,MarkUuid,MarkName,Type,Ishis)
+        values
+        <foreach collection="list" item="item" index="index" separator="," >
+           (#{item.priPID},#{item.markCode},#{item.markUuid},#{item.markName},#{item.type},#{item.ishis})
+        </foreach>
+   </insert>
+   <!-- 新增 -->
+    <insert id="insertOne"  parameterType="com.icinfo.cs.mainmark.model.MainMarkRel">
+        INSERT INTO cs_main_mark_rel(PriPID,MarkCode,MarkUuid,MarkName,Type,Ishis)
+        values
+           (#{priPID},#{markCode},#{markUuid},#{markName},#{type},#{ishis})
+   </insert>
+   
+   <!-- 根据企业id获取标签列表 -->
+   <select id="queryListInPriPIDAndIshis" parameterType="map" resultMap="BaseResultMapDto">
+		SELECT
+			cmmr.PriPID,
+			cmmr.MarkUuid,
+			cmmr.MarkCode,
+			cmmr.MarkName,
+			cmmr.Type
+		FROM
+			cs_main_mark_rel cmmr
+		WHERE
+			cmmr.PriPID in (${priPID})
+		AND	cmmr.Ishis = #{ishis}
+		AND	cmmr.Type = #{type}
+		order by cmmr.MarkCode asc
+   </select>
+   
+   <!-- 根据企业id获取标签列表但不包含已设置双随机列表 -->
+   <select id="queryListInPriPIDAndIshisAndNotIncludeDoublySto" parameterType="map" resultMap="BaseResultMapDto">
+		SELECT
+			cmmr.PriPID,
+			cmmr.MarkUuid,
+			cmmr.MarkCode,
+			cmmr.MarkName,
+			cmmr.Type
+		FROM
+			cs_main_mark_rel cmmr,cs_regist_mark crm
+		WHERE
+			cmmr.MarkCode = crm.IDCode
+		AND	cmmr.PriPID IN (${priPID})
+		AND	cmmr.Ishis = #{ishis}
+		AND	cmmr.Type = #{type}
+		AND crm.DoublyStoState = '0'
+		order by cmmr.MarkCode asc
+   </select>
+   
+   <select id="selectMainMarkRelDtoByPriPID" parameterType="map" resultMap="BaseResultMapDto">
+		SELECT
+			cmmr.PriPID,
+			cmmr.MarkCode,
+			cmmr.MarkName
+		FROM
+			cs_main_mark_rel cmmr
+			LEFT JOIN cs_main_mark B
+			ON cmmr.MarkUuid=B.MarkUuid
+		WHERE
+			cmmr.PriPID=${priPID}
+		AND	cmmr.Ishis = '0'
+		AND	cmmr.Type = '1'
+		and B.AuditState='2'
+   </select>
+   
+    <!-- 获取分组后的标签列表 -->
+    <select id="selectMainMarkRelDtoByPriPIDGroup" parameterType="map" resultMap="BaseResultMapDto">
+		SELECT
+		    cmmr.PriPID,
+			GROUP_CONCAT(cmmr.MarkCode) MarkCode,
+			GROUP_CONCAT(cmmr.MarkName) MarkName
+		FROM
+			cs_main_mark_rel cmmr
+		WHERE
+			cmmr.PriPID=${priPID}
+		AND	cmmr.Ishis = '0'
+		AND	cmmr.Type = '1'
+   </select>
+   
+   <!-- 根据code修改名称 -->
+   <update id="updateMarkNameByMarkCode" parameterType="String"> 
+   		UPDATE cs_main_mark_rel cmmr
+		INNER JOIN cs_regist_mark crm ON cmmr.MarkCode = crm.IDCode
+		SET cmmr.MarkName = crm.IDName
+		WHERE
+			crm.IDCode = #{_parameter}
+   </update>
+  
+   <!-- 根据code修改名称 -->
+   <update id="updateAllMarkNameByMarkCode" parameterType="String"> 
+   		UPDATE cs_main_mark_rel
+			SET MarkName = #{markName}
+		WHERE
+			MarkCode = #{markCode}
+   </update>
+</mapper>

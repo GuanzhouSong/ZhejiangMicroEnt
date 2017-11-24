@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.simpleesc.mapper.ErEscObjinfoMapper" >
+  <resultMap id="ErEscObjinfo" type="com.icinfo.cs.simpleesc.model.ErEscObjinfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="Seq" property="seq" jdbcType="VARCHAR" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="CerType" property="cerType" jdbcType="CHAR" />
+    <result column="CerNO" property="cerNO" jdbcType="VARCHAR" />
+    <result column="CertificatesPic" property="certificatesPic" jdbcType="VARCHAR" />
+    <result column="BCertificatesPic" property="BCertificatesPic" jdbcType="VARCHAR" />
+    <result column="MobTel" property="mobTel" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="UniSCID" property="uniSCID" jdbcType="CHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="UnitName" property="unitName" jdbcType="VARCHAR" />
+    <result column="Type" property="type" jdbcType="CHAR" />
+    <result column="Objapptime" property="objapptime" jdbcType="TIMESTAMP" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="Objection" property="objection" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap id="ErEscObjinfoDto" type="com.icinfo.cs.simpleesc.dto.ErEscObjinfoDto" extends="ErEscObjinfo">
+  </resultMap>
+  <select id="queryPageResultByPriPID" resultMap="ErEscObjinfoDto" parameterType="Map">
+	SELECT NAME,Objection,Objapptime FROM er_esc_objinfo
+    WHERE PriPID =#{priPID}
+    ORDER BY Objapptime desc
+  </select>
+</mapper>

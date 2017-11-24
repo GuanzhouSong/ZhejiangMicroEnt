@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.depsyn.mapper.CsDepsynManageNumMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.depsyn.model.CsDepsynManageNum" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="MsgType" property="msgType" jdbcType="VARCHAR" />
+    <result column="ManageNum" property="manageNum" jdbcType="INTEGER" />
+    <result column="Dept" property="dept" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <delete id="deleteByMap" parameterType="java.util.HashMap">
+    delete from cs_depsyn_manage_num
+    where 1=1
+    <if test="dept != null and dept != ''">
+     and Dept = #{dept}
+    </if>
+    <if test="msgType != null and msgType != ''">
+     and MsgType = #{msgType}
+    </if>
+  </delete>
+</mapper>

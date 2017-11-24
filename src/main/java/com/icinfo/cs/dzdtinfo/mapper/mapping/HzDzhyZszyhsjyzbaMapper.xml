@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.dzdtinfo.mapper.HzDzhyZszyhsjyzbaMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.dzdtinfo.model.HzDzhyZszyhsjyzba" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="PRIPID" property="priPid" jdbcType="VARCHAR" />
+    <result column="HSFW" property="hsfw" jdbcType="VARCHAR" />
+    <result column="HSQD" property="hsqd" jdbcType="VARCHAR" />
+    <result column="HSWD1" property="hswd1" jdbcType="VARCHAR" />
+    <result column="HSWD2" property="hswd2" jdbcType="VARCHAR" />
+    <result column="HSWD3" property="hswd3" jdbcType="VARCHAR" />
+    <result column="HSTYPE" property="hsType" jdbcType="VARCHAR" />
+    <result column="JKNUM" property="jkNum" jdbcType="DECIMAL" />
+    <result column="ZDBW1" property="zdbw1" jdbcType="VARCHAR" />
+    <result column="ZDBW2" property="zdbw2" jdbcType="VARCHAR" />
+    <result column="ZDBW3" property="zdbw3" jdbcType="VARCHAR" />
+    <result column="ZDBW4" property="zdbw4" jdbcType="VARCHAR" />
+    <result column="ZDBW5" property="zdbw5" jdbcType="VARCHAR" />
+    <result column="ISSAVE" property="isSave" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="CERNO" property="cerNo" jdbcType="VARCHAR" />
+    <result column="DOM" property="dom" jdbcType="VARCHAR" />
+    <result column="MOBTEL" property="mobtel" jdbcType="VARCHAR" />
+    
+    <result column="QTHSFS" property="qthsfs" jdbcType="VARCHAR" />
+    <result column="HSWDSHI1" property="hswdshi1" jdbcType="VARCHAR" />
+    <result column="HSWDXIAN1" property="hswdxian1" jdbcType="VARCHAR" />
+    <result column="HSWDROAD1" property="hswdroad1" jdbcType="VARCHAR" />
+    <result column="HSWDHAO1" property="hswdhao1" jdbcType="VARCHAR" />
+    
+    <result column="HSWDSHI2" property="hswdshi2" jdbcType="VARCHAR" />
+    <result column="HSWDXIAN2" property="hswdxian2" jdbcType="VARCHAR" />
+    <result column="HSWDROAD2" property="hswdroad2" jdbcType="VARCHAR" />
+    <result column="HSWDHAO2" property="hswdhao2" jdbcType="VARCHAR" />
+    
+    <result column="HSWDSHI3" property="hswdshi3" jdbcType="VARCHAR" />
+    <result column="HSWDXIAN3" property="hswdxian3" jdbcType="VARCHAR" />
+    <result column="HSWDROAD3" property="hswdroad3" jdbcType="VARCHAR" />
+    <result column="HSWDHAO3" property="hswdhao3" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.base.mapper.CsQuartzJobMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.base.model.CsQuartzJob" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="JobName" property="jobName" jdbcType="VARCHAR" />
+    <result column="JobDay" property="jobDay" jdbcType="VARCHAR" />
+    <result column="JobServerIp" property="jobServerIp" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

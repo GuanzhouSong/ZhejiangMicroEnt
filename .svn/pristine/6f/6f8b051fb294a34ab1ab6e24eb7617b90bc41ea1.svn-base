@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.system.mapper.SysDepartMapper" >
+    <resultMap id="eepartmentResult" type="com.icinfo.cs.system.model.SysDepart">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="OrgCoding" property="orgCoding" jdbcType="VARCHAR"/>
+        <result column="OrgName" property="orgName" jdbcType="VARCHAR"/>
+        <result column="DevCoding" property="devCoding" jdbcType="VARCHAR"/>
+        <result column="OrganizeAllName" property="organizeAllName" jdbcType="VARCHAR"/>
+        <result column="DisponClient" property="disponClient" jdbcType="VARCHAR"/>
+        <result column="OrderBy" property="orderBy" jdbcType="INTEGER"/>
+        <result column="QuanLimag" property="quanLimag" jdbcType="VARCHAR"/>
+        <result column="Adcode" property="adcode" jdbcType="VARCHAR"/>
+        <result column="PorgCoding" property="porgCoding" jdbcType="VARCHAR"/>
+        <result column="LiaName" property="liaName" jdbcType="VARCHAR"/>
+        <result column="LiaPhone" property="liaPhone" jdbcType="VARCHAR"/>
+        <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="ParentFlag" property="parentFlag" jdbcType="CHAR"/>
+        <result column="DocShortName" property="docShortName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="deptTreeData" type="com.icinfo.cs.system.dto.DeptTree">
+        <result column="OrgCoding" property="orgCoding" jdbcType="VARCHAR"/>
+        <result column="OrgName" property="orgName" jdbcType="VARCHAR"/>
+        <result column="Adcode" property="adcode" jdbcType="VARCHAR"/>
+        <result column="PorgCoding" property="porgCoding" jdbcType="VARCHAR"/>
+        <result column="DutyDeptCode" property="dutyDeptCode" jdbcType="VARCHAR"/>
+        <result column="DutyDeptName" property="dutyDeptName" jdbcType="VARCHAR"/>
+        <result column="IsParent" property="isParent" jdbcType="VARCHAR"/>
+        <result column="Nocheck" property="nocheck" jdbcType="VARCHAR"/>
+    </resultMap>
+     <!-- 查询adCode不重复且其长度为13 包含M编码的部门结果集 -->
+	 <select id="selectDistinctAdCodeSysDepartList" resultMap="eepartmentResult" parameterType="Map">
+		  SELECT
+				Adcode,OrgName
+			FROM
+				cs_sys_depart
+			WHERE
+			<![CDATA[
+			Adcode LIKE '33%M%'
+			AND LENGTH(Adcode) = 13 
+			]]>
+			GROUP BY
+			Adcode 
+	 </select>
+
+    <!--获取X市的部门-->
+    <select id="findDeptByDutyCodeByDutyCode" parameterType="map" resultMap="deptTreeData">
+        SELECT OrgCoding,OrgName,PorgCoding,AdCode,
+        '' as DutyDeptCode,
+        '' as DutyDeptName ,
+        'true' as IsParent
+        <if test="isNoCheck=='true'">
+            ,'true' as Nocheck
+        </if>
+        FROM cs_sys_depart WHERE 1=1
+        
+        <choose><!-- 区域管理员 -->
+          <when test="isSysUserAreaManage !=null and isSysUserAreaManage != '' and isSysUserAreaManage==1 and deptCodeLike!=null and deptCodeLike!='' ">
+            AND Adcode like #{deptCodeLike}
+          </when>
+          <otherwise>
+            <if test="cityOrgMark!=null">
+            AND LEFT(Adcode,4)=#{cityOrgMark}
+	        </if>
+	        <if test="areaOrgMark!=null">
+	        AND LEFT(Adcode,6)=#{areaOrgMark}
+	        </if>
+          </otherwise>
+        </choose>  
+        <![CDATA[
+          AND LENGTH(OrgCoding) < 15 
+          AND PorgCoding !='001003'
+        ]]>
+        UNION ALL
+        SELECT OrgCoding,OrgName,PorgCoding ,AdCode,
+        DutyDeptCode,
+        DutyDeptName ,
+        'false' as IsParent
+        <if test="isNoCheck=='true'">
+            ,'' as Nocheck
+        </if>
+        FROM cs_dept_dutycode_ref WHERE 1=1
+         <choose><!-- 区域管理员 -->
+            <when test="isSysUserAreaManage !=null and isSysUserAreaManage != '' and isSysUserAreaManage==1 and deptCodeLike!=null and deptCodeLike!='' ">
+            AND Adcode like #{deptCodeLike}
+            </when>
+            <otherwise>
+            <if test="cityOrgMark!=null">
+            AND LEFT(Adcode,4)=#{cityOrgMark}
+	        </if>
+	        <if test="areaOrgMark!=null">
+	            AND LEFT(Adcode,6)=#{areaOrgMark}
+	        </if>
+	        <if test="porgCoding!=null">
+	            AND PorgCoding=#{porgCoding}
+	        </if>
+	
+	        <if test="dutyDeptCodes != null">
+	            <foreach collection="dutyDeptCodes" item="dutyDeptCode" index="index"
+	                     open="and (" close=")" separator="or">
+	                DutyDeptCode=#{dutyDeptCode}
+	            </foreach>
+	        </if>
+            </otherwise>
+         </choose>
+        GROUP BY OrgName
+    </select>
+
+    <select id="findDeptByAdCodeFront6Char" parameterType="map" resultMap="deptTreeData">
+        <if test="porgCoding!='' and porgCoding!=null">
+            SELECT OrgCoding,OrgName,PorgCoding,AdCode,
+            '' as DutyDeptCode,
+            '' as DutyDeptName ,
+            'false' as IsParent
+            <if test="isNoCheck=='true'">
+                ,'true' as Nocheck
+            </if>
+            FROM cs_sys_depart
+            where PorgCoding=#{porgCoding}
+        </if>
+        <if test="porgCoding=='' or porgCoding==null">
+            SELECT OrgCoding,OrgName,PorgCoding,AdCode,
+            '' as DutyDeptCode,
+            '' as DutyDeptName,
+            'false' as IsParent
+            <if test="isNoCheck=='true'">
+                ,'true' as Nocheck
+            </if>
+            FROM cs_sys_depart
+            where AdCode like CONCAT(#{adCodeFront6Char},"%")
+        </if>
+    </select>
+
+    <!--根据部门编码来获取部门信息-->
+    <select id="findDeptByDutyCodeByOrgCoding" parameterType="string" resultMap="deptTreeData">
+        SELECT OrgCoding,OrgName,PorgCoding ,AdCode,DutyDeptCode,DutyDeptName ,'false' as IsParent FROM cs_dept_dutycode_ref WHERE 1=1
+        and OrgCoding=#{orgCoding}
+    </select>
+
+
+
+    <!-- 根据父级 -->
+    <select id="findDeptByPorgCoding" parameterType="string" resultMap="deptTreeData">
+        SELECT OrgCoding,OrgName,PorgCoding ,AdCode,DutyDeptCode,DutyDeptName ,'false' as IsParent
+        FROM cs_dept_dutycode_ref WHERE
+        OrgCoding=#{porgCoding} or PorgCoding=${porgCoding}
+    </select>
+    
+    <!--获取行政区划-->
+    <select id="deptTreeCtity" parameterType="map" resultMap="deptTreeData">
+        SELECT OrgCoding,OrgName,PorgCoding,AdCode,
+        '' as DutyDeptCode,
+        '' as DutyDeptName ,
+        'true' as IsParent
+        <if test="isNoCheck=='true'">
+            ,'true' as Nocheck
+        </if>
+        FROM cs_sys_depart WHERE  
+        <![CDATA[
+          LENGTH(Adcode) < 6 
+        ]]>
+        <!-- 区域管理员 -->
+        <if test="isSysUserAreaManage !=null and isSysUserAreaManage != '' and isSysUserAreaManage==1 and deptCodeLike != '' and deptCodeLike!=null">
+             AND Adcode LIKE  concat(#{adCodeSubFour},'%') 
+        </if>
+        UNION ALL
+        SELECT OrgCoding,OrgName,PorgCoding ,AdCode,
+        '' DutyDeptCode,
+        '' DutyDeptName ,
+        'false' as IsParent
+        <if test="isNoCheck=='true'">
+            ,'' as Nocheck
+        </if>
+        FROM cs_sys_depart WHERE  
+        LENGTH(Adcode) = 6
+        <if test="isSysUserAreaManage !=null and isSysUserAreaManage != '' and isSysUserAreaManage==1 and deptCodeLike != '' and deptCodeLike!=null "> 
+            AND Adcode LIKE  concat(#{deptCodeLike},'%')
+        </if>
+    </select>
+
+    <select id="getMaxAdCode" resultType="string" parameterType="string">
+        select
+        AdCode
+        from cs_sys_depart
+        where PorgCoding=#{orgCoding} order by AdCode DESC LIMIT 0,1
+    </select>
+
+
+    <select id="getMaxOrgCode" resultType="string" parameterType="string">
+        select
+        OrgCoding
+        from cs_sys_depart
+        where PorgCoding=#{orgCoding} order by OrgCoding DESC LIMIT 0,1
+    </select>
+
+</mapper>

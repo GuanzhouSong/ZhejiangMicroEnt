@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.YrSfcSocialSecurityMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.YrSfcSocialSecurity" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="AnCheID" property="anCheID" jdbcType="VARCHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="UniCode" property="uniCode" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="EndowmentNum" property="endowmentNum" jdbcType="INTEGER" />
+    <result column="UnemploymentNum" property="unemploymentNum" jdbcType="INTEGER" />
+    <result column="MedicalNum" property="medicalNum" jdbcType="INTEGER" />
+    <result column="EmpInjuryNum" property="empInjuryNum" jdbcType="INTEGER" />
+    <result column="MaternityNum" property="maternityNum" jdbcType="INTEGER" />
+    <result column="PaymentBase" property="paymentBase" jdbcType="DECIMAL" />
+    <result column="PaymentBaseIsPub" property="paymentBaseIsPub" jdbcType="CHAR" />
+    <result column="ActualPayment" property="actualPayment" jdbcType="DECIMAL" />
+    <result column="ActualPaymentIsPub" property="actualPaymentIsPub" jdbcType="CHAR" />
+    <result column="CumulArrears" property="cumulArrears" jdbcType="DECIMAL" />
+    <result column="CumulArrearsIsPub" property="cumulArrearsIsPub" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="SocialID" property="socialID" jdbcType="VARCHAR" />
+    <result column="PaymentEndowment" property="paymentEndowment" jdbcType="DECIMAL" />
+    <result column="PaymentUnemployment" property="paymentUnemployment" jdbcType="DECIMAL" />
+    <result column="PaymentMedical" property="paymentMedical" jdbcType="DECIMAL" />
+    <result column="PaymentEmpInjury" property="paymentEmpInjury" jdbcType="DECIMAL" />
+    <result column="PaymentMaternity" property="paymentMaternity" jdbcType="DECIMAL" />
+    <result column="ActualPayEndowment" property="actualPayEndowment" jdbcType="DECIMAL" />
+    <result column="ActualPayUnemployment" property="actualPayUnemployment" jdbcType="DECIMAL" />
+    <result column="ActualPayMedical" property="actualPayMedical" jdbcType="DECIMAL" />
+    <result column="ActualPayEmpInjury" property="actualPayEmpInjury" jdbcType="DECIMAL" />
+    <result column="ActualPayMaternity" property="actualPayMaternity" jdbcType="DECIMAL" />
+    <result column="CumuEndowment" property="cumuEndowment" jdbcType="DECIMAL" />
+    <result column="CumuUnemployment" property="cumuUnemployment" jdbcType="DECIMAL" />
+    <result column="CumuMedical" property="cumuMedical" jdbcType="DECIMAL" />
+    <result column="CumuEmpInjury" property="cumuEmpInjury" jdbcType="DECIMAL" />
+    <result column="CumuMaternity" property="cumuMaternity" jdbcType="DECIMAL" />
+  </resultMap>
+</mapper>

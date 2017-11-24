@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.BaseInfoHisMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.BaseInfoHis" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="EntType" property="entType" jdbcType="CHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="LeRepPhone" property="leRepPhone" jdbcType="VARCHAR" />
+    <result column="EmpNum" property="empNum" jdbcType="INTEGER" />
+    <result column="Addr" property="addr" jdbcType="VARCHAR" />
+    <result column="ProGro" property="proGro" jdbcType="DECIMAL" />
+    <result column="RatGro" property="ratGro" jdbcType="DECIMAL" />
+    <result column="PostalCode" property="postalCode" jdbcType="CHAR" />
+    <result column="VendIncIsPub" property="vendIncIsPub" jdbcType="VARCHAR" />
+    <result column="DisableMgr" property="disableMgr" jdbcType="DECIMAL" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="Email" property="email" jdbcType="VARCHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="AssGro" property="assGro" jdbcType="DECIMAL" />
+    <result column="LiaGro" property="liaGro" jdbcType="DECIMAL" />
+    <result column="VendInc" property="vendInc" jdbcType="DECIMAL" />
+    <result column="NetInc" property="netInc" jdbcType="DECIMAL" />
+    <result column="BusSt" property="busSt" jdbcType="CHAR" />
+    <result column="MaiBusInc" property="maiBusInc" jdbcType="DECIMAL" />
+    <result column="TotEqu" property="totEqu" jdbcType="DECIMAL" />
+    <result column="EntSetDis" property="entSetDis" jdbcType="DECIMAL" />
+    <result column="EntOugthSetDis" property="entOugthSetDis" jdbcType="DECIMAL" />
+    <result column="IsLegPay" property="isLegPay" jdbcType="CHAR" />
+    <result column="BusStatusCN" property="busStatusCN" jdbcType="VARCHAR" />
+    <result column="EmpNumDis" property="empNumDis" jdbcType="VARCHAR" />
+    <result column="AnType" property="anType" jdbcType="VARCHAR" />
+    <result column="AnCheID" property="anCheID" jdbcType="VARCHAR" />
+    <result column="ParInsCN" property="parInsCN" jdbcType="VARCHAR" />
+    <result column="SupEntname" property="supEntname" jdbcType="VARCHAR" />
+    <result column="LastReportTime" property="lastReportTime" jdbcType="TIMESTAMP" />
+    <result column="AncheDate" property="ancheDate" jdbcType="TIMESTAMP" />
+    <result column="ParIns" property="parIns" jdbcType="CHAR" />
+    <result column="NumParM" property="numParM" jdbcType="INTEGER" />
+    <result column="ResParMSign" property="resParMSign" jdbcType="CHAR" />
+    <result column="ResParSecSign" property="resParSecSign" jdbcType="CHAR" />
+    <result column="AssGroIsPub" property="assGroIsPub" jdbcType="VARCHAR" />
+    <result column="LiaGroIsPub" property="liaGroIsPub" jdbcType="VARCHAR" />
+    <result column="MaiBusIncIsPub" property="maiBusIncIsPub" jdbcType="VARCHAR" />
+    <result column="RatGroIsPub" property="ratGroIsPub" jdbcType="VARCHAR" />
+    <result column="NetIncIsPub" property="netIncIsPub" jdbcType="VARCHAR" />
+    <result column="ProGroIsPub" property="proGroIsPub" jdbcType="VARCHAR" />
+    <result column="TotEquIsPub" property="totEquIsPub" jdbcType="VARCHAR" />
+    <result column="DisEmps" property="disEmps" jdbcType="INTEGER" />
+    <result column="DisOpers" property="disOpers" jdbcType="INTEGER" />
+    <result column="ExSoldEmps" property="exSoldEmps" jdbcType="INTEGER" />
+    <result column="ExSoldOpers" property="exSoldOpers" jdbcType="INTEGER" />
+    <result column="UniGradEmps" property="uniGradEmps" jdbcType="INTEGER" />
+    <result column="UniGradOpers" property="uniGradOpers" jdbcType="INTEGER" />
+    <result column="UnemEmps" property="unemEmps" jdbcType="INTEGER" />
+    <result column="UnemOpers" property="unemOpers" jdbcType="INTEGER" />
+    <result column="ReportNo" property="reportNo" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 根据年度和主体代码查询最新年报日期和年报日期不相等的历史记录 -->
+  <select id="selectBaseInfoHisListYear" resultMap="BaseResultMap" parameterType="Map">
+	SELECT
+			PriPID,
+			EntName,
+			RegNO,
+			LastReportTime,   
+			AncheDate
+		FROM
+		cs_baseinfo_his  
+		WHERE 
+		<![CDATA[ 
+		PriPID = #{priPID}  AND Year = #{year}
+		AND  LastReportTime !=AncheDate 
+		order by id desc 
+		]]> 
+	</select>
+  
+   
+  
+</mapper>

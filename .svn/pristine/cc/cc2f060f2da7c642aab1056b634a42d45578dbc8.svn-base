@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.es.mapper.CsMidPersonMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.es.model.CsMidPerson" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="Country" property="country" jdbcType="CHAR" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="CerType" property="cerType" jdbcType="CHAR" />
+    <result column="CerNO" property="cerNO" jdbcType="VARCHAR" />
+    <result column="Sex" property="sex" jdbcType="CHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="HouseAdd" property="houseAdd" jdbcType="VARCHAR" />
+    <result column="RegPerResAddr" property="regPerResAddr" jdbcType="VARCHAR" />
+    <result column="MobTel" property="mobTel" jdbcType="VARCHAR" />
+    <result column="LiteDeg" property="liteDeg" jdbcType="VARCHAR" />
+    <result column="PolStand" property="polStand" jdbcType="VARCHAR" />
+    <result column="Nation" property="nation" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="update_time" jdbcType="TIMESTAMP" />
+    <result column="delflag" property="delflag" jdbcType="BIT" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapDto" type="com.icinfo.cs.es.dto.CsMidPersonDto" extends="BaseResultMap">
+       <result column="uniCodeAndRegNO" property="uniCodeAndRegNO" jdbcType="VARCHAR" />
+       <result column="entName" property="entName" jdbcType="VARCHAR" />
+       <result column="lerepName" property="lerepName" jdbcType="VARCHAR" />
+       <result column="estDate" property="estDate" jdbcType="VARCHAR" />
+       <result column="regOrgName" property="regOrgName" jdbcType="VARCHAR" />
+       <result column="regState" property="regState" jdbcType="VARCHAR" />
+       <result column="isLimit" property="isLimit" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 获取自然人分页列表 -->
+  <select id="selectPersonList" resultMap="BaseResultMapDto" parameterType="Map" >
+	SELECT
+		t.id,
+		t.CerNO,
+		t. NAME,
+		t.Sex,
+		(
+			CASE
+			WHEN cql.id IS NULL THEN
+				'false'
+			ELSE
+				'true'
+			END
+		) isLimit
+	FROM
+		(
+			SELECT
+				cml.id,
+				cml.CerNO,
+				cml. NAME,
+				cml.Sex
+			FROM
+				cs_mid_lerep cml
+			WHERE 1=1
+				<if test="keyword !=null and keyword != '' and (keyword2 == null or keyword2 == '') ">
+			  		and (cml.Name=#{keyword} OR cml.CerNO=#{keyword})
+			  	</if>
+			  	<if test="cerNO18 !=null and cerNO18 != ''">
+			  		or (cml.CerNO=#{cerNO18})
+			  	</if>
+				
+			  	<if test="keyword !=null and keyword != '' and keyword2 != null and keyword2 != '' ">
+			  		and (cml.Name=#{keyword} AND cml.CerNO=#{keyword2})
+			  	</if>
+				<if test="sex !=null and sex != ''">
+			  		and cml.sex=#{sex}
+			  	</if>
+			UNION ALL
+				SELECT
+					cmi.id,
+					cmi.CerNO,
+					cmi.Inv NAME,
+					cmi.Sex
+				FROM
+					cs_mid_inv cmi
+				WHERE 1=1
+					<if test="keyword !=null and keyword != '' and (keyword2 == null or keyword2 == '') ">
+				  		and (cmi.Inv=#{keyword} OR cmi.CerNO=#{keyword})
+				  	</if>
+				  	<if test="cerNO18 !=null and cerNO18 != ''">
+				  		or (cmi.CerNO=#{cerNO18})
+				  	</if>
+					
+				  	<if test="keyword !=null and keyword != '' and keyword2 != null and keyword2 != '' ">
+				  		and (cmi.Inv=#{keyword} AND cmi.CerNO=#{keyword2})
+				  	</if>
+					<if test="sex !=null and sex != ''">
+				  		and cmi.sex=#{sex}
+				  	</if>
+				UNION ALL
+					SELECT
+						cmm.id,
+						cmm.CerNO,
+						cmm. NAME,
+						cmm.Sex
+					FROM
+						cs_mid_member cmm
+					WHERE 1=1
+						<if test="keyword !=null and keyword != '' and (keyword2 == null or keyword2 == '') ">
+					  		and (cmm.Name=#{keyword} OR cmm.CerNO=#{keyword})
+					  	</if>
+					  	<if test="cerNO18 !=null and cerNO18 != ''">
+					  		or (cmm.CerNO=#{cerNO18})
+					  	</if>
+						
+					  	<if test="keyword !=null and keyword != '' and keyword2 != null and keyword2 != '' ">
+					  		and (cmm.Name=#{keyword} AND cmm.CerNO=#{keyword2})
+					  	</if>
+						<if test="sex !=null and sex != ''">
+					  		and cmm.sex=#{sex}
+					  	</if>
+		) t
+	LEFT JOIN cs_qualification_limit cql ON t.CerNO = cql.certno AND LimitDateEnd>NOW()
+	GROUP BY
+		t.CerNO
+	HAVING t.CerNO is not null and trim(t.CerNO) != ''
+	ORDER BY
+		t.id DESC
+	LIMIT #{pageFrom},#{pageSize}
+  </select>
+  
+  <select id="selectPersonEntPageList" resultMap="BaseResultMapDto" parameterType="Map" >
+
+  	<!-- 为空查询所有 -->
+  	<if test="type ==null or type == '' ">
+  	    select t.uniCodeAndRegNO,t.entName,t.lerepName,t.estDate,t.regOrgName,t.regState from (
+  		<!-- 法定代表 -->
+		select 
+		concat((case when cmb.UniCode = '' or cmb.UniCode is null or cmb.UniCode ='null'  then '' else  concat(cmb.UniCode) end),'/',cmb.RegNO) uniCodeAndRegNO,
+		cmb.EntName entName,
+		'法定代表人/负责人' as lerepName,
+		date_format(cmb.EstDate, '%Y-%m-%d') estDate,
+		cmb.RegOrgName regOrgName,
+		cmb.RegState regState
+		from 
+		cs_mid_lerep cml  
+		LEFT JOIN cs_mid_baseinfo cmb on cml.PriPID = cmb.PriPID
+		where cml.cerNo = #{cerNo}
+		
+		UNION ALL
+		
+		<!-- 高管-->
+		select 
+		concat((case when cmb.UniCode = '' or cmb.UniCode is null or cmb.UniCode ='null'  then '' else  concat(cmb.UniCode) end),'/',cmb.RegNO) uniCodeAndRegNO,
+		cmb.EntName entName,
+		'高管' as lerepName,
+		date_format(cmb.EstDate, '%Y-%m-%d') estDate,
+		cmb.RegOrgName regOrgName,
+		cmb.RegState regState
+		from 
+		cs_mid_member cmm  
+		LEFT JOIN cs_mid_baseinfo cmb on cmm.PriPID = cmb.PriPID
+		where cmm.cerNo = #{cerNo}
+		UNION ALL
+		
+		<!-- 股东 -->
+		select 
+		concat((case when cmb.UniCode = '' or cmb.UniCode is null or cmb.UniCode ='null'  then '' else  concat(cmb.UniCode) end),'/',cmb.RegNO) uniCodeAndRegNO,
+		cmb.EntName entName,
+		'股东' as lerepName,
+		date_format(cmb.EstDate, '%Y-%m-%d') estDate,
+		cmb.RegOrgName regOrgName,
+		cmb.RegState regState
+		from 
+		cs_mid_inv cmi  
+		LEFT JOIN cs_mid_baseinfo cmb on cmi.PriPID = cmb.PriPID
+		where cmi.cerNo = #{cerNo}
+		) t 
+  	</if>
+  	
+  	<!-- 法定代表 -->
+  	<if test="type !=null and type != '' and type =='1'.toString() ">
+		select 
+		concat((case when cmb.UniCode = '' or cmb.UniCode is null or cmb.UniCode ='null'  then '' else  concat(cmb.UniCode) end),'/',cmb.RegNO) uniCodeAndRegNO,
+		cmb.EntName entName,
+		'法定代表人/负责人' as lerepName,
+		date_format(cmb.EstDate, '%Y-%m-%d') estDate,
+		cmb.RegOrgName regOrgName,
+		cmb.RegState regState
+		from 
+		cs_mid_lerep cml  
+		LEFT JOIN cs_mid_baseinfo cmb on cml.PriPID = cmb.PriPID
+		where cml.cerNo = #{cerNo}
+    </if>
+    
+  	<!-- 高管-->
+  	<if test="type !=null and type != '' and type =='3'.toString() ">
+		select 
+		concat((case when cmb.UniCode = '' or cmb.UniCode is null or cmb.UniCode ='null'  then '' else  concat(cmb.UniCode) end),'/',cmb.RegNO) uniCodeAndRegNO,
+		cmb.EntName entName,
+		'高管' as lerepName,
+		date_format(cmb.EstDate, '%Y-%m-%d') estDate,
+		cmb.RegOrgName regOrgName,
+		cmb.RegState regState
+		from 
+		cs_mid_member cmm  
+		LEFT JOIN cs_mid_baseinfo cmb on cmm.PriPID = cmb.PriPID
+		where cmm.cerNo = #{cerNo}
+    </if>
+    
+  	<!-- 股东 -->
+  	<if test="type !=null and type != '' and type =='2'.toString() ">
+		select 
+		concat((case when cmb.UniCode = '' or cmb.UniCode is null or cmb.UniCode ='null'  then '' else  concat(cmb.UniCode) end),'/',cmb.RegNO) uniCodeAndRegNO,
+		cmb.EntName entName,
+		'股东' as lerepName,
+		date_format(cmb.EstDate, '%Y-%m-%d') estDate,
+		cmb.RegOrgName regOrgName,
+		cmb.RegState regState
+		from 
+		cs_mid_inv cmi  
+		LEFT JOIN cs_mid_baseinfo cmb on cmi.PriPID = cmb.PriPID
+		where cmi.cerNo = #{cerNo}
+    </if>
+  </select>
+  
+   <!-- 获取自然人列表总数 -->
+  <select id="selectPersonListCount" resultType="Long" parameterType="Map" >
+	select count(0) from (
+				SELECT
+				1
+			FROM
+				(
+					SELECT
+						cml.id,
+						cml.CerNO,
+						cml. NAME,
+						cml.Sex
+					FROM
+						cs_mid_lerep cml
+					WHERE 1=1
+						<if test="keyword !=null and keyword != '' and (keyword2 == null or keyword2 == '') ">
+					  		and (cml.Name=#{keyword} OR cml.CerNO=#{keyword})
+					  	</if>
+					  	<if test="cerNO18 !=null and cerNO18 != ''">
+					  		or (cml.CerNO=#{cerNO18})
+					  	</if>
+						
+					  	<if test="keyword !=null and keyword != '' and keyword2 != null and keyword2 != '' ">
+					  		and (cml.Name=#{keyword} AND cml.CerNO=#{keyword2})
+					  	</if>
+						<if test="sex !=null and sex != ''">
+					  		and cml.sex=#{sex}
+					  	</if>
+					UNION ALL
+						SELECT
+							cmi.id,
+							cmi.CerNO,
+							cmi.Inv NAME,
+							cmi.Sex
+						FROM
+							cs_mid_inv cmi
+						WHERE 1=1
+							<if test="keyword !=null and keyword != '' and (keyword2 == null or keyword2 == '') ">
+						  		and (cmi.Inv=#{keyword} OR cmi.CerNO=#{keyword})
+						  	</if>
+						  	<if test="cerNO18 !=null and cerNO18 != ''">
+						  		or (cmi.CerNO=#{cerNO18})
+						  	</if>
+							
+						  	<if test="keyword !=null and keyword != '' and keyword2 != null and keyword2 != '' ">
+						  		and (cmi.Inv=#{keyword} AND cmi.CerNO=#{keyword2})
+						  	</if>
+							<if test="sex !=null and sex != ''">
+						  		and cmi.sex=#{sex}
+						  	</if>
+						UNION ALL
+							SELECT
+								cmm.id,
+								cmm.CerNO,
+								cmm. NAME,
+								cmm.Sex
+							FROM
+								cs_mid_member cmm
+							WHERE 1=1
+								<if test="keyword !=null and keyword != '' and (keyword2 == null or keyword2 == '') ">
+							  		and (cmm.Name=#{keyword} OR cmm.CerNO=#{keyword})
+							  	</if>
+							  	<if test="cerNO18 !=null and cerNO18 != ''">
+							  		or (cmm.CerNO=#{cerNO18})
+							  	</if>
+								
+							  	<if test="keyword !=null and keyword != '' and keyword2 != null and keyword2 != '' ">
+							  		and (cmm.Name=#{keyword} AND cmm.CerNO=#{keyword2})
+							  	</if>
+								<if test="sex !=null and sex != ''">
+							  		and cmm.sex=#{sex}
+							  	</if>
+				) t
+			GROUP BY
+				t.CerNO
+			HAVING t.CerNO is not null and trim(t.CerNO) != '') ct
+	
+  </select>
+</mapper>

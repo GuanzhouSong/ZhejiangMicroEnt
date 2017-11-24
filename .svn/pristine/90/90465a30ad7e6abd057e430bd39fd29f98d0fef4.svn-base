@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.drcheck.mapper.PubScinfoAgentMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.drcheck.model.PubScinfoAgent" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="TaskNO" property="taskNO" jdbcType="VARCHAR" />
+    <result column="DeptTaskNO" property="deptTaskNO" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="AgentUid" property="agentUid" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.drcheck.dto.PubScinfoAgentDto" id="BaseResultDtoMap" extends="BaseResultMap">
+    <result column="AgentName" property="agentName" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR"/>
+    <result column="TaskCode" property="taskCode" jdbcType="VARCHAR" />
+    <result column="TaskName" property="taskName" jdbcType="VARCHAR" />
+    <result column="AuditState" property="auditState" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectScagentAdjustList" resultMap="BaseResultDtoMap" parameterType="Map">
+    SELECT 
+	a.UID,
+	a.AgentUid,
+	a.DeptTaskNO,
+	a.PriPID,
+	a.TaskNO,
+	e.AgentName,
+	d.EntName,
+	b.TaskCode,
+	b.TaskName,
+	f.AuditState
+	FROM
+	cs_pub_scinfo_agent a 
+	LEFT JOIN cs_pub_sctask b ON b.UID = a.TaskNO
+	LEFT JOIN cs_pub_dept_sctask c ON c.UID = a.DeptTaskNO AND a.TaskNO = c.TaskNO
+	LEFT JOIN cs_mid_baseinfo d ON d.PriPID = a.PriPID
+	LEFT JOIN cs_pub_scagent e ON e.UID = a.AgentUid
+	LEFT JOIN cs_pub_scresult f ON f.TaskNO = a.DeptTaskNO AND f.PriPID = a.PriPID
+	WHERE
+	(f.AuditState IS NULL OR f.AuditState !='2')
+	AND
+		c.InspectDept = #{deptCode}
+	<if test="agentName !=null and agentName !=''">
+	AND e.AgentName LIKE concat('%', #{agentName},'%')
+	</if>
+	<if test="entName !=null and entName !=''">
+	AND d.EntName LIKE concat('%', #{entName},'%')
+	</if>
+	<if test="taskCode !=null and taskCode !=''">
+	AND b.TaskCode LIKE concat('%', #{taskCode},'%')
+	</if>
+	<if test="taskName !=null and taskName !=''">
+	AND b.TaskName LIKE concat('%', #{taskName},'%')
+	</if>
+	<if test="auditState !=null and auditState !='' and auditState ==0">
+	AND (f.AuditState = #{auditState} or f.AuditState is null)
+	</if>
+	<if test="auditState !=null and auditState !='' and auditState !=0">
+	AND f.AuditState = #{auditState}
+	</if>
+	ORDER BY
+	e.AgentName DESC
+  </select>
+  
+  <select id="selectPubScinfoAgentDto" resultMap="BaseResultDtoMap" parameterType="Map">
+		SELECT
+		e.AgentName
+		FROM
+		cs_pub_scinfo_agent a
+		LEFT JOIN cs_pub_scagent e ON e.UID = a.AgentUid
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="taskNO !=null and taskNO !=''">
+				a.TaskNO = #{taskNO}
+			</if>
+			<if test="deptTaskNO !=null and deptTaskNO !=''">
+				AND a.DeptTaskNO = #{deptTaskNO}
+			</if>
+			<if test="priPID !=null and priPID !=''">
+				AND a.PriPID = #{priPID}
+			</if>
+		</trim>
+	</select>
+</mapper>

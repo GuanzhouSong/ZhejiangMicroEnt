@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.message.mapper.CsMessageRelMapper">
+	<resultMap id="BaseResultMap" type="com.icinfo.cs.message.model.CsMessageRel">
+		<!-- WARNING - @frameworkgenerated -->
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="MsgUid" property="msgUid" jdbcType="VARCHAR" />
+		<result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+		<result column="LiaisonManId" property="liaisonManId" jdbcType="VARCHAR" />
+		<result column="LiaisonManName" property="liaisonManName"
+			jdbcType="VARCHAR" />
+		<result column="LiaisonManTel" property="liaisonManTel"
+			jdbcType="VARCHAR" />
+		<result column="EntName" property="entName" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap type="com.icinfo.cs.message.dto.CsMessageRelDto"
+		id="BaseResultDtoMap" extends="BaseResultMap">
+		   <result column="MsgTitle" property="msgTitle" jdbcType="VARCHAR" />
+		    <result column="RegNO" property="regNO" jdbcType="VARCHAR" />
+		    <result column="UniCode" property="uniCode" jdbcType="VARCHAR" />
+		    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+		    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+		    <result column="SendTime" property="sendTime" jdbcType="VARCHAR" />
+		    <result column="SendName" property="sendName" jdbcType="VARCHAR" />
+		    <result column="MsgPcReadState" property="msgPcReadState" jdbcType="VARCHAR" />
+		    <result column="MsgPcReadTime" property="msgPcReadTime" jdbcType="VARCHAR" />
+		    <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+		    <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+		    <result column="SliceNOName" property="sliceNOName" jdbcType="VARCHAR" />
+		    <result column="RegState" property="regState" jdbcType="VARCHAR" />
+		    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+		    <result column="MsgNum" property="msgNum" jdbcType="VARCHAR" />
+		    <result column="MsgReadNum" property="msgReadNum" jdbcType="VARCHAR" />
+		    <result column="MsgUnReadNum" property="msgUnReadNum" jdbcType="VARCHAR" />
+		    <result column="MsgRemark" property="msgRemark" jdbcType="VARCHAR" />
+		    
+	</resultMap>
+
+
+	<!-- 获取消息分页列表 -->
+	<select id="queryMessagPageList" resultMap="BaseResultDtoMap"
+		parameterType="Map">
+		SELECT
+			cmr.MsgUid,
+			cm.MsgTitle,
+			cmb.RegNO,
+			cmb.UniCode,
+			cmb.EntName,
+			cmb.LeRep,
+			cm.SendTime,
+			cm.SendName,
+			cmr.LiaisonManName,
+			cmr.LiaisonManTel,
+			cm.MsgPcReadState,
+			cm.MsgPcReadTime,
+			cmb.RegOrgName,
+			cmb.LocalAdmName,
+			cmb.SliceNOName,
+			cmb.RegState,
+			cmr.PriPID
+		FROM
+			cs_message_rel cmr
+		LEFT JOIN cs_message cm ON cm.MsgUid = cmr.MsgUid
+		LEFT JOIN cs_mid_baseinfo cmb ON cmb.PriPID = cmr.PriPID
+		WHERE
+			1 = 1
+		<include refid="queryMessagPageListCommonSql"/>
+		order by cm.SendTime desc,cm.UpdateTime desc
+	</select>
+	
+	<sql id="queryMessagPageListCommonSql">
+	   <if test="msgTitle !=null and msgTitle != ''">
+			AND INSTR(cm.MsgTitle, #{msgTitle}) > 0
+		</if>
+		<if test="msgPcReadState !=null and msgPcReadState != ''">
+			AND cm.MsgPcReadState =  #{msgPcReadState}
+		</if>
+		<if test="sendTimeStart !=null and sendTimeStart != ''">
+			 <![CDATA[AND DATE_FORMAT(cm.SendTime, '%Y-%m-%d') >= #{sendTimeStart}]]>
+		</if>
+		<if test="sendTimeEnd !=null and sendTimeEnd != ''">
+			 <![CDATA[AND DATE_FORMAT(cm.SendTime, '%Y-%m-%d') <= #{sendTimeEnd}]]>
+		</if>
+		<if test="entType !=null and entType != ''">
+			AND cmb.EntTypeCatg IN (${entType})
+		</if>
+		<if test="regNO !=null and regNO != ''">
+			AND (
+			cmb.RegNO LIKE CONCAT('%', #{regNO})
+			OR cmb.UNICODE LIKE CONCAT('%', #{regNO})
+		)
+		</if>
+		<if test="regOrg !=null and regOrg != ''">
+			AND cmb.regOrg IN (${regOrg})
+		</if>
+		<if test="entName !=null and entName != ''">
+			AND INSTR(cmb.EntName, #{entName}) > 0
+		</if>
+		<if test="localAdm !=null and localAdm != ''">
+			AND cmb.LocalAdm IN (${localAdm})
+		</if>
+		<if test="sliceNO !=null and sliceNO != ''">
+			AND cmb.SliceNO IN (${sliceNO})
+		</if>
+		<if test="sendName !=null and sendName != ''">
+			AND INSTR(cm.sendName, #{sendName}) > 0
+		</if>
+		<if test="msgPcReadTimeStart !=null and msgPcReadTimeStart != ''">
+			 <![CDATA[AND DATE_FORMAT(cm.msgPcReadTime, '%Y-%m-%d') >= #{msgPcReadTimeStart}]]>
+		</if>
+		<if test="msgPcReadTimeEnd !=null and  msgPcReadTimeEnd!= ''">
+			 <![CDATA[AND DATE_FORMAT(cm.msgPcReadTime, '%Y-%m-%d') <= #{msgPcReadTimeEnd!=}]]>
+		</if>
+		<if test="regStateM !=null and regStateM != ''">
+			AND cmb.RegState IN (${regStateM})
+		</if>
+		
+		
+		
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	    
+	</sql>
+	
+	<!-- 根据企业id获取统计数据 -->
+	<select id="queryMessagCountGroupByPriPID" resultType="Long" parameterType="Map">
+		SELECT
+			count(1)
+		FROM
+			(
+				SELECT
+					cmr.PriPID
+				FROM
+					cs_message_rel cmr
+				LEFT JOIN cs_message cm ON cm.MsgUid = cmr.MsgUid
+				LEFT JOIN cs_mid_baseinfo cmb ON cmb.PriPID = cmr.PriPID
+				WHERE
+					1 = 1
+				<include refid="queryMessagPageListCommonSql"/>
+				GROUP BY
+					cmr.PriPID
+			) t
+	</select>
+	
+	<!-- 根据消息id获取统计数据 -->
+	<select id="queryMessagCountGroupByMsgUid" resultMap="BaseResultDtoMap" parameterType="Map">
+		SELECT
+			count(1) MsgNum,
+			IFNULL(SUM(t.MsgReadNum),0)  MsgReadNum,
+			IFNULL(SUM(t.MsgUnReadNum),0) MsgUnReadNum
+		FROM
+			(
+				SELECT
+					cmr.MsgUid,
+					(
+						CASE
+						WHEN cm.MsgPcReadState = '1' THEN
+							1
+						ELSE
+							0
+						END
+					) MsgReadNum,
+					(
+						CASE
+						WHEN cm.MsgPcReadState != '1' THEN
+							1
+						ELSE
+							0
+						END
+					) MsgUnReadNum
+				FROM
+					cs_message_rel cmr
+				LEFT JOIN cs_message cm ON cm.MsgUid = cmr.MsgUid
+				LEFT JOIN cs_mid_baseinfo cmb ON cmb.PriPID = cmr.PriPID
+				WHERE
+					1 = 1
+				<include refid="queryMessagPageListCommonSql"/>
+				GROUP BY
+					cmr.MsgUid
+			) t
+
+	</select>
+	
+	<!-- 获取消息分页列表根据企业id -->
+	<select id="queryMessagPageListByPriPID" resultMap="BaseResultDtoMap"
+		parameterType="Map">
+		SELECT
+			cmr.MsgUid,
+			cm.MsgTitle,
+			cm.SendTime,
+			cm.SendName,
+			cm.MsgPcReadState,
+			cm.MsgPcReadTime,
+			cm.MsgPcReadName,
+			cm.MsgPcReadTel,
+			cm.MsgRemark
+		FROM
+			cs_message_rel cmr
+		LEFT JOIN cs_message cm ON cm.MsgUid = cmr.MsgUid
+		WHERE
+			cmr.PriPID = #{priPID}
+	</select>
+</mapper>

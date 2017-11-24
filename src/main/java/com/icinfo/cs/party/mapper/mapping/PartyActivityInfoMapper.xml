@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.party.mapper.PartyActivityInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.party.model.PartyActivityInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="ActivityName" property="activityName" jdbcType="VARCHAR" />
+    <result column="ActivityType" property="activityType" jdbcType="CHAR" />
+    <result column="ActivityContent" property="activityContent" jdbcType="VARCHAR" />
+    <result column="PublishDate" property="publishDate" jdbcType="TIMESTAMP" />
+    <result column="RequireEndDate" property="requireEndDate" jdbcType="TIMESTAMP" />
+    <result column="PublishDeptName" property="publishDeptName" jdbcType="VARCHAR" />
+    <result column="PublishDeptUID" property="publishDeptUID" jdbcType="VARCHAR" />
+    <result column="ClaimDeptName" property="claimDeptName" jdbcType="VARCHAR" />
+    <result column="ClaimDeptUID" property="claimDeptUID" jdbcType="VARCHAR" />
+    <result column="ClaimLocalAdm" property="claimLocalAdm" jdbcType="VARCHAR" />
+    <result column="ClaimLocalAdmName" property="claimLocalAdmName" jdbcType="VARCHAR" />
+    <result column="InputCode" property="inputCode" jdbcType="VARCHAR" />
+    <result column="InputName" property="inputName" jdbcType="VARCHAR" />
+    <result column="InputDate" property="inputDate" jdbcType="DATE" />
+    <result column="UpfilePath" property="upfilePath" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    
+    <result column="InputState" property="inputState" jdbcType="CHAR" />
+    <result column="ActivityPlace" property="activityPlace" jdbcType="VARCHAR" />
+    <result column="ActivitybeginDate" property="activitybeginDate" jdbcType="TIMESTAMP" />
+    <result column="ActivityEndDate" property="activityEndDate" jdbcType="TIMESTAMP" />
+    <result column="Originator" property="originator" jdbcType="VARCHAR" />
+    <result column="OriginatorID" property="originatorID" jdbcType="VARCHAR" />
+    <result column="JoinNum" property="joinNum" jdbcType="INTEGER" />
+    <result column="Joiner" property="joiner" jdbcType="VARCHAR" />
+    <result column="JoinerId" property="joinerId" jdbcType="VARCHAR" />
+    <result column="ActivitySituation" property="activitySituation" jdbcType="VARCHAR" />
+    <result column="ResultFilePath" property="resultFilePath" jdbcType="VARCHAR" />
+    <result column="ResultInputCode" property="resultInputCode" jdbcType="VARCHAR" />
+    <result column="ResultInputName" property="resultInputName" jdbcType="VARCHAR" />
+    <result column="ResultInputDate" property="resultInputDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap type="com.icinfo.cs.party.dto.PartyActivityInfoDto" id="BaseResultMapDto" extends="BaseResultMap">
+  </resultMap>
+  
+  <select id="selectPartyActivityInfoList" resultMap="BaseResultMap" parameterType="Map"> 
+   SELECT 
+	t.id,
+	t.UID,
+	t.ActivityName,
+	t.ActivityType,
+	t.ActivityContent,
+	t.PublishDate,
+	t.RequireEndDate,
+	t.PublishDeptName,
+	t.PublishDeptUID,
+	b.PartyOrgName ClaimDeptName,
+	t.ClaimDeptUID,
+	b.LocalAdm ClaimLocalAdm,
+	b.LocalAdmName ClaimLocalAdmName,
+	t.InputCode,
+	t.InputName,
+	t.InputDate,
+	t.UpfilePath,
+	t.CreateTime,
+	t.InputState,
+	t.ActivityPlace,
+	t.ActivitybeginDate,
+	t.ActivityEndDate,
+	t.Originator,
+	t.OriginatorID,
+	t.JoinNum,
+	t.Joiner,
+	t.JoinerId,
+	t.ActivitySituation,
+	t.ResultFilePath,
+	t.ResultInputCode,
+	t.ResultInputName,
+	t.ResultInputDate 
+	FROM
+	cs_party_activity_info t 
+	LEFT JOIN
+	cs_party_organize_info b
+	on t.ClaimDeptUID = b.UID
+	where 1=1
+	<if test="inputState !=null and inputState!=''">
+	  and t.InputState = #{inputState}
+	</if>
+	<include refid="sql_where"></include>
+	order by t.InputState Asc,t.InputDate desc
+  </select>
+  
+  <sql id="sql_where">
+    <if test="activityName !=null and activityName !=''">
+	  and t.ActivityName like concat('%',#{activityName},'%') 
+	</if>
+    <if test="activityType !=null and activityType !=''">
+	  and t.ActivityType =#{activityType}
+	</if>
+    <if test="startPublishDate !=null and startPublishDate !=''">
+		<![CDATA[
+		and DATE_FORMAT(t.PublishDate,'%Y-%m-%d') >= #{startPublishDate}
+		]]>
+	</if>
+    <if test="endPublishDate !=null and endPublishDate !=''">
+		<![CDATA[
+		and DATE_FORMAT(t.PublishDate,'%Y-%m-%d') <= #{endPublishDate}
+		]]>
+	</if>
+    <if test="startRequireEndDate !=null and startRequireEndDate !=''">
+		<![CDATA[
+		and DATE_FORMAT(t.RequireEndDate,'%Y-%m-%d') >= #{startRequireEndDate}
+		]]>
+	</if>
+    <if test="endRequireEndDate !=null and endRequireEndDate !=''">
+		<![CDATA[
+		and DATE_FORMAT(t.RequireEndDate,'%Y-%m-%d') <= #{endRequireEndDate}
+		]]>
+	</if>
+	<if test="inputName !=null and inputName !=''">
+	   and t.InputName like concat('%',#{inputName},'%')
+	</if>
+	<!-- 发布部门 -->
+	<if test="publishDeptUID !=null and publishDeptUID !=''">
+	   and t.publishDeptUID = #{publishDeptUID}
+	</if>
+	<!-- 所在党组织（接收部门）-->
+	<if test="claimDeptUID !=null and claimDeptUID !=''">
+	   and t.ClaimDeptUID = #{claimDeptUID}
+	</if>
+	<!-- 接受部门党组织对应的管辖单位 -->
+	<if test="claimLocalAdm !='' and claimLocalAdm !=null">
+	    and b.LocalAdm  in (${claimLocalAdm})
+	 </if>
+	<if test="activitybeginDate !=null and activitybeginDate !=''">
+		<![CDATA[
+		and DATE_FORMAT(t.ActivitybeginDate,'%Y-%m-%d') >= #{activitybeginDate}
+		]]>
+	</if> 
+	<if test="activityEndDate !=null and activityEndDate !=''">
+		<![CDATA[
+		and DATE_FORMAT(t.ActivityEndDate,'%Y-%m-%d') <= #{activityEndDate}
+		]]>
+	</if> 
+	<if test="resultInputName !=null and resultInputName !=''">
+	   and t.ResultInputName like concat('%',#{resultInputName},'%')
+	</if>
+	<!-- 活动地点 -->
+	<if test="activityPlace !=null and activityPlace !=''">
+	   and t.ActivityPlace like concat('%',#{activityPlace},'%')
+	</if>
+	<!-- 发起人 -->		 	
+	<if test="originator !=null and originator !=''">
+	   and t.Originator like concat('%',#{originator},'%')
+	</if>		 	
+	<!--活动参与人数 -->		 	
+	<if test="joinNumStart !=null and joinNumStart !=''">
+	  <![CDATA[
+	   and t.JoinNum >= ${joinNumStart}
+	   ]]>
+	</if>		 	
+	<if test="joinNumEnd !=null and joinNumEnd !=''">
+	   <![CDATA[ and t.JoinNum <= ${joinNumEnd}]]>
+	</if>
+	<!-- 参与人 -->		 	
+	<if test="joiner !=null and joiner !=''">
+	   and t.Joiner like concat('%',#{joiner},'%')
+	</if>		 			 	
+	<!-- 参与人 id-->		 	
+	<if test="joinerIds !=null and joinerIds !=''">
+	   and exists(select ActivityUID FROM cs_party_activity_joinResult c WHERE JoinerId IN (${joinerIds}) and ActivityUID = t.UID )
+	</if>		 			 	
+  </sql>
+  
+  <!-- 查询已录入结果的活动总参与人数 （不同活动涉及的相同参与人数不要去重）-->
+  <select id="selectActivityJoinerSum" parameterType="Map" resultType="java.lang.Integer">
+    SELECT IFNULL(SUM(IFNULL(t.JoinNum,0)),0) JoinNum FROM cs_party_activity_info t
+    LEFT JOIN
+	cs_party_organize_info b
+	on t.ClaimDeptUID = b.UID
+    WHERE 1=1
+ 	<if test="inputState !=null and inputState!=''">
+	  and t.InputState = #{inputState}
+	</if>
+	<include refid="sql_where"></include> 
+  </select>
+  
+</mapper>

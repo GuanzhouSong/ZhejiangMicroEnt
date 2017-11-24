@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.ext.mapper.MidBranchMapper">
+	<resultMap id="MidBranch" type="com.icinfo.cs.ext.model.MidBranch">
+		<!-- WARNING - @frameworkgenerated -->
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="PriPID" property="priPID" jdbcType="CHAR" />
+		<result column="BrRegNO" property="brRegNO" jdbcType="CHAR" />
+		<result column="BRID" property="brid" jdbcType="VARCHAR" />
+		<result column="EntName" property="entName" jdbcType="VARCHAR" />
+		<result column="Dom" property="dom" jdbcType="VARCHAR" />
+		<result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+		<result column="RegNO" property="regNO" jdbcType="CHAR" />
+		<result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+		<result column="ApprDate" property="apprDate" jdbcType="DATE" />
+		<result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+		<result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<resultMap id="MidBranchDto" type="com.icinfo.cs.ext.dto.MidBranchDto" extends="MidBranch">
+	    <result column="uniCode" property="uniCode" jdbcType="VARCHAR" />
+	    <result column="regState" property="regState" jdbcType="VARCHAR" />
+	    <result column="regOrgName" property="regOrgName" jdbcType="VARCHAR" />
+	    <result column="regNO" property="regNO" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="queryPageResultByPripid" resultMap="MidBranchDto"
+		parameterType="Map">
+		SELECT 
+		  A.id,
+		  A.PriPID,
+		  A.BrRegNO,
+		  CONCAT(SUBSTRING(A.BRID,4),'***') BRID,
+		  A.EntName,
+		  A.Dom,
+		  A.LeRep,
+		  A.RegNO,
+		  A.ApprDate,
+		  A.RegOrgName,
+		  A.CreateTime
+		FROM
+		  cs_mid_branch A 
+		where A.PriPID =#{priPID}
+	</select>
+
+	<select id="queryListResultByPripid" resultMap="MidBranchDto"
+		parameterType="Map">
+		SELECT
+		EntName,
+		RegNO,
+		RegOrgName
+		FROM
+		cs_mid_branch A
+		where A.PriPID =#{priPID}
+	</select>
+	
+	<select id="queryListResult" resultMap="MidBranchDto" parameterType="Map">
+		SELECT 
+		  A.PriPID,
+		  A.EntName,
+		  A.RegNO,
+		  A.RegOrgName,
+	      t.uniCode,
+	      t.regState
+		FROM
+		  cs_mid_branch A 
+	    LEFT JOIN cs_mid_baseinfo t ON A.RegNO = t.RegNO
+		where A.PriPID =#{priPID}
+	</select>
+</mapper>

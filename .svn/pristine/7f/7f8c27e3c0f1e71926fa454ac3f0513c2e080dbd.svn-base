@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.YrRegCheckMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.YrRegCheck" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="Dom" property="dom" jdbcType="VARCHAR" />
+    <result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+    <result column="RegCap" property="regCap" jdbcType="DECIMAL" />
+    <result column="Currency" property="currency" jdbcType="CHAR" />
+    <result column="EntType" property="entType" jdbcType="CHAR" />
+    <result column="EstDate" property="estDate" jdbcType="DATE" />
+    <result column="IndustryCo" property="industryCo" jdbcType="CHAR" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="CHAR" />
+    <result column="RegState" property="regState" jdbcType="CHAR" />
+    <result column="PostalCode" property="postalCode" jdbcType="CHAR" />
+    <result column="EntTypeCatg" property="entTypeCatg" jdbcType="VARCHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="FirstReportTime" property="firstReportTime" jdbcType="TIMESTAMP" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="Year" property="year" jdbcType="INTEGER" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CheckDep" property="checkDep" jdbcType="VARCHAR" />
+    <result column="CheckNameBank" property="checkNameBank" jdbcType="VARCHAR" />
+    <result column="SignBank" property="signBank" jdbcType="VARCHAR" />
+    <result column="SignDateBur" property="signDateBur" jdbcType="TIMESTAMP" />
+    <result column="CheckNameBur" property="checkNameBur" jdbcType="VARCHAR" />
+    <result column="SignBur" property="signBur" jdbcType="VARCHAR" />
+    <result column="SignDateSfc" property="signDateSfc" jdbcType="TIMESTAMP" />
+    <result column="CheckNameSfc" property="checkNameSfc" jdbcType="VARCHAR" />
+    <result column="SignSfc" property="signSfc" jdbcType="VARCHAR" />
+    <result column="DeclStatus" property="declStatus" jdbcType="VARCHAR" />
+    <result column="AcceptDate" property="acceptDate" jdbcType="TIMESTAMP" />
+    <result column="AcceptName" property="acceptName" jdbcType="VARCHAR" />
+    <result column="AcceptUser" property="acceptUser" jdbcType="VARCHAR" />
+    <result column="SignBankDate" property="signBankDate" jdbcType="TIMESTAMP" />
+    <result column="ReportState" property="reportState" jdbcType="VARCHAR" />
+    <result column="SubIp" property="subIp" jdbcType="VARCHAR" />
+    <result column="RepType" property="repType" jdbcType="VARCHAR" />
+    <result column="IsReported" property="isReported" jdbcType="VARCHAR" />
+    <result column="LastReportTime" property="lastReportTime" jdbcType="TIMESTAMP" />
+    <result column="ReportType" property="reportType" jdbcType="VARCHAR" />
+    <result column="LockState" property="lockState" jdbcType="VARCHAR" />
+    <result column="Setter" property="setter" jdbcType="VARCHAR" />
+    <result column="SetDate" property="setDate" jdbcType="TIMESTAMP" />
+    <result column="SliceNo" property="sliceNo" jdbcType="VARCHAR" />
+    <result column="CheckOpinBank" property="checkOpinBank" jdbcType="LONGVARCHAR" />
+    <result column="CheckOpinBur" property="checkOpinBur" jdbcType="LONGVARCHAR" />
+    <result column="CheckOpinSfc" property="checkOpinSfc" jdbcType="LONGVARCHAR" />
+    <result column="AcceptDept" property="acceptDept" jdbcType="LONGVARCHAR" />
+    <result column="UnlockReason" property="unlockReason" jdbcType="LONGVARCHAR" />
+    <result column="IsForbidWord" property="isForbidWord" jdbcType="VARCHAR" />
+    <result column="ModifyCount" property="modifyCount" jdbcType="INTEGER" />
+    <result column="AddRecState" property="addRecState" jdbcType="VARCHAR" />
+    <result column="AddRecDate" property="addRecDate" jdbcType="TIMESTAMP" />
+    <result column="AddRecDept" property="addRecDept" jdbcType="VARCHAR" />
+    <result column="AddRecUser" property="addRecUser" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapDto" type="com.icinfo.cs.yr.dto.YrRegCheckDto" extends="BaseResultMap">
+       <result column="regOrgName" property="regOrgName" jdbcType="VARCHAR" />
+       <result column="localAdmName" property="localAdmName" jdbcType="VARCHAR" />
+       <result column="entTypeCatgDesc" property="entTypeCatgDesc" jdbcType="VARCHAR" />
+       <result column="checkDepDesc" property="checkDepDesc" jdbcType="VARCHAR"/>
+       <result column="auditDate" property="auditDate" jdbcType="DATE" />
+       <result column="auditUser" property="auditUser" jdbcType="VARCHAR"/>
+   </resultMap>
+   
+     <resultMap id="BaseResultReceiveDto" type="com.icinfo.cs.yr.dto.YrRegCheckDto" extends="BaseResultMap">
+       <result column="regOrgName" property="regOrgName" jdbcType="VARCHAR" />
+       <result column="localAdmName" property="localAdmName" jdbcType="VARCHAR" />
+       <result column="sliceNOName" property="sliceNOName" jdbcType="VARCHAR" />
+   </resultMap>
+  
+  <select id="queryPageForForbidResult" resultMap="BaseResultMapDto" parameterType="Map">
+  select 
+    t.id,
+    t.PriPID,
+    t.UniCode,
+    t.EntName,
+    t.RegNO,
+    t.Dom,
+    t.LeRep,
+    t.Year,
+    t.CreateTime,
+    t.LastReportTime,
+    t.EntTypeCatg,
+    t.reportState,
+	a.content entTypeCatgDesc,
+	b.content RegOrgName,
+	c.content LocalAdmName,
+	
+	CASE 
+	WHEN t.EntTypeCatg = '50' THEN f.AuditDate
+	WHEN t.EntTypeCatg ='16' OR t.EntTypeCatg ='17' THEN e.AuditDate
+	ELSE d.AuditDate END AuditDate,
+	
+	CASE 
+	WHEN t.EntTypeCatg = '50' THEN f.AuditUser
+	WHEN t.EntTypeCatg ='16' OR t.EntTypeCatg ='17' THEN e.AuditUser
+	ELSE d.AuditUser END AuditUser
+	
+	FROM cs_yr_reg_check t 
+	LEFT JOIN cs_code_entcatg a ON t.EntTypeCatg = a.Code
+	LEFT JOIN cs_code_regorg b ON t.RegOrg = b.Code 
+	LEFT JOIN cs_code_regunit c ON t.LocalAdm= c.Code
+	LEFT JOIN cs_baseinfo d ON t.PriPID= d.PriPID and t.Year=d.Year
+	LEFT JOIN cs_sfc_baseinfo e ON t.PriPID= e.PriPID and t.Year=e.Year
+	LEFT JOIN cs_pb_baseinfo f ON t.PriPID= f.PriPID and t.Year=f.Year
+	WHERE  
+	t.RegState !='D'
+	and ReportState not in('00','10','20')
+	<if test="entTypeCatg !='' and entTypeCatg !=null">
+	 and t.EntTypeCatg IN (${entTypeCatg})
+	</if>
+	<if test="reportState !='' and reportState !=null">
+	 and t.ReportState = #{reportState}
+	</if>
+	<if test="entName !='' and entName !=null">
+	 and t.EntName LIKE concat('%', #{entName},'%')
+	</if>
+	<if test="regOrUniCode !='' and regOrUniCode !=null">
+	 and (t.UniCode LIKE concat('%', #{regOrUniCode}) or t.RegNO LIKE concat('%', #{regOrUniCode}))
+	</if>
+	<if test="regNO !='' and regNO !=null">
+	 and t.RegNO =#{regNO}
+	</if>
+	<if test="leRep !='' and leRep !=null">
+	 and t.LeRep =#{leRep}
+	</if>
+	<if test="year !='' and year !=null">
+	 and t.Year =#{year}
+	</if>
+	<if test="regOrg !='' and regOrg !=null">
+    and t.RegOrg  IN  (${regOrg})
+    </if>
+    <if test="localAdm !='' and localAdm !=null">
+    and t.LocalAdm  IN (${localAdm})
+    </if>
+    <if test="dom !='' and dom !=null">
+	 and t.Dom LIKE concat('%', #{dom},'%')
+	</if>
+	<if test="auditUser !='' and auditUser !=null">
+	 AND (d.AuditUser=#{auditUser} OR e.AuditUser=#{auditUser} OR f.AuditUser=#{auditUser})
+	</if>
+	<if test="lastReportTimeStart !='' and lastReportTimeStart !=null">
+	<![CDATA[
+	and DATE_FORMAT(t.LastReportTime,'%Y-%m-%d') >= #{lastReportTimeStart}
+	]]>
+	</if>
+	<if test="lastReportTimeEnd !='' and lastReportTimeEnd !=null">
+	<![CDATA[
+	and DATE_FORMAT(t.LastReportTime,'%Y-%m-%d') <= #{lastReportTimeEnd}
+	]]>
+	</if>
+	
+	<if test="auditDateStart !='' and auditDateStart !=null">
+	<![CDATA[
+	and (DATE_FORMAT(d.AuditDate,'%Y-%m-%d') >= #{auditDateStart} OR DATE_FORMAT(e.AuditDate,'%Y-%m-%d') >= #{auditDateStart} OR DATE_FORMAT(f.AuditDate,'%Y-%m-%d') >= #{auditDateStart})
+	]]>
+	</if>
+	<if test="auditDateEnd !='' and auditDateEnd !=null">
+	<![CDATA[
+	and (DATE_FORMAT(d.AuditDate,'%Y-%m-%d') <= #{auditDateEnd} OR DATE_FORMAT(e.AuditDate,'%Y-%m-%d') <= #{auditDateEnd} OR DATE_FORMAT(f.AuditDate,'%Y-%m-%d') <= #{auditDateEnd})
+	]]>
+	</if>
+    <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    order by t.LastReportTime asc
+  </select>
+  
+  <insert id="initYrRegCheck" parameterType="Map">
+  	INSERT INTO cs_yr_reg_check (
+  	PriPID, EntName, RegNO, Dom, LeRep, RegCap, Currency, EntType, EstDate, IndustryCo, RegOrg, LocalAdm, RegState,
+    PostalCode, EntTypeCatg, UniCode, Tel, Year, CreateTime, CheckDep, DeclStatus, ReportState, RepType, IsReported, IsForbidWord,ModifyCount
+	) 
+	SELECT 
+	PriPID, EntName, RegNO, Dom, LeRep, RegCap, Currency, EntType, EstDate, IndustryCo, RegOrg, LocalAdm, RegState,
+	PostalCode,	EntTypeCatg, UniCode, Tel, #{year,jdbcType=INTEGER}, CreateTime, RegOrg, 0, '00', EntTypeCatg, 0, 0, 0
+    FROM
+    cs_mid_baseinfo
+    WHERE
+    PriPID = #{pripid,jdbcType=VARCHAR}
+  </insert>
+  
+  
+  <sql id="selectRegCheck" >
+   t.PriPID,t.EntName,t.RegNO,t.Dom,t.LeRep,t.RegCap,t.Currency,t.EntType,t.EstDate,t.IndustryCo,t.RegOrg
+  ,t.LocalAdm,t.RegState,t.PostalCode,t.EntTypeCatg,t.UniCode,FirstReportTime,t.Tel,Year,t.CheckDep
+  ,CheckNameBank,SignBank,SignDateBur,CheckNameBur,SignBur,SignDateSfc,CheckNameSfc,SignSfc
+  ,DeclStatus,AcceptDate,AcceptName,AcceptUser,SignBankDate,ReportState,SubIp
+  ,RepType,IsReported,LastReportTime,ReportType,LockState,Setter,SetDate,SliceNo,CheckOpinBank,CheckOpinBur
+  ,CheckOpinSfc,AcceptDept,UnlockReason, 
+  </sql>
+  <!-- 数据回导查询 -->
+  <select id="selectByRegNoAndName" parameterType="Map" resultMap="BaseResultMap">
+   select t.id, t.PriPID,t.EntName,t.RegNO,t.Dom,t.LeRep,t.RegCap,t.Currency,t.EntType,t.EstDate,t.IndustryCo,t.RegOrg
+  ,t.LocalAdm,t.RegState,t.PostalCode,t.EntTypeCatg,t.UniCode,FirstReportTime,t.Tel,Year,t.CheckDep
+  ,CheckNameBank,SignBank,SignDateBur,CheckNameBur,SignBur,SignDateSfc,CheckNameSfc,SignSfc
+  ,DeclStatus,AcceptDate,AcceptName,AcceptUser,SignBankDate,ReportState,SubIp
+  ,RepType,IsReported,LastReportTime,ReportType,LockState,Setter,SetDate,SliceNo,CheckOpinBank,CheckOpinBur
+  ,CheckOpinSfc,AcceptDept,UnlockReason
+    FROM cs_yr_reg_check t
+   where 1=1    AND RegState NOT IN ('D', 'X', 'Q') 
+   
+   <if test="regNO !='' and regNO !=null">
+     and t.RegNO  = #{regNO}
+  </if>
+   <if test="uniCode !='' and uniCode !=null">
+     and t.UniCode like concat('%', #{uniCode},'%')
+  </if>
+  <if test="entName != '' and entName != null">
+     and t.EntName like concat('%', #{entName},'%') 
+  </if>
+   
+  
+  </select>
+  
+  <!-- 工商端个体户接收 -->
+  <select id="selectPbReceiveQueryPage" parameterType="Map" resultMap="BaseResultReceiveDto">
+     select t.id ,<include refid="selectRegCheck" />
+     IsForbidWord ,
+     ModifyCount ,
+     D.Content regOrgName,F.content localAdmName
+     FROM cs_yr_reg_check t
+     LEFT JOIN cs_code_regorg D 
+    ON t.regOrg = D.CODE 
+    LEFT JOIN cs_code_regunit F 
+    ON t.localAdm = F.CODE 
+    LEFT JOIN cs_code_sliceno H 
+    ON t.SliceNo = H.CODE AND t.localAdm = H.supcode
+     where year = #{year}
+      AND EntTypeCatg = '50'
+      AND RegState NOT IN ('D', 'X', 'Q') 
+  <![CDATA[ AND EstDate < DATE(CONCAT((#{year} + 1), '-01-01'))]]> 
+<!-- 个体户接收待确认 -->
+<!--      select t.id ,<include refid="selectRegCheck" /> -->
+<!--      IsForbidWord , -->
+<!--      ModifyCount , -->
+<!--      A.CreateTime, -->
+<!--      t.regOrgName,t.localAdmName -->
+<!--      FROM cs_mid_baseinfo t -->
+<!--      LEFT JOIN  -->
+<!--      (SELECT * FROM cs_yr_reg_check  WHERE year = #{year} ) A -->
+<!--      ON t.`PriPID` = A.`PriPID` -->
+<!--      where t.EntTypeCatg = '50' -->
+<!--       AND t.RegState NOT IN ('D', 'X', 'Q')  -->
+<!--   <![CDATA[ AND t.EstDate < DATE(CONCAT((#{year} + 1), '-01-01'))]]> -->
+  <if test="regNO !='' and regNO !=null">
+     and t.RegNO like concat('%', #{regNO},'%')
+  </if>
+   <if test="uniCode !='' and uniCode !=null">
+     and t.UniCode like concat('%', #{uniCode},'%')
+  </if>
+  <if test="entName != '' and entName != null">
+     and t.EntName like concat('%', #{entName},'%') 
+  </if>
+    <if test="leRep != '' and leRep != null">
+     and t.LeRep like concat('%', #{leRep},'%') 
+  </if>
+    <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+  </select>
+  
+  <!--根据部门类型（农业、农信、工商查询待审核和意见录入的信息）查询列表 -->
+  <select id="selectcomInfoCheckDtoList" resultMap="BaseResultMapDto" parameterType="Map">
+    select 
+    t.PriPID,
+    t.UniCode,
+    t.EntName,
+    t.RegNO,
+    t.Dom,
+    t.LeRep,
+    t.Year,
+    t.DeclStatus,
+    t.CheckOpinSfc,
+    t.CheckOpinBur,
+    t.CheckOpinBank,
+ 	b.content regOrgName,
+	c.content LocalAdmName
+ 	FROM cs_yr_reg_check t 
+ 	LEFT JOIN cs_code_regorg b ON t.RegOrg = b.Code 
+	LEFT JOIN cs_code_regunit c ON t.LocalAdm= c.Code
+	LEFT JOIN cs_mid_baseinfo E ON t.PriPID= E.PriPID
+  	WHERE
+ 	<![CDATA[  
+	t.RegState !='D'
+	and t.EntTypeCatg in ('16','17')
+	 ]]>
+	<!-- AND EXISTS (
+	SELECT
+		1
+	FROM
+		cs_sfc_cominfo d
+	WHERE
+		t.PriPID = d.PriPID
+	AND d.YEAR = #{year}
+    )
+    
+    AND EXISTS (
+	SELECT
+		1
+	FROM
+		cs_sfc_balanctsheet e
+	WHERE
+		t.PriPID = e.PriPID
+	AND e.YEAR = #{year}
+	)
+	
+	AND EXISTS (
+	SELECT
+		1
+	FROM
+		cs_sfc_incstatement f
+	WHERE
+		t.PriPID = f.PriPID
+	AND f.YEAR = #{year}
+	)
+	
+	AND EXISTS (
+	SELECT
+		1
+	FROM
+		cs_sfc_incomechange g
+	WHERE
+		t.PriPID = g.PriPID
+	AND g.YEAR = #{year}
+	) -->
+	<if test="entName !='' and entName !=null">
+	 and t.EntName LIKE concat('%', #{entName},'%')
+	</if>
+	<if test="uniCode !='' and uniCode !=null">
+	 and t.UniCode LIKE concat('%', #{uniCode},'%')
+	</if>
+	<if test="regNO !='' and regNO !=null">
+	 and t.RegNO LIKE concat('%', #{regNO},'%')
+	</if>
+	<if test="leRep !='' and leRep !=null">
+	 and t.LeRep LIKE concat('%', #{leRep},'%')
+	</if>
+	<if test="year !='' and year !=null">
+	 and t.Year =#{year}
+	</if>
+	<if test="regOrg !='' and regOrg !=null">
+    and t.RegOrg  IN  (${regOrg})
+    </if>
+    <if test="localAdm !='' and localAdm !=null">
+    and t.LocalAdm  IN (${localAdm})
+    </if>
+    <if test="deptType !='' and deptType !=null">
+           <!-- 农业部门 -->
+	          <if test="deptType==0 ">
+			      <choose>
+			        <when test="status==1 or status==2">
+			         and t.DeclStatus=${status} 
+			        </when>
+			        <otherwise>
+			         and t.DeclStatus in ('1','2') 
+			        </otherwise>
+			      </choose>
+	      </if> 
+	      <!-- 工商部门 -->
+          <if test="deptType==1 "> 
+	           and  (t.CheckOpinBur is null or t.CheckOpinBur='')   
+	           and t.DeclStatus in ('1','2','4') 
+	      </if> 
+	      <!-- 农信部门 -->
+          <if test="deptType==2 ">
+	          and (t.CheckOpinBank is null or t.CheckOpinBank='')
+	          and t.DeclStatus in  ('1','2','4')  
+	      </if> 
+    </if>
+    <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    order by FirstReportTime desc 
+  </select>
+  
+  
+    <!-- 工商端个体户纸质接收补录 -->
+    <select id="selectPbAddRecQueryPage" parameterType="Map" resultMap="BaseResultReceiveDto">
+    SELECT A.id ,A.PriPID,A.EntName,A.RegNO,A.Dom,A.LeRep,A.RegCap,A.Currency,A.EntType,A.EstDate,A.IndustryCo,A.RegOrg,
+    A.LocalAdm,A.RegState,A.PostalCode,A.EntTypeCatg,A.UniCode,FirstReportTime,A.Tel,YEAR,A.CheckDep,
+	CheckNameBank,SignBank,SignDateBur,CheckNameBur,SignBur,SignDateSfc,CheckNameSfc,SignSfc ,DeclStatus,AcceptDate,AcceptName,
+	AcceptUser,SignBankDate,ReportState,SubIp,RepType,IsReported,LastReportTime,ReportType,LockState,Setter,SetDate,
+	SliceNo,CheckOpinBank,CheckOpinBur,CheckOpinSfc,AcceptDept,UnlockReason, IsForbidWord , ModifyCount , AddRecState,
+	AddRecDate,AddRecDept, AddRecUser,
+	D.Content regOrgName,F.content localAdmName, H.Content sliceNOName 
+	FROM
+    (select t.id ,<include refid="selectRegCheck" />
+     IsForbidWord ,
+     ModifyCount ,
+     AddRecState,
+     AddRecDate,
+     AddRecDept,
+     AddRecUser
+     FROM cs_yr_reg_check t
+     where year = #{yrYear}
+     AND t.ReportType = '6'
+     <if test="cidRegNO !='' and cidRegNO !=null">
+     and (t.RegNO = #{cidRegNO} or t.UniCode = #{cidRegNO} )
+     </if>
+	  <if test="entName != '' and entName != null">
+	     and t.EntName like concat('%', #{entName},'%') 
+	  </if>
+    <if test="leRep != '' and leRep != null">
+     and t.LeRep = #{leRep} 
+  </if>
+   <if test="addRecState != '' and addRecState != null">
+     and t.addRecState = #{addRecState}
+  </if>
+   <if test="addRecUser != '' and addRecUser != null">
+     and t.addRecUser = #{addRecUser}
+  </if>
+   <if test="acceptName != '' and acceptName != null">
+     and t.acceptName = #{acceptName}
+  </if>
+   <if test="acceptDept != '' and acceptDept != null">
+     and t.acceptDept like concat('%', #{acceptDept},'%')
+  </if>
+   <if test="addRecDept != '' and addRecDept != null">
+     and t.addRecDept like concat('%', #{addRecDept},'%')
+  </if>
+  	<if test="addRecDateStart !='' and addRecDateStart !=null">
+	<![CDATA[
+	and DATE_FORMAT(t.AddRecDate,'%Y-%m-%d') >= #{addRecDateStart}
+	]]>
+	</if>
+	<if test="addRecDateEnd !='' and addRecDateEnd !=null">
+	<![CDATA[
+	and DATE_FORMAT(t.AddRecDate,'%Y-%m-%d') <= #{addRecDateEnd}
+	]]>
+	</if>
+  	<if test="acceptDateStart !='' and acceptDateStart !=null">
+	<![CDATA[
+	and DATE_FORMAT(t.AcceptDate,'%Y-%m-%d') >= #{acceptDateStart}
+	]]>
+	</if>
+	<if test="acceptDateEnd !='' and acceptDateEnd !=null">
+	<![CDATA[
+	and DATE_FORMAT(t.AcceptDate,'%Y-%m-%d') <= #{acceptDateEnd}
+	]]>
+	</if>
+    <if test="regStateM != '' and regStateM != null">
+     and RegState in (${regStateM})
+    </if>
+   	<if test="regOrg !='' and regOrg !=null">
+    and t.RegOrg  IN  (${regOrg})
+    </if>
+    <if test="localAdm !='' and localAdm !=null">
+    and t.LocalAdm  IN (${localAdm})
+    </if>
+    <if test="sliceNO !='' and sliceNO !=null">
+    and t.sliceNO  IN (${sliceNO})
+    </if>
+    <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    LIMIT ${numStart},${pageSize}
+     ) A 
+    LEFT JOIN cs_code_regorg D 
+    ON A.regOrg = D.CODE 
+    LEFT JOIN cs_code_regunit F 
+    ON A.localAdm = F.CODE 
+    LEFT JOIN cs_code_sliceno H 
+    ON A.SliceNo = H.CODE AND A.localAdm = H.supcode
+  </select>
+  
+  <!-- 个体户纸质补录条数 -->
+   <select id="selectPbAddRecCount" resultType="Integer" parameterType="Map"> 
+	SELECT COUNT(0) FROM cs_yr_reg_check t 
+	where year = #{yrYear}
+    AND t.ReportType = '6'
+    <if test="cidRegNO !='' and cidRegNO !=null">
+     and (t.RegNO = #{cidRegNO} or t.UniCode = #{cidRegNO} )
+     </if>
+	  <if test="entName != '' and entName != null">
+	     and t.EntName like concat('%', #{entName},'%') 
+	  </if>
+    <if test="leRep != '' and leRep != null">
+     and t.LeRep = #{leRep} 
+  </if>
+   <if test="addRecState != '' and addRecState != null">
+     and t.addRecState = #{addRecState}
+  </if>
+   <if test="addRecUser != '' and addRecUser != null">
+     and t.addRecUser = #{addRecUser}
+  </if>
+   <if test="acceptName != '' and acceptName != null">
+     and t.acceptName = #{acceptName}
+  </if>
+   <if test="acceptDept != '' and acceptDept != null">
+     and t.acceptDept like concat('%', #{acceptDept},'%')
+  </if>
+   <if test="addRecDept != '' and addRecDept != null">
+     and t.addRecDept like concat('%', #{addRecDept},'%')
+  </if>
+  	<if test="addRecDateStart !='' and addRecDateStart !=null">
+	<![CDATA[
+	and DATE_FORMAT(t.AddRecDate,'%Y-%m-%d') >= #{addRecDateStart}
+	]]>
+	</if>
+	<if test="addRecDateEnd !='' and addRecDateEnd !=null">
+	<![CDATA[
+	and DATE_FORMAT(t.AddRecDate,'%Y-%m-%d') <= #{addRecDateEnd}
+	]]>
+	</if>
+  	<if test="acceptDateStart !='' and acceptDateStart !=null">
+	<![CDATA[
+	and DATE_FORMAT(t.AcceptDate,'%Y-%m-%d') >= #{acceptDateStart}
+	]]>
+	</if>
+	<if test="acceptDateEnd !='' and acceptDateEnd !=null">
+	<![CDATA[
+	and DATE_FORMAT(t.AcceptDate,'%Y-%m-%d') <= #{acceptDateEnd}
+	]]>
+	</if>
+    <if test="regStateM != '' and regStateM != null">
+     and RegState in (${regStateM})
+    </if>
+   	<if test="regOrg !='' and regOrg !=null">
+    and t.RegOrg  IN  (${regOrg})
+    </if>
+    <if test="localAdm !='' and localAdm !=null">
+    and t.LocalAdm  IN (${localAdm})
+    </if>
+    <if test="sliceNO !='' and sliceNO !=null">
+    and t.sliceNO  IN (${sliceNO})
+    </if>
+    <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </select>
+    
+    
+    <!-- 年报敏感词待审核条数 -->
+    <select id="selectForbidCount" resultType="Integer" parameterType="Map"> 
+    SELECT COUNT(0) FROM cs_yr_reg_check t	
+    where t.RegState != 'D' AND t.ReportState = '12'
+    <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    </select>
+  
+</mapper>

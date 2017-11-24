@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.DepartMentMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.DepartMent" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="DeptDID" property="deptDID" jdbcType="VARCHAR" />
+    <result column="DeptPID" property="deptPID" jdbcType="VARCHAR" />
+    <result column="DeptName" property="deptName" jdbcType="VARCHAR" />
+    <result column="DeptShortName" property="deptShortName" jdbcType="VARCHAR" />
+    <result column="NodeLevel" property="nodeLevel" jdbcType="CHAR" />
+    <result column="IsLeaf" property="isLeaf" jdbcType="CHAR" />
+    <result column="IsValid" property="isValid" jdbcType="CHAR" />
+    <result column="Sort" property="sort" jdbcType="INTEGER" />
+    <result column="DeptCode" property="deptCode" jdbcType="VARCHAR" />
+    <result column="DeptAddress" property="deptAddress" jdbcType="VARCHAR" />
+    <result column="DeptTel" property="deptTel" jdbcType="VARCHAR" />
+    <result column="IsPub" property="isPub" jdbcType="CHAR" />
+    <result column="PostalCode" property="postalCode" jdbcType="VARCHAR" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="Setter" property="setter" jdbcType="VARCHAR" />
+    <result column="SetDate" property="setDate" jdbcType="TIMESTAMP" />
+    <result column="DeptType" property="deptType" jdbcType="VARCHAR" />
+    <result column="DocShortName" property="docShortName" jdbcType="VARCHAR" />
+    <result column="SameGov" property="sameGov" jdbcType="VARCHAR" />
+    <result column="SameCourt" property="sameCourt" jdbcType="VARCHAR" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="DeptUpName" property="deptUpName" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <select id="selectDepartmentList" resultMap="BaseResultMap" parameterType="Map">
+    select
+    id,DeptDID,DeptPID,DeptName,DeptShortName,NodeLevel,IsLeaf,IsValid,Sort,DeptCode,DeptAddress,DeptTel
+    ,IsPub,PostalCode,Remark,Setter,SetDate,DeptType,DocShortName,SameGov,SameCourt,SetName,SetTime,DeptUpName,CreateTime
+    from
+    cs_department
+    where LENGTH(DeptCode) != 8
+    <if test="regOrg !='' and regOrg !=null">
+    and DeptCode IN (${regOrg})
+    </if>
+    <if test="setName !='' and setName !=null">
+    and SetName = #{setName}
+    </if>
+    <if test="setTime!='' and setTime !=null">
+    and SetTime like concat(#{setTime},'%')
+    </if>
+    <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>   
+  </select>
+  
+    <select id="selectDepartmentPermissionList" resultMap="BaseResultMap" parameterType="Map">
+	SELECT id,DeptDID,DeptPID,DeptName,DeptShortName,NodeLevel,IsLeaf,IsValid,Sort,DeptCode,DeptAddress,DeptTel,IsPub,PostalCode,Remark,Setter,SetDate,DeptType,DocShortName,SameGov,SameCourt,SetName,SetTime,DeptUpName,CreateTime 
+	FROM cs_department t
+    where 1=1
+    <if test="regUnit_permission_limit!=null and regUnit_permission_limit !=''">
+        and t.DeptCode LIKE CONCAT(#{regUnit_permission_limit},'%')
+    </if>
+    ORDER BY DeptDID ASC
+  </select>
+  
+</mapper>

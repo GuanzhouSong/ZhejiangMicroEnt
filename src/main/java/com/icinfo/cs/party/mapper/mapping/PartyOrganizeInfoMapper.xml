@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.party.mapper.PartyOrganizeInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.party.model.PartyOrganizeInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="PartyOrgType" property="partyOrgType" jdbcType="CHAR" />
+    <result column="PartyOrgName" property="partyOrgName" jdbcType="VARCHAR" />
+    <result column="PartyOrgBuildWay" property="partyOrgBuildWay" jdbcType="CHAR" />
+    <result column="PartyOrgDistributed" property="partyOrgDistributed" jdbcType="CHAR" />
+    <result column="LocalAdm" property="localAdm" jdbcType="VARCHAR" />
+    <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+    <result column="IsConnectionPoint" property="isConnectionPoint" jdbcType="CHAR" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="InputName" property="inputName" jdbcType="VARCHAR" />
+    <result column="InputDeptCode" property="inputDeptCode" jdbcType="VARCHAR" />
+    <result column="InputState" property="inputState" jdbcType="CHAR" />
+    <result column="InputDate" property="inputDate" jdbcType="TIMESTAMP" />
+    <result column="PartyOrgBuildDate" property="partyOrgBuildDate" jdbcType="TIMESTAMP" />
+    <result column="ModifyTime" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    
+    <result column="RegOrg" property="regOrg" jdbcType="VARCHAR" />
+    <result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+    <result column="Areacode" property="areacode" jdbcType="VARCHAR" />
+    <result column="SecretaryName" property="secretaryName" jdbcType="VARCHAR" />
+    <result column="SecretaryTel" property="secretaryTel" jdbcType="VARCHAR" />
+    <result column="PartyOrgLoc" property="partyOrgLoc" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  
+  <resultMap id="BaseResultMapDto" type="com.icinfo.cs.party.dto.PartyOrganizeInfoDto" extends="BaseResultMap">
+  	 <result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+  	 <result column="dangzuzhi" property="dangzuzhi" jdbcType="INTEGER" />
+  	 <result column="dangwei" property="dangwei" jdbcType="INTEGER" />
+  	 <result column="zongzhi" property="zongzhi" jdbcType="INTEGER" />
+  	 <result column="zhibu" property="zhibu" jdbcType="INTEGER" />
+  	 <result column="cover" property="cover" jdbcType="INTEGER" />
+  	 <result column="membertotal" property="membertotal" jdbcType="INTEGER" />
+  	 <result column="yezhuparty" property="yezhuparty" jdbcType="INTEGER" />
+  	 <result column="memberparty" property="memberparty" jdbcType="INTEGER" />
+  	 <result column="xiaqurel" property="xiaqurel" jdbcType="INTEGER" />
+  	 <result column="shichangrel" property="shichangrel" jdbcType="INTEGER" />
+  	 <result column="streetrel" property="streetrel" jdbcType="INTEGER" />
+  	 <result column="liudongrel" property="liudongrel" jdbcType="INTEGER" />
+  	 <result column="singledangzuzhi" property="singledangzuzhi" jdbcType="INTEGER" />
+  	 <result column="singledangwei" property="singledangwei" jdbcType="INTEGER" />
+  	 <result column="singlezongzhi" property="singlezongzhi" jdbcType="INTEGER" />
+  	 <result column="singlezhibu" property="singlezhibu" jdbcType="INTEGER" />
+  	 <result column="uniondangzuzhi" property="uniondangzuzhi" jdbcType="INTEGER" />
+  	 <result column="unioncover" property="unioncover" jdbcType="INTEGER" />
+  	 <result column="threeoverparty" property="threeoverparty" jdbcType="INTEGER" />
+  	 <result column="threelessparty" property="threelessparty" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <select id="selectPartyOrgInfo" resultMap="BaseResultMap" parameterType="Map">
+       SELECT
+           id,
+	       UID,
+	       PartyOrgType,
+	       PartyOrgName,
+	       PartyOrgBuildWay,
+	       PartyOrgDistributed,
+	       LocalAdm,
+	       LocalAdmName,
+	       IsConnectionPoint,
+	       Remark,
+	       InputName,
+	       InputDeptCode,
+	       InputState,
+	       InputDate,
+	       PartyOrgBuildDate,
+	       ModifyTime,
+	       CreateTime
+       FROM
+       cs_party_organize_info
+       <where>
+         <if test="uid !=null and uid!=''">
+          And UID = #{uid}
+         </if>
+         <if test="localAdm !=null and localAdm!=''">
+          And LocalAdm in (${localAdm})
+         </if>
+         <if test="queryAll !=null and queryAll !=''">
+          And LocalAdm LIKE CONCAT(#{queryAll},'%')
+         </if>
+         
+         <if test="partyOrgType !=null and partyOrgType!=''">
+           And PartyOrgType in (${partyOrgType})
+         </if>
+          <if test="partyOrgName !=null and partyOrgName!=''">
+           And PartyOrgName LIKE CONCAT('%',#{partyOrgName},'%')
+         </if>
+          <if test="partyOrgDistributed !=null and partyOrgDistributed!=''">
+           And PartyOrgDistributed = #{partyOrgDistributed}
+         </if>
+          <if test="inputName !=null and inputName!=''">
+           And InputName LIKE CONCAT('%',#{inputName},'%')
+         </if>
+          <if test="inputState !=null and inputState!=''">
+           And InputState = #{inputState}
+         </if>
+         <if test="partyOrgBuildDateStart !='' and partyOrgBuildDateStart !=null">
+	      <![CDATA[
+		  and DATE_FORMAT(PartyOrgBuildDate,'%Y-%m-%d') >= #{partyOrgBuildDateStart}
+		  ]]>
+	     </if>
+	      <if test="partyOrgBuildDateEnd !='' and partyOrgBuildDateEnd !=null">
+	      <![CDATA[
+		  and DATE_FORMAT(PartyOrgBuildDate,'%Y-%m-%d') <= #{partyOrgBuildDateEnd}
+		  ]]>
+	     </if>
+         <if test="modifyTimeStart !='' and modifyTimeStart !=null">
+	      <![CDATA[
+		  and DATE_FORMAT(ModifyTime,'%Y-%m-%d') >= #{modifyTimeStart}
+		  ]]>
+	     </if>
+	      <if test="modifyTimeEnd !='' and modifyTimeEnd !=null">
+	      <![CDATA[
+		  and DATE_FORMAT(ModifyTime,'%Y-%m-%d') <= #{modifyTimeEnd}
+		  ]]>
+	     </if>
+         <if test="createTimeStart !='' and createTimeStart !=null">
+	      <![CDATA[
+		  and DATE_FORMAT(CreateTime,'%Y-%m-%d') >= #{createTimeStart}
+		  ]]>
+	     </if>
+	      <if test="createTimeEnd !='' and createTimeEnd !=null">
+	      <![CDATA[
+		  and DATE_FORMAT(CreateTime,'%Y-%m-%d') <= #{createTimeEnd}
+		  ]]>
+	     </if>
+	     <if test="keyWords !=null and keyWords!=''">
+           And PartyOrgName LIKE CONCAT(#{keyWords},'%')
+         </if>
+	     <if test="defalutState !=null and defalutState!='' and defalutState == 1">
+           And InputState = #{defalutState}
+         </if>
+         <if test="exactName !=null and exactName!=''">
+           And PartyOrgName = #{exactName}
+         </if>
+       </where>
+       ORDER BY InputState Desc
+  </select>
+  
+  <select id="selectPartyOrganizeInfoCount" resultMap="BaseResultMapDto" parameterType="Map">
+	  SELECT M.dangzuzhi,
+M.dangwei,M.zongzhi,
+M.zhibu,G.RegOrg, G.RegOrgName, G.Areacode,G.LocalAdmName,G.cover,G.membertotal,G.yezhuparty,G.memberparty,G.xiaqurel,G.shichangrel,
+		G.streetrel,G.liudongrel,G.singledangzuzhi,G.singledangwei,G.singlezongzhi,G.singlezhibu,G.uniondangzuzhi,G.unioncover,
+		H.threeoverparty,H.threelessparty
+		 FROM 
+		(SELECT
+			A.LocalAdm,
+			A.LocalAdmName,
+			A.RegOrg,
+			A.RegOrgName,
+			A.Areacode,
+			COUNT(DISTINCT CASE WHEN B.AuditState = '1' THEN B.PriPID ELSE NULL END) cover,
+		    SUM(CASE WHEN B.MemberType = '2' THEN 1 ELSE 0 END) membertotal,
+			SUM(CASE WHEN B.MemberType = '1' AND B.AuditState='1' THEN 1 ELSE 0 END) yezhuparty,
+		    SUM(CASE WHEN B.MemberType = '2' AND B.AuditState='1' THEN 1 ELSE 0 END) memberparty,
+			SUM(CASE WHEN B.OrgRelationLoc = '2' AND B.AuditState='1' THEN 1 ELSE 0 END) xiaqurel,
+			SUM(CASE WHEN B.OrgRelationLoc = '3' AND B.AuditState='1' THEN 1 ELSE 0 END) shichangrel,
+			SUM(CASE WHEN B.OrgRelationLoc = '1' AND B.AuditState='1' THEN 1 ELSE 0 END) streetrel,
+			SUM(CASE WHEN B.OrgRelationLoc = '4' AND B.AuditState='1' THEN 1 ELSE 0 END) liudongrel,
+			SUM(CASE WHEN A.PartyOrgBuildWay = '1' THEN 1 ELSE 0 END) singledangzuzhi,
+			SUM(CASE WHEN A.PartyOrgBuildWay = '1' AND A.PartyOrgType = '1' THEN 1 ELSE 0 END) singledangwei,
+			SUM(CASE WHEN A.PartyOrgBuildWay = '1' AND A.PartyOrgType = '2' THEN 1 ELSE 0 END) singlezongzhi,
+			SUM(CASE WHEN A.PartyOrgBuildWay = '1' AND A.PartyOrgType = '3' THEN 1 ELSE 0 END) singlezhibu,
+			SUM(CASE WHEN A.PartyOrgBuildWay = '2' THEN 1 ELSE 0 END) uniondangzuzhi,
+			COUNT(DISTINCT CASE WHEN A.PartyOrgBuildWay = '2' THEN B.PriPID ELSE NULL END) unioncover
+		FROM
+			cs_party_organize_info A
+		LEFT JOIN cs_party_member_info B ON A.UID = B.PartyOrgID
+		WHERE A.InputState='1'
+	<include refid="count_where"/>
+	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'area' ">
+		GROUP BY A.Areacode
+	</if>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'regorg' ">
+		GROUP BY A.RegOrg
+	</if>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'localadm' ">
+		GROUP BY A.LocalAdm
+	</if>
+		) G
+		LEFT JOIN
+		(SELECT
+		<![CDATA[
+		   SUM(CASE WHEN F.total >= 3 THEN 1 ELSE 0 END)  threeoverparty,
+		   SUM(CASE WHEN F.total < 3 THEN 1 ELSE 0 END)  threelessparty,
+		]]>
+		   F.LocalAdm,
+		   F.LocalAdmName,
+		   F.Areacode, 
+		   F.RegOrg,
+		   F.RegOrgName
+		  FROM
+		(SELECT COUNT(0) total,A.Areacode, A.RegOrg,A.RegOrgName,A.LocalAdm,A.LocalAdmName FROM cs_party_organize_info A LEFT JOIN cs_party_member_info D ON A.UID = D.PartyOrgID 
+		<include refid="count_where"/>
+		<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+		GROUP BY D.PriPID) F
+		<if test="statLevel != null and statLevel != '' and  statLevel == 'area' ">
+			GROUP BY F.Areacode
+		</if>
+		<if test="statLevel != null and statLevel != '' and  statLevel == 'regorg' ">
+			GROUP BY F.RegOrg
+		</if>
+		<if test="statLevel != null and statLevel != '' and  statLevel == 'localadm' ">
+			GROUP BY F.LocalAdm
+		</if>
+		) H
+		ON 
+		<if test="statLevel != null and statLevel != '' and  statLevel == 'area' ">
+			G.Areacode=H.Areacode
+		</if>
+		<if test="statLevel != null and statLevel != '' and  statLevel == 'regorg' ">
+			G.RegOrg=H.RegOrg
+		</if>
+		<if test="statLevel != null and statLevel != '' and  statLevel == 'localadm' ">
+			G.LocalAdm=H.LocalAdm
+		</if>
+		LEFT JOIN (
+		SELECT A.AreaCode, A.RegOrg, A.LocalAdm,
+	COUNT(A.PartyOrgType) dangzuzhi,
+	SUM(CASE WHEN A.PartyOrgType = '1' THEN 1 ELSE 0 END ) dangwei,
+	SUM(CASE WHEN A.PartyOrgType = '2' THEN 1 ELSE 0 END ) zongzhi,
+	SUM(CASE WHEN A.PartyOrgType = '3' THEN 1 ELSE 0 END ) zhibu
+	FROM
+	cs_party_organize_info A
+	WHERE A.InputState='1'
+	<include refid="count_where"/>
+	<include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'area' ">
+		GROUP BY A.Areacode
+	</if>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'regorg' ">
+		GROUP BY A.RegOrg
+	</if>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'localadm' ">
+		GROUP BY A.LocalAdm
+	</if>
+   ) M  ON 
+   <if test="statLevel != null and statLevel != '' and  statLevel == 'area' ">
+		G.Areacode=M.Areacode
+	</if>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'regorg' ">
+		G.RegOrg=M.RegOrg
+	</if>
+	<if test="statLevel != null and statLevel != '' and  statLevel == 'localadm' ">
+		G.LocalAdm=M.LocalAdm
+	</if>
+  </select>
+  
+  <sql id="count_where"> 
+ 	 <if test="statArea !='' and statArea !=null">
+   	    AND A.Areacode  IN  (${statArea}) 
+     </if>
+     <if test="partyOrgDistributed !='' and partyOrgDistributed !=null">
+   	    AND A.PartyOrgDistributed  IN  (${partyOrgDistributed}) 
+     </if>
+	 <if test="createTime !='' and createTime !=null">
+		<![CDATA[
+			AND A.CreateTime <= CONCAT(#{createTime},'00:00:00' )
+		]]> 
+	 </if>  
+  </sql>
+  
+</mapper>

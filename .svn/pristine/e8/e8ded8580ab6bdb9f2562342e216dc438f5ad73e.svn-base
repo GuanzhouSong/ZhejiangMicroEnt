@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icinfo.cs.inspect.mapper.ReportCheckCodeMapper">
+    <resultMap id="BaseResultMap" type="com.icinfo.cs.inspect.model.ReportCheckCode">
+        <!--
+          WARNING - @frameworkgenerated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="Code" jdbcType="VARCHAR" property="code"/>
+        <result column="Content" jdbcType="VARCHAR" property="content"/>
+        <result column="Type" jdbcType="VARCHAR" property="type"/>
+        <result column="NoPrivate1" jdbcType="CHAR" property="noPrivate1"/>
+        <result column="NoPrivate2" jdbcType="CHAR" property="noPrivate2"/>
+        <result column="NoPrivate3" jdbcType="CHAR" property="noPrivate3"/>
+        <result column="Private1" jdbcType="CHAR" property="private1"/>
+        <result column="Private2" jdbcType="CHAR" property="private2"/>
+        <result column="Private3" jdbcType="CHAR" property="private3"/>
+        <result column="Sfc" jdbcType="CHAR" property="sfc"/>
+        <result column="Is2016" jdbcType="CHAR" property="is2016"/>
+    </resultMap>
+
+
+    <select id="getCommonKeyCodeList" parameterType="Map" resultMap="BaseResultMap">
+        SELECT
+        CODE,
+        content
+        FROM
+        cs_report_check_code
+        WHERE 1=1
+        <if test="entType !=null and entType !=''">
+            and ${entType} = 'Y'
+        </if>
+        <if test="Is2016 !=null and Is2016 !=''">
+            and Is2016 is null
+        </if>
+        AND TYPE = #{checkType}
+    </select>
+</mapper>

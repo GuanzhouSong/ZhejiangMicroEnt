@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.simpleesc.mapper.ErEscScrinfoMapper" >
+  <resultMap id="ErEscScrinfo" type="com.icinfo.cs.simpleesc.model.ErEscScrinfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="UniSCID" property="uniSCID" jdbcType="CHAR" />
+    <result column="RegOrg" property="regOrg" jdbcType="CHAR" />
+    <result column="SimplecanRea" property="simplecanRea" jdbcType="CHAR" />
+    <result column="ApprDate" property="apprDate" jdbcType="TIMESTAMP" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    
+  </resultMap>
+  <resultMap id="ErEscScrinfoDto" type="com.icinfo.cs.simpleesc.dto.ErEscScrinfoDto" extends="ErEscScrinfo">
+  	<result column="SimplecanReaName" property="simplecanReaName" jdbcType="VARCHAR" />
+    <result column="AppDate" property="appDate" jdbcType="TIMESTAMP" />
+    <result column="CancelDate" property="cancelDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap id="ErEscScrinfoPageResult" type="com.icinfo.cs.simpleesc.dto.ErEscScrinfoDto" extends="ErEscScrinfoDto">
+  	<result column="SimplecanReaName" property="simplecanReaName" jdbcType="VARCHAR" />
+  	<result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+  	<result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+  	<result column="Dom" property="dom" jdbcType="VARCHAR" />
+  	<result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+  	<result column="OpScope" property="opScope" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="queryPageResultByPriPID" resultMap="ErEscScrinfoDto" parameterType="Map">
+	SELECT 
+	A.SimplecanRea,
+	A.ApprDate,
+	B.Content SimplecanReaName
+	FROM er_esc_scrinfo A LEFT JOIN cs_code_scanrea B
+	ON A.SimplecanRea=B.Code
+    WHERE PriPID =#{priPID}
+  </select>
+  
+  <select id="queryResultByPriPID" resultMap="ErEscScrinfoDto" parameterType="Map">
+		SELECT 
+		A.SimplecanRea,
+		A.ApprDate,
+		C.AppDate,
+		C.CancelDate,
+		B.Content SimplecanReaName
+		FROM er_esc_scrinfo A LEFT JOIN cs_code_scanrea B
+		ON A.SimplecanRea=B.Code
+		LEFT JOIN er_esc_appinfo C ON C.PriPID=A.PriPID
+	    WHERE A.PriPID =#{priPID}
+	</select>
+  
+   <select id="selectErEscScrinfoPageResult" resultMap="ErEscScrinfoPageResult" parameterType="Map">
+	SELECT 
+	  A.EntName,
+	  A.RegNO,
+	  A.UniSCID,
+	  C.RegOrgName,
+	  C.LocalAdmName,
+	  C.Dom,
+	  C.LeRep,
+	  C.OpScope,
+	  A.SimplecanRea,
+	  A.ApprDate,
+	  B.Content SimplecanReaName
+	FROM er_esc_scrinfo A
+	LEFT JOIN cs_code_scanrea B ON A.SimplecanRea=B.Code
+	LEFT JOIN cs_mid_baseinfo C on A.PriPID=C.PriPID
+    WHERE C.RegState IN (${regState})
+	<!-- 数据权限 -->
+    <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/> 
+    <if test="uniSCIDAndReg !='' and uniSCIDAndReg !=null">
+		    and  ( A.uniSCID  LIKE concat('%', #{uniSCIDAndReg},'%') or A.regNO  LIKE concat('%', #{uniSCIDAndReg},'%') ) 
+    </if> 
+    <if test="entName !='' and entName !=null">
+		    and A.EntName  LIKE concat('%', #{entName},'%')
+    </if>
+    <if test="regOrg !='' and regOrg !=null">
+		    and C.RegOrg  IN  (${regOrg})
+    </if>
+	<if test="localAdm !='' and localAdm !=null">
+		    and C.LocalAdm IN  (${localAdm})
+	</if> 
+  </select> 
+</mapper>

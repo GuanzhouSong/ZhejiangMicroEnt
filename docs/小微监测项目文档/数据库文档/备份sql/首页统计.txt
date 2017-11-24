@@ -1,0 +1,69 @@
+-- 小微企业浙江省分布
+select substr(regorg,1,4) _area,count(1) _count from sm_baseinfo where isSment = '1' 
+group by _area
+ ;
+ 
+ -- 每个月存续量
+SELECT count(1) _count  FROM sm_baseinfo WHERE 
+REGSTATE IN ('K','B','A','DA','X','Q')
+and isSment = '1' 
+and DATE_FORMAT(estdate,'%Y-%m') < '2016-02'
+ 
+-- 每个月新设小微数量  
+SELECT COUNT(1) _count, DATE_FORMAT(estdate,'%Y-%m') _month FROM sm_baseinfo WHERE 
+ REGSTATE IN ('K','B','A','DA','X','Q')
+  AND isSment = '1' 
+  AND DATE_FORMAT(estdate,'%Y-%m') > '2015-12'
+  GROUP BY _month;
+
+=================================================================================================
+  
+ -- 区域类型统计
+SELECT COUNT(*) AS  '数量','特色小镇' AS '区域类型' FROM sm_bus_entarchives WHERE ( TSXZ <> '')
+UNION 
+SELECT COUNT(*) AS  '数量','众创空间' AS '区域类型' FROM sm_bus_entarchives WHERE (  ZCKJ <> '')
+UNION 
+SELECT COUNT(*) AS  '数量','科技孵化园' AS '区域类型' FROM sm_bus_entarchives WHERE (  KJFHY <> '')
+UNION 
+SELECT COUNT(*) AS  '数量','跨境电商园' AS '区域类型' FROM sm_bus_entarchives WHERE ( KJDSY <> '')
+UNION 
+SELECT COUNT(*) AS  '数量','其他' AS '区域类型' FROM sm_bus_entarchives WHERE (  QT <> '')
+UNION 
+SELECT COUNT(*) AS  '数量','未选择' AS '区域类型' FROM sm_bus_entarchives WHERE ( TSXZ = '' AND ZCKJ=''AND KJFHY=''AND KJDSY=''AND QT='');
+
+-- 八大产业统计
+SELECT COUNT(*) AS  '数量','信息经济产业' AS '八大重点产业' FROM sm_bus_entarchives WHERE ( industryNAME LIKE '%信息%')
+UNION 
+SELECT COUNT(*) AS  '数量','环保产业' AS '八大重点产业' FROM sm_bus_entarchives WHERE ( industryNAME LIKE '%环保%')
+UNION 
+SELECT COUNT(*) AS  '数量','旅游产业' AS '八大重点产业' FROM sm_bus_entarchives WHERE ( industryNAME LIKE '%信息%')
+UNION 
+SELECT COUNT(*) AS  '数量','金融产业' AS '八大重点产业' FROM sm_bus_entarchives WHERE ( industryNAME LIKE '%旅游%')
+UNION 
+SELECT COUNT(*) AS  '数量','健康产业' AS '八大重点产业' FROM sm_bus_entarchives WHERE ( industryNAME LIKE '%健康%')
+UNION 
+SELECT COUNT(*) AS  '数量','时尚产业' AS '八大重点产业' FROM sm_bus_entarchives WHERE ( industryNAME LIKE '%时尚%')
+UNION 
+SELECT COUNT(*) AS  '数量','高端装备制造产业' AS '八大重点产业' FROM sm_bus_entarchives WHERE ( industryNAME LIKE '%高端装备%')
+UNION 
+SELECT COUNT(*) AS  '数量','文化创意产业' AS '八大重点产业' FROM sm_bus_entarchives WHERE ( industryNAME LIKE '%文化创意%')
+UNION 
+SELECT COUNT(*) AS  '数量','未选择' AS '八大重点产业' FROM sm_bus_entarchives WHERE ( industryNAME IS NULL OR industryNAME='' );
+
+
+-- 创业人群统计
+SELECT COUNT(*) AS  '数量','毕业三年内大学生' AS '创业人群' FROM sm_bus_entarchives WHERE ( entcrowdname LIKE '%毕业三年内大学生%')
+UNION 
+SELECT COUNT(*) AS  '数量','高校科研院所专业技术人才' AS '创业人群' FROM sm_bus_entarchives WHERE ( entcrowdname LIKE '%高校%')
+UNION 
+SELECT COUNT(*) AS  '数量','海外归国人才' AS '创业人群' FROM sm_bus_entarchives WHERE ( entcrowdname LIKE '%海外归国人才%')
+UNION 
+SELECT COUNT(*) AS  '数量','返乡农民工' AS '创业人群' FROM sm_bus_entarchives WHERE ( entcrowdname LIKE '%返乡农民工%')
+UNION 
+SELECT COUNT(*) AS  '数量','企业员工辞职创业' AS '创业人群' FROM sm_bus_entarchives WHERE ( entcrowdname LIKE '%企业员工辞职创业%')
+UNION 
+SELECT COUNT(*) AS  '数量','退役士兵' AS '创业人群' FROM sm_bus_entarchives WHERE ( entcrowdname LIKE '%退役士兵%')
+UNION 
+SELECT COUNT(*) AS  '数量','其他' AS '创业人群' FROM sm_bus_entarchives WHERE ( entcrowdname LIKE '%其他%')
+UNION 
+SELECT COUNT(*) AS  '数量','未选择' AS '创业人群' FROM sm_bus_entarchives WHERE ( entcrowdname = '' );

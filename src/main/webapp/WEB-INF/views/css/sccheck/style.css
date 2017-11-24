@@ -1,0 +1,234 @@
+body {
+    -webkit-font-feature-settings: 'kern' 1;
+    -moz-font-feature-settings: 'kern' 1;
+    -o-font-feature-settings: 'kern' 1;
+    text-rendering: geometricPrecision;
+    line-height: 24px;
+    font: 12px '\5FAE\8F6F\96C5\9ED1', Tahoma, Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-family:'pingfang sc regular','Microsoft yahei',宋体, Verdana, Tohoma, Arial, san-serif;;
+}
+
+em, h1, h2, h3, h4, h5, h6, i {
+    font-weight: 400
+}
+
+button, img {
+    border: none
+}
+
+.popup {
+    display: none
+}
+
+blockquote, body, button, dd, div, dl, dt, form, h1, h2, h3, h4, h5, h6, input, li, ol, p, td, textarea, th, ul {
+    margin: 0;
+    padding: 0
+}
+
+img {
+    display: inline-block
+}
+
+address, cite, dfn, em, i, var {
+    font-style: normal
+}
+
+li {
+    list-style: none
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+h1, h2, h3 {
+    font-size: 14px
+}
+
+h4, h5, h6 {
+    font-size: 100%
+}
+
+button, input, optgroup, option, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+    outline: 0
+}
+
+a {
+    color: #444;
+    text-decoration: none
+}
+
+a:hover {
+    color: #999
+}
+
+a cite {
+    *cursor: pointer
+}
+
+/* 清除浮动*/
+.clearfix:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    font-size: 0;
+    line-height: 0;
+}
+
+*.clearfix {
+    zoom: 1;
+}
+
+/* 浮动*/
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+/* 相对定位*/
+.pos-rel {
+    position: relative;
+}
+
+/*超链接*/
+a {
+    text-decoration: none;
+    color: #003399;
+}
+
+a:hover {
+    color: #ff6600;
+}
+
+.bg-gray{
+    background-color: #f2f2f2;
+}
+
+.bg-white{
+    background-color: #fff;
+}
+
+.pt50 {
+    padding-top: 50px;
+}
+
+.c-remind-head {
+    height: 118px;
+    background-image: url(/img/reg/client/c-remind-head.jpg);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    min-width: 1120px;
+}
+
+.c-remind-body {
+	min-width: 1120px;
+    width: 1000px;
+    margin: 0 auto;
+    padding-top: 20px;
+    background-color: #fff;
+}
+
+.c-r-b-wrap {
+    width: 700px;
+    margin: 0 auto;
+    position: relative;
+    background-image: url(/img/reg/client/c-r-bg.png);
+    background-repeat: repeat;
+}
+
+.c-r-title {
+
+}
+
+.c-r-title h2 {
+    padding-top: 40px;
+    font-size: 30px;
+    line-height: 30px;
+    font-family: "Microsoft YaHei";
+    color: #333;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.c-r-date {
+    font-size: 14px;
+    line-height: 14px;
+    text-align: center;
+    color: #666;
+    padding-bottom: 27px;
+
+}
+
+.c-r-p {
+
+}
+
+.c-r-tel {
+    position: absolute;
+    right: 0;
+    top: 47px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #666;
+    background:url(/img/reg/client/c-r-tel.png) no-repeat;
+    padding-left: 30px;
+}
+
+.c-r-red {
+    color: #ff0000;
+}
+
+.c-r-msg {
+    font-size: 20px;
+    line-height: 26px;
+    margin-bottom: 16px;
+}
+
+.c-r-warn {
+    font-size: 14px;
+    line-height: 16px;
+    color: #ff0000;
+    padding-left: 25px;
+    background: url(/img/reg/client/c-r-warn.png) no-repeat;
+    margin-bottom: 19px;
+}
+
+.c-r-content {
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+    padding-bottom: 68px;
+}
+
+.c-r-content h3 {
+    font-size: 20px;
+    color: #333;
+    line-height: 20px;
+}
+
+.c-r-content ul li {
+    margin-top: 30px;
+    color: #666;
+}
+
+.con-title {
+    font-size: 20px;
+    line-height: 20px;
+}
+
+.c-r-code {
+    font-size: 14px;
+    margin-top: 14px;
+    line-height: 14px;
+}

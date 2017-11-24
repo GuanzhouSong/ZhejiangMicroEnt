@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.SfcBaseInfoMapper">
+	<resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.SfcBaseInfo">
+		<!-- WARNING - @frameworkgenerated -->
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="PriPID" property="priPID" jdbcType="CHAR" />
+		<result column="FarSpeArtName" property="farSpeArtName" jdbcType="VARCHAR" />
+		<result column="Tel" property="tel" jdbcType="VARCHAR" />
+		<result column="Email" property="email" jdbcType="VARCHAR" />
+		<result column="Year" property="year" jdbcType="INTEGER" />
+		<result column="MemNum" property="memNum" jdbcType="INTEGER" />
+		<result column="AnnNewMemNum" property="annNewMemNum" jdbcType="INTEGER" />
+		<result column="AnnRedMemNum" property="annRedMemNum" jdbcType="INTEGER" />
+		<result column="Farnum" property="farnum" jdbcType="INTEGER" />
+		<result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="AnCheID" property="anCheID" jdbcType="VARCHAR" />
+		<result column="RegNO" property="regNO" jdbcType="CHAR" />
+		<result column="RatGro" property="ratGro" jdbcType="DECIMAL" />
+		<result column="VendIncIsPub" property="vendIncIsPub" jdbcType="VARCHAR" />
+		<result column="UniCode" property="uniCode" jdbcType="CHAR" />
+		<result column="VendInc" property="vendInc" jdbcType="DECIMAL" />
+		<result column="PriYeaProfit" property="priYeaProfit" jdbcType="DECIMAL" />
+		<result column="PriYeaSub" property="priYeaSub" jdbcType="DECIMAL" />
+		<result column="PriYeaLoan" property="priYeaLoan" jdbcType="DECIMAL" />
+		<result column="LastReportTime" property="lastReportTime" jdbcType="TIMESTAMP" />
+		<result column="AncheDate" property="ancheDate" jdbcType="TIMESTAMP" />
+		<result column="MaiBusIncIsPub" property="maiBusIncIsPub" jdbcType="VARCHAR" />
+		<result column="RatGroIsPub" property="ratGroIsPub" jdbcType="VARCHAR" />
+		<result column="PriYeaLoanIsPub" property="priYeaLoanIsPub" jdbcType="VARCHAR" />
+		<result column="PriYeaSubIsPub" property="priYeaSubIsPub" jdbcType="VARCHAR" />
+		
+		<result column="EmpNum" property="empNum" jdbcType="INTEGER" />
+	    <result column="EmpNumDis" property="empNumDis" jdbcType="VARCHAR" />
+	    <result column="FemaleEmploye" property="femaleEmploye" jdbcType="INTEGER" />
+	    <result column="FemaleEmployeIsPub" property="femaleEmployeIsPub" jdbcType="VARCHAR" />
+	    <result column="EntMainBusActivity" property="entMainBusActivity" jdbcType="VARCHAR" />
+	    
+		<result column="EndowmentNum" property="endowmentNum" jdbcType="INTEGER" />
+	    <result column="UnemploymentNum" property="unemploymentNum" jdbcType="INTEGER" />
+	    <result column="MedicalNum" property="medicalNum" jdbcType="INTEGER" />
+	    <result column="EmpInjuryNum" property="empInjuryNum" jdbcType="INTEGER" />
+	    <result column="MaternityNum" property="maternityNum" jdbcType="INTEGER" />
+	    <result column="PaymentBase" property="paymentBase" jdbcType="DECIMAL" />
+	    <result column="PaymentBaseIsPub" property="paymentBaseIsPub" jdbcType="CHAR" />
+	    <result column="ActualPayment" property="actualPayment" jdbcType="DECIMAL" />
+	    <result column="ActualPaymentIsPub" property="actualPaymentIsPub" jdbcType="CHAR" />
+	    <result column="CumulArrears" property="cumulArrears" jdbcType="DECIMAL" />
+	    <result column="CumulArrearsIsPub" property="cumulArrearsIsPub" jdbcType="CHAR" />
+	    <result column="PaymentEndowment" property="paymentEndowment" jdbcType="DECIMAL" />
+	    <result column="PaymentUnemployment" property="paymentUnemployment" jdbcType="DECIMAL" />
+	    <result column="PaymentMedical" property="paymentMedical" jdbcType="DECIMAL" />
+	    <result column="PaymentEmpInjury" property="paymentEmpInjury" jdbcType="DECIMAL" />
+	    <result column="PaymentMaternity" property="paymentMaternity" jdbcType="DECIMAL" />
+	    <result column="ActualPayEndowment" property="actualPayEndowment" jdbcType="DECIMAL" />
+	    <result column="ActualPayUnemployment" property="actualPayUnemployment" jdbcType="DECIMAL" />
+	    <result column="ActualPayMedical" property="actualPayMedical" jdbcType="DECIMAL" />
+	    <result column="ActualPayEmpInjury" property="actualPayEmpInjury" jdbcType="DECIMAL" />
+	    <result column="ActualPayMaternity" property="actualPayMaternity" jdbcType="DECIMAL" />
+	    <result column="CumuEndowment" property="cumuEndowment" jdbcType="DECIMAL" />
+	    <result column="CumuUnemployment" property="cumuUnemployment" jdbcType="DECIMAL" />
+	    <result column="CumuMedical" property="cumuMedical" jdbcType="DECIMAL" />
+	    <result column="CumuEmpInjury" property="cumuEmpInjury" jdbcType="DECIMAL" />
+	    <result column="CumuMaternity" property="cumuMaternity" jdbcType="DECIMAL" />
+	    <result column="Dom" property="dom" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="BaseResultMapDto" type="com.icinfo.cs.yr.dto.SfcBaseInfoDto" extends="BaseResultMap">
+		<result column="FarSpeArtName" property="farSpeArtName" jdbcType="VARCHAR" />
+		<result column="IfWebSite" property="ifWebSite" jdbcType="VARCHAR" />
+		<result column="AnCheName" property="anCheName" jdbcType="VARCHAR" />
+		<result column="PriYeaProfitStr" property="priYeaProfitStr" jdbcType="VARCHAR" />
+		<result column="VendIncStr" property="vendIncStr" jdbcType="VARCHAR" />
+		<result column="PriYeaSubStr" property="priYeaSubStr" jdbcType="VARCHAR" />
+		<result column="RatGroStr" property="ratGroStr" jdbcType="VARCHAR" />
+	    <result column="priYeaLoanStr" property="priYeaLoanStr" jdbcType="VARCHAR" />
+	    <result column="UpdateInfo" property="updateInfo" jdbcType="VARCHAR" />	
+	    <result column="AncheDateStr" property="ancheDateStr" jdbcType="VARCHAR" />
+	    <result column="AltItem" property="altItem" jdbcType="VARCHAR" />
+        <result column="AltTable" property="altTable" jdbcType="VARCHAR" />
+        <result column="AltTableItem" property="altTableItem" jdbcType="VARCHAR" />
+        
+        <result column="PaymentEndowmentStr" property="paymentEndowmentStr" jdbcType="VARCHAR" />
+		<result column="ActualPayEndowmentStr" property="actualPayEndowmentStr" jdbcType="VARCHAR" />
+		<result column="CumuEndowmentStr" property="cumuEndowmentStr" jdbcType="VARCHAR" />
+		<result column="PaymentUnemploymentStr" property="paymentUnemploymentStr" jdbcType="VARCHAR" />
+		<result column="ActualPayUnemploymentStr" property="actualPayUnemploymentStr" jdbcType="VARCHAR" />
+		<result column="CumuUnemploymentStr" property="cumuUnemploymentStr" jdbcType="VARCHAR" />
+		<result column="PaymentMedicalStr" property="paymentMedicalStr" jdbcType="VARCHAR" />
+		<result column="ActualPayMedicalStr" property="actualPayMedicalStr" jdbcType="VARCHAR" />
+		<result column="CumuMedicalStr" property="cumuMedicalStr" jdbcType="VARCHAR" />
+		<result column="PaymentEmpInjuryStr" property="paymentEmpInjuryStr" jdbcType="VARCHAR" />
+		<result column="ActualPayEmpInjuryStr" property="actualPayEmpInjuryStr" jdbcType="VARCHAR" />
+		<result column="CumuEmpInjuryStr" property="cumuEmpInjuryStr" jdbcType="VARCHAR" />
+		<result column="PaymentMaternityStr" property="paymentMaternityStr" jdbcType="VARCHAR" />
+		<result column="ActualPayMaternityStr" property="actualPayMaternityStr" jdbcType="VARCHAR" />
+		<result column="CumuMaternityStr" property="cumuMaternityStr" jdbcType="VARCHAR" />
+		
+		<result column="FemaleEmployeStr" property="femaleEmployeStr" jdbcType="VARCHAR" />
+		<result column="EmpNumStr" property="empNumStr" jdbcType="VARCHAR" />
+		
+		<result column="EstDate" property="estDate" jdbcType="VARCHAR" />
+		<result column="EntName" property="entName" jdbcType="VARCHAR" />
+		<result column="LeRep" property="leRep" jdbcType="VARCHAR" />
+		<result column="RegCap" property="regCap" jdbcType="VARCHAR" />
+		<result column="RegOrgName" property="regOrgName" jdbcType="VARCHAR" />
+		<result column="LocalAdmName" property="localAdmName" jdbcType="VARCHAR" />
+		<result column="SliceNOName" property="sliceNOName" jdbcType="VARCHAR" />
+		<result column="RegState" property="regState" jdbcType="VARCHAR" />
+		
+	</resultMap>
+	
+	<resultMap id="YrAssetCount" type="com.icinfo.cs.yr.dto.YrAssetCount">
+  	   <result column="sfcVendIncCount" property="sfcVendIncCount" jdbcType="DOUBLE" />
+  	   <result column="sfcPriYeaProfitCount" property="sfcPriYeaProfitCount" jdbcType="DOUBLE" />
+  	   <result column="sfcRatGroCount" property="sfcRatGroCount" jdbcType="DOUBLE" />
+  	   <result column="sfcPriYeaSubCount" property="sfcPriYeaSubCount" jdbcType="DOUBLE" />
+  	   <result column="sfcPriYeaLoanCount" property="sfcPriYeaLoanCount" jdbcType="DOUBLE" />
+  	   <result column="sfcEmpNumCount" property="sfcEmpNumCount" jdbcType="DOUBLE" />
+  	   <result column="sfcFemaleEmployeCount" property="sfcFemaleEmployeCount" jdbcType="DOUBLE" />
+    </resultMap>
+
+	<select id="selectSfcBaseinfoList" parameterType="String" resultMap="BaseResultMapDto">
+	select
+		(@i:=@i+1) as id,
+		t.FarSpeArtName,
+		t.RegNO,
+		t.PriPID,
+		t.year,
+		t.AnCheID,
+		t.AncheDate,
+		t.UniCode,
+		t.Tel,
+		t.Email,
+		t.CreateTime,
+		t.MemNum,
+		t.Farnum,
+		t.AnnNewMemNum,
+		t.AnnRedMemNum,
+		t.EmpNum,
+		t.EmpNumDis,
+		t.FemaleEmploye,
+		t.FemaleEmployeIsPub,
+		t.EntMainBusActivity,
+		(SELECT count(1) from cs_sfc_updateinfo s where t.AnCheID = s.AnCheID) UpdateInfo,
+		(SELECT GROUP_CONCAT(s.AltTable separator ',') from cs_sfc_updateinfo s where s.AnCheID  = t.AnCheID ) AltTableItem,
+  		date_format(t.anCheDate,'%Y-%m-%d') AnCheDateStr,
+		(select count(1) from cs_sfc_websiteinfo s where t.AnCheID = s.AnCheID ) IfWebSite,
+		case when t.VendIncIsPub = '1' then concat(t.VendInc ,'万元') else '农民专业合作社选择不公示' end VendIncStr,
+		case when t.MaiBusIncIsPub = '1' then concat(t.PriYeaProfit ,'万元') else '农民专业合作社选择不公示' end PriYeaProfitStr,
+		case when t.PriYeaSubIsPub = '1' then concat(t.PriYeaSub ,'万元') else '农民专业合作社选择不公示' end PriYeaSubStr,
+		case when t.RatGroIsPub = '1' then concat(t.RATGRO ,'万元') else '农民专业合作社选择不公示' end RatGroStr,
+		case when t.PriYeaLoanIsPub = '1' then concat(t.PriYeaLoan ,'万元') else '农民专业合作社选择不公示' end PriYeaLoanStr,
+		t.LastReportTime,
+		CONCAT(t.year,'年度报告') AnCheName,
+		(SELECT GROUP_CONCAT(s.AltItem separator ',') from cs_sfc_updateinfo s where s.AnCheID  = t.AnCheID  
+	      and s.AltTable = 'SfcBaseInfo'
+	      and s.AltID = t.AnCheID) AltItem
+	from cs_sfc_baseinfo t , (select @i:=0) ss
+	where t.priPID=#{priPID}
+		order by t.year desc	
+	</select>
+	
+	<select id="selectSfcYrInfoByPriPIDAndYear" parameterType="Map" resultMap="BaseResultMapDto">
+	SELECT
+	t.FarSpeArtName,
+	t.RegNO,
+	t.PriPID,
+	t.year,
+	t.AnCheID,
+	t.AncheDate,
+	t.UniCode,
+	t.Tel,
+	t.Email,
+	t.CreateTime,
+	t.MemNum,
+	t.Farnum,
+	t.AnnNewMemNum,
+	t.AnnRedMemNum,
+	t.EndowmentNum,
+	t.UnemploymentNum,
+	t.MedicalNum,
+	t.EmpInjuryNum,
+	t.MaternityNum,
+	t.EmpNum,
+	t.EmpNumDis,
+	t.FemaleEmploye,
+	t.FemaleEmployeIsPub,
+	t.EntMainBusActivity,
+	t.dom,
+	(SELECT COUNT(1) FROM cs_sfc_updateinfo s WHERE t.AnCheID = s.AnCheID) UpdateInfo,
+	  (SELECT GROUP_CONCAT(s.AltTable SEPARATOR ',') FROM cs_sfc_updateinfo s WHERE s.AnCheID  = t.AnCheID ) AltTableItem,
+	DATE_FORMAT(t.anCheDate,'%Y-%m-%d') AnCheDateStr,
+	(SELECT COUNT(1) FROM cs_sfc_websiteinfo s WHERE t.AnCheID = s.AnCheID ) IfWebSite,
+	CASE WHEN t.VendIncIsPub = '1' THEN CONCAT(t.VendInc ,'万元') ELSE '农民专业合作社选择不公示' END VendIncStr,
+	CASE WHEN t.MaiBusIncIsPub = '1' THEN CONCAT(t.PriYeaProfit ,'万元') ELSE '农民专业合作社选择不公示' END PriYeaProfitStr,
+	CASE WHEN t.PriYeaSubIsPub = '1' THEN CONCAT(t.PriYeaSub ,'万元') ELSE '农民专业合作社选择不公示' END PriYeaSubStr,
+	CASE WHEN t.RatGroIsPub = '1' THEN CONCAT(t.RATGRO ,'万元') ELSE '农民专业合作社选择不公示' END RatGroStr,
+	CASE WHEN t.PriYeaLoanIsPub = '1' THEN CONCAT(t.PriYeaLoan ,'万元') ELSE '农民专业合作社选择不公示' END PriYeaLoanStr,
+	
+	CASE WHEN t.PaymentBaseIsPub = '1' THEN CONCAT(t.PaymentEndowment ,'万元') ELSE '农民专业合作社选择不公示' END PaymentEndowmentStr,
+	CASE WHEN t.PaymentBaseIsPub = '1' THEN CONCAT(t.PaymentEmpInjury ,'万元') ELSE '农民专业合作社选择不公示' END PaymentEmpInjuryStr,
+	CASE WHEN t.PaymentBaseIsPub = '1' THEN CONCAT(t.PaymentUnemployment ,'万元') ELSE '农民专业合作社选择不公示' END PaymentUnemploymentStr,
+	CASE WHEN t.PaymentBaseIsPub = '1' THEN CONCAT(t.PaymentMedical ,'万元') ELSE '农民专业合作社选择不公示' END PaymentMedicalStr,
+	CASE WHEN t.PaymentBaseIsPub = '1' THEN CONCAT(t.PaymentMaternity ,'万元') ELSE '农民专业合作社选择不公示' END PaymentMaternityStr,
+	
+	CASE WHEN t.ActualPaymentIsPub = '1' THEN CONCAT(t.ActualPayEndowment ,'万元') ELSE '农民专业合作社选择不公示' END ActualPayEndowmentStr,
+	CASE WHEN t.ActualPaymentIsPub = '1' THEN CONCAT(t.ActualPayUnemployment ,'万元') ELSE '农民专业合作社选择不公示' END ActualPayUnemploymentStr,
+	CASE WHEN t.ActualPaymentIsPub = '1' THEN CONCAT(t.ActualPayMedical ,'万元') ELSE '农民专业合作社选择不公示' END ActualPayMedicalStr,
+	CASE WHEN t.ActualPaymentIsPub = '1' THEN CONCAT(t.ActualPayEmpInjury ,'万元') ELSE '农民专业合作社选择不公示' END ActualPayEmpInjuryStr,
+	CASE WHEN t.ActualPaymentIsPub = '1' THEN CONCAT(t.ActualPayMaternity ,'万元') ELSE '农民专业合作社选择不公示' END ActualPayMaternityStr,
+	
+	CASE WHEN t.CumulArrearsIsPub = '1' THEN CONCAT(t.CumuEndowment ,'万元') ELSE '农民专业合作社选择不公示' END CumuEndowmentStr,
+	CASE WHEN t.CumulArrearsIsPub = '1' THEN CONCAT(t.CumuUnemployment ,'万元') ELSE '农民专业合作社选择不公示' END CumuUnemploymentStr,
+	CASE WHEN t.CumulArrearsIsPub = '1' THEN CONCAT(t.CumuMedical ,'万元') ELSE '农民专业合作社选择不公示' END CumuMedicalStr,
+	CASE WHEN t.CumulArrearsIsPub = '1' THEN CONCAT(t.CumuEmpInjury ,'万元') ELSE '农民专业合作社选择不公示' END CumuEmpInjuryStr,
+	CASE WHEN t.CumulArrearsIsPub = '1' THEN CONCAT(t.CumuMaternity ,'万元') ELSE '农民专业合作社选择不公示' END CumuMaternityStr,
+	
+	case when t.FemaleEmployeIsPub = '1' then t.FemaleEmploye else '农民专业合作社选择不公示' end FemaleEmployeStr,
+	case when t.EmpNumDis = '1' then t.EmpNum else '农民专业合作社选择不公示' end EmpNumStr,
+	
+	t.LastReportTime,
+	CONCAT(t.year,'年度报告') AnCheName,
+	(SELECT GROUP_CONCAT(s.AltItem SEPARATOR ',') FROM cs_sfc_updateinfo s WHERE s.AnCheID  = t.AnCheID  
+      AND s.AltTable = 'SfcBaseInfo'
+      AND s.AltID = t.AnCheID) AltItem
+FROM cs_sfc_baseinfo t
+	where t.priPID=#{priPID} and t.year=#{year}
+		order by t.year desc	
+	</select>
+	
+	<select id="selectSfcYrInfoListByPriPID" parameterType="String" resultMap="BaseResultMapDto">
+	 SELECT 
+  t.FarSpeArtName,
+		t.RegNO,
+		t.PriPID,
+		t.year,
+		t.AnCheID,
+		t.AncheDate,
+		t.UniCode,
+		t.Tel,
+		t.Email,
+		t.CreateTime,
+		t.MemNum,
+		t.Farnum,
+		t.AnnNewMemNum,
+		t.AnnRedMemNum,
+		t.EmpNum,
+		t.EmpNumDis,
+		t.FemaleEmploye,
+		t.FemaleEmployeIsPub,
+		t.EntMainBusActivity,
+		(SELECT count(1) from cs_sfc_updateinfo s where t.AnCheID = s.AnCheID) UpdateInfo,
+		  (SELECT GROUP_CONCAT(s.AltTable separator ',') from cs_sfc_updateinfo s where s.AnCheID  = t.AnCheID ) AltTableItem,
+  		date_format(t.anCheDate,'%Y-%m-%d') AnCheDateStr,
+		(select count(1) from cs_sfc_websiteinfo s where t.AnCheID = s.AnCheID ) IfWebSite,
+		case when t.VendIncIsPub = '1' then concat(t.VendInc ,'万元') else '农民专业合作社选择不公示' end VendIncStr,
+		case when t.MaiBusIncIsPub = '1' then concat(t.PriYeaProfit ,'万元') else '农民专业合作社选择不公示' end PriYeaProfitStr,
+		case when t.PriYeaSubIsPub = '1' then concat(t.PriYeaSub ,'万元') else '农民专业合作社选择不公示' end PriYeaSubStr,
+		case when t.RatGroIsPub = '1' then concat(t.RATGRO ,'万元') else '农民专业合作社选择不公示' end RatGroStr,
+		case when t.PriYeaLoanIsPub = '1' then concat(t.PriYeaLoan ,'万元') else '农民专业合作社选择不公示' end PriYeaLoanStr,
+		t.LastReportTime,
+		CONCAT(t.year,'年度报告') AnCheName,
+		(SELECT GROUP_CONCAT(s.AltItem separator ',') from cs_sfc_updateinfo s where s.AnCheID  = t.AnCheID
+	      and s.AltTable = 'SfcBaseInfo'
+	      and s.AltID = t.AnCheID) AltItem
+	from cs_sfc_baseinfo t
+	  WHERE t.priPID=#{priPID}
+	  order by t.year desc
+	</select>
+	
+	<select id="selectBaseInfoForbidwordInfoByAncheID" parameterType="String" resultType="String">
+		select case when A.AuditState ='1' then '1' else '0' end ifFilter from
+		cs_sfc_baseinfo A
+		where A.AnCheID=#{AnCheID}
+	</select>
+
+	<select id="selectBaseInfoForbidwordInfoByPriPIDAndYear" parameterType="Map" resultType="String">
+		select case when A.AuditState ='1' then '1' else '0' end ifFilter from
+		cs_sfc_baseinfo A
+		where A.priPID=#{priPID} and A.year=#{year}
+	</select>
+	
+	<select id="selectSfcBaseinfoAssetList" parameterType="Map" resultMap="BaseResultMapDto">
+		SELECT
+		B.UniCode,
+		B.RegNO,
+		B.EntName,
+		B.LeRep,
+		B.EstDate,
+		B.RegCap,
+		A.year,
+		A.LastReportTime,
+		A.AncheDate,
+		A.VendInc,
+		A.PriYeaProfit,
+		A.RatGro,
+		A.PriYeaSub,
+		A.PriYeaLoan,
+		A.EmpNum,
+		A.FemaleEmploye,
+		B.RegOrgName,
+		B.LocalAdmName,
+		B.SliceNOName,
+		B.RegState
+	FROM
+		cs_sfc_baseinfo A
+	LEFT JOIN cs_mid_baseinfo B 
+	ON A.PriPID = B.PriPID
+	WHERE
+	<include refid="sfcbaseinfoasset_where"></include>
+	</select>
+	
+	<sql id="sfcbaseinfoasset_where">
+		A.YEAR = #{year}
+        AND B.EntTypeCatg IN (${entTypeCatg})
+		<if test="cidRegNO !=null and cidRegNO != ''">
+            AND (B.RegNO LIKE concat('%', #{cidRegNO}) OR B.UniCode LIKE concat('%', #{cidRegNO}))
+        </if>
+        <if test="leRep != null and leRep != ''">
+		  	AND	B.LeRep = #{leRep}
+		</if>
+		<if test="entType !=null and entType != ''">
+            AND B.EntType IN (${entType})
+        </if>
+        <if test="entName !=null and entName != ''">
+            AND B.EntName LIKE concat('%', #{entName},'%')
+        </if>
+        <if test="regOrg !=null and regOrg != ''">
+            AND B.RegOrg IN (${regOrg})
+        </if>
+        <if test="localAdm !=null and localAdm != ''">
+            AND B.LocalAdm IN (${localAdm})
+        </if>
+        <if test="estDateStart != null and estDateStart != ''">
+			AND	<![CDATA[ B.EstDate >= #{estDateStart} ]]>
+		</if>
+		<if test="estDateEnd != null and estDateEnd != ''">
+			AND	<![CDATA[ B.EstDate <= #{estDateEnd} ]]>
+		</if>
+		<if test="ancheDateStart != null and ancheDateStart != ''">
+			AND	<![CDATA[ A.AncheDate >= #{ancheDateStart} ]]>
+		</if>
+		<if test="ancheDateEnd != null and ancheDateEnd != ''">
+			AND	<![CDATA[ A.AncheDate <= #{ancheDateEnd} ]]>
+		</if>
+		<if test="sliceNO !=null and sliceNO != ''">
+            AND B.SliceNO IN (${sliceNO})
+        </if>
+        <if test="regState !=null and regState != ''">
+            AND B.RegState IN (${regState})
+        </if>
+        <if test="regCapStart != null and regCapStart != ''">
+			AND	<![CDATA[ B.RegCap >= #{regCapStart} ]]>
+		</if>
+		<if test="regCapEnd != null and regCapEnd != ''">
+			AND	<![CDATA[ B.RegCap <= #{regCapEnd} ]]>
+		</if>
+		<if test="dom !=null and dom != ''">
+            AND B.Dom LIKE concat('%', #{dom},'%')
+        </if>
+        <if test="isIndivid !=null and isIndivid != ''">
+            AND IFNULL(B.IsIndivid,0) = #{isIndivid}
+        </if>
+        <if test="opScope !=null and opScope != ''">
+            AND B.OpScope LIKE concat('%', #{opScope},'%')
+        </if>
+        <if test="empNumStart != null and empNumStart != ''">
+			AND	<![CDATA[ A.EmpNum >= #{empNumStart} ]]>
+		</if>
+		<if test="empNumEnd != null and empNumEnd != ''">
+			AND	<![CDATA[ A.EmpNum <= #{empNumEnd} ]]>
+		</if>
+		<if test="industryCo !=null and industryCo != ''">
+            AND B.IndustryCo IN (${industryCo})
+        </if>
+        <if test="vendInc !=null and vendInc != ''">
+            AND IFNULL(A.VendInc,0) = 0
+        </if>
+        <if test="priYeaProfit !=null and priYeaProfit != ''">
+            AND IFNULL(A.PriYeaProfit,0) = 0
+        </if>
+        <if test="ratGro !=null and ratGro != ''">
+            AND IFNULL(A.RatGro,0) = 0
+        </if>
+        <if test="priYeaSub !=null and priYeaSub != ''">
+            AND IFNULL(A.PriYeaSub,0) = 0
+        </if>
+        <if test="priYeaLoan !=null and priYeaLoan != ''">
+            AND IFNULL(A.PriYeaLoan,0) = 0
+        </if>
+	</sql>
+	
+	<select id="querySfcYrAssetCount" resultMap="YrAssetCount" parameterType="Map">
+	SELECT
+		SUM(B.VendInc) sfcVendIncCount,
+		SUM(B.PriYeaProfit) sfcPriYeaProfitCount,
+		SUM(B.RatGro) sfcRatGroCount,
+		SUM(B.PriYeaSub) sfcPriYeaSubCount,
+		SUM(B.PriYeaLoan) sfcPriYeaLoanCount,
+		SUM(B.EmpNum) sfcEmpNumCount,
+		SUM(B.FemaleEmploye) sfcFemaleEmployeCount
+		FROM
+	(SELECT
+		A.VendInc,
+		A.PriYeaProfit,
+		A.RatGro,
+		A.PriYeaSub,
+		A.PriYeaLoan,
+		A.EmpNum,
+		A.FemaleEmploye
+	FROM
+		cs_sfc_baseinfo A
+	LEFT JOIN cs_mid_baseinfo B 
+	ON A.PriPID = B.PriPID
+	WHERE
+	<include refid="sfcbaseinfoasset_where"></include>
+	LIMIT #{pageNum},#{length}) B
+	</select>
+</mapper>

@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.other.mapper.PubOtherlicenceGovMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.other.model.PubOtherlicenceGov" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="LicID" property="licID" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="RegNO" property="regNO" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="LicNameCN" property="licNameCN" jdbcType="VARCHAR" />
+    <result column="LicNO" property="licNO" jdbcType="VARCHAR" />
+    <result column="LicValFrom" property="licValFrom" jdbcType="DATE" />
+    <result column="LicValTo" property="licValTo" jdbcType="DATE" />
+    <result column="LicAnth" property="licAnth" jdbcType="VARCHAR" />
+    <result column="PubFlag" property="pubFlag" jdbcType="VARCHAR" />
+    <result column="LicType" property="licType" jdbcType="CHAR" />
+    <result column="AltDate" property="altDate" jdbcType="DATE" />
+    <result column="CanDate" property="canDate" jdbcType="DATE" />
+    <result column="RevDate" property="revDate" jdbcType="DATE" />
+    <result column="InvAlidDate" property="invAlidDate" jdbcType="DATE" />
+    <result column="InvAliDRea" property="invAliDRea" jdbcType="VARCHAR" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+    <result column="SetDate" property="setDate" jdbcType="DATE" />
+    <result column="AuditName" property="auditName" jdbcType="VARCHAR" />
+    <result column="AuditDate" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="AuditState" property="auditState" jdbcType="CHAR" />
+    <result column="AuditOpin" property="auditOpin" jdbcType="VARCHAR" />
+    <result column="LicState" property="licState" jdbcType="CHAR" />
+    <result column="SetDeptname" property="setDeptname" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="update_time" jdbcType="TIMESTAMP" />
+    <result column="LicScope" property="licScope" jdbcType="LONGVARCHAR" />
+    <result column="CanRea" property="canRea" jdbcType="LONGVARCHAR" />
+    <result column="RevRea" property="revRea" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseExtResultMap" type="com.icinfo.cs.other.dto.PubOtherlicenceGovDto" extends="BaseResultMap" >
+  </resultMap>
+  
+  <sql id="where_sql">
+	 <!-- 企业名称 -->
+	 <if test="entName !=null and entName !=''">
+	       and EntName like CONCAT('%', #{entName},'%')          
+	 </if>
+	 <!-- 许可证编号 -->
+	 <if test="licNO !=null and licNO !=''">
+	       and LicNO like CONCAT('%', #{licNO},'%') 
+	 </if>
+	 <if test="licScope !=null and licScope !=''">
+	       and LicScope like CONCAT('%', #{licScope},'%')          
+	 </if>
+	 <if test="licAnth !=null and licAnth !=''">
+	       and LicAnth like CONCAT('%', #{licAnth},'%')          
+	 </if>
+	 <if test="licNameCN !=null and licNameCN !=''">
+	       and LicNameCN like CONCAT('%', #{licNameCN},'%')          
+	 </if>
+	 <!-- 是否公示 -->
+	 <if test="pubFlag !=null and pubFlag !=''">
+	       and PubFlag = #{pubFlag}
+	 </if>
+	 <if test="licValFromStart!=null and licValFromStart!=''">
+     	 	<![CDATA[   and LicValFrom >=  DATE_FORMAT(#{licValFromStart}, '%Y-%m-%d')   ]]>
+	 </if>
+	 <if test="licValFromEnd!=null and licValFromEnd!=''">
+   			<![CDATA[   and LicValFrom <=  DATE_FORMAT(#{licValFromEnd}, '%Y-%m-%d')   ]]>
+	 </if>
+	 <if test="licValToStart!=null and licValToStart!=''">
+       		<![CDATA[  and LicValTo >= DATE_FORMAT(#{licValToStart}, '%Y-%m-%d')    ]]>
+	 </if>
+	 <if test="licValToEnd!=null and licValToEnd!=''">
+       		<![CDATA[  and LicValTo <= DATE_FORMAT(#{licValToEnd}, '%Y-%m-%d')    ]]>
+	 </if>
+  </sql>
+  
+  <select id="selectPubOtherlicenceGovList" resultMap="BaseExtResultMap" parameterType="Map">
+	SELECT 
+	  EntName,
+	  LicNameCN,
+	  LicNO,
+	  LicScope,
+	  LicValFrom,
+	  LicValTo,
+	  LicAnth,
+	  PubFlag,
+	  LicState
+	FROM
+		cs_pub_otherlicence_gov
+	WHERE 1 = 1 
+	 <include refid="where_sql" />
+  </select>
+  
+  <select id="selectPubOtherlicenceGovRegTotal" resultType="java.lang.Integer" parameterType="Map">
+	 SELECT COUNT(0) FROM cs_pub_otherlicence_gov  
+	 WHERE 1 = 1 
+	 and PubFlag = '1'
+	 <include refid="where_sql" />
+  </select>
+  <select id="selectPubOtherlicenceGovRegAnthTotal" resultType="java.lang.Integer" parameterType="Map">
+	 SELECT COUNT(DISTINCT LicAnth) FROM cs_pub_otherlicence_gov  
+	 WHERE 1 = 1 
+	 and PubFlag = '1'
+	 <include refid="where_sql" />
+  </select>
+  <select id="selectPubOtherlicenceGovAnthTotal" resultType="java.lang.Integer" parameterType="Map">
+	SELECT COUNT(DISTINCT LicAnth) FROM cs_pub_otherlicence_gov  WHERE 1 = 1 
+ 	<include refid="where_sql" />
+  </select>
+
+
+    <!-- 更新cs_pub_otherlicence_gov表的注册号 企业名称 、PubFlag标识-->
+	<update id="updatePubotherlicenceGovQuartz" parameterType="Map"> 
+		<if test="stateType ==1"><!-- 行政许可归集 -->
+			UPDATE cs_pub_otherlicence_gov p,
+			cs_mid_baseinfo m
+			SET p.EntName = m.EntName,
+			p.RegNO = m.RegNO,
+			p.PubFlag = '1'
+			WHERE
+			p.PriPID = m.PriPID
+			AND p.SetDeptName = '政务网'
+		</if>
+		<if test="stateType ==2"><!-- 行政处罚估计-政务网 -->
+			UPDATE cs_pub_otherpunish_gov p,
+			 cs_mid_baseinfo m
+			SET p.PriPID = m.PriPID,
+			 p.RegNO = m.RegNO,
+			 p.UNISCID = m.UniCode,
+			 p.LeRep = m.LeRep,
+			 p.PubFlag = '1'
+			WHERE
+			<![CDATA[
+				p.EntName = m.EntName
+			AND p.SetDeptName = '政务网'
+			AND p.EntName != '无'
+			AND locate('*', p.EntName) = '0'
+			]]>
+		</if>
+	<!-- 	<if test="stateType ==3">行政处罚估计-总局下发
+		UPDATE cs_pub_otherpunish_gov p,
+		 cs_mid_baseinfo m
+		SET p.PriPID = m.PriPID,
+		 p.RegNO = m.RegNO,
+		 p.UNISCID = m.UniCode,
+		 p.LeRep = m.LeRep,
+		 p.PubFlag = '1'
+		WHERE
+		<![CDATA[
+			(
+				p.UNISCID = m.UniCode
+				OR p.RegNO = m.RegNO
+				OR p.EntName = m.EntName
+			)
+		AND p.SetDeptName = '总局下发'
+		AND p.EntName != '无'
+		AND locate('*', p.EntName) = '0'
+		]]>
+		</if> -->
+	</update>
+	
+	<!-- 批量插入  将cs_pub_otherlicence_gov的 SetDeptName = '政务网' 和 PubFlag ='1'的数据插入 cs_pub_otherlicence -->
+	<insert id="insertBatchPubOtherLicenceQuartz" parameterType="Map"> 
+	
+	<if test="stateType ==1"><!-- 行政许可归集 --> 
+	    INSERT INTO cs_pub_otherlicence (
+		  LicID,
+		  PriPID,
+		  EntName,
+		  regno,
+		  LicNameCN,
+		  LicNO,
+		  LicScope,
+		  LicDate,
+		  LicValFrom,
+		  LicValTo,
+		  LicAnth,
+		  SetName,
+		  PubFlag,
+		  LicState,
+		  SetDeptName,
+		  CreateTime
+		) 
+		SELECT 
+		  LicID,
+		  PriPID,
+		  EntName,
+		  regno,
+		  LicNameCN,
+		  LicNO,
+		  LicScope,
+		  LicDate,
+		  LicValFrom,
+		  LicValTo,
+		  LicAnth,
+		  SetName,
+		  PubFlag,
+		  LicState,
+		  SetDeptName,
+		  CreateTime 
+		FROM cs_pub_otherlicence_gov where SetDeptName = '政务网' and PubFlag ='1'
+		</if> 
+		<if test="stateType ==2"><!-- 行政处罚估计-政务网 -->
+			INSERT INTO cs_pub_otherpunish(
+			CaseNO,
+			PriPID,
+			RegNO,
+			UNISCID,
+			EntName,
+			PenDecNo,
+			IllegActType,
+			PenContent,
+			PenType,
+			PenAm,
+			ForfAm,
+			PenDecIssDate,
+			JudAuth,
+			PubFlag,
+			PublicDate,
+			SetName,
+			SetDate,
+			SetDeptName,
+			CreateTime,
+			LeRep
+			) SELECT
+			CaseNO,
+			PriPID,
+			RegNO,
+			UNISCID,
+			EntName,
+			PenDecNo,
+			IllegActType,
+			PenContent,
+			PenType,
+			PenAm,
+			ForfAm,
+			PenDecIssDate,
+			JudAuth,
+			PubFlag,
+			PublicDate,
+			SetName,
+			SetDate,
+			SetDeptName,
+			CreateTime,
+			LeRep
+			FROM cs_pub_otherpunish_gov 
+			WHERE
+			<![CDATA[
+			SetDeptName = '政务网' 
+			AND PubFlag = '1'
+			AND EntName != '无'
+			AND locate('*',EntName)='0'
+			]]>
+		</if>
+		<if test="stateType ==3"><!-- 行政处罚估计-总局下发 -->
+			INSERT INTO cs_pub_otherpunish(
+			CaseNO,
+			PriPID,
+			RegNO,
+			UNISCID,
+			EntName,
+			PenDecNo,
+			IllegActType,
+			PenContent,
+			PenType,
+			PenAm,
+			ForfAm,
+			PenDecIssDate,
+			JudAuth,
+			PubFlag,
+			PublicDate,
+			SetName,
+			SetDate,
+			SetDeptName,
+			CreateTime,
+			LeRep
+			) SELECT
+			CaseNO,
+			PriPID,
+			RegNO,
+			UNISCID,
+			EntName,
+			PenDecNo,
+			IllegActType,
+			PenContent,
+			PenType,
+			PenAm,
+			ForfAm,
+			PenDecIssDate,
+			JudAuth,
+			PubFlag,
+			PublicDate,
+			SetName,
+			SetDate,
+			SetDeptName,
+			CreateTime,
+			LeRep
+			FROM cs_pub_otherpunish_gov 
+			WHERE
+			 <![CDATA[
+			SetDeptName = '总局下发' 
+			AND PubFlag = '1' 
+			AND EntName != '无'
+			AND locate('*', EntName)='0'
+			]]>
+		</if>
+	  </insert> 
+</mapper>

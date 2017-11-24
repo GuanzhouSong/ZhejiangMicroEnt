@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.party.mapper.PartyEntInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.party.model.PartyEntInfo" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="CHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="IsBuildPartyOrg" property="isBuildPartyOrg" jdbcType="CHAR" />
+    <result column="PartyMemberNum" property="partyMemberNum" jdbcType="INTEGER" />
+    <result column="BuildOrgWay" property="buildOrgWay" jdbcType="CHAR" />
+    <result column="BuildOrgType" property="buildOrgType" jdbcType="CHAR" />
+    <result column="CreateOrgTime" property="createOrgTime" jdbcType="DATE" />
+  </resultMap>
+</mapper>

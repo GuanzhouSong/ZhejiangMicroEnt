@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.sment.mapper.SmBulletinsReadRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.sment.model.BulletinsReadRecord" >
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="BulletinId" property="bulletinId" jdbcType="VARCHAR"/>
+    <result column="IsRead" property="isRead" jdbcType="VARCHAR"/>
+    <result column="IsCollection" property="isCollection" jdbcType="VARCHAR"/>
+    <result column="Reader" property="reader" jdbcType="VARCHAR"/>
+    <result column="ReaderUserId" property="readerUserId" jdbcType="VARCHAR"/>
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+    <resultMap id="BulletinsReadRecordDto" type="com.icinfo.cs.sment.dto.BulletinsReadRecordDto" extends="BaseResultMap" >
+    <result column="Title" property="title" jdbcType="VARCHAR" />
+    <result column="Source" property="source" jdbcType="VARCHAR" />
+    <result column="SetDeptname" property="setDeptname" jdbcType="VARCHAR" />
+    <result column="SetTime" property="setTime" jdbcType="TIMESTAMP" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+    <result column="contents" property="contents" jdbcType="LONGVARCHAR" />
+    <result column="BulScope" property="bulScope" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectBulletinBySysUser" parameterType="map" resultMap="BulletinsReadRecordDto">
+    select b.UID BulletinID,BulScope,Title,Source,SetDeptname,SetDeptCode,SetTime,SetName,contents,
+    (SELECT IsRead FROM sm_bulletins_read_record WHERE BulletinID = b.UID and Reader = #{reader} and ReaderUserId = #{readerUserId}) IsRead ,
+    (SELECT IsCollection FROM sm_bulletins_read_record WHERE BulletinID = b.UID and Reader = #{reader} and ReaderUserId = #{readerUserId}) IsCollection 
+    from sm_bulletins b
+    where IsValid=1 and (BulType='3' or BulType='5')
+    and (bulscope = 1 
+    or (bulscope = 2 and left(SetDeptCode,6)=left(#{deptCode},6))
+    or (bulscope = 3 and left(SetDeptCode,4)=left(#{deptCode},4)))
+    order by SetTime desc
+  </select>
+</mapper>

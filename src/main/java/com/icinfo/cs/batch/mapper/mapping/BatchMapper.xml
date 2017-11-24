@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.batch.mapper.BatchMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.batch.model.Batch" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="BatchType" property="batchType" jdbcType="VARCHAR" />
+    <result column="BatchData" property="batchData" jdbcType="VARCHAR" />
+    <result column="BatchNo" property="batchNo" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <select id="selecMaxBatchNo" parameterType="java.util.HashMap" resultType="java.lang.String">
+  	SELECT MAX(BatchNo) FROM cs_batch WHERE  BatchType = #{batchType} AND BatchData = #{batchData} 
+  </select>
+  
+</mapper>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.other.mapper.PubSamllSupportMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.other.model.PubSamllSupport" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="ID" property="ID" jdbcType="INTEGER" />
+     <id column="ID" property="ID" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="DeptID" property="deptID" jdbcType="VARCHAR" />
+    <result column="DeptName" property="deptName" jdbcType="VARCHAR" />
+    <result column="HelpDate" property="helpDate" jdbcType="DATE" />
+    <result column="ProvideType" property="provideType" jdbcType="CHAR" />
+    <result column="SetDate" property="setDate" jdbcType="DATE" />
+    <result column="FeedBackTime" property="feedBackTime" jdbcType="DATE" />
+    <result column="SupportAm" property="supportAm" jdbcType="DECIMAL" />
+    <result column="ErrorCode" property="errorCode" jdbcType="VARCHAR" />
+    <result column="SetName" property="setName" jdbcType="VARCHAR" />
+    <result column="AuditName" property="auditName" jdbcType="VARCHAR" />
+    <result column="AuditDate" property="auditDate" jdbcType="DATE" />
+    <result column="AuditState" property="auditState" jdbcType="CHAR" />
+    <result column="AuditOpin" property="auditOpin" jdbcType="VARCHAR" />
+    <result column="HelpContent" property="helpContent" jdbcType="LONGVARCHAR" />
+   	<result column="RegNO" property="regNO" jdbcType="CHAR" />
+		<result column="EntName" property="entName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="PubSamllSupportDto" type="com.icinfo.cs.other.dto.PubSamllSupportDto"
+		extends="BaseResultMap">
+		<result column="EntName" property="entName" jdbcType="VARCHAR" />
+	   <result column="RegNO" property="regNO" jdbcType="VARCHAR" />
+	     <result column="UniCode" property="uniCode" jdbcType="VARCHAR" />
+	</resultMap>
+    <select id="selectByCation" parameterType="Map"  resultMap="PubSamllSupportDto">
+     SELECT a.UID,a.PriPID,a.DeptName,a.DeptID,a.HelpContent,a.HelpDate,a.provideType,a.ErrorCode,
+     a.SetDate,a.FeedBackTime,a.SupportAm,a.AuditState,b.EntName,b.RegNO,b.UniCode FROM cs_pub_small_suporrt
+      a LEFT JOIN cs_mid_baseinfo b ON a.PriPID=b.PriPID where 1=1
+      	
+       <if test="entName!=null and entName!=''">
+         and b.entName LIKE concat('%',#{entName},'%')
+       </if>
+       <if test="regNO!=null and regNO!=''">
+       and b.regNO=#{regNO} 
+       </if>
+       <if test="setDateStart!=null and setDateStart!=''">
+       <![CDATA[  and  a.setDate >= DATE_FORMAT(#{setDateStart}, '%Y-%m-%d')    ]]>
+	   </if> 
+       <if test="setDateEnd!=null and setDateEnd !=''">
+          <![CDATA[  and a.setDate <= DATE_FORMAT(#{setDateEnd}, '%Y-%m-%d')    ]]>
+       </if>
+       <if test="helpDate!=null and helpDate!=''"> 
+       <![CDATA[  and a.helpDate = DATE_FORMAT(#{helpDate}, '%Y-%m-%d')    ]]>
+       </if>
+       <if test="provideType!=null and provideType!=''">
+        and a.provideType=#{provideType}
+       
+       </if>
+        
+    <include refid="com.icinfo.cs.system.mapper.CSMapper.defaultByOrgCode"/>
+    
+    </select>
+  
+  
+  
+</mapper>

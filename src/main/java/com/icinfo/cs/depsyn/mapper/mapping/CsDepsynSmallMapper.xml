@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.depsyn.mapper.CsDepsynSmallMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.depsyn.model.CsDepsynSmall" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="UID" jdbcType="VARCHAR" />
+    <result column="PriPID" property="priPID" jdbcType="VARCHAR" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="RegNO" property="regNO" jdbcType="VARCHAR" />
+    <result column="RegNOState" property="regNOState" jdbcType="CHAR" />
+    <result column="UniScid" property="uniScid" jdbcType="VARCHAR" />
+    <result column="UniScidState" property="uniScidState" jdbcType="CHAR" />
+    <result column="DepName" property="depName" jdbcType="VARCHAR" />
+    <result column="ProType" property="proType" jdbcType="CHAR" />
+    <result column="HelpDate" property="helpDate" jdbcType="VARCHAR" />
+    <result column="HelpDateState" property="helpDateState" jdbcType="CHAR" />
+    <result column="ErrorCode" property="errorCode" jdbcType="VARCHAR" />
+    <result column="ResubTime" property="resubTime" jdbcType="TIMESTAMP" />
+    <result column="FeedbackTime" property="feedbackTime" jdbcType="TIMESTAMP" />
+    <result column="CheckState" property="checkState" jdbcType="VARCHAR" />
+    <result column="InputPerID" property="inputPerID" jdbcType="VARCHAR" />
+    <result column="InputDepCode" property="inputDepCode" jdbcType="VARCHAR" />
+    <result column="InputDate" property="inputDate" jdbcType="TIMESTAMP" />
+    <result column="Year" property="year" jdbcType="CHAR" />
+    <result column="Adcode" property="adcode" jdbcType="VARCHAR" />
+    <result column="HelpContent" property="helpContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <!-- 根据企业名称或注册号或统一社会信用代码查询小微企业扶持 -->
+  <select id="querySmall" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+    SELECT
+    id, UID, PriPID, EntName, RegNO,
+    RegNOState, UniScid, UniScidState, DepName, ProType,
+    HelpDate, HelpDateState, ErrorCode, ResubTime, FeedbackTime,
+    CheckState, InputPerID, InputDepCode, InputDate, Year,
+    Adcode, HelpContent
+    FROM
+    cs_depsyn_small
+    WHERE InputDepCode = #{deptCode}
+    <if test="keyword != null and keyword != ''">
+      AND (EntName = #{keyword} OR RegNO = #{keyword} OR UniScid = #{keyword})
+    </if>
+    ORDER BY id DESC
+  </select>
+</mapper>

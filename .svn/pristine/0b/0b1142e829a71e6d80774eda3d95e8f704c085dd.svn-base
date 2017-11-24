@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icinfo.cs.yr.mapper.ForinvestMentMapper" >
+  <resultMap id="BaseResultMap" type="com.icinfo.cs.yr.model.ForinvestMent" >
+    <!--
+      WARNING - @frameworkgenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="AnCheID" property="anCheID" jdbcType="VARCHAR" />
+    <result column="OUTINVID" property="OUTINVID" jdbcType="VARCHAR" />
+  </resultMap>
+  
+    <resultMap id="BaseResultMapDto" type="com.icinfo.cs.yr.dto.ForinvestMentDto" extends="BaseResultMap" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="EntName" property="entName" jdbcType="VARCHAR" />
+    <result column="UniCode" property="uniCode" jdbcType="CHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="AnCheID" property="anCheID" jdbcType="VARCHAR" />
+    <result column="OUTINVID" property="OUTINVID" jdbcType="VARCHAR" />
+    <result column="AltItem" property="altItem" jdbcType="VARCHAR" />
+    <result column="AltTable" property="altTable" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 根据年报id保存公示信息 -->
+  <insert id="insertByAnCheID" parameterType="Map">
+  	INSERT INTO cs_forinvestment (
+  	EntName, UniCode, CreateTime, AnCheID, OUTINVID
+	) 
+	SELECT 
+	EntName, UniCode, CreateTime, AnCheID, OUTINVID
+    FROM
+    cs_yr_forinvestment
+    WHERE
+    AnCheID = #{anCheID,jdbcType=VARCHAR}
+  </insert>
+  
+    <select id="selectForinvestMentForPub" parameterType="Map" resultMap="BaseResultMapDto" >
+	SELECT id,
+	EntName, UniCode, CreateTime, AnCheID, OUTINVID,
+	(SELECT GROUP_CONCAT(s.AltItem separator ',') from cs_updateinfo s where s.AnCheID  = t.AnCheID  
+	 and s.AltTable = 'ForinvestMent'
+	 and s.AltID = t.OUTINVID) AltItem
+    FROM
+    cs_forinvestment t
+    WHERE
+    t.AnCheID = #{anCheID,jdbcType=VARCHAR}
+  </select>
+  
+</mapper>
